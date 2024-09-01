@@ -1,4 +1,14 @@
 {
+  //prettier format on typeScript files
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.format": "explicit"
+    }
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact",

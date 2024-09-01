@@ -1,0 +1,170 @@
+---
+import "./carousel.css";
+
+type ImageExtension = "jpg" | "png";
+
+type Year = 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28;
+
+type Month =
+  | "January"
+  | "February"
+  | "March"
+  | "April"
+  | "May"
+  | "June"
+  | "July"
+  | "August"
+  | "September"
+  | "October"
+  | "November"
+  | "December";
+
+type DanishMonth =
+  | "januar"
+  | "februar"
+  | "marts"
+  | "april"
+  | "maj"
+  | "juni"
+  | "juli"
+  | "august"
+  | "september"
+  | "oktober"
+  | "november"
+  | "december";
+
+type DayOfMonth =
+  | "1st"
+  | "2nd"
+  | "3rd"
+  | "4th"
+  | "5th"
+  | "6th"
+  | "7th"
+  | "8th"
+  | "9th"
+  | "10th"
+  | "11th"
+  | "12th"
+  | "13th"
+  | "14th"
+  | "15th"
+  | "16th"
+  | "17th"
+  | "18th"
+  | "19th"
+  | "20th"
+  | "21st"
+  | "22nd"
+  | "23rd"
+  | "24th"
+  | "25th"
+  | "26th"
+  | "27th"
+  | "28th"
+  | "29th"
+  | "30th"
+  | "31st";
+
+type ImageType = `${string}.${ImageExtension}`;
+
+type Date = `${Month} ${DayOfMonth}, 20${Year}`;
+
+type DanishDate = `${
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20
+  | 21
+  | 22
+  | 23
+  | 24
+  | 25
+  | 26
+  | 27
+  | 28
+  | 29
+  | 30
+  | 31}. ${DanishMonth} 20${Year}`;
+
+export type CardInfo = {
+  title: string;
+  description: string;
+  date: Date | DanishDate;
+  imageSrc: ImageType;
+  imageAlt: string;
+  href: string;
+  outline: "1" | "2" | "3" | "4" | "gold";
+};
+
+interface Props {
+  title: string;
+  items: CardInfo[];
+  /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
+  maxNumberOfItems?: number;
+}
+
+const { title, items, maxNumberOfItems } = Astro.props;
+
+const CAROUSEL_ID = "carousel" as const;
+const HEADING_ID = "carousel_heading" as const;
+const ARCHIVE_ID = "news_archive";
+const ARCHIVE_HREF = "news_archive";
+const ARCHIVE_TITLE = "read older news";
+
+const itemList = maxNumberOfItems && (items.length > maxNumberOfItems) ? items.slice(0, maxNumberOfItems) : items;
+---
+
+<section aria-labelledby="carouselheading" id={CAROUSEL_ID}>
+  <h2 id={HEADING_ID}>{title}</h2>
+  <ul id="carousel_list" style={`--card-length: ${itemList.length + 1}`}>
+    {
+      // maxNumberOfItems && items.length > maxNumberOfItems && (
+      maxNumberOfItems && (
+        <li style={`--index: ${maxNumberOfItems}`}>
+          <a id={ARCHIVE_ID} href={`#${ARCHIVE_HREF}`}>
+            <article class={ARCHIVE_ID}>
+              <h3>{ARCHIVE_TITLE}</h3>
+            </article>
+          </a>
+        </li>
+      )
+    }
+    {
+      itemList.map((item, index) => (
+        <li style={`--index: ${index}`}>
+          <a id={`card${index}`} href={`#${item.href}`}>
+            <article class={`outline${item.outline}`}>
+              <img src={item.imageSrc} alt={item.imageAlt} />
+              <div class="news_content">
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+                <div class="date">
+                  <p>{item.date}</p>
+                </div>
+              </div>
+            </article>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

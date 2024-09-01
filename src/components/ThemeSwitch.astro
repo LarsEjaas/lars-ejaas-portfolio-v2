@@ -1,47 +1,50 @@
 ---
 import "./themeSwitch.css";
+type Props = Record<string, never>;
 ---
 
 <script>
-const initializeThemeToggle = () => {
-  console.log("script is running");
-const rootElement = document.documentElement;
-const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const initializeThemeToggle = () => {
+    console.log("script is running");
+    const rootElement = document.documentElement;
+    const darkModeMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    );
 
-	/**
-	 * Toggles the theme between light and dark mode.
-	 */
-   const toggleTheme = (_event: MouseEvent) => {
-		const isDarkMode = rootElement.dataset.darkMode === "true";
-		rootElement.dataset.darkMode = isDarkMode ? "false" : "true";
-	};
+    /**
+     * Toggles the theme between light and dark mode.
+     */
+    const toggleTheme = (_event: MouseEvent) => {
+      const isDarkMode = rootElement.dataset.darkMode === "true";
+      rootElement.dataset.darkMode = isDarkMode ? "false" : "true";
+    };
 
-  /**
-	 * Handles changes to the user's preferred color scheme.
-	 */
-	function handleColorSchemeChange(event:MediaQueryListEvent) {
-		if (event.matches) {
-			// Dark mode is preferred
-			rootElement.dataset.darkMode = "true";
-		} else {
-			// Light mode is preferred
-			rootElement.dataset.darkMode = "false";
-		}
-	}
+    /**
+     * Handles changes to the user's preferred color scheme.
+     */
+    function handleColorSchemeChange(event: MediaQueryListEvent) {
+      if (event.matches) {
+        // Dark mode is preferred
+        rootElement.dataset.darkMode = "true";
+      } else {
+        // Light mode is preferred
+        rootElement.dataset.darkMode = "false";
+      }
+    }
 
-	darkModeMediaQuery.addEventListener("change", handleColorSchemeChange);
+    darkModeMediaQuery.addEventListener("change", handleColorSchemeChange);
 
-	if (window.theme_toggle instanceof HTMLInputElement) {
-		window.theme_toggle.addEventListener("click", toggleTheme);
-		/*set initial toggle state based on the current system theme*/
-		if (rootElement.dataset.darkMode === "true") {
-			window.theme_toggle.checked = true;
-		} else {
-			window.theme_toggle.checked = false;
-		}
-	}
-}
-initializeThemeToggle();
+    if (window.theme_toggle instanceof HTMLInputElement) {
+      window.theme_toggle.addEventListener("click", toggleTheme);
+      /*set initial toggle state based on the current system theme*/
+      if (rootElement.dataset.darkMode === "true") {
+        window.theme_toggle.checked = true;
+      } else {
+        window.theme_toggle.checked = false;
+      }
+    }
+  };
+  initializeThemeToggle();
 </script>
 <div class="theme_switch_wrapper">
   <div
