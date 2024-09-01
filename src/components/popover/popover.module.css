@@ -1,0 +1,97 @@
+.popover[popover] {
+  position: absolute;
+  padding-inline: 1rem;
+  padding-block: 1.5rem;
+  background-color: light-dark(
+    var(--system-light-300),
+    var(--system-light-200)
+  );
+  border-width: 1px;
+  border-style: solid;
+  border-color: light-dark(var(--system-light-500), var(--system-light-300));
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--stacks-6-shadow);
+  opacity: 0;
+  display: none;
+  transform: translateY(-10px);
+  width: 90cqi;
+  max-width: 400px;
+  margin-right: 1.5rem;
+  transition:
+    opacity 250ms ease-in-out,
+    transform 250ms ease-in-out,
+    display 250ms ease-in-out;
+  transition-behavior: allow-discrete;
+  @supports (anchor-name: --anchor) {
+    top: calc(anchor(var(--anchor-id) bottom) + 0.5rem);
+    left: anchor(var(--anchor-id) left);
+  }
+  &:popover-open {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+  }
+}
+
+@starting-style {
+  .popover[popover]:popover-open {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Fallback for browsers that does not support anchor when JS is disabled */
+:global(:root[data-js-enabled='false']) {
+  & .popover {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+  }
+}
+
+.popoverWrapper {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding-top: 0.5rem;
+  margin-top: auto;
+  &:has(.popover:popover-open) .button {
+    background: var(--active-color);
+  }
+}
+
+.button {
+  border: unset;
+  background: unset;
+  padding: 8px;
+  display: flex;
+  cursor: pointer;
+  color: var(--system-dark-100);
+  border-radius: 50%;
+  transition: background 200ms ease-in-out 100ms;
+  --active-color: light-dark(
+    var(--system-light-300),
+    var(--system-dark-200-16)
+  );
+  &:active,
+  &:focus-visible,
+  &:hover {
+    background: var(--active-color);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border: unset;
+  background: unset;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--system-dark-100);
+  border-radius: var(--border-radius-md);
+  line-height: 0;
+  & svg {
+    color: var(--system-dark-100);
+  }
+}

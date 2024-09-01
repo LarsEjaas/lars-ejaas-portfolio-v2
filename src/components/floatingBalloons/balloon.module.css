@@ -1,0 +1,150 @@
+.balloon {
+  position: absolute;
+  filter: drop-shadow(var(--stacks-balloon-shadow));
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-balloon);
+  overflow: hidden;
+  @media (prefers-reduced-motion: no-preference) {
+    animation-name: moveBalloon;
+    animation-duration: var(--duration);
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    /* Fallback if the browser doesn't support linear ease */
+    animation-timing-function: cubic-bezier(0.17, 0.67, 0.4, 1.31);
+    /* GSAP sine.out ease*/
+    animation-timing-function: linear(
+      0 0%,
+      0.2861 18.47%,
+      0.4829 32.08%,
+      0.6437 44.52%,
+      0.7712 56.07%,
+      0.8722 67.47%,
+      0.9115 73.02%,
+      0.9434 78.49%,
+      0.9682 83.91%,
+      0.9859 89.3%,
+      0.9965 94.66%,
+      1 100%
+    );
+  }
+  &:global(#two) {
+    view-transition-name: blob-two;
+    left: 5%;
+    top: 10%;
+    width: 20%;
+    z-index: 2;
+  }
+  &:global(#three) {
+    view-transition-name: blob-three;
+    left: 10%;
+    top: 0;
+    width: 90%;
+    z-index: 4;
+    position: relative;
+    background: radial-gradient(
+        82.93% 82.93% at 50% 27.18%,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(0, 0, 0, 0.25098) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.498039) 0%,
+        rgba(0, 0, 0, 0.498039) 100%
+      ),
+      var(--background-color);
+    background-position: bottom;
+    background-blend-mode: lighten, soft-light, normal;
+    & picture,
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &:global(#four) {
+    view-transition-name: blob-four;
+    left: 50%;
+    top: 60%;
+    transform: rotate(20deg);
+    width: 40%;
+    z-index: 3;
+  }
+  &[data-princeton] {
+    &:global(#two) {
+      left: 10%;
+      top: 0;
+      width: 40%;
+      background-color: var(--princeton-400);
+    }
+    &:global(#three) {
+      --background-color: var(--princeton-400);
+    }
+    &:global(#four) {
+      background-color: var(--princeton-500);
+    }
+  }
+  &[data-verdigris] {
+    &:global(#two) {
+      background-color: var(--verdigris-400);
+    }
+    &:global(#four) {
+      background-color: var(--verdigris-500);
+    }
+  }
+  &[data-flirt] {
+    &:global(#two) {
+      background-color: var(--flirt-400);
+      top: 30%;
+    }
+    &:global(#three) {
+      --background-color: var(--flirt-400);
+      width: 50%;
+      left: 20%;
+      top: 20%;
+    }
+    &:global(#four) {
+      background-color: var(--flirt-500);
+      top: 30%;
+    }
+  }
+  &[data-aquamarine] {
+    &:global(#two) {
+      background-color: var(--aquamarine-400);
+      width: 40%;
+    }
+    &:global(#three) {
+      --background-color: var(--aquamarine-400);
+    }
+    &:global(#four) {
+      background-color: var(--aquamarine-500);
+      top: 17%;
+      width: 60%;
+    }
+  }
+  &[data-bluemunsell] {
+    &:global(#two) {
+      background-color: var(--bluemunsell);
+      width: 30%;
+    }
+    &:global(#three) {
+      --background-color: var(--bluemunsell);
+    }
+    &:global(#four) {
+      background-color: var(--primary-lighter);
+      top: 17%;
+      width: 60%;
+    }
+  }
+}
+
+@keyframes moveBalloon {
+  0% {
+    transform: translate3d(var(--xA), var(--yA), 0);
+  }
+  50% {
+    transform: translate3d(calc(0.5 * var(--xB)), calc(0.5 * var(--yA)), 0);
+  }
+  100% {
+    transform: translate3d(var(--xB), var(--yB), 0);
+  }
+}

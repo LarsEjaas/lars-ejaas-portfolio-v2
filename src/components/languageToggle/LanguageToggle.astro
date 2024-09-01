@@ -1,0 +1,63 @@
+---
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  removeLeadingSlash,
+  useTranslatedPath,
+} from '@i18n/utils';
+import { defaultLang } from '@i18n/settings';
+import styles from './LanguageToggle.module.css';
+import { appRoutes } from '@i18n/routes';
+import type { LanguageKey } from '@i18n/routes';
+
+type Props = { withBackground?: boolean };
+
+const { withBackground } = Astro.props;
+
+/** Get the English appRoute when only the translated path is provided */
+const getEnglishTranslation = (
+  language: LanguageKey,
+  pathname: string
+): string | undefined => {
+  const rawPath = removeLeadingSlash(removeTrailingSlash(pathname));
+  const slug = rawPath.replace(`${language}/`, '');
+  const [translationKey] =
+    Object.entries(appRoutes[language]).find(
+      ([_, routePath]) => routePath === slug
+    ) || [];
+
+  return translationKey ? `/${translationKey}` : '/';
+};
+
+const lang = getLangFromUrl(Astro.url);
+const translatedPath = useTranslatedPath(lang);
+
+const englishUrl =
+  lang === defaultLang
+    ? Astro.url.pathname
+    : getEnglishTranslation(lang, Astro.url.pathname);
+
+const danishUrl =
+  lang === defaultLang
+    ? Astro.url.pathname === '/'
+      ? `/da`
+      : translatedPath(Astro.url.pathname, 'da')
+    : Astro.url.pathname;
+---
+
+<div
+  class={styles.languageToggle}
+  data-with-background={withBackground || undefined}
+>
+  <a
+    tabindex={lang === 'en' ? -1 : 0}
+    aria-disabled={lang === 'en' || undefined}
+    href={englishUrl}>EN</a
+  >
+  <span>|</span>
+  <a
+    tabindex={lang === 'da' ? -1 : 0}
+    aria-disabled={lang === 'da' || undefined}
+    href={danishUrl}>DA</a
+  >
+</div>

@@ -1,0 +1,112 @@
+.header {
+  view-transition-name: header;
+  position: static;
+  height: fit-content;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  padding: 1rem;
+  @media (min-width: 769px) {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    --border-color: light-dark(
+      var(--verdigris-100-op),
+      var(--system-dark-200-16)
+    );
+    padding: 0;
+    background-color: var(--system-light-300-55);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--stacks-6-shadow);
+    backdrop-filter: saturate(180%) brightness(80%) blur(6px);
+  }
+}
+
+::view-transition-new(header),
+::view-transition-old(header) {
+  z-index: 2;
+}
+
+.desktopMenu {
+  gap: 16px;
+  width: 100%;
+  max-width: var(--break-point--2-xl);
+  margin-inline: auto;
+  padding-block: 8px;
+  padding-inline: 2rem;
+  justify-content: space-between;
+  & .actions,
+  & nav {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  & .actions {
+    & a {
+      border-radius: 30%;
+      outline-offset: var(--outline-offset);
+    }
+  }
+  & .divider {
+    height: calc(100% - 8px);
+    --border-color: light-dark(
+      var(--system-dark-300-55),
+      var(--system-light-500)
+    );
+    margin-inline: 8px;
+    border-right: 1px solid var(--border-color);
+  }
+  & nav a {
+    color: var(--system-dark-300);
+    border-radius: 30%;
+    outline-offset: var(--outline-offset);
+    border-radius: var(--border-radius-sm);
+    text-decoration: underline transparent;
+    transition: text-decoration-color 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: currentColor;
+      transition: text-decoration-color 0.4s;
+    }
+    & p {
+      user-select: none;
+      font-weight: 600;
+      color: var(--system-dark-300);
+      text-wrap: nowrap;
+    }
+  }
+}
+
+.mobileActions {
+  justify-content: space-between;
+}
+
+.ejaasLogo {
+  --shadow: 0px 8px 16px var(--system-dark-300-80);
+  overflow: visible;
+  & path {
+    filter: drop-shadow(var(--shadow));
+  }
+}
+
+.homeLink {
+  margin-right: 12px;
+}
+
+.skillsLink p {
+  view-transition-name: skills-link;
+}
+
+.aboutLink p {
+  view-transition-name: about-link;
+}
+
+.workLink p {
+  view-transition-name: work-link;
+}
+
+:global(html[data-dark-mode='true']) .ejaasLogo {
+  --shadow: none;
+}

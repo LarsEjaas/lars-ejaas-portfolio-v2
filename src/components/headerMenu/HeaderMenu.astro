@@ -1,0 +1,172 @@
+---
+import styles from './headerMenu.module.css';
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
+import { Picture } from 'astro:assets';
+import IconWork from '@assets/menuIcons/work.png';
+import IconSkills from '@assets/menuIcons/skillset.png';
+import IconAbout from '@assets/menuIcons/about.png';
+import IconContact from '@assets/menuIcons/contact.png';
+import IconShare from '@assets/menuIcons/share.png';
+import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
+import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
+import EjaasLogo from './EjaasLogo.astro';
+import { appRoutes } from '@i18n/routes';
+
+type Props = { inert: boolean };
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+const translatePath = useTranslatedPath(lang);
+const { inert } = Astro.props;
+const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
+---
+
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
+
+  if (window.desktopMenuContainer) {
+    initializeKeyboardArrowNavigation(window.desktopMenuContainer);
+  }
+  if (window.desktopShareLink) {
+    storeScrollPositionOnClick(window.desktopShareLink);
+  }
+  if (window.desktopContactLink) {
+    storeScrollPositionOnClick(window.desktopContactLink);
+  }
+</script>
+<header class={styles.header} inert={inert}>
+  <div
+    id="desktopMenuContainer"
+    role="group"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    aria-describedby="desktopArrowNavDescription"
+    class={`${styles.desktopMenu} desktop-only`}
+  >
+    <span id="desktopArrowNavDescription" class="sr-only">
+      {t('section_with_arrow_nav')}
+    </span>
+    <nav aria-labelledby="desktopMenuTitle">
+      <h2 class="sr-only" id="#desktopMenuTitle">
+        {t('nav_desktop')}
+      </h2>
+      <a data-arrow-nav="true" href={translatePath('/')} class={styles.homeLink}
+        ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
+      >
+      <a
+        data-arrow-nav="true"
+        href={translatePath('/work')}
+        class={styles.workLink}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconWork}
+            alt=""
+            width="40"
+            height="40"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div>
+        <p>{t('work')}</p>
+      </a>
+      <a
+        data-arrow-nav="true"
+        href={translatePath('/skills')}
+        class={styles.skillsLink}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconSkills}
+            alt=""
+            width="40"
+            height="40"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div><p>{t('skills')}</p></a
+      >
+      <a
+        data-arrow-nav="true"
+        href={translatePath('/about')}
+        class={styles.aboutLink}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconAbout}
+            alt=""
+            width="40"
+            height="40"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div><p>{t('about')}</p></a
+      >
+    </nav>
+    <div class={styles.actions}>
+      <a
+        data-arrow-nav="true"
+        href={contactUrl}
+        title={t('contact')}
+        aria-label={t('contact')}
+        id="desktopContactLink"
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconContact}
+            alt=""
+            width="40"
+            height="40"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <a
+        data-arrow-nav="true"
+        href={shareUrl}
+        title={t('share')}
+        aria-label={t('share')}
+        id="desktopShareLink"
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconShare}
+            alt=""
+            width="40"
+            height="40"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <div class={styles.divider}></div>
+      <LanguageToggle />
+      <ThemeSwitch withGlow={false} isMobile={false} />
+    </div>
+  </div>
+  <div class={`${styles.mobileActions} mobile-only`}>
+    <LanguageToggle withBackground={true} />
+    <ThemeSwitch withGlow={true} isMobile={true} />
+  </div>
+</header>

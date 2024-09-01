@@ -1,0 +1,19 @@
+.card {
+  display: flex;
+  container-type: inline-size;
+  container-name: card;
+  flex-direction: column;
+  border-radius: var(--border-radius-md);
+  background: var(--card-background);
+  box-shadow: var(--stacks-5-shadow);
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: var(--card-shadow);
+    z-index: 1;
+    pointer-events: none;
+  }
+}

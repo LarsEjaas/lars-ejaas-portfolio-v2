@@ -1,0 +1,79 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './footer.module.css';
+import FigmaLogo from './FigmaLogo.astro';
+import AstroLogo from './AstroLogo.astro';
+import NetlifyLogo from './NetlifyLogo.astro';
+import GitHubLogo from './GitHubLogo.astro';
+import SocialLinks from '../socialLinks/SocialLinks.astro';
+import FooterMenu from './FooterMenu.astro';
+type Props = {
+  inert: boolean;
+};
+
+const { inert } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+const currentYear = new Date().getFullYear();
+---
+
+<footer class={styles.footer} inert={inert}>
+  <div class={styles.footerContent}>
+    <FooterMenu />
+    <div class={styles.copyright}>
+      <p>
+        ©&nbsp;{currentYear} | Lars Ejaas
+      </p>
+      <span>
+        <p>
+          {t('all_rights')}
+        </p>
+        <p>
+          {t('reserved')}
+        </p>
+      </span>
+    </div>
+    <div class={styles.credentials} aria-labelledby="credentialsTitle">
+      <h2 id="credentialsTitle" class="sr-only">{t('credentials')}</h2>
+      <ul>
+        <li>
+          <p>{t('designed_in')}</p>
+          <a href="https://figma.com" target="_blank" rel="noopener noreferrer">
+            <FigmaLogo />
+          </a>
+        </li>
+        <li>
+          <p>{t('build_with')}</p>
+          <a
+            href="https://astro.build"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <AstroLogo />
+          </a>
+        </li>
+        <li>
+          <p>{t('deployed_on')}</p>
+          <a
+            href="https://netlify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <NetlifyLogo />
+          </a>
+        </li>
+        <li>
+          <p>{t('repo_on')}</p>
+          <a
+            href="https://github.com/LarsEjaas/lars-ejaas-portfolio-v2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GitHubLogo />
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class={styles.someLinks}><SocialLinks /></div>
+  </div>
+</footer>

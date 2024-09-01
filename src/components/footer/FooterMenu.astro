@@ -1,0 +1,57 @@
+---
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
+import { appRoutes } from '@i18n/routes';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+const translatePath = useTranslatedPath(lang);
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
+---
+
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+
+  if (window.footerMenuNavigation) {
+    initializeKeyboardArrowNavigation(window.footerMenuNavigation);
+  }
+</script>
+<nav id="footerMenuNavigation" aria-labelledby="footerMenuTitle">
+  <span id="footerArrowNavDescription" class="sr-only">
+    {t('section_with_arrow_nav')}
+  </span>
+  <h2 class="sr-only" id="#footerMenuTitle">
+    {t('nav_footer')}
+  </h2>
+  <ul
+    role="group"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    aria-describedby="footerArrowNavDescription"
+  >
+    <li>
+      <a data-arrow-nav="true" href={translatePath('work')} title={t('work')}
+        >{t('work')}</a
+      >
+      <a
+        data-arrow-nav="true"
+        href={translatePath('skills')}
+        title={t('skills')}>{t('skills')}</a
+      >
+      <a data-arrow-nav="true" href={translatePath('about')} title={t('about')}
+        >{t('about')}</a
+      >
+      <a data-arrow-nav="true" href={contactUrl} title={t('contact')}
+        >{t('contact')}</a
+      >
+      <a
+        data-arrow-nav="true"
+        href={translatePath('archive')}
+        title={t('archive')}>{t('archive')}</a
+      >
+    </li>
+  </ul>
+</nav>

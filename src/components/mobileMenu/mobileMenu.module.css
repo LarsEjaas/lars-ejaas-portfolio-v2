@@ -1,0 +1,32 @@
+.mobileMenu {
+  view-transition-name: mobileMenu;
+  z-index: 200;
+  --border-color: light-dark(
+    var(--verdigris-100-op),
+    var(--system-dark-200-16)
+  );
+  position: fixed;
+  gap: 12px;
+  @media (max-width: 380px) {
+    gap: 6px;
+    left: -10px;
+    right: -10px;
+  }
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  padding-inline: 12px;
+  padding-block: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--system-light-300-55);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--stacks-4-shadow);
+  backdrop-filter: saturate(180%) brightness(80%) blur(6px);
+  width: fit-content;
+  max-width: fit-content;
+  & a {
+    border-radius: 30%;
+    outline-offset: var(--outline-offset);
+  }
+}

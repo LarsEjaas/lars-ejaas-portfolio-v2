@@ -1,0 +1,132 @@
+---
+import Layout from '@layouts/Root.astro';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './archive.module.css';
+import WorkCard from '@components/workCard/WorkCard.astro';
+import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import { newsItems } from '@content/newsItems';
+import { MAX_NUMBER_OF_ITEMS } from '@components/carousel/Carousel.astro';
+import { Picture } from 'astro:assets';
+import type { ImageModule } from '../customTypes';
+import { isExternalLink } from '../utils/misc';
+const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
+
+interface Props {
+  title: string;
+  inert: boolean;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { title, inert } = Astro.props;
+const t_arch = useTranslations(lang, 'archive');
+
+const newsGridItems =
+  newsItems[lang].length > MAX_NUMBER_OF_ITEMS
+    ? newsItems[lang].slice(0, -MAX_NUMBER_OF_ITEMS)
+    : undefined;
+---
+
+<Layout title={title} inert={inert}>
+  <div class="presentation">
+    <PageLabel title={t_arch('archive_title')} iconImage="archive" />
+    <div>
+      <h2>
+        {t_arch('looking_for_old_content')}
+      </h2>
+      <p class="body-text">{t_arch('welcome_to_memory_lane')}</p>
+    </div>
+  </div>
+  <FloatingBalloons balloonColor="bluemunsell" />
+  <div class="fullgrid">
+    <h2>
+      {t_arch('old_versions_of_my_website')}
+    </h2>
+    <p class="body-text">{t_arch('curious_how_my_website')}</p>
+  </div>
+  <div class={styles.firstGridColumn}>
+    <WorkCard
+      inert={inert}
+      id="larsEjaasComVersionOne"
+      animatedHeader
+      href={lang === 'en'
+        ? 'https://larsejaasv1.netlify.app/en'
+        : 'https://larsejaasv1.netlify.app'}
+      animationDelay={0}
+      viewTransitionName="lars-ejaas-card"
+      subHeadline={t_arch('larsejaas_v1_subheadline')}
+      headerImage={LarsEjaasComV1HeaderImage}
+      headerImageAlt={t_arch('lars_ejaas_v1_image_alt')}
+      date={t_arch('lars_ejaas_v1_date')}
+    >
+      <p class="small-body-text">
+        {t_arch('lars_ejaas_com_v1_description')}
+      </p>
+    </WorkCard>
+  </div>
+  {
+    newsGridItems && (
+      <>
+        <div class="fullgrid" id="oldNews">
+          <h2>{t_arch('old_news')}</h2>
+          <p class="body-text">{t_arch('welcome_to')}</p>
+        </div>
+        <div class={`fullgrid ${styles.newsGrid}`}>
+          {newsGridItems.toReversed().map(async (item, index) => {
+            const imageName = item.imageSrc;
+            const imageImport = Object.entries(newsImages).find(([path]) =>
+              path.includes(imageName)
+            );
+
+            if (!imageImport) {
+              console.error(`News image not found for: ${imageName}`);
+              return null;
+            }
+            const ImageComponent = ((await imageImport[1]()) as ImageModule)
+              .default;
+
+            const isExtURL = isExternalLink(item.href);
+
+            return (
+              <a
+                class={styles.articleCard}
+                data-arrow-nav="true"
+                id={`card${index}`}
+                href={item.href}
+                {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
+              >
+                <article
+                  class={`${styles[`outline${item.outline}`]} ${styles.article}`}
+                >
+                  <Picture
+                    formats={['avif']}
+                    quality="high"
+                    src={ImageComponent}
+                    alt={item.imageAlt}
+                    width="232"
+                    height="148"
+                    densities={[1, 2, 3, 4]}
+                    loading="lazy"
+                    decoding="sync"
+                  />
+                  <div class={styles.newsContent}>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                    </div>
+                    <div class={styles.date}>
+                      <p>{item.date}</p>
+                    </div>
+                  </div>
+                </article>
+              </a>
+            );
+          })}
+        </div>
+      </>
+    )
+  }
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
+</Layout>

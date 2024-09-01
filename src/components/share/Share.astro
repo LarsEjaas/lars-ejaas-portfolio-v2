@@ -1,0 +1,103 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { Picture } from 'astro:assets';
+import IconFacebook from '@assets/someIcons/facebook.png';
+import IconMessenger from '@assets/someIcons/messenger.png';
+import IconX from '@assets/someIcons/x.png';
+import IconEmail from '@assets/someIcons/email.png';
+import IconPinterest from '@assets/someIcons/pinterest.png';
+import IconLinkedIn from '@assets/someIcons/linkedin.png';
+import IconReddit from '@assets/someIcons/reddit.png';
+import IconWhatsApp from '@assets/someIcons/whatsapp.png';
+import IconTelegram from '@assets/someIcons/telegram.png';
+import styles from './share.module.css';
+
+type ShareAttributes = {
+  href: string;
+  title: string;
+  image: ImageMetadata;
+  hiddenOnDesktop?: boolean;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'share');
+
+const shareAttributes: ShareAttributes[] = [
+  {
+    href: '',
+    title: t('facebook_title'),
+    image: IconFacebook,
+  },
+  {
+    href: '',
+    title: t('messenger_title'),
+    image: IconMessenger,
+    hiddenOnDesktop: true,
+  },
+  {
+    href: '',
+    title: t('x_title'),
+    image: IconX,
+  },
+  {
+    href: '',
+    title: t('email_title'),
+    image: IconEmail,
+  },
+  {
+    href: '',
+    title: t('pinterest_title'),
+    image: IconPinterest,
+  },
+  {
+    href: '',
+    title: t('linkedin_title'),
+    image: IconLinkedIn,
+  },
+  {
+    href: '',
+    title: t('reddit_title'),
+    image: IconReddit,
+  },
+  {
+    href: '',
+    title: t('whatsapp_title'),
+    image: IconWhatsApp,
+    hiddenOnDesktop: true,
+  },
+  {
+    href: '',
+    title: t('telegram_title'),
+    image: IconTelegram,
+    hiddenOnDesktop: true,
+  },
+];
+---
+
+<div class={styles.shareContainer}>
+  {
+    shareAttributes.map((attr) => (
+      <a
+        href={attr.href}
+        title={attr.title}
+        aria-label={attr.title}
+        class={`${attr.hiddenOnDesktop ? 'mobile-only' : ''}`}
+      >
+        <div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={attr.image}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div>
+      </a>
+    ))
+  }
+</div>

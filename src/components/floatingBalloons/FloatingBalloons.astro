@@ -1,0 +1,142 @@
+---
+import styles from './floatingBalloons.module.css';
+import type { BalloonProps } from './Balloon.astro';
+import Balloon from './Balloon.astro';
+
+export type BalloonConfig = {
+  xA: number;
+  yA: number;
+  xB: number;
+  yB: number;
+  duration: number;
+  direction: 1 | -1;
+};
+
+/** Initial start and stop positions as well as duration for the balloon animations first itteration */
+const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
+  {
+    two: {
+      xA: 0,
+      xB: -18,
+      yA: 0,
+      yB: -25,
+      duration: 8,
+      direction: -1,
+    },
+    three: {
+      xA: 0,
+      xB: 14,
+      yA: 0,
+      yB: 22,
+      duration: 12,
+      direction: 1,
+    },
+    four: {
+      xA: 0,
+      xB: -11,
+      yA: 0,
+      yB: -28,
+      duration: 9,
+      direction: -1,
+    },
+  };
+
+type Props = Pick<BalloonProps, 'balloonColor'> & {
+  coverPhoto?: ImageMetadata;
+  class?: string | undefined;
+};
+
+const { balloonColor, coverPhoto } = Astro.props;
+---
+
+<script>
+  import { notEmpty } from '@customTypes/index';
+
+  // Configuration for the randomization of the balloons - change these to get different randomization
+  const RANDOM_CONFIG = {
+    randomX: { min: 10, max: 20 },
+    randomY: { min: 20, max: 30 },
+    randomTime: { min: 8, max: 12 },
+  };
+
+  const random = (min: number, max: number, direction: 1 | -1) => {
+    const delta = max - min;
+    return Math.round((min + delta * Math.random()) * direction).toString();
+  };
+
+  const changePosition = (event: AnimationEvent) => {
+    const balloon = event.target as HTMLDivElement;
+
+    // Remove- and re-apply the animation to restart it
+    balloon.style.animationName = 'none';
+    requestAnimationFrame(() => {
+      // remove the animation name so we again refer to the style sheet - this restarts the animation
+      balloon.style.animationName = '';
+    });
+
+    const balloonStyle = getComputedStyle(balloon);
+    const finalX = balloonStyle.getPropertyValue('--xB');
+    const finalY = balloonStyle.getPropertyValue('--yB');
+    const direction = Number(balloonStyle.getPropertyValue('--direction')) as
+      | 1
+      | -1;
+    const newDirection = (direction * -1) as 1 | -1;
+
+    balloon.style.setProperty('--xA', finalX);
+    balloon.style.setProperty('--yA', finalY);
+
+    balloon.style.setProperty(
+      '--xB',
+      random(
+        RANDOM_CONFIG.randomX.min,
+        RANDOM_CONFIG.randomX.max,
+        newDirection
+      ) + 'px'
+    );
+    balloon.style.setProperty(
+      '--yB',
+      random(
+        RANDOM_CONFIG.randomY.min,
+        RANDOM_CONFIG.randomY.max,
+        newDirection
+      ) + 'px'
+    );
+    balloon.style.setProperty(
+      '--duration',
+      random(RANDOM_CONFIG.randomTime.min, RANDOM_CONFIG.randomTime.max, 1) +
+        's'
+    );
+    balloon.style.setProperty('--direction', `${newDirection}`);
+  };
+
+  // Function to set new random CSS variables and start animations
+  const balloons = [window.two, window.three, window.four].filter(notEmpty);
+
+  if (balloons.length) {
+    balloons.map((balloon) => {
+      balloon?.addEventListener('animationend', (e) => changePosition(e), true);
+      balloon.style.animationPlayState = 'running';
+    });
+  }
+</script>
+
+<div class={`${styles.balloonsWrapper} ${Astro.props.class ?? ''}`}>
+  <div id="floating" class={styles.floatingBalloons}>
+    <Balloon
+      variant="two"
+      balloonColor={balloonColor}
+      config={BALLOON_ANIMATION_CONFIG.two}
+    />
+    <Balloon
+      variant="three"
+      balloonColor={balloonColor}
+      coverPhoto={coverPhoto}
+      config={BALLOON_ANIMATION_CONFIG.three}
+    />
+    <Balloon
+      variant="four"
+      balloonColor={balloonColor}
+      config={BALLOON_ANIMATION_CONFIG.four}
+    />
+  </div>
+</div>

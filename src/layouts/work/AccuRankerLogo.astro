@@ -1,0 +1,20 @@
+---
+interface Props {
+  width?: number;
+}
+
+const { width } = Astro.props;
+---
+
+<svg width={width || 32} viewBox="0 0 100 100">
+  <title>AccuRanker</title>
+  <rect width="89.5" height="78.3" x="4.2" y="4.9" fill="#fff" ry="9.2"></rect>
+  <g fill="#f89734" fill-rule="evenodd">
+    <path
+      d="M0 80c0 11 9 20 20 20h60c11 0 20-9 20-20V20c0-11-9-20-20-20H20C9 0 0 9 0 20v60zm6-2a16 16 0 0 0 16 16h56a16 16 0 0 0 16-16V22A16 16 0 0 0 78 6H22A16 16 0 0 0 6 22v56Z"
+    ></path>
+    <path
+      d="M7 94c-1.8-1.5-6-10.9-.8-15.2 16-13 15.7-27.6 28.5-27.6 12 0 17.6 20 26.4 20 6.1 0 9-3.2 11.4-8.1 7.9-16.2 7.7-50.8 24.3-52 2.8-.2-3 82.5-3 82.5L47 98.2S8.7 95.6 6.9 94z"
+    ></path>
+  </g>
+</svg>

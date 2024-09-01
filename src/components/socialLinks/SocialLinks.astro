@@ -1,0 +1,85 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import GitHubIcon from '../icons/GitHubIcon.astro';
+import LinkedInIcon from '../icons/LinkedInIcon.astro';
+import XIcon from '../icons/XIcon.astro';
+import styles from './socialLinks.module.css';
+
+type Props = {
+  alternativeColors?: boolean;
+  onCard?: boolean;
+};
+
+const { alternativeColors, onCard } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+---
+
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import styles from './socialLinks.module.css';
+
+  //there may be more than one element with this class on the page - we needd to initialize the keyboard navigation for each of them
+  const elements: HTMLElement[] = Array.from(
+    document.querySelectorAll(`div.${styles.socialLinks}`)
+  );
+
+  elements.forEach((element) => {
+    initializeKeyboardArrowNavigation(element);
+  });
+</script>
+<div
+  class={styles.socialLinks}
+  data-alt-colors={alternativeColors || undefined}
+  aria-labelledby=`socialLinksTitle${onCard ? 1 : 2}`
+>
+  <h2 id=`socialLinksTitle${onCard ? 1 : 2}` class="sr-only">
+    {t('follow_me')}
+  </h2>
+  <span
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    id=`socialArrowNavDescription${onCard ? 1 : 2}`
+    class="sr-only"
+  >
+    {t('section_with_arrow_nav')}
+  </span>
+  <ul
+    role="group"
+    aria-describedby=`socialArrowNavDescription${onCard ? 1 : 2}`
+  >
+    <li>
+      <a
+        href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('x_label')}
+        data-arrow-nav="true"
+      >
+        <XIcon title={t('x_label')} />
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://linkedin.com/in/lars-ejaas"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('linkedin_label')}
+        data-arrow-nav="true"
+      >
+        <LinkedInIcon title={t('linkedin_label')} />
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://github.com/LarsEjaas"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('github_label')}
+        data-arrow-nav="true"
+      >
+        <GitHubIcon title={t('github_label')} />
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,73 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import AboutLayout from '@layouts/About.astro';
+import type { AboutImageSlugPath, SlugWithAboutImageTypes } from '@i18n/routes';
+import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+import type { ImageDetails } from '@content/aboutImages/aboutImages';
+import type { ImageModule } from '@customTypes/index';
+import Lightbox from '@components/lightBox/Lightbox.astro';
+
+const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+
+type DanishAboutLightboxPaths = {
+  [P in SlugWithAboutImageTypes<'da'>]: {
+    params: AboutImageSlugPath<P> & { lang: 'da' };
+  };
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t_nav = useTranslations(lang, 'navigation');
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = (
+    imageInfo: readonly ImageDetails[]
+  ): DanishAboutLightboxPaths => {
+    return imageInfo.reduce(
+      (acc, imgDetails) => ({
+        ...acc,
+        [`about/${imgDetails.hrefEN}`]: {
+          params: { lang: 'da', slug: 'om-mig', aboutImage: imgDetails.hrefDA },
+        },
+      }),
+      {} as DanishAboutLightboxPaths
+    );
+  };
+
+  const paths = createPaths(aboutImagesInfo);
+  return Object.values(paths);
+}
+
+const { aboutImage } = Astro.params;
+
+const imageInfo = aboutImagesInfo.find((img) => img.hrefDA === aboutImage);
+
+if (!imageInfo) {
+  throw new Error(`No danish aboutImagesInfo found for the href: ${imageInfo}`);
+}
+
+const imageImport = Object.entries(aboutImageGlob).find(([path]) =>
+  path.includes(imageInfo?.imageName)
+);
+
+if (!imageImport) {
+  console.error(`aboutImages not found for: ${imageInfo?.imageName}`);
+  return null;
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+
+const pageTitle = imageInfo.titleDA;
+---
+
+<AboutLayout title={pageTitle} inert={true}>
+  <Lightbox
+    labels={{
+      title: pageTitle,
+      close: t_nav('close_modal_title'),
+      next: t_nav('next'),
+      previous: t_nav('previous'),
+    }}
+    image={ImageComponent}
+    imageInfo={imageInfo}
+  />
+</AboutLayout>

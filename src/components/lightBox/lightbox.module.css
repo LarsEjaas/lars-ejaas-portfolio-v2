@@ -1,0 +1,234 @@
+/*special module syntax used to import module tile module class*/
+:import('@components/techSkillsMarquee/techSkillsMarquee.module.css') {
+  fadeIn: fadeIn;
+  fadeOut: fadeOut;
+}
+
+@keyframes spreadCards {
+  from {
+    grid-template-columns: repeat(calc(var(--img-count) - 1), 20px) 1fr;
+  }
+  to {
+    grid-template-columns: repeat(calc(var(--img-count) - 1), 20cqi) 1fr;
+  }
+}
+
+@keyframes blurOut {
+  from {
+    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  }
+  to {
+    backdrop-filter: saturate(100%) brightness(100%) blur(0);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    backdrop-filter: saturate(100%) brightness(100%) blur(0);
+  }
+  to {
+    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  }
+}
+
+.backdrop {
+  view-transition-name: lightboxBackdrop;
+  position: fixed;
+  border-radius: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  z-index: 1000;
+  background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
+  animation-fill-mode: both;
+  backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  transition: backdrop-filter 0.3s ease-in-out 0.1s;
+  &:hover {
+    backdrop-filter: saturate(150%) brightness(60%) blur(3px);
+  }
+}
+
+/* :global(::view-transition-group(lightboxBackdrop)) {
+  backdrop-filter: none !important;
+} */
+
+::view-transition-old(lightboxBackdrop) {
+  animation: 300ms blurOut ease-in both;
+  backdrop-filter: none !important;
+  background-blend-mode: unset;
+}
+
+::view-transition-new(lightboxBackdrop) {
+  animation: 300ms blurIn ease-out both;
+}
+
+.dialog {
+  view-transition-name: lightbox;
+  position: fixed;
+  container-name: lightbox;
+  container-type: inline-size;
+  margin-inline: auto;
+  margin-block: min(20vh, 4rem) 2rem;
+  max-width: min(calc(800px + 2rem), 100vw);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: calc(100vh - (min(20vh, 4rem) + 2rem));
+  z-index: 1000;
+  inset: 0;
+  background-color: unset;
+  border-style: none;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content {
+  view-transition-name: lightbox-content;
+  margin-inline: 3rem;
+  max-height: 70cqb;
+  min-height: 0;
+  position: relative;
+  & picture,
+  & img {
+    border-radius: var(--border-radius-md);
+  }
+  & picture {
+    max-height: 100%;
+    margin-inline: auto;
+  }
+}
+
+.closeLink {
+  display: block;
+  border-radius: var(--border-radius-sm);
+  border: none;
+  height: fit-content;
+  line-height: 0;
+  margin: 8px;
+  padding: 4px;
+  color: var(--verdigris-600);
+  transition: transform 0.3s ease;
+  &:not([data-disabled]):hover,
+  &:not([data-disabled]):focus-visible {
+    color: var(--verdigris-500);
+    transform: scale(1.2);
+  }
+}
+
+.footer {
+  margin-top: auto;
+  margin-inline: auto;
+  max-width: 100cqi;
+}
+
+.thumbnailGridContainer {
+  view-transition-name: thumbnail-grid-container;
+  --mask-width: 2rem;
+  display: grid;
+  grid-auto-flow: dense;
+  gap: 0.5rem;
+  margin-inline: var(--mask-width);
+  padding-inline: 2rem;
+  overflow-x: scroll;
+  max-width: calc(100% - 2 * var(--mask-width));
+  padding-block: 32px 16px;
+  will-change: grid-template-columns;
+  /* animation: spreadCards 400ms 250ms ease-in-out backwards; */
+  mask: linear-gradient(
+    90deg,
+    transparent,
+    white var(--mask-width) calc(100% - var(--mask-width)),
+    transparent
+  );
+  mask-composite: intersect;
+
+  & a {
+    height: 120px;
+    grid-row: 1;
+    transform: rotate(var(--rotation));
+    transition: transform 250ms ease-in-out;
+    outline-offset: var(--outline-offset);
+  }
+}
+
+::view-transition-old(thumbnailGridContainer) {
+  animation: 250ms fadeOut ease-in both;
+}
+
+::view-transition-new(thumbnailGridContainer) {
+  animation: 250ms fadeIn 300ms ease-out both;
+}
+
+.controls {
+  display: none;
+  --controls-height: 40px;
+  top: calc(50% - var(--controls-height) / 2);
+  inset-inline: -1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  position: absolute;
+  & li {
+    width: fit-content;
+    z-index: 1;
+    display: block;
+  }
+
+  & a {
+    height: var(--controls-height);
+    border-radius: var(--border-radius-balloon);
+    width: var(--controls-height);
+    box-shadow:
+      var(--verdigris-100-op) 0px 0px 0px 5px,
+      var(--stacks-6-Shadow);
+    transition:
+      transform 0.4s ease,
+      background-color 0.3s ease-in-out;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    outline-offset: var(--outline-offset);
+    &:not([data-disabled]) {
+      cursor: pointer;
+      color: var(--verdigris-100);
+      border: 2px solid var(--verdigris-300);
+      background-color: var(--verdigris-500);
+    }
+    &[data-disabled] {
+      pointer-events: none;
+      opacity: 0.4;
+      color: light-dark(var(--system-dark-300), var(--system-light-500));
+      border: 4px solid
+        light-dark(var(--system-dark-300), var(--system-light-500));
+      background-color: var(--system-light-300);
+    }
+    /* Avoid the chevron looking off center */
+    &#previous svg {
+      margin-right: 2px;
+    }
+    &:not([data-disabled]):hover,
+    &:not([data-disabled]):focus-visible {
+      background-color: var(--system-light-300);
+      color: light-dark(var(--verdigris-500), var(--verdigris-100));
+      transform: scale(1.2);
+    }
+  }
+}
+
+@container lightbox (width > 800px) {
+  .controls {
+    display: flex;
+  }
+  .footer {
+    & a:hover,
+    & a:focus-visible {
+      transition: transform 250ms ease-in-out;
+      transform: translateY(-5px) rotate(var(--rotation)) !important;
+    }
+  }
+}

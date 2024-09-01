@@ -1,0 +1,167 @@
+---
+import { Picture } from 'astro:assets';
+import styles from './lightbox.module.css';
+import type { ImageDetails } from '@content/aboutImages/aboutImages.ts';
+import { getLangFromUrl } from '@i18n/utils';
+import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+import { useTranslatedPath } from '@i18n/utils';
+import PhotoCard from '@components/photoCards/PhotoCard.astro';
+import type { ImageModule } from '../../customTypes';
+const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+
+type Props = {
+  labels: { title: string; close: string; previous: string; next: string };
+  image: ImageMetadata;
+  imageInfo: ImageDetails;
+};
+const { labels, image, imageInfo } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const imageAlt = imageInfo[`imageAlt${lang?.toUpperCase()}`];
+
+const URLArray = Object.values(aboutImagesInfo).map(
+  (imgInfo) => imgInfo[`href${lang?.toUpperCase()}`]
+);
+
+const currentIndex = URLArray.indexOf(
+  imageInfo[`href${lang?.toUpperCase()}`] as (typeof URLArray)[number]
+);
+const translatePath = useTranslatedPath(lang);
+const aboutTranslatedPath = translatePath('about');
+const previousUrl = `${aboutTranslatedPath}/${URLArray[currentIndex - 1]}`;
+const isFirst = currentIndex === 0;
+const isLast = currentIndex === URLArray.length - 1;
+const nextUrl = `${aboutTranslatedPath}/${URLArray[currentIndex + 1]}`;
+---
+
+<script>
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (event.key.toLowerCase() === 'escape') {
+      // Do the change asynchronously at the back of the event queue to make sure the change is ALWAYS applied.
+      setTimeout(() => {
+        window.location.href = './';
+      }, 0);
+    }
+  };
+
+  if (window.lightbox) {
+    window.addEventListener('keydown', handleKeydown, { passive: true });
+  }
+</script>
+<a class={styles.backdrop} aria-hidden tabindex="-1" href="./"></a>
+<!-- remove tabindex in Firefox -->
+<dialog
+  tabindex="-1"
+  id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  open={true}
+  aria-labelledby="lightboxTitle"
+  class={styles.dialog}
+>
+  <div class={styles.header}>
+    <h2 id="lightboxTitle" class="sr-only">{labels.title}</h2>
+    <a
+      class={styles.closeLink}
+      href="./"
+      title={labels.close}
+      aria-label={labels.close}
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        aria-hidden="true"
+      >
+        <path
+          d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 0.418636C14.0123 -0.139545 13.1073 -0.139545 12.5486 0.418636L8 4.96727L3.45136 0.418636C2.89318 -0.139545 1.98818 -0.139545 1.42955 0.418636L0.418636 1.42955C-0.139545 1.98773 -0.139545 2.89273 0.418636 3.45136L4.96727 8L0.418636 12.5486C-0.139545 13.1068 -0.139545 14.0118 0.418636 14.5705L1.42955 15.5814C1.98773 16.1395 2.89318 16.1395 3.45136 15.5814L8 11.0327L12.5486 15.5814C13.1068 16.1395 14.0123 16.1395 14.5705 15.5814L15.5814 14.5705C16.1395 14.0123 16.1395 13.1073 15.5814 12.5486L11.0327 8Z"
+          fill="currentColor"></path>
+      </svg></a
+    >
+  </div>
+  <div class={styles.content}>
+    <Picture
+      formats={['avif', 'webp']}
+      quality="high"
+      src={image}
+      alt={imageAlt}
+      widths={[260, 320, 440, 520]}
+      sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
+      loading="eager"
+      decoding="sync"
+      pictureAttributes={{
+        style: `aspect-ratio: ${image.width}/${image.height}; view-transition-name: ${imageInfo.id};`,
+      }}
+    />
+    <ul class={styles.controls}>
+      <li>
+        <a
+          data-disabled={isFirst || undefined}
+          href={isFirst ? undefined : previousUrl}
+          aria-label={labels.previous}
+        >
+          <svg
+            width="16"
+            fill="currentColor"
+            aria-hidden="true"
+            viewBox="4.5 7 15 15"
+            style="margin-right:2px;"
+          >
+            <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a
+          data-disabled={isLast || undefined}
+          href={isLast ? undefined : nextUrl}
+          aria-label={labels.next}
+        >
+          <svg
+            width="16"
+            fill="currentColor"
+            aria-hidden="true"
+            viewBox="4.5 7 15 15"
+          >
+            <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class={styles.footer}>
+    <div
+      class={styles.thumbnailGridContainer}
+      style={`--img-count: ${aboutImagesInfo.length - 1};`}
+      tabindex="-1"
+    >
+      {
+        aboutImagesInfo.map(async (imgInfo, index) => {
+          if (imgInfo.id === imageInfo.id) {
+            return null;
+          }
+          const imageImport = Object.entries(aboutImageGlob).find(([path]) =>
+            path.includes(imgInfo?.imageName)
+          );
+
+          if (!imageImport) {
+            console.error(`aboutImages not found for: ${imageInfo?.imageName}`);
+            return null;
+          }
+
+          const ImageComponent = ((await imageImport[1]()) as ImageModule)
+            .default;
+
+          return (
+            <PhotoCard
+              includeViewTransitionId={false}
+              ImageComponent={ImageComponent}
+              imageName={imgInfo.imageName}
+              reverseRotation={false}
+              index={index}
+            />
+          );
+        })
+      }
+    </div>
+  </div>
+</dialog>

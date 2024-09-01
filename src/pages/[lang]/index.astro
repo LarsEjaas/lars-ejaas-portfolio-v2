@@ -1,0 +1,17 @@
+---
+import HomeLayout from '@layouts/Home.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import type { DanishLanguageSlug } from '@i18n/settings';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'home');
+
+type TranslatedHomePath = { params: { lang: DanishLanguageSlug } };
+
+export function getStaticPaths() {
+  const paths: TranslatedHomePath[] = [{ params: { lang: 'da' } }];
+  return paths;
+}
+---
+
+<HomeLayout title={t('home_title')} lang={lang} inert={false} />

@@ -1,0 +1,97 @@
+---
+import type { Language } from '@i18n/settings';
+import Layout from '@layouts/Root.astro';
+import Carousel from '@components/carousel/Carousel.astro';
+import { newsItems } from '@content/newsItems';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import { useTranslations } from '@i18n/utils';
+import PresentationCard from '@components/presentationCard/PresentationCard.astro';
+import styles from './home.module.css';
+import ProfileImage from '@assets/images/profile_clip.png';
+import SocialLinks from '../components/socialLinks/SocialLinks.astro';
+import AboutIcon from '../components/icons/AboutIcon.astro';
+import DownloadIcon from '../components/icons/DownloadIcon.astro';
+const resumeFiles = import.meta.glob('/public/resume/*.pdf');
+
+/** Add a key that easily identifies the latest resume - located in public/resume */
+const LATEST_RESUME_KEY = 'july_2024.pdf';
+
+// Get the correct  resume PDF file
+const latestResumeURL = resumeFiles
+  ? Object.entries(resumeFiles).find(([path]) =>
+      path.includes(LATEST_RESUME_KEY)
+    )?.[0]
+  : undefined;
+
+if (!latestResumeURL) {
+  throw new Error(`No resume file found for ${latestResumeURL}`);
+}
+
+interface Props {
+  title: string;
+  lang: Language;
+  inert: boolean;
+}
+
+const { title, lang, inert } = Astro.props;
+const t_home = useTranslations(lang, 'home');
+---
+
+<Layout title={title} inert={inert}>
+  <div class="presentation">
+    <PageLabel
+      title={t_home('home_title')}
+      iconImage="ejaas"
+      tagLine="home"
+      taglineAlt={t_home('home_tagline')}
+    />
+    <PresentationCard
+      gradientColor="verdigris"
+      title="Lars Ejaas"
+      overlayImage={ProfileImage}
+      overlayImageAlt={t_home('profile_lars_alt')}
+      inert={inert}
+    >
+      <div class={styles.presentationCardContent}>
+        <h3 class="stylized-capitalized-text">
+          {t_home('frontend_developer')}
+        </h3>
+        <p class="small-body-text">
+          {t_home('frontend_developer_description')}
+        </p>
+        <div class={styles.actions}>
+          <div class={styles.actionEntries}>
+            <a href="/about" title={t_home('about_me_title')}>
+              <AboutIcon />
+              <p>{t_home('about_me')}</p>
+            </a>
+            <a
+              href={latestResumeURL}
+              download
+              title={t_home('download_resume_title')}
+            >
+              <DownloadIcon className={styles.downloadIcon} />
+              <p>{t_home('download_resume')}</p>
+            </a>
+          </div>
+          <SocialLinks alternativeColors={true} onCard={true} />
+        </div>
+      </div>
+    </PresentationCard>
+  </div>
+  <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
+  <Carousel
+    labels={{
+      title: t_home('news_title'),
+      archiveTitle: t_home('news_archive_title'),
+      previous: t_home('previous'),
+      next: t_home('next'),
+    }}
+    items={newsItems[lang]}
+    inert={inert}
+  />
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
+</Layout>

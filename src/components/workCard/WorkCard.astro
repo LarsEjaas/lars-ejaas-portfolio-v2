@@ -1,0 +1,238 @@
+---
+import { Picture } from 'astro:assets';
+import styles from './workCard.module.css';
+import Card from '@components/card/Card.astro';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
+import type { SlugWithSkillKeys } from '@i18n/routes';
+import ConditionalLink from './ConditionalLink.astro';
+
+type Props = {
+  inert: boolean;
+  headline?: string;
+  subHeadline: string;
+  /** Unique identifier for this card. Should be written in camelCase
+   * This can also be used as an anchor to go directly to this card.
+   */
+  id: string;
+  date: string;
+  headerImage: ImageMetadata;
+  headerImageAlt: string;
+  tags?: { title: string; href: SlugWithSkillKeys }[];
+  /**  distinct identifying name used for view transitions. Should be in kebab-case.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
+   */
+  viewTransitionName: string;
+  footerImages?: {
+    src: ImageMetadata;
+    alt: string;
+    id: string;
+  }[];
+  animatedHeader?: boolean;
+  /** Delay in milliseconds before the animation starts */
+  animationDelay?: number;
+  href?: string;
+};
+
+const {
+  inert,
+  headline,
+  subHeadline,
+  id,
+  date,
+  headerImage,
+  headerImageAlt,
+  tags,
+  viewTransitionName,
+  animatedHeader,
+  animationDelay,
+  href,
+  footerImages,
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const t = useTranslations(lang, 'navigation');
+---
+
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  const tagsWrappers = document.querySelectorAll('[id$="WorkCardTags"]');
+
+  const isHTMLElementList = (
+    list: NodeListOf<Element>
+  ): list is NodeListOf<HTMLElement> => {
+    return Array.from(list).every((item) => item instanceof HTMLElement);
+  };
+
+  if (tagsWrappers.length && isHTMLElementList(tagsWrappers)) {
+    tagsWrappers.forEach((tagsWrapper) =>
+      initializeKeyboardArrowNavigation(tagsWrapper)
+    );
+  }
+
+  const footerImageControls = document.querySelectorAll(
+    '[id$="footerNavigation"]'
+  );
+  const footerImageControlsArray = Array.from(footerImageControls);
+  footerImageControlsArray.forEach((control) => {
+    if (control instanceof HTMLElement) {
+      initializeKeyboardArrowNavigation(control);
+      const buttons = control.querySelectorAll('a');
+      const controlButtonsArray = Array.from(buttons);
+      controlButtonsArray.forEach((controlButton) => {
+        if (controlButton instanceof HTMLElement) {
+          controlButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const scrollTarget = document.querySelector(
+              `#${(e.currentTarget as HTMLAnchorElement).href.split('#')[1]}`
+            );
+            if (scrollTarget instanceof HTMLElement) {
+              scrollTarget.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start',
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+</script>
+<Card inert={inert} viewTransitionName={viewTransitionName} id={id}>
+  <div class={styles.headerContent}>
+    <ConditionalLink href={href}>
+      <Picture
+        formats={['avif']}
+        quality="high"
+        src={headerImage}
+        alt={headerImageAlt}
+        width="232"
+        height="148"
+        widths={[320, 480, 656, 736]}
+        sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
+        loading="lazy"
+        decoding="sync"
+        pictureAttributes={{
+          class: styles.picture,
+          'data-animated': animatedHeader || null,
+          style: {
+            '--animation-delay': `${animationDelay || 0}ms`,
+          },
+        }}
+      />
+    </ConditionalLink>
+    {headline && <h2>{headline}</h2>}
+  </div>
+  <div class={styles.cardContent}>
+    {subHeadline && <h3 class="stylized-capitalized-text">{subHeadline}</h3>}
+    {
+      date && (
+        <div class={styles.dateWrapper}>
+          <svg
+            width="12"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 12 13"
+            style="margin-bottom:3px;"
+          >
+            <path
+              d="M1.3 13.5c-.3 0-.6-.1-1-.4-.2-.2-.3-.5-.3-.9V3.1c0-.4.1-.7.4-1 .3-.2.6-.3 1-.3H2V.5h1.3v1.3h5.4V.5H10v1.3h.7c.3 0 .6.1 1 .4.2.2.3.5.3.9v9.1c0 .4-.1.7-.4 1-.3.2-.6.3-1 .3H1.4Zm0-1.3h9.4V5.7H1.3v6.5Zm0-7.8h9.4V3.1H1.3v1.3ZM6 8.3c-.2 0-.3 0-.5-.2a.6.6 0 0 1-.2-.4l.2-.5L6 7c.2 0 .3 0 .5.2l.2.5-.2.4-.5.2Zm-2.7 0c-.2 0-.3 0-.4-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.4-.2c.2 0 .4 0 .5.2l.2.5c0 .1 0 .3-.2.4l-.5.2Zm5.4 0c-.2 0-.4 0-.5-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.5-.2c.2 0 .3 0 .4.2.2.1.2.3.2.5 0 .1 0 .3-.2.4l-.4.2ZM6 10.9c-.2 0-.3 0-.5-.2a.6.6 0 0 1-.2-.4l.2-.5.5-.2c.2 0 .3 0 .5.2l.2.4-.2.5-.5.2Zm-2.7 0c-.2 0-.3 0-.4-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.4-.2c.2 0 .4 0 .5.2l.2.4c0 .2 0 .4-.2.5l-.5.2Zm5.4 0c-.2 0-.4 0-.5-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.5-.2c.2 0 .3 0 .4.2.2.1.2.3.2.4 0 .2 0 .4-.2.5l-.4.2Z"
+              opacity="0.8"
+            />
+          </svg>
+          <p class="small-body-text">{date}</p>
+        </div>
+      )
+    }
+    <slot />
+    {
+      tags && (
+        <div
+          id={`${id}WorkCardTags`}
+          role="group"
+          aria-keyshortcuts="ArrowLeft ArrowRight"
+          aria-describedby={`${id}tagsArrowNavDescription`}
+        >
+          <span id={`${id}tagsArrowNavDescription`} class="sr-only">
+            {t('section_with_arrow_nav')}
+          </span>
+          <ul class={styles.tags}>
+            {tags.map((tag) => (
+              <li>
+                <a
+                  data-arrow-nav="true"
+                  href={translatePath(tag.href)}
+                  class={styles.tag}
+                >
+                  {tag.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+  {
+    footerImages && (
+      <div class={styles.footerImagesWrapper}>
+        <ul tabindex="-1" class={styles.footerImages}>
+          {footerImages.map((image) => (
+            <li id={image.id}>
+              <Picture
+                formats={['avif']}
+                quality="high"
+                src={image.src}
+                alt={image.alt}
+                width="232"
+                height="148"
+                widths={[320, 480, 656, 736]}
+                sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
+                loading="lazy"
+                decoding="sync"
+                pictureAttributes={{
+                  class: styles.picture,
+                  'data-animated': animatedHeader || null,
+                  style: {
+                    '--animation-delay': `${animationDelay || 0}ms`,
+                  },
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+        <div
+          id={`${id}footerNavigation`}
+          role="group"
+          aria-describedby={`${id}ArrowNav`}
+        >
+          <span
+            id={`${id}ArrowNav`}
+            aria-keyshortcuts="ArrowLeft ArrowRight"
+            class="sr-only"
+          >
+            {t('section_with_arrow_nav')}
+          </span>
+          <ul
+            style={{
+              '--slide-length': footerImages?.length,
+            }}
+            class={styles.controls}
+          >
+            {footerImages?.length > 1 &&
+              footerImages.map((image) => (
+                <li class={styles.control}>
+                  <a href={`#${image.id}`} data-arrow-nav="true" />
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+</Card>

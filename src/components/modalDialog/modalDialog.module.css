@@ -1,0 +1,133 @@
+.dialogBackdrop {
+  position: fixed;
+  border-radius: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  z-index: 1000;
+  background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
+  backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  transition: backdrop-filter 0.3s ease-in-out 0.1s;
+  &:hover {
+    backdrop-filter: saturate(150%) brightness(60%) blur(3px);
+  }
+}
+
+.dialog {
+  view-transition-name: dialog;
+  position: fixed;
+  border: 1px solid var(--system-light-200);
+  container-name: modal;
+  container-type: inline-size;
+  margin: auto;
+  margin-top: min(20vh, 160px);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 672px;
+  width: calc(100vw - 2rem);
+  z-index: 1000;
+  background-color: var(--system-light-300);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--stacks-4-shadow);
+  inset: 0;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+  background: radial-gradient(
+      ellipse at 70% 10%,
+      color-mix(in hsl, var(--gradient-tone-100), transparent 70%) 0%,
+      color-mix(in hsl, var(--gradient-tone-400), transparent 70%) 30%,
+      color-mix(in hsl, var(--gradient-tone-500), transparent 70%) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      var(--gradient-tone-100) 0%,
+      var(--gradient-tone-400) 20%,
+      var(--gradient-tone-500) 40%
+    );
+  background-size: 100% 300%;
+  border-top-left-radius: var(--border-radius-md);
+  border-top-right-radius: var(--border-radius-md);
+  &[data-flirt] {
+    --gradient-tone-100: var(--flirt-100);
+    --gradient-tone-400: var(--flirt-400);
+    --gradient-tone-500: var(--flirt-500);
+  }
+  &[data-verdigris] {
+    --gradient-tone-100: var(--verdigris-100);
+    --gradient-tone-400: var(--verdigris-400);
+    --gradient-tone-500: var(--verdigris-500);
+  }
+  & h2 {
+    align-self: flex-end;
+    text-transform: uppercase;
+    color: light-dark(var(--system-light-100), var(--system-light-300));
+  }
+
+  & :global(.squircle) {
+    clip-path: url(#squircle);
+    display: block;
+    margin-left: 32px;
+    margin-top: 18px;
+
+    &.outline {
+      background-color: var(--system-light-300);
+      padding: 4px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+  & picture,
+  & img {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+.headerContent {
+  display: flex;
+  gap: 16px;
+}
+
+.modalFooter {
+  background-color: var(--system-light-400);
+  border-bottom-left-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
+  border-top: 1px solid var(--system-light-500);
+  height: 48px;
+}
+
+.closeLink {
+  display: block;
+  background: unset;
+  border-radius: var(--border-radius-sm);
+  border: none;
+  height: fit-content;
+  line-height: 0;
+  margin: 8px;
+  padding: 4px;
+  &[data-flirt] {
+    color: var(--flirt-600);
+  }
+  &[data-verdigris] {
+    color: var(--verdigris-600);
+  }
+}
+
+@supports (view-transition-name: none) {
+  @keyframes scale-in {
+    from {
+      transform: scale(0.9) translateY(-30px);
+    }
+  }
+
+  ::view-transition-new(dialog) {
+    animation: 200ms ease-in-out forwards scale-in;
+    position: fixed;
+  }
+}

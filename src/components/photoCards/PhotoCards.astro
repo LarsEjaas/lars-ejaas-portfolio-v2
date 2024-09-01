@@ -1,0 +1,112 @@
+---
+import styles from './photoCard.module.css';
+import PhotoCard from './PhotoCard.astro';
+import { notEmpty, type ImageModule } from '@customTypes/index';
+const aboutImages = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+
+type Props = {
+  imageNames: string[];
+  inert: boolean;
+  /** Can be used to rotate all the images in the opposite direction */
+  reverseRotation?: boolean;
+  viewTransitionPrefix?: string;
+};
+
+/** We have to manually calculate the grid template columns because grid cannot dynamically
+ * calculate the width of each image when we want all images to be the same height.
+ */
+const calculateGridTemplateColumns = async (imageImports: ImageMetadata[]) => {
+  // First, calculate the sum of all aspect ratios
+  const totalAspectRatioSum = imageImports.reduce((sum, image) => {
+    const aspectRatio = image.width / image.height;
+    return sum + aspectRatio;
+  }, 0);
+
+  // Then map each image to its proportional fraction
+  const columnTemplate = imageImports
+    .map((image) => {
+      const aspectRatio = image.width / image.height;
+      const percentage = Math.round((aspectRatio / totalAspectRatioSum) * 100);
+      return `${percentage}%`;
+    })
+    .join(' ');
+
+  return columnTemplate;
+};
+
+const { imageNames, reverseRotation = false, inert } = Astro.props;
+
+const imageImports = await Promise.all(
+  imageNames.map(async (imageName) => {
+    const imageImport = Object.entries(aboutImages).find(([path]) =>
+      path.includes(imageName)
+    );
+
+    if (!imageImport) {
+      console.error(
+        `aboutImages not found for: ${imageName} in calculateGridTemplateColumns`
+      );
+      return null;
+    }
+
+    const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+    return ImageComponent;
+  })
+).then((imports) => imports.filter(notEmpty));
+
+const gridTemplateColumns = await calculateGridTemplateColumns(imageImports);
+---
+
+<script>
+  import {
+    checkIfPreviousRouteWasLightbox,
+    storeScrollPositionOnClick,
+  } from '@utils/scrollPosition';
+  import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+
+  const imageIds = aboutImagesInfo.map((imageName) => imageName.id);
+
+  if (
+    imageIds.every((id) => id in window) &&
+    window.aboutArticle &&
+    !window.aboutArticle?.dataset?.scrollStorageInitialized
+  ) {
+    imageIds.forEach((id) => {
+      const imageAnchor: HTMLAnchorElement =
+        id in window ? window[id as keyof Window] : null;
+      if (imageAnchor) {
+        const navigatesFromLightbox = checkIfPreviousRouteWasLightbox();
+        if (navigatesFromLightbox) {
+          imageAnchor.dataset.disableAnimation = 'true';
+        }
+        storeScrollPositionOnClick(imageAnchor);
+      }
+    });
+    window.aboutArticle.dataset.scrollStorageInitialized = 'true';
+  }
+</script>
+
+<div
+  class={styles.imageGridContainer}
+  inert={inert}
+  style={`--number-of-images: ${imageNames.length}; grid-template-columns: ${gridTemplateColumns};`}
+>
+  {
+    imageNames.map((imageName, index) => {
+      const ImageComponent = imageImports[index];
+      return (
+        <>
+          {ImageComponent && (
+            <PhotoCard
+              includeViewTransitionId={!inert}
+              ImageComponent={ImageComponent}
+              imageName={imageName}
+              reverseRotation={reverseRotation}
+              index={index}
+            />
+          )}
+        </>
+      );
+    })
+  }
+</div>

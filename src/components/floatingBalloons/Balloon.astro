@@ -1,0 +1,55 @@
+---
+import Picture from 'astro/components/Picture.astro';
+import styles from './balloon.module.css';
+import type { BalloonConfig } from './FloatingBalloons.astro';
+import type { ColorVariants } from '@customTypes/index';
+
+export type BalloonProps = {
+  variant: 'two' | 'three' | 'four';
+  balloonColor: ColorVariants;
+};
+
+type Props =
+  | {
+      variant: Exclude<BalloonProps['variant'], 'three'>;
+      balloonColor: BalloonProps['balloonColor'];
+      coverPhoto?: never;
+      config: BalloonConfig;
+    }
+  | {
+      variant: Extract<BalloonProps['variant'], 'three'>;
+      balloonColor: BalloonProps['balloonColor'];
+      coverPhoto: ImageMetadata | undefined;
+      config: BalloonConfig;
+    };
+
+const { variant, coverPhoto, balloonColor, config } = Astro.props;
+---
+
+<div
+  class={styles.balloon}
+  id={variant}
+  style=`--xA: ${config.xA}px; --yA: ${config.xB}px; --xB: ${config.yA}px; --yB: ${config.yB}px; --duration: ${config.duration}s; --direction: ${config.direction};`
+  data-princeton={balloonColor === 'princeton' ? 'true' : undefined}
+  data-verdigris={balloonColor === 'verdigris' ? 'true' : undefined}
+  data-flirt={balloonColor === 'flirt' ? 'true' : undefined}
+  data-aquamarine={balloonColor === 'aquamarine' ? 'true' : undefined}
+  data-bluemunsell={balloonColor === 'bluemunsell' ? 'true' : undefined}
+  data-variant={variant}
+>
+  {
+    coverPhoto && (
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="mid"
+        src={coverPhoto}
+        alt=""
+        widths={[177, 295, 540, 354]}
+        sizes={`(max-width: 360px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${coverPhoto.width}px`}
+        loading="eager"
+        decoding="sync"
+      />
+    )
+  }
+</div>

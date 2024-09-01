@@ -1,0 +1,199 @@
+@keyframes fade-out-to-left {
+  100% {
+    translate: -26px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out-to-right {
+  100% {
+    translate: 26px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-from-right {
+  0% {
+    translate: 26px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-from-left {
+  0% {
+    translate: -26px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes move-left {
+  from {
+    translate: 26px 0;
+    opacity: 0;
+  }
+  to {
+    translate: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes move-right {
+  from {
+    translate: -26px 0;
+    opacity: 0;
+  }
+  to {
+    translate: 0;
+    opacity: 1;
+  }
+}
+
+.controls {
+  grid-column: 2;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  height: 26px;
+  bottom: 0;
+  margin-block: 12px;
+  list-style-type: none;
+  view-transition-name: pagination;
+}
+
+.control {
+  display: flex;
+  height: 26px;
+  flex: 1;
+  border: 4px solid transparent;
+  transition: transform 300ms ease-in-out;
+  &:not(:has(a[aria-current='true'])) {
+    aspect-ratio: 1 / 1;
+    &:hover,
+    &:focus-within {
+      transform: scale(1.2);
+    }
+  }
+  &:nth-of-type(1),
+  &:last-child {
+    border: 6px solid transparent;
+  }
+  &:has(a[aria-current='true']) {
+    border: 2px solid transparent;
+    aspect-ratio: 2 / 1;
+  }
+  & a {
+    flex: 1;
+    outline-offset: var(--outline-offset);
+    box-shadow: var(--stacks-2-shadow);
+    background-color: light-dark(
+      var(--system-light-300),
+      var(--system-light-400)
+    );
+    border-radius: var(--border-radius-lg);
+    &[aria-current='true'] {
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}
+
+.paginationWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backButton {
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--border-radius-md);
+  background-color: unset;
+  border: unset;
+  outline-offset: var(--outline-offset);
+  width: fit-content;
+  padding-inline: 12px 16px;
+  padding-block: 2px 4px;
+  transition: background 250ms ease-in-out;
+  color: light-dark(var(--system-dark-300), var(--system-dark-100));
+  &[data-active='true'] {
+    display: flex;
+  }
+  &:hover,
+  &:focus-visible {
+    background-color: light-dark(
+      var(--system-light-300),
+      var(--system-dark-200-16)
+    );
+    & span {
+      text-decoration-color: currentColor;
+    }
+  }
+  & span {
+    margin-block-end: 0;
+    font-weight: 600;
+    color: currentColor;
+    margin-top: 1px;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 250ms ease-in-out;
+  }
+}
+
+:root[data-js-enabled='false'] {
+  /* Hide the controls on the carousel */
+  & :global(#skillBackButton) {
+    visibility: hidden;
+  }
+}
+
+html:active-view-transition-type(forwards) {
+  &::view-transition-old(skill-pagination-button-last) {
+    animation-name: fade-out-to-right;
+    animation-timing-function: ease-in;
+  }
+
+  &::view-transition-new(skill-pagination-button-first) {
+    animation-name: fade-in-from-left;
+    animation-timing-function: ease-out;
+  }
+
+  &::view-transition-new(skill-pagination-button-last),
+  &::view-transition-old(skill-pagination-button-first),
+  &::view-transition-old(skill-pagination-button-1),
+  &::view-transition-new(skill-pagination-button-1),
+  &::view-transition-old(skill-pagination-button-2),
+  &::view-transition-new(skill-pagination-button-2),
+  &::view-transition-old(skill-pagination-button-3),
+  &::view-transition-new(skill-pagination-button-3) {
+    animation-name: move-right;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+html:active-view-transition-type(backwards) {
+  &::view-transition-old(skill-pagination-button-first) {
+    animation-name: fade-out-to-left;
+    animation-timing-function: ease-in;
+  }
+
+  &::view-transition-new(skill-pagination-button-last) {
+    animation-name: fade-in-from-right;
+    animation-timing-function: ease-out;
+  }
+
+  &::view-transition-old(skill-pagination-button-1),
+  &::view-transition-new(skill-pagination-button-1),
+  &::view-transition-old(skill-pagination-button-2),
+  &::view-transition-new(skill-pagination-button-2),
+  &::view-transition-old(skill-pagination-button-3),
+  &::view-transition-new(skill-pagination-button-3),
+  &::view-transition-old(skill-pagination-button-last),
+  &::view-transition-new(skill-pagination-button-first) {
+    animation-name: move-left;
+    animation-timing-function: ease-in-out;
+  }
+}

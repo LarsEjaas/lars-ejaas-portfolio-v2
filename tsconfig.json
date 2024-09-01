@@ -1,0 +1,18 @@
+{
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@i18n/*": ["src/i18n/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@content/*": ["src/content/*"],
+      "@pages/*": ["src/pages/*"],
+      //@types is reserved for type declaration packages installed from npm - so I use a different alias
+      "@customTypes/*": ["src/customTypes/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "$schema": "https://json.schemastore.org/tsconfig"
+}

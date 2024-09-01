@@ -1,0 +1,18 @@
+.shareContainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin-block: 48px 32px;
+  margin-inline: 4rem;
+  justify-content: center;
+  margin-inline: 23cqi;
+  gap: 16px;
+  & Picture,
+  & img {
+    width: 48px;
+    height: 48px;
+  }
+  & a {
+    outline-offset: var(--outline-offset);
+    border-radius: var(--border-radius-lg);
+  }
+}

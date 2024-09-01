@@ -1,0 +1,64 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import SkillsLayout from '@layouts/Skills.astro';
+import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
+import {
+  skillsObject,
+  techSkillEntries,
+  type TechSkill,
+} from '@content/techSkills';
+import type { ImageModule } from '@customTypes/index';
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+
+type DanishSkillSlugPaths = {
+  [P in SlugWithSkillTypes<'da'>]: {
+    params: SkillSlugPath<P> & { lang: 'da' };
+  };
+};
+
+const lang = getLangFromUrl(Astro.url);
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = (skills: readonly TechSkill[]): DanishSkillSlugPaths => {
+    return skills.reduce<DanishSkillSlugPaths>(
+      (acc, skill) => ({
+        ...acc,
+        [`kompetencer/${skill}`]: {
+          params: { lang: 'da', slug: 'kompetencer', skill },
+        },
+      }),
+      {} as DanishSkillSlugPaths
+    );
+  };
+
+  const paths = createPaths(techSkillEntries);
+  return Object.values(paths);
+}
+
+const { skill } = Astro.params;
+
+const skillData = skillsObject[lang][skill];
+
+const imageImport = Object.entries(skillIconImages).find(([path]) =>
+  path.includes(skillData.imageSrc)
+);
+
+if (!imageImport) {
+  console.error(`Skill image not found for: ${skillData.imageSrc}`);
+  return null;
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+
+const pageTitle = skillData.title;
+---
+
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  skillTitle={pageTitle}
+  skillDescription={skillData.description}
+  skillImageAlt={skillData.imageAlt}
+  skillImageSrc={ImageComponent}
+  skillRating={skillData.rating}
+/>

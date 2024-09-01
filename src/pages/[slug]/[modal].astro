@@ -1,0 +1,138 @@
+---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import ModalDialog from '@components/modalDialog/ModalDialog.astro';
+import ShareContent from '@components/share/Share.astro';
+import ContactContent from '@components/contact/Contact.astro';
+import IconContact from '@assets/menuIcons/contact.png';
+import IconShare from '@assets/menuIcons/share.png';
+import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
+import About from '@layouts/About.astro';
+import Skills from '@layouts/Skills.astro';
+import Work from '@layouts/work/Work.astro';
+import Archive from '@layouts/Archive.astro';
+
+type EnglishModalSlugPaths = {
+  [P in SlugWithModalTypes<'en'>]: {
+    params: ModalSlugPath<P>;
+  };
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = <T extends EnglishModalSlugPaths>(paths: T): T => paths;
+  const paths = createPaths({
+    ['work/share']: { params: { slug: 'work', modal: 'share' } },
+    ['work/contact']: {
+      params: { slug: 'work', modal: 'contact' },
+    },
+    ['skills/share']: {
+      params: { slug: 'skills', modal: 'share' },
+    },
+    ['skills/contact']: {
+      params: { slug: 'skills', modal: 'contact' },
+    },
+    ['about/share']: { params: { slug: 'about', modal: 'share' } },
+    ['about/contact']: {
+      params: { slug: 'about', modal: 'contact' },
+    },
+    ['archive/share']: { params: { slug: 'archive', modal: 'share' } },
+    ['archive/contact']: {
+      params: { slug: 'archive', modal: 'contact' },
+    },
+  });
+  return Object.values(paths);
+}
+
+const { slug, modal } = Astro.params;
+
+const englishModalSlugMap: Record<
+  SlugWithModalTypes<'en'>,
+  {
+    pageComponent: AstroComponentFactory;
+    modalComponent: AstroComponentFactory;
+    modalIcon: ImageMetadata;
+    pageTitle: string;
+    modalTitle: string;
+  }
+> = {
+  ['work/share']: {
+    pageComponent: Work,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['work/contact']: {
+    pageComponent: Work,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+  ['skills/share']: {
+    pageComponent: Skills,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['skills/contact']: {
+    pageComponent: Skills,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+  ['about/share']: {
+    pageComponent: About,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['about/contact']: {
+    pageComponent: About,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+  ['archive/share']: {
+    pageComponent: Archive,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['archive/contact']: {
+    pageComponent: Archive,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+};
+
+const ModalContent = englishModalSlugMap[`${slug}/${modal}`]?.modalComponent;
+
+const PageContent = englishModalSlugMap[`${slug}/${modal}`]?.pageComponent;
+
+const iconImage = englishModalSlugMap[`${slug}/${modal}`]?.modalIcon;
+
+const modalTitle = englishModalSlugMap[`${slug}/${modal}`]?.modalTitle;
+const pageTitle = englishModalSlugMap[`${slug}/${modal}`]?.pageTitle;
+---
+
+<PageContent title={pageTitle} inert={true}>
+  <ModalDialog
+    title={modalTitle}
+    labels={{ close: t('close_modal_title') }}
+    iconImage={iconImage}
+    gradientColor="verdigris"
+    ><ModalContent />
+  </ModalDialog>
+</PageContent>

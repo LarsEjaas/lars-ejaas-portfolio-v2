@@ -1,0 +1,82 @@
+---
+import Layout from '@layouts/Root.astro';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import PresentationCard from '@components/presentationCard/PresentationCard.astro';
+import styles from './skills.module.css';
+import StarRating from '@components/starRating/starRating.astro';
+import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
+import type { SkillRating } from '@customTypes/skillTypes';
+import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
+
+interface Props {
+  title: string;
+  inert: boolean;
+  skillTitle: string;
+  skillDescription: (_props: Record<string, any>) => any;
+  skillImageSrc?: ImageMetadata;
+  skillImageAlt?: string;
+  skillRating?: SkillRating;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const {
+  title,
+  inert,
+  skillTitle,
+  skillDescription,
+  skillImageSrc,
+  skillImageAlt,
+  skillRating,
+} = Astro.props;
+const t_skills = useTranslations(lang, 'skills');
+
+const DescriptionComponent = skillDescription;
+---
+
+<Layout title={title} inert={inert}>
+  <div class="presentation">
+    <PageLabel
+      title={t_skills('skills_title')}
+      iconImage="skillset"
+      tagLine="toolkit"
+      taglineAlt={t_skills('skills_tagline')}
+    />
+    <div>
+      <h2>
+        {t_skills('browse_my_tech_skills')}
+      </h2>
+      <p class="body-text">{t_skills('although_i_have')}</p>
+    </div>
+    <div>
+      <PresentationCard
+        gradientColor="flirt"
+        title={skillTitle}
+        iconImage={skillImageSrc}
+        iconImageAlt={skillImageAlt}
+        responsiveSquircleSize={true}
+        inert={inert}
+      >
+        <div class={styles.presentationCardContent}>
+          {DescriptionComponent && <DescriptionComponent />}
+          <div class={styles.proficiencyRating}>
+            {
+              !!skillRating && [
+                <p class="stylized-lead-text">
+                  {t_skills('proficiency_rating')}
+                </p>,
+                <StarRating rating={skillRating} />,
+              ]
+            }
+          </div>
+        </div>
+      </PresentationCard>
+      <SkillCardPagination title={skillTitle} />
+    </div>
+  </div>
+  <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
+  <TechSkillsMarquee />
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
+</Layout>

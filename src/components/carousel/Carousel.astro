@@ -1,0 +1,249 @@
+---
+import styles from './carousel.module.css';
+import { Picture } from 'astro:assets';
+import type {
+  ImageType,
+  DanishDate,
+  EnglishDate,
+  ImageModule,
+} from '@customTypes/index';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
+import { isExternalLink } from '@utils/misc';
+const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
+
+/*Set a limit on items - this way an archive card will be rendered pointing to older news  */
+export const MAX_NUMBER_OF_ITEMS = 10;
+
+export type CardInfo = {
+  title: string;
+  description: string;
+  date: EnglishDate | DanishDate;
+  imageSrc: ImageType;
+  imageAlt: string;
+  href: string;
+  outline: '1' | '2' | '3' | '4' | 'gold';
+};
+
+interface Props {
+  labels: {
+    title: string;
+    /** Title of the archive card */
+    archiveTitle: string;
+    previous: string;
+    next: string;
+  };
+  items: CardInfo[];
+  inert: boolean;
+}
+
+const { items, labels, inert } = Astro.props;
+
+const ARCHIVE_ID = 'newsArchive';
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const ARCHIVE_HREF = translatePath('archive');
+
+const itemList =
+  MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS
+    ? items.slice(-MAX_NUMBER_OF_ITEMS)
+    : items;
+
+const showArchiveCard =
+  MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS;
+
+const t = useTranslations(lang, 'navigation');
+const timeLine = [
+  ...itemList,
+  ...(showArchiveCard ? [{ title: 'placeholder' }] : []),
+];
+const timelineScope = timeLine
+  .map((_, i) => `--card-${timeLine.length - 1 - i}`)
+  .join(', ');
+---
+
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+
+  const { carouselList, previous, next } = window;
+  if (carouselList) {
+    initializeKeyboardArrowNavigation(carouselList, true);
+  }
+
+  /**
+   * Scrolls the demo element to the left or right based on the id of the clicked button.
+   */
+  const handleScroll = (event: MouseEvent) => {
+    const carouselCardWidth = carouselList?.querySelector('li')?.offsetWidth;
+
+    if (
+      carouselList &&
+      carouselCardWidth &&
+      event.currentTarget instanceof HTMLButtonElement
+    ) {
+      const direction = event.currentTarget?.id;
+      carouselList?.scrollBy({
+        left: direction === 'next' ? carouselCardWidth : -carouselCardWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  previous?.addEventListener('click', handleScroll, {
+    passive: true,
+  });
+  next?.addEventListener('click', handleScroll, {
+    passive: true,
+  });
+
+  /**
+   * Updates the cursor position in the carousel wrapper element.
+   */
+  const updateCursor = (event: PointerEvent) => {
+    if (carouselList) {
+      carouselList.style.setProperty('--x', `${event.layerX}`);
+      carouselList.style.setProperty('--y', `${event.layerY}`);
+    }
+  };
+
+  carouselList?.addEventListener('pointermove', updateCursor, {
+    passive: true,
+  });
+</script>
+<section
+  aria-labelledby="carouselHeading"
+  id="carousel"
+  class="fullgrid"
+  style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}; timeline-scope: ${timelineScope}`}
+  inert={inert}
+>
+  <h2 id="carouselHeading">{labels.title}</h2>
+  <!-- remove tabindex in Firefox -->
+  <ul
+    tabindex="-1"
+    id="carouselList"
+    role="group"
+    aria-describedby="carouselArrowNav"
+  >
+    <span
+      id="carouselArrowNav"
+      aria-keyshortcuts="ArrowLeft ArrowRight"
+      class="sr-only"
+    >
+      {t('section_with_arrow_nav')}
+    </span>
+    {
+      showArchiveCard && (
+        <li style={`--index: ${0}; view-timeline: --card-${0} inline`}>
+          <a
+            data-arrow-nav="true"
+            id={ARCHIVE_ID}
+            href={`${ARCHIVE_HREF}#oldNews`}
+          >
+            <article class={`${styles[ARCHIVE_ID]} ${styles.article}`}>
+              <h3>{labels.archiveTitle}</h3>
+            </article>
+          </a>
+        </li>
+      )
+    }
+    {
+      itemList.map(async (item, index) => {
+        const imageName = item.imageSrc;
+        const imageImport = Object.entries(newsImages).find(([path]) =>
+          path.includes(imageName)
+        );
+
+        if (!imageImport) {
+          console.error(`News image not found for: ${imageName}`);
+          return null;
+        }
+        const ImageComponent = ((await imageImport[1]()) as ImageModule)
+          .default;
+
+        const isExtURL = isExternalLink(item.href);
+
+        return (
+          <li
+            style={`--index: ${index + 1}; view-timeline: --card-${showArchiveCard ? index + 1 : index} inline`}
+          >
+            <a
+              data-arrow-nav="true"
+              id={`card${index}`}
+              href={item.href}
+              {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
+            >
+              <article
+                class={`${styles[`outline${item.outline}`]} ${styles.article}`}
+              >
+                <Picture
+                  formats={['avif']}
+                  quality="high"
+                  src={ImageComponent}
+                  alt={item.imageAlt}
+                  width="232"
+                  height="148"
+                  densities={[1, 2, 3, 4]}
+                  loading="lazy"
+                  decoding="sync"
+                />
+                <div class={styles.newsContent}>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <div class={styles.date}>
+                    <p>{item.date}</p>
+                  </div>
+                </div>
+              </article>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+  <ul class={styles.controls}>
+    <li>
+      <button id="previous" aria-label={labels.previous}>
+        <svg
+          width="16"
+          fill="currentColor"
+          aria-hidden="true"
+          viewBox="4.5 7 15 15"
+          style="margin-right:2px;"
+        >
+          <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
+        </svg>
+      </button>
+      <li>
+        <button id="next" aria-label={labels.next}>
+          <svg
+            width="16"
+            fill="currentColor"
+            aria-hidden="true"
+            viewBox="4.5 7 15 15"
+          >
+            <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
+          </svg>
+        </button>
+      </li>
+    </li>
+  </ul>
+  <div
+    aria-hidden="true"
+    class={styles.indicators}
+    style={`aspect-ratio: ${timeLine.length + 3} / 1;`}
+  >
+    {
+      timeLine.map((_item, index) => (
+        <div
+          style={`--index: ${timeLine.length - 1 - index}; animation-timeline: --card-${timeLine.length - 1 - index}`}
+        />
+      ))
+    }
+  </div>
+</section>
