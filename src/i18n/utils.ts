@@ -1,4 +1,4 @@
-import { translations, defaultLang, languages } from "./settings";
+import { translations, defaultLang, languages } from './settings';
 
 /**
  * Extracts the language code from a URL's pathname or returns the default language if no language code is found in the pathname.
@@ -8,7 +8,7 @@ import { translations, defaultLang, languages } from "./settings";
  * console.log(lang); // 'en'
  */
 export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split("/");
+  const [, lang] = url.pathname.split('/');
   if (lang && lang in languages) return lang as keyof typeof languages;
   return defaultLang;
 }
@@ -29,10 +29,10 @@ export function getLangFromUrl(url: URL) {
  */
 export function useTranslations(
   lang: keyof typeof languages,
-  source: keyof typeof translations,
+  source: keyof typeof translations
 ) {
   return function t(
-    key: keyof (typeof translations)[typeof source][typeof defaultLang],
+    key: keyof (typeof translations)[typeof source][typeof defaultLang]
   ) {
     return (
       translations[source][lang][key] || translations[source][defaultLang][key]

@@ -1,70 +1,76 @@
 ---
-import "./carousel.css";
+import './carousel.css';
+import { Picture } from 'astro:assets';
+const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
-type ImageExtension = "jpg" | "png";
+type ImageModule = {
+  default: string;
+};
+
+type ImageExtension = 'jpg' | 'png';
 
 type Year = 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28;
 
 type Month =
-  | "January"
-  | "February"
-  | "March"
-  | "April"
-  | "May"
-  | "June"
-  | "July"
-  | "August"
-  | "September"
-  | "October"
-  | "November"
-  | "December";
+  | 'January'
+  | 'February'
+  | 'March'
+  | 'April'
+  | 'May'
+  | 'June'
+  | 'July'
+  | 'August'
+  | 'September'
+  | 'October'
+  | 'November'
+  | 'December';
 
 type DanishMonth =
-  | "januar"
-  | "februar"
-  | "marts"
-  | "april"
-  | "maj"
-  | "juni"
-  | "juli"
-  | "august"
-  | "september"
-  | "oktober"
-  | "november"
-  | "december";
+  | 'januar'
+  | 'februar'
+  | 'marts'
+  | 'april'
+  | 'maj'
+  | 'juni'
+  | 'juli'
+  | 'august'
+  | 'september'
+  | 'oktober'
+  | 'november'
+  | 'december';
 
 type DayOfMonth =
-  | "1st"
-  | "2nd"
-  | "3rd"
-  | "4th"
-  | "5th"
-  | "6th"
-  | "7th"
-  | "8th"
-  | "9th"
-  | "10th"
-  | "11th"
-  | "12th"
-  | "13th"
-  | "14th"
-  | "15th"
-  | "16th"
-  | "17th"
-  | "18th"
-  | "19th"
-  | "20th"
-  | "21st"
-  | "22nd"
-  | "23rd"
-  | "24th"
-  | "25th"
-  | "26th"
-  | "27th"
-  | "28th"
-  | "29th"
-  | "30th"
-  | "31st";
+  | '1st'
+  | '2nd'
+  | '3rd'
+  | '4th'
+  | '5th'
+  | '6th'
+  | '7th'
+  | '8th'
+  | '9th'
+  | '10th'
+  | '11th'
+  | '12th'
+  | '13th'
+  | '14th'
+  | '15th'
+  | '16th'
+  | '17th'
+  | '18th'
+  | '19th'
+  | '20th'
+  | '21st'
+  | '22nd'
+  | '23rd'
+  | '24th'
+  | '25th'
+  | '26th'
+  | '27th'
+  | '28th'
+  | '29th'
+  | '30th'
+  | '31st';
 
 type ImageType = `${string}.${ImageExtension}`;
 
@@ -110,61 +116,156 @@ export type CardInfo = {
   imageSrc: ImageType;
   imageAlt: string;
   href: string;
-  outline: "1" | "2" | "3" | "4" | "gold";
+  outline: '1' | '2' | '3' | '4' | 'gold';
 };
 
 interface Props {
-  title: string;
+  labels: {
+    title: string;
+    /** Title of the archive card */
+    archiveTitle: string;
+    previous: string;
+    next: string;
+  };
   items: CardInfo[];
   /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
   maxNumberOfItems?: number;
 }
 
-const { title, items, maxNumberOfItems } = Astro.props;
+const { items, maxNumberOfItems, labels } = Astro.props;
 
-const CAROUSEL_ID = "carousel" as const;
-const HEADING_ID = "carousel_heading" as const;
-const ARCHIVE_ID = "news_archive";
-const ARCHIVE_HREF = "news_archive";
-const ARCHIVE_TITLE = "read older news";
+const CAROUSEL_ID = 'carousel' as const;
+const HEADING_ID = 'carousel_heading' as const;
+const ARCHIVE_ID = 'news_archive';
+const ARCHIVE_HREF = 'news_archive';
 
-const itemList = maxNumberOfItems && (items.length > maxNumberOfItems) ? items.slice(0, maxNumberOfItems) : items;
+const itemList =
+  maxNumberOfItems && items.length > maxNumberOfItems
+    ? items.slice(0, maxNumberOfItems)
+    : items;
+
+// const showArchiveCard = maxNumberOfItems && items.length > maxNumberOfItems;
+const showArchiveCard = true;
 ---
 
-<section aria-labelledby="carouselheading" id={CAROUSEL_ID}>
-  <h2 id={HEADING_ID}>{title}</h2>
-  <ul id="carousel_list" style={`--card-length: ${itemList.length + 1}`}>
+<section
+  aria-labelledby="carouselheading"
+  id={CAROUSEL_ID}
+  style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}`}
+>
+  <script>
+    const { carousel_list, previous, next } = window;
+
+    /**
+     * Scrolls the demo element to the left or right based on the id of the clicked button.
+     */
+    const handleScroll = (event: MouseEvent) => {
+      const carouselCardWidth = carousel_list?.querySelector('li')?.offsetWidth;
+
+      if (
+        carousel_list &&
+        carouselCardWidth &&
+        event.currentTarget instanceof HTMLButtonElement
+      ) {
+        const direction = event.currentTarget?.id;
+        carousel_list?.scrollBy({
+          left: direction === 'next' ? carouselCardWidth : -carouselCardWidth,
+          behavior: 'smooth',
+        });
+      }
+    };
+
+    previous?.addEventListener('click', handleScroll);
+    next?.addEventListener('click', handleScroll);
+
+    /**
+     * Updates the cursor position in the carousel wrapper element.
+     */
+    const updateCursor = (event: PointerEvent) => {
+      if (carousel_list) {
+        carousel_list.style.setProperty('--x', `${event.layerX}`);
+        carousel_list.style.setProperty('--y', `${event.layerY}`);
+      }
+    };
+
+    carousel_list?.addEventListener('pointermove', updateCursor);
+  </script>
+  <h2 id={HEADING_ID}>{labels.title}</h2>
+  <ul id="carousel_list">
     {
-      // maxNumberOfItems && items.length > maxNumberOfItems && (
-      maxNumberOfItems && (
-        <li style={`--index: ${maxNumberOfItems}`}>
+      showArchiveCard && (
+        <li style={`--index: ${0}`}>
           <a id={ARCHIVE_ID} href={`#${ARCHIVE_HREF}`}>
             <article class={ARCHIVE_ID}>
-              <h3>{ARCHIVE_TITLE}</h3>
+              <h3>{labels.archiveTitle}</h3>
             </article>
           </a>
         </li>
       )
     }
     {
-      itemList.map((item, index) => (
-        <li style={`--index: ${index}`}>
-          <a id={`card${index}`} href={`#${item.href}`}>
-            <article class={`outline${item.outline}`}>
-              <img src={item.imageSrc} alt={item.imageAlt} />
-              <div class="news_content">
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+      itemList.map(async (item, index) => {
+        const imageName = item.imageSrc;
+        const imageImport = Object.entries(newsImages).find(([path]) =>
+          path.includes(imageName)
+        );
+
+        if (!imageImport) {
+          console.error(`News image not found for: ${imageName}`);
+          return null;
+        }
+        const ImageComponent = ((await imageImport[1]()) as ImageModule)
+          .default;
+
+        return (
+          <li style={`--index: ${index + 1}`}>
+            <a id={`card${index}`} href={`#${item.href}`}>
+              <article class={`outline${item.outline}`}>
+                <Picture
+                  formats={['avif']}
+                  quality="high"
+                  src={ImageComponent}
+                  alt={item.imageAlt}
+                  width="232"
+                  height="148"
+                  densities={[1, 2, 3, 4]}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="news_content">
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <div class="date">
+                    <p>{item.date}</p>
+                  </div>
                 </div>
-                <div class="date">
-                  <p>{item.date}</p>
-                </div>
-              </div>
-            </article>
-          </a>
-        </li>
-      ))
+              </article>
+            </a>
+          </li>
+        );
+      })
     }
+  </ul>
+  <ul class="controls">
+    <li>
+      <button id="previous" aria-label={labels.previous}>
+        <svg width="12" fill="currentColor" aria-hidden viewBox="4.5 7 15 15">
+          <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
+        </svg>
+      </button>
+    </li>
+    <li class="indicators" aria-hidden="true">
+      {itemList.map((_item, index) => <div style={`--index: ${index + 1}`} />)}
+    </li>
+    <hr />
+    <li>
+      <button id="next" aria-label={labels.next}>
+        <svg width="12" fill="currentColor" aria-hidden viewBox="4.5 7 15 15">
+          <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
+        </svg>
+      </button>
+    </li>
   </ul>
 </section>
