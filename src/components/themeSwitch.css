@@ -1,11 +1,11 @@
 /* Hide interactive elements that require JS */
-:root[data-js-enabled="false"] {
-  & #theme_switch {
+:root[data-js-enabled='false'] {
+  & #themeSwitch {
     visibility: hidden;
   }
 }
 
-.theme_switch_wrapper {
+.theme-switch-wrapper {
   width: 100%;
   display: flex;
   padding: 1rem;
@@ -13,7 +13,7 @@
   grid-column: 1/4;
 }
 
-#theme_switch {
+#themeSwitch {
   position: relative;
   width: 47px;
   height: 24px;
@@ -45,7 +45,7 @@
       opacity 0.2s ease;
     &::before,
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 2px;
       width: 20px;

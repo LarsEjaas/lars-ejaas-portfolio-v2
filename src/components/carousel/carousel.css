@@ -20,7 +20,7 @@ section#carousel {
   --card-width: 242px;
 }
 
-ul#carousel_list {
+ul#carouselList {
   /*hide scrollbar*/
   ::-webkit-scrollbar {
     display: none;
@@ -87,7 +87,7 @@ ul#carousel_list {
       height: 100%;
       text-decoration: none;
       outline-offset: var(--outline-offset);
-      border-radius: 8px;
+      border-radius: var(--border-radius-md);
       box-shadow: var(--stacks-5-shadow);
       @supports (animation-timeline: view()) {
         @media (prefers-reduced-motion: no-preference) {
@@ -189,7 +189,7 @@ ul#carousel_list {
       border-top-right-radius: 8px;
     }
 
-    & .news_content {
+    & .news-content {
       display: flex;
       flex-direction: column;
       flex: 1 0 auto;
@@ -208,20 +208,20 @@ ul#carousel_list {
       }
     }
 
-    & .news_archive {
+    & .news-archive {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       color: var(--system-dark-300);
-      border-radius: 8px;
+      border-radius: var(--border-radius-md);
       padding: 5px;
       &::before {
         content: '';
         position: absolute;
         inset: 5px;
         pointer-events: none;
-        border-radius: 8px;
+        border-radius: var(--border-radius-md);
         background-image: linear-gradient(
           -45deg,
           var(--system-dark-200-16) 5%,
@@ -379,7 +379,7 @@ ul.controls {
 /* break-point--medium (768px) minus 32px padding */
 @container carousel (width <= 736px) {
   /* Create a full-width illusion of the carousel */
-  ul#carousel_list {
+  ul#carouselList {
     margin-inline: -1rem;
     inline-size: calc(100cqi + 2rem);
   }

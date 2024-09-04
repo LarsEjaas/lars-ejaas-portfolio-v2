@@ -1,8 +1,8 @@
 /// <reference path="../.astro/types.d.ts" />
 
 interface Window {
-  theme_toggle: HTMLInputElement | null;
-  carousel_list: HTMLDivElement | null;
+  themeToggle: HTMLInputElement | null;
+  carouselList: HTMLDivElement | null;
   previous: HTMLButtonElement | null;
   next: HTMLButtonElement | null;
 }

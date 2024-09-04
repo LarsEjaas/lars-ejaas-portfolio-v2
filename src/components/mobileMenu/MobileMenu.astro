@@ -1,0 +1,121 @@
+---
+import './mobileMenu.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { Picture } from 'astro:assets';
+import IconHome from '@assets/menuIcons/ejaas.png';
+import IconWork from '@assets/menuIcons/work.png';
+import IconSkills from '@assets/menuIcons/skillset.png';
+import IconAbout from '@assets/menuIcons/about.png';
+import IconContact from '@assets/menuIcons/contact.png';
+import IconShare from '@assets/menuIcons/share.png';
+
+type Props = Record<string, never>;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+---
+
+<nav
+  class="mobile-menu mobile-only"
+  transition:persist
+  aria-labelledby="mobileMenuTitle"
+>
+  <h2 class="sr-only" id="#mobileMenuTitle">
+    {t('main.mobile')}
+  </h2>
+  <a href="/" title={t('home')}
+    ><div class="squircle">
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="high"
+        src={IconHome}
+        alt=""
+        width="48"
+        height="48"
+        densities={[1, 2, 3, 4]}
+        loading="lazy"
+        decoding="async"
+      />
+    </div></a
+  >
+  <a href="/work" title={t('work')}
+    ><div class="squircle">
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="high"
+        src={IconWork}
+        alt=""
+        width="48"
+        height="48"
+        densities={[1, 2, 3, 4]}
+        loading="lazy"
+        decoding="async"
+      />
+    </div></a
+  >
+  <a href="/skills" title={t('skills')}
+    ><div class="squircle">
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="high"
+        src={IconSkills}
+        alt=""
+        width="48"
+        height="48"
+        densities={[1, 2, 3, 4]}
+        loading="lazy"
+        decoding="async"
+      />
+    </div></a
+  >
+  <a href="/about" title={t('about')}
+    ><div class="squircle">
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="high"
+        src={IconAbout}
+        alt=""
+        width="48"
+        height="48"
+        densities={[1, 2, 3, 4]}
+        loading="lazy"
+        decoding="async"
+      />
+    </div></a
+  >
+  <a href="/contact" title={t('contact')}
+    ><div class="squircle">
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="high"
+        src={IconContact}
+        alt=""
+        width="48"
+        height="48"
+        densities={[1, 2, 3, 4]}
+        loading="lazy"
+        decoding="async"
+      />
+    </div></a
+  >
+  <a href="/share" title={t('share')}
+    ><div class="squircle">
+      <Picture
+        aria-hidden="true"
+        formats={['avif']}
+        quality="high"
+        src={IconShare}
+        alt=""
+        width="48"
+        height="48"
+        densities={[1, 2, 3, 4]}
+        loading="lazy"
+        decoding="async"
+      />
+    </div></a
+  >
+</nav>

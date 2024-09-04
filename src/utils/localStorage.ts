@@ -1,0 +1,50 @@
+export const DARKMODE_KEY = 'ejaas_dark_mode' as const;
+
+const serializeJSON = <T>(value: T) => {
+  try {
+    return JSON.stringify(value);
+  } catch (error) {
+    throw new Error(`Failed to serialize the value ${value} hook.`);
+  }
+};
+
+function deserializeJSON(value: string | undefined) {
+  try {
+    return value && JSON.parse(value);
+  } catch {
+    return value;
+  }
+}
+
+const getItem = (key: string) => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch (error) {
+    console.warn('Failed to get value from localStorage');
+    return null;
+  }
+};
+
+const setItem = (key: string, value: string) => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch (error) {
+    console.warn('Failed to set value to localStorage');
+  }
+};
+
+/**
+ * @example getValueFromLocalStorage('darkmode', false);
+ * */
+export const getValueFromLocalStorage = <T>(key: string, defaultValue: T) => {
+  const value = getItem(key);
+  if (value) {
+    return deserializeJSON(value) as T;
+  }
+  return defaultValue;
+};
+
+export const setValueInLocalStorage = <T>(key: string, value: T) => {
+  const serializedValue = serializeJSON(value);
+  setItem(key, serializedValue);
+};

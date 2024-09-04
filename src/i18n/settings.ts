@@ -1,4 +1,4 @@
-import { news } from './translations/news';
+import { navigation } from './translations/navigation';
 
 export const languages = {
   en: 'English',
@@ -8,5 +8,5 @@ export const languages = {
 export const defaultLang = 'en';
 
 export const translations = {
-  news,
+  navigation,
 };

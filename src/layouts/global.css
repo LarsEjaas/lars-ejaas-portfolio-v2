@@ -100,6 +100,9 @@
       0px 20px 32px var(--system-shadow-5);
     --stacks-Footer-shadow: 0px 0px 16px var(--system-shadow-6);
     --stacks-Blob-shadow: 10px 10px 25px var(--system-shadow-7);
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
 
     --break-point--2-xl: 1440px;
     --break-point--lg: 1024px;
@@ -137,7 +140,7 @@
         var(--system-light-100) 0,
         light-dark(var(--system-dark-100), var(--system-light-200))
       );
-    overflow-x: auto;
+    overflow-y: auto;
     background-blend-mode: inherit;
     background-color: var(--system-light-300);
     display: grid;
@@ -159,6 +162,36 @@
     main {
       grid-template-columns: 1fr;
       margin-inline: 1rem;
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-only {
+      display: block;
+    }
+    .desktop-only {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-only {
+      display: none;
+    }
+    .desktop-only {
+      display: block;
     }
   }
 }

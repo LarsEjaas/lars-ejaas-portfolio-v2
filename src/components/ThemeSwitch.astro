@@ -4,6 +4,7 @@ type Props = Record<string, never>;
 ---
 
 <script>
+  import { setValueInLocalStorage, DARKMODE_KEY } from '@utils/localStorage';
   const rootElement = document.documentElement;
   const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -12,6 +13,7 @@ type Props = Record<string, never>;
    */
   const toggleTheme = (_event: MouseEvent) => {
     const isDarkMode = rootElement.dataset.darkMode === 'true';
+    setValueInLocalStorage(DARKMODE_KEY, !isDarkMode);
     rootElement.dataset.darkMode = isDarkMode ? 'false' : 'true';
   };
 
@@ -30,23 +32,23 @@ type Props = Record<string, never>;
 
   darkModeMediaQuery.addEventListener('change', handleColorSchemeChange);
 
-  if (window.theme_toggle instanceof HTMLInputElement) {
-    window.theme_toggle.addEventListener('click', toggleTheme);
+  if (window.themeToggle instanceof HTMLInputElement) {
+    window.themeToggle.addEventListener('click', toggleTheme);
     /*set initial toggle state based on the current system theme*/
     if (rootElement.dataset.darkMode === 'true') {
-      window.theme_toggle.checked = true;
+      window.themeToggle.checked = true;
     } else {
-      window.theme_toggle.checked = false;
+      window.themeToggle.checked = false;
     }
   }
 </script>
-<div class="theme_switch_wrapper">
+<div class="theme-switch-wrapper">
   <div
-    id="theme_switch"
+    id="themeSwitch"
     aria-label="Switch to dark mode"
     title="Switch to dark mode"
   >
-    <input aria-labelledby="theme_switch" type="checkbox" id="theme_toggle" />
+    <input aria-labelledby="themeSwitch" type="checkbox" id="themeToggle" />
     <span></span>
   </div>
 </div>
