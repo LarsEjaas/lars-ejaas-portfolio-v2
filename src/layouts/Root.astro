@@ -4,9 +4,15 @@ import './global.css';
 
 interface Props {
   title: string;
+  inert: boolean;
 }
 
-const { title } = Astro.props;
+const { title, inert } = Astro.props;
+
+console.log(inert);
+
+/** Root layout should only be used directly in the index page file
+ * On other pages it will be included in other layouts */
 ---
 
 <!doctype html>
@@ -17,16 +23,19 @@ const { title } = Astro.props;
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <script>
-      import {
-        getValueFromLocalStorage,
-        DARKMODE_KEY,
-      } from '@utils/localStorage';
-      const storedDarkmode =
-        (getValueFromLocalStorage(DARKMODE_KEY, false) as boolean) === true;
+    <script is:inline>
+      const getStoredDarkmode = () => {
+        if (
+          typeof window.localStorage !== 'undefined' &&
+          localStorage.getItem('ejaas_dark_mode')
+        ) {
+          return localStorage.getItem('ejaas_dark_mode');
+        }
+        return false;
+      };
       // Detect dark mode before page load
       if (
-        storedDarkmode === true ||
+        getStoredDarkmode() === 'true' ||
         window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
         document.documentElement.dataset.darkMode = 'true';
@@ -48,9 +57,9 @@ const { title } = Astro.props;
     <main>
       <slot />
     </main>
-    <footer transition:persist>
+    <footer inert={inert}>
       <p></p>
     </footer>
-    <MobileMenu />
+    <MobileMenu inert={inert} />
   </body>
 </html>

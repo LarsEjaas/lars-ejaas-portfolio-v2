@@ -1,0 +1,73 @@
+.dialog-backdrop {
+  position: fixed;
+  border-radius: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+  position: absolute;
+  margin: auto;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 672px;
+  min-width: 382px;
+  z-index: 1000;
+  border: unset;
+  background-color: var(--system-light-300);
+  border-radius: var(--border-radius-md);
+  inset: 0;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+  background: radial-gradient(
+      ellipse at 70% 10%,
+      color-mix(in hsl, var(--verdigris-100), transparent 70%) 0%,
+      color-mix(in hsl, var(--verdigris-400), transparent 70%) 30%,
+      color-mix(in hsl, var(--verdigris-500), transparent 70%) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      var(--verdigris-100) 0%,
+      var(--verdigris-400) 20%,
+      var(--verdigris-500) 40%
+    );
+  background-size: 100% 300%;
+  border: 1px solid var(--system-light-300);
+  border-top-left-radius: var(--border-radius-md);
+  border-top-right-radius: var(--border-radius-md);
+  & h2 {
+    align-self: flex-end;
+    text-transform: uppercase;
+    color: var(--system-light-100);
+  }
+}
+
+.modal-footer {
+  background-color: var(--system-light-400);
+  border-bottom-left-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
+  border: 1px solid var(--system-light-500);
+  height: 48px;
+}
+
+.close-link {
+  display: block;
+  background: unset;
+  outline-offset: var(--outline-offset);
+  border: none;
+  height: fit-content;
+  line-height: 0;
+  color: var(--verdigris-500);
+  margin: 8px;
+  padding: 4px;
+}

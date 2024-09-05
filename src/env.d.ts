@@ -5,4 +5,5 @@ interface Window {
   carouselList: HTMLDivElement | null;
   previous: HTMLButtonElement | null;
   next: HTMLButtonElement | null;
+  modal: HTMLDialogElement | null;
 }

@@ -1,0 +1,16 @@
+---
+import HomeLayout from '@layouts/Home.astro';
+import { getLangFromUrl } from '../i18n/utils';
+import Modal from '@components/modal/modal.astro';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<HomeLayout title="Home" lang={lang} inert
+  ><Modal
+    withFooter
+    title="Share"
+    ,
+    labels={{ close: 'Close modal' }}
+  /></HomeLayout
+>

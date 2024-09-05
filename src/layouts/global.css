@@ -13,6 +13,10 @@
 }
 
 @layer global {
+  @view-transition {
+    navigation: auto;
+  }
+
   :root {
     /* light/dark mode color variables*/
     --system-light-100: light-dark(#fff, #000);
@@ -39,15 +43,15 @@
     /* global color variables */
     --palette-blue-munsell: #048ba8;
     --primary-lighter: #05a3c7;
-    --verdigris-100: #c9fbed;
-    --verdigris-100-op: #c9fbed9c;
-    --verdigris-200: #94f7e4;
-    --verdigris-300: #5de9d9;
-    --verdigris-300-op: #5de9d900;
-    --verdigris-400: #34d3cf;
-    --verdigris-500: #00adb7;
-    --verdigris-600: #00879d;
-    --verdigris-700: #006683;
+    --verdigris-100: hsl(163 86% 89% / 1);
+    --verdigris-100_OP: hsl(163.2deg 86.21% 88.63% / 61.18%);
+    --verdigris-200: hsl(168.48deg 86.09% 77.45%);
+    --verdigris-300: hsl(173.14deg 76.09% 63.92%);
+    --verdigris-300_OP: hsl(173.14deg 76.09% 63.92% / 0%);
+    --verdigris-400: hsl(178.49deg 64.37% 51.57%);
+    --verdigris-500: hsl(183.28deg 100% 35.88%);
+    --verdigris-600: hsl(188.41deg 100% 30.78%);
+    --verdigris-700: hsl(193.28deg 100% 25.69%);
     --princeton-100: #fff0d9;
     --princeton-200: #ffddb3;
     --princeton-300: #ffc68e;
@@ -156,6 +160,19 @@
     grid-column: 2/3;
     gap: 2rem;
     margin-inline: 2rem;
+  }
+
+  hr {
+    border-style: solid;
+    border-top-color: light-dark(
+      var(--system-dark-200-16),
+      var(--system-light-200)
+    );
+    border-bottom-color: light-dark(
+      var(--system-light-500),
+      var(--system-light-300)
+    );
+    border-inline-color: transparent;
   }
 
   @media (max-width: 768px) {

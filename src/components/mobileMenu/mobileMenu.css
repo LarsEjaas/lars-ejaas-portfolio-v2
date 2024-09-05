@@ -37,3 +37,8 @@
     display: block;
   }
 }
+
+a {
+  border-radius: 30%;
+  outline-offset: var(--outline-offset);
+}

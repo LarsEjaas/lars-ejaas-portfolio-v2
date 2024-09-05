@@ -1,6 +1,7 @@
 ---
 import './themeSwitch.css';
-type Props = Record<string, never>;
+type Props = { inert: boolean };
+const { inert } = Astro.props;
 ---
 
 <script>
@@ -30,25 +31,43 @@ type Props = Record<string, never>;
     }
   }
 
-  darkModeMediaQuery.addEventListener('change', handleColorSchemeChange);
+  darkModeMediaQuery.addEventListener('change', handleColorSchemeChange, {
+    passive: true,
+  });
 
   if (window.themeToggle instanceof HTMLInputElement) {
-    window.themeToggle.addEventListener('click', toggleTheme);
+    window.themeToggle.addEventListener('click', toggleTheme, {
+      passive: true,
+    });
+
     /*set initial toggle state based on the current system theme*/
     if (rootElement.dataset.darkMode === 'true') {
       window.themeToggle.checked = true;
+      /** Disable animation for the initial state (otherwise the toggle will animate on every navigation) */
+      setTimeout(() => {
+        delete window.themeToggle?.dataset.animationDisabled;
+      }, 100);
     } else {
       window.themeToggle.checked = false;
+      /** Disable animation for the initial state (otherwise the toggle will animate on every navigation) */
+      setTimeout(() => {
+        delete window.themeToggle?.dataset.animationDisabled;
+      }, 100);
     }
   }
 </script>
-<div class="theme-switch-wrapper">
+<div class="theme-switch-wrapper" inert={inert}>
   <div
     id="themeSwitch"
     aria-label="Switch to dark mode"
     title="Switch to dark mode"
   >
-    <input aria-labelledby="themeSwitch" type="checkbox" id="themeToggle" />
+    <input
+      aria-labelledby="themeSwitch"
+      type="checkbox"
+      id="themeToggle"
+      data-animation-disabled="true"
+    />
     <span></span>
   </div>
 </div>

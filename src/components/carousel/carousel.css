@@ -345,10 +345,11 @@ ul.controls {
       timeline-scope: slide-in;
     }
     & div {
-      background: linear-gradient(
-          var(--system-dark-300-55),
-          var(--system-dark-300-55)
-        )
+      --gradient-color: light-dark(
+        var(--system-shadow-7),
+        var(--system-dark-200-16)
+      );
+      background: linear-gradient(var(--gradient-color), var(--gradient-color))
         padding-box;
       flex: 1;
       border-radius: 100px;

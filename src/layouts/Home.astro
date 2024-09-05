@@ -1,0 +1,33 @@
+---
+import type { Language } from '@i18n/settings';
+import Layout from '@layouts/Root.astro';
+import ThemeSwitch from '@components/ThemeSwitch.astro';
+import Carousel from '@components/carousel/Carousel.astro';
+import { newsItems } from '@news/newsItems';
+import './global.css';
+
+interface Props {
+  title: string;
+  lang: Language;
+  inert: boolean;
+}
+
+const { title, lang, inert } = Astro.props;
+---
+
+<Layout title={title} inert={inert}>
+  <ThemeSwitch inert={inert} />
+  <Carousel
+    labels={{
+      title: 'Latest News',
+      archiveTitle: 'Read older news',
+      previous: 'Scroll to previous news card',
+      next: 'Scroll to next news card',
+    }}
+    items={newsItems[lang]}
+    maxNumberOfItems={19}
+    inert={inert}
+  />
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
+</Layout>

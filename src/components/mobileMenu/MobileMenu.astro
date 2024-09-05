@@ -9,15 +9,16 @@ import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 
-type Props = Record<string, never>;
+type Props = { inert: boolean };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
+const { inert } = Astro.props;
 ---
 
 <nav
   class="mobile-menu mobile-only"
-  transition:persist
   aria-labelledby="mobileMenuTitle"
+  inert={inert}
 >
   <h2 class="sr-only" id="#mobileMenuTitle">
     {t('main.mobile')}

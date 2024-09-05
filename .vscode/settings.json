@@ -15,5 +15,6 @@
     "astro",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "css.lint.unknownAtRules": "ignore"
 }

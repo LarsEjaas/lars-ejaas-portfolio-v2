@@ -3,6 +3,10 @@
   & #themeSwitch {
     visibility: hidden;
   }
+  /* Hide the controls on the carousel */
+  & .controls {
+    visibility: hidden;
+  }
 }
 
 .theme-switch-wrapper {
@@ -18,18 +22,6 @@
   width: 47px;
   height: 24px;
   border-radius: 40px;
-  & > input {
-    position: absolute;
-    inset: 0;
-    cursor: pointer;
-    opacity: 0;
-    &:focus-visible {
-      & ~ span {
-        outline: 5px auto Highlight;
-        outline: 5px auto -webkit-focus-ring-color;
-      }
-    }
-  }
 
   & span {
     position: absolute;
@@ -69,8 +61,20 @@
       left: 2px;
     }
   }
+}
 
-  & input:checked + span {
+#themeToggle {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  opacity: 0;
+  &:focus-visible {
+    & ~ span {
+      outline: 5px auto Highlight;
+      outline: 5px auto -webkit-focus-ring-color;
+    }
+  }
+  &:checked + span {
     background-color: var(--system-light-100);
     opacity: 0.8;
     &::before {
@@ -80,6 +84,16 @@
     &&::after {
       background-color: var(--verdigris-100);
       transform: translate(22px, 0px);
+    }
+  }
+  /* Disable transitions until initial state is set on the switch*/
+  &[data-animation-disabled] {
+    & + span {
+      transition: none;
+      &::before,
+      &::after {
+        transition: none;
+      }
     }
   }
 }
