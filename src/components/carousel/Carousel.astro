@@ -238,7 +238,7 @@ const showArchiveCard = true;
                   height="148"
                   densities={[1, 2, 3, 4]}
                   loading="lazy"
-                  decoding="async"
+                  decoding="sync"
                 />
                 <div class="news-content">
                   <div>
@@ -259,7 +259,12 @@ const showArchiveCard = true;
   <ul class="controls">
     <li>
       <button id="previous" aria-label={labels.previous}>
-        <svg width="12" fill="currentColor" aria-hidden viewBox="4.5 7 15 15">
+        <svg
+          width="12"
+          fill="currentColor"
+          aria-hidden="true"
+          viewBox="4.5 7 15 15"
+        >
           <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
         </svg>
       </button>
@@ -270,7 +275,12 @@ const showArchiveCard = true;
     <hr />
     <li>
       <button id="next" aria-label={labels.next}>
-        <svg width="12" fill="currentColor" aria-hidden viewBox="4.5 7 15 15">
+        <svg
+          width="12"
+          fill="currentColor"
+          aria-hidden="true"
+          viewBox="4.5 7 15 15"
+        >
           <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
         </svg>
       </button>

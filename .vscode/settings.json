@@ -9,6 +9,9 @@
       "source.fixAll.format": "explicit"
     }
   },
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -16,5 +19,7 @@
     "typescript",
     "typescriptreact"
   ],
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "pieces.cloudCapabilities": "Blended",
+  "pieces.telemetry": true
 }

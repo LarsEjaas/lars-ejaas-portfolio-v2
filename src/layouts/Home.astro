@@ -5,6 +5,8 @@ import ThemeSwitch from '@components/ThemeSwitch.astro';
 import Carousel from '@components/carousel/Carousel.astro';
 import { newsItems } from '@news/newsItems';
 import './global.css';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
 
 interface Props {
   title: string;
@@ -17,6 +19,7 @@ const { title, lang, inert } = Astro.props;
 
 <Layout title={title} inert={inert}>
   <ThemeSwitch inert={inert} />
+  <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
   <Carousel
     labels={{
       title: 'Latest News',

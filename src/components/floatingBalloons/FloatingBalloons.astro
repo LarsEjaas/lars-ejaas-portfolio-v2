@@ -1,0 +1,100 @@
+---
+import Picture from 'astro/components/Picture.astro';
+import './floatingBalloons.css';
+
+type Props = {
+  balloonColor:
+    | 'princeton'
+    | 'verdigris'
+    | 'flirt'
+    | 'aquamarine'
+    | 'bluemunsell';
+  coverPhoto?: ImageMetadata;
+};
+
+const { balloonColor, coverPhoto } = Astro.props;
+---
+
+<script>
+  function random(min: number, max: number) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+  // Function to set new random CSS variables and start animations
+  function updateRandomCSSVariables(element: HTMLDivElement, prefix: string) {
+    const rect = element.getBoundingClientRect(); // Get current position
+
+    // Use current position as the new starting point for random values
+    const currentX = rect.left;
+    const currentY = rect.top;
+    const currentRotation =
+      getComputedStyle(element).getPropertyValue('--random-angle') || '0deg';
+
+    const newRandomX = random(-20, 20) + currentX; // Generate new random X relative to current
+    const newRandomY = random(-30, 30) + currentY; // Generate new random Y relative to current
+    const newRandomAngle = random(8, 12) + parseFloat(currentRotation); // Randomize rotation
+
+    // Update the CSS variables to be the new random positions
+    window.floating?.style.setProperty(`--${prefix}-x`, `${newRandomX}px`);
+    window.floating?.style.setProperty(`--${prefix}-y`, `${newRandomY}px`);
+    window.floating?.style.setProperty(
+      `--${prefix}-angle`,
+      `${newRandomAngle}deg`
+    );
+
+    // Update timings
+    const newRandomTime = `${random(5, 8)}s`;
+    const newRandomTime2 = `${random(5, 10)}s`;
+
+    window.floating?.style.setProperty(`--${prefix}-time`, newRandomTime);
+    window.floating?.style.setProperty(`--${prefix}-time-2`, newRandomTime2);
+
+    // Repeat the process after animation completes
+    setTimeout(
+      () => updateRandomCSSVariables(element, prefix),
+      random(5000, 8000)
+    );
+  }
+
+  if (window.floating) {
+    const two: HTMLDivElement | null = window.floating.querySelector('.two');
+    const three: HTMLDivElement | null =
+      window.floating.querySelector('.three');
+    const four: HTMLDivElement | null = window.floating.querySelector('.four');
+    if (two && three && four) {
+      updateRandomCSSVariables(two, 'two');
+      updateRandomCSSVariables(three, 'three');
+      updateRandomCSSVariables(four, 'four');
+    }
+  }
+</script>
+<div class="balloons-wrapper">
+  <div
+    id="floating"
+    class="floating-balloons"
+    data-princeton={balloonColor === 'princeton' ? 'true' : undefined}
+    data-verdigris={balloonColor === 'verdigris' ? 'true' : undefined}
+    data-flirt={balloonColor === 'flirt' ? 'true' : undefined}
+    data-aquamarine={balloonColor === 'aquamarine' ? 'true' : undefined}
+    data-bluemunsell={balloonColor === 'bluemunsell' ? 'true' : undefined}
+  >
+    <div class="balloon two"></div>
+    <div class="balloon three">
+      {
+        coverPhoto && (
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="mid"
+            src={coverPhoto}
+            alt=""
+            widths={[177, 295, 540, 354]}
+            sizes={`(max-width: 360px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${coverPhoto.width}px`}
+            loading="eager"
+            decoding="sync"
+          />
+        )
+      }
+    </div>
+    <div class="balloon four"></div>
+  </div>
+</div>

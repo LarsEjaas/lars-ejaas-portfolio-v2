@@ -1,0 +1,26 @@
+export const share = {
+  en: {
+    modal_title: 'Share this page',
+    facebook_title: 'Share this page on facebook',
+    messenger_title: 'Share this page on Messenger',
+    x_title: 'Share this page on X',
+    email_title: 'Share this page by email',
+    pinterest_title: 'Share this page on a Pinterest board',
+    linkedin_title: 'Share this page on LinkedIn',
+    reddit_title: 'Share this page on Reddit',
+    whatsapp_title: 'Share this page in WhatsApp',
+    telegram_title: 'Share this page on Telegram',
+  },
+  da: {
+    modal_title: 'Del denne side',
+    facebook_title: 'Del denne side på facebook',
+    messenger_title: 'Del denne side på Messenger',
+    x_title: 'Del denne side på X',
+    email_title: 'Del denne side i en e-mail',
+    pinterest_title: 'Del denne side på et Pinterest board',
+    linkedin_title: 'Del denne side på LinkedIn',
+    reddit_title: 'Del denne side på Reddit',
+    whatsapp_title: 'Del denne side i WhatsApp',
+    telegram_title: 'Del denne side på Telegram',
+  },
+} as const;

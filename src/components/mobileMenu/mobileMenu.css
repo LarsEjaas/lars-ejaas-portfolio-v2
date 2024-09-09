@@ -1,8 +1,11 @@
 .mobile-menu {
-  --border-color: light-dark(var(--system-shadow-1), var(--verdigris-100-op));
+  --border-color: light-dark(
+    var(--verdigris-100-op),
+    var(--system-dark-200-16)
+  );
   --background-color: light-dark(
-    var(--system-dark-200-16),
-    var(--system-dark-300-55)
+    var(--system-light-300-55),
+    var(--system-dark-200-16)
   );
   position: fixed;
   display: flex;
@@ -22,20 +25,9 @@
   background-color: var(--background-color);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--stacks-4-shadow);
-  backdrop-filter: saturate(180%) blur(3px);
+  backdrop-filter: saturate(180%) brightness(80%) blur(3px);
   width: fit-content;
   max-width: fit-content;
-}
-
-.squircle {
-  position: relative;
-  width: 48px;
-  height: 48px;
-  & img,
-  & picture {
-    clip-path: url(#squircle);
-    display: block;
-  }
 }
 
 a {

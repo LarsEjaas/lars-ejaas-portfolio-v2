@@ -21,10 +21,10 @@ const { inert } = Astro.props;
   inert={inert}
 >
   <h2 class="sr-only" id="#mobileMenuTitle">
-    {t('main.mobile')}
+    {t('main_mobile')}
   </h2>
-  <a href="/" title={t('home')}
-    ><div class="squircle">
+  <a href="/" title={t('home')} aria-label={t('home')}
+    ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
         formats={['avif']}
@@ -34,13 +34,13 @@ const { inert } = Astro.props;
         width="48"
         height="48"
         densities={[1, 2, 3, 4]}
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        decoding="sync"
       />
     </div></a
   >
-  <a href="/work" title={t('work')}
-    ><div class="squircle">
+  <a href="/work" title={t('work')} aria-label={t('work')}
+    ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
         formats={['avif']}
@@ -50,13 +50,13 @@ const { inert } = Astro.props;
         width="48"
         height="48"
         densities={[1, 2, 3, 4]}
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        decoding="sync"
       />
     </div></a
   >
-  <a href="/skills" title={t('skills')}
-    ><div class="squircle">
+  <a href="/skills" title={t('skills')} aria-label={t('skills')}
+    ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
         formats={['avif']}
@@ -66,13 +66,13 @@ const { inert } = Astro.props;
         width="48"
         height="48"
         densities={[1, 2, 3, 4]}
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        decoding="sync"
       />
     </div></a
   >
-  <a href="/about" title={t('about')}
-    ><div class="squircle">
+  <a href="/about" title={t('about')} aria-label={t('about')}
+    ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
         formats={['avif']}
@@ -82,13 +82,13 @@ const { inert } = Astro.props;
         width="48"
         height="48"
         densities={[1, 2, 3, 4]}
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        decoding="sync"
       />
     </div></a
   >
-  <a href="/contact" title={t('contact')}
-    ><div class="squircle">
+  <a href="/contact" title={t('contact')} aria-label={t('contact')}
+    ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
         formats={['avif']}
@@ -98,13 +98,13 @@ const { inert } = Astro.props;
         width="48"
         height="48"
         densities={[1, 2, 3, 4]}
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        decoding="sync"
       />
     </div></a
   >
-  <a href="/share" title={t('share')}
-    ><div class="squircle">
+  <a href="/share" title={t('share')} aria-label={t('share')}
+    ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
         formats={['avif']}
@@ -114,8 +114,8 @@ const { inert } = Astro.props;
         width="48"
         height="48"
         densities={[1, 2, 3, 4]}
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        decoding="sync"
       />
     </div></a
   >

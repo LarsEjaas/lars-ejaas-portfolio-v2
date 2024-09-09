@@ -1,0 +1,80 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import './contact.css';
+import { ValidationPattern } from '@types/index';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'share');
+---
+
+<div class="contact-container">
+  <form
+    name="skrivTilMig"
+    autocomplete="off"
+    method="post"
+    action="./besked-modtaget/"
+    data-netlify="true"
+  >
+    <input
+      type="hidden"
+      autocomplete="prevent-autocomplete-in-chrome"
+      name="form-name"
+      value="skrivTilMig"
+    /><noscript></noscript><p class="mediumLabel" style="margin-top: 16px;">
+      <label
+        >Navn<input
+          autocomplete="on"
+          placeholder="Indtast navn"
+          minlength="4"
+          type="text"
+          name="name"
+          id="modal-focus"
+          required="true"
+        /></label
+      >
+    </p><p class="mediumLabel" style="margin-top: 16px;">
+      <label
+        >E-mail<br /><input
+          pattern={ValidationPattern.email}
+          multiple="false"
+          autocomplete="on"
+          type="email"
+          placeholder="Indtast e-mailadresse"
+          name="email"
+          required="true"
+        /><span></span></label
+      >
+    </p><p class="mediumLabel" style="margin-top: 16px;">
+      <label
+        >Emne<br /><input
+          autocomplete="off"
+          type="text"
+          placeholder="Indtast emne"
+          name="subject"
+          required="true"
+        /><span></span></label
+      >
+    </p><p class="mediumLabel" style="margin-top: 16px;">
+      <label
+        >Besked<br /><textarea
+          autocomplete="off"
+          name="message"
+          placeholder="Skriv en besked"
+          required="true"
+          style="height: 100px;"></textarea><span></span></label
+      >
+    </p>
+    <input
+      type="hidden"
+      name="language"
+      style="display: none;"
+      aria-hidden="true"
+      value={lang}
+      readonly="true"
+    /><span>
+      <p>
+        <button id="sendEmail" title="Send e-mail" type="submit">Send</button>
+      </p>
+    </span>
+  </form>
+</div>

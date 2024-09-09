@@ -6,22 +6,26 @@
   height: 100vh;
   inset: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.5);
+  background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
+  backdrop-filter: saturate(180%) brightness(60%) blur(8px);
 }
 
 dialog {
   position: absolute;
+  border: 1px solid var(--system-light-200);
+  container-name: modal;
+  container-type: inline-size;
   margin: auto;
+  margin-top: min(20vh, 160px);
   padding: 0;
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   max-width: 672px;
-  min-width: 382px;
+  width: calc(100vw - 2rem);
   z-index: 1000;
-  border: unset;
   background-color: var(--system-light-300);
   border-radius: var(--border-radius-md);
+  box-shadow: var(--stacks-4-shadow);
   inset: 0;
 }
 
@@ -42,21 +46,44 @@ dialog {
       var(--verdigris-500) 40%
     );
   background-size: 100% 300%;
-  border: 1px solid var(--system-light-300);
   border-top-left-radius: var(--border-radius-md);
   border-top-right-radius: var(--border-radius-md);
   & h2 {
     align-self: flex-end;
     text-transform: uppercase;
-    color: var(--system-light-100);
+    color: light-dark(var(--system-light-100), var(--system-light-300));
   }
+
+  & .squircle {
+    clip-path: url(#squircle);
+    display: block;
+    margin-left: 32px;
+    margin-top: 18px;
+
+    &.outline {
+      background-color: var(--system-light-300);
+      padding: 4px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+  & picture,
+  & img {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+.header-content {
+  display: flex;
+  gap: 16px;
 }
 
 .modal-footer {
   background-color: var(--system-light-400);
   border-bottom-left-radius: var(--border-radius-md);
   border-bottom-right-radius: var(--border-radius-md);
-  border: 1px solid var(--system-light-500);
+  border-top: 1px solid var(--system-light-500);
   height: 48px;
 }
 

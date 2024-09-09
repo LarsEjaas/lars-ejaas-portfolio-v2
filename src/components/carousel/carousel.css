@@ -312,7 +312,7 @@ ul.controls {
   & button {
     height: var(--controls-height);
     color: var(--verdigris-100);
-    border-radius: 67% 35% 69% 36% / 47% 31% 75% 59%;
+    border-radius: var(--border-radius-balloon);
     width: var(--controls-height);
     border: 2px solid var(--verdigris-300);
     background-color: var(--verdigris-500);

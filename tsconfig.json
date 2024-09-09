@@ -9,6 +9,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@news/*": ["src/news/*"],
       "@pages/*": ["src/pages/*"],
+      "@types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"]
     }
   }

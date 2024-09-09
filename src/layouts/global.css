@@ -41,13 +41,13 @@
     --system-shadow-6: light-dark(#60617029, #00000029);
     --system-shadow-7: light-dark(#60617045, #00000045);
     /* global color variables */
-    --palette-blue-munsell: #048ba8;
+    --bluemunsell: #048ba8;
     --primary-lighter: #05a3c7;
     --verdigris-100: hsl(163 86% 89% / 1);
-    --verdigris-100_OP: hsl(163.2deg 86.21% 88.63% / 61.18%);
+    --verdigris-100-op: hsl(163.2deg 86.21% 88.63% / 61.18%);
     --verdigris-200: hsl(168.48deg 86.09% 77.45%);
     --verdigris-300: hsl(173.14deg 76.09% 63.92%);
-    --verdigris-300_OP: hsl(173.14deg 76.09% 63.92% / 0%);
+    --verdigris-300-op: hsl(173.14deg 76.09% 63.92% / 0%);
     --verdigris-400: hsl(178.49deg 64.37% 51.57%);
     --verdigris-500: hsl(183.28deg 100% 35.88%);
     --verdigris-600: hsl(188.41deg 100% 30.78%);
@@ -72,7 +72,7 @@
     --flirt-800: #5f005b;
     --flirt-900: #49004e;
     --aquamarine-100: #cffdda;
-    --aquamarine-100-tr: #cffdda50;
+    --aquamarine-100-op: #cffdda50;
     --aquamarine-200: #a0fbbf;
     --aquamarine-300: #70f4a9;
     --aquamarine-300-op: #70f4a900;
@@ -102,12 +102,11 @@
       0px 16px 24px var(--system-shadow-6);
     --stacks-6-shadow: 0px 2px 8px var(--system-shadow-4),
       0px 20px 32px var(--system-shadow-5);
-    --stacks-Footer-shadow: 0px 0px 16px var(--system-shadow-6);
-    --stacks-Blob-shadow: 10px 10px 25px var(--system-shadow-7);
+    --stacks-balloon-shadow: 10px 10px 25px var(--system-shadow-7);
     --border-radius-sm: 4px;
     --border-radius-md: 8px;
     --border-radius-lg: 16px;
-
+    --border-radius-balloon: 67% 35% 69% 36% / 47% 31% 75% 59%;
     --break-point--2-xl: 1440px;
     --break-point--lg: 1024px;
     --break-point--md: 768px;
@@ -151,15 +150,19 @@
     grid-template-columns:
       minmax(0, 1fr)
       minmax(0, var(--break-point--2-xl)) minmax(0, 1fr);
+    &:has(dialog[open]) {
+      overflow: hidden;
+    }
   }
 
   main {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: min-content;
     grid-column: 2/3;
     gap: 2rem;
     margin-inline: 2rem;
+    margin-bottom: auto;
   }
 
   hr {
@@ -175,10 +178,33 @@
     border-inline-color: transparent;
   }
 
+  .squircle {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    &[data-with-shadow] {
+      &::before {
+        box-shadow: var(--stacks-2-shadow);
+      }
+    }
+    &::before {
+      content: '';
+      border-radius: 40%;
+      inset: 0;
+      position: absolute;
+    }
+    & img,
+    & picture {
+      clip-path: url(#squircle);
+      display: block;
+    }
+  }
+
   @media (max-width: 768px) {
     main {
       grid-template-columns: 1fr;
       margin-inline: 1rem;
+      column-gap: unset;
     }
   }
 

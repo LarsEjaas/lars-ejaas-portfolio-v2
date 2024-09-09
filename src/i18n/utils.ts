@@ -27,15 +27,18 @@ export function getLangFromUrl(url: URL) {
  *       </a>
  *   </li>
  */
-export function useTranslations(
-  lang: keyof typeof languages,
-  source: keyof typeof translations
-) {
-  return function t(
-    key: keyof (typeof translations)[typeof source][typeof defaultLang]
-  ) {
+type TranslationsType = typeof translations;
+
+export function useTranslations<
+  S extends keyof TranslationsType,
+  L extends keyof TranslationsType[S],
+>(lang: L, source: S) {
+  return function t<K extends keyof TranslationsType[S][L]>(
+    key: K
+  ): TranslationsType[S][L][K] {
     return (
-      translations[source][lang][key] || translations[source][defaultLang][key]
+      translations[source][lang][key] ||
+      translations[source][defaultLang as L][key]
     );
   };
 }
