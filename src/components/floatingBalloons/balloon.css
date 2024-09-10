@@ -1,0 +1,118 @@
+.balloon {
+  position: absolute;
+  filter: drop-shadow(var(--stacks-balloon-shadow));
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-balloon);
+  overflow: hidden;
+  animation-name: moveBalloon;
+  animation-duration: var(--duration);
+  animation-iteration-count: 1;
+  /* Fallback */
+
+  /* GSAP sine.out*/
+  animation-timing-function: linear(
+    0 0%,
+    0.2861 18.47%,
+    0.4829 32.08%,
+    0.6437 44.52%,
+    0.7712 56.07%,
+    0.8722 67.47%,
+    0.9115 73.02%,
+    0.9434 78.49%,
+    0.9682 83.91%,
+    0.9859 89.3%,
+    0.9965 94.66%,
+    1 100%
+  );
+  &.two {
+    left: 5%;
+    top: 10%;
+    width: 20%;
+    z-index: 2;
+  }
+  &.three {
+    z-index: 4;
+    position: relative;
+    & picture,
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &.four {
+    left: 50%;
+    top: 60%;
+    transform: rotate(20deg);
+    width: 40%;
+    z-index: 3;
+  }
+  &[data-princeton] {
+    &.two {
+      position: absolute;
+      left: 5%;
+      top: 10%;
+      width: 20%;
+      z-index: 2;
+    }
+    &.three {
+      color: black;
+    }
+    &.four {
+      color: black;
+    }
+  }
+  &[data-verdigris] {
+    &.two {
+      background-color: var(--verdigris-400);
+    }
+    &.three {
+      left: 10%;
+      top: 0%;
+      width: 90%;
+    }
+    &.four {
+      background-color: var(--verdigris-500);
+      transform: rotate(20deg);
+      left: 50%;
+      top: 60%;
+      width: 40%;
+      z-index: 3;
+    }
+  }
+  &[data-flirt] {
+    &.two {
+    }
+    &.three {
+    }
+    &.four {
+    }
+  }
+  &[data-aquamarine] {
+    &.two {
+    }
+    &.three {
+    }
+    &.four {
+    }
+  }
+  &[data-bluemunsell] {
+    &.two {
+    }
+    &.three {
+    }
+    &.four {
+    }
+  }
+}
+
+@keyframes moveBalloon {
+  0% {
+    transform: translate3d(var(--xA), var(--yA), 0);
+  }
+  50% {
+    transform: translate3d(var(--xB), var(--yA), 0);
+  }
+  100% {
+    transform: translate3d(var(--xB), var(--yB), 0);
+  }
+}

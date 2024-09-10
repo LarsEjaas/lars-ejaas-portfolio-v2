@@ -1,100 +1,136 @@
 ---
-import Picture from 'astro/components/Picture.astro';
 import './floatingBalloons.css';
+import type { BalloonProps } from './Balloon.astro';
+import Balloon from './Balloon.astro';
 
-type Props = {
-  balloonColor:
-    | 'princeton'
-    | 'verdigris'
-    | 'flirt'
-    | 'aquamarine'
-    | 'bluemunsell';
-  coverPhoto?: ImageMetadata;
+export type BalloonConfig = {
+  xA: number;
+  yA: number;
+  xB: number;
+  yB: number;
+  duration: number;
+  direction: 1 | -1;
 };
+
+/** Initial start and stop positions as well as duration for the balloon animations first itteration */
+const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
+  {
+    two: {
+      xA: 0,
+      xB: -18,
+      yA: 0,
+      yB: -25,
+      duration: 8,
+      direction: -1,
+    },
+    three: {
+      xA: 0,
+      xB: 14,
+      yA: 0,
+      yB: 22,
+      duration: 12,
+      direction: 1,
+    },
+    four: {
+      xA: 0,
+      xB: -11,
+      yA: 0,
+      yB: -28,
+      duration: 9,
+      direction: -1,
+    },
+  };
+
+type Props = BalloonProps & { coverPhoto?: ImageMetadata };
 
 const { balloonColor, coverPhoto } = Astro.props;
 ---
 
 <script>
-  function random(min: number, max: number) {
-    return Math.round(Math.random() * (max - min) + min);
-  }
+  // Configuration for the randomization of the balloons - change these to get different randomization
+  const RANDOM_CONFIG = {
+    randomX: { min: 10, max: 20 },
+    randomY: { min: 20, max: 30 },
+    randomTime: { min: 8, max: 12 },
+  };
+
+  const random = (min: number, max: number, direction: 1 | -1) => {
+    const delta = max - min;
+    return Math.round((min + delta * Math.random()) * direction).toString();
+  };
+
+  const changePosition = (event: AnimationEvent) => {
+    const balloon = event.target as HTMLDivElement;
+
+    // Remove- and re-apply the animation to restart it
+    balloon.style.animationName = 'none';
+    requestAnimationFrame(() => {
+      balloon.style.animationName = 'moveBalloon';
+    });
+
+    const balloonStyle = getComputedStyle(balloon);
+    const finalX = balloonStyle.getPropertyValue('--xB');
+    const finalY = balloonStyle.getPropertyValue('--yB');
+    const direction = Number(balloonStyle.getPropertyValue('--direction')) as
+      | 1
+      | -1;
+    const newDirection = (direction * -1) as 1 | -1;
+
+    balloon.style.setProperty('--xA', finalX);
+    balloon.style.setProperty('--yA', finalY);
+
+    balloon.style.setProperty(
+      '--xB',
+      random(
+        RANDOM_CONFIG.randomX.min,
+        RANDOM_CONFIG.randomX.max,
+        newDirection
+      ) + 'px'
+    );
+    balloon.style.setProperty(
+      '--yB',
+      random(
+        RANDOM_CONFIG.randomY.min,
+        RANDOM_CONFIG.randomY.max,
+        newDirection
+      ) + 'px'
+    );
+    balloon.style.setProperty(
+      '--duration',
+      random(RANDOM_CONFIG.randomTime.min, RANDOM_CONFIG.randomTime.max, 1) +
+        's'
+    );
+    balloon.style.setProperty('--direction', `${newDirection}`);
+  };
+
   // Function to set new random CSS variables and start animations
-  function updateRandomCSSVariables(element: HTMLDivElement, prefix: string) {
-    const rect = element.getBoundingClientRect(); // Get current position
+  const balloons: NodeListOf<HTMLDivElement> | undefined =
+    window.floating?.querySelectorAll('.balloon');
 
-    // Use current position as the new starting point for random values
-    const currentX = rect.left;
-    const currentY = rect.top;
-    const currentRotation =
-      getComputedStyle(element).getPropertyValue('--random-angle') || '0deg';
-
-    const newRandomX = random(-20, 20) + currentX; // Generate new random X relative to current
-    const newRandomY = random(-30, 30) + currentY; // Generate new random Y relative to current
-    const newRandomAngle = random(8, 12) + parseFloat(currentRotation); // Randomize rotation
-
-    // Update the CSS variables to be the new random positions
-    window.floating?.style.setProperty(`--${prefix}-x`, `${newRandomX}px`);
-    window.floating?.style.setProperty(`--${prefix}-y`, `${newRandomY}px`);
-    window.floating?.style.setProperty(
-      `--${prefix}-angle`,
-      `${newRandomAngle}deg`
+  if (balloons) {
+    Array.from(balloons).map((balloon) =>
+      balloon?.addEventListener('animationend', (e) => changePosition(e), true)
     );
-
-    // Update timings
-    const newRandomTime = `${random(5, 8)}s`;
-    const newRandomTime2 = `${random(5, 10)}s`;
-
-    window.floating?.style.setProperty(`--${prefix}-time`, newRandomTime);
-    window.floating?.style.setProperty(`--${prefix}-time-2`, newRandomTime2);
-
-    // Repeat the process after animation completes
-    setTimeout(
-      () => updateRandomCSSVariables(element, prefix),
-      random(5000, 8000)
-    );
-  }
-
-  if (window.floating) {
-    const two: HTMLDivElement | null = window.floating.querySelector('.two');
-    const three: HTMLDivElement | null =
-      window.floating.querySelector('.three');
-    const four: HTMLDivElement | null = window.floating.querySelector('.four');
-    if (two && three && four) {
-      updateRandomCSSVariables(two, 'two');
-      updateRandomCSSVariables(three, 'three');
-      updateRandomCSSVariables(four, 'four');
-    }
   }
 </script>
+
 <div class="balloons-wrapper">
-  <div
-    id="floating"
-    class="floating-balloons"
-    data-princeton={balloonColor === 'princeton' ? 'true' : undefined}
-    data-verdigris={balloonColor === 'verdigris' ? 'true' : undefined}
-    data-flirt={balloonColor === 'flirt' ? 'true' : undefined}
-    data-aquamarine={balloonColor === 'aquamarine' ? 'true' : undefined}
-    data-bluemunsell={balloonColor === 'bluemunsell' ? 'true' : undefined}
-  >
-    <div class="balloon two"></div>
-    <div class="balloon three">
-      {
-        coverPhoto && (
-          <Picture
-            aria-hidden="true"
-            formats={['avif']}
-            quality="mid"
-            src={coverPhoto}
-            alt=""
-            widths={[177, 295, 540, 354]}
-            sizes={`(max-width: 360px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${coverPhoto.width}px`}
-            loading="eager"
-            decoding="sync"
-          />
-        )
-      }
-    </div>
-    <div class="balloon four"></div>
+  <div id="floating" class="floating-balloons">
+    <Balloon
+      variant="two"
+      balloonColor={balloonColor}
+      config={BALLOON_ANIMATION_CONFIG.two}
+    />
+    <Balloon
+      variant="three"
+      balloonColor={balloonColor}
+      coverPhoto={coverPhoto}
+      config={BALLOON_ANIMATION_CONFIG.three}
+    />
+    <Balloon
+      variant="four"
+      balloonColor={balloonColor}
+      config={BALLOON_ANIMATION_CONFIG.four}
+    />
   </div>
 </div>
