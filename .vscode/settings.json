@@ -19,7 +19,5 @@
     "typescript",
     "typescriptreact"
   ],
-  "css.lint.unknownAtRules": "ignore",
-  "pieces.cloudCapabilities": "Blended",
-  "pieces.telemetry": true
+  "css.lint.unknownAtRules": "ignore"
 }

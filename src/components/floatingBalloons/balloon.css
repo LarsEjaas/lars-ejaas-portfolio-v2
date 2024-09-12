@@ -7,9 +7,11 @@
   animation-name: moveBalloon;
   animation-duration: var(--duration);
   animation-iteration-count: 1;
-  /* Fallback */
-
-  /* GSAP sine.out*/
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  /* Fallback if the browser doesn't support linear ease */
+  animation-timing-function: cubic-bezier(0.17, 0.67, 0.4, 1.31);
+  /* GSAP sine.out ease*/
   animation-timing-function: linear(
     0 0%,
     0.2861 18.47%,
@@ -110,7 +112,7 @@
     transform: translate3d(var(--xA), var(--yA), 0);
   }
   50% {
-    transform: translate3d(var(--xB), var(--yA), 0);
+    transform: translate3d(calc(0.5 * var(--xB)), calc(0.5 * var(--yA)), 0);
   }
   100% {
     transform: translate3d(var(--xB), var(--yB), 0);

@@ -6,11 +6,10 @@
   justify-content: center;
   margin-inline: 23cqi;
   gap: 16px;
-}
-
-.squircle,
-Picture,
-img {
-  width: 48px;
-  height: 48px;
+  & .squircle,
+  & Picture,
+  & img {
+    width: 48px;
+    height: 48px;
+  }
 }

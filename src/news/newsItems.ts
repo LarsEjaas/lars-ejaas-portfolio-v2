@@ -11,6 +11,7 @@ type NewsItems = {
  * To add a new news item, add an id to the newsFeed array and add info to the newsObject.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const newsFeed = [
   'welcome',
   'skillsTimeline',

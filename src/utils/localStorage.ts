@@ -3,7 +3,7 @@ export const DARKMODE_KEY = 'ejaas_dark_mode' as const;
 const serializeJSON = <T>(value: T) => {
   try {
     return JSON.stringify(value);
-  } catch (error) {
+  } catch (_error) {
     throw new Error(`Failed to serialize the value ${value} hook.`);
   }
 };
@@ -19,7 +19,7 @@ function deserializeJSON(value: string | undefined) {
 const getItem = (key: string) => {
   try {
     return window.localStorage.getItem(key);
-  } catch (error) {
+  } catch (_error) {
     console.warn('Failed to get value from localStorage');
     return null;
   }
@@ -28,7 +28,7 @@ const getItem = (key: string) => {
 const setItem = (key: string, value: string) => {
   try {
     window.localStorage.setItem(key, value);
-  } catch (error) {
+  } catch (_error) {
     console.warn('Failed to set value to localStorage');
   }
 };

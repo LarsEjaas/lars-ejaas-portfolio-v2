@@ -41,7 +41,9 @@ const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
     },
   };
 
-type Props = BalloonProps & { coverPhoto?: ImageMetadata };
+type Props = Pick<BalloonProps, 'balloonColor'> & {
+  coverPhoto?: ImageMetadata;
+};
 
 const { balloonColor, coverPhoto } = Astro.props;
 ---
@@ -108,9 +110,10 @@ const { balloonColor, coverPhoto } = Astro.props;
     window.floating?.querySelectorAll('.balloon');
 
   if (balloons) {
-    Array.from(balloons).map((balloon) =>
-      balloon?.addEventListener('animationend', (e) => changePosition(e), true)
-    );
+    Array.from(balloons).map((balloon) => {
+      balloon?.addEventListener('animationend', (e) => changePosition(e), true);
+      balloon.style.animationPlayState = 'running';
+    });
   }
 </script>
 
