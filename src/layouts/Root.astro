@@ -1,6 +1,7 @@
 ---
 import MobileMenu from '@components/mobileMenu/MobileMenu.astro';
 import './global.css';
+import Footer from '@components/footer/Footer.astro';
 
 interface Props {
   title: string;
@@ -16,6 +17,13 @@ const { title, inert } = Astro.props;
 <!doctype html>
 <html lang="en" data-dark-mode="false" data-js-enabled="false">
   <head>
+    <link
+      rel="preload"
+      href="/fonts/Mona-Sans.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
@@ -55,9 +63,7 @@ const { title, inert } = Astro.props;
     <main>
       <slot />
     </main>
-    <footer inert={inert}>
-      <p></p>
-    </footer>
+    <Footer inert={inert} />
     <MobileMenu inert={inert} />
   </body>
 </html>

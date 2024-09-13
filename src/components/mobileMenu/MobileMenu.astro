@@ -16,12 +16,12 @@ const { inert } = Astro.props;
 ---
 
 <nav
-  class="mobile-menu mobile-only"
+  class="mobile-menu mobile-only flex"
   aria-labelledby="mobileMenuTitle"
   inert={inert}
 >
   <h2 class="sr-only" id="#mobileMenuTitle">
-    {t('main_mobile')}
+    {t('nav_mobile')}
   </h2>
   <a href="/" title={t('home')} aria-label={t('home')}
     ><div class="squircle" data-with-shadow="true">

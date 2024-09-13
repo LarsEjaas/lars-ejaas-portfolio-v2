@@ -10,7 +10,7 @@
       "@news/*": ["src/news/*"],
       "@pages/*": ["src/pages/*"],
       //@types is reserved for type declaration packages installed from npm - so I use a different alias
-      "@customtypes/*": ["src/types/*"],
+      "@customTypes/*": ["src/customTypes/*"],
       "@utils/*": ["src/utils/*"]
     }
   }

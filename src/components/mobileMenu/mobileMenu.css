@@ -8,7 +8,6 @@
     var(--system-dark-200-16)
   );
   position: fixed;
-  display: flex;
   gap: 12px;
   @media (max-width: 380px) {
     gap: 6px;

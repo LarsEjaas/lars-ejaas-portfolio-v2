@@ -9,7 +9,8 @@ export const navigation = {
     share: 'Share this page',
     contact_title: 'Write to me',
     close_modal_title: 'Close modal',
-    main_mobile: 'Main mobile navigation',
+    nav_mobile: 'Main mobile navigation',
+    nav_footer: 'Footer navigation',
   },
   da: {
     home: 'Hjem',
@@ -21,6 +22,7 @@ export const navigation = {
     share: 'Del denne side',
     contact_title: 'Skriv til mig',
     close_modal_title: 'Luk modal',
-    main_mobile: 'Overordnet navigation mobil',
+    nav_mobile: 'Overordnet navigation mobil',
+    nav_footer: 'Footer navigation',
   },
 } as const;

@@ -110,7 +110,7 @@
     --break-point--2-xl: 1440px;
     --break-point--lg: 1024px;
     --break-point--md: 768px;
-
+    --default-font: 'Mona-Sans', 'Arial', 'sans-serif';
     --outline-offset: 5px;
   }
 
@@ -132,7 +132,7 @@
   body {
     min-block-size: 100vh;
     height: fit-content;
-    font-family: system-ui, sans-serif;
+    font-family: var(--default-font);
     background-image: radial-gradient(
         at 50% 85%,
         var(--system-light-100) 0,
@@ -148,8 +148,8 @@
     background-color: var(--system-light-300);
     display: grid;
     grid-template-columns:
-      minmax(0, 1fr)
-      minmax(0, var(--break-point--2-xl)) minmax(0, 1fr);
+      minmax(0, 1fr) minmax(0, var(--break-point--2-xl))
+      minmax(0, 1fr);
     &:has(dialog[open]) {
       overflow: hidden;
     }
@@ -157,12 +157,12 @@
 
   main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content;
+    margin-inline: 2rem;
+    margin-bottom: 2rem;
+    grid-template-columns: 1fr 1fr;
     grid-column: 2/3;
     gap: 2rem;
-    margin-inline: 2rem;
-    margin-bottom: auto;
   }
 
   hr {
@@ -201,40 +201,58 @@
   }
 
   @media (max-width: 768px) {
-    main {
+    main,
+    footer {
       grid-template-columns: 1fr;
+    }
+    main {
       margin-inline: 1rem;
       column-gap: unset;
     }
   }
+}
 
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 
-  @media (max-width: 768px) {
-    .mobile-only {
-      display: block;
-    }
-    .desktop-only {
-      display: none;
-    }
-  }
-
-  @media (min-width: 769px) {
-    .mobile-only {
-      display: none;
-    }
-    .desktop-only {
-      display: block;
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+    &.flex {
+      display: flex;
     }
   }
+  .desktop-only {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none;
+  }
+  .desktop-only {
+    display: block;
+  }
+  &.flex {
+    display: flex;
+  }
+}
+
+/* Register your custom font family and tell the browser where to find it. */
+@font-face {
+  font-family: 'Mona-Sans';
+  src: url('/fonts/Mona-Sans.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
