@@ -1,0 +1,52 @@
+header {
+  height: 80px;
+  grid-column: 1 / -1;
+  position: sticky;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  right: 0;
+  --background-color: light-dark(
+    var(--system-light-300-55),
+    var(--system-dark-200-16)
+  );
+  --border-color: light-dark(
+    var(--verdigris-100-op),
+    var(--system-dark-200-16)
+  );
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--stacks-4-shadow);
+  backdrop-filter: saturate(180%) brightness(80%) blur(3px);
+}
+
+.desktop-menu {
+  gap: 16px;
+  width: 100%;
+  max-width: var(--break-point--2-xl);
+  margin-inline: auto;
+  padding-block: 16px;
+  padding-inline: 2rem;
+  display: flex;
+  justify-content: space-between;
+  & .actions,
+  & nav {
+    display: flex;
+    gap: 12px;
+  }
+  & .divider {
+    height: 100%;
+    width: 0px;
+    --border-color: light-dark(
+      var(--system-dark-100),
+      var(--system-dark-300-55)
+    );
+    margin-inline: 8px;
+    border-right: 1px solid var(--border-color);
+  }
+}
+
+a {
+  border-radius: 30%;
+  outline-offset: var(--outline-offset);
+}

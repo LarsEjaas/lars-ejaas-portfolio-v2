@@ -1,4 +1,5 @@
 .mobile-menu {
+  z-index: 200;
   --border-color: light-dark(
     var(--verdigris-100-op),
     var(--system-dark-200-16)

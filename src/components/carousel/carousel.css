@@ -93,7 +93,6 @@ ul#carouselList {
         @media (prefers-reduced-motion: no-preference) {
           animation-name: slide-in;
           animation-fill-mode: both;
-          /* animation-timing-function: var(--power3-out-transition); */
           animation-timing-function: linear;
           animation-timeline: view(inline);
           /* animation-range: cover -60cqi contain 30cqi; */

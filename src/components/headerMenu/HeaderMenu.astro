@@ -1,0 +1,125 @@
+---
+import './headerMenu.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { Picture } from 'astro:assets';
+import IconHome from '@assets/menuIcons/ejaas.png';
+import IconWork from '@assets/menuIcons/work.png';
+import IconSkills from '@assets/menuIcons/skillset.png';
+import IconAbout from '@assets/menuIcons/about.png';
+import IconContact from '@assets/menuIcons/contact.png';
+import IconShare from '@assets/menuIcons/share.png';
+
+type Props = { inert: boolean };
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+const { inert } = Astro.props;
+---
+
+<header class="desktop-only">
+  <div class="desktop-menu">
+    <nav aria-labelledby="desktopMenuTitle" inert={inert}>
+      <h2 class="sr-only" id="#desktopMenuTitle">
+        {t('nav_desktop')}
+      </h2>
+      <a href="/" title={t('home')} aria-label={t('home')}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconHome}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <a href="/work" title={t('work')} aria-label={t('work')}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconWork}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <a href="/skills" title={t('skills')} aria-label={t('skills')}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconSkills}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <a href="/about" title={t('about')} aria-label={t('about')}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconAbout}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+    </nav>
+    <div class="actions">
+      <a href="/contact" title={t('contact')} aria-label={t('contact')}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconContact}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <a href="/share" title={t('share')} aria-label={t('share')}
+        ><div class="squircle" data-with-shadow="true">
+          <Picture
+            aria-hidden="true"
+            formats={['avif']}
+            quality="high"
+            src={IconShare}
+            alt=""
+            width="48"
+            height="48"
+            densities={[1, 2, 3, 4]}
+            loading="eager"
+            decoding="sync"
+          />
+        </div></a
+      >
+      <div class="divider"></div>
+    </div>
+  </div>
+</header>
