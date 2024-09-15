@@ -35,6 +35,19 @@
   &:global(#three) {
     z-index: 4;
     position: relative;
+    background: radial-gradient(
+        82.93% 82.93% at 50% 27.18%,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(0, 0, 0, 0.25098) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.498039) 0%,
+        rgba(0, 0, 0, 0.498039) 100%
+      ),
+      var(--background-color);
+    background-position: bottom;
+    background-blend-mode: lighten, soft-light, normal;
     & picture,
     & img {
       width: 100%;
@@ -50,17 +63,13 @@
   }
   &[data-princeton] {
     &:global(#two) {
-      position: absolute;
       left: 5%;
       top: 10%;
       width: 20%;
-      z-index: 2;
     }
     &:global(#three) {
-      color: black;
     }
     &:global(#four) {
-      color: black;
     }
   }
   &[data-verdigris] {
@@ -99,10 +108,23 @@
   }
   &[data-bluemunsell] {
     &:global(#two) {
+      background-color: var(--bluemunsell);
+      left: 5%;
+      top: 10%;
+      width: 30%;
     }
     &:global(#three) {
+      --background-color: var(--bluemunsell);
+      left: 10%;
+      top: 0;
+      width: 90%;
     }
     &:global(#four) {
+      background-color: var(--primary-lighter);
+      transform: rotate(20deg);
+      left: 50%;
+      top: 17%;
+      width: 60%;
     }
   }
 }

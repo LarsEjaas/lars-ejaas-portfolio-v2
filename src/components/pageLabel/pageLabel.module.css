@@ -1,0 +1,40 @@
+.pageLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+  height: fit-content;
+
+  & :global(.squircle) {
+    &[data-with-shadow] {
+      &::before {
+        box-shadow: var(--stacks-4-shadow);
+      }
+    }
+  }
+  & h1 {
+    color: var(--system-dark-300);
+    font-size: var(--font-size-8);
+    line-height: 0.9;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+}
+
+.tagline {
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: right center;
+  background-color: light-dark(var(--system-dark-200), var(--system-dark-100));
+  max-width: 140px;
+  flex: 4 0 92px;
+}
+
+.iconAndTitle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  & :global(.squircle) {
+    flex: 1 0 48px;
+  }
+}

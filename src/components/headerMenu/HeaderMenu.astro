@@ -2,7 +2,6 @@
 import styles from './headerMenu.module.css';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import { Picture } from 'astro:assets';
-import IconHome from '@assets/menuIcons/ejaas.png';
 import IconWork from '@assets/menuIcons/work.png';
 import IconSkills from '@assets/menuIcons/skillset.png';
 import IconAbout from '@assets/menuIcons/about.png';
@@ -10,6 +9,7 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
+import EjaasLogo from './EjaasLogo.astro';
 
 type Props = { inert: boolean };
 const lang = getLangFromUrl(Astro.url);
@@ -23,21 +23,8 @@ const { inert } = Astro.props;
       <h2 class="sr-only" id="#desktopMenuTitle">
         {t('nav_desktop')}
       </h2>
-      <a href="/" title={t('home')} aria-label={t('home')}
-        ><div class="squircle" data-with-shadow="true">
-          <Picture
-            aria-hidden="true"
-            formats={['avif']}
-            quality="high"
-            src={IconHome}
-            alt=""
-            width="40"
-            height="40"
-            densities={[1, 2, 3, 4]}
-            loading="eager"
-            decoding="sync"
-          />
-        </div></a
+      <a href="/" class={styles.homeLink}
+        ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
       >
       <a href="/work"
         ><div class="squircle" data-with-shadow="true">

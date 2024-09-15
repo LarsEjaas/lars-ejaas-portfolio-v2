@@ -6,6 +6,15 @@ export type ImageModule = {
   default: string;
 };
 
+export type SVGModule = {
+  default: {
+    src: string;
+    width: number;
+    height: number;
+    format: 'svg';
+  };
+};
+
 type ImageExtension = 'jpg' | 'png';
 
 type Year = 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28;
@@ -123,4 +132,17 @@ export function notEmpty<TValue>(
   value: TValue | null | undefined
 ): value is TValue {
   return value !== undefined && value !== null;
+}
+
+/** Generic type guard function to check if `KeyType` is a key of `ObjectType`
+ * @example 
+ * if (hasProperty(keyToCheck, object)) {
+  // Do something with the key - the type is now narrowed to keyof ObjectType
+} 
+ */
+export function hasProperty<
+  KeyType extends string,
+  ObjectType extends Record<KeyType, any>,
+>(key: KeyType, obj: ObjectType): key is KeyType & keyof ObjectType {
+  return key in obj;
 }

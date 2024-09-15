@@ -23,6 +23,10 @@ export const navigation = {
     linkedin_label: 'Visit my LinkedIn profile',
     x_label: 'Follow me on X',
     github_label: 'Visit my GitHub profile',
+    not_found_title: '404 - Page not found',
+    not_found: 'Page not found',
+    home_title: 'Home',
+    home_tagline: 'Welcome to my website!',
   },
   da: {
     home: 'Hjem',
@@ -48,5 +52,9 @@ export const navigation = {
     linkedin_label: 'Besøg min LinkedIn profil',
     x_label: 'Følg mig på X',
     github_label: 'Besøg min GitHub profil',
+    not_found_title: '404 - Siden blev ikke fundet',
+    not_found: 'siden ikke fundet',
+    home_title: 'Hjem',
+    home_tagline: 'Velkommen til min side!',
   },
 } as const;

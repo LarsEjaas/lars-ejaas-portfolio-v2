@@ -1,4 +1,6 @@
 import { translations, defaultLang, languages } from './settings';
+import { appRoutes } from './routes';
+import { hasProperty } from '@customTypes/index';
 
 /**
  * Extracts the language code from a URL's pathname or returns the default language if no language code is found in the pathname.
@@ -40,5 +42,20 @@ export function useTranslations<
       translations[source][lang][key] ||
       translations[source][defaultLang as L][key]
     );
+  };
+}
+
+export function useTranslatedPath(lang: keyof typeof languages) {
+  return function translatePath(path: string, l: string = lang) {
+    const pathName = path.replaceAll('/', '');
+    const hasTranslation =
+      defaultLang !== l &&
+      hasProperty(l, appRoutes) &&
+      hasProperty(pathName, appRoutes[l]) &&
+      appRoutes[l] !== undefined &&
+      appRoutes[l][pathName] !== undefined;
+    const translatedPath = hasTranslation ? '/' + appRoutes[l][pathName] : path;
+
+    return l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
   };
 }

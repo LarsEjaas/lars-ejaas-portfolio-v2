@@ -1,8 +1,9 @@
 ---
 import HomeLayout from '@layouts/Home.astro';
-import { getLangFromUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
 ---
 
-<HomeLayout title="Home" lang={lang} inert={false} />
+<HomeLayout title={t('home_title')} lang={lang} inert={false} />

@@ -7,12 +7,19 @@ import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
+import type { EnglishModalTypes } from '@i18n/routes';
+
+type EnglishModalPath = { params: { modal: EnglishModalTypes } };
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
 export function getStaticPaths() {
-  return [{ params: { modal: 'share' } }, { params: { modal: 'contact' } }];
+  const paths: EnglishModalPath[] = [
+    { params: { modal: 'share' } },
+    { params: { modal: 'contact' } },
+  ];
+  return paths;
 }
 
 const { modal } = Astro.params;
@@ -52,7 +59,7 @@ if (!modalTitle) {
 }
 ---
 
-<HomeLayout title="Home" lang={lang} inert
+<HomeLayout title={modalTitle} lang={lang} inert
   ><ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

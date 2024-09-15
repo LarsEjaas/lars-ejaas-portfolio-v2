@@ -6,6 +6,8 @@ import { newsItems } from '@news/newsItems';
 import './global.css';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import { useTranslations } from '@i18n/utils';
 
 interface Props {
   title: string;
@@ -14,9 +16,16 @@ interface Props {
 }
 
 const { title, lang, inert } = Astro.props;
+const t = useTranslations(lang, 'navigation');
 ---
 
 <Layout title={title} inert={inert}>
+  <PageLabel
+    title={t('home_title')}
+    iconImage="ejaas"
+    tagLine="home"
+    taglineAlt={t('home_tagline')}
+  />
   <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
   <Carousel
     labels={{

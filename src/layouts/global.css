@@ -10,6 +10,21 @@
   picture {
     line-height: 0;
   }
+
+  picture {
+    display: block; /* Ensures picture takes up its own block space */
+    max-width: 100%; /* Ensures picture container doesn't exceed its parent's width */
+  }
+
+  picture img {
+    display: block; /* Prevents spacing issues from inline images */
+    max-width: 100%; /* Keeps the image within the picture element's size */
+    height: auto; /* Ensures the image maintains its aspect ratio */
+    -webkit-user-drag: none; /* Prevents image from being draggable */
+  }
+  a {
+    -webkit-user-drag: none; /* Prevent links from being draggable */
+  }
 }
 
 @layer global {
@@ -83,13 +98,14 @@
     --aquamarine-700: #0b9d85;
     --aquamarine-800: #077f76;
     --aquamarine-900: #046669;
-    --fontSize-1: 12px;
-    --fontSize-2: 14px;
-    --fontSize-3: 16px;
-    --fontSize-4: 18px;
-    --fontSize-5: 21px;
-    --fontSize-6: 24px;
-    --fontSize-7: 28px;
+    --font-size-1: 0.75rem; /** 12px */
+    --font-size-2: 0.875rem; /** 14px */
+    --font-size-3: 1rem; /* 16px */
+    --font-size-4: 18px;
+    --font-size-5: 21px;
+    --font-size-6: 1.5rem; /** 24px */
+    --font-size-7: 28px;
+    --font-size-8: 2.5rem; /** 40px */
     --stacks--1-inset-shadow: 0 0.5px 4px var(--system-shadow-1) inset;
     --stacks-1-shadow: 0px 0px 1px var(--system-shadow-2),
       0px 0.5px 2px var(--system-shadow-6);
@@ -159,6 +175,7 @@
     grid-template-columns:
       minmax(0, 1fr) minmax(0, var(--break-point--2-xl))
       minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
     &:has(dialog[open]) {
       overflow: hidden;
     }
@@ -168,7 +185,7 @@
     display: grid;
     grid-template-rows: min-content;
     margin-inline: 2rem;
-    margin-bottom: 2rem;
+    margin-block: 2rem;
     grid-template-columns: 1fr 1fr;
     grid-column: 2/3;
     gap: 2rem;
@@ -189,8 +206,8 @@
 
   .squircle {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: fit-content;
+    height: fit-content;
     &[data-with-shadow] {
       &::before {
         box-shadow: var(--stacks-2-shadow);
