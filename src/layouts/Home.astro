@@ -1,7 +1,6 @@
 ---
 import type { Language } from '@i18n/settings';
 import Layout from '@layouts/Root.astro';
-import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import Carousel from '@components/carousel/Carousel.astro';
 import { newsItems } from '@news/newsItems';
 import './global.css';
@@ -18,7 +17,6 @@ const { title, lang, inert } = Astro.props;
 ---
 
 <Layout title={title} inert={inert}>
-  <ThemeSwitch inert={inert} />
   <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
   <Carousel
     labels={{

@@ -8,6 +8,8 @@ import IconSkills from '@assets/menuIcons/skillset.png';
 import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
+import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
+import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 
 type Props = { inert: boolean };
 const lang = getLangFromUrl(Astro.url);
@@ -15,9 +17,9 @@ const t = useTranslations(lang, 'navigation');
 const { inert } = Astro.props;
 ---
 
-<header class="desktop-only">
-  <div class="desktop-menu">
-    <nav aria-labelledby="desktopMenuTitle" inert={inert}>
+<header inert={inert}>
+  <div class="desktop-menu desktop-only">
+    <nav aria-labelledby="desktopMenuTitle">
       <h2 class="sr-only" id="#desktopMenuTitle">
         {t('nav_desktop')}
       </h2>
@@ -37,7 +39,7 @@ const { inert } = Astro.props;
           />
         </div></a
       >
-      <a href="/work" title={t('work')} aria-label={t('work')}
+      <a href="/work"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -51,9 +53,10 @@ const { inert } = Astro.props;
             loading="eager"
             decoding="sync"
           />
-        </div></a
-      >
-      <a href="/skills" title={t('skills')} aria-label={t('skills')}
+        </div>
+        <p>{t('work')}</p>
+      </a>
+      <a href="/skills"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -67,9 +70,9 @@ const { inert } = Astro.props;
             loading="eager"
             decoding="sync"
           />
-        </div></a
+        </div><p>{t('skills')}</p></a
       >
-      <a href="/about" title={t('about')} aria-label={t('about')}
+      <a href="/about"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -83,7 +86,7 @@ const { inert } = Astro.props;
             loading="eager"
             decoding="sync"
           />
-        </div></a
+        </div><p>{t('about')}</p></a
       >
     </nav>
     <div class="actions">
@@ -120,6 +123,11 @@ const { inert } = Astro.props;
         </div></a
       >
       <div class="divider"></div>
+      <ThemeSwitch withGlow={false} isMobile={false} />
     </div>
+  </div>
+  <div class="mobile-actions mobile-only">
+    <LanguageToggle />
+    <ThemeSwitch withGlow={true} isMobile={true} />
   </div>
 </header>

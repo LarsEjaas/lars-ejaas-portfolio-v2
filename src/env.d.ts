@@ -2,6 +2,7 @@
 
 interface Window {
   themeToggle: HTMLInputElement | null;
+  themeToggleMobile: HTMLInputElement | null;
   carouselList: HTMLDivElement | null;
   previous: HTMLButtonElement | null;
   next: HTMLButtonElement | null;

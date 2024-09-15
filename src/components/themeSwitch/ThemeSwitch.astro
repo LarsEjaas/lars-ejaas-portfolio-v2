@@ -1,73 +1,25 @@
 ---
 import './themeSwitch.css';
-type Props = { inert: boolean };
-const { inert } = Astro.props;
+
+type Props = { withGlow: boolean; isMobile: boolean };
+const { withGlow, isMobile } = Astro.props;
 ---
 
 <script>
-  import { setValueInLocalStorage, DARKMODE_KEY } from '@utils/localStorage';
-  const rootElement = document.documentElement;
-  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-  /**
-   * Toggles the theme between light and dark mode.
-   */
-  const toggleTheme = (_event: MouseEvent) => {
-    const isDarkMode = rootElement.dataset.darkMode === 'true';
-    setValueInLocalStorage(DARKMODE_KEY, !isDarkMode);
-    rootElement.dataset.darkMode = isDarkMode ? 'false' : 'true';
-  };
-
-  /**
-   * Handles changes to the user's preferred color scheme.
-   */
-  function handleColorSchemeChange(event: MediaQueryListEvent) {
-    if (event.matches) {
-      // Dark mode is preferred
-      rootElement.dataset.darkMode = 'true';
-    } else {
-      // Light mode is preferred
-      rootElement.dataset.darkMode = 'false';
-    }
-  }
-
-  darkModeMediaQuery.addEventListener('change', handleColorSchemeChange, {
-    passive: true,
-  });
-
-  if (window.themeToggle instanceof HTMLInputElement) {
-    window.themeToggle.addEventListener('click', toggleTheme, {
-      passive: true,
-    });
-
-    /*set initial toggle state based on the current system theme*/
-    if (rootElement.dataset.darkMode === 'true') {
-      window.themeToggle.checked = true;
-      /** Disable animation for the initial state (otherwise the toggle will animate on every navigation) */
-      setTimeout(() => {
-        delete window.themeToggle?.dataset.animationDisabled;
-      }, 100);
-    } else {
-      window.themeToggle.checked = false;
-      /** Disable animation for the initial state (otherwise the toggle will animate on every navigation) */
-      setTimeout(() => {
-        delete window.themeToggle?.dataset.animationDisabled;
-      }, 100);
-    }
-  }
+  import { initThemeSwitch } from './initThemeSwitch';
+  initThemeSwitch();
 </script>
-<div class="theme-switch-wrapper mobile-only" inert={inert}>
-  <div
-    id="themeSwitch"
-    aria-label="Switch to dark mode"
-    title="Switch to dark mode"
-  >
-    <input
-      aria-labelledby="themeSwitch"
-      type="checkbox"
-      id="themeToggle"
-      data-animation-disabled="true"
-    />
-    <span></span>
-  </div>
+
+<div
+  id={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
+  aria-label="Switch to dark mode"
+  title="Switch to dark mode"
+>
+  <input
+    aria-labelledby={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
+    type="checkbox"
+    id={isMobile ? 'themeToggleMobile' : 'themeToggle'}
+    data-animation-disabled="true"
+  />
+  <span data-with-glow={withGlow || undefined}></span>
 </div>
