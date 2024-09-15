@@ -1,6 +1,6 @@
 ---
 import Picture from 'astro/components/Picture.astro';
-import './modalDialog.css';
+import styles from './modalDialog.module.css';
 type Props = {
   title: string;
   labels: { close: string };
@@ -20,7 +20,7 @@ const { title, labels, iconImage } = Astro.props;
     window.addEventListener('keydown', handleKeydown);
   }
 </script>
-<a class="dialog-backdrop" aria-hidden tabindex="-1" href="./"></a>
+<a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="./"></a>
 <dialog
   id="modalDialog"
   role="dialog"
@@ -28,11 +28,11 @@ const { title, labels, iconImage } = Astro.props;
   open={true}
   aria-labelledby="#modalTitle"
 >
-  <div class="modal-header">
-    <div class="header-content">
+  <div class={styles.modalHeader}>
+    <div class={styles.headerContent}>
       {
         iconImage && (
-          <div class="squircle outline">
+          <div class={`${styles.outline} squircle`}>
             <Picture
               aria-hidden="true"
               formats={['avif']}
@@ -51,7 +51,7 @@ const { title, labels, iconImage } = Astro.props;
       <h2 id="modalTitle">{title}</h2>
     </div>
     <a
-      class="close-link"
+      class={styles.closeLink}
       href="./"
       title={labels.close}
       aria-label={labels.close}
@@ -69,5 +69,5 @@ const { title, labels, iconImage } = Astro.props;
     >
   </div>
   <slot />
-  <div class="modal-footer"></div>
+  <div class={styles.modalFooter}></div>
 </dialog>

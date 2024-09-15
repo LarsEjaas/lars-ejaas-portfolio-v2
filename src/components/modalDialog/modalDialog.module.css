@@ -1,4 +1,4 @@
-.dialog-backdrop {
+.dialogBackdrop {
   position: fixed;
   border-radius: 0;
   display: block;
@@ -29,7 +29,7 @@ dialog {
   inset: 0;
 }
 
-.modal-header {
+.modalHeader {
   display: flex;
   justify-content: space-between;
   height: 64px;
@@ -54,7 +54,7 @@ dialog {
     color: light-dark(var(--system-light-100), var(--system-light-300));
   }
 
-  & .squircle {
+  & :global(.squircle) {
     clip-path: url(#squircle);
     display: block;
     margin-left: 32px;
@@ -74,12 +74,12 @@ dialog {
   }
 }
 
-.header-content {
+.headerContent {
   display: flex;
   gap: 16px;
 }
 
-.modal-footer {
+.modalFooter {
   background-color: var(--system-light-400);
   border-bottom-left-radius: var(--border-radius-md);
   border-bottom-right-radius: var(--border-radius-md);
@@ -87,7 +87,7 @@ dialog {
   height: 48px;
 }
 
-.close-link {
+.closeLink {
   display: block;
   background: unset;
   outline-offset: var(--outline-offset);

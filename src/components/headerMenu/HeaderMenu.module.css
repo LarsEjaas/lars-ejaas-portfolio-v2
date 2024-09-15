@@ -30,7 +30,7 @@ header {
   }
 }
 
-.desktop-menu {
+.desktopMenu {
   gap: 16px;
   width: 100%;
   max-width: var(--break-point--2-xl);
@@ -60,7 +60,6 @@ header {
     border-radius: var(--border-radius-sm);
     display: flex;
     align-items: center;
-    overflow: hidden;
     gap: 8px;
     & p {
       font-weight: 600;
@@ -68,8 +67,12 @@ header {
       text-decoration-color: transparent;
     }
   }
+  & :global(.squircle) {
+    height: 40px;
+    width: 40px;
+  }
 }
 
-.mobile-actions {
+.mobileActions {
   justify-content: space-between;
 }

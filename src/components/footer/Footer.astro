@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
-import './footer.css';
+import styles from './footer.module.css';
 import FigmaLogo from './FigmaLogo.astro';
 import AstroLogo from './AstroLogo.astro';
 import NetlifyLogo from './NetlifyLogo.astro';
@@ -19,7 +19,7 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer inert={inert}>
-  <div class="footer-content">
+  <div class={styles.footerContent}>
     <nav aria-labelledby="footerMenuTitle">
       <h2 class="sr-only" id="#footerMenuTitle">
         {t('nav_footer')}
@@ -34,7 +34,7 @@ const currentYear = new Date().getFullYear();
         </li>
       </ul>
     </nav>
-    <div class="copyright">
+    <div class={styles.copyright}>
       <p>
         ©&nbsp;{currentYear} | Lars Ejaas
       </p>
@@ -47,7 +47,7 @@ const currentYear = new Date().getFullYear();
         </p>
       </span>
     </div>
-    <div class="credentials" aria-labelledby="credentialsTitle">
+    <div class={styles.credentials} aria-labelledby="credentialsTitle">
       <h2 id="credentialsTitle" class="sr-only">{t('credentials')}</h2>
       <ul>
         <li>
@@ -88,7 +88,7 @@ const currentYear = new Date().getFullYear();
         </li>
       </ul>
     </div>
-    <div class="social-links" aria-labelledby="socialLinksTitle">
+    <div class={styles.socialLinks} aria-labelledby="socialLinksTitle">
       <h2 id="socialLinksTitle" class="sr-only">{t('follow_me')}</h2>
       <ul>
         <li>

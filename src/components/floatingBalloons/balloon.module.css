@@ -26,13 +26,13 @@
     0.9965 94.66%,
     1 100%
   );
-  &.two {
+  &:global(#two) {
     left: 5%;
     top: 10%;
     width: 20%;
     z-index: 2;
   }
-  &.three {
+  &:global(#three) {
     z-index: 4;
     position: relative;
     & picture,
@@ -41,7 +41,7 @@
       height: 100%;
     }
   }
-  &.four {
+  &:global(#four) {
     left: 50%;
     top: 60%;
     transform: rotate(20deg);
@@ -49,30 +49,30 @@
     z-index: 3;
   }
   &[data-princeton] {
-    &.two {
+    &:global(#two) {
       position: absolute;
       left: 5%;
       top: 10%;
       width: 20%;
       z-index: 2;
     }
-    &.three {
+    &:global(#three) {
       color: black;
     }
-    &.four {
+    &:global(#four) {
       color: black;
     }
   }
   &[data-verdigris] {
-    &.two {
+    &:global(#two) {
       background-color: var(--verdigris-400);
     }
-    &.three {
+    &:global(#three) {
       left: 10%;
       top: 0%;
       width: 90%;
     }
-    &.four {
+    &:global(#four) {
       background-color: var(--verdigris-500);
       transform: rotate(20deg);
       left: 50%;
@@ -82,27 +82,27 @@
     }
   }
   &[data-flirt] {
-    &.two {
+    &:global(#two) {
     }
-    &.three {
+    &:global(#three) {
     }
-    &.four {
+    &:global(#four) {
     }
   }
   &[data-aquamarine] {
-    &.two {
+    &:global(#two) {
     }
-    &.three {
+    &:global(#three) {
     }
-    &.four {
+    &:global(#four) {
     }
   }
   &[data-bluemunsell] {
-    &.two {
+    &:global(#two) {
     }
-    &.three {
+    &:global(#three) {
     }
-    &.four {
+    &:global(#four) {
     }
   }
 }

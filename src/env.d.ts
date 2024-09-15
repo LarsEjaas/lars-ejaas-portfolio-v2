@@ -7,5 +7,9 @@ interface Window {
   previous: HTMLButtonElement | null;
   next: HTMLButtonElement | null;
   modalDialog: HTMLDialogElement | null;
+  /** Balloons */
   floating: HTMLDivElement | null;
+  two: HTMLDivElement | null;
+  three: HTMLDivElement | null;
+  four: HTMLDivElement | null;
 }

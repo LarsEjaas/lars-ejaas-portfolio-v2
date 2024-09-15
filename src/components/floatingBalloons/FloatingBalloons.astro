@@ -1,5 +1,5 @@
 ---
-import './floatingBalloons.css';
+import styles from './floatingBalloons.module.css';
 import type { BalloonProps } from './Balloon.astro';
 import Balloon from './Balloon.astro';
 
@@ -49,6 +49,8 @@ const { balloonColor, coverPhoto } = Astro.props;
 ---
 
 <script>
+  import { notEmpty } from '@customTypes/index';
+
   // Configuration for the randomization of the balloons - change these to get different randomization
   const RANDOM_CONFIG = {
     randomX: { min: 10, max: 20 },
@@ -67,7 +69,8 @@ const { balloonColor, coverPhoto } = Astro.props;
     // Remove- and re-apply the animation to restart it
     balloon.style.animationName = 'none';
     requestAnimationFrame(() => {
-      balloon.style.animationName = 'moveBalloon';
+      // remove the animation name so we again refer to the style sheet - this restarts the animation
+      balloon.style.animationName = '';
     });
 
     const balloonStyle = getComputedStyle(balloon);
@@ -106,19 +109,19 @@ const { balloonColor, coverPhoto } = Astro.props;
   };
 
   // Function to set new random CSS variables and start animations
-  const balloons: NodeListOf<HTMLDivElement> | undefined =
-    window.floating?.querySelectorAll('.balloon');
+  const balloons = [window.two, window.three, window.four].filter(notEmpty);
 
-  if (balloons) {
-    Array.from(balloons).map((balloon) => {
+  if (balloons.length) {
+    console.log('balloons', balloons);
+    balloons.map((balloon) => {
       balloon?.addEventListener('animationend', (e) => changePosition(e), true);
       balloon.style.animationPlayState = 'running';
     });
   }
 </script>
 
-<div class="balloons-wrapper">
-  <div id="floating" class="floating-balloons">
+<div class={styles.balloonsWrapper}>
+  <div id="floating" class={styles.floatingBalloons}>
     <Balloon
       variant="two"
       balloonColor={balloonColor}

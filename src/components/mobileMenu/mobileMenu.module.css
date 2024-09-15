@@ -1,4 +1,4 @@
-.mobile-menu {
+.mobileMenu {
   z-index: 200;
   --border-color: light-dark(
     var(--verdigris-100-op),
@@ -28,9 +28,8 @@
   backdrop-filter: saturate(180%) brightness(80%) blur(3px);
   width: fit-content;
   max-width: fit-content;
-}
-
-a {
-  border-radius: 30%;
-  outline-offset: var(--outline-offset);
+  & a {
+    border-radius: 30%;
+    outline-offset: var(--outline-offset);
+  }
 }

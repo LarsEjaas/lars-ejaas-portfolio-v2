@@ -107,3 +107,20 @@ export type DanishDate = `${
   | 29
   | 30
   | 31}. ${DanishMonth} 20${Year}`;
+
+/**
+ * Type predicate to filter out empty instances of an array
+ * Returns true if a value is not empty (i.e., not null or undefined).
+ * @template TValue The type of the value to check.
+ * @param {TValue|null|undefined} value The value to check.
+ * @returns {value is TValue} True if the value is not empty.
+ * @example
+ * const arr = [1, null, 2, undefined, 3];
+ * const nonEmpty = arr.filter(notEmpty);
+ * // type of nonEmpty is number[]
+ */
+export function notEmpty<TValue>(
+  value: TValue | null | undefined
+): value is TValue {
+  return value !== undefined && value !== null;
+}

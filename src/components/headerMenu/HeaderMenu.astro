@@ -1,5 +1,5 @@
 ---
-import './headerMenu.css';
+import styles from './headerMenu.module.css';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import { Picture } from 'astro:assets';
 import IconHome from '@assets/menuIcons/ejaas.png';
@@ -18,7 +18,7 @@ const { inert } = Astro.props;
 ---
 
 <header inert={inert}>
-  <div class="desktop-menu desktop-only">
+  <div class={`${styles.desktopMenu} desktop-only`}>
     <nav aria-labelledby="desktopMenuTitle">
       <h2 class="sr-only" id="#desktopMenuTitle">
         {t('nav_desktop')}
@@ -31,8 +31,8 @@ const { inert } = Astro.props;
             quality="high"
             src={IconHome}
             alt=""
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
@@ -47,8 +47,8 @@ const { inert } = Astro.props;
             quality="high"
             src={IconWork}
             alt=""
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
@@ -64,8 +64,8 @@ const { inert } = Astro.props;
             quality="high"
             src={IconSkills}
             alt=""
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
@@ -80,8 +80,8 @@ const { inert } = Astro.props;
             quality="high"
             src={IconAbout}
             alt=""
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
@@ -89,7 +89,7 @@ const { inert } = Astro.props;
         </div><p>{t('about')}</p></a
       >
     </nav>
-    <div class="actions">
+    <div class={styles.actions}>
       <a href="/contact" title={t('contact')} aria-label={t('contact')}
         ><div class="squircle" data-with-shadow="true">
           <Picture
@@ -98,8 +98,8 @@ const { inert } = Astro.props;
             quality="high"
             src={IconContact}
             alt=""
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
@@ -114,19 +114,19 @@ const { inert } = Astro.props;
             quality="high"
             src={IconShare}
             alt=""
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
           />
         </div></a
       >
-      <div class="divider"></div>
+      <div class={styles.divider}></div>
       <ThemeSwitch withGlow={false} isMobile={false} />
     </div>
   </div>
-  <div class="mobile-actions mobile-only">
+  <div class={`${styles.mobileActions} mobile-only`}>
     <LanguageToggle />
     <ThemeSwitch withGlow={true} isMobile={true} />
   </div>

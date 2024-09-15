@@ -130,6 +130,14 @@
     }
   }
 
+  /* transition effect when changing color theme */
+  html.theming,
+  html.theming *,
+  html.theming *::before,
+  html.theming *::after {
+    transition: all 0.5s linear;
+  }
+
   body {
     min-block-size: 100vh;
     height: fit-content;

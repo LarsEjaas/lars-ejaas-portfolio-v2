@@ -1,4 +1,4 @@
-.share-container {
+.shareContainer {
   display: grid;
   grid-template-columns: auto auto auto;
   margin-block: 48px 32px;
@@ -6,7 +6,6 @@
   justify-content: center;
   margin-inline: 23cqi;
   gap: 16px;
-  & .squircle,
   & Picture,
   & img {
     width: 48px;

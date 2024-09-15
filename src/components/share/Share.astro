@@ -10,7 +10,7 @@ import IconLinkedIn from '@assets/someIcons/linkedin.png';
 import IconReddit from '@assets/someIcons/reddit.png';
 import IconWhatsApp from '@assets/someIcons/whatsapp.png';
 import IconTelegram from '@assets/someIcons/telegram.png';
-import './share.css';
+import styles from './share.module.css';
 
 type ShareAttributes = {
   href: string;
@@ -74,7 +74,7 @@ const shareAttributes: ShareAttributes[] = [
 ];
 ---
 
-<div class="share-container">
+<div class={styles.shareContainer}>
   {
     shareAttributes.map((attr) => (
       <a

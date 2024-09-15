@@ -1,8 +1,17 @@
 // themeSwitch.mjs
 import { setValueInLocalStorage, DARKMODE_KEY } from '@utils/localStorage';
 
+/** Convert the strings 'true' and 'false' to a boolean. */
 const stringToBoolean = (str: 'true' | 'false'): boolean => str === 'true';
 
+/** Add a class to the root element to trigger CSS color transition on all elements. */
+const addThemeTransition = () => {
+  const rootElement = document.documentElement;
+  rootElement.classList.add('theming');
+  setTimeout(() => {
+    rootElement.classList.remove('theming');
+  }, 500);
+};
 /**
  * Initializes the theme switch functionality
  */
@@ -22,6 +31,7 @@ export const initThemeSwitch = () => {
     if (!(event.target instanceof HTMLInputElement)) {
       return;
     }
+    addThemeTransition();
     const wasDarkMode = rootElement.dataset.darkMode === 'true';
     setValueInLocalStorage(DARKMODE_KEY, !wasDarkMode);
     // Toggle the dark theme on the root element to the opposite of the current state
@@ -41,6 +51,7 @@ export const initThemeSwitch = () => {
    * Handles changes to the user's preferred color scheme.
    */
   function handleColorSchemeChange(event: MediaQueryListEvent) {
+    addThemeTransition();
     if (event.matches) {
       // Dark mode is preferred
       rootElement.dataset.darkMode = 'true';
@@ -71,7 +82,7 @@ export const initThemeSwitch = () => {
   });
 
   /** Disable animation for the initial state (otherwise the toggle will animate on every navigation) */
-  const enableAnimations = () => {
+  const enableToggleAnimations = () => {
     setTimeout(() => {
       delete window.themeToggle?.dataset.animationDisabled;
       delete window.themeToggleMobile?.dataset.animationDisabled;
@@ -100,7 +111,7 @@ export const initThemeSwitch = () => {
       window.themeToggleMobile.checked = stringToBoolean(
         rootElement.dataset.darkMode
       );
-      enableAnimations();
+      enableToggleAnimations();
     }
   }
 };
