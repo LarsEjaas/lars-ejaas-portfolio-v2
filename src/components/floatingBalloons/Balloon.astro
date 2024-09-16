@@ -2,15 +2,11 @@
 import Picture from 'astro/components/Picture.astro';
 import styles from './balloon.module.css';
 import type { BalloonConfig } from './FloatingBalloons.astro';
+import type { ColorVariants } from '@customTypes/index';
 
 export type BalloonProps = {
   variant: 'two' | 'three' | 'four';
-  balloonColor:
-    | 'princeton'
-    | 'verdigris'
-    | 'flirt'
-    | 'aquamarine'
-    | 'bluemunsell';
+  balloonColor: ColorVariants;
 };
 
 type Props =

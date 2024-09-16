@@ -48,6 +48,7 @@ footer {
       display: inline-flex;
       height: auto;
       border-radius: var(--border-radius-sm);
+      outline-offset: var(--outline-offset);
       text-decoration: underline transparent;
       transition: text-decoration-color 0.25s;
       &:hover,
@@ -89,6 +90,10 @@ footer {
     color: light-dark(var(--system-light-300), var(--system-dark-300));
     line-height: 0;
   }
+  & p {
+    font-size: var(--font-size-2);
+    font-weight: 400;
+  }
 }
 
 .socialLinks {
@@ -105,7 +110,7 @@ footer {
   margin-inline: auto;
   & > p {
     white-space: normal;
-    font-size: var(--fontSize-2);
+    font-size: var(--font-size-2);
     line-height: 1.5;
     font-weight: 300;
   }
@@ -114,6 +119,7 @@ footer {
     display: flex;
     flex-direction: column;
     width: fit-content;
+    font-size: var(--font-size-1);
     & p:nth-child(1) {
       background-color: var(--verdigris-800);
       border-top-left-radius: var(--border-radius-sm);
@@ -134,7 +140,7 @@ footer {
       border-bottom-right-radius: var(--border-radius-sm);
     }
     & p {
-      font-size: var(--fontSize-1);
+      font-size: var(--font-size-1);
       line-height: 1;
       text-align: center;
     }

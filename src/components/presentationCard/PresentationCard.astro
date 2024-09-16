@@ -1,3 +1,100 @@
 ---
+import { Picture } from 'astro:assets';
+import styles from './PresentationCard.module.css';
+import type { ColorVariants } from '@customTypes/index';
 
+type Props = {
+  iconImage?: ImageMetadata;
+  iconImageAlt?: string;
+  title: string;
+  gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
+  overlayImage?: ImageMetadata;
+  overlayImageAlt?: string;
+  /** Make the squircle and overlay image size responsive */
+  responsiveSquircleSize?: boolean;
+};
+
+const {
+  iconImage,
+  title,
+  gradientColor,
+  overlayImage,
+  responsiveSquircleSize,
+  iconImageAlt,
+  overlayImageAlt,
+} = Astro.props;
 ---
+
+<section class={styles.presentationCard}>
+  <div
+    class={styles.header}
+    data-princeton={gradientColor === 'princeton' ? 'true' : undefined}
+    data-verdigris={gradientColor === 'verdigris' ? 'true' : undefined}
+    data-flirt={gradientColor === 'flirt' ? 'true' : undefined}
+    data-aquamarine={gradientColor === 'aquamarine' ? 'true' : undefined}
+  >
+    <div class={styles.headerContent}>
+      <h2>{title}</h2>
+      <div class={styles.iconContent}>
+        <div
+          class={`${styles.outline} squircle`}
+          data-responsive={responsiveSquircleSize ? 'true' : undefined}
+        >
+          {
+            iconImage ? (
+              <Picture
+                data-responsive={responsiveSquircleSize ? 'true' : undefined}
+                formats={['avif', 'webp']}
+                quality="high"
+                src={iconImage}
+                alt={iconImageAlt}
+                width="72"
+                height="72"
+                densities={[1, 2, 3, 4]}
+                loading="eager"
+                decoding="sync"
+              />
+            ) : (
+              <div
+                class={`${styles.gradientBackground} squircle`}
+                data-princeton={
+                  gradientColor === 'princeton' ? 'true' : undefined
+                }
+                data-verdigris={
+                  gradientColor === 'verdigris' ? 'true' : undefined
+                }
+                data-flirt={gradientColor === 'flirt' ? 'true' : undefined}
+                data-aquamarine={
+                  gradientColor === 'aquamarine' ? 'true' : undefined
+                }
+              />
+            )
+          }
+        </div>
+        {
+          overlayImage && (
+            <Picture
+              data-responsive={responsiveSquircleSize ? 'true' : undefined}
+              formats={['avif', 'webp']}
+              quality="high"
+              src={overlayImage}
+              alt={overlayImageAlt}
+              width="72"
+              height="72"
+              densities={[1, 2, 3, 4]}
+              loading="eager"
+              decoding="sync"
+              pictureAttributes={{
+                style: `aspect-ratio: ${overlayImage.width}/${overlayImage.height}; width: 72px;`,
+                class: styles.overlayImage,
+              }}
+            />
+          )
+        }
+      </div>
+    </div>
+  </div>
+  <div class={styles.cardContent}>
+    <slot />
+  </div>
+</section>

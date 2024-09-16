@@ -7,7 +7,7 @@ import { hasProperty } from '@customTypes/index';
  * @example
  * // Given URL: 'https://example.com/en/home'
  * const lang = getLangFromUrl(Astro.url);
- * console.log(lang); // 'en'
+ * console.info(lang); // 'en'
  */
 export function getLangFromUrl(url: URL) {
   const [, lang] = url.pathname.split('/');

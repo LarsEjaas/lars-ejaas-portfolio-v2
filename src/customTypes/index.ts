@@ -117,6 +117,13 @@ export type DanishDate = `${
   | 30
   | 31}. ${DanishMonth} 20${Year}`;
 
+export type ColorVariants =
+  | 'princeton'
+  | 'verdigris'
+  | 'flirt'
+  | 'aquamarine'
+  | 'bluemunsell';
+
 /**
  * Type predicate to filter out empty instances of an array
  * Returns true if a value is not empty (i.e., not null or undefined).

@@ -68,14 +68,13 @@
     --verdigris-600: hsl(188.41deg 100% 30.78%);
     --verdigris-700: hsl(193.28deg 100% 25.69%);
     --verdigris-800: hsl(198.68deg 100% 20.78%);
-    --princeton-100: #fff0d9;
-    --princeton-200: #ffddb3;
-    --princeton-300: #ffc68e;
-    --princeton-300-op: #ffc68e00;
-    --princeton-400: #ffaf71;
-    --princeton-500: #ff8a43;
-    --princeton-600: #db6630;
-    --princeton-700: #b74821;
+    --princeton-100: hsl(36.32deg 100% 92.55%);
+    --princeton-200: hsl(33.16deg 100% 85.1%);
+    --princeton-300: hsl(29.73deg 100% 77.84%);
+    --princeton-400: hsl(26.2deg 100% 72.16%);
+    --princeton-500: hsl(22.66deg 100% 63.14%);
+    --princeton-600: hsl(18.95deg 70.37% 52.35%);
+    --princeton-700: hsl(15.6deg 69.44% 42.35%);
     --flirt-100: #fac9d6;
     --flirt-100-tr: #fac9d650;
     --flirt-200: #f595b9;
@@ -104,7 +103,7 @@
     --font-size-4: 18px;
     --font-size-5: 21px;
     --font-size-6: 1.5rem; /** 24px */
-    --font-size-7: 28px;
+    --font-size-7: 2.25rem; /** 36px */
     --font-size-8: 2.5rem; /** 40px */
     --stacks--1-inset-shadow: 0 0.5px 4px var(--system-shadow-1) inset;
     --stacks-1-shadow: 0px 0px 1px var(--system-shadow-2),
@@ -151,7 +150,7 @@
   html.theming *,
   html.theming *::before,
   html.theming *::after {
-    transition: all 0.5s linear;
+    transition: all 0.3s linear !important;
   }
 
   body {

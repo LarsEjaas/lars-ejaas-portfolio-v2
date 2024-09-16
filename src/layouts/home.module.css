@@ -1,0 +1,31 @@
+.presentation {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.presentationCardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  white-space: pre-line;
+  & h3 {
+    color: light-dark(var(--system-dark-100) var(--system-dark-300));
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  & p {
+    color: light-dark(var(--system-dark-200) var(--system-dark-400));
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  & p,
+  & h3 {
+    font-size: var(--font-size-2);
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}

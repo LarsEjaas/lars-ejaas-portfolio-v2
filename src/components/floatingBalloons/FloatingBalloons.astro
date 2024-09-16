@@ -112,7 +112,6 @@ const { balloonColor, coverPhoto } = Astro.props;
   const balloons = [window.two, window.three, window.four].filter(notEmpty);
 
   if (balloons.length) {
-    console.log('balloons', balloons);
     balloons.map((balloon) => {
       balloon?.addEventListener('animationend', (e) => changePosition(e), true);
       balloon.style.animationPlayState = 'running';
