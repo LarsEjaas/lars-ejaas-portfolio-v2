@@ -10,6 +10,11 @@ import { useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
 import ProfileImage from '@assets/images/profile-clip.png';
+import SocialLinks from '../components/socialLinks/SocialLinks.astro';
+import AboutIcon from '../components/icons/AboutIcon.astro';
+import DownloadIcon from '../components/icons/DownloadIcon.astro';
+
+const LINK_TO_LATEST_RESUME = 'resume/Public_Resume_Lars_Ejaas_july_2024.pdf';
 
 interface Props {
   title: string;
@@ -39,7 +44,23 @@ const t_home = useTranslations(lang, 'home');
       <div class={styles.presentationCardContent}>
         <h3>{t_home('frontend_developer')}</h3>
         <p>{t_home('frontend_developer_description')}</p>
-        <div class={styles.actions}></div>
+        <div class={styles.actions}>
+          <div class={styles.actionEntries}>
+            <a href="/about" title={t_home('about_me_title')}>
+              <AboutIcon />
+              <p>{t_home('about_me')}</p>
+            </a>
+            <a
+              href={LINK_TO_LATEST_RESUME}
+              download
+              title={t_home('download_resume_title')}
+            >
+              <DownloadIcon className={styles.downloadIcon} />
+              <p>{t_home('download_resume')}</p>
+            </a>
+          </div>
+          <SocialLinks alternativeColors={true} />
+        </div>
       </div>
     </PresentationCard>
   </div>

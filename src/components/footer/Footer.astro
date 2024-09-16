@@ -5,9 +5,7 @@ import FigmaLogo from './FigmaLogo.astro';
 import AstroLogo from './AstroLogo.astro';
 import NetlifyLogo from './NetlifyLogo.astro';
 import GitHubLogo from './GitHubLogo.astro';
-import XIcon from '@components/icons/XIcon.astro';
-import LinkedInIcon from '@components/icons/LinkedInIcon.astro';
-import GitHubIcon from '@components/icons/GitHubIcon.astro';
+import SocialLinks from '../socialLinks/SocialLinks.astro';
 type Props = {
   inert: boolean;
 };
@@ -88,40 +86,6 @@ const currentYear = new Date().getFullYear();
         </li>
       </ul>
     </div>
-    <div class={styles.socialLinks} aria-labelledby="socialLinksTitle">
-      <h2 id="socialLinksTitle" class="sr-only">{t('follow_me')}</h2>
-      <ul>
-        <li>
-          <a
-            href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('x_label')}
-          >
-            <XIcon title={t('x_label')} />
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://linkedin.com/in/lars-ejaas"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('linkedin_label')}
-          >
-            <LinkedInIcon title={t('linkedin_label')} />
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/LarsEjaas"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('github_label')}
-          >
-            <GitHubIcon title={t('github_label')} />
-          </a>
-        </li>
-      </ul>
-    </div>
+    <div class={styles.someLinks}><SocialLinks /></div>
   </div>
 </footer>

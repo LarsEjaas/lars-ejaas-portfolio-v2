@@ -19,5 +19,6 @@
     "typescript",
     "typescriptreact"
   ],
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }

@@ -18,6 +18,10 @@
   grid-column: 1 / 4;
   container-name: carousel;
   --card-width: 242px;
+  & h2 {
+    color: var(--system-dark-300);
+    font-size: var(--font-size-6);
+  }
 }
 
 :global(#carouselList) {

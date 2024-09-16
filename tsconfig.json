@@ -13,5 +13,6 @@
       "@customTypes/*": ["src/customTypes/*"],
       "@utils/*": ["src/utils/*"]
     }
-  }
+  },
+  "$schema": "https://json.schemastore.org/tsconfig"
 }

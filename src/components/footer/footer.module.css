@@ -4,6 +4,10 @@ footer {
   overflow: hidden;
 }
 
+.someLinks {
+  margin-inline: auto;
+}
+
 .footerContent {
   display: grid;
   row-gap: 16px;
@@ -22,8 +26,7 @@ footer {
     }
   }
 
-  & nav,
-  & .socialLinks {
+  & nav {
     margin-inline: auto;
     & ul {
       list-style-type: none;
@@ -34,7 +37,6 @@ footer {
 
   & nav,
   & .credentials,
-  & .socialLinks,
   & .copyright {
     & a,
     & p {
@@ -96,16 +98,6 @@ footer {
   }
 }
 
-.socialLinks {
-  & ul {
-    display: flex;
-    gap: 16px;
-    & svg {
-      color: light-dark(var(--system-light-300-80), var(--system-dark-300-80));
-    }
-  }
-}
-
 .copyright {
   margin-inline: auto;
   & > p {
@@ -148,7 +140,7 @@ footer {
 }
 
 @media (min-width: 769px) {
-  .socialLinks {
+  .someLinks {
     grid-row: 1;
     margin-right: 0;
   }
