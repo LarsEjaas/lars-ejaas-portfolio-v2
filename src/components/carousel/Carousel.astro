@@ -7,6 +7,7 @@ import type {
   EnglishDate,
   ImageModule,
 } from '@customTypes/index';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 export type CardInfo = {
@@ -35,8 +36,6 @@ interface Props {
 
 const { items, maxNumberOfItems, labels, inert } = Astro.props;
 
-const CAROUSEL_ID = 'carousel' as const;
-const HEADING_ID = 'carousel_heading' as const;
 const ARCHIVE_ID = 'newsArchive';
 const ARCHIVE_HREF = 'news-archive';
 
@@ -45,65 +44,80 @@ const itemList =
     ? items.slice(0, maxNumberOfItems)
     : items;
 
-// const showArchiveCard = maxNumberOfItems && items.length > maxNumberOfItems;
-const showArchiveCard = true;
+const showArchiveCard = maxNumberOfItems && items.length > maxNumberOfItems;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
 ---
 
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+
+  const { carouselList, previous, next } = window;
+  if (carouselList) {
+    initializeKeyboardArrowNavigation(carouselList, true);
+  }
+
+  /**
+   * Scrolls the demo element to the left or right based on the id of the clicked button.
+   */
+  const handleScroll = (event: MouseEvent) => {
+    const carouselCardWidth = carouselList?.querySelector('li')?.offsetWidth;
+
+    if (
+      carouselList &&
+      carouselCardWidth &&
+      event.currentTarget instanceof HTMLButtonElement
+    ) {
+      const direction = event.currentTarget?.id;
+      carouselList?.scrollBy({
+        left: direction === 'next' ? carouselCardWidth : -carouselCardWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  previous?.addEventListener('click', handleScroll, {
+    passive: true,
+  });
+  next?.addEventListener('click', handleScroll, {
+    passive: true,
+  });
+
+  /**
+   * Updates the cursor position in the carousel wrapper element.
+   */
+  const updateCursor = (event: PointerEvent) => {
+    if (carouselList) {
+      carouselList.style.setProperty('--x', `${event.layerX}`);
+      carouselList.style.setProperty('--y', `${event.layerY}`);
+    }
+  };
+
+  carouselList?.addEventListener('pointermove', updateCursor, {
+    passive: true,
+  });
+</script>
 <section
-  aria-labelledby="carouselheading"
-  id={CAROUSEL_ID}
+  aria-labelledby="carouselHeading"
+  id="carousel"
   style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}`}
   inert={inert}
 >
-  <script>
-    const { carouselList, previous, next } = window;
-
-    /**
-     * Scrolls the demo element to the left or right based on the id of the clicked button.
-     */
-    const handleScroll = (event: MouseEvent) => {
-      const carouselCardWidth = carouselList?.querySelector('li')?.offsetWidth;
-
-      if (
-        carouselList &&
-        carouselCardWidth &&
-        event.currentTarget instanceof HTMLButtonElement
-      ) {
-        const direction = event.currentTarget?.id;
-        carouselList?.scrollBy({
-          left: direction === 'next' ? carouselCardWidth : -carouselCardWidth,
-          behavior: 'smooth',
-        });
-      }
-    };
-
-    previous?.addEventListener('click', handleScroll, {
-      passive: true,
-    });
-    next?.addEventListener('click', handleScroll, {
-      passive: true,
-    });
-
-    /**
-     * Updates the cursor position in the carousel wrapper element.
-     */
-    const updateCursor = (event: PointerEvent) => {
-      if (carouselList) {
-        carouselList.style.setProperty('--x', `${event.layerX}`);
-        carouselList.style.setProperty('--y', `${event.layerY}`);
-      }
-    };
-
-    carouselList?.addEventListener('pointermove', updateCursor, {
-      passive: true,
-    });
-  </script>
-  <h2 id={HEADING_ID}>{labels.title}</h2>
-  <ul id="carouselList">
+  <h2 id="carouselHeading">{labels.title}</h2>
+  <!-- remove tabindex in Firefox -->
+  <ul id="carouselList" aria-describedby="carouselArrowNav" tabindex="-1">
+    <span
+      id="carouselArrowNav"
+      aria-keyshortcuts="ArrowLeft ArrowRight"
+      class="sr-only"
+    >
+      {t('section_with_arrow_nav')}
+    </span>
     {
       showArchiveCard && (
         <li style={`--index: ${0}`}>
-          <a id={ARCHIVE_ID} href={`#${ARCHIVE_HREF}`}>
+          <a data-arrow-nav="true" id={ARCHIVE_ID} href={`#${ARCHIVE_HREF}`}>
             <article class={styles[ARCHIVE_ID]}>
               <h3>{labels.archiveTitle}</h3>
             </article>
@@ -127,7 +141,7 @@ const showArchiveCard = true;
 
         return (
           <li style={`--index: ${index + 1}`}>
-            <a id={`card${index}`} href={`#${item.href}`}>
+            <a data-arrow-nav="true" id={`card${index}`} href={`#${item.href}`}>
               <article class={styles[`outline${item.outline}`]}>
                 <Picture
                   formats={['avif']}

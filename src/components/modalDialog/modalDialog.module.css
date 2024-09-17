@@ -100,7 +100,7 @@ dialog {
 .closeLink {
   display: block;
   background: unset;
-  outline-offset: var(--outline-offset);
+  border-radius: var(--border-radius-sm);
   border: none;
   height: fit-content;
   line-height: 0;

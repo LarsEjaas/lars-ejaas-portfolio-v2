@@ -18,7 +18,7 @@ header {
     position: sticky;
     --background-color: light-dark(
       var(--system-light-300-55),
-      var(--system-dark-200-16)
+      var(--system-light-300-55)
     );
     --border-color: light-dark(
       var(--verdigris-100-op),

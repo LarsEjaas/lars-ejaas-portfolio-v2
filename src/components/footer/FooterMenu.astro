@@ -1,0 +1,37 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+---
+
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+
+  if (window.footerMenuNavigation) {
+    initializeKeyboardArrowNavigation(window.footerMenuNavigation);
+  }
+</script>
+<nav id="footerMenuNavigation" aria-labelledby="footerMenuTitle">
+  <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+    {t('section_with_arrow_nav')}
+  </span>
+  <h2 class="sr-only" id="#footerMenuTitle">
+    {t('nav_footer')}
+  </h2>
+  <ul>
+    <li>
+      <a data-arrow-nav="true" href="work" title={t('work')}>{t('work')}</a>
+      <a data-arrow-nav="true" href="skills" title={t('skills')}
+        >{t('skills')}</a
+      >
+      <a data-arrow-nav="true" href="about" title={t('about')}>{t('about')}</a>
+      <a data-arrow-nav="true" href="contact" title={t('contact')}
+        >{t('contact')}</a
+      >
+      <a data-arrow-nav="true" href="archive" title={t('archive')}
+        >{t('archive')}</a
+      >
+    </li>
+  </ul>
+</nav>

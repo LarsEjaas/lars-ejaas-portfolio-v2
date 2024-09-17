@@ -26,12 +26,14 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
   }
 </script>
 <a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="./"></a>
+<!-- remove tabindex in Firefox -->
 <dialog
+  tabindex="-1"
   id="modalDialog"
   role="dialog"
   aria-modal="true"
   open={true}
-  aria-labelledby="#modalTitle"
+  aria-labelledby="modalTitle"
 >
   <div
     class={styles.modalHeader}

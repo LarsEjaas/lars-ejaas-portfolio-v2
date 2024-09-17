@@ -17,16 +17,26 @@ const t = useTranslations(lang, 'navigation');
 const { inert } = Astro.props;
 ---
 
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+
+  if (window.desktopMenuContainer) {
+    initializeKeyboardArrowNavigation(window.desktopMenuContainer);
+  }
+</script>
 <header inert={inert}>
-  <div class={`${styles.desktopMenu} desktop-only`}>
+  <div id="desktopMenuContainer" class={`${styles.desktopMenu} desktop-only`}>
+    <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+      {t('section_with_arrow_nav')}
+    </span>
     <nav aria-labelledby="desktopMenuTitle">
       <h2 class="sr-only" id="#desktopMenuTitle">
         {t('nav_desktop')}
       </h2>
-      <a href="/" class={styles.homeLink}
+      <a data-arrow-nav="true" href="/" class={styles.homeLink}
         ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
       >
-      <a href="/work"
+      <a data-arrow-nav="true" href="/work"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -43,7 +53,7 @@ const { inert } = Astro.props;
         </div>
         <p>{t('work')}</p>
       </a>
-      <a href="/skills"
+      <a data-arrow-nav="true" href="/skills"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -59,7 +69,7 @@ const { inert } = Astro.props;
           />
         </div><p>{t('skills')}</p></a
       >
-      <a href="/about"
+      <a data-arrow-nav="true" href="/about"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -77,7 +87,11 @@ const { inert } = Astro.props;
       >
     </nav>
     <div class={styles.actions}>
-      <a href="/contact" title={t('contact')} aria-label={t('contact')}
+      <a
+        data-arrow-nav="true"
+        href="/contact"
+        title={t('contact')}
+        aria-label={t('contact')}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -93,7 +107,11 @@ const { inert } = Astro.props;
           />
         </div></a
       >
-      <a href="/share" title={t('share')} aria-label={t('share')}
+      <a
+        data-arrow-nav="true"
+        href="/share"
+        title={t('share')}
+        aria-label={t('share')}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -110,7 +128,7 @@ const { inert } = Astro.props;
         </div></a
       >
       <div class={styles.divider}></div>
-      <ThemeSwitch withGlow={false} isMobile={false} />
+      <ThemeSwitch withGlow={false} isMobile={false} data-arrow-nav="true" />
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>

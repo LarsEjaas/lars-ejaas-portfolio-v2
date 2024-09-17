@@ -6,6 +6,7 @@ import AstroLogo from './AstroLogo.astro';
 import NetlifyLogo from './NetlifyLogo.astro';
 import GitHubLogo from './GitHubLogo.astro';
 import SocialLinks from '../socialLinks/SocialLinks.astro';
+import FooterMenu from './FooterMenu.astro';
 type Props = {
   inert: boolean;
 };
@@ -18,20 +19,7 @@ const currentYear = new Date().getFullYear();
 
 <footer inert={inert}>
   <div class={styles.footerContent}>
-    <nav aria-labelledby="footerMenuTitle">
-      <h2 class="sr-only" id="#footerMenuTitle">
-        {t('nav_footer')}
-      </h2>
-      <ul>
-        <li>
-          <a href="work" title={t('work')}>{t('work')}</a>
-          <a href="skills" title={t('skills')}>{t('skills')}</a>
-          <a href="about" title={t('about')}>{t('about')}</a>
-          <a href="contact" title={t('contact')}>{t('contact')}</a>
-          <a href="archive" title={t('archive')}>{t('archive')}</a>
-        </li>
-      </ul>
-    </nav>
+    <FooterMenu />
     <div class={styles.copyright}>
       <p>
         ©&nbsp;{currentYear} | Lars Ejaas

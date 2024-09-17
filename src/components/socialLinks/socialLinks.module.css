@@ -1,7 +1,7 @@
 & .socialLinks {
   &[data-alt-colors] {
     & svg {
-      color: light-dark(var(--system-dark-100), var(--system-dark-400));
+      color: light-dark(var(--system-dark-100), var(--system-dark-200));
     }
   }
   & ul {

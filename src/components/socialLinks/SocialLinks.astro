@@ -15,12 +15,28 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 ---
 
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import styles from './socialLinks.module.css';
+
+  //there may be more than one element with this class on the page - we needd to initialize the keyboard navigation for each of them
+  const elements: HTMLElement[] = Array.from(
+    document.querySelectorAll(`div.${styles.socialLinks}`)
+  );
+
+  elements.forEach((element) => {
+    initializeKeyboardArrowNavigation(element);
+  });
+</script>
 <div
   class={styles.socialLinks}
   data-alt-colors={alternativeColors || undefined}
   aria-labelledby="socialLinksTitle"
 >
   <h2 id="socialLinksTitle" class="sr-only">{t('follow_me')}</h2>
+  <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+    {t('section_with_arrow_nav')}
+  </span>
   <ul>
     <li>
       <a
@@ -28,6 +44,7 @@ const t = useTranslations(lang, 'navigation');
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('x_label')}
+        data-arrow-nav="true"
       >
         <XIcon title={t('x_label')} />
       </a>
@@ -38,6 +55,7 @@ const t = useTranslations(lang, 'navigation');
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('linkedin_label')}
+        data-arrow-nav="true"
       >
         <LinkedInIcon title={t('linkedin_label')} />
       </a>
@@ -48,6 +66,7 @@ const t = useTranslations(lang, 'navigation');
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('github_label')}
+        data-arrow-nav="true"
       >
         <GitHubIcon title={t('github_label')} />
       </a>

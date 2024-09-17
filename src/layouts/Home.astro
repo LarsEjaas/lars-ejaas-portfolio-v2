@@ -13,8 +13,21 @@ import ProfileImage from '@assets/images/profile-clip.png';
 import SocialLinks from '../components/socialLinks/SocialLinks.astro';
 import AboutIcon from '../components/icons/AboutIcon.astro';
 import DownloadIcon from '../components/icons/DownloadIcon.astro';
+const resumeFiles = import.meta.glob('/public/resume/*.pdf');
 
-const LINK_TO_LATEST_RESUME = 'resume/Public_Resume_Lars_Ejaas_july_2024.pdf';
+/** Add a key that easily identifies the latest resume - located in public/resume */
+const LATEST_RESUME_KEY = 'july_2024.pdf';
+
+// Get the correct  resume PDF file
+const latestResumeURL = resumeFiles
+  ? Object.entries(resumeFiles).find(([path]) =>
+      path.includes(LATEST_RESUME_KEY)
+    )?.[0]
+  : undefined;
+
+if (!latestResumeURL) {
+  throw new Error(`No resume file found for ${latestResumeURL}`);
+}
 
 interface Props {
   title: string;
@@ -40,6 +53,7 @@ const t_home = useTranslations(lang, 'home');
       title="Lars Ejaas"
       overlayImage={ProfileImage}
       overlayImageAlt={t_home('profile_lars_alt')}
+      inert={inert}
     >
       <div class={styles.presentationCardContent}>
         <h3>{t_home('frontend_developer')}</h3>
@@ -51,7 +65,7 @@ const t_home = useTranslations(lang, 'home');
               <p>{t_home('about_me')}</p>
             </a>
             <a
-              href={LINK_TO_LATEST_RESUME}
+              href={latestResumeURL}
               download
               title={t_home('download_resume_title')}
             >

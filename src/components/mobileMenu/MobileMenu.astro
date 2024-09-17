@@ -15,15 +15,25 @@ const t = useTranslations(lang, 'navigation');
 const { inert } = Astro.props;
 ---
 
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  if (window.mobileMenuNavigation) {
+    initializeKeyboardArrowNavigation(window.mobileMenuNavigation);
+  }
+</script>
 <nav
   class={`${styles.mobileMenu} mobile-only`}
   aria-labelledby="mobileMenuTitle"
   inert={inert}
+  id="mobileMenuNavigation"
 >
   <h2 class="sr-only" id="#mobileMenuTitle">
     {t('nav_mobile')}
   </h2>
-  <a href="/" title={t('home')} aria-label={t('home')}
+  <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+    {t('section_with_arrow_nav')}
+  </span>
+  <a data-arrow-nav="true" href="/" title={t('home')} aria-label={t('home')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -39,7 +49,7 @@ const { inert } = Astro.props;
       />
     </div></a
   >
-  <a href="/work" title={t('work')} aria-label={t('work')}
+  <a data-arrow-nav="true" href="/work" title={t('work')} aria-label={t('work')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -55,7 +65,11 @@ const { inert } = Astro.props;
       />
     </div></a
   >
-  <a href="/skills" title={t('skills')} aria-label={t('skills')}
+  <a
+    data-arrow-nav="true"
+    href="/skills"
+    title={t('skills')}
+    aria-label={t('skills')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -71,7 +85,11 @@ const { inert } = Astro.props;
       />
     </div></a
   >
-  <a href="/about" title={t('about')} aria-label={t('about')}
+  <a
+    data-arrow-nav="true"
+    href="/about"
+    title={t('about')}
+    aria-label={t('about')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -87,7 +105,11 @@ const { inert } = Astro.props;
       />
     </div></a
   >
-  <a href="/contact" title={t('contact')} aria-label={t('contact')}
+  <a
+    data-arrow-nav="true"
+    href="/contact"
+    title={t('contact')}
+    aria-label={t('contact')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -103,7 +125,11 @@ const { inert } = Astro.props;
       />
     </div></a
   >
-  <a href="/share" title={t('share')} aria-label={t('share')}
+  <a
+    data-arrow-nav="true"
+    href="/share"
+    title={t('share')}
+    aria-label={t('share')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"

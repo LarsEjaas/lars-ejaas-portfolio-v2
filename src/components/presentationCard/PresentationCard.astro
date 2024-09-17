@@ -4,10 +4,11 @@ import styles from './PresentationCard.module.css';
 import type { ColorVariants } from '@customTypes/index';
 
 type Props = {
-  iconImage?: ImageMetadata;
-  iconImageAlt?: string;
   title: string;
   gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
+  inert: boolean;
+  iconImage?: ImageMetadata;
+  iconImageAlt?: string;
   overlayImage?: ImageMetadata;
   overlayImageAlt?: string;
   /** Make the squircle and overlay image size responsive */
@@ -22,10 +23,11 @@ const {
   responsiveSquircleSize,
   iconImageAlt,
   overlayImageAlt,
+  inert,
 } = Astro.props;
 ---
 
-<section class={styles.presentationCard}>
+<section inert={inert} class={styles.presentationCard}>
   <div
     class={styles.header}
     data-princeton={gradientColor === 'princeton' ? 'true' : undefined}

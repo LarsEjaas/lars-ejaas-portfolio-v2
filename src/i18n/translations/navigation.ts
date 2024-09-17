@@ -1,5 +1,7 @@
 export const navigation = {
   en: {
+    section_with_arrow_nav:
+      'This section supports arrow key navigation. Use left and right arrows to move between items.',
     home: 'Home',
     about: 'About',
     work: 'Work',
@@ -29,6 +31,8 @@ export const navigation = {
     home_tagline: 'Welcome to my website!',
   },
   da: {
+    section_with_arrow_nav:
+      'Denne sektion understøtter navigation med piletasterne. Benyt venstre- og højre piletaster til at navigere mellem elementerne.',
     home: 'Hjem',
     about: 'Om mig',
     work: 'Arbejde',
