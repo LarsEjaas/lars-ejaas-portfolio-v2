@@ -8,9 +8,10 @@ import ContactContent from '@components/contact/Contact.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import type { ModalTypes } from '@i18n/routes';
+import type { DanishLanguageSlug } from '@i18n/settings';
 
-type EnglishModalPaths = {
-  [K in ModalTypes<'en'>]: { params: { modal: K } };
+type DanishModalPaths = {
+  [K in ModalTypes<'da'>]: { params: { lang: DanishLanguageSlug; modal: K } };
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -18,22 +19,22 @@ const t = useTranslations(lang, 'navigation');
 
 export function getStaticPaths() {
   // Helper function to create a type-safe path object
-  const createPaths = <T extends EnglishModalPaths>(paths: T): T => paths;
+  const createPaths = <T extends DanishModalPaths>(paths: T): T => paths;
   const paths = createPaths({
-    share: { params: { modal: 'share' } },
-    contact: { params: { modal: 'contact' } },
+    del: { params: { lang: 'da', modal: 'del' } },
+    kontakt: { params: { lang: 'da', modal: 'kontakt' } },
   });
   return Object.values(paths);
 }
 
 const { modal } = Astro.params;
 
-const modalMap: Record<
-  ModalTypes<'en'>,
+const danishModalMap: Record<
+  ModalTypes<'da'>,
   { component: AstroComponentFactory; icon: ImageMetadata; title: string }
 > = {
-  share: { component: ShareContent, icon: IconShare, title: t('share') },
-  contact: {
+  del: { component: ShareContent, icon: IconShare, title: t('share') },
+  kontakt: {
     component: ContactContent,
     icon: IconContact,
     title: t('contact_title'),
@@ -41,11 +42,11 @@ const modalMap: Record<
 };
 
 const ModalContent: AstroComponentFactory | undefined =
-  modalMap[modal]?.component;
+  danishModalMap[modal]?.component;
 
-const iconImage = modalMap[modal]?.icon;
+const iconImage = danishModalMap[modal]?.icon;
 
-const modalTitle = modalMap[modal]?.title;
+const modalTitle = danishModalMap[modal]?.title;
 
 const gradientColor = 'verdigris';
 

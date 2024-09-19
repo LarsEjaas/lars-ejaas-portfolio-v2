@@ -1,4 +1,10 @@
-import { translations, defaultLang, languages } from './settings';
+import {
+  translations,
+  defaultLang,
+  languages,
+  showDefaultLang,
+  type Language,
+} from './settings';
 import { appRoutes } from './routes';
 import { hasProperty } from '@customTypes/index';
 
@@ -46,16 +52,44 @@ export function useTranslations<
 }
 
 export function useTranslatedPath(lang: keyof typeof languages) {
-  return function translatePath(path: string, l: string = lang) {
+  return function translatePath(path: string, language: Language = lang) {
     const pathName = path.replaceAll('/', '');
+    // If this is a translated index page, return the translated index page without trailing slash
+    if (pathName === '' && lang !== defaultLang) {
+      return `/${lang}`;
+    }
     const hasTranslation =
-      defaultLang !== l &&
-      hasProperty(l, appRoutes) &&
-      hasProperty(pathName, appRoutes[l]) &&
-      appRoutes[l] !== undefined &&
-      appRoutes[l][pathName] !== undefined;
-    const translatedPath = hasTranslation ? '/' + appRoutes[l][pathName] : path;
+      defaultLang !== language &&
+      hasProperty(pathName, appRoutes[language]) &&
+      appRoutes[language][pathName] !== undefined;
+    const translatedPath = hasTranslation
+      ? '/' + appRoutes[language][pathName]
+      : path;
 
-    return l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
+    return !showDefaultLang && language === defaultLang
+      ? translatedPath
+      : `/${language}${translatedPath}`;
   };
+}
+
+/**
+ * Remove leading slash from a slug or url, preserving literal type
+ */
+export function removeLeadingSlash<T extends string>(
+  url: T
+): T extends `/${infer Rest}` ? Rest : T {
+  return (
+    url.startsWith('/') ? url.substring(1) : url
+  ) as T extends `/${infer Rest}` ? Rest : T;
+}
+
+/**
+ * Remove trailing slash from a slug or url, preserving literal type
+ */
+export function removeTrailingSlash<T extends string>(
+  url: T
+): T extends `${infer Rest}/` ? Rest : T {
+  return (
+    url.endsWith('/') ? url.slice(0, -1) : url
+  ) as T extends `${infer Rest}/` ? Rest : T;
 }

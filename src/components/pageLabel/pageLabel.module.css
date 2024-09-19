@@ -8,7 +8,7 @@
   & :global(.squircle) {
     &[data-with-shadow] {
       &::before {
-        box-shadow: var(--stacks-4-shadow);
+        box-shadow: var(--stacks-6-shadow);
       }
     }
   }

@@ -1,6 +1,10 @@
 ---
 import styles from './headerMenu.module.css';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
 import { Picture } from 'astro:assets';
 import IconWork from '@assets/menuIcons/work.png';
 import IconSkills from '@assets/menuIcons/skillset.png';
@@ -14,6 +18,7 @@ import EjaasLogo from './EjaasLogo.astro';
 type Props = { inert: boolean };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
+const translatePath = useTranslatedPath(lang);
 const { inert } = Astro.props;
 ---
 
@@ -33,10 +38,10 @@ const { inert } = Astro.props;
       <h2 class="sr-only" id="#desktopMenuTitle">
         {t('nav_desktop')}
       </h2>
-      <a data-arrow-nav="true" href="/" class={styles.homeLink}
+      <a data-arrow-nav="true" href={translatePath('/')} class={styles.homeLink}
         ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
       >
-      <a data-arrow-nav="true" href="/work"
+      <a data-arrow-nav="true" href={translatePath('/work')}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -53,7 +58,7 @@ const { inert } = Astro.props;
         </div>
         <p>{t('work')}</p>
       </a>
-      <a data-arrow-nav="true" href="/skills"
+      <a data-arrow-nav="true" href={translatePath('/skills')}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -69,7 +74,7 @@ const { inert } = Astro.props;
           />
         </div><p>{t('skills')}</p></a
       >
-      <a data-arrow-nav="true" href="/about"
+      <a data-arrow-nav="true" href={translatePath('/about')}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -89,7 +94,7 @@ const { inert } = Astro.props;
     <div class={styles.actions}>
       <a
         data-arrow-nav="true"
-        href="/contact"
+        href={translatePath('/contact')}
         title={t('contact')}
         aria-label={t('contact')}
         ><div class="squircle" data-with-shadow="true">
@@ -109,7 +114,7 @@ const { inert } = Astro.props;
       >
       <a
         data-arrow-nav="true"
-        href="/share"
+        href={translatePath('/share')}
         title={t('share')}
         aria-label={t('share')}
         ><div class="squircle" data-with-shadow="true">
@@ -128,11 +133,12 @@ const { inert } = Astro.props;
         </div></a
       >
       <div class={styles.divider}></div>
+      <LanguageToggle />
       <ThemeSwitch withGlow={false} isMobile={false} data-arrow-nav="true" />
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
-    <LanguageToggle />
+    <LanguageToggle withBackground={true} />
     <ThemeSwitch withGlow={true} isMobile={true} />
   </div>
 </header>

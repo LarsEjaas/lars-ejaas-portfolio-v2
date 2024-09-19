@@ -12,7 +12,7 @@ export const home = {
   da: {
     frontend_developer: 'Frontend Udvikler',
     frontend_developer_description:
-      'Jeg brænder for webudvikling og programmering, og jeg stræber efter løsninger, hvor brugervenlighed går hånd i hånd med performance og kreativitet.\nJeg nyder også at holde mig opdateret på webdesign trends, og når tiden tillader det, nyder jeg at lave mine egne designs.',
+      'Jeg brænder for webudvikling samt programmering og stræber efter løsninger, hvor brugervenlighed går hånd i hånd med performance og kreativitet.\nJeg nyder også at holde mig opdateret på webdesign trends, og når tiden tillader det, nyder jeg at lave mine egne designs.',
     profile_lars_alt: 'Profilbillede af Lars Ejaas',
     about_me: 'Om mig',
     about_me_title: 'Lær mig bedre at kende',
