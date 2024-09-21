@@ -33,6 +33,9 @@
     z-index: 2;
   }
   &:global(#three) {
+    left: 10%;
+    top: 0;
+    width: 90%;
     z-index: 4;
     position: relative;
     background: radial-gradient(
@@ -63,13 +66,16 @@
   }
   &[data-princeton] {
     &:global(#two) {
-      left: 5%;
-      top: 10%;
-      width: 20%;
+      left: 10%;
+      top: 0;
+      width: 40%;
+      background-color: var(--princeton-400);
     }
     &:global(#three) {
+      --background-color: var(--princeton-400);
     }
     &:global(#four) {
+      background-color: var(--princeton-500);
     }
   }
   &[data-verdigris] {

@@ -37,7 +37,10 @@ const {
   >
     <div class={styles.headerContent}>
       <h2>{title}</h2>
-      <div class={styles.iconContent}>
+      <div
+        class={styles.iconContent}
+        data-responsive={responsiveSquircleSize ? 'true' : undefined}
+      >
         <div
           class={`${styles.outline} squircle`}
           data-responsive={responsiveSquircleSize ? 'true' : undefined}
@@ -76,18 +79,27 @@ const {
         {
           overlayImage && (
             <Picture
-              data-responsive={responsiveSquircleSize ? 'true' : undefined}
               formats={['avif', 'webp']}
               quality="high"
               src={overlayImage}
               alt={overlayImageAlt}
-              width="72"
-              height="72"
-              densities={[1, 2, 3, 4]}
+              widths={
+                (responsiveSquircleSize
+                  ? [80, 135]
+                  : undefined) as (typeof Picture.arguments)['widths']
+              }
+              width={
+                (responsiveSquircleSize
+                  ? undefined
+                  : 72) as (typeof Picture.arguments)['width']
+              }
               loading="eager"
               decoding="sync"
               pictureAttributes={{
-                style: `aspect-ratio: ${overlayImage.width}/${overlayImage.height}; width: 72px;`,
+                ['data-responsive']: responsiveSquircleSize
+                  ? 'true'
+                  : undefined,
+                style: `aspect-ratio: ${overlayImage.width}/${overlayImage.height};${responsiveSquircleSize ? '' : 'width: 72px;'}`,
                 class: styles.overlayImage,
               }}
             />

@@ -1,0 +1,44 @@
+---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import type { SlugTypes } from '@i18n/routes';
+import type { DanishLanguageSlug } from '@i18n/settings';
+import About from '@layouts/About.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+type DanishSlugPaths = {
+  [K in SlugTypes<'da'>]: { params: { lang: DanishLanguageSlug; slug: K } };
+};
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = <T extends DanishSlugPaths>(paths: T): T => paths;
+  const paths = createPaths({
+    arbejde: { params: { lang: 'da', slug: 'arbejde' } },
+    kompetencer: { params: { lang: 'da', slug: 'kompetencer' } },
+    ['om-mig']: { params: { lang: 'da', slug: 'om-mig' } },
+    arkiv: { params: { lang: 'da', slug: 'arkiv' } },
+  });
+  return Object.values(paths);
+}
+
+const { slug } = Astro.params;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+const danishSlugMap: Record<
+  SlugTypes<'da'>,
+  { component: AstroComponentFactory; title: string }
+> = {
+  arbejde: { component: () => {}, title: t('work') },
+  kompetencer: { component: () => {}, title: t('skills') },
+  ['om-mig']: { component: About, title: t('about') },
+  arkiv: { component: () => {}, title: t('work') },
+};
+
+const pageTitle = danishSlugMap[slug]?.title;
+
+const PageContent = danishSlugMap[slug]?.component;
+---
+
+<PageContent title={pageTitle} inert={false} />

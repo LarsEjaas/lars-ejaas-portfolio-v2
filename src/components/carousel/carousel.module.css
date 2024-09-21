@@ -168,10 +168,10 @@
         inset: 0;
         background: radial-gradient(
           circle at calc(var(--x) * 1px) calc(var(--y) * 1px),
-          light-dark(hsl(0 0% 100% / 0.6), hsl(0 0% 100% / 0.24)),
-          light-dark(hsl(0 0% 100% / 0.48), hsl(0 0% 100% / 0.19)) 16px,
-          light-dark(hsl(0 0% 100% / 0.22), hsl(0 0% 100% / 0.09)) 40px,
-          light-dark(hsl(0 0% 100% / 0.04), hsl(0 0% 100% / 0.02)) 60px,
+          light-dark(hsl(0 0% 100% / 0.36), hsl(0 0% 100% / 0.24)),
+          light-dark(hsl(0 0% 100% / 0.29), hsl(0 0% 100% / 0.19)) 16px,
+          light-dark(hsl(0 0% 100% / 0.13), hsl(0 0% 100% / 0.09)) 40px,
+          light-dark(hsl(0 0% 100% / 0.03), hsl(0 0% 100% / 0.02)) 60px,
           transparent 80px
         );
         background-attachment: local;

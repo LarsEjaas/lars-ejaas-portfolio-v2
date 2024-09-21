@@ -18,13 +18,17 @@ const translatePath = useTranslatedPath(lang);
   }
 </script>
 <nav id="footerMenuNavigation" aria-labelledby="footerMenuTitle">
-  <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+  <span id="footerArrowNavDescription" class="sr-only">
     {t('section_with_arrow_nav')}
   </span>
   <h2 class="sr-only" id="#footerMenuTitle">
     {t('nav_footer')}
   </h2>
-  <ul>
+  <ul
+    role="group"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    aria-describedby="footerArrowNavDescription"
+  >
     <li>
       <a data-arrow-nav="true" href={translatePath('work')} title={t('work')}
         >{t('work')}</a

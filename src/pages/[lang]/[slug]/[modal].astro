@@ -1,0 +1,136 @@
+---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import ModalDialog from '@components/modalDialog/ModalDialog.astro';
+import ShareContent from '@components/share/Share.astro';
+import ContactContent from '@components/contact/Contact.astro';
+import IconContact from '@assets/menuIcons/contact.png';
+import IconShare from '@assets/menuIcons/share.png';
+import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
+import type { DanishLanguageSlug } from '@i18n/settings';
+import About from '@layouts/About.astro';
+
+type DanishModalSlugPaths = {
+  [P in SlugWithModalTypes<'da'>]: {
+    params: { lang: DanishLanguageSlug } & ModalSlugPath<P>;
+  };
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = <T extends DanishModalSlugPaths>(paths: T): T => paths;
+  const paths = createPaths({
+    ['arbejde/del']: { params: { lang: 'da', slug: 'arbejde', modal: 'del' } },
+    ['arbejde/kontakt']: {
+      params: { lang: 'da', slug: 'arbejde', modal: 'kontakt' },
+    },
+    ['kompetencer/del']: {
+      params: { lang: 'da', slug: 'kompetencer', modal: 'del' },
+    },
+    ['kompetencer/kontakt']: {
+      params: { lang: 'da', slug: 'kompetencer', modal: 'kontakt' },
+    },
+    ['om-mig/del']: { params: { lang: 'da', slug: 'om-mig', modal: 'del' } },
+    ['om-mig/kontakt']: {
+      params: { lang: 'da', slug: 'om-mig', modal: 'kontakt' },
+    },
+    ['arkiv/del']: { params: { lang: 'da', slug: 'arkiv', modal: 'del' } },
+    ['arkiv/kontakt']: {
+      params: { lang: 'da', slug: 'arkiv', modal: 'kontakt' },
+    },
+  });
+  return Object.values(paths);
+}
+
+const { slug, modal } = Astro.params;
+
+const danishModalSlugMap: Record<
+  SlugWithModalTypes<'da'>,
+  {
+    pageComponent: AstroComponentFactory;
+    modalComponent: AstroComponentFactory;
+    modalIcon: ImageMetadata;
+    pageTitle: string;
+    modalTitle: string;
+  }
+> = {
+  ['arbejde/del']: {
+    pageComponent: () => {},
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['arbejde/kontakt']: {
+    pageComponent: () => {},
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+  ['kompetencer/del']: {
+    pageComponent: () => {},
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['kompetencer/kontakt']: {
+    pageComponent: () => {},
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+  ['om-mig/del']: {
+    pageComponent: About,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['om-mig/kontakt']: {
+    pageComponent: About,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+  ['arkiv/del']: {
+    pageComponent: About,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('work'),
+    modalTitle: t('share'),
+  },
+  ['arkiv/kontakt']: {
+    pageComponent: About,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('contact'),
+  },
+};
+
+const ModalContent = danishModalSlugMap[`${slug}/${modal}`]?.modalComponent;
+
+const PageContent = danishModalSlugMap[`${slug}/${modal}`]?.pageComponent;
+
+const iconImage = danishModalSlugMap[`${slug}/${modal}`]?.modalIcon;
+
+const modalTitle = danishModalSlugMap[`${slug}/${modal}`]?.modalTitle;
+const pageTitle = danishModalSlugMap[`${slug}/${modal}`]?.pageTitle;
+---
+
+<PageContent title={pageTitle} inert={true}>
+  <ModalDialog
+    title={modalTitle}
+    labels={{ close: t('close_modal_title') }}
+    iconImage={iconImage}
+    gradientColor="verdigris"
+    ><ModalContent />
+  </ModalDialog>
+</PageContent>

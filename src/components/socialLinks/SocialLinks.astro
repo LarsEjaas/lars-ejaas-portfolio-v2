@@ -7,9 +7,10 @@ import styles from './socialLinks.module.css';
 
 type Props = {
   alternativeColors?: boolean;
+  onCard?: boolean;
 };
 
-const { alternativeColors } = Astro.props;
+const { alternativeColors, onCard } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
@@ -31,13 +32,22 @@ const t = useTranslations(lang, 'navigation');
 <div
   class={styles.socialLinks}
   data-alt-colors={alternativeColors || undefined}
-  aria-labelledby="socialLinksTitle"
+  aria-labelledby=`socialLinksTitle${onCard ? 1 : 2}`
 >
-  <h2 id="socialLinksTitle" class="sr-only">{t('follow_me')}</h2>
-  <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+  <h2 id=`socialLinksTitle${onCard ? 1 : 2}` class="sr-only">
+    {t('follow_me')}
+  </h2>
+  <span
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    id=`socialArrowNavDescription${onCard ? 1 : 2}`
+    class="sr-only"
+  >
     {t('section_with_arrow_nav')}
   </span>
-  <ul>
+  <ul
+    role="group"
+    aria-describedby=`socialArrowNavDescription${onCard ? 1 : 2}`
+  >
     <li>
       <a
         href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"

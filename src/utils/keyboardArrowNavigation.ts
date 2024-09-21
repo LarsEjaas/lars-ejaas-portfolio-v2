@@ -4,7 +4,7 @@ const getFocusableElements = (
 ): Array<HTMLElement> => {
   const elements = Array.from(
     (hostElement?.querySelectorAll(
-      'a[data-arrow-nav], button:not(:disabled)[data-arrow-nav], textarea[data-arrow-nav], input[data-arrow-nav]'
+      'a[data-arrow-nav]:not([aria-disabled]), button:not(:disabled)[data-arrow-nav], textarea[data-arrow-nav], input[data-arrow-nav]'
     ) as NodeListOf<HTMLElement>) ?? []
   );
   return elements;

@@ -16,16 +16,12 @@ header {
 @media (min-width: 769px) {
   header {
     position: sticky;
-    --background-color: light-dark(
-      var(--system-light-300-55),
-      var(--system-light-300-55)
-    );
     --border-color: light-dark(
       var(--verdigris-100-op),
       var(--system-dark-200-16)
     );
     padding: 0;
-    background-color: var(--background-color);
+    background-color: var(--system-light-300-55);
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--stacks-6-shadow);
     backdrop-filter: saturate(180%) brightness(80%) blur(3px);
@@ -55,8 +51,8 @@ header {
   & .divider {
     height: calc(100% - 8px);
     --border-color: light-dark(
-      var(--system-dark-100),
-      var(--system-dark-300-55)
+      var(--system-dark-300-55),
+      var(--system-light-500)
     );
     margin-inline: 8px;
     border-right: 1px solid var(--border-color);
@@ -76,6 +72,7 @@ header {
       transition: text-decoration-color 0.4s;
     }
     & p {
+      user-select: none;
       font-weight: 600;
       color: var(--system-dark-300);
       text-wrap: nowrap;

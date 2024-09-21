@@ -30,8 +30,14 @@ const { inert } = Astro.props;
   }
 </script>
 <header inert={inert}>
-  <div id="desktopMenuContainer" class={`${styles.desktopMenu} desktop-only`}>
-    <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+  <div
+    id="desktopMenuContainer"
+    role="group"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    aria-describedby="desktopArrowNavDescription"
+    class={`${styles.desktopMenu} desktop-only`}
+  >
+    <span id="desktopArrowNavDescription" class="sr-only">
       {t('section_with_arrow_nav')}
     </span>
     <nav aria-labelledby="desktopMenuTitle">
@@ -133,7 +139,7 @@ const { inert } = Astro.props;
         </div></a
       >
       <div class={styles.divider}></div>
-      <LanguageToggle />
+      <LanguageToggle withArrowNav={true} />
       <ThemeSwitch withGlow={false} isMobile={false} data-arrow-nav="true" />
     </div>
   </div>

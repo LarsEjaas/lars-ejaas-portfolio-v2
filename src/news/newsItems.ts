@@ -92,7 +92,7 @@ const newsObject = {
     salling_group: {
       title: 'Frontend udvikler hos Salling Group',
       description:
-        'Jeg kan nu se tilbage på de første 4 måneders ansættelse hos Salling Group.\nDet har været en meget lærerig process indtil videre og jeg er stolt af at være en del af et dygtigt team.',
+        'Jeg ser tilbage på mine første 4 måneder hos Salling Group: \nDet har været en fantastisk lærerig oplevelse indtil videre i et talentfuldt team.',
       date: '10. februar 2022',
       imageSrc: 'salling_group.png',
       imageAlt: 'Salling Group logo',
@@ -192,7 +192,7 @@ const newsObject = {
     salling_group: {
       title: 'Frontend Developer at Salling Group',
       description:
-        "Reflecting on my first 4 months at Salling Group: \nIt's been a great learning experience with a talented team.",
+        "Reflecting on my first 4 months at Salling Group: \nIt's been a great learning experience so far within a talented team.",
       date: 'February 10th, 2022',
       imageSrc: 'salling_group.png',
       imageAlt: 'Salling Group logo',

@@ -36,17 +36,16 @@ interface Props {
 }
 
 const { title, lang, inert } = Astro.props;
-const t = useTranslations(lang, 'navigation');
 const t_home = useTranslations(lang, 'home');
 ---
 
 <Layout title={title} inert={inert}>
   <div class={styles.presentation}>
     <PageLabel
-      title={t('home_title')}
+      title={t_home('home_title')}
       iconImage="ejaas"
       tagLine="home"
-      taglineAlt={t('home_tagline')}
+      taglineAlt={t_home('home_tagline')}
     />
     <PresentationCard
       gradientColor="verdigris"
@@ -56,8 +55,12 @@ const t_home = useTranslations(lang, 'home');
       inert={inert}
     >
       <div class={styles.presentationCardContent}>
-        <h3>{t_home('frontend_developer')}</h3>
-        <p>{t_home('frontend_developer_description')}</p>
+        <h3 class="stylized-capitalized-text">
+          {t_home('frontend_developer')}
+        </h3>
+        <p class="small-body-text">
+          {t_home('frontend_developer_description')}
+        </p>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
             <a href="/about" title={t_home('about_me_title')}>
@@ -73,7 +76,7 @@ const t_home = useTranslations(lang, 'home');
               <p>{t_home('download_resume')}</p>
             </a>
           </div>
-          <SocialLinks alternativeColors={true} />
+          <SocialLinks alternativeColors={true} onCard={true} />
         </div>
       </div>
     </PresentationCard>

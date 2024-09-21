@@ -24,13 +24,16 @@ const { inert } = Astro.props;
 <nav
   class={`${styles.mobileMenu} mobile-only`}
   aria-labelledby="mobileMenuTitle"
+  aria-describedby="mobileArrowNavDescription"
   inert={inert}
+  role="group"
+  aria-keyshortcuts="ArrowLeft ArrowRight"
   id="mobileMenuNavigation"
 >
   <h2 class="sr-only" id="#mobileMenuTitle">
     {t('nav_mobile')}
   </h2>
-  <span aria-keyshortcuts="ArrowLeft ArrowRight" class="sr-only">
+  <span class="sr-only" id="mobileArrowNavDescription">
     {t('section_with_arrow_nav')}
   </span>
   <a data-arrow-nav="true" href="/" title={t('home')} aria-label={t('home')}

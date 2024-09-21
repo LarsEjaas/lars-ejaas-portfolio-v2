@@ -10,9 +10,9 @@ import styles from './LanguageToggle.module.css';
 import { appRoutes } from '@i18n/routes';
 import type { LanguageKey } from '@i18n/routes';
 
-type Props = { withBackground?: boolean };
+type Props = { withBackground?: boolean; withArrowNav?: boolean };
 
-const { withBackground } = Astro.props;
+const { withBackground, withArrowNav } = Astro.props;
 
 /** Get the English appRoute when only the translated path is provided */
 const getEnglishTranslation = (
@@ -49,7 +49,17 @@ const danishUrl =
   class={styles.languageToggle}
   data-with-background={withBackground || undefined}
 >
-  <a href={englishUrl}>EN</a>
+  <a
+    tabindex={lang === 'en' ? -1 : 0}
+    aria-disabled={lang === 'en' || undefined}
+    data-arrow-nav={withArrowNav || undefined}
+    href={englishUrl}>EN</a
+  >
   <span>|</span>
-  <a href={danishUrl}>DA</a>
+  <a
+    tabindex={lang === 'da' ? -1 : 0}
+    aria-disabled={lang === 'da' || undefined}
+    data-arrow-nav={withArrowNav || undefined}
+    href={danishUrl}>DA</a
+  >
 </div>

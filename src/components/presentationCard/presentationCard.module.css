@@ -131,13 +131,17 @@
   grid-column: 1;
   width: 80px;
   height: 80px;
-  &[data-responsive] {
-  }
 }
 
 .cardContent {
   padding-inline: 32px;
   padding-block: 24px;
+  & h3 {
+    color: light-dark(var(--system-dark-100), var(--system-dark-300));
+  }
+  & p {
+    color: light-dark(var(--system-dark-200), var(--system-dark-100));
+  }
 }
 
 .overlayImage {
@@ -146,7 +150,9 @@
   margin-bottom: 4px;
   margin-inline: auto;
   z-index: 1;
+  width: 80px;
   &[data-responsive] {
+    margin-bottom: -12px;
   }
 }
 
@@ -160,9 +166,27 @@
     }
     & .iconContent {
       transform: translateY(38px);
+      &[data-responsive] {
+        transform: translateY(76px);
+        height: 300%;
+      }
     }
   }
   .cardContent {
     padding-top: 16px;
+  }
+  .outline[data-responsive] {
+    width: 136px;
+    height: 136px;
+    padding: 8px;
+    & :global(.squircle) {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .overlayImage[data-responsive] {
+    width: 135px;
+    margin-bottom: -18px;
+    transform: translateX(-8px);
   }
 }

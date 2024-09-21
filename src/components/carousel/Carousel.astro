@@ -7,7 +7,7 @@ import type {
   EnglishDate,
   ImageModule,
 } from '@customTypes/index';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 export type CardInfo = {
@@ -106,7 +106,12 @@ const t = useTranslations(lang, 'navigation');
 >
   <h2 id="carouselHeading">{labels.title}</h2>
   <!-- remove tabindex in Firefox -->
-  <ul id="carouselList" aria-describedby="carouselArrowNav" tabindex="-1">
+  <ul
+    id="carouselList"
+    role="group"
+    aria-describedby="carouselArrowNav"
+    tabindex="-1"
+  >
     <span
       id="carouselArrowNav"
       aria-keyshortcuts="ArrowLeft ArrowRight"

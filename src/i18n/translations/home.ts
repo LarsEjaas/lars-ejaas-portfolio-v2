@@ -8,6 +8,8 @@ export const home = {
     about_me_title: 'Learn More About Me',
     download_resume: 'Resumé',
     download_resume_title: 'Download my Latest Resumé',
+    home_title: 'Home',
+    home_tagline: 'Welcome to my website!',
   },
   da: {
     frontend_developer: 'Frontend Udvikler',
@@ -18,5 +20,7 @@ export const home = {
     about_me_title: 'Lær mig bedre at kende',
     download_resume: 'Download CV',
     download_resume_title: 'Download mit seneste CV',
+    home_title: 'Hjem',
+    home_tagline: 'Velkommen til min side!',
   },
 } as const;

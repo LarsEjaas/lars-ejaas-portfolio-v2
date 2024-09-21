@@ -1,6 +1,7 @@
 import { navigation } from './translations/navigation';
 import { share } from './translations/share';
 import { home } from './translations/home';
+import { about } from './translations/about';
 
 export type Language = keyof typeof languages;
 
@@ -17,6 +18,7 @@ export const translations = {
   navigation,
   share,
   home,
+  about,
 } as const;
 
 export const showDefaultLang = false;
