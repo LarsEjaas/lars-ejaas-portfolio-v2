@@ -4,7 +4,7 @@ import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astr
 import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
-import styles from './home.module.css';
+import styles from './about.module.css';
 import ProfileImage from '@assets/images/profile.png';
 
 interface Props {
@@ -33,9 +33,20 @@ const t_about = useTranslations(lang, 'about');
       overlayImageAlt={t_about('profile_lars_alt')}
       inert={inert}
     >
-      <div>
+      <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">{t_about('i_am')}</h3>
         <p class="small-body-text">{t_about('a_positive_and')}</p>
+        <h3 class="stylized-capitalized-text">{t_about('background')}</h3>
+        <ul>
+          <li class="small-body-text">{t_about('bachelors_degree')}</li>
+          <li class="small-body-text">{t_about('transitioned_to_a_caree')}</li>
+        </ul>
+        <h3 class="stylized-capitalized-text">{t_about('personal_life')}</h3>
+        <ul>
+          <li class="small-body-text">{t_about('a_cheerful_individual')}</li>
+          <li class="small-body-text">{t_about('living_in_aarhus')}</li>
+          <li class="small-body-text">{t_about('the_proud_father')}</li>
+        </ul>
       </div>
     </PresentationCard>
   </div>

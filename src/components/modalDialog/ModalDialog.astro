@@ -12,6 +12,8 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
 ---
 
 <script>
+  import { getStoredScrollPosition } from '@utils/scrollPosition';
+
   const handleKeydown = (event: KeyboardEvent) => {
     if (event.key.toLowerCase() === 'escape') {
       // Do the change asynchronously at the back of the event queue to make sure the change is ALWAYS applied.
@@ -23,6 +25,15 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
 
   if (window.modalDialog) {
     window.addEventListener('keydown', handleKeydown, { passive: true });
+  }
+
+  // Restore scroll position from the previous page.
+  const storedScrollPosition = getStoredScrollPosition();
+  if (storedScrollPosition) {
+    window.scrollTo({
+      top: storedScrollPosition,
+      behavior: 'instant',
+    });
   }
 </script>
 <a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="./"></a>

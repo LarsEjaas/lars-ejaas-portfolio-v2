@@ -15,6 +15,10 @@ interface Window {
   two: HTMLDivElement | null;
   three: HTMLDivElement | null;
   four: HTMLDivElement | null;
+  mobileShareLink: HTMLAnchorElement | null;
+  mobileContactLink: HTMLAnchorElement | null;
+  desktopShareLink: HTMLAnchorElement | null;
+  desktopContactLink: HTMLAnchorElement | null;
 }
 
 interface String {

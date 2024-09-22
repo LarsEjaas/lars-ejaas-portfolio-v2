@@ -1,4 +1,5 @@
 .presentationCard {
+  view-transition-name: presentationCard;
   display: flex;
   container-type: inline-size;
   container-name: presentationCard;
@@ -59,6 +60,7 @@
   width: 100%;
   padding-inline: 32px;
   & h2 {
+    view-transition-name: presentation-card-header-title;
     align-self: flex-end;
     text-transform: uppercase;
     font-size: var(--font-size-5);
@@ -122,6 +124,7 @@
 }
 
 .outline {
+  view-transition-name: outline;
   background-color: light-dark(
     var(--system-light-100),
     var(--system-light-300)
@@ -134,17 +137,24 @@
 }
 
 .cardContent {
+  view-transition-name: card-content;
   padding-inline: 32px;
   padding-block: 24px;
   & h3 {
     color: light-dark(var(--system-dark-100), var(--system-dark-300));
   }
+  & ul,
+  & p {
+    margin-block-end: 4px;
+  }
+  & li,
   & p {
     color: light-dark(var(--system-dark-200), var(--system-dark-100));
   }
 }
 
 .overlayImage {
+  view-transition-name: overlay-image;
   grid-row: 1;
   grid-column: 1;
   margin-bottom: 4px;
@@ -175,6 +185,18 @@
   .cardContent {
     padding-top: 16px;
   }
+  /* Cut a corner in the text to make room for the profile picture */
+  .cardContent[data-with-cutout] > div:nth-child(1) > p {
+    &::before {
+      content: '';
+      position: static;
+      display: block;
+      width: 142px;
+      height: 60px;
+      float: right;
+      shape-margin: 4px;
+    }
+  }
   .outline[data-responsive] {
     width: 136px;
     height: 136px;
@@ -185,7 +207,7 @@
     }
   }
   .overlayImage[data-responsive] {
-    width: 135px;
+    width: 136px;
     margin-bottom: -18px;
     transform: translateX(-8px);
   }

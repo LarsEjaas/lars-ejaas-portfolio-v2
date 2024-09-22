@@ -108,7 +108,12 @@ const {
       </div>
     </div>
   </div>
-  <div class={styles.cardContent}>
+  <div
+    class={styles.cardContent}
+    data-with-cutout={responsiveSquircleSize && overlayImage
+      ? 'true'
+      : undefined}
+  >
     <slot />
   </div>
 </section>

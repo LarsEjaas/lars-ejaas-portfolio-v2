@@ -1,13 +1,16 @@
 ---
 import {
   getLangFromUrl,
+  removeTrailingSlash,
   useTranslatedPath,
   useTranslations,
 } from '@i18n/utils';
+import { appRoutes } from '@i18n/routes';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
 ---
 
 <script>
@@ -41,10 +44,8 @@ const translatePath = useTranslatedPath(lang);
       <a data-arrow-nav="true" href={translatePath('about')} title={t('about')}
         >{t('about')}</a
       >
-      <a
-        data-arrow-nav="true"
-        href={translatePath('contact')}
-        title={t('contact')}>{t('contact')}</a
+      <a data-arrow-nav="true" href={contactUrl} title={t('contact')}
+        >{t('contact')}</a
       >
       <a
         data-arrow-nav="true"

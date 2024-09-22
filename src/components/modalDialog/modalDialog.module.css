@@ -1,4 +1,5 @@
 .dialogBackdrop {
+  view-transition-name: dialog-backdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -11,7 +12,8 @@
 }
 
 dialog {
-  position: absolute;
+  view-transition-name: dialog;
+  position: fixed;
   border: 1px solid var(--system-light-200);
   container-name: modal;
   container-type: inline-size;

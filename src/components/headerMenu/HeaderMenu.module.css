@@ -3,18 +3,11 @@ header {
   height: fit-content;
   grid-column: 1 / -1;
   grid-row: 1;
-  z-index: 200;
-  top: 0;
-  left: 0;
-  right: 0;
   padding: 1rem;
-  justify-content: flex-end;
-  background-color: unset;
-  border-bottom: none;
 }
 
 @media (min-width: 769px) {
-  header {
+  .header {
     position: sticky;
     --border-color: light-dark(
       var(--verdigris-100-op),

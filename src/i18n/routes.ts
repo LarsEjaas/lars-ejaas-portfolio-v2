@@ -48,7 +48,18 @@ export const appRoutes = {
   },
 } as const;
 
-type ModalKeys = 'contact' | 'share';
+const englishModalKeys = ['contact', 'share'] as const;
+
+/** Get all possible modal slugs in the different languages*/
+export const allModalKeys = Object.values(appRoutes).flatMap((lang) =>
+  Object.entries(lang)
+    .filter(([key]) =>
+      englishModalKeys.includes(key as (typeof englishModalKeys)[number])
+    )
+    .map(([, value]) => value)
+);
+
+type ModalKeys = (typeof englishModalKeys)[number];
 type DefaultLang = typeof defaultLang;
 /** Language key excluding the key for the default language */
 export type LanguageKey = Exclude<Language, DefaultLang>;

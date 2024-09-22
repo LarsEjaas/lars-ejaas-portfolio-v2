@@ -26,7 +26,7 @@ const getEnglishTranslation = (
       ([_, routePath]) => routePath === slug
     ) || [];
 
-  return translationKey;
+  return translationKey ? `/${translationKey}` : '/';
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -35,13 +35,13 @@ const translatedPath = useTranslatedPath(lang);
 const englishUrl =
   lang === defaultLang
     ? Astro.url.pathname
-    : getEnglishTranslation(lang, Astro.url.pathname) || '/';
+    : getEnglishTranslation(lang, Astro.url.pathname);
 
 const danishUrl =
   lang === defaultLang
     ? Astro.url.pathname === '/'
       ? `/da`
-      : translatedPath(Astro.url.pathname, defaultLang)
+      : translatedPath(Astro.url.pathname, 'da')
     : Astro.url.pathname;
 ---
 

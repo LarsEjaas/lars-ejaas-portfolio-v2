@@ -27,12 +27,14 @@
     1 100%
   );
   &:global(#two) {
+    view-transition-name: blob-two;
     left: 5%;
     top: 10%;
     width: 20%;
     z-index: 2;
   }
   &:global(#three) {
+    view-transition-name: blob-three;
     left: 10%;
     top: 0;
     width: 90%;
@@ -58,6 +60,7 @@
     }
   }
   &:global(#four) {
+    view-transition-name: blob-four;
     left: 50%;
     top: 60%;
     transform: rotate(20deg);

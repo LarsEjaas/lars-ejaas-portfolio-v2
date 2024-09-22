@@ -1,6 +1,11 @@
 ---
 import styles from './mobileMenu.module.css';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
 import { Picture } from 'astro:assets';
 import IconHome from '@assets/menuIcons/ejaas.png';
 import IconWork from '@assets/menuIcons/work.png';
@@ -8,17 +13,29 @@ import IconSkills from '@assets/menuIcons/skillset.png';
 import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
+import { appRoutes } from '@i18n/routes';
 
 type Props = { inert: boolean };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
+const translatePath = useTranslatedPath(lang);
 const { inert } = Astro.props;
+const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
 ---
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { storeScrollPosition } from '@utils/scrollPosition';
+
   if (window.mobileMenuNavigation) {
     initializeKeyboardArrowNavigation(window.mobileMenuNavigation);
+  }
+  if (window.mobileShareLink) {
+    storeScrollPosition(window.mobileShareLink);
+  }
+  if (window.mobileContactLink) {
+    storeScrollPosition(window.mobileContactLink);
   }
 </script>
 <nav
@@ -36,7 +53,11 @@ const { inert } = Astro.props;
   <span class="sr-only" id="mobileArrowNavDescription">
     {t('section_with_arrow_nav')}
   </span>
-  <a data-arrow-nav="true" href="/" title={t('home')} aria-label={t('home')}
+  <a
+    data-arrow-nav="true"
+    href={translatePath('/')}
+    title={t('home')}
+    aria-label={t('home')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -52,7 +73,11 @@ const { inert } = Astro.props;
       />
     </div></a
   >
-  <a data-arrow-nav="true" href="/work" title={t('work')} aria-label={t('work')}
+  <a
+    data-arrow-nav="true"
+    href={translatePath('/work')}
+    title={t('work')}
+    aria-label={t('work')}
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -70,7 +95,7 @@ const { inert } = Astro.props;
   >
   <a
     data-arrow-nav="true"
-    href="/skills"
+    href={translatePath('/skills')}
     title={t('skills')}
     aria-label={t('skills')}
     ><div class="squircle" data-with-shadow="true">
@@ -90,7 +115,7 @@ const { inert } = Astro.props;
   >
   <a
     data-arrow-nav="true"
-    href="/about"
+    href={translatePath('/about')}
     title={t('about')}
     aria-label={t('about')}
     ><div class="squircle" data-with-shadow="true">
@@ -110,9 +135,10 @@ const { inert } = Astro.props;
   >
   <a
     data-arrow-nav="true"
-    href="/contact"
+    href={contactUrl}
     title={t('contact')}
     aria-label={t('contact')}
+    id="mobileContactLink"
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"
@@ -130,9 +156,10 @@ const { inert } = Astro.props;
   >
   <a
     data-arrow-nav="true"
-    href="/share"
+    href={shareUrl}
     title={t('share')}
     aria-label={t('share')}
+    id="mobileShareLink"
     ><div class="squircle" data-with-shadow="true">
       <Picture
         aria-hidden="true"

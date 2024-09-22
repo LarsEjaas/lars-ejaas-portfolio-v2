@@ -1,0 +1,48 @@
+---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import type { SlugTypes } from '@i18n/routes';
+import About from '@layouts/About.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+type EnglishSlugPaths = {
+  [K in SlugTypes<'en'>]: { params: { slug: K } };
+};
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = <T extends EnglishSlugPaths>(paths: T): T => paths;
+  const paths = createPaths({
+    work: { params: { slug: 'work' } },
+    skills: { params: { slug: 'skills' } },
+    about: { params: { slug: 'about' } },
+    archive: { params: { slug: 'archive' } },
+  });
+  return Object.values(paths);
+}
+
+const { slug } = Astro.params;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+const englishSlugMap: Record<
+  SlugTypes<'en'>,
+  { component: AstroComponentFactory; title: string }
+> = {
+  work: { component: () => {}, title: t('work') },
+  skills: { component: () => {}, title: t('skills') },
+  about: { component: About, title: t('about') },
+  archive: { component: () => {}, title: t('work') },
+};
+
+const pageTitle = englishSlugMap[slug]?.title;
+
+const PageContent = englishSlugMap[slug]?.component;
+---
+
+<script>
+  import { restoreModalScrollPosition } from '@utils/scrollPosition';
+  /** Restore scrollposition if previous page was a modal */
+  restoreModalScrollPosition();
+</script>
+<PageContent title={pageTitle} inert={false} />

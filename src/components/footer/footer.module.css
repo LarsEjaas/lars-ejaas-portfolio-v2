@@ -1,4 +1,5 @@
-footer {
+.footer {
+  view-transition-name: footer;
   grid-column: 1 / -1;
   background-color: var(--verdigris-700);
   overflow: hidden;

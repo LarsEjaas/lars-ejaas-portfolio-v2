@@ -2,6 +2,7 @@
 import styles from './headerMenu.module.css';
 import {
   getLangFromUrl,
+  removeTrailingSlash,
   useTranslatedPath,
   useTranslations,
 } from '@i18n/utils';
@@ -14,22 +15,32 @@ import IconShare from '@assets/menuIcons/share.png';
 import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import EjaasLogo from './EjaasLogo.astro';
+import { appRoutes } from '@i18n/routes';
 
 type Props = { inert: boolean };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
 const { inert } = Astro.props;
+const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
 ---
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { storeScrollPosition } from '@utils/scrollPosition';
 
   if (window.desktopMenuContainer) {
     initializeKeyboardArrowNavigation(window.desktopMenuContainer);
   }
+  if (window.desktopShareLink) {
+    storeScrollPosition(window.desktopShareLink);
+  }
+  if (window.desktopContactLink) {
+    storeScrollPosition(window.desktopContactLink);
+  }
 </script>
-<header inert={inert}>
+<header class={styles.header} inert={inert}>
   <div
     id="desktopMenuContainer"
     role="group"
@@ -100,9 +111,10 @@ const { inert } = Astro.props;
     <div class={styles.actions}>
       <a
         data-arrow-nav="true"
-        href={translatePath('/contact')}
+        href={contactUrl}
         title={t('contact')}
         aria-label={t('contact')}
+        id="desktopContactLink"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -120,9 +132,10 @@ const { inert } = Astro.props;
       >
       <a
         data-arrow-nav="true"
-        href={translatePath('/share')}
+        href={shareUrl}
         title={t('share')}
         aria-label={t('share')}
+        id="desktopShareLink"
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"

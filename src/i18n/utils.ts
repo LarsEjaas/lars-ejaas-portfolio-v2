@@ -53,18 +53,19 @@ export function useTranslations<
 
 export function useTranslatedPath(lang: keyof typeof languages) {
   return function translatePath(path: string, language: Language = lang) {
-    const pathName = path.replaceAll('/', '');
+    const pathName = removeTrailingSlash(removeLeadingSlash(path));
+    const pathNameWithoutLocale = pathName.replace(`${lang}/`, '');
     // If this is a translated index page, return the translated index page without trailing slash
-    if (pathName === '' && lang !== defaultLang) {
+    if (pathNameWithoutLocale === '' && lang !== defaultLang) {
       return `/${lang}`;
     }
-    const hasTranslation =
-      defaultLang !== language &&
-      hasProperty(pathName, appRoutes[language]) &&
-      appRoutes[language][pathName] !== undefined;
+    const hasTranslation = hasProperty(
+      pathNameWithoutLocale,
+      appRoutes[language]
+    );
     const translatedPath = hasTranslation
-      ? '/' + appRoutes[language][pathName]
-      : path;
+      ? `/${appRoutes[language][pathNameWithoutLocale]}`
+      : `/${pathName}`;
 
     return !showDefaultLang && language === defaultLang
       ? translatedPath
