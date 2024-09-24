@@ -1,4 +1,5 @@
-header {
+.header {
+  view-transition-name: header;
   position: static;
   height: fit-content;
   grid-column: 1 / -1;
@@ -87,6 +88,18 @@ header {
 
 .homeLink {
   margin-right: 12px;
+}
+
+.skillsLink p {
+  view-transition-name: skills-link;
+}
+
+.aboutLink p {
+  view-transition-name: about-link;
+}
+
+.workLink p {
+  view-transition-name: work-link;
 }
 
 :global(html[data-dark-mode='true']) .ejaasLogo {

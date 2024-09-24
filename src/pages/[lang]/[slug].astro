@@ -3,6 +3,7 @@ import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SlugTypes } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 import About from '@layouts/About.astro';
+import Skills from '@layouts/Skills.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 type DanishSlugPaths = {
@@ -31,7 +32,7 @@ const danishSlugMap: Record<
   { component: AstroComponentFactory; title: string }
 > = {
   arbejde: { component: () => {}, title: t('work') },
-  kompetencer: { component: () => {}, title: t('skills') },
+  kompetencer: { component: Skills, title: t('skills') },
   ['om-mig']: { component: About, title: t('about') },
   arkiv: { component: () => {}, title: t('work') },
 };

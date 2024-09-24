@@ -58,7 +58,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       <a data-arrow-nav="true" href={translatePath('/')} class={styles.homeLink}
         ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
       >
-      <a data-arrow-nav="true" href={translatePath('/work')}
+      <a
+        data-arrow-nav="true"
+        href={translatePath('/work')}
+        class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -75,7 +78,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         </div>
         <p>{t('work')}</p>
       </a>
-      <a data-arrow-nav="true" href={translatePath('/skills')}
+      <a
+        data-arrow-nav="true"
+        href={translatePath('/skills')}
+        class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"
@@ -91,7 +97,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           />
         </div><p>{t('skills')}</p></a
       >
-      <a data-arrow-nav="true" href={translatePath('/about')}
+      <a
+        data-arrow-nav="true"
+        href={translatePath('/about')}
+        class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
           <Picture
             aria-hidden="true"

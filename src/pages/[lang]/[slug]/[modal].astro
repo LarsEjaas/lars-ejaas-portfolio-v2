@@ -9,6 +9,7 @@ import IconShare from '@assets/menuIcons/share.png';
 import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 import About from '@layouts/About.astro';
+import Skills from '@layouts/Skills.astro';
 
 type DanishModalSlugPaths = {
   [P in SlugWithModalTypes<'da'>]: {
@@ -72,14 +73,14 @@ const danishModalSlugMap: Record<
     modalTitle: t('contact'),
   },
   ['kompetencer/del']: {
-    pageComponent: () => {},
+    pageComponent: Skills,
     modalComponent: ShareContent,
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
   },
   ['kompetencer/kontakt']: {
-    pageComponent: () => {},
+    pageComponent: Skills,
     modalComponent: ContactContent,
     modalIcon: IconContact,
     pageTitle: t('work'),

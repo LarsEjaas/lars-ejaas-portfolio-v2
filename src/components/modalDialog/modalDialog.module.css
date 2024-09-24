@@ -1,5 +1,4 @@
 .dialogBackdrop {
-  view-transition-name: dialog-backdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -8,10 +7,14 @@
   inset: 0;
   z-index: 1000;
   background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
-  backdrop-filter: saturate(180%) brightness(60%) blur(8px);
+  backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  transition: backdrop-filter 0.3s ease-in-out 0.1s;
+  &:hover {
+    backdrop-filter: saturate(150%) brightness(60%) blur(3px);
+  }
 }
 
-dialog {
+.dialog {
   view-transition-name: dialog;
   position: fixed;
   border: 1px solid var(--system-light-200);
@@ -113,5 +116,18 @@ dialog {
   }
   &[data-verdigris] {
     color: var(--verdigris-600);
+  }
+}
+
+@supports (view-transition-name: none) {
+  @keyframes scale-in {
+    from {
+      transform: scale(0.9) translateY(-30px);
+    }
+  }
+
+  ::view-transition-new(dialog) {
+    animation: 200ms ease-in-out forwards scale-in;
+    position: fixed;
   }
 }

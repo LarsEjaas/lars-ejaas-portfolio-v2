@@ -1,0 +1,49 @@
+---
+import Layout from '@layouts/Root.astro';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import PresentationCard from '@components/presentationCard/PresentationCard.astro';
+import styles from './skills.module.css';
+import StarRating from '../components/starRating/starRating.astro';
+
+interface Props {
+  title: string;
+  inert: boolean;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { title, inert } = Astro.props;
+const t_skills = useTranslations(lang, 'skills');
+---
+
+<Layout title={title} inert={inert}>
+  <div class={styles.presentation}>
+    <PageLabel
+      title={t_skills('skills_title')}
+      iconImage="skillset"
+      tagLine="toolkit"
+      taglineAlt={t_skills('skills_tagline')}
+    />
+    <PresentationCard
+      gradientColor="flirt"
+      title={'TITLE EXAMPLE'}
+      iconImage={undefined}
+      responsiveSquircleSize={true}
+      inert={inert}
+    >
+      <div class={styles.presentationCardContent}>
+        <div
+          set:html={'<h3 class="stylized-capitalized-text">test title</h3><p class="small-body-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum<p><br/><br/>'}
+        />
+        <div class={styles.proficiencyRating}>
+          {t_skills('proficiency_rating')}
+          <StarRating rating={3.5} />
+        </div>
+      </div>
+    </PresentationCard>
+  </div>
+  <FloatingBalloons balloonColor="flirt" />
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
+</Layout>

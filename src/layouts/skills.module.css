@@ -1,0 +1,23 @@
+.presentation {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.presentationCardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  white-space: pre-line;
+  & ul {
+    padding-inline-start: 20px;
+  }
+}
+
+.proficiencyRating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}

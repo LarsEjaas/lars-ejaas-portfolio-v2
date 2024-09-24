@@ -1,4 +1,5 @@
 .mobileMenu {
+  view-transition-name: mobileMenu;
   z-index: 200;
   --border-color: light-dark(
     var(--verdigris-100-op),

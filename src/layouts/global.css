@@ -33,6 +33,10 @@
   }
 
   @media (prefers-reduced-motion) {
+    @view-transition {
+      navigation: none;
+    }
+
     ::view-transition-group(*),
     ::view-transition-old(*),
     ::view-transition-new(*) {
@@ -209,8 +213,9 @@
     margin-inline: 2rem;
     margin-block: 2rem;
     grid-template-columns: 1fr 1fr;
-    grid-column: 2/3;
+
     gap: 2rem;
+    min-width: calc(100% - 4rem);
   }
 
   hr {

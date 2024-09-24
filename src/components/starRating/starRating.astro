@@ -1,0 +1,56 @@
+---
+import styles from './starRating.module.css';
+
+const STAR_POLYGON_POINTS =
+  '12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
+
+const STAR_DEFAULT_ATTRIBUTES = {
+  viewBox: '0 0 24 24',
+  fill: 'currentColor',
+  ['stroke-width']: '1.5',
+};
+
+interface Props {
+  starSize?: number;
+  rating: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
+}
+
+const MAX_RATING = 5;
+
+const { rating, starSize = 24 } = Astro.props;
+
+const roundedRating = Math.round(rating * 2) / 2;
+const fullStars = Math.floor(roundedRating);
+const hasHalfStar = roundedRating % 1 !== 0;
+---
+
+<div class={styles.starGrid}>
+  {
+    [...Array(MAX_RATING)].map((_, index) => (
+      <svg
+        class={styles.backgroundStar}
+        {...STAR_DEFAULT_ATTRIBUTES}
+        width={starSize}
+        height={starSize}
+        style={`--index: ${index};`}
+      >
+        <polygon points={STAR_POLYGON_POINTS} />
+      </svg>
+    ))
+  }
+  {
+    [...Array(MAX_RATING)].map((_, index) => (
+      <svg
+        class={styles.star}
+        {...STAR_DEFAULT_ATTRIBUTES}
+        width={starSize}
+        height={starSize}
+        style={`--index: ${index};`}
+        data-half-star={hasHalfStar && index === fullStars ? 'true' : undefined}
+        data-empty={index >= fullStars ? 'true' : undefined}
+      >
+        <polygon points={STAR_POLYGON_POINTS} />
+      </svg>
+    ))
+  }
+</div>

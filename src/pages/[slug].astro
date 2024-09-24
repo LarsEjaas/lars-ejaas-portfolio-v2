@@ -2,6 +2,7 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SlugTypes } from '@i18n/routes';
 import About from '@layouts/About.astro';
+import Skills from '@layouts/Skills.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 type EnglishSlugPaths = {
@@ -30,7 +31,7 @@ const englishSlugMap: Record<
   { component: AstroComponentFactory; title: string }
 > = {
   work: { component: () => {}, title: t('work') },
-  skills: { component: () => {}, title: t('skills') },
+  skills: { component: Skills, title: t('skills') },
   about: { component: About, title: t('about') },
   archive: { component: () => {}, title: t('work') },
 };
@@ -43,6 +44,7 @@ const PageContent = englishSlugMap[slug]?.component;
 <script>
   import { restoreModalScrollPosition } from '@utils/scrollPosition';
   /** Restore scrollposition if previous page was a modal */
+  // Read position from storage on new page
   restoreModalScrollPosition();
 </script>
 <PageContent title={pageTitle} inert={false} />
