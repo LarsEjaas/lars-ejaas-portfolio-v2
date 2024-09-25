@@ -82,6 +82,8 @@ type DayOfMonth =
 
 export type ImageType = `${string}.${ImageExtension}`;
 
+export type SVGFileType = `${string}.svg`;
+
 export type EnglishDate = `${Month} ${DayOfMonth}, 20${Year}`;
 
 export type DanishDate = `${
@@ -123,6 +125,11 @@ export type ColorVariants =
   | 'flirt'
   | 'aquamarine'
   | 'bluemunsell';
+
+export type HTMLMarqueeTitle =
+  `<h3 class="stylized-capitalized-text">${string}</h3>`;
+
+export type HTMLMarqueeDescription = unknown;
 
 /**
  * Type predicate to filter out empty instances of an array

@@ -6,6 +6,7 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './skills.module.css';
 import StarRating from '../components/starRating/starRating.astro';
+import TechSkillsMarquee from '../components/techSkillsMarquee/TechSkillsMarquee.astro';
 
 interface Props {
   title: string;
@@ -42,6 +43,7 @@ const t_skills = useTranslations(lang, 'skills');
         </div>
       </div>
     </PresentationCard>
+    <TechSkillsMarquee />
   </div>
   <FloatingBalloons balloonColor="flirt" />
   <!-- Modals can be inserted as a child here in the slot -->

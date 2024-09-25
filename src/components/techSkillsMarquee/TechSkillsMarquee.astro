@@ -1,0 +1,84 @@
+---
+import type {
+  SVGFileType,
+  HTMLMarqueeDescription,
+  ImageModule,
+} from '@customTypes/index';
+import styles from './techSkillsMarquee.module.css';
+import { techSkills } from '@content/techSkills.ts';
+import { getLangFromUrl, removeTrailingSlash } from '@i18n/utils';
+import { Picture } from 'astro:assets';
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+
+export type SkillInfo = {
+  title: string;
+  description: HTMLMarqueeDescription;
+  imageSrc: SVGFileType;
+  imageAlt: string;
+  href: string;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const currentPath = removeTrailingSlash(Astro.url.pathname);
+---
+
+<div
+  class={styles.marquee}
+  style={`--number-of-items: ${techSkills[lang].length}`}
+>
+  <div class={styles.scene}>
+    <ul class={styles.skillsGrid}>
+      {
+        techSkills[lang].map(async (techSkill, index) => {
+          const imageName = techSkill.imageSrc;
+          const imageImport = Object.entries(skillIconImages).find(([path]) =>
+            path.includes(imageName)
+          );
+
+          if (!imageImport) {
+            console.error(`News image not found for: ${imageName}`);
+            return null;
+          }
+          const ImageComponent = ((await imageImport[1]()) as ImageModule)
+            .default;
+
+          return (
+            <li class={styles.skill} style={`--index: ${index};`}>
+              <a
+                href={`${currentPath}/${techSkill.href}`}
+                title={techSkill.title}
+              >
+                <div class={`${styles.outline} squircle`}>
+                  <Picture
+                    formats={['avif', 'webp']}
+                    quality="high"
+                    src={ImageComponent}
+                    alt={techSkill.imageAlt}
+                    width="72"
+                    height="72"
+                    densities={[1, 2, 3, 4]}
+                    loading="eager"
+                    decoding="sync"
+                  />
+                </div>
+              </a>
+            </li>
+          );
+        })
+      }
+      {
+        [1, 2, 3, 4, 5].map((_placeholder, index) => (
+          <li
+            class={styles.skill}
+            data-placeholder={true}
+            style={`--index: ${index + techSkills[lang].length};`}
+          >
+            <div class={`${styles.outline} squircle`}>
+              <div class={styles.placeholder} />
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
