@@ -101,10 +101,22 @@
   }
   &[data-flirt] {
     &:global(#two) {
+      background-color: var(--flirt-400);
+      top: 30%;
     }
     &:global(#three) {
+      --background-color: var(--flirt-400);
+      width: 50%;
+      left: 20%;
+      top: 20%;
     }
     &:global(#four) {
+      background-color: var(--flirt-500);
+      left: 50%;
+      top: 30%;
+      transform: rotate(20deg);
+      width: 40%;
+      z-index: 3;
     }
   }
   &[data-aquamarine] {

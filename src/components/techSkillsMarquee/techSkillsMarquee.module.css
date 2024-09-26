@@ -1,18 +1,33 @@
 .marquee {
+  view-transition-name: skillMarquee;
   container-type: inline-size;
-  --inset: 0; /* Controls the grid animation offset on entry/exit */
-  --speed: 10s;
+  border-radius: var(--border-radius-md);
   container-name: marquee;
   transform-style: preserve-3d;
-  overflow: hidden;
   width: 100%;
-  height: 324px;
+  margin-block: 2rem;
+  margin-inline: auto;
+  max-width: 720px;
+  height: fit-content;
+  grid-column: 1 / 4;
+  &:focus-within {
+    outline: 2px dashed var(--system-light-400);
+  }
 }
 
 .scene {
   --mask-width: 3rem;
+  --inset: -0.5; /* Controls the grid animation offset on entry/exit */
+  --outset: 3.5;
+  --speed: 10s;
+  --items-in-row: 3;
+  --grid-row-count: round(
+    up,
+    calc(var(--number-of-items) / var(--items-in-row))
+  );
+  overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: calc((var(--grid-row-count) - 1) * 54px);
   mask: linear-gradient(
       transparent,
       white var(--mask-width) calc(100% - var(--mask-width)),
@@ -30,25 +45,20 @@
 .skillsGrid {
   display: grid;
   transform-style: preserve-3d;
-  --items-in-row: 3;
-  --grid-row-count: round(
-    up,
-    calc(var(--number-of-items) / var(--items-in-row))
-  );
-  --outset: 2.5;
   height: 100%;
   width: fit-content;
   margin-block: 0;
   margin-inline: auto;
   list-style-type: none;
   position: relative;
-  padding: 0;
+  padding-left: 1rem;
   grid-template-columns: repeat(var(--items-in-row), 1fr);
   column-gap: 1rem;
   transition: transform 0.5s;
   /* 3D translation */
   transform: rotateX(48deg) rotateZ(-6deg) skewX(6deg);
-  &:hover .skill {
+  &:hover .skill,
+  &:focus-within .skill {
     animation-play-state: paused;
   }
 }
@@ -108,7 +118,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .skill {
-    animation: slide var(--duration) var(--delay) linear infinite;
+    /*Delay the animation to after fade in*/
+    animation: slide var(--duration) calc(var(--delay) + 600ms) linear infinite;
     translate: 0%
       calc(
         ((var(--grid-row-count) - var(--row-index)) + var(--inset, 0)) * 100%
@@ -129,21 +140,21 @@
 }
 
 @container marquee (width >= 400px) {
-  .skillsGrid {
+  .scene {
     --items-in-row: 4;
     --speed: 9s;
   }
 }
 
 @container marquee (width >= 500px) {
-  .skillsGrid {
+  .scene {
     --items-in-row: 5;
     --speed: 8s;
   }
 }
 
 @container marquee (width >= 600px) {
-  .skillsGrid {
+  .scene {
     --items-in-row: 6;
     --speed: 7s;
   }
@@ -153,4 +164,30 @@
   100% {
     translate: 0% calc((var(--row-index) + var(--outset, 0)) * -100%);
   }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+::view-transition-old(skillMarquee) {
+  animation: 300ms fade-out ease-in-out both;
+}
+
+::view-transition-new(skillMarquee) {
+  animation: 300ms fade-in 300ms ease-in-out both;
 }

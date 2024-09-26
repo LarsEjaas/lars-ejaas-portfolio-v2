@@ -21,3 +21,9 @@
   gap: 8px;
   justify-content: space-between;
 }
+
+@media (max-width: 768px) {
+  .floatingBalloons {
+    grid-row: 3;
+  }
+}

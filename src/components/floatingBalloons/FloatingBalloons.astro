@@ -43,6 +43,7 @@ const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
 
 type Props = Pick<BalloonProps, 'balloonColor'> & {
   coverPhoto?: ImageMetadata;
+  class?: string | undefined;
 };
 
 const { balloonColor, coverPhoto } = Astro.props;
@@ -119,7 +120,7 @@ const { balloonColor, coverPhoto } = Astro.props;
   }
 </script>
 
-<div class={styles.balloonsWrapper}>
+<div class={`${styles.balloonsWrapper} ${Astro.props.class ?? ''}`}>
   <div id="floating" class={styles.floatingBalloons}>
     <Balloon
       variant="two"

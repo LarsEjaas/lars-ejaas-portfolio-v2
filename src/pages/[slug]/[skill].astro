@@ -1,0 +1,87 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import SkillsLayout from '@layouts/Skills.astro';
+import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
+import { skillsObject } from '@content/techSkills.ts';
+
+type EnglishSkillSlugPaths = {
+  [P in SlugWithSkillTypes<'en'>]: {
+    params: SkillSlugPath<P>;
+  };
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t_skills = useTranslations(lang, 'skills');
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = <T extends EnglishSkillSlugPaths>(paths: T): T => paths;
+  const paths = createPaths({
+    ['skills/accessibility']: {
+      params: { slug: 'skills', skill: 'accessibility' },
+    },
+    ['skills/algolia']: { params: { slug: 'skills', skill: 'algolia' } },
+    ['skills/apollo-client']: {
+      params: { slug: 'skills', skill: 'apollo-client' },
+    },
+    ['skills/astro']: { params: { slug: 'skills', skill: 'astro' } },
+    ['skills/bash']: { params: { slug: 'skills', skill: 'bash' } },
+    ['skills/css']: { params: { slug: 'skills', skill: 'css' } },
+    ['skills/docker']: { params: { slug: 'skills', skill: 'docker' } },
+    ['skills/figma']: { params: { slug: 'skills', skill: 'figma' } },
+    ['skills/gatsby']: { params: { slug: 'skills', skill: 'gatsby' } },
+    ['skills/git']: { params: { slug: 'skills', skill: 'git' } },
+    ['skills/github']: { params: { slug: 'skills', skill: 'github' } },
+    ['skills/gitlab']: { params: { slug: 'skills', skill: 'gitlab' } },
+    ['skills/graphql']: { params: { slug: 'skills', skill: 'graphql' } },
+    ['skills/graphql-codegen']: {
+      params: { slug: 'skills', skill: 'graphql-codegen' },
+    },
+    ['skills/html']: { params: { slug: 'skills', skill: 'html' } },
+    ['skills/inkscape']: { params: { slug: 'skills', skill: 'inkscape' } },
+    ['skills/javascript']: { params: { slug: 'skills', skill: 'javascript' } },
+    ['skills/jest']: { params: { slug: 'skills', skill: 'jest' } },
+    ['skills/mantine']: { params: { slug: 'skills', skill: 'mantine' } },
+    ['skills/nextjs']: { params: { slug: 'skills', skill: 'nextjs' } },
+    ['skills/playwright']: { params: { slug: 'skills', skill: 'playwright' } },
+    ['skills/react']: { params: { slug: 'skills', skill: 'react' } },
+    ['skills/react-native']: {
+      params: { slug: 'skills', skill: 'react-native' },
+    },
+    ['skills/react-testing-library']: {
+      params: { slug: 'skills', skill: 'react-testing-library' },
+    },
+    ['skills/redux']: { params: { slug: 'skills', skill: 'redux' } },
+    ['skills/sass']: { params: { slug: 'skills', skill: 'sass' } },
+    ['skills/storybook']: { params: { slug: 'skills', skill: 'storybook' } },
+    ['skills/strapi']: { params: { slug: 'skills', skill: 'strapi' } },
+    ['skills/styled-components']: {
+      params: { slug: 'skills', skill: 'styled-components' },
+    },
+    ['skills/svg']: { params: { slug: 'skills', skill: 'svg' } },
+    ['skills/tailwind']: { params: { slug: 'skills', skill: 'tailwind' } },
+    ['skills/typescript']: { params: { slug: 'skills', skill: 'typescript' } },
+    ['skills/vite']: { params: { slug: 'skills', skill: 'vite' } },
+    ['skills/vscode']: { params: { slug: 'skills', skill: 'vscode' } },
+    ['skills/webpack']: { params: { slug: 'skills', skill: 'webpack' } },
+    ['skills/wordpress']: { params: { slug: 'skills', skill: 'wordpress' } },
+    ['skills/wp-graphql']: { params: { slug: 'skills', skill: 'wp-graphql' } },
+  });
+  return Object.values(paths);
+}
+
+const { skill } = Astro.params;
+
+const skillData = skillsObject[lang][skill];
+
+const pageTitle = skillData.title;
+---
+
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  skillTitle={pageTitle}
+  skillDescription={skillData.description}
+  skillImageAlt={skillData.imageAlt}
+  skillRating={skillData.rating}
+/>

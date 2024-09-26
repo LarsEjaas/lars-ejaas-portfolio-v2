@@ -1,5 +1,9 @@
+import { getSkillSlugs } from '../components/techSkillsMarquee/utils';
 import type { Language } from './settings';
 import type { defaultLang } from './settings';
+
+export const englishSkillRoutes = getSkillSlugs('en');
+export const danishSkillRoutes = getSkillSlugs('da');
 
 /**
  * Define all routes in the application
@@ -21,6 +25,7 @@ export const appRoutes = {
     ['work/share']: 'arbejde/del',
     ['skills/contact']: 'kompetencer/kontakt',
     ['skills/share']: 'kompetencer/del',
+    ...danishSkillRoutes,
     ['about/contact']: 'om-mig/kontakt',
     ['about/share']: 'om-mig/del',
     ['archive/contact']: 'arkiv/kontakt',
@@ -41,6 +46,7 @@ export const appRoutes = {
     ['work/share']: 'work/share',
     ['skills/contact']: 'skills/contact',
     ['skills/share']: 'skills/share',
+    ...englishSkillRoutes,
     ['about/contact']: 'about/contact',
     ['about/share']: 'about/share',
     ['archive/contact']: 'archive/contact',
@@ -87,4 +93,13 @@ export type SlugWithModalTypes<Lang extends Language> =
 
 export type ModalSlugPath<T extends string> = T extends `${infer S}/${infer M}`
   ? { slug: S; modal: M }
+  : never;
+
+type SlugWithSkillKeys = keyof typeof englishSkillRoutes;
+
+export type SlugWithSkillTypes<Lang extends Language> =
+  (typeof appRoutes)[Lang][SlugWithSkillKeys];
+
+export type SkillSlugPath<T extends string> = T extends `${infer S}/${infer SK}`
+  ? { slug: S; skill: SK }
   : never;

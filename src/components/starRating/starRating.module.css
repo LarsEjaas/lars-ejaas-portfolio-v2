@@ -31,7 +31,8 @@
   stroke: #f4b513;
   grid-row: 1;
   grid-column: calc(var(--index) + 1);
-  animation: starAppear 0.5s ease-out forwards calc((var(--index) + 1) * 100ms);
+  animation: starAppear 0.5s ease-out forwards
+    calc(((var(--index) + 1) * 100ms) + 400ms);
   opacity: 0;
   transform: scale(0.8);
   &[data-half-star] {

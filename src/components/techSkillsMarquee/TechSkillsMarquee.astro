@@ -1,25 +1,13 @@
 ---
-import type {
-  SVGFileType,
-  HTMLMarqueeDescription,
-  ImageModule,
-} from '@customTypes/index';
+import type { ImageModule } from '@customTypes/index';
 import styles from './techSkillsMarquee.module.css';
 import { techSkills } from '@content/techSkills.ts';
-import { getLangFromUrl, removeTrailingSlash } from '@i18n/utils';
+import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 import { Picture } from 'astro:assets';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
 
-export type SkillInfo = {
-  title: string;
-  description: HTMLMarqueeDescription;
-  imageSrc: SVGFileType;
-  imageAlt: string;
-  href: string;
-};
-
 const lang = getLangFromUrl(Astro.url);
-const currentPath = removeTrailingSlash(Astro.url.pathname);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <div
@@ -45,7 +33,7 @@ const currentPath = removeTrailingSlash(Astro.url.pathname);
           return (
             <li class={styles.skill} style={`--index: ${index};`}>
               <a
-                href={`${currentPath}/${techSkill.href}`}
+                href={translatePath(`skills/${techSkill.href}`)}
                 title={techSkill.title}
               >
                 <div class={`${styles.outline} squircle`}>
@@ -66,6 +54,7 @@ const currentPath = removeTrailingSlash(Astro.url.pathname);
           );
         })
       }
+      <!-- Extra items to fill empty slots in the marquee grid. Excess items will automatically be layered below other skill cards. -->
       {
         [1, 2, 3, 4, 5].map((_placeholder, index) => (
           <li
