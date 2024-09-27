@@ -8,6 +8,7 @@ import type {
   ImageModule,
 } from '@customTypes/index';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { isExternalLink } from '../../utils/misc';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 export type CardInfo = {
@@ -144,9 +145,16 @@ const t = useTranslations(lang, 'navigation');
         const ImageComponent = ((await imageImport[1]()) as ImageModule)
           .default;
 
+        const isExtURL = isExternalLink(item.href);
+
         return (
           <li style={`--index: ${index + 1}`}>
-            <a data-arrow-nav="true" id={`card${index}`} href={`#${item.href}`}>
+            <a
+              data-arrow-nav="true"
+              id={`card${index}`}
+              href={item.href}
+              {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
+            >
               <article class={styles[`outline${item.outline}`]}>
                 <Picture
                   formats={['avif']}

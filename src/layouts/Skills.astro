@@ -7,16 +7,16 @@ import PresentationCard from '@components/presentationCard/PresentationCard.astr
 import styles from './skills.module.css';
 import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
-import type { HTMLMarqueeDescription } from '@customTypes/index';
+import type { SkillRating } from '@customTypes/skillTypes';
 
 interface Props {
   title: string;
   inert: boolean;
   skillTitle: string;
-  skillDescription: HTMLMarqueeDescription;
-  skillImageSrc?: ImageMetadata;
+  skillDescription: ((_props: Record<string, any>) => any) | undefined;
+  skillImageSrc?: string;
   skillImageAlt?: string;
-  skillRating?: 0 | 1 | 2 | 3 | 4 | 3.5 | 0.5 | 1.5 | 2.5 | 4.5 | 5;
+  skillRating?: SkillRating;
 }
 
 const lang = getLangFromUrl(Astro.url);
@@ -30,6 +30,8 @@ const {
   skillRating,
 } = Astro.props;
 const t_skills = useTranslations(lang, 'skills');
+
+const DescriptionComponent = skillDescription;
 ---
 
 <Layout title={title} inert={inert}>
@@ -43,21 +45,23 @@ const t_skills = useTranslations(lang, 'skills');
     <h2 class={styles.presentationCardTitle}>
       {t_skills('browse_my_tech_skills')}
     </h2>
-    <p class="text-body">{t_skills('although_i_have')}</p>
+    <p class="body-text">{t_skills('although_i_have')}</p>
     <PresentationCard
       gradientColor="flirt"
       title={skillTitle}
-      iconImage={skillImageSrc}
+      iconImage={skillImageSrc as ImageMetadata | undefined}
       iconImageAlt={skillImageAlt}
       responsiveSquircleSize={true}
       inert={inert}
     >
       <div class={styles.presentationCardContent}>
-        <div set:html={skillDescription} />
+        {DescriptionComponent && <DescriptionComponent />}
         <div class={styles.proficiencyRating}>
           {
-            skillRating && [
-              t_skills('proficiency_rating'),
+            !!skillRating && [
+              <p class="stylized-lead-text">
+                {t_skills('proficiency_rating')}
+              </p>,
               <StarRating rating={skillRating} />,
             ]
           }

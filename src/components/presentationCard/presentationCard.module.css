@@ -134,6 +134,17 @@
   grid-column: 1;
   width: 80px;
   height: 80px;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background-color: light-dark(
+      var(--system-light-300),
+      var(--system-light-500)
+    );
+    clip-path: url(#squircle);
+    z-index: -1;
+  }
 }
 
 .cardContent {
@@ -181,7 +192,18 @@
         height: 300%;
       }
     }
+    & .outline[data-responsive] {
+      & img,
+      & picture:not(.overlayImage) {
+        width: 120px;
+        height: 120px;
+      }
+      &::after {
+        inset: 8px;
+      }
+    }
   }
+
   .cardContent {
     padding-top: 16px;
   }

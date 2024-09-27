@@ -58,7 +58,7 @@ const newsObject = {
       date: '1. marts 2021',
       imageSrc: 'skills_timeline.png',
       imageAlt: 'Visuel oversigt over kompetencer for lars ejaas',
-      href: '/kompetencer/',
+      href: '/da/kompetencer',
       outline: '2',
     },
     letter: {
@@ -67,7 +67,7 @@ const newsObject = {
       date: '1. marts 2021',
       imageSrc: 'hand_holding_letter.jpg',
       imageAlt: 'Hånd der holder et brev',
-      href: '/',
+      href: '/da/kontakt',
       outline: '4',
     },
     makingOf: {
@@ -158,7 +158,7 @@ const newsObject = {
       date: 'March 1st, 2021',
       imageSrc: 'skills_timeline.png',
       imageAlt: 'Visual overview of skills for lars ejaas',
-      href: '/en/kompetencer/',
+      href: '/skills',
       outline: '2',
     },
     letter: {
@@ -167,7 +167,7 @@ const newsObject = {
       date: 'March 1st, 2021',
       imageSrc: 'hand_holding_letter.jpg',
       imageAlt: 'Hand holding a letter',
-      href: '/',
+      href: '/contact',
       outline: '4',
     },
     makingOf: {
@@ -216,7 +216,7 @@ const newsObject = {
       date: 'February 17th, 2022',
       imageSrc: 'updated_skills.png',
       imageAlt: 'Updated list of skills',
-      href: '/en/kompetencer/',
+      href: '/skills',
       outline: '1',
     },
     accuRanker: {

@@ -1,27 +1,20 @@
-import type { HTMLMarqueeDescription, SVGFileType } from '@customTypes/index';
+import type {
+  SkillDescriptions,
+  SkillInfo,
+  SkillRatings,
+  TechSkillItems,
+} from '@customTypes/skillTypes';
+import {
+  danishSkillDescriptions,
+  englishSkillDescriptions,
+} from './techSkillDescriptions';
 
-type TechSkills = (typeof techSkillEntries)[number];
-
-export type SkillInfo = {
-  title: string;
-  description: HTMLMarqueeDescription;
-  imageSrc: SVGFileType;
-  imageAlt: string;
-  href: string;
-  rating: 0 | 1 | 2 | 3 | 4 | 3.5 | 0.5 | 1.5 | 2.5 | 4.5 | 5;
-};
-
-type TechSkillItems = {
-  da: Record<TechSkills, SkillInfo>;
-  en: Record<TechSkills, SkillInfo>;
-};
+export type TechSkill = (typeof techSkillEntries)[number];
 
 /**
- * To add a new tech skill, add a new key to the techSkillEntries array and add info to the skillsObject.
+ * To add a new tech skill, add a new key to the `techSkillEntries` array, info about route and image to the skillsObject, a rating to the `skillRatings` object and a description component in english and danish in the content folder.
  */
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const techSkillEntries = [
+export const techSkillEntries = [
   'accessibility',
   'algolia',
   'apollo-client',
@@ -61,542 +54,353 @@ const techSkillEntries = [
   'wp-graphql',
 ] as const;
 
-/**
- *
- * //============================================
- * @example
- * // Template for adding a new skill item:
- * title: '',
- * description: '',
- * imageSrc: '',
- * imageAlt: '',
- * href: '',
- */
-export const skillsObject = {
-  da: {
-    accessibility: {
-      title: 'Accessibility',
-      description: '',
-      imageSrc: 'accessibility.svg',
-      imageAlt: 'Accessibility logo',
-      href: 'accessibility',
-      rating: 0,
-    },
-    algolia: {
-      title: 'Algolia',
-      description: '',
-      imageSrc: 'algolia.svg',
-      imageAlt: 'Algolia logo',
-      href: 'algolia',
-    },
-    ['apollo-client']: {
-      title: 'Apollo Client',
-      description: '',
-      imageSrc: 'apolloclient.svg',
-      imageAlt: 'Apollo Client logo',
-      href: 'apollo-client',
-    },
-    astro: {
-      title: 'Astro',
-      description: '',
-      imageSrc: 'astro.svg',
-      imageAlt: 'Astro logo',
-      href: 'astro',
-    },
-    bash: {
-      title: 'Bash',
-      description: '',
-      imageSrc: 'bash.svg',
-      imageAlt: 'Bash logo',
-      href: 'bash',
-    },
-    css: {
-      title: 'CSS',
-      description: '',
-      imageSrc: 'css.svg',
-      imageAlt: 'CSS logo',
-      href: 'css',
-    },
-    docker: {
-      title: 'Docker',
-      description: '',
-      imageSrc: 'docker.svg',
-      imageAlt: 'Docker logo',
-      href: 'docker',
-    },
-    figma: {
-      title: 'Figma',
-      description: '',
-      imageSrc: 'figma.svg',
-      imageAlt: 'Figma logo',
-      href: 'figma',
-    },
-    gatsby: {
-      title: 'Gatsby',
-      description: '',
-      imageSrc: 'gatsby.svg',
-      imageAlt: 'Gatsby logo',
-      href: 'gatsby',
-    },
-    git: {
-      title: 'Git',
-      description: '',
-      imageSrc: 'git.svg',
-      imageAlt: 'Git logo',
-      href: 'git',
-    },
-    github: {
-      title: 'Github',
-      description: '',
-      imageSrc: 'github.svg',
-      imageAlt: 'Github logo',
-      href: 'github',
-    },
-    gitlab: {
-      title: 'Gitlab',
-      description: '',
-      imageSrc: 'gitlab.svg',
-      imageAlt: 'Gitlab logo',
-      href: 'gitlab',
-    },
-    graphql: {
-      title: 'GraphQL',
-      description: '',
-      imageSrc: 'graphql.svg',
-      imageAlt: 'GraphQL logo',
-      href: 'graphql',
-    },
-    ['graphql-codegen']: {
-      title: 'GraphQL Codegen',
-      description: '',
-      imageSrc: 'graphqlcodegen.svg',
-      imageAlt: 'GraphQL Codegen logo',
-      href: 'graphql-codegen',
-    },
-    html: {
-      title: 'HTML',
-      description: '',
-      imageSrc: 'html.svg',
-      imageAlt: 'HTML logo',
-      href: 'html',
-    },
-    inkscape: {
-      title: 'Inkscape',
-      description: '',
-      imageSrc: 'inkscape.svg',
-      imageAlt: 'Inkscape logo',
-      href: 'inkscape',
-    },
-    javascript: {
-      title: 'JavaScript',
-      description: '',
-      imageSrc: 'javascript.svg',
-      imageAlt: 'JavaScript logo',
-      href: 'javascript',
-    },
-    jest: {
-      title: 'Jest',
-      description: '',
-      imageSrc: 'jest.svg',
-      imageAlt: 'Jest logo',
-      href: 'jest',
-    },
-    mantine: {
-      title: 'Mantine',
-      description: '',
-      imageSrc: 'mantine.svg',
-      imageAlt: 'Mantine logo',
-      href: 'mantine',
-    },
-    nextjs: {
-      title: 'Next.js',
-      description: '',
-      imageSrc: 'nextjs.svg',
-      imageAlt: 'Next.js logo',
-      href: 'nextjs',
-    },
-    playwright: {
-      title: 'Playwright',
-      description: '',
-      imageSrc: 'playwright.svg',
-      imageAlt: 'Playwright logo',
-      href: 'playwright',
-    },
-    react: {
-      title: 'React',
-      description: '',
-      imageSrc: 'react.svg',
-      imageAlt: 'React logo',
-      href: 'react',
-    },
-    ['react-native']: {
-      title: 'React Native',
-      description: '',
-      imageSrc: 'reactnative.svg',
-      imageAlt: 'React Native logo',
-      href: 'react-native',
-    },
-    ['react-testing-library']: {
-      title: 'React Testing Library',
-      description: '',
-      imageSrc: 'reacttestinglibrary.svg',
-      imageAlt: 'React Testing Library logo',
-      href: 'react-testing-library',
-    },
-    redux: {
-      title: 'Redux',
-      description: '',
-      imageSrc: 'redux.svg',
-      imageAlt: 'Redux logo',
-      href: 'redux',
-    },
-    sass: {
-      title: 'Sass',
-      description: '',
-      imageSrc: 'sass.svg',
-      imageAlt: 'Sass logo',
-      href: 'sass',
-    },
-    storybook: {
-      title: 'Storybook',
-      description: '',
-      imageSrc: 'storybook.svg',
-      imageAlt: 'Storybook logo',
-      href: 'storybook',
-    },
-    strapi: {
-      title: 'Strapi',
-      description: '',
-      imageSrc: 'strapi.svg',
-      imageAlt: 'Strapi logo',
-      href: 'strapi',
-    },
-    ['styled-components']: {
-      title: 'Styled Components',
-      description: '',
-      imageSrc: 'styledcomponents.svg',
-      imageAlt: 'Styled Components logo',
-      href: 'styled-components',
-    },
-    svg: {
-      title: 'SVG',
-      description: '',
-      imageSrc: 'svg.svg',
-      imageAlt: 'SVG logo',
-      href: 'svg',
-    },
-    tailwind: {
-      title: 'Tailwind',
-      description: '',
-      imageSrc: 'tailwind.svg',
-      imageAlt: 'Tailwind logo',
-      href: 'tailwind',
-    },
-    typescript: {
-      title: 'TypeScript',
-      description: '',
-      imageSrc: 'typescript.svg',
-      imageAlt: 'TypeScript logo',
-      href: 'typescript',
-    },
-    vite: {
-      title: 'Vite',
-      description: '',
-      imageSrc: 'vite.svg',
-      imageAlt: 'Vite logo',
-      href: 'vite',
-    },
-    vscode: {
-      title: 'VSCode',
-      description: '',
-      imageSrc: 'vscode.svg',
-      imageAlt: 'VSCode logo',
-      href: 'vscode',
-    },
-    webpack: {
-      title: 'Webpack',
-      description: '',
-      imageSrc: 'webpack.svg',
-      imageAlt: 'Webpack logo',
-      href: 'webpack',
-    },
-    wordpress: {
-      title: 'WordPress',
-      description: '',
-      imageSrc: 'wordpress.svg',
-      imageAlt: 'WordPress logo',
-      href: 'wordpress',
-    },
-    ['wp-graphql']: {
-      title: 'WPGraphQL',
-      description: '',
-      imageSrc: 'wpgraphql.svg',
-      imageAlt: 'WPGraphQL logo',
-      href: 'wp-graphql',
-    },
+const skillRatings: SkillRatings = {
+  accessibility: {
+    rating: 3,
   },
-  en: {
-    accessibility: {
-      title: 'Accessibility',
-      description: '',
-      imageSrc: 'accessibility.svg',
-      imageAlt: 'Accessibility logo',
-      href: 'accessibility',
-    },
-    algolia: {
-      title: 'Algolia',
-      description: '',
-      imageSrc: 'algolia.svg',
-      imageAlt: 'Algolia logo',
-      href: 'algolia',
-    },
-    ['apollo-client']: {
-      title: 'Apollo Client',
-      description: '',
-      imageSrc: 'apolloclient.svg',
-      imageAlt: 'Apollo Client logo',
-      href: 'apollo-client',
-    },
-    astro: {
-      title: 'Astro',
-      description: '',
-      imageSrc: 'astro.svg',
-      imageAlt: 'Astro logo',
-      href: 'astro',
-    },
-    bash: {
-      title: 'Bash',
-      description: '',
-      imageSrc: 'bash.svg',
-      imageAlt: 'Bash logo',
-      href: 'bash',
-    },
-    css: {
-      title: 'CSS',
-      description: '',
-      imageSrc: 'css.svg',
-      imageAlt: 'CSS logo',
-      href: 'css',
-    },
-    docker: {
-      title: 'Docker',
-      description: '',
-      imageSrc: 'docker.svg',
-      imageAlt: 'Docker logo',
-      href: 'docker',
-    },
-    figma: {
-      title: 'Figma',
-      description: '',
-      imageSrc: 'figma.svg',
-      imageAlt: 'Figma logo',
-      href: 'figma',
-    },
-    gatsby: {
-      title: 'Gatsby',
-      description: '',
-      imageSrc: 'gatsby.svg',
-      imageAlt: 'Gatsby logo',
-      href: 'gatsby',
-    },
-    git: {
-      title: 'Git',
-      description: '',
-      imageSrc: 'git.svg',
-      imageAlt: 'Git logo',
-      href: 'git',
-    },
-    github: {
-      title: 'Github',
-      description: '',
-      imageSrc: 'github.svg',
-      imageAlt: 'Github logo',
-      href: 'github',
-    },
-    gitlab: {
-      title: 'Gitlab',
-      description: '',
-      imageSrc: 'gitlab.svg',
-      imageAlt: 'Gitlab logo',
-      href: 'gitlab',
-    },
-    graphql: {
-      title: 'GraphQL',
-      description: '',
-      imageSrc: 'graphql.svg',
-      imageAlt: 'GraphQL logo',
-      href: 'graphql',
-    },
-    ['graphql-codegen']: {
-      title: 'GraphQL Codegen',
-      description: '',
-      imageSrc: 'graphqlcodegen.svg',
-      imageAlt: 'GraphQL Codegen logo',
-      href: 'graphql-codegen',
-    },
-    html: {
-      title: 'HTML',
-      description: '',
-      imageSrc: 'html.svg',
-      imageAlt: 'HTML logo',
-      href: 'html',
-    },
-    inkscape: {
-      title: 'Inkscape',
-      description: '',
-      imageSrc: 'inkscape.svg',
-      imageAlt: 'Inkscape logo',
-      href: 'inkscape',
-    },
-    javascript: {
-      title: 'JavaScript',
-      description: '',
-      imageSrc: 'javascript.svg',
-      imageAlt: 'JavaScript logo',
-      href: 'javascript',
-    },
-    jest: {
-      title: 'Jest',
-      description: '',
-      imageSrc: 'jest.svg',
-      imageAlt: 'Jest logo',
-      href: 'jest',
-    },
-    mantine: {
-      title: 'Mantine',
-      description: '',
-      imageSrc: 'mantine.svg',
-      imageAlt: 'Mantine logo',
-      href: 'mantine',
-    },
-    nextjs: {
-      title: 'Next.js',
-      description: '',
-      imageSrc: 'nextjs.svg',
-      imageAlt: 'Next.js logo',
-      href: 'nextjs',
-    },
-    playwright: {
-      title: 'Playwright',
-      description: '',
-      imageSrc: 'playwright.svg',
-      imageAlt: 'Playwright logo',
-      href: 'playwright',
-    },
-    react: {
-      title: 'React',
-      description: '',
-      imageSrc: 'react.svg',
-      imageAlt: 'React logo',
-      href: 'react',
-    },
-    ['react-native']: {
-      title: 'React Native',
-      description: '',
-      imageSrc: 'reactnative.svg',
-      imageAlt: 'React Native logo',
-      href: 'react-native',
-    },
-    ['react-testing-library']: {
-      title: 'React Testing Library',
-      description: '',
-      imageSrc: 'reacttestinglibrary.svg',
-      imageAlt: 'React Testing Library logo',
-      href: 'react-testing-library',
-    },
-    redux: {
-      title: 'Redux',
-      description: '',
-      imageSrc: 'redux.svg',
-      imageAlt: 'Redux logo',
-      href: 'redux',
-    },
-    sass: {
-      title: 'Sass',
-      description: '',
-      imageSrc: 'sass.svg',
-      imageAlt: 'Sass logo',
-      href: 'sass',
-    },
-    storybook: {
-      title: 'Storybook',
-      description: '',
-      imageSrc: 'storybook.svg',
-      imageAlt: 'Storybook logo',
-      href: 'storybook',
-    },
-    strapi: {
-      title: 'Strapi',
-      description: '',
-      imageSrc: 'strapi.svg',
-      imageAlt: 'Strapi logo',
-      href: 'strapi',
-    },
-    ['styled-components']: {
-      title: 'Styled Components',
-      description: '',
-      imageSrc: 'styledcomponents.svg',
-      imageAlt: 'Styled Components logo',
-      href: 'styled-components',
-    },
-    svg: {
-      title: 'SVG',
-      description: '',
-      imageSrc: 'svg.svg',
-      imageAlt: 'SVG logo',
-      href: 'svg',
-    },
-    tailwind: {
-      title: 'Tailwind',
-      description: '',
-      imageSrc: 'tailwind.svg',
-      imageAlt: 'Tailwind logo',
-      href: 'tailwind',
-    },
-    typescript: {
-      title: 'TypeScript',
-      description: '',
-      imageSrc: 'typescript.svg',
-      imageAlt: 'TypeScript logo',
-      href: 'typescript',
-    },
-    vite: {
-      title: 'Vite',
-      description: '',
-      imageSrc: 'vite.svg',
-      imageAlt: 'Vite logo',
-      href: 'vite',
-    },
-    vscode: {
-      title: 'VSCode',
-      description: '',
-      imageSrc: 'vscode.svg',
-      imageAlt: 'VSCode logo',
-      href: 'vscode',
-    },
-    webpack: {
-      title: 'Webpack',
-      description: '',
-      imageSrc: 'webpack.svg',
-      imageAlt: 'Webpack logo',
-      href: 'webpack',
-    },
-    wordpress: {
-      title: 'WordPress',
-      description: '',
-      imageSrc: 'wordpress.svg',
-      imageAlt: 'WordPress logo',
-      href: 'wordpress',
-    },
-    ['wp-graphql']: {
-      title: 'WPGraphQL',
-      description: '',
-      imageSrc: 'wpgraphql.svg',
-      imageAlt: 'WPGraphQL logo',
-      href: 'wp-graphql',
-    },
+  algolia: {
+    rating: 3,
   },
-} as const satisfies TechSkillItems;
+  ['apollo-client']: {
+    rating: 4,
+  },
+  astro: {
+    rating: 3,
+  },
+  bash: {
+    rating: 2,
+  },
+  css: { rating: 4 },
+  docker: {
+    rating: 3,
+  },
+  figma: {
+    rating: 3,
+  },
+  gatsby: {
+    rating: 3,
+  },
+  git: { rating: 3 },
+  github: {
+    rating: 3,
+  },
+  gitlab: {
+    rating: 4,
+  },
+  graphql: {
+    rating: 4,
+  },
+  ['graphql-codegen']: {
+    rating: 4,
+  },
+  html: {
+    rating: 4,
+  },
+  inkscape: {
+    rating: 3,
+  },
+  javascript: {
+    rating: 4,
+  },
+  jest: {
+    rating: 3,
+  },
+  mantine: {
+    rating: 4,
+  },
+  nextjs: {
+    rating: 4,
+  },
+  playwright: {
+    rating: 3,
+  },
+  react: {
+    rating: 4.5,
+  },
+  ['react-native']: {
+    rating: 2,
+  },
+  ['react-testing-library']: {
+    rating: 4,
+  },
+  redux: {
+    rating: 3,
+  },
+  sass: {
+    rating: 4,
+  },
+  storybook: {
+    rating: 2.5,
+  },
+  strapi: {
+    rating: 3,
+  },
+  ['styled-components']: {
+    rating: 4,
+  },
+  svg: { rating: 4 },
+  tailwind: {
+    rating: 3,
+  },
+  typescript: {
+    rating: 4,
+  },
+  vite: {
+    rating: 2,
+  },
+  vscode: {
+    rating: 4,
+  },
+  webpack: {
+    rating: 2,
+  },
+  wordpress: {
+    rating: 3,
+  },
+  ['wp-graphql']: {
+    rating: 4,
+  },
+};
+
+const techSkillTiles: Record<
+  TechSkill,
+  Omit<SkillInfo, 'description' | 'rating'>
+> = {
+  accessibility: {
+    title: 'Accessibility',
+    imageSrc: 'accessibility.svg',
+    imageAlt: 'Accessibility logo',
+    href: 'accessibility',
+  },
+  algolia: {
+    title: 'Algolia',
+    imageSrc: 'algolia.svg',
+    imageAlt: 'Algolia logo',
+    href: 'algolia',
+  },
+  ['apollo-client']: {
+    title: 'Apollo Client',
+    imageSrc: 'apolloclient.svg',
+    imageAlt: 'Apollo Client logo',
+    href: 'apollo-client',
+  },
+  astro: {
+    title: 'Astro',
+    imageSrc: 'astro.svg',
+    imageAlt: 'Astro logo',
+    href: 'astro',
+  },
+  bash: {
+    title: 'Bash',
+    imageSrc: 'bash.svg',
+    imageAlt: 'Bash logo',
+    href: 'bash',
+  },
+  css: { title: 'CSS', imageSrc: 'css.svg', imageAlt: 'CSS logo', href: 'css' },
+  docker: {
+    title: 'Docker',
+    imageSrc: 'docker.svg',
+    imageAlt: 'Docker logo',
+    href: 'docker',
+  },
+  figma: {
+    title: 'Figma',
+    imageSrc: 'figma.svg',
+    imageAlt: 'Figma logo',
+    href: 'figma',
+  },
+  gatsby: {
+    title: 'Gatsby',
+    imageSrc: 'gatsby.svg',
+    imageAlt: 'Gatsby logo',
+    href: 'gatsby',
+  },
+  git: { title: 'Git', imageSrc: 'git.svg', imageAlt: 'Git logo', href: 'git' },
+  github: {
+    title: 'Github',
+    imageSrc: 'github.svg',
+    imageAlt: 'Github logo',
+    href: 'github',
+  },
+  gitlab: {
+    title: 'Gitlab',
+    imageSrc: 'gitlab.svg',
+    imageAlt: 'Gitlab logo',
+    href: 'gitlab',
+  },
+  graphql: {
+    title: 'GraphQL',
+    imageSrc: 'graphql.svg',
+    imageAlt: 'GraphQL logo',
+    href: 'graphql',
+  },
+  ['graphql-codegen']: {
+    title: 'GraphQL Codegen',
+    imageSrc: 'graphqlcodegen.svg',
+    imageAlt: 'GraphQL Codegen logo',
+    href: 'graphql-codegen',
+  },
+  html: {
+    title: 'HTML',
+    imageSrc: 'html.svg',
+    imageAlt: 'HTML logo',
+    href: 'html',
+  },
+  inkscape: {
+    title: 'Inkscape',
+    imageSrc: 'inkscape.svg',
+    imageAlt: 'Inkscape logo',
+    href: 'inkscape',
+  },
+  javascript: {
+    title: 'JavaScript',
+    imageSrc: 'javascript.svg',
+    imageAlt: 'JavaScript logo',
+    href: 'javascript',
+  },
+  jest: {
+    title: 'Jest',
+    imageSrc: 'jest.svg',
+    imageAlt: 'Jest logo',
+    href: 'jest',
+  },
+  mantine: {
+    title: 'Mantine',
+    imageSrc: 'mantine.svg',
+    imageAlt: 'Mantine logo',
+    href: 'mantine',
+  },
+  nextjs: {
+    title: 'Next.js',
+    imageSrc: 'nextjs.svg',
+    imageAlt: 'Next.js logo',
+    href: 'nextjs',
+  },
+  playwright: {
+    title: 'Playwright',
+    imageSrc: 'playwright.svg',
+    imageAlt: 'Playwright logo',
+    href: 'playwright',
+  },
+  react: {
+    title: 'React',
+    imageSrc: 'react.svg',
+    imageAlt: 'React logo',
+    href: 'react',
+  },
+  ['react-native']: {
+    title: 'React Native',
+    imageSrc: 'reactnative.svg',
+    imageAlt: 'React Native logo',
+    href: 'react-native',
+  },
+  ['react-testing-library']: {
+    title: 'React Testing Library',
+    imageSrc: 'reacttestinglibrary.svg',
+    imageAlt: 'React Testing Library logo',
+    href: 'react-testing-library',
+  },
+  redux: {
+    title: 'Redux',
+    imageSrc: 'redux.svg',
+    imageAlt: 'Redux logo',
+    href: 'redux',
+  },
+  sass: {
+    title: 'Sass',
+    imageSrc: 'sass.svg',
+    imageAlt: 'Sass logo',
+    href: 'sass',
+  },
+  storybook: {
+    title: 'Storybook',
+    imageSrc: 'storybook.svg',
+    imageAlt: 'Storybook logo',
+    href: 'storybook',
+  },
+  strapi: {
+    title: 'Strapi',
+    imageSrc: 'strapi.svg',
+    imageAlt: 'Strapi logo',
+    href: 'strapi',
+  },
+  ['styled-components']: {
+    title: 'Styled Components',
+    imageSrc: 'styledcomponents.svg',
+    imageAlt: 'Styled Components logo',
+    href: 'styled-components',
+  },
+  svg: { title: 'SVG', imageSrc: 'svg.svg', imageAlt: 'SVG logo', href: 'svg' },
+  tailwind: {
+    title: 'Tailwind',
+    imageSrc: 'tailwind.svg',
+    imageAlt: 'Tailwind logo',
+    href: 'tailwind',
+  },
+  typescript: {
+    title: 'TypeScript',
+    imageSrc: 'typescript.svg',
+    imageAlt: 'TypeScript logo',
+    href: 'typescript',
+  },
+  vite: {
+    title: 'Vite',
+    imageSrc: 'vite.svg',
+    imageAlt: 'Vite logo',
+    href: 'vite',
+  },
+  vscode: {
+    title: 'VSCode',
+    imageSrc: 'vscode.svg',
+    imageAlt: 'VSCode logo',
+    href: 'vscode',
+  },
+  webpack: {
+    title: 'Webpack',
+    imageSrc: 'webpack.svg',
+    imageAlt: 'Webpack logo',
+    href: 'webpack',
+  },
+  wordpress: {
+    title: 'WordPress',
+    imageSrc: 'wordpress.svg',
+    imageAlt: 'WordPress logo',
+    href: 'wordpress',
+  },
+  ['wp-graphql']: {
+    title: 'WPGraphQL',
+    imageSrc: 'wpgraphql.svg',
+    imageAlt: 'WPGraphQL logo',
+    href: 'wp-graphql',
+  },
+};
+
+const getTechSkills = () => {
+  // Helper function to create skills for a specific language
+  const createLanguageSkills = (
+    descriptions: SkillDescriptions
+  ): Record<TechSkill, SkillInfo> => {
+    return Object.entries(techSkillTiles).reduce<Record<TechSkill, SkillInfo>>(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: {
+          ...value,
+          description: descriptions[key as TechSkill].description,
+          rating: skillRatings[key as TechSkill].rating,
+        },
+      }),
+      {} as Record<TechSkill, SkillInfo>
+    );
+  };
+
+  const items: TechSkillItems = {
+    da: createLanguageSkills(danishSkillDescriptions),
+    en: createLanguageSkills(englishSkillDescriptions),
+  };
+  return items;
+};
+
+export const skillsObject = getTechSkills();
 
 export const techSkills = {
   da: Object.entries(skillsObject.da).map(([_key, value]) => value),

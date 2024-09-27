@@ -29,10 +29,20 @@ const t = useTranslations(lang, 'navigation');
 
 const danishSlugMap: Record<
   SlugTypes<'da'>,
-  { component: AstroComponentFactory; title: string }
+  {
+    component: AstroComponentFactory;
+    title: string;
+    skillTitle?: string;
+    skillDescription?: (_props: Record<string, any>) => any;
+  }
 > = {
   arbejde: { component: () => {}, title: t('work') },
-  kompetencer: { component: Skills, title: t('skills') },
+  kompetencer: {
+    component: Skills,
+    title: t('skills'),
+    skillTitle: t('tech_skills'),
+    skillDescription: () => {},
+  },
   ['om-mig']: { component: About, title: t('about') },
   arkiv: { component: () => {}, title: t('work') },
 };

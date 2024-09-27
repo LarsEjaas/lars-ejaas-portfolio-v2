@@ -126,11 +126,6 @@ export type ColorVariants =
   | 'aquamarine'
   | 'bluemunsell';
 
-export type HTMLMarqueeTitle =
-  `<h3 class="stylized-capitalized-text">${string}</h3>`;
-
-export type HTMLMarqueeDescription = unknown;
-
 /**
  * Type predicate to filter out empty instances of an array
  * Returns true if a value is not empty (i.e., not null or undefined).
