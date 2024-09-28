@@ -10,17 +10,19 @@
   max-width: 720px;
   height: fit-content;
   grid-column: 1 / 4;
-  &:focus-within {
-    outline: 2px dashed var(--system-light-400);
+  &:has(a:focus-visible) {
+    outline: 2px dashed var(--system-dark-100);
   }
 }
 
 .scene {
   --mask-width: 3rem;
-  --inset: -0.5; /* Controls the grid animation offset on entry/exit */
+  /* Inset and outset controls the grid animation offset on entry/exit */
+  --inset: -0.5;
   --outset: 3.5;
   --speed: 10s;
   --items-in-row: 3;
+  scroll-behavior: smooth;
   --grid-row-count: round(
     up,
     calc(var(--number-of-items) / var(--items-in-row))
@@ -95,7 +97,8 @@
     z-index: -2;
   }
   &:hover:not([data-placeholder]),
-  &:focus-within:not([data-placeholder]) {
+  &:focus-within:not([data-placeholder]),
+  &:has(a[data-active]) {
     --active: 1;
   }
   & a {
@@ -127,7 +130,7 @@
   }
 }
 
-& :global(.squircle) {
+:global(.squircle) {
   clip-path: url(#squircle);
   display: block;
 
@@ -135,6 +138,15 @@
     background-color: light-dark(
       var(--system-light-200),
       var(--system-light-500)
+    );
+  }
+}
+
+a[data-active] {
+  & .outline {
+    background-color: light-dark(
+      var(--system-light-400),
+      var(--system-dark-100)
     );
   }
 }

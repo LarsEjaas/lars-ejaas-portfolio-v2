@@ -1,5 +1,5 @@
 /** Get all focusable child elements marked with `data-arrow-nav` */
-const getFocusableElements = (
+export const getFocusableElements = (
   hostElement: HTMLElement = document.documentElement
 ): Array<HTMLElement> => {
   const elements = Array.from(

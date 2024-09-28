@@ -19,6 +19,7 @@ interface Window {
   mobileContactLink: HTMLAnchorElement | null;
   desktopShareLink: HTMLAnchorElement | null;
   desktopContactLink: HTMLAnchorElement | null;
+  skillTileScene: HTMLDivElement | null;
 }
 
 interface String {
