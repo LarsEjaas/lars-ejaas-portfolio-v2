@@ -17,6 +17,28 @@ export const about = {
       'A cheerful individual with a positive outlook on life.',
     living_in_aarhus: 'Living in Aarhus (the second largest city in Denmark).',
     the_proud_father: 'The proud father of two children.',
+    a_winding_road: 'A Winding Road to Web Development',
+    from_racetracks_to_code_tracks:
+      'From Racetracks to Code Tracks:\nMy Unexpected Journey',
+    life_rarely_follows:
+      'Life rarely follows a straight path, and my journey to becoming a developer at 40 is a testament to that.\nHere are a few pit stops along the way that shaped who I am today.',
+    chasing_dreams: 'Chasing Dreams on Two Wheels',
+    for_13_seasons:
+      'For 13 seasons, I lived and breathed amateur road cycling. The dream of going pro pushed me to compete in elite national races and even a few international events. While I realized my physical talents weren’t quite cut out for the professional peloton, those years were an incredible adventure.\nThe thrill of competition and the personal growth I experienced along the way were invaluable. If given the chance, I’d do it all over again in a heartbeat. These adventurous years taught me the value of perseverance and the joy of pushing my limits.',
+    finding_my_stride: 'Finding My Stride in Endurance Running',
+    my_thirties_saw:
+      'My thirties saw me trading bike pedals for running shoes. I tackled everything from 5K races to grueling marathons, even testing my mettle on the track.',
+    the_pinnacle:
+      'The pinnacle? Completing the Hannover Marathon in 2:33 hours and winning my age group. That journey - from the intense training to crossing the finish line - showed me the power of disciplined preparation and the sweet taste of hard-earned success.',
+    an_architectural_detour: 'An Architectural Detour',
+    as_a_teenager:
+      'As a teenager, my love for drawing led me to pursue architecture. I even spent a year at Aarhus School of Architecture. While I discovered the artistic environment wasn’t my perfect fit, this experience taught me the importance of exploring different paths and having the courage to change course.',
+    a_lateblooming_passion: 'A Late-Blooming Passion for Programming',
+    it_wasnt_until:
+      'It wasn’t until my late thirties that I discovered programming as a hobby. Suddenly, everything clicked. Frontend development offered the perfect blend of problem-solving, structure, and creativity I had been searching for all along. It was like finding the missing piece of a puzzle I didn’t even know I was solving.\nThis newfound passion quickly evolved into a career change. At 40, I took the leap and landed my first developer job, embarking on an exciting new career path.\n\nWhile not every job task is ground-breaking, the overall satisfaction I derive from my work is unparalleled. I’ve even found myself anticipating Monday mornings – a novel experience that speaks volumes about how much I enjoy what I do.',
+    the_lesson: 'The Lesson?\n It’s Never Too Late to Pivot',
+    if_theres_one:
+      'If there’s one thing I’ve learned, it’s this: Follow your dreams but don’t be afraid to change course along the way.\nWho knows? Like me, you might even end up doing something more exciting than what you initially dreamed about.',
   },
   da: {
     about_title: 'Om mig',

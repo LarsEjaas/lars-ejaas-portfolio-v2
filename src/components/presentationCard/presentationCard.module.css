@@ -69,6 +69,7 @@
     line-height: 0.6;
     text-wrap: nowrap;
     color: light-dark(var(--system-light-100), var(--system-light-300));
+    margin-block-end: unset;
   }
   & :global(.squircle) {
     clip-path: url(#squircle);
@@ -157,6 +158,9 @@
   & ul,
   & p {
     margin-block-end: 4px;
+  }
+  & h3 {
+    margin-block-end: unset;
   }
   & li,
   & p {

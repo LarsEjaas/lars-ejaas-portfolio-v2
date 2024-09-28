@@ -1,0 +1,69 @@
+@keyframes unwrapImage {
+  0% {
+    transform: translateX(calc(var(--index) * -100px)) rotate(0);
+  }
+  100% {
+    transform: translateX(0)
+      rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
+  }
+}
+
+.imageGridContainer {
+  display: grid;
+  gap: 0.5rem;
+  position: relative;
+  margin-inline: auto;
+  width: fit-content;
+  grid-template-columns: auto(auto-fit, auto);
+  max-width: calc(100% - ((4 - var(--number-of-images)) * 20%) - 4rem);
+  margin-block: 2rem;
+  & a {
+    display: block;
+    height: fit-content;
+    outline-offset: var(--outline-offset);
+    grid-row: 1;
+    height: 100%;
+    transition: all 250ms;
+    transform-origin: 50% 50%;
+    animation: unwrapImage 300ms calc(var(--index) * 150ms) ease-in-out;
+    transform: rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
+    &[data-reverse-rotate] {
+      --rotate-direction: -1;
+    }
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.05)
+        rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
+      & .photocard {
+        box-shadow: var(--stacks-6-shadow);
+        background-color: light-dark(
+          var(--system-light-200),
+          var(--system-dark-400)
+        );
+      }
+    }
+  }
+}
+
+.photocard {
+  border-radius: var(--border-radius-sm);
+  height: inherit;
+  background-color: light-dark(var(--system-light-200), var(--system-dark-400));
+  padding-inline: 5px;
+  padding-block: 5px 25px;
+  box-shadow: var(--stacks-5-shadow);
+  & picture {
+    overflow: hidden;
+    border-radius: 2px;
+    height: 100%;
+    filter: sepia(60%);
+    aspect-ratio: var(--aspect-ratio);
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 2px;
+      box-shadow: inset 0 0 10px 3px #00000066;
+    }
+  }
+}

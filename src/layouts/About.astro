@@ -6,6 +6,7 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './about.module.css';
 import ProfileImage from '@assets/images/profile.png';
+import PhotoCards from '@components/photoCards/PhotoCards.astro';
 
 interface Props {
   title: string;
@@ -51,6 +52,26 @@ const t_about = useTranslations(lang, 'about');
     </PresentationCard>
   </div>
   <FloatingBalloons balloonColor="princeton" />
+  <article class={styles.article}>
+    <h2>{t_about('a_winding_road')}</h2>
+    <h3>{t_about('from_racetracks_to_code_tracks')}</h3>
+    <p class="body-text">{t_about('life_rarely_follows')}</p>
+    <h3>{t_about('chasing_dreams')}</h3>
+    <p class="body-text">{t_about('for_13_seasons')}</p>
+    <PhotoCards
+      reverseRotation={true}
+      imageNames={['cycling_hjørring_2011', 'cyclocross_2011']}
+    />
+    <h3>{t_about('finding_my_stride')}</h3>
+    <p class="body-text">{t_about('my_thirties_saw')}</p>
+    <p class="body-text">{t_about('the_pinnacle')}</p>
+    <h3>{t_about('an_architectural_detour')}</h3>
+    <p class="body-text">{t_about('as_a_teenager')}</p>
+    <h3>{t_about('a_lateblooming_passion')}</h3>
+    <p class="body-text">{t_about('it_wasnt_until')}</p>
+    <h3>{t_about('the_lesson')}</h3>
+    <p class="body-text">{t_about('if_theres_one')}</p>
+  </article>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot />
 </Layout>

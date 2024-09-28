@@ -1,4 +1,4 @@
-@keyframes slide-in {
+@keyframes slideIn {
   from {
     /* transform: translateX(-75cqi) scale(0.65); */
     /* transform: translateX(-95cqi) scale(0.65); */
@@ -18,6 +18,9 @@
   grid-column: 1 / 4;
   container-name: carousel;
   --card-width: 242px;
+  & h2 {
+    margin-block-end: 0;
+  }
 }
 
 :global(#carouselList) {
@@ -91,7 +94,7 @@
       box-shadow: var(--stacks-5-shadow);
       @supports (animation-timeline: view()) {
         @media (prefers-reduced-motion: no-preference) {
-          animation-name: slide-in;
+          animation-name: slideIn;
           animation-fill-mode: both;
           animation-timing-function: linear;
           animation-timeline: view(inline);

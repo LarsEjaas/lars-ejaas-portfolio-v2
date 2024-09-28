@@ -13,3 +13,8 @@
     padding-inline-start: 20px;
   }
 }
+
+.article {
+  grid-column: 1/4;
+  max-width: 68ch;
+}

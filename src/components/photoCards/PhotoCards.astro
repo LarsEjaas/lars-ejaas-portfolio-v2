@@ -1,0 +1,29 @@
+---
+import styles from './photoCard.module.css';
+import PhotoCard from './PhotoCard.astro';
+const aboutImages = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+
+type Props = {
+  imageNames: string[];
+  /** Can be used to rotate all the images in the opposite direction */
+  reverseRotation?: boolean;
+};
+
+const { imageNames, reverseRotation = false } = Astro.props;
+---
+
+<div
+  class={styles.imageGridContainer}
+  style={`--number-of-images: ${imageNames.length}`}
+>
+  {
+    imageNames.map((imageName, index) => (
+      <PhotoCard
+        imageGlob={aboutImages}
+        imageName={imageName}
+        reverseRotation={reverseRotation}
+        index={index}
+      />
+    ))
+  }
+</div>

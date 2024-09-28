@@ -43,6 +43,7 @@
       font-size: var(--font-size-2);
       font-weight: 600;
       color: light-dark(var(--system-dark-100), var(--system-dark-200));
+      margin-block-end: unset;
     }
     & .downloadIcon {
       overflow: visible;
