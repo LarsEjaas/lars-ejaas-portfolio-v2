@@ -10,8 +10,8 @@ import {
 import type { ImageModule } from '@customTypes/index';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
 
-type EnglishSkillSlugPaths = {
-  [P in SlugWithSkillTypes<'en'>]: {
+type DanishSkillSlugPaths = {
+  [P in SlugWithSkillTypes<'da'>]: {
     params: SkillSlugPath<P>;
   };
 };
@@ -20,13 +20,15 @@ const lang = getLangFromUrl(Astro.url);
 
 export function getStaticPaths() {
   // Helper function to create a type-safe path object
-  const createPaths = (skills: readonly TechSkill[]): EnglishSkillSlugPaths => {
-    return skills.reduce<EnglishSkillSlugPaths>(
+  const createPaths = (skills: readonly TechSkill[]): DanishSkillSlugPaths => {
+    return skills.reduce<DanishSkillSlugPaths>(
       (acc, skill) => ({
         ...acc,
-        [`skills/${skill}`]: { params: { slug: 'skills', skill } },
+        [`kompetencer/${skill}`]: {
+          params: { lang: 'da', slug: 'kompetencer', skill },
+        },
       }),
-      {} as EnglishSkillSlugPaths
+      {} as DanishSkillSlugPaths
     );
   };
 

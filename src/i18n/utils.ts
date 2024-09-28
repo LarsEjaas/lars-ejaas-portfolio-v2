@@ -16,6 +16,7 @@ import { hasProperty } from '@customTypes/index';
  * console.info(lang); // 'en'
  */
 export function getLangFromUrl(url: URL) {
+  console.log('getLangFromUrl', url);
   const [, lang] = url.pathname.split('/');
   if (lang && lang in languages) return lang as keyof typeof languages;
   return defaultLang;

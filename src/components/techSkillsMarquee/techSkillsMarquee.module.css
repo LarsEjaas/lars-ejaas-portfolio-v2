@@ -143,11 +143,13 @@
 }
 
 a[data-active] {
-  & .outline {
-    background-color: light-dark(
-      var(--system-light-400),
-      var(--system-dark-100)
-    );
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -4px;
+    clip-path: url('#squircle');
+    background-color: var(--system-dark-100);
   }
 }
 
