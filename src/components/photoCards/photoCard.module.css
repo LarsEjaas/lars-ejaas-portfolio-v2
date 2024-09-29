@@ -25,7 +25,6 @@
     height: 100%;
     transition: all 250ms;
     transform-origin: 50% 50%;
-    animation: unwrapImage 300ms calc(var(--index) * 150ms) ease-in-out;
     transform: rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
     &[data-reverse-rotate] {
       --rotate-direction: -1;
@@ -43,6 +42,11 @@
       }
     }
   }
+  &:not([inert='true']) {
+    & a {
+      animation: unwrapImage 300ms calc(var(--index) * 150ms) ease-in-out;
+    }
+  }
 }
 
 .photocard {
@@ -57,7 +61,6 @@
     border-radius: 2px;
     height: 100%;
     filter: sepia(60%);
-    aspect-ratio: var(--aspect-ratio);
     &::after {
       content: '';
       position: absolute;

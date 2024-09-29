@@ -1,0 +1,74 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import AboutLayout from '@layouts/About.astro';
+import type { AboutImageSlugPath, SlugWithAboutImageTypes } from '@i18n/routes';
+import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+import type { ImageDetails } from '@content/aboutImages/aboutImages';
+import type { ImageModule } from '@customTypes/index';
+import LightBox from '@components/lightBox/Lightbox.astro';
+
+const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+
+type EnglishAboutLightboxPaths = {
+  [P in SlugWithAboutImageTypes<'en'>]: {
+    params: AboutImageSlugPath<P>;
+  };
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+export function getStaticPaths() {
+  // Helper function to create a type-safe path object
+  const createPaths = (
+    imageInfo: readonly ImageDetails[]
+  ): EnglishAboutLightboxPaths => {
+    return imageInfo.reduce(
+      (acc, imgDetails) => ({
+        ...acc,
+        [`about/${imgDetails.hrefEN}`]: {
+          params: { slug: 'about', aboutImage: imgDetails.hrefEN },
+        },
+      }),
+      {} as EnglishAboutLightboxPaths
+    );
+  };
+
+  const paths = createPaths(aboutImagesInfo);
+  return Object.values(paths);
+}
+
+const { aboutImage } = Astro.params;
+
+const imageInfo = aboutImagesInfo.find((img) => img.hrefEN === aboutImage);
+
+if (!imageInfo) {
+  throw new Error(`No aboutImagesInfo found for the href: ${imageInfo}`);
+}
+
+const imageImport = Object.entries(aboutImageGlob).find(([path]) =>
+  path.includes(imageInfo?.imageSrc)
+);
+
+if (!imageImport) {
+  console.error(`aboutImages not found for: ${imageInfo?.imageSrc}`);
+  return null;
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+
+const pageTitle = imageInfo.title;
+---
+
+<script>
+  import { restoreModalScrollPosition } from '@utils/scrollPosition';
+  /** Restore scrollposition if previous page was a modal */
+  // Read position from storage on new page
+  restoreModalScrollPosition();
+</script>
+<AboutLayout title={pageTitle} inert={true}>
+  <LightBox
+    labels={{ title: pageTitle, close: t('close_modal_title') }}
+    image={ImageComponent}
+    imageInfo={imageInfo}
+  />
+</AboutLayout>

@@ -52,13 +52,14 @@ const t_about = useTranslations(lang, 'about');
     </PresentationCard>
   </div>
   <FloatingBalloons balloonColor="princeton" />
-  <article class={styles.article}>
+  <article class={styles.article} id="aboutArticle">
     <h2>{t_about('a_winding_road')}</h2>
     <h3>{t_about('from_racetracks_to_code_tracks')}</h3>
     <p class="body-text">{t_about('life_rarely_follows')}</p>
     <h3>{t_about('chasing_dreams')}</h3>
     <p class="body-text">{t_about('for_13_seasons')}</p>
     <PhotoCards
+      inert={inert}
       reverseRotation={true}
       imageNames={['cycling_hjørring_2011', 'cyclocross_2011']}
     />

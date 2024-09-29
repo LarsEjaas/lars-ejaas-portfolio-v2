@@ -377,10 +377,8 @@ const techSkillTiles: Record<
 
 const getTechSkills = () => {
   // Helper function to create skills for a specific language
-  const createLanguageSkills = (
-    descriptions: SkillDescriptions
-  ): Record<TechSkill, SkillInfo> => {
-    return Object.entries(techSkillTiles).reduce<Record<TechSkill, SkillInfo>>(
+  const createLanguageSkills = (descriptions: SkillDescriptions) => {
+    return Object.entries(techSkillTiles).reduce(
       (acc, [key, value]) => ({
         ...acc,
         [key]: {

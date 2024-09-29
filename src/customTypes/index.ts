@@ -3,16 +3,7 @@ export enum ValidationPattern {
 }
 
 export type ImageModule = {
-  default: string;
-};
-
-export type SVGModule = {
-  default: {
-    src: string;
-    width: number;
-    height: number;
-    format: 'svg';
-  };
+  default: ImageMetadata;
 };
 
 type ImageExtension = 'jpg' | 'png';

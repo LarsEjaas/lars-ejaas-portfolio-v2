@@ -20,6 +20,8 @@ interface Window {
   desktopShareLink: HTMLAnchorElement | null;
   desktopContactLink: HTMLAnchorElement | null;
   skillTileScene: HTMLDivElement | null;
+  lightbox: HTMLDialogElement | null;
+  aboutArticle: HTMLElement | null;
 }
 
 interface String {

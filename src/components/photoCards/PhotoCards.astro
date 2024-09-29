@@ -5,20 +5,48 @@ const aboutImages = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type Props = {
   imageNames: string[];
+  inert: boolean;
   /** Can be used to rotate all the images in the opposite direction */
   reverseRotation?: boolean;
 };
 
-const { imageNames, reverseRotation = false } = Astro.props;
+const { imageNames, reverseRotation = false, inert } = Astro.props;
 ---
+
+<script>
+  import { storeScrollPosition } from '@utils/scrollPosition';
+  import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+
+  const imageIds = aboutImagesInfo.map((imageName) => imageName.id);
+
+  console.log('window.aboutArticle?.dataset', window.aboutArticle?.dataset);
+
+  if (
+    imageIds.every((id) => id in window) &&
+    window.aboutArticle &&
+    !window.aboutArticle?.dataset?.scrollStorageInitialized
+  ) {
+    // Your method here
+    imageIds.forEach((id) => {
+      const imageAnchor: HTMLAnchorElement =
+        id in window ? window[id as keyof Window] : null;
+      if (imageAnchor) {
+        storeScrollPosition(imageAnchor);
+      }
+    });
+    window.aboutArticle.dataset.scrollStorageInitialized = 'true';
+  }
+</script>
 
 <div
   class={styles.imageGridContainer}
+  inert={inert}
   style={`--number-of-images: ${imageNames.length}`}
 >
   {
     imageNames.map((imageName, index) => (
       <PhotoCard
+        includeViewTransitionId={!inert}
         imageGlob={aboutImages}
         imageName={imageName}
         reverseRotation={reverseRotation}

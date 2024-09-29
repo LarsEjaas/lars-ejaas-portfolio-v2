@@ -1,0 +1,61 @@
+.backdrop {
+  position: fixed;
+  border-radius: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  z-index: 1000;
+  background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
+  backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  transition: backdrop-filter 0.3s ease-in-out 0.1s;
+  &:hover {
+    backdrop-filter: saturate(150%) brightness(60%) blur(3px);
+  }
+}
+
+.dialog {
+  view-transition-name: lightbox;
+  position: fixed;
+  container-name: lightbox;
+  container-type: inline-size;
+  margin: auto;
+  margin-top: min(20vh, 160px);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  z-index: 1000;
+  inset: 0;
+  background-color: unset;
+  border-style: none;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content {
+  width: fit-content;
+  & picture,
+  & img {
+    width: calc(100vw - 4rem);
+    max-width: 800px;
+  }
+}
+
+.footer {
+}
+
+.closeLink {
+  display: block;
+  background: unset;
+  border-radius: var(--border-radius-sm);
+  border: none;
+  height: fit-content;
+  line-height: 0;
+  margin: 8px;
+  padding: 4px;
+  color: var(--flirt-600);
+}

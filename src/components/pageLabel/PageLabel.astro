@@ -1,5 +1,5 @@
 ---
-import type { ImageModule, SVGModule } from '@customTypes/index';
+import type { ImageModule } from '@customTypes/index';
 import { Picture } from 'astro:assets';
 import styles from './PageLabel.module.css';
 import { getLangFromUrl } from '@i18n/utils';
@@ -50,7 +50,7 @@ if (!svgImport) {
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const TaglineComponent = ((await svgImport[1]()) as SVGModule).default;
+const TaglineComponent = ((await svgImport[1]()) as ImageModule).default;
 ---
 
 <div class={styles.pageLabel}>

@@ -4,6 +4,7 @@ import styles from './photoCard.module.css';
 import { Picture } from 'astro:assets';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { getLangFromUrl } from '@i18n/utils';
+import { useTranslatedPath } from '@i18n/utils';
 
 const CARD_ROTATIONS = [-4, 6, -2, 3];
 
@@ -11,13 +12,20 @@ type Props = {
   imageGlob: Record<string, () => Promise<unknown>>;
   imageName: string;
   index: number;
+  includeViewTransitionId: boolean;
   /** Can be used to rotate all the images in the opposite direction */
   reverseRotation?: boolean;
 };
 
 const language = getLangFromUrl(Astro.url);
 
-const { imageGlob, imageName, reverseRotation, index } = Astro.props;
+const {
+  imageGlob,
+  imageName,
+  reverseRotation,
+  index,
+  includeViewTransitionId,
+} = Astro.props;
 
 const imageInfo = aboutImagesInfo.find((info) => info.imageName === imageName);
 
@@ -37,12 +45,16 @@ if (!imageImport) {
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 
 const imageAlt = imageInfo[`imageAlt${language.toUpperCase()}`];
+const englishUrl = `about/${imageInfo.hrefEN}`;
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <a
-  href={imageInfo.href}
+  href={translatePath(englishUrl)}
+  id={imageInfo.id}
   data-reverse-rotate={reverseRotation || undefined}
-  style={`--aspect-ratio: ${ImageComponent?.width}/${ImageComponent?.height}; --index: ${index}; --rotation: ${CARD_ROTATIONS[index]}deg;`}
+  style={`--index: ${index}; --rotation: ${CARD_ROTATIONS[index]}deg;`}
 >
   <div class={styles.photocard}>
     <Picture
@@ -54,6 +66,9 @@ const imageAlt = imageInfo[`imageAlt${language.toUpperCase()}`];
       sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
       loading="eager"
       decoding="sync"
+      pictureAttributes={{
+        style: `aspect-ratio: ${ImageComponent.width}/${ImageComponent.height}; ${includeViewTransitionId ? `view-transition-name: ${imageInfo.id};` : undefined}`,
+      }}
     />
   </div>
 </a>

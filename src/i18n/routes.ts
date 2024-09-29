@@ -1,9 +1,14 @@
-import { getSkillSlugs } from '../components/techSkillsMarquee/utils';
+import {
+  getSkillSlugs,
+  getAboutLightboxSlugs,
+} from '@components/techSkillsMarquee/utils';
 import type { Language } from './settings';
 import type { defaultLang } from './settings';
 
 export const englishSkillRoutes = getSkillSlugs('en');
 export const danishSkillRoutes = getSkillSlugs('da');
+export const englishAboutImageRoutes = getAboutLightboxSlugs('en');
+export const danishAboutImageRoutes = getAboutLightboxSlugs('da');
 
 /**
  * Define all routes in the application
@@ -26,6 +31,7 @@ export const appRoutes = {
     ['skills/contact']: 'kompetencer/kontakt',
     ['skills/share']: 'kompetencer/del',
     ...danishSkillRoutes,
+    ...danishAboutImageRoutes,
     ['about/contact']: 'om-mig/kontakt',
     ['about/share']: 'om-mig/del',
     ['archive/contact']: 'arkiv/kontakt',
@@ -47,6 +53,7 @@ export const appRoutes = {
     ['skills/contact']: 'skills/contact',
     ['skills/share']: 'skills/share',
     ...englishSkillRoutes,
+    ...englishAboutImageRoutes,
     ['about/contact']: 'about/contact',
     ['about/share']: 'about/share',
     ['archive/contact']: 'archive/contact',
@@ -103,3 +110,11 @@ export type SlugWithSkillTypes<Lang extends Language> =
 export type SkillSlugPath<T extends string> = T extends `${infer S}/${infer SK}`
   ? { slug: S; skill: SK }
   : never;
+
+type SlugWithAboutImageKeys = keyof typeof englishAboutImageRoutes;
+
+export type SlugWithAboutImageTypes<Lang extends Language> =
+  (typeof appRoutes)[Lang][SlugWithAboutImageKeys];
+
+export type AboutImageSlugPath<T extends string> =
+  T extends `${infer S}/${infer AI}` ? { slug: S; aboutImage: AI } : never;
