@@ -34,11 +34,11 @@ if (!imageInfo) {
 }
 
 const imageImport = Object.entries(imageGlob).find(([path]) =>
-  path.includes(imageInfo?.imageSrc)
+  path.includes(imageInfo?.imageName)
 );
 
 if (!imageImport) {
-  console.error(`aboutImages not found for: ${imageInfo?.imageSrc}`);
+  console.error(`aboutImages not found for: ${imageInfo?.imageName}`);
   return null;
 }
 
@@ -52,11 +52,16 @@ const translatePath = useTranslatedPath(lang);
 
 <a
   href={translatePath(englishUrl)}
-  id={imageInfo.id}
+  id={includeViewTransitionId ? imageInfo.id : undefined}
   data-reverse-rotate={reverseRotation || undefined}
   style={`--index: ${index}; --rotation: ${CARD_ROTATIONS[index]}deg;`}
 >
-  <div class={styles.photocard}>
+  <div
+    class={styles.photocard}
+    style={includeViewTransitionId
+      ? `view-transition-name: ${imageInfo.id};`
+      : undefined}
+  >
     <Picture
       formats={['avif', 'webp']}
       quality="high"
@@ -67,7 +72,7 @@ const translatePath = useTranslatedPath(lang);
       loading="eager"
       decoding="sync"
       pictureAttributes={{
-        style: `aspect-ratio: ${ImageComponent.width}/${ImageComponent.height}; ${includeViewTransitionId ? `view-transition-name: ${imageInfo.id};` : undefined}`,
+        style: `aspect-ratio: ${ImageComponent.width}/${ImageComponent.height};`,
       }}
     />
   </div>

@@ -12,7 +12,7 @@ const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
 
 type DanishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'da'>]: {
-    params: SkillSlugPath<P>;
+    params: SkillSlugPath<P> & { lang: 'da' };
   };
 };
 

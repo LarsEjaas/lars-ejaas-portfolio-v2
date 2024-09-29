@@ -10,6 +10,10 @@ export const home = {
     download_resume_title: 'Download my Latest Resumé',
     home_title: 'Home',
     home_tagline: 'Welcome to my website!',
+    news_title: 'Latest News',
+    news_archive_title: 'Read older news',
+    next: 'Scroll to next news card',
+    previous: 'Scroll to previous news card',
   },
   da: {
     frontend_developer: 'Frontend Udvikler',
@@ -22,5 +26,9 @@ export const home = {
     download_resume_title: 'Download mit seneste CV',
     home_title: 'Hjem',
     home_tagline: 'Velkommen til min side!',
+    news_title: 'Seneste nyheder',
+    news_archive_title: 'Læs ældre nyheder',
+    next: 'Scroll til det næste kort',
+    previous: 'Scroll til det forrige kort',
   },
 } as const;

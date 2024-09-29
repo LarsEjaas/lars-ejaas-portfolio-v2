@@ -28,6 +28,8 @@ export const navigation = {
     not_found_title: '404 - Page not found',
     not_found: 'Page not found',
     tech_skills: 'Tech skills',
+    next: 'Scroll to next news card',
+    previous: 'Scroll to previous news card',
   },
   da: {
     section_with_arrow_nav:
@@ -58,5 +60,7 @@ export const navigation = {
     not_found_title: '404 - Siden blev ikke fundet',
     not_found: 'siden ikke fundet',
     tech_skills: 'Tekniske færdigheder',
+    next: 'Scroll til det næste kort',
+    previous: 'Scroll til det forrige kort',
   },
 } as const;

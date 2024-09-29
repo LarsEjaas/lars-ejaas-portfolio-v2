@@ -3,15 +3,33 @@ import { Picture } from 'astro:assets';
 import styles from './lightbox.module.css';
 import type { ImageDetails } from '@content/aboutImages/aboutImages.ts';
 import { getLangFromUrl } from '@i18n/utils';
+import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+import { useTranslatedPath } from '@i18n/utils';
+import PhotoCard from '@components/photoCards/PhotoCard.astro';
+const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type Props = {
-  labels: { title: string; close: string };
+  labels: { title: string; close: string; previous: string; next: string };
   image: ImageMetadata;
   imageInfo: ImageDetails;
 };
 const { labels, image, imageInfo } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const imageAlt = imageInfo[`imageAlt${lang?.toUpperCase()}`];
+
+const URLArray = Object.values(aboutImagesInfo).map(
+  (imgInfo) => imgInfo[`href${lang?.toUpperCase()}`]
+);
+
+const currentIndex = URLArray.indexOf(
+  imageInfo[`href${lang?.toUpperCase()}`] as (typeof URLArray)[number]
+);
+const translatePath = useTranslatedPath(lang);
+const aboutTranslatedPath = translatePath('about');
+const previousUrl = `${aboutTranslatedPath}/${URLArray[currentIndex - 1]}`;
+const isFirst = currentIndex === 0;
+const isLast = currentIndex === URLArray.length - 1;
+const nextUrl = `${aboutTranslatedPath}/${URLArray[currentIndex + 1]}`;
 ---
 
 <script>
@@ -32,7 +50,6 @@ const imageAlt = imageInfo[`imageAlt${lang?.toUpperCase()}`];
 
   // Restore scroll position from the previous page.
   const storedScrollPosition = getStoredScrollPosition();
-  console.log('Restoring scroll position:', storedScrollPosition);
   if (storedScrollPosition) {
     window.scrollTo({
       top: storedScrollPosition,
@@ -60,8 +77,8 @@ const imageAlt = imageInfo[`imageAlt${lang?.toUpperCase()}`];
       aria-label={labels.close}
       ><svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
+        width="24"
+        height="24"
         viewBox="0 0 16 16"
         aria-hidden="true"
       >
@@ -85,6 +102,59 @@ const imageAlt = imageInfo[`imageAlt${lang?.toUpperCase()}`];
         style: `aspect-ratio: ${image.width}/${image.height}; view-transition-name: ${imageInfo.id};`,
       }}
     />
+    <ul class={styles.controls}>
+      <li>
+        <a
+          data-disabled={isFirst || undefined}
+          href={isFirst ? undefined : previousUrl}
+          aria-label={labels.previous}
+        >
+          <svg
+            width="16"
+            fill="currentColor"
+            aria-hidden="true"
+            viewBox="4.5 7 15 15"
+          >
+            <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a
+          data-disabled={isLast || undefined}
+          href={isLast ? undefined : nextUrl}
+          aria-label={labels.next}
+        >
+          <svg
+            width="16"
+            fill="currentColor"
+            aria-hidden="true"
+            viewBox="4.5 7 15 15"
+          >
+            <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
   </div>
-  <div class={styles.footer}></div>
+  <div class={styles.footer}>
+    <div class={styles.thumbnailGridContainer}>
+      {
+        aboutImagesInfo.map((imgInfo, index) => {
+          if (imgInfo.id === imageInfo.id) {
+            return null;
+          }
+          return (
+            <PhotoCard
+              includeViewTransitionId={false}
+              imageGlob={aboutImageGlob}
+              imageName={imgInfo.imageName}
+              reverseRotation={false}
+              index={index}
+            />
+          );
+        })
+      }
+    </div>
+  </div>
 </dialog>

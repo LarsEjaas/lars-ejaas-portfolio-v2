@@ -9,9 +9,9 @@ import Lightbox from '@components/lightBox/Lightbox.astro';
 
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
-type EnglishAboutLightboxPaths = {
-  [P in SlugWithAboutImageTypes<'en'>]: {
-    params: AboutImageSlugPath<P>;
+type DanishAboutLightboxPaths = {
+  [P in SlugWithAboutImageTypes<'da'>]: {
+    params: AboutImageSlugPath<P> & { lang: 'da' };
   };
 };
 
@@ -22,15 +22,15 @@ export function getStaticPaths() {
   // Helper function to create a type-safe path object
   const createPaths = (
     imageInfo: readonly ImageDetails[]
-  ): EnglishAboutLightboxPaths => {
+  ): DanishAboutLightboxPaths => {
     return imageInfo.reduce(
       (acc, imgDetails) => ({
         ...acc,
         [`about/${imgDetails.hrefEN}`]: {
-          params: { slug: 'about', aboutImage: imgDetails.hrefEN },
+          params: { lang: 'da', slug: 'om-mig', aboutImage: imgDetails.hrefDA },
         },
       }),
-      {} as EnglishAboutLightboxPaths
+      {} as DanishAboutLightboxPaths
     );
   };
 
@@ -40,10 +40,10 @@ export function getStaticPaths() {
 
 const { aboutImage } = Astro.params;
 
-const imageInfo = aboutImagesInfo.find((img) => img.hrefEN === aboutImage);
+const imageInfo = aboutImagesInfo.find((img) => img.hrefDA === aboutImage);
 
 if (!imageInfo) {
-  throw new Error(`No aboutImagesInfo found for the href: ${imageInfo}`);
+  throw new Error(`No danish aboutImagesInfo found for the href: ${imageInfo}`);
 }
 
 const imageImport = Object.entries(aboutImageGlob).find(([path]) =>
@@ -56,7 +56,7 @@ if (!imageImport) {
 }
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 
-const pageTitle = imageInfo.titleEN;
+const pageTitle = imageInfo.titleDA;
 ---
 
 <script>

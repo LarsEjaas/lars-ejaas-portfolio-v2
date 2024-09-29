@@ -4,6 +4,7 @@ import {
 } from '@components/techSkillsMarquee/utils';
 import type { Language } from './settings';
 import type { defaultLang } from './settings';
+import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 
 export const englishSkillRoutes = getSkillSlugs('en');
 export const danishSkillRoutes = getSkillSlugs('da');
@@ -70,6 +71,10 @@ export const allModalKeys = Object.values(appRoutes).flatMap((lang) =>
       englishModalKeys.includes(key as (typeof englishModalKeys)[number])
     )
     .map(([, value]) => value)
+);
+
+export const allLightboxKeys = Object.values(aboutImagesInfo).flatMap(
+  (info) => [info.hrefEN, info.hrefDA]
 );
 
 type ModalKeys = (typeof englishModalKeys)[number];

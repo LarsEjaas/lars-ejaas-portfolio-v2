@@ -17,10 +17,10 @@
   }
 
   picture img {
-    display: block; /* Prevents spacing issues from inline images */
-    max-width: 100%; /* Keeps the image within the picture element's size */
-    height: auto; /* Ensures the image maintains its aspect ratio */
-    -webkit-user-drag: none; /* Prevents image from being draggable */
+    -webkit-user-drag: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   a {
     -webkit-user-drag: none; /* Prevent links from being draggable */

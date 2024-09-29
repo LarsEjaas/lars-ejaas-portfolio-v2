@@ -14,23 +14,27 @@ const { imageNames, reverseRotation = false, inert } = Astro.props;
 ---
 
 <script>
-  import { storeScrollPosition } from '@utils/scrollPosition';
+  import {
+    checkIfPreviousRouteWasLightbox,
+    storeScrollPosition,
+  } from '@utils/scrollPosition';
   import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 
   const imageIds = aboutImagesInfo.map((imageName) => imageName.id);
-
-  console.log('window.aboutArticle?.dataset', window.aboutArticle?.dataset);
 
   if (
     imageIds.every((id) => id in window) &&
     window.aboutArticle &&
     !window.aboutArticle?.dataset?.scrollStorageInitialized
   ) {
-    // Your method here
     imageIds.forEach((id) => {
       const imageAnchor: HTMLAnchorElement =
         id in window ? window[id as keyof Window] : null;
       if (imageAnchor) {
+        const navigatesFromLightbox = checkIfPreviousRouteWasLightbox();
+        if (navigatesFromLightbox) {
+          imageAnchor.dataset.disableAnimation = 'true';
+        }
         storeScrollPosition(imageAnchor);
       }
     });

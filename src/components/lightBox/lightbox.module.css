@@ -1,4 +1,5 @@
 .backdrop {
+  view-transition-name: lightboxBackdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -19,12 +20,14 @@
   position: fixed;
   container-name: lightbox;
   container-type: inline-size;
-  margin: auto;
-  margin-top: min(20vh, 160px);
+  margin-inline: auto;
+  margin-block: min(20vh, 4rem) 2rem;
+  max-width: calc(800px + 2rem);
   padding: 0;
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  width: auto;
+  height: calc(100vh - (min(20vh, 4rem) + 2rem));
   z-index: 1000;
   inset: 0;
   background-color: unset;
@@ -37,25 +40,135 @@
 }
 
 .content {
-  width: fit-content;
+  view-transition-name: lightboxContent;
+  margin-inline: 3rem;
+  max-height: 70cqb;
+  min-height: 0;
   & picture,
   & img {
-    width: calc(100vw - 4rem);
-    max-width: 800px;
+    border-radius: var(--border-radius-md);
   }
-}
-
-.footer {
+  & picture {
+    max-height: 100%;
+    margin-inline: auto;
+  }
 }
 
 .closeLink {
   display: block;
-  background: unset;
   border-radius: var(--border-radius-sm);
   border: none;
   height: fit-content;
   line-height: 0;
   margin: 8px;
   padding: 4px;
-  color: var(--flirt-600);
+  color: var(--flirt-400);
+  transition: transform 0.3s ease;
+  &:not([data-disabled]):hover,
+  &:not([data-disabled]):focus-visible {
+    color: var(--flirt-300);
+    transform: scale(1.2);
+  }
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.thumbnailGridContainer {
+  display: grid;
+  gap: 0.5rem;
+  margin-inline: auto;
+  width: fit-content;
+  padding-block: 32px 16px;
+  & a {
+    height: 120px;
+    grid-row: 1;
+    transform: rotate(var(--rotation));
+    transition: transform 250ms calc(var(--index) * 150ms) ease-in-out;
+    outline-offset: var(--outline-offset);
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-5px) rotate(var(--rotation));
+    }
+  }
+}
+
+.controls {
+  display: none;
+  --controls-height: 40px;
+  top: calc(40% - var(--controls-height) / 2);
+  inset-inline: 0;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: 0;
+  position: absolute;
+  & li {
+    width: fit-content;
+    z-index: 1;
+    display: block;
+  }
+
+  & a {
+    height: var(--controls-height);
+    border-radius: var(--border-radius-balloon);
+    width: var(--controls-height);
+    box-shadow:
+      #00000000 0px 0px 0px 5px,
+      var(--stacks-6-Shadow);
+    transition: transform 0.3s ease;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    outline-offset: var(--outline-offset);
+    &:not([data-disabled]) {
+      cursor: pointer;
+      color: var(--flirt-100);
+      border: 4px solid var(--flirt-300);
+      background-color: var(--flirt-500);
+    }
+    &[data-disabled] {
+      pointer-events: none;
+      opacity: 0.4;
+      color: light-dark(var(--system-dark-300), var(--system-light-500));
+      border: 4px solid
+        light-dark(var(--system-dark-300), var(--system-light-500));
+      background-color: var(--system-light-300);
+    }
+    /* Avoid the chevron looking off center */
+    &#previous svg {
+      margin-right: 2px;
+    }
+    &:not([data-disabled]):hover,
+    &:not([data-disabled]):focus-visible {
+      background-color: var(--system-light-300);
+      color: light-dark(var(--flirt-500), var(--flirt-100));
+      transform: scale(1.2);
+    }
+  }
+}
+
+@container lightbox (width > 800px) {
+  .controls {
+    display: flex;
+  }
+  .footer {
+    & a {
+      &:nth-child(n + 2) {
+        transform: translateX(-60px) rotate(var(--rotation));
+      }
+      &:hover,
+      &:focus-visible {
+        transition: transform 250ms ease;
+        transform: translateY(-5px) rotate(var(--rotation)) !important;
+      }
+    }
+    &:hover,
+    &:has(a:focus-visible) {
+      & a:nth-child(n + 2) {
+        transform: translateX(0) rotate(var(--rotation));
+      }
+    }
+  }
 }

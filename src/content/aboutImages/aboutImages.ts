@@ -1,10 +1,9 @@
-import type { ImageType } from '@customTypes/index';
-
 export type ImageDetails = {
+  /** Filename of the image excluding the file extension */
   imageName: string;
-  title: string;
+  titleDA: string;
+  titleEN: string;
   id: string;
-  imageSrc: ImageType;
   imageAltDA: string;
   imageAltEN: string;
   imageDescriptionDA: string;
@@ -15,10 +14,10 @@ export type ImageDetails = {
 
 export const aboutImagesInfo = [
   {
-    imageName: 'cycling_hjørring_2011',
-    title: 'Cycling in Hjørring, 2011',
+    imageName: 'hjørring_2011',
+    titleDA: 'Cykelløb i Hjørring, 2011',
+    titleEN: 'Cycling in Hjørring, 2011',
     id: 'img1',
-    imageSrc: 'hjørring_2011.png',
     imageAltDA:
       'Portrait of Lars Ejaas af a bicycle race in Hjørring, Denmark.',
     imageAltEN: 'Portræt af Lars Ejaas ved et cykelløb i Hjørring.',
@@ -28,16 +27,31 @@ export const aboutImagesInfo = [
     hrefDA: 'cykling-hjorring-2011',
   },
   {
-    imageName: 'cyclocross_2011',
-    title: 'Cykelløb i Hjørring, 2011',
+    imageName: 'cross_fredericia_2009',
+    titleDA: 'Cykelcross i Fredericia, 2009',
+    titleEN: 'Cyclocross Race in Fredericia, 2009',
     id: 'img2',
-    imageSrc: 'cross_2011.png',
     imageAltDA:
-      'Portrait of Lars Ejaas af a bicycle race in Hjørring, Denmark.',
-    imageAltEN: 'Portræt af Lars Ejaas ved et cykelløb i Hjørring.',
+      'Lars Ejaas under et cykelcross løb på et mudret græs-dækket spor.',
+    imageAltEN:
+      'Lars Ejaas racing a cyclocross bike on a muddy grass-covered trail.',
     imageDescriptionDA: 'Poserer after et cykelløb i Hjørring.',
-    imageDescriptionEN: 'Posing after a cycling race in Hjørring, Denmark.',
-    hrefEN: 'cyclocross-2011',
-    hrefDA: 'cyklecross-2011',
+    imageDescriptionEN:
+      'Cyclocross racing on a muddy winter day in Fredericia, Denmark - 2009.',
+    hrefEN: 'cyclocross-2009',
+    hrefDA: 'cykelcross-2009',
+  },
+  {
+    imageName: 'hammel_2007',
+    titleDA: 'Cykelløb i Hammel, 2007',
+    titleEN: 'Cycling Roadrace in Hammel, 2009',
+    id: 'img3',
+    imageAltDA: 'Lars Ejaas under et cykelløb i Hammel, Danmark.',
+    imageAltEN: 'Lars Ejaas racing in an elite road race in Hammel, Denmark.',
+    imageDescriptionDA: 'Deltager i et dansk elite-cykelløb i Hammel, 2007.',
+    imageDescriptionEN:
+      'Competing in a danish elite road race in Hammel, Denmark - 2007.',
+    hrefEN: 'cycling-hammel-2007',
+    hrefDA: 'cykellob-hammel-2007',
   },
 ] as const satisfies readonly ImageDetails[];

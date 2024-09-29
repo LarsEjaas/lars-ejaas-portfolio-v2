@@ -84,10 +84,10 @@ const t_home = useTranslations(lang, 'home');
   <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
   <Carousel
     labels={{
-      title: 'Latest News',
-      archiveTitle: 'Read older news',
-      previous: 'Scroll to previous news card',
-      next: 'Scroll to next news card',
+      title: t_home('news_title'),
+      archiveTitle: t_home('news_archive_title'),
+      previous: t_home('previous'),
+      next: t_home('next'),
     }}
     items={newsItems[lang]}
     maxNumberOfItems={19}

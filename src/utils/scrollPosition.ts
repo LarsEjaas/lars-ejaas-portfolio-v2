@@ -3,7 +3,7 @@ import {
   getValueFromLocalStorage,
   setValueInLocalStorage,
 } from './localStorage';
-import { allModalKeys } from '@i18n/routes';
+import { allLightboxKeys, allModalKeys } from '@i18n/routes';
 
 export const storeScrollPosition = (anchor: HTMLAnchorElement) => {
   anchor.addEventListener('click', () => {
@@ -19,7 +19,7 @@ export const getStoredScrollPosition = () => {
   return Number(rawValue);
 };
 
-export const checkIfPreviousRouteWasModal = () => {
+const checkIfPreviousRouteWasModal = () => {
   const previousRoute = removeTrailingSlash(document.referrer);
   // Get the last slug of the previous route
   const possibleModalSlug = previousRoute.split('/').slice(-1)[0];
@@ -30,9 +30,23 @@ export const checkIfPreviousRouteWasModal = () => {
   return previousRouteWasModal;
 };
 
+export const checkIfPreviousRouteWasLightbox = () => {
+  const previousRoute = removeTrailingSlash(document.referrer);
+  // Get the last slug of the previous route
+  const possibleLightboxSlug = previousRoute.split('/').slice(-1)[0];
+  const previousRouteWasLightbox = !!(
+    possibleLightboxSlug &&
+    allLightboxKeys.includes(
+      possibleLightboxSlug as (typeof allLightboxKeys)[number]
+    )
+  );
+  return previousRouteWasLightbox;
+};
+
 export const restoreModalScrollPosition = () => {
   const previousRouteWasModal = checkIfPreviousRouteWasModal();
-  if (previousRouteWasModal) {
+  const previousRouteWasLightbox = checkIfPreviousRouteWasLightbox();
+  if (previousRouteWasModal || previousRouteWasLightbox) {
     const scrollPosition = getStoredScrollPosition();
     window.scrollTo({
       top: scrollPosition,
