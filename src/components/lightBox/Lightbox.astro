@@ -138,7 +138,10 @@ const nextUrl = `${aboutTranslatedPath}/${URLArray[currentIndex + 1]}`;
     </ul>
   </div>
   <div class={styles.footer}>
-    <div class={styles.thumbnailGridContainer}>
+    <div
+      class={styles.thumbnailGridContainer}
+      style={`--img-count: ${aboutImagesInfo.length - 1};`}
+    >
       {
         aboutImagesInfo.map((imgInfo, index) => {
           if (imgInfo.id === imageInfo.id) {

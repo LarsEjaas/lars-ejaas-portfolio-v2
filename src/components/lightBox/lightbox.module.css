@@ -1,3 +1,12 @@
+@keyframes spreadCards {
+  from {
+    grid-template-columns: repeat(calc(var(--img-count) - 1), 20px) 1fr;
+  }
+  to {
+    grid-template-columns: repeat(calc(var(--img-count) - 1), 10cqi) 1fr;
+  }
+}
+
 .backdrop {
   view-transition-name: lightboxBackdrop;
   position: fixed;
@@ -62,11 +71,11 @@
   line-height: 0;
   margin: 8px;
   padding: 4px;
-  color: var(--flirt-400);
+  color: var(--princeton-600);
   transition: transform 0.3s ease;
   &:not([data-disabled]):hover,
   &:not([data-disabled]):focus-visible {
-    color: var(--flirt-300);
+    color: var(--princeton-400);
     transform: scale(1.2);
   }
 }
@@ -77,27 +86,25 @@
 
 .thumbnailGridContainer {
   display: grid;
+  grid-auto-flow: dense;
   gap: 0.5rem;
   margin-inline: auto;
   width: fit-content;
   padding-block: 32px 16px;
+  animation: spreadCards 400ms ease-in-out both;
   & a {
     height: 120px;
     grid-row: 1;
     transform: rotate(var(--rotation));
-    transition: transform 250ms calc(var(--index) * 150ms) ease-in-out;
+    transition: transform 250ms ease-in-out;
     outline-offset: var(--outline-offset);
-    &:hover,
-    &:focus-visible {
-      transform: translateY(-5px) rotate(var(--rotation));
-    }
   }
 }
 
 .controls {
   display: none;
   --controls-height: 40px;
-  top: calc(40% - var(--controls-height) / 2);
+  top: calc(25% - var(--controls-height) / 2);
   inset-inline: 0;
   align-items: center;
   gap: 0.5rem;
@@ -124,9 +131,9 @@
     outline-offset: var(--outline-offset);
     &:not([data-disabled]) {
       cursor: pointer;
-      color: var(--flirt-100);
-      border: 4px solid var(--flirt-300);
-      background-color: var(--flirt-500);
+      color: var(--princeton-300);
+      border: 4px solid var(--princeton-400);
+      background-color: var(--princeton-600);
     }
     &[data-disabled] {
       pointer-events: none;
@@ -143,7 +150,7 @@
     &:not([data-disabled]):hover,
     &:not([data-disabled]):focus-visible {
       background-color: var(--system-light-300);
-      color: light-dark(var(--flirt-500), var(--flirt-100));
+      color: light-dark(var(--princeton-500), var(--princeton-100));
       transform: scale(1.2);
     }
   }
@@ -154,21 +161,10 @@
     display: flex;
   }
   .footer {
-    & a {
-      &:nth-child(n + 2) {
-        transform: translateX(-60px) rotate(var(--rotation));
-      }
-      &:hover,
-      &:focus-visible {
-        transition: transform 250ms ease;
-        transform: translateY(-5px) rotate(var(--rotation)) !important;
-      }
-    }
-    &:hover,
-    &:has(a:focus-visible) {
-      & a:nth-child(n + 2) {
-        transform: translateX(0) rotate(var(--rotation));
-      }
+    & a:hover,
+    & a:focus-visible {
+      transition: transform 250ms ease;
+      transform: translateY(-5px) rotate(var(--rotation)) !important;
     }
   }
 }
