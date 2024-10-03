@@ -156,19 +156,19 @@
       color-scheme: light;
     }
     /*Scroll bars*/
-    &::-webkit-scrollbar {
+    & ::-webkit-scrollbar {
       width: var(--scrollbar-width);
       height: var(--scrollbar-width);
     }
-    &::-webkit-scrollbar-thumb {
+    & ::-webkit-scrollbar-thumb {
       border-radius: 8px;
       background: var(--verdigris-700);
       background: light-dark(var(--system-dark-200), var(--system-light-400));
     }
-    &::-webkit-scrollbar-corner {
+    & ::-webkit-scrollbar-corner {
       background-color: light-dark(#aebabb, var(--system-light-200));
     }
-    &::-webkit-scrollbar-track {
+    & ::-webkit-scrollbar-track {
       background: light-dark(#aebabb, var(--system-light-200));
     }
     &:has(dialog[open]) {

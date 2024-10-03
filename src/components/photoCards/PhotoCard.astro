@@ -1,5 +1,4 @@
 ---
-import type { ImageModule } from '@customTypes/index';
 import styles from './photoCard.module.css';
 import { Picture } from 'astro:assets';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
@@ -9,7 +8,7 @@ import { useTranslatedPath } from '@i18n/utils';
 const CARD_ROTATIONS = [-4, 6, -2, 3, -5, 2, -4, 3, -4, 2, -5, 4, -3, 2, -4, 5];
 
 type Props = {
-  imageGlob: Record<string, () => Promise<unknown>>;
+  ImageComponent: ImageMetadata;
   imageName: string;
   index: number;
   includeViewTransitionId: boolean;
@@ -20,7 +19,7 @@ type Props = {
 const language = getLangFromUrl(Astro.url);
 
 const {
-  imageGlob,
+  ImageComponent,
   imageName,
   reverseRotation,
   index,
@@ -32,17 +31,6 @@ const imageInfo = aboutImagesInfo.find((info) => info.imageName === imageName);
 if (!imageInfo) {
   throw new Error(`No aboutImagesInfo found for the name: ${imageName}`);
 }
-
-const imageImport = Object.entries(imageGlob).find(([path]) =>
-  path.includes(imageInfo?.imageName)
-);
-
-if (!imageImport) {
-  console.error(`aboutImages not found for: ${imageInfo?.imageName}`);
-  return null;
-}
-
-const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 
 const imageAlt = imageInfo[`imageAlt${language.toUpperCase()}`];
 const englishUrl = `about/${imageInfo.hrefEN}`;

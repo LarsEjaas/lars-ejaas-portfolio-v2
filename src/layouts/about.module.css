@@ -17,4 +17,24 @@
 .article {
   grid-column: 1/4;
   max-width: 68ch;
+  margin-inline: auto;
+}
+
+.drawingHouse {
+  overflow: hidden;
+  border-radius: 4px;
+  filter: sepia(60%);
+  margin-block: 2rem;
+  max-width: 70%;
+  margin-inline: auto;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px 3px #00000066;
+  }
 }

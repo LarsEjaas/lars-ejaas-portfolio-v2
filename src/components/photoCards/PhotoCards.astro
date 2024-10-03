@@ -1,6 +1,7 @@
 ---
 import styles from './photoCard.module.css';
 import PhotoCard from './PhotoCard.astro';
+import { notEmpty, type ImageModule } from '@customTypes/index';
 const aboutImages = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type Props = {
@@ -8,9 +9,52 @@ type Props = {
   inert: boolean;
   /** Can be used to rotate all the images in the opposite direction */
   reverseRotation?: boolean;
+  viewTransitionPrefix?: string;
+};
+
+/** We have to manually calculate the grid template columns because grid cannot dynamically
+ * calculate the width of each image when we want all images to be the same height.
+ */
+const calculateGridTemplateColumns = async (imageImports: ImageMetadata[]) => {
+  // First, calculate the sum of all aspect ratios
+  const totalAspectRatioSum = imageImports.reduce((sum, image) => {
+    const aspectRatio = image.width / image.height;
+    return sum + aspectRatio;
+  }, 0);
+
+  // Then map each image to its proportional fraction
+  const columnTemplate = imageImports
+    .map((image) => {
+      const aspectRatio = image.width / image.height;
+      const percentage = Math.round((aspectRatio / totalAspectRatioSum) * 100);
+      return `${percentage}%`;
+    })
+    .join(' ');
+
+  return columnTemplate;
 };
 
 const { imageNames, reverseRotation = false, inert } = Astro.props;
+
+const imageImports = await Promise.all(
+  imageNames.map(async (imageName) => {
+    const imageImport = Object.entries(aboutImages).find(([path]) =>
+      path.includes(imageName)
+    );
+
+    if (!imageImport) {
+      console.error(
+        `aboutImages not found for: ${imageName} in calculateGridTemplateColumns`
+      );
+      return null;
+    }
+
+    const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+    return ImageComponent;
+  })
+).then((imports) => imports.filter(notEmpty));
+
+const gridTemplateColumns = await calculateGridTemplateColumns(imageImports);
 ---
 
 <script>
@@ -45,17 +89,24 @@ const { imageNames, reverseRotation = false, inert } = Astro.props;
 <div
   class={styles.imageGridContainer}
   inert={inert}
-  style={`--number-of-images: ${imageNames.length}`}
+  style={`--number-of-images: ${imageNames.length}; grid-template-columns: ${gridTemplateColumns};`}
 >
   {
-    imageNames.map((imageName, index) => (
-      <PhotoCard
-        includeViewTransitionId={!inert}
-        imageGlob={aboutImages}
-        imageName={imageName}
-        reverseRotation={reverseRotation}
-        index={index}
-      />
-    ))
+    imageNames.map((imageName, index) => {
+      const ImageComponent = imageImports[index];
+      return (
+        <>
+          {ImageComponent && (
+            <PhotoCard
+              includeViewTransitionId={!inert}
+              ImageComponent={ImageComponent}
+              imageName={imageName}
+              reverseRotation={reverseRotation}
+              index={index}
+            />
+          )}
+        </>
+      );
+    })
   }
 </div>

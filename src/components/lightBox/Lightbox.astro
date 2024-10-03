@@ -6,6 +6,7 @@ import { getLangFromUrl } from '@i18n/utils';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { useTranslatedPath } from '@i18n/utils';
 import PhotoCard from '@components/photoCards/PhotoCard.astro';
+import type { ImageModule } from '../../customTypes';
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type Props = {
@@ -143,14 +144,26 @@ const nextUrl = `${aboutTranslatedPath}/${URLArray[currentIndex + 1]}`;
       style={`--img-count: ${aboutImagesInfo.length - 1};`}
     >
       {
-        aboutImagesInfo.map((imgInfo, index) => {
+        aboutImagesInfo.map(async (imgInfo, index) => {
           if (imgInfo.id === imageInfo.id) {
             return null;
           }
+          const imageImport = Object.entries(aboutImageGlob).find(([path]) =>
+            path.includes(imgInfo?.imageName)
+          );
+
+          if (!imageImport) {
+            console.error(`aboutImages not found for: ${imageInfo?.imageName}`);
+            return null;
+          }
+
+          const ImageComponent = ((await imageImport[1]()) as ImageModule)
+            .default;
+
           return (
             <PhotoCard
               includeViewTransitionId={false}
-              imageGlob={aboutImageGlob}
+              ImageComponent={ImageComponent}
               imageName={imgInfo.imageName}
               reverseRotation={false}
               index={index}

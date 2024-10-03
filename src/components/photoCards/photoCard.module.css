@@ -13,20 +13,16 @@
   container-type: inline-size;
   display: grid;
   gap: 0.5rem;
-  position: relative;
-  margin-inline: auto;
-  width: 100cqi;
-  max-width: min(
-    calc(100cqi - ((4 - var(--number-of-images)) * 20%) - 2rem),
-    calc(100% - ((4 - var(--number-of-images)) * 20%))
+  max-width: max(
+    calc(20% * var(--number-of-images) - 4rem),
+    calc(20cqi * var(--number-of-images) - 4rem)
   );
+  min-width: 70%;
   margin-block: 2rem;
+  margin-inline: auto;
   & a {
-    display: block;
-    height: fit-content;
+    display: flex;
     outline-offset: var(--outline-offset);
-    grid-row: 1;
-    height: 100%;
     transition: all 250ms;
     transform-origin: 50% 50%;
     transform: rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
@@ -76,6 +72,7 @@
   }
 }
 
+/* Make sure the images are on top of the backdrop during the transition */
 ::view-transition-group(img1),
 ::view-transition-group(img2),
 ::view-transition-group(img3),

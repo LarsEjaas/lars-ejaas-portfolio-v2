@@ -180,7 +180,7 @@ a[data-active] {
   }
 }
 
-@keyframes fade-out {
+@keyframes fadeOut {
   from {
     opacity: 1;
   }
@@ -189,7 +189,7 @@ a[data-active] {
   }
 }
 
-@keyframes fade-in {
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -199,9 +199,9 @@ a[data-active] {
 }
 
 ::view-transition-old(skillMarquee) {
-  animation: 300ms fade-out ease-in-out both;
+  animation: 300ms fadeOut ease-in-out both;
 }
 
 ::view-transition-new(skillMarquee) {
-  animation: 300ms fade-in 300ms ease-in-out both;
+  animation: 300ms fadeIn 300ms ease-in-out both;
 }

@@ -39,6 +39,8 @@ export const about = {
     the_lesson: 'The Lesson?\n It’s Never Too Late to Pivot',
     if_theres_one:
       'If there’s one thing I’ve learned, it’s this: Follow your dreams but don’t be afraid to change course along the way.\nWho knows? Like me, you might even end up doing something more exciting than what you initially dreamed about.',
+    drawing_house_alt:
+      'Closeup of a hand holding a pencil while drawing a sketch of a house on a piece of paper',
   },
   da: {
     about_title: 'Om mig',

@@ -1,9 +1,15 @@
+/*special module syntax used to import module tile module class*/
+:import('@components/techSkillsMarquee/techSkillsMarquee.module.css') {
+  fadeIn: fadeIn;
+  fadeOut: fadeOut;
+}
+
 @keyframes spreadCards {
   from {
     grid-template-columns: repeat(calc(var(--img-count) - 1), 20px) 1fr;
   }
   to {
-    grid-template-columns: repeat(calc(var(--img-count) - 1), 10cqi) 1fr;
+    grid-template-columns: repeat(calc(var(--img-count) - 1), 20cqi) 1fr;
   }
 }
 
@@ -31,7 +37,7 @@
   container-type: inline-size;
   margin-inline: auto;
   margin-block: min(20vh, 4rem) 2rem;
-  max-width: calc(800px + 2rem);
+  max-width: min(calc(800px + 2rem), 100vw);
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -41,6 +47,19 @@
   inset: 0;
   background-color: unset;
   border-style: none;
+}
+
+@container lightbox (width > 800px) {
+  .controls {
+    display: flex;
+  }
+  .footer {
+    & a:hover,
+    & a:focus-visible {
+      transition: transform 250ms ease-in-out;
+      transform: translateY(-5px) rotate(var(--rotation)) !important;
+    }
+  }
 }
 
 .header {
@@ -82,16 +101,31 @@
 
 .footer {
   margin-top: auto;
+  margin-inline: auto;
+  max-width: 100cqi;
 }
 
 .thumbnailGridContainer {
+  view-transition-name: thumbnailGridContainer;
+  --mask-width: 2rem;
   display: grid;
   grid-auto-flow: dense;
   gap: 0.5rem;
-  margin-inline: auto;
-  width: fit-content;
+  margin-inline: var(--mask-width);
+  padding-inline: 2rem;
+  overflow-x: scroll;
+  max-width: calc(100% - 2 * var(--mask-width));
   padding-block: 32px 16px;
-  animation: spreadCards 400ms ease-in-out both;
+  will-change: grid-template-columns;
+  /* animation: spreadCards 400ms 250ms ease-in-out backwards; */
+  mask: linear-gradient(
+    90deg,
+    transparent,
+    white var(--mask-width) calc(100% - var(--mask-width)),
+    transparent
+  );
+  mask-composite: intersect;
+
   & a {
     height: 120px;
     grid-row: 1;
@@ -99,6 +133,14 @@
     transition: transform 250ms ease-in-out;
     outline-offset: var(--outline-offset);
   }
+}
+
+::view-transition-old(thumbnailGridContainer) {
+  animation: 250ms fadeOut ease-in both;
+}
+
+::view-transition-new(thumbnailGridContainer) {
+  animation: 250ms fadeIn 300ms ease-out both;
 }
 
 .controls {
@@ -152,19 +194,6 @@
       background-color: var(--system-light-300);
       color: light-dark(var(--princeton-500), var(--princeton-100));
       transform: scale(1.2);
-    }
-  }
-}
-
-@container lightbox (width > 800px) {
-  .controls {
-    display: flex;
-  }
-  .footer {
-    & a:hover,
-    & a:focus-visible {
-      transition: transform 250ms ease;
-      transform: translateY(-5px) rotate(var(--rotation)) !important;
     }
   }
 }
