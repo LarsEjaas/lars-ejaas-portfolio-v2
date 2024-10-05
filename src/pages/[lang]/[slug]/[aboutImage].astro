@@ -59,12 +59,6 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 const pageTitle = imageInfo.titleDA;
 ---
 
-<script>
-  import { restoreModalScrollPosition } from '@utils/scrollPosition';
-  /** Restore scrollposition if previous page was a modal */
-  // Read position from storage on new page
-  restoreModalScrollPosition();
-</script>
 <AboutLayout title={pageTitle} inert={true}>
   <Lightbox
     labels={{

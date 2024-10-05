@@ -75,6 +75,14 @@
   --delay: calc(
     (var(--duration) / var(--grid-row-count)) * (var(--row-index, 0) - 8)
   );
+  @media (prefers-reduced-motion: no-preference) {
+    /*Delay the animation to after fade in*/
+    animation: slide var(--duration) calc(var(--delay) + 600ms) linear infinite;
+    translate: 0%
+      calc(
+        ((var(--grid-row-count) - var(--row-index)) + var(--inset, 0)) * 100%
+      );
+  }
   &::before {
     content: '';
     position: absolute;
@@ -116,17 +124,6 @@
       border-radius: 30%;
       outline-offset: var(--outline-offset);
     }
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .skill {
-    /*Delay the animation to after fade in*/
-    animation: slide var(--duration) calc(var(--delay) + 600ms) linear infinite;
-    translate: 0%
-      calc(
-        ((var(--grid-row-count) - var(--row-index)) + var(--inset, 0)) * 100%
-      );
   }
 }
 

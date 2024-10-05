@@ -14,9 +14,4 @@ export function getStaticPaths() {
 }
 ---
 
-<script>
-  import { restoreModalScrollPosition } from '@utils/scrollPosition';
-  /** Restore scrollposition if previous page was a modal */
-  restoreModalScrollPosition();
-</script>
 <HomeLayout title={t('home_title')} lang={lang} inert={false} />

@@ -14,7 +14,7 @@ interface Props {
   inert: boolean;
   skillTitle: string;
   skillDescription: ((_props: Record<string, any>) => any) | undefined;
-  skillImageSrc?: string;
+  skillImageSrc?: ImageMetadata;
   skillImageAlt?: string;
   skillRating?: SkillRating;
 }
@@ -51,7 +51,7 @@ const DescriptionComponent = skillDescription;
     <PresentationCard
       gradientColor="flirt"
       title={skillTitle}
-      iconImage={skillImageSrc as ImageMetadata | undefined}
+      iconImage={skillImageSrc}
       iconImageAlt={skillImageAlt}
       responsiveSquircleSize={true}
       inert={inert}

@@ -297,6 +297,15 @@
   }
 }
 
+/* break-point--medium (768px) minus 32px padding */
+@container carousel (width <= 736px) {
+  /* Create a full-width illusion of the carousel */
+  :global(#carouselList) {
+    margin-inline: -1rem;
+    inline-size: calc(100cqi + 2rem);
+  }
+}
+
 .controls {
   --controls-height: 32px;
   top: calc(50% - var(--controls-height) / 2);
@@ -377,14 +386,5 @@
     @supports (animation-timeline: view()) {
       display: none;
     }
-  }
-}
-
-/* break-point--medium (768px) minus 32px padding */
-@container carousel (width <= 736px) {
-  /* Create a full-width illusion of the carousel */
-  #carouselList {
-    margin-inline: -1rem;
-    inline-size: calc(100cqi + 2rem);
   }
 }

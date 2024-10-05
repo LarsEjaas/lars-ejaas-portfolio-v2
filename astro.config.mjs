@@ -12,4 +12,17 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  vite: {
+    build: {
+      minify: process.env.NODE_ENV === 'production',
+      rollupOptions: {
+        input: {
+          main: './src/scripts/restoreScrollPosition.ts', // Your TypeScript file
+        },
+        output: {
+          entryFileNames: 'restoreScrollPosition.min.js', // Minified output
+        },
+      },
+    },
+  },
 });

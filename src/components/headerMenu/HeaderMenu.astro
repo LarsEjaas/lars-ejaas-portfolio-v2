@@ -28,16 +28,16 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
-  import { storeScrollPosition } from '@utils/scrollPosition';
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
 
   if (window.desktopMenuContainer) {
     initializeKeyboardArrowNavigation(window.desktopMenuContainer);
   }
   if (window.desktopShareLink) {
-    storeScrollPosition(window.desktopShareLink);
+    storeScrollPositionOnClick(window.desktopShareLink);
   }
   if (window.desktopContactLink) {
-    storeScrollPosition(window.desktopContactLink);
+    storeScrollPositionOnClick(window.desktopContactLink);
   }
 </script>
 <header class={styles.header} inert={inert}>

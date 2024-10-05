@@ -54,12 +54,6 @@ const SkillDescription = englishSlugMap[slug]?.skillDescription;
 const PageContent = englishSlugMap[slug]?.component;
 ---
 
-<script>
-  import { restoreModalScrollPosition } from '@utils/scrollPosition';
-  /** Restore scrollposition if previous page was a modal */
-  // Read position from storage on new page
-  restoreModalScrollPosition();
-</script>
 <PageContent
   title={pageTitle}
   inert={false}

@@ -31,6 +31,14 @@ const { title, inert } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <script is:inline>
+      if ('onpagereveal' in window) {
+        window.onpagereveal = (event) => restoreModalScrollPosition(event);
+      } else {
+        document.addEventListener(
+          'DOMContentLoaded',
+          restoreModalScrollPosition
+        );
+      }
       const getStoredDarkmode = () => {
         if (
           typeof window.localStorage !== 'undefined' &&
@@ -49,7 +57,28 @@ const { title, inert } = Astro.props;
       }
       /* Show interactive elements that require JS to be enabled */
       document.documentElement.dataset.jsEnabled = 'true';
+
+      function restoreModalScrollPosition() {
+        const scrollPosition =
+          Number(sessionStorage.getItem('scrollPosition')) || 0;
+
+        const referrerIsSameHost = document.referrer.startsWith(
+          window.location.origin
+        );
+        if (scrollPosition && referrerIsSameHost) {
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: 'instant',
+          });
+        }
+        //check if this route includes a modal or lightbox
+        const routeIncludesModal = window.modalDialog || window.lightbox;
+        if (!routeIncludesModal || !referrerIsSameHost) {
+          sessionStorage.removeItem('scrollPosition');
+        }
+      }
     </script>
+    <!-- <script is:inline src="/restoreScrollPosition.min.js"></script> -->
   </head>
   <body>
     <svg aria-hidden="true" height="0">

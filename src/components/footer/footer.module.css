@@ -15,6 +15,12 @@
   max-width: var(--break-point--2-xl);
   margin-inline: auto;
   padding: 2rem;
+  @media (max-width: 768px) {
+    grid-column: 1;
+    padding-inline: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 6rem;
+  }
 
   & nav {
     display: flex;
@@ -60,15 +66,6 @@
         transition: text-decoration-color 0.4s;
       }
     }
-  }
-}
-
-@media (max-width: 768px) {
-  .footerContent {
-    grid-column: 1;
-    padding-inline: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 6rem;
   }
 }
 

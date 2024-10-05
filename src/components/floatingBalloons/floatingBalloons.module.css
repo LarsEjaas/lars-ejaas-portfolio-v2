@@ -1,12 +1,9 @@
 .balloonsWrapper {
-  grid-column: 2/4;
+  grid-column: 1 / -1;
   height: fit-content;
   position: relative;
-}
-
-@media (max-width: 768px) {
-  .balloonsWrapper {
-    grid-column: 1 / -1;
+  @media (min-width: 769px) {
+    grid-column: 2/4;
   }
 }
 

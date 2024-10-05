@@ -4,28 +4,30 @@
   aspect-ratio: 1;
   border-radius: var(--border-radius-balloon);
   overflow: hidden;
-  animation-name: moveBalloon;
-  animation-duration: var(--duration);
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: paused;
-  /* Fallback if the browser doesn't support linear ease */
-  animation-timing-function: cubic-bezier(0.17, 0.67, 0.4, 1.31);
-  /* GSAP sine.out ease*/
-  animation-timing-function: linear(
-    0 0%,
-    0.2861 18.47%,
-    0.4829 32.08%,
-    0.6437 44.52%,
-    0.7712 56.07%,
-    0.8722 67.47%,
-    0.9115 73.02%,
-    0.9434 78.49%,
-    0.9682 83.91%,
-    0.9859 89.3%,
-    0.9965 94.66%,
-    1 100%
-  );
+  @media (prefers-reduced-motion: no-preference) {
+    animation-name: moveBalloon;
+    animation-duration: var(--duration);
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    /* Fallback if the browser doesn't support linear ease */
+    animation-timing-function: cubic-bezier(0.17, 0.67, 0.4, 1.31);
+    /* GSAP sine.out ease*/
+    animation-timing-function: linear(
+      0 0%,
+      0.2861 18.47%,
+      0.4829 32.08%,
+      0.6437 44.52%,
+      0.7712 56.07%,
+      0.8722 67.47%,
+      0.9115 73.02%,
+      0.9434 78.49%,
+      0.9682 83.91%,
+      0.9859 89.3%,
+      0.9965 94.66%,
+      1 100%
+    );
+  }
   &:global(#two) {
     view-transition-name: blob-two;
     left: 5%;

@@ -13,6 +13,24 @@
   }
 }
 
+@keyframes blurOut {
+  from {
+    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  }
+  to {
+    backdrop-filter: saturate(100%) brightness(100%) blur(0);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    backdrop-filter: saturate(100%) brightness(100%) blur(0);
+  }
+  to {
+    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+  }
+}
+
 .backdrop {
   view-transition-name: lightboxBackdrop;
   position: fixed;
@@ -23,11 +41,26 @@
   inset: 0;
   z-index: 1000;
   background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
+  animation-fill-mode: both;
   backdrop-filter: saturate(180%) brightness(60%) blur(6px);
   transition: backdrop-filter 0.3s ease-in-out 0.1s;
   &:hover {
     backdrop-filter: saturate(150%) brightness(60%) blur(3px);
   }
+}
+
+/* :global(::view-transition-group(lightboxBackdrop)) {
+  backdrop-filter: none !important;
+} */
+
+::view-transition-old(lightboxBackdrop) {
+  animation: 300ms blurOut ease-in both;
+  backdrop-filter: none !important;
+  background-blend-mode: unset;
+}
+
+::view-transition-new(lightboxBackdrop) {
+  animation: 300ms blurIn ease-out both;
 }
 
 .dialog {
@@ -47,19 +80,6 @@
   inset: 0;
   background-color: unset;
   border-style: none;
-}
-
-@container lightbox (width > 800px) {
-  .controls {
-    display: flex;
-  }
-  .footer {
-    & a:hover,
-    & a:focus-visible {
-      transition: transform 250ms ease-in-out;
-      transform: translateY(-5px) rotate(var(--rotation)) !important;
-    }
-  }
 }
 
 .header {
@@ -194,6 +214,19 @@
       background-color: var(--system-light-300);
       color: light-dark(var(--princeton-500), var(--princeton-100));
       transform: scale(1.2);
+    }
+  }
+}
+
+@container lightbox (width > 800px) {
+  .controls {
+    display: flex;
+  }
+  .footer {
+    & a:hover,
+    & a:focus-visible {
+      transition: transform 250ms ease-in-out;
+      transform: translateY(-5px) rotate(var(--rotation)) !important;
     }
   }
 }

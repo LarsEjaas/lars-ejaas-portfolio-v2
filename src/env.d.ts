@@ -1,5 +1,38 @@
 /// <reference path="../.astro/types.d.ts" />
 
+declare global {
+  interface WindowEventMap {
+    pagereveal: PageRevealEvent;
+    pageswap: PageSwapEvent;
+  }
+}
+
+interface ViewTransition {
+  readonly updateCallbackDone: Promise<void>;
+  readonly ready: Promise<void>;
+  readonly finished: Promise<void>;
+  skipTransition(): void;
+}
+
+type NavigationHistoryEntry = {
+  id: string;
+  index: number;
+  key: string;
+};
+
+type NavigationActivation = {
+  entry: NavigationHistoryEntry;
+  from: NavigationHistoryEntry;
+  navigationType: 'push' | 'reload' | 'replace' | 'traverse';
+};
+
+type Navigation = {
+  canGoBack?: boolean;
+  canGoForward?: boolean;
+  from?: string | null;
+  activation?: NavigationActivation;
+};
+
 interface Window {
   themeToggle: HTMLInputElement | null;
   themeToggleMobile: HTMLInputElement | null;
@@ -22,6 +55,9 @@ interface Window {
   skillTileScene: HTMLDivElement | null;
   lightbox: HTMLDialogElement | null;
   aboutArticle: HTMLElement | null;
+  navigation: Navigation;
+  onpagereveal?: (event: PageRevealEvent) => void;
+  onpageswap?: (event: PageSwapEvent) => void;
 }
 
 interface String {
@@ -33,4 +69,19 @@ interface String {
 
 interface Document {
   startViewTransition: ((callbackfn: () => void) => void) | undefined;
+}
+
+class PageRevealEvent extends Event {
+  constructor(public readonly viewTransition: ViewTransition | null) {
+    super('pagereveal');
+  }
+}
+
+class PageSwapEvent extends Event {
+  constructor(
+    public readonly viewTransition: ViewTransition | null,
+    public readonly activation: NavigationActivation
+  ) {
+    super('pageswap');
+  }
 }
