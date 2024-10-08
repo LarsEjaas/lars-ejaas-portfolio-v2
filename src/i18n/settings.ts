@@ -3,6 +3,7 @@ import { share } from './translations/share';
 import { home } from './translations/home';
 import { about } from './translations/about';
 import { skills } from './translations/skills';
+import { work } from './translations/work';
 
 export type Language = keyof typeof languages;
 
@@ -21,6 +22,7 @@ export const translations = {
   home,
   about,
   skills,
+  work,
 } as const;
 
 export const showDefaultLang = false;

@@ -4,6 +4,7 @@ import type { SlugTypes } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
+import Work from '@layouts/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 type DanishSlugPaths = {
@@ -36,7 +37,7 @@ const danishSlugMap: Record<
     skillDescription?: (_props: Record<string, any>) => any;
   }
 > = {
-  arbejde: { component: () => {}, title: t('work') },
+  arbejde: { component: Work, title: t('work') },
   kompetencer: {
     component: Skills,
     title: t('skills'),
@@ -44,7 +45,7 @@ const danishSlugMap: Record<
     skillDescription: () => {},
   },
   ['om-mig']: { component: About, title: t('about') },
-  arkiv: { component: () => {}, title: t('work') },
+  arkiv: { component: () => {}, title: t('archive') },
 };
 
 const pageTitle = danishSlugMap[slug]?.title;

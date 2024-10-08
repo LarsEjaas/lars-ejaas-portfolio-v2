@@ -9,7 +9,7 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
-import ProfileImage from '@assets/images/profile-clip.png';
+import ProfileImage from '@assets/images/profile_clip.png';
 import SocialLinks from '../components/socialLinks/SocialLinks.astro';
 import AboutIcon from '../components/icons/AboutIcon.astro';
 import DownloadIcon from '../components/icons/DownloadIcon.astro';
@@ -40,7 +40,7 @@ const t_home = useTranslations(lang, 'home');
 ---
 
 <Layout title={title} inert={inert}>
-  <div class={styles.presentation}>
+  <div class="presentation">
     <PageLabel
       title={t_home('home_title')}
       iconImage="ejaas"

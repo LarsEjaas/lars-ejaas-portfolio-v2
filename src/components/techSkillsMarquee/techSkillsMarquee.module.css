@@ -125,17 +125,16 @@
       outline-offset: var(--outline-offset);
     }
   }
-}
+  & :global(.squircle) {
+    clip-path: url(#squircle);
+    display: block;
 
-:global(.squircle) {
-  clip-path: url(#squircle);
-  display: block;
-
-  &.outline {
-    background-color: light-dark(
-      var(--system-light-200),
-      var(--system-light-500)
-    );
+    &.outline {
+      background-color: light-dark(
+        var(--system-light-200),
+        var(--system-light-500)
+      );
+    }
   }
 }
 

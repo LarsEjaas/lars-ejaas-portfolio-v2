@@ -1,0 +1,13 @@
+---
+import styles from './card.module.css';
+
+type Props = {
+  inert: boolean;
+};
+
+const { inert } = Astro.props;
+---
+
+<section inert={inert} class={styles.card}>
+  <slot />
+</section>

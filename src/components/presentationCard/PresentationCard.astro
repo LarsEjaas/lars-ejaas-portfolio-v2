@@ -1,7 +1,8 @@
 ---
 import { Picture } from 'astro:assets';
-import styles from './PresentationCard.module.css';
+import styles from './presentationCard.module.css';
 import type { ColorVariants } from '@customTypes/index';
+import Card from '@components/card/Card.astro';
 
 type Props = {
   title: string;
@@ -27,7 +28,7 @@ const {
 } = Astro.props;
 ---
 
-<section inert={inert} class={styles.presentationCard}>
+<Card inert={inert}>
   <div
     class={styles.header}
     data-princeton={gradientColor === 'princeton' ? 'true' : undefined}
@@ -119,4 +120,4 @@ const {
   >
     <slot />
   </div>
-</section>
+</Card>

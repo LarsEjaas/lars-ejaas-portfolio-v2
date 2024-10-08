@@ -3,6 +3,7 @@ import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SlugTypes } from '@i18n/routes';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
+import Work from '@layouts/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import EnglishDescription from '@content/techSkillDescriptions/english/Main.astro';
 
@@ -36,7 +37,7 @@ const englishSlugMap: Record<
     skillDescription?: (_props: Record<string, any>) => any;
   }
 > = {
-  work: { component: () => {}, title: t('work') },
+  work: { component: Work, title: t('work') },
   skills: {
     component: Skills,
     title: t('skills'),
@@ -44,7 +45,7 @@ const englishSlugMap: Record<
     skillDescription: EnglishDescription,
   },
   about: { component: About, title: t('about') },
-  archive: { component: () => {}, title: t('work') },
+  archive: { component: () => {}, title: t('archive') },
 };
 
 const pageTitle = englishSlugMap[slug]?.title;

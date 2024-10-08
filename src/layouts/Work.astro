@@ -1,0 +1,49 @@
+---
+import Layout from '@layouts/Root.astro';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './skills.module.css';
+import WorkCard from '@components/workCard/WorkCard.astro';
+import AccuRankerHeaderImage from '@assets/images/accuranker_grump_wall.jpg';
+
+interface Props {
+  title: string;
+  inert: boolean;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { title, inert } = Astro.props;
+const t_work = useTranslations(lang, 'work');
+---
+
+<Layout title={title} inert={inert}>
+  <div class="presentation">
+    <PageLabel
+      title={t_work('work_title')}
+      iconImage="work"
+      tagLine="work"
+      taglineAlt={t_work('work_tagline')}
+    />
+    <div>
+      <h2>
+        {t_work('professional_developer_journey')}
+      </h2>
+      <p class="body-text">{t_work('from_code_to_career')}</p>
+      <WorkCard
+        inert={inert}
+        headline={t_work('frontend_developer')}
+        headerImage={AccuRankerHeaderImage}
+        headerImageAlt={t_work('accuranker_grump_image_alt')}
+        gradientColor="aquamarine"
+      />
+      <h2>
+        {t_work('passion_projects')}
+      </h2>
+      <p class="body-text">{t_work('where_curiosity_meets_code')}</p>
+    </div>
+  </div>
+  <FloatingBalloons class={styles.floatingBalloons} balloonColor="aquamarine" />
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
+</Layout>

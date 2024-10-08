@@ -10,6 +10,7 @@ import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
+import Work from '@layouts/Work.astro';
 
 type DanishModalSlugPaths = {
   [P in SlugWithModalTypes<'da'>]: {
@@ -59,14 +60,14 @@ const danishModalSlugMap: Record<
   }
 > = {
   ['arbejde/del']: {
-    pageComponent: () => {},
+    pageComponent: Work,
     modalComponent: ShareContent,
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
   },
   ['arbejde/kontakt']: {
-    pageComponent: () => {},
+    pageComponent: Work,
     modalComponent: ContactContent,
     modalIcon: IconContact,
     pageTitle: t('work'),

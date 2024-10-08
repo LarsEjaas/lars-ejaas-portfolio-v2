@@ -265,6 +265,12 @@
     }
   }
 
+  .presentation {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
   @media (max-width: 768px) {
     main,
     footer {

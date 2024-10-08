@@ -1,0 +1,63 @@
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  height: 220px;
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: var(--border-radius-md);
+  border-top-right-radius: var(--border-radius-md);
+  position: relative;
+  & .picture {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-top-left-radius: var(--border-radius-md);
+    border-top-right-radius: var(--border-radius-md);
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+
+        var(--system-dark-300-55) 80%,
+        var(--system-dark-300) 100%
+      );
+    }
+  }
+  & h2 {
+    view-transition-name: work-card-header-title;
+    align-self: flex-end;
+    text-transform: uppercase;
+    font-size: var(--font-size-5);
+    letter-spacing: 2px;
+    font-weight: 700;
+    line-height: 0.6;
+    text-wrap: nowrap;
+    color: light-dark(var(--system-light-100), var(--system-light-300));
+    margin-block-end: unset;
+    margin-inline: 32px;
+  }
+}
+
+.cardContent {
+  view-transition-name: work-card-content;
+  padding-inline: 32px;
+  padding-block: 24px;
+  & h3 {
+    color: light-dark(var(--system-dark-100), var(--system-dark-300));
+  }
+  & ul,
+  & p {
+    margin-block-end: 4px;
+  }
+  & h3 {
+    margin-block-end: unset;
+  }
+  & li,
+  & p {
+    color: light-dark(var(--system-dark-200), var(--system-dark-100));
+  }
+}

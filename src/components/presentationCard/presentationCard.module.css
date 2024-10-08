@@ -1,17 +1,3 @@
-.presentationCard {
-  view-transition-name: presentationCard;
-  display: flex;
-  container-type: inline-size;
-  container-name: presentationCard;
-  flex-direction: column;
-  border-radius: var(--border-radius-md);
-  background-color: light-dark(
-    var(--system-light-100),
-    var(--system-light-300)
-  );
-  box-shadow: var(--stacks-5-shadow);
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -181,7 +167,7 @@
   }
 }
 
-@container presentationCard (width >= 400px) {
+@container card (width >= 400px) {
   .header {
     height: 76px;
   }

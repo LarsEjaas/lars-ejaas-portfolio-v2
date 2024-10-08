@@ -1,0 +1,46 @@
+---
+import { Picture } from 'astro:assets';
+import styles from './workCard.module.css';
+import type { ColorVariants } from '@customTypes/index';
+import Card from '@components/card/Card.astro';
+
+type Props = {
+  headline: string;
+  headerImage: ImageMetadata;
+  headerImageAlt: string;
+
+  gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
+  inert: boolean;
+  iconImage?: ImageMetadata | undefined;
+  iconImageAlt?: string | undefined;
+  overlayImage?: ImageMetadata;
+  overlayImageAlt?: string;
+  /** Make the squircle and overlay image size responsive */
+  responsiveSquircleSize?: boolean;
+};
+
+const { inert, headline, headerImage, headerImageAlt } = Astro.props;
+---
+
+<Card inert={inert}>
+  <div class={styles.headerContent}>
+    <Picture
+      formats={['avif']}
+      quality="high"
+      src={headerImage}
+      alt={headerImageAlt}
+      width="232"
+      height="148"
+      densities={[1, 2, 3, 4]}
+      loading="lazy"
+      decoding="sync"
+      pictureAttributes={{
+        class: styles.picture,
+      }}
+    />
+    <h2>{headline}</h2>
+  </div>
+  <div class={styles.cardContent}>
+    <slot />
+  </div>
+</Card>
