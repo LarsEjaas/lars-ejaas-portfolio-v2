@@ -6,7 +6,7 @@ export const about = {
     profile_lars_alt: 'Profile picture of Lars Ejaas',
     i_am: 'I am',
     a_positive_and:
-      'a positive and collaborative developer who thrives on blending problem-solving with creativity. I excel in small, focused teams where I can meaningfully contribute to our objectives, foster innovation, and support my colleagues.',
+      'a positive and collaborative developer who thrives on blending problem-solving with creativity.\nI excel in small, focused teams where I can meaningfully contribute to our objectives, foster innovation, and support my colleagues.',
     background: 'Background',
     bachelors_degree:
       'Bachelor’s Degree in Global Nutrition and Health - a period where I also focused a lot on endurance sports in my twenties and early thirties. ',

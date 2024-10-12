@@ -87,18 +87,8 @@
     &:global(#two) {
       background-color: var(--verdigris-400);
     }
-    &:global(#three) {
-      left: 10%;
-      top: 0%;
-      width: 90%;
-    }
     &:global(#four) {
       background-color: var(--verdigris-500);
-      transform: rotate(20deg);
-      left: 50%;
-      top: 60%;
-      width: 40%;
-      z-index: 3;
     }
   }
   &[data-flirt] {
@@ -114,38 +104,33 @@
     }
     &:global(#four) {
       background-color: var(--flirt-500);
-      left: 50%;
       top: 30%;
-      transform: rotate(20deg);
-      width: 40%;
-      z-index: 3;
     }
   }
   &[data-aquamarine] {
     &:global(#two) {
+      background-color: var(--aquamarine-400);
+      width: 40%;
     }
     &:global(#three) {
+      --background-color: var(--aquamarine-400);
     }
     &:global(#four) {
+      background-color: var(--aquamarine-500);
+      top: 17%;
+      width: 60%;
     }
   }
   &[data-bluemunsell] {
     &:global(#two) {
       background-color: var(--bluemunsell);
-      left: 5%;
-      top: 10%;
       width: 30%;
     }
     &:global(#three) {
       --background-color: var(--bluemunsell);
-      left: 10%;
-      top: 0;
-      width: 90%;
     }
     &:global(#four) {
       background-color: var(--primary-lighter);
-      transform: rotate(20deg);
-      left: 50%;
       top: 17%;
       width: 60%;
     }

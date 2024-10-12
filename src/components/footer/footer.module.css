@@ -2,6 +2,12 @@
   view-transition-name: footer;
   grid-column: 1 / -1;
   background-color: var(--verdigris-700);
+  background: linear-gradient(
+      transparent,
+      transparent 30%,
+      var(--verdigris-800)
+    ),
+    var(--verdigris-700);
   overflow: hidden;
 }
 

@@ -5,10 +5,6 @@
     var(--verdigris-100-op),
     var(--system-dark-200-16)
   );
-  --background-color: light-dark(
-    var(--system-light-300-55),
-    var(--system-dark-200-16)
-  );
   position: fixed;
   gap: 12px;
   @media (max-width: 380px) {
@@ -23,10 +19,10 @@
   padding-inline: 12px;
   padding-block: 8px;
   border: 1px solid var(--border-color);
-  background-color: var(--background-color);
+  background-color: var(--system-light-300-55);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--stacks-4-shadow);
-  backdrop-filter: saturate(180%) brightness(80%) blur(3px);
+  backdrop-filter: saturate(180%) brightness(80%) blur(6px);
   width: fit-content;
   max-width: fit-content;
   & a {

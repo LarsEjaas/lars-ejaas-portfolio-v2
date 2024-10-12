@@ -107,7 +107,7 @@ export type ModalSlugPath<T extends string> = T extends `${infer S}/${infer M}`
   ? { slug: S; modal: M }
   : never;
 
-type SlugWithSkillKeys = keyof typeof englishSkillRoutes;
+export type SlugWithSkillKeys = keyof typeof englishSkillRoutes;
 
 export type SlugWithSkillTypes<Lang extends Language> =
   (typeof appRoutes)[Lang][SlugWithSkillKeys];

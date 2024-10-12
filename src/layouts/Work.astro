@@ -35,7 +35,12 @@ const t_work = useTranslations(lang, 'work');
         headline={t_work('frontend_developer')}
         headerImage={AccuRankerHeaderImage}
         headerImageAlt={t_work('accuranker_grump_image_alt')}
-        gradientColor="aquamarine"
+        date={t_work('accuranker_employment_date')}
+        HTMLContent={t_work('accuranker_employment_description')}
+        tags={[
+          { title: 'React', href: 'skills/react' },
+          { title: 'Typescript', href: 'skills/typescript' },
+        ]}
       />
       <h2>
         {t_work('passion_projects')}

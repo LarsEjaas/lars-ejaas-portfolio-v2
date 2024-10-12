@@ -5,9 +5,14 @@
   container-name: card;
   flex-direction: column;
   border-radius: var(--border-radius-md);
-  background-color: light-dark(
-    var(--system-light-100),
-    var(--system-light-300)
-  );
+  background: var(--card-background);
   box-shadow: var(--stacks-5-shadow);
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: var(--card-shadow);
+  }
 }

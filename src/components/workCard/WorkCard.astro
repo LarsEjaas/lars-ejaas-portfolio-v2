@@ -1,27 +1,43 @@
 ---
 import { Picture } from 'astro:assets';
 import styles from './workCard.module.css';
-import type { ColorVariants } from '@customTypes/index';
 import Card from '@components/card/Card.astro';
+import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
+import type { SlugWithSkillKeys } from '@i18n/routes';
 
 type Props = {
+  inert: boolean;
   headline: string;
+  subHeadline: string;
+  date: string;
   headerImage: ImageMetadata;
   headerImageAlt: string;
-
-  gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
-  inert: boolean;
-  iconImage?: ImageMetadata | undefined;
-  iconImageAlt?: string | undefined;
-  overlayImage?: ImageMetadata;
-  overlayImageAlt?: string;
-  /** Make the squircle and overlay image size responsive */
-  responsiveSquircleSize?: boolean;
+  HTMLContent: string;
+  tags: { title: string; href: SlugWithSkillKeys }[];
 };
 
-const { inert, headline, headerImage, headerImageAlt } = Astro.props;
+const {
+  inert,
+  headline,
+  subHeadline,
+  date,
+  headerImage,
+  headerImageAlt,
+  HTMLContent,
+  tags,
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
 ---
 
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  const tagsWrapper = document.querySelector('ul[data-work-tags]');
+  if (tagsWrapper && tagsWrapper instanceof HTMLElement) {
+    initializeKeyboardArrowNavigation(tagsWrapper);
+  }
+</script>
 <Card inert={inert}>
   <div class={styles.headerContent}>
     <Picture
@@ -31,7 +47,8 @@ const { inert, headline, headerImage, headerImageAlt } = Astro.props;
       alt={headerImageAlt}
       width="232"
       height="148"
-      densities={[1, 2, 3, 4]}
+      widths={[320, 480, 656, 736]}
+      sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
       loading="lazy"
       decoding="sync"
       pictureAttributes={{
@@ -41,6 +58,34 @@ const { inert, headline, headerImage, headerImageAlt } = Astro.props;
     <h2>{headline}</h2>
   </div>
   <div class={styles.cardContent}>
-    <slot />
+    <h3 class="stylized-capitalized-text">{subHeadline}</h3>
+    {
+      date && (
+        <div class={styles.dateWrapper}>
+          <svg width="12" height="16" fill="currentColor" viewBox="0 0 12 13">
+            <path d="M1.3 13.5c-.3 0-.6-.1-1-.4-.2-.2-.3-.5-.3-.9V3.1c0-.4.1-.7.4-1 .3-.2.6-.3 1-.3H2V.5h1.3v1.3h5.4V.5H10v1.3h.7c.3 0 .6.1 1 .4.2.2.3.5.3.9v9.1c0 .4-.1.7-.4 1-.3.2-.6.3-1 .3H1.4Zm0-1.3h9.4V5.7H1.3v6.5Zm0-7.8h9.4V3.1H1.3v1.3ZM6 8.3c-.2 0-.3 0-.5-.2a.6.6 0 0 1-.2-.4l.2-.5L6 7c.2 0 .3 0 .5.2l.2.5-.2.4-.5.2Zm-2.7 0c-.2 0-.3 0-.4-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.4-.2c.2 0 .4 0 .5.2l.2.5c0 .1 0 .3-.2.4l-.5.2Zm5.4 0c-.2 0-.4 0-.5-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.5-.2c.2 0 .3 0 .4.2.2.1.2.3.2.5 0 .1 0 .3-.2.4l-.4.2ZM6 10.9c-.2 0-.3 0-.5-.2a.6.6 0 0 1-.2-.4l.2-.5.5-.2c.2 0 .3 0 .5.2l.2.4-.2.5-.5.2Zm-2.7 0c-.2 0-.3 0-.4-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.4-.2c.2 0 .4 0 .5.2l.2.4c0 .2 0 .4-.2.5l-.5.2Zm5.4 0c-.2 0-.4 0-.5-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.5-.2c.2 0 .3 0 .4.2.2.1.2.3.2.4 0 .2 0 .4-.2.5l-.4.2Z" />
+          </svg>
+          <p class=".small-body-text">{date}</p>
+        </div>
+      )
+    }
+    <div set:html={HTMLContent} />
+    {
+      tags && (
+        <ul class={styles.tags} data-work-tags="true">
+          {tags.map((tag) => (
+            <li>
+              <a
+                data-arrow-nav="true"
+                href={translatePath(tag.href)}
+                class={styles.tag}
+              >
+                {tag.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
   </div>
 </Card>

@@ -1,14 +1,32 @@
 ---
-import type { ImageModule } from '@customTypes/index';
 import styles from './techSkillsMarquee.module.css';
 import { techSkills } from '@content/techSkills';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
-import { Picture } from 'astro:assets';
-const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  as: 'raw',
+});
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 const { skill } = Astro.params;
+
+// Process SVGs
+const processedSkills = await Promise.all(
+  techSkills[lang].map(async (techSkill, index) => {
+    const imageName = techSkill.imageSrc;
+    const svgPath = Object.entries(skillIconImages).find(([path]) =>
+      path.includes(imageName)
+    );
+
+    if (!svgPath) {
+      console.error(`SVG not found for tech skill image: ${imageName}`);
+      return null;
+    }
+
+    const svgContent = await svgPath[1]();
+    return { ...techSkill, svgContent, index };
+  })
+);
 ---
 
 <script>
@@ -24,45 +42,24 @@ const { skill } = Astro.params;
   <div class={styles.scene} id="skillTileScene">
     <ul class={styles.skillsGrid}>
       {
-        techSkills[lang].map(async (techSkill, index) => {
-          const imageName = techSkill.imageSrc;
-          const imageImport = Object.entries(skillIconImages).find(([path]) =>
-            path.includes(imageName)
-          );
-
-          if (!imageImport) {
-            console.error(`News image not found for: ${imageName}`);
-            return null;
-          }
-          const ImageComponent = ((await imageImport[1]()) as ImageModule)
-            .default;
-
-          return (
-            <li class={styles.skill} style={`--index: ${index};`}>
-              <a
-                href={translatePath(`skills/${techSkill.href}`)}
-                title={techSkill.title}
-                data-arrow-nav="true"
-                data-active={
-                  skill && skill === techSkill.href ? 'true' : undefined
-                }
-              >
-                <div class={`${styles.outline} squircle`}>
-                  <Picture
-                    formats={['avif', 'webp']}
-                    quality="high"
-                    src={ImageComponent}
-                    alt={techSkill.imageAlt}
-                    width="72"
-                    height="72"
-                    densities={[1, 2, 3, 4]}
-                    loading="eager"
-                    decoding="sync"
-                  />
-                </div>
-              </a>
-            </li>
-          );
+        processedSkills.map(async (techSkill) => {
+          if (techSkill)
+            return (
+              <li class={styles.skill} style={`--index: ${techSkill.index};`}>
+                <a
+                  href={translatePath(`skills/${techSkill.href}`)}
+                  title={techSkill.title}
+                  data-arrow-nav="true"
+                  data-active={
+                    skill && skill === techSkill.href ? 'true' : undefined
+                  }
+                >
+                  <div class={`${styles.outline} squircle`}>
+                    <Fragment set:html={techSkill.svgContent} />
+                  </div>
+                </a>
+              </li>
+            );
         })
       }
       <!-- Extra items to fill empty slots in the marquee grid. Excess items will automatically be layered below other skill cards. -->

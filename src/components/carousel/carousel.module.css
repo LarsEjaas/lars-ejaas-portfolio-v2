@@ -108,8 +108,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      border-radius: 12px;
-
+      border-radius: 10px;
       padding: 5px;
       /* create a gradient outline*/
       &.outline1 {
@@ -160,6 +159,13 @@
       &:hover {
         --active: 1;
       }
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 4px;
+        border-radius: inherit;
+        box-shadow: var(--card-shadow);
+      }
 
       &::after {
         content: '';
@@ -176,7 +182,7 @@
         background-attachment: local;
         opacity: var(--active, 0);
         transition: opacity 0.25s;
-        border-radius: 12px;
+        border-radius: 10px;
         pointer-events: none;
         &:hover {
           transition: opacity 0s;
@@ -196,12 +202,12 @@
       display: flex;
       flex-direction: column;
       flex: 1 0 auto;
-      padding-block: 8px;
+      padding-block: 12px;
       padding-inline: 16px;
       justify-content: space-between;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
-      background-color: var(--system-light-200);
+      background: var(--card-background);
       color: var(--system-dark-300);
 
       & div {
@@ -331,7 +337,9 @@
     box-shadow:
       var(--verdigris-100-op) 0px 0px 0px 5px,
       var(--stacks-6-Shadow);
-    transition: transform 0.4s ease;
+    transition:
+      transform 0.4s ease,
+      background-color 0.3s ease-in-out;
     display: grid;
     align-items: center;
     justify-content: center;

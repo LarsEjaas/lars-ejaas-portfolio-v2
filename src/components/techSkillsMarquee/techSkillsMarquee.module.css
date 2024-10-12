@@ -134,7 +134,12 @@
         var(--system-light-200),
         var(--system-light-500)
       );
+      line-height: 0;
     }
+  }
+  & svg {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -167,6 +172,10 @@ a[data-active] {
   .scene {
     --items-in-row: 6;
     --speed: 7s;
+  }
+  .skill svg {
+    width: 96px;
+    height: 96px;
   }
 }
 

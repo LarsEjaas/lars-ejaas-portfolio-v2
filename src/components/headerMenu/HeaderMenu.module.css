@@ -17,7 +17,7 @@
     background-color: var(--system-light-300-55);
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--stacks-6-shadow);
-    backdrop-filter: saturate(180%) brightness(80%) blur(3px);
+    backdrop-filter: saturate(180%) brightness(80%) blur(6px);
   }
 }
 

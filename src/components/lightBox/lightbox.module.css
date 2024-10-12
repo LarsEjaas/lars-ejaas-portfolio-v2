@@ -186,7 +186,9 @@
     box-shadow:
       #00000000 0px 0px 0px 5px,
       var(--stacks-6-Shadow);
-    transition: transform 0.3s ease;
+    transition:
+      transform 0.4s ease,
+      background-color 0.3s ease-in-out;
     display: grid;
     align-items: center;
     justify-content: center;
