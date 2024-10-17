@@ -8,8 +8,11 @@ import type {
   ImageModule,
 } from '@customTypes/index';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
-import { isExternalLink } from '../../utils/misc';
+import { isExternalLink } from '@utils/misc';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
+
+/*Set a limit on items - this way an archive card will be rendered pointing to older news  */
+const MAX_NUMBER_OF_ITEMS = 10;
 
 export type CardInfo = {
   title: string;
@@ -30,22 +33,21 @@ interface Props {
     next: string;
   };
   items: CardInfo[];
-  /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
-  maxNumberOfItems?: number;
   inert: boolean;
 }
 
-const { items, maxNumberOfItems, labels, inert } = Astro.props;
+const { items, labels, inert } = Astro.props;
 
 const ARCHIVE_ID = 'newsArchive';
 const ARCHIVE_HREF = 'news-archive';
 
 const itemList =
-  maxNumberOfItems && items.length > maxNumberOfItems
-    ? items.slice(0, maxNumberOfItems)
+  MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS
+    ? items.slice(0, MAX_NUMBER_OF_ITEMS)
     : items;
 
-const showArchiveCard = maxNumberOfItems && items.length > maxNumberOfItems;
+const showArchiveCard =
+  MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
@@ -102,6 +104,7 @@ const t = useTranslations(lang, 'navigation');
 <section
   aria-labelledby="carouselHeading"
   id="carousel"
+  class="fullgrid"
   style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}`}
   inert={inert}
 >
@@ -198,7 +201,14 @@ const t = useTranslations(lang, 'navigation');
       </button>
     </li>
     <li class={styles.indicators} aria-hidden="true">
-      {itemList.map((_item, index) => <div style={`--index: ${index + 1}`} />)}
+      {
+        [
+          ...itemList,
+          ...(items.length > MAX_NUMBER_OF_ITEMS
+            ? [{ title: 'placeholder' }]
+            : []),
+        ].map((_item, index) => <div style={`--index: ${index + 1}`} />)
+      }
     </li>
     <hr />
     <li>

@@ -3,11 +3,19 @@ import styles from './card.module.css';
 
 type Props = {
   inert: boolean;
+  /**  distinct identifying name used for view transitions. Should be in kebab-case.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
+   */
+  viewTransitionName?: string;
 };
 
-const { inert } = Astro.props;
+const { inert, viewTransitionName = 'card' } = Astro.props;
 ---
 
-<section inert={inert} class={styles.card}>
+<section
+  inert={inert}
+  class={styles.card}
+  style={`view-transition-name: ${viewTransitionName}`}
+>
   <slot />
 </section>

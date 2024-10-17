@@ -27,9 +27,15 @@ export const initThemeSwitch = () => {
   /**
    * Toggles the theme between light and dark mode.
    */
-  const toggleTheme = (event: MouseEvent) => {
-    if (!(event.target instanceof HTMLInputElement)) {
+  const toggleTheme = (event: MouseEvent | KeyboardEvent) => {
+    if (
+      !(event.target instanceof HTMLInputElement) ||
+      ('key' in event && event.key !== 'Enter')
+    ) {
       return;
+    }
+    if ('key' in event) {
+      event.target.checked = !event.target.checked;
     }
     addThemeTransition();
     const wasDarkMode = rootElement.dataset.darkMode === 'true';
@@ -94,6 +100,9 @@ export const initThemeSwitch = () => {
     window.themeToggleMobile instanceof HTMLInputElement
   ) {
     window.themeToggle.addEventListener('click', toggleTheme, {
+      passive: true,
+    });
+    window.themeToggle.addEventListener('keydown', toggleTheme, {
       passive: true,
     });
     window.themeToggleMobile.addEventListener('click', toggleTheme, {

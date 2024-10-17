@@ -4,10 +4,8 @@ import './themeSwitch.css';
 type Props = {
   withGlow: boolean;
   isMobile: boolean;
-  ['data-arrow-nav']?: 'true' | 'false';
 };
 const { withGlow, isMobile } = Astro.props;
-const dataArrowNav = Astro.props['data-arrow-nav'];
 ---
 
 <script>
@@ -21,7 +19,6 @@ const dataArrowNav = Astro.props['data-arrow-nav'];
   title="Switch to dark mode"
 >
   <input
-    data-arrow-nav={dataArrowNav === 'true' || undefined}
     aria-labelledby={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
     type="checkbox"
     id={isMobile ? 'themeToggleMobile' : 'themeToggle'}

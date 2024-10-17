@@ -12,10 +12,18 @@
   }
 }
 
+/* Hide interactive elements that require JS */
+:root[data-js-enabled='false'] {
+  /* Hide the controls on the carousel */
+  & :global(#previous),
+  & :global(#next) {
+    visibility: hidden;
+  }
+}
+
 :global(#carousel) {
   container-type: inline-size;
   height: fit-content;
-  grid-column: 1 / 4;
   container-name: carousel;
   --card-width: 242px;
   & h2 {

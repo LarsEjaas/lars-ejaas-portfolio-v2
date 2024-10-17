@@ -6,6 +6,12 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './skills.module.css';
 import WorkCard from '@components/workCard/WorkCard.astro';
 import AccuRankerHeaderImage from '@assets/images/accuranker_grump_wall.jpg';
+import SallingGroupHeaderImage from '@assets/images/salling_group_digital.png';
+import BruceWillisHeaderImage from '@assets/images/bruce_willis_rocks.png';
+import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
+import SallingGroupFooter1 from '@assets/images/foetex_hjem_app.png';
+import SallingGroupFooter2 from '@assets/images/foetex_levering_servicebud.jpg';
+import SallingGroupFooter3 from '@assets/images/foetex_levering_til_doeren.png';
 
 interface Props {
   title: string;
@@ -25,30 +31,144 @@ const t_work = useTranslations(lang, 'work');
       tagLine="work"
       taglineAlt={t_work('work_tagline')}
     />
-    <div>
-      <h2>
-        {t_work('professional_developer_journey')}
-      </h2>
-      <p class="body-text">{t_work('from_code_to_career')}</p>
-      <WorkCard
-        inert={inert}
-        headline={t_work('frontend_developer')}
-        headerImage={AccuRankerHeaderImage}
-        headerImageAlt={t_work('accuranker_grump_image_alt')}
-        date={t_work('accuranker_employment_date')}
-        HTMLContent={t_work('accuranker_employment_description')}
-        tags={[
-          { title: 'React', href: 'skills/react' },
-          { title: 'Typescript', href: 'skills/typescript' },
-        ]}
-      />
-      <h2>
-        {t_work('passion_projects')}
-      </h2>
-      <p class="body-text">{t_work('where_curiosity_meets_code')}</p>
-    </div>
+    <h2>
+      {t_work('professional_developer_journey')}
+    </h2>
+    <p class="body-text">{t_work('from_code_to_career')}</p>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="aquamarine" />
+  <WorkCard
+    inert={inert}
+    viewTransitionName="card"
+    id="accuRanker"
+    headline={t_work('frontend_developer')}
+    subHeadline={'Accuranker ApS, Aarhus'}
+    headerImage={AccuRankerHeaderImage}
+    headerImageAlt={t_work('accuranker_grump_image_alt')}
+    date={t_work('accuranker_employment_date')}
+    tags={[
+      { title: 'React', href: 'skills/react' },
+      { title: 'Typescript', href: 'skills/typescript' },
+      { title: 'Gatsby', href: 'skills/gatsby' },
+      { title: 'Strapi', href: 'skills/strapi' },
+      { title: 'GraphQL', href: 'skills/graphql' },
+      { title: 'Apollo Client', href: 'skills/apollo-client' },
+      { title: 'Docker', href: 'skills/docker' },
+      { title: 'Webpack', href: 'skills/webpack' },
+      { title: 'Vite', href: 'skills/vite' },
+      { title: 'Sass', href: 'skills/sass' },
+      { title: 'Tailwind', href: 'skills/tailwind' },
+      { title: 'Jest', href: 'skills/jest' },
+      {
+        title: 'React Testing Library',
+        href: 'skills/react-testing-library',
+      },
+      { title: 'Playwright', href: 'skills/playwright' },
+      { title: 'Mantine', href: 'skills/mantine' },
+      { title: 'Storybook', href: 'skills/storybook' },
+    ]}
+  >
+    <p class="small-body-text">
+      {t_work('accuranker_employment_description')}
+    </p></WorkCard
+  >
+  <WorkCard
+    inert={inert}
+    id="sallingGroup"
+    viewTransitionName="salling-group-card"
+    headline={t_work('frontend_developer')}
+    subHeadline={'Salling Group A/S, Aarhus'}
+    headerImage={SallingGroupHeaderImage}
+    headerImageAlt={t_work('salling_group_image_alt')}
+    date={t_work('salling_group_employment_date')}
+    tags={[
+      { title: 'React', href: 'skills/react' },
+      { title: 'React Native', href: 'skills/react-native' },
+      { title: 'Typescript', href: 'skills/typescript' },
+      { title: 'NextJS', href: 'skills/nextjs' },
+      { title: 'Storybook', href: 'skills/storybook' },
+      { title: 'Tailwind', href: 'skills/tailwind' },
+      { title: 'Styled Components', href: 'skills/styled-components' },
+      { title: 'Jest', href: 'skills/jest' },
+      {
+        title: 'React Testing Library',
+        href: 'skills/react-testing-library',
+      },
+    ]}
+    footerImages={[
+      {
+        src: SallingGroupFooter1,
+        alt: '-',
+        id: 'SallingGroupAppImage',
+      },
+      {
+        src: SallingGroupFooter2,
+        alt: '-',
+        id: 'SallingGroupHomeDeliveryDriver',
+      },
+      {
+        src: SallingGroupFooter3,
+        alt: '-',
+        id: 'SallingGroupHomeDelivery',
+      },
+    ]}
+  >
+    <p class="small-body-text">
+      {t_work('salling_group_employment_description')}
+    </p></WorkCard
+  >
+  <div class="fullgrid">
+    <h2>
+      {t_work('passion_projects')}
+    </h2>
+    <p class="body-text">{t_work('where_curiosity_meets_code')}</p>
+  </div>
+  <WorkCard
+    inert={inert}
+    id="bruceWillis"
+    href={lang === 'en'
+      ? 'https://bruce-willis.rocks/en'
+      : 'https://bruce-willis.rocks'}
+    animatedHeader
+    viewTransitionName="bruce-willis-card"
+    headline="Bruce Willis Rocks"
+    subHeadline={t_work('a_tributee_to_bruce_willis')}
+    headerImage={BruceWillisHeaderImage}
+    headerImageAlt={t_work('bruce_willis_image_alt')}
+    date={t_work('bruce_willis_date')}
+    tags={[
+      { title: 'React', href: 'skills/react' },
+      { title: 'TypeScript', href: 'skills/typescript' },
+      { title: 'Gatsby', href: 'skills/gatsby' },
+      { title: 'Styled Components', href: 'skills/styled-components' },
+    ]}
+  >
+    <p class="small-body-text">
+      {t_work('bruce_willis_description')}
+    </p></WorkCard
+  >
+  <WorkCard
+    inert={inert}
+    id="larsEjaasComV1"
+    animatedHeader
+    animationDelay={2000}
+    viewTransitionName="lars-ejaas-card"
+    headline="larsejaas.com"
+    subHeadline={t_work('larsejaas_v1_subheadline')}
+    headerImage={LarsEjaasComV1HeaderImage}
+    headerImageAlt={t_work('lars_ejaas_v1_image_alt')}
+    date={t_work('lars_ejaas_v1_date')}
+    tags={[
+      { title: 'React', href: 'skills/react' },
+      { title: 'JavaScript', href: 'skills/javascript' },
+      { title: 'Gatsby', href: 'skills/gatsby' },
+      { title: 'CSS', href: 'skills/css' },
+    ]}
+  >
+    <p class="small-body-text">
+      {t_work('lars_ejaas_com_description')}
+    </p></WorkCard
+  >
   <!-- Modals can be inserted as a child here in the slot -->
   <slot />
 </Layout>

@@ -125,6 +125,16 @@
       outline-offset: var(--outline-offset);
     }
   }
+  a[data-active] {
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: -4px;
+      clip-path: url('#squircle');
+      background-color: var(--system-dark-100);
+    }
+  }
   & :global(.squircle) {
     clip-path: url(#squircle);
     display: block;
@@ -140,17 +150,6 @@
   & svg {
     width: 80px;
     height: 80px;
-  }
-}
-
-a[data-active] {
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: -4px;
-    clip-path: url('#squircle');
-    background-color: var(--system-dark-100);
   }
 }
 

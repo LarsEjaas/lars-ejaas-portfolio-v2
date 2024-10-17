@@ -282,6 +282,10 @@
     gap: 32px;
   }
 
+  .fullgrid {
+    grid-column: 1 / 4;
+  }
+
   @media (max-width: 768px) {
     main,
     footer {
@@ -290,6 +294,9 @@
     main {
       margin-inline: 1rem;
       column-gap: unset;
+    }
+    .fullgrid {
+      grid-column: 1 / 2;
     }
   }
 
@@ -304,12 +311,15 @@
     font-size: var(--font-size-2);
     font-weight: 400;
     line-height: 1.5;
-    color: var(--system-dark-300);
+  }
+  :root[data-dark-mode='true'] .small-body-text {
+    font-weight: 300;
   }
   .stylized-capitalized-text {
     font-size: var(--font-size-2);
     text-transform: uppercase;
     letter-spacing: 2px;
+    color: light-dark(var(--system-dark-100), var(--system-dark-300));
   }
 
   .stylized-lead-text {

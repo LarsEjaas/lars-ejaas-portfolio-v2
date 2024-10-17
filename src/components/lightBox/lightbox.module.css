@@ -88,7 +88,7 @@
 }
 
 .content {
-  view-transition-name: lightboxContent;
+  view-transition-name: lightbox-content;
   margin-inline: 3rem;
   max-height: 70cqb;
   min-height: 0;
@@ -126,7 +126,7 @@
 }
 
 .thumbnailGridContainer {
-  view-transition-name: thumbnailGridContainer;
+  view-transition-name: thumbnail-grid-container;
   --mask-width: 2rem;
   display: grid;
   grid-auto-flow: dense;

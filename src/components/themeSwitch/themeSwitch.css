@@ -1,10 +1,7 @@
 /* Hide interactive elements that require JS */
 :root[data-js-enabled='false'] {
-  & #themeSwitch {
-    visibility: hidden;
-  }
-  /* Hide the controls on the carousel */
-  & .controls {
+  & #themeSwitch,
+  & #themeSwitchMobile {
     visibility: hidden;
   }
 }
@@ -15,6 +12,7 @@
   width: 47px;
   height: 24px;
   border-radius: 40px;
+  flex-shrink: 0;
 
   & span {
     position: absolute;
