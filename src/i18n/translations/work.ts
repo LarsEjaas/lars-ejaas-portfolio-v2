@@ -15,6 +15,7 @@ export const work = {
     salling_group_employment_date: 'Oct 2021 - Apr 2022',
     salling_group_employment_description:
       'Part of a small dedicated frontend team working in an Agile Scrum-inspired environment.\n\nPrimarily developed features for the føtex Home Delivery mobile app (Android/iOS) while also contributing to the føtex grocery website.\n\nUtilized a modern tech stack within a large monorepo architecture to deliver scalable, high-quality solutions.',
+    about: 'About',
     passion_projects: 'Passion Projects',
     where_curiosity_meets_code:
       'Where Curiosity Meets Code: Being a professional developer doesn’t mean you can’t code just for the fun of it!\n\nExplore some of my personal projects below:',
@@ -29,5 +30,6 @@ export const work = {
   da: {
     work_title: 'Arbejde',
     work_tagline: 'Professionel udvikler - nysgerrig af natur',
+    about: 'Om',
   },
 } as const;

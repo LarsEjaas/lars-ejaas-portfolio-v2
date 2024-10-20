@@ -4,3 +4,7 @@ const validUrL =
 export const isExternalLink = (url: string) => {
   return url.match(validUrL) !== null;
 };
+
+/**  Capitalize the first letter of a string */
+export const capitalize = (s: string | undefined) =>
+  (s && s[0]?.toUpperCase() + s.slice(1)) || '';

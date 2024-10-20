@@ -72,45 +72,34 @@ const t = useTranslations(lang, 'navigation');
     );
   }
 
-  const footerImageControls = document.querySelectorAll('[id$="footerNavigation"]');
+  const footerImageControls = document.querySelectorAll(
+    '[id$="footerNavigation"]'
+  );
   const footerImageControlsArray = Array.from(footerImageControls);
   footerImageControlsArray.forEach((control) => {
-    if(control instanceof HTMLElement) {
+    if (control instanceof HTMLElement) {
       initializeKeyboardArrowNavigation(control);
-   const buttons = control.querySelectorAll('a');
-   const controlButtonsArray = Array.from(buttons);
-   controlButtonsArray.forEach((controlButton, index) => {
-     if(controlButton instanceof HTMLElement) {
-      if(index === 0) {
-        controlButton.dataset.active = 'true';
-      } else {
-        controlButton.dataset.active = 'false';
-      }
-     controlButton.addEventListener('click', (e) => {
-       e.preventDefault();
-       const scrollTarget = document.querySelector(
-         `#${(e.currentTarget as HTMLAnchorElement).href.split('#')[1]}`);
-         if(scrollTarget instanceof HTMLElement) {
-           scrollTarget.scrollIntoView({
-             behavior: 'smooth',
-             block: 'nearest',
-             inline: 'start'
-             });
-         }
-       controlButtonsArray.forEach((button) => {
-         if(button instanceof HTMLElement) {
-         if (button === e.currentTarget ) {
-           button.dataset.active = 'true';
-           return;
-         }
-         button.dataset.active = 'false';
-       }})});
-       }});
+      const buttons = control.querySelectorAll('a');
+      const controlButtonsArray = Array.from(buttons);
+      controlButtonsArray.forEach((controlButton) => {
+        if (controlButton instanceof HTMLElement) {
+          controlButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const scrollTarget = document.querySelector(
+              `#${(e.currentTarget as HTMLAnchorElement).href.split('#')[1]}`
+            );
+            if (scrollTarget instanceof HTMLElement) {
+              scrollTarget.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start',
+              });
+            }
+          });
+        }
+      });
     }
-});
- 
-
-
+  });
 </script>
 <Card inert={inert} viewTransitionName={viewTransitionName}>
   <div class={styles.headerContent}>
@@ -171,66 +160,78 @@ const t = useTranslations(lang, 'navigation');
             {t('section_with_arrow_nav')}
           </span>
           <ul class={styles.tags}>
-          {tags.map((tag) => (
-            <li>
-              <a
-                data-arrow-nav="true"
-                href={translatePath(tag.href)}
-                class={styles.tag}
-              >
-                {tag.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+            {tags.map((tag) => (
+              <li>
+                <a
+                  data-arrow-nav="true"
+                  href={translatePath(tag.href)}
+                  class={styles.tag}
+                >
+                  {tag.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )
     }
   </div>
   {
     footerImages && (
-      <ul class={styles.footerImages}>
-        {footerImages.map((image) => (
-          <li id={image.id}>
-            <Picture
-              formats={['avif']}
-              quality="high"
-              src={image.src}
-              alt={image.alt}
-              width="232"
-              height="148"
-              widths={[320, 480, 656, 736]}
-              sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
-              loading="lazy"
-              decoding="sync"
-              pictureAttributes={{
-                class: styles.picture,
-                'data-animated': animatedHeader || null,
-                style: {
-                  '--animation-delay': `${animationDelay || 0}ms`,
-                },
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-      <div id={`${id}footerNavigation`}
-      role="group" aria-describedby={`${id}ArrowNav`}>
-        <span
-      id={`${id}ArrowNav`}
-      aria-keyshortcuts="ArrowLeft ArrowRight"
-      class="sr-only"
-    >
-      {t('section_with_arrow_nav')}
-    </span>
-      <ul class={styles.controls}>
-        {footerImages?.length > 1 && footerImages.map((image) => (
-          <li>
-            <a href={`#${image.id}`} class={styles.control} data-arrow-nav="true" />
-          </li>
-        ))}
+      <div class={styles.footerImagesWrapper}>
+        <ul class={styles.footerImages}>
+          {footerImages.map((image) => (
+            <li id={image.id}>
+              <Picture
+                formats={['avif']}
+                quality="high"
+                src={image.src}
+                alt={image.alt}
+                width="232"
+                height="148"
+                widths={[320, 480, 656, 736]}
+                sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
+                loading="lazy"
+                decoding="sync"
+                pictureAttributes={{
+                  class: styles.picture,
+                  'data-animated': animatedHeader || null,
+                  style: {
+                    '--animation-delay': `${animationDelay || 0}ms`,
+                  },
+                }}
+              />
+            </li>
+          ))}
         </ul>
-    </div>
+        <div
+          id={`${id}footerNavigation`}
+          role="group"
+          aria-describedby={`${id}ArrowNav`}
+        >
+          <span
+            id={`${id}ArrowNav`}
+            aria-keyshortcuts="ArrowLeft ArrowRight"
+            class="sr-only"
+          >
+            {t('section_with_arrow_nav')}
+          </span>
+          <ul
+            style={{
+              '--slide-length': footerImages?.length,
+              'aspect-ratio': `${footerImages?.length + 1} / 1`,
+            }}
+            class={styles.controls}
+          >
+            {footerImages?.length > 1 &&
+              footerImages.map((image) => (
+                <li class={styles.control}>
+                  <a href={`#${image.id}`} data-arrow-nav="true" />
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
     )
   }
 </Card>

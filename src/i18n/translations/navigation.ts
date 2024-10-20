@@ -30,6 +30,7 @@ export const navigation = {
     tech_skills: 'Tech skills',
     next: 'Scroll to next news card',
     previous: 'Scroll to previous news card',
+    close_popover: 'Close popover',
   },
   da: {
     section_with_arrow_nav:
@@ -62,5 +63,6 @@ export const navigation = {
     tech_skills: 'Tekniske færdigheder',
     next: 'Scroll til det næste kort',
     previous: 'Scroll til det forrige kort',
+    close_popover: 'Luk popover',
   },
 } as const;
