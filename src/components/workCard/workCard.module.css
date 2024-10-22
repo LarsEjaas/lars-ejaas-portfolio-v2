@@ -134,6 +134,7 @@
 }
 
 .footerImagesWrapper {
+  margin-top: auto;
   @supports (animation-timeline: scroll()) {
     timeline-scope: --one, --two, --three, --four, --five;
   }

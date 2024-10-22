@@ -58,7 +58,7 @@ const t = useTranslations(lang, 'navigation');
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
-  const tagsWrappers = document.querySelectorAll('[id$="workCardTags"]');
+  const tagsWrappers = document.querySelectorAll('[id$="WorkCardTags"]');
 
   const isHTMLElementList = (
     list: NodeListOf<Element>
@@ -151,7 +151,7 @@ const t = useTranslations(lang, 'navigation');
     {
       tags && (
         <div
-          id={`${id}workCardTags`}
+          id={`${id}WorkCardTags`}
           role="group"
           aria-keyshortcuts="ArrowLeft ArrowRight"
           aria-describedby={`${id}tagsArrowNavDescription`}

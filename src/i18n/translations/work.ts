@@ -11,10 +11,15 @@ export const work = {
     accuranker_employment_date: 'May 2022 - Present',
     accuranker_employment_description:
       'Responsible for the web development of a SaaS web application and homepage.\n\nTasks include implementing new features, resolving bugs, and refactoring legacy code within the application.\n\nAdditionally, engaging in diverse web development projects for the company’s website.',
+    accuranker_is_a_danish:
+      'AccuRanker is a Danish software company based in Aarhus that helps businesses understand and improve their visibility in search engines like Google.\n\nTheir main product is a web application that automatically monitors how well websites rank for specific search terms, providing detailed analytics and insights.\n\nThe company operates with a small, dedicated team of primarily on-site employees at their Aarhus office, complemented by several remote team members.\n\nThe platform handles large-scale data collection and analysis, processing millions of search results daily to deliver accurate, real-time tracking information to clients.',
     salling_group_image_alt: '',
     salling_group_employment_date: 'Oct 2021 - Apr 2022',
     salling_group_employment_description:
       'Part of a small dedicated frontend team working in an Agile Scrum-inspired environment.\n\nPrimarily developed features for the føtex Home Delivery mobile app (Android/iOS) while also contributing to the føtex grocery website.\n\nUtilized a modern tech stack within a large monorepo architecture to deliver scalable, high-quality solutions.',
+    visit_website: 'Visit website',
+    salling_group_is_denmarks:
+      'Salling Group is Denmark’s largest retailing group.',
     about: 'About',
     passion_projects: 'Passion Projects',
     where_curiosity_meets_code:

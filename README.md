@@ -89,6 +89,7 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
   - [**animation-timeline**](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline)
   - [**Cascade layers**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers)
   - [**View Transitions API**](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
+  - [**Popover API**](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - Enhance accessibility and gain more experience with screen readers.
 - Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable..
 - Maintain the previous design and color scheme while improving areas that needed a face-lift.

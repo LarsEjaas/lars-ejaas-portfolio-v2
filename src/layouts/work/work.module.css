@@ -1,0 +1,51 @@
+@media (max-width: 768px) {
+  .floatingBalloons {
+    grid-row: 4;
+  }
+}
+
+.flexWrapper,
+.flexColumnWrapper {
+  display: flex;
+  & .popoverDesc {
+    margin-block-end: 0;
+  }
+  & :global(#sallingGroupLogo) {
+    color: #004a62;
+    margin-top: 1px;
+  }
+  & :global(#accuRankerLogo) {
+    color: var(--system-dark-400);
+    margin-left: 2px;
+  }
+}
+
+.flexWrapper {
+  gap: 4px;
+  align-items: center;
+}
+
+.flexColumnWrapper {
+  gap: 1rem;
+  flex-direction: column;
+}
+
+:global(:root[data-dark-mode='true'] #sallingGroupLogo),
+:global(:root[data-dark-mode='true'] #accuRankerLogo) {
+  color: #fff;
+}
+
+.websiteVisit {
+  margin-block-end: 0;
+  &:is(a) {
+    --color: light-dark(var(--verdigris-700), var(--primary-lighter));
+    color: var(--color);
+    text-decoration: underline transparent;
+    transition: text-decoration-color 0.25s;
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: var(--color);
+      transition: text-decoration-color 0.4s;
+    }
+  }
+}
