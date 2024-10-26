@@ -1,3 +1,8 @@
+/*special module syntax used to import module tile module class*/
+:import('@components/workCard/workCard.module.css') {
+  expandControls: expandControls;
+}
+
 @keyframes slideIn {
   from {
     /* transform: translateX(-75cqi) scale(0.65); */
@@ -24,6 +29,7 @@
 :global(#carousel) {
   container-type: inline-size;
   height: fit-content;
+  position: relative;
   container-name: carousel;
   --card-width: 242px;
   & h2 {
@@ -106,7 +112,6 @@
           animation-fill-mode: both;
           animation-timing-function: linear;
           animation-timeline: view(inline);
-          /* animation-range: cover -60cqi contain 30cqi; */
           animation-range: cover -55cqi contain 30cqi;
         }
       }
@@ -311,23 +316,15 @@
   }
 }
 
-/* break-point--medium (768px) minus 32px padding */
-@container carousel (width <= 736px) {
-  /* Create a full-width illusion of the carousel */
-  :global(#carouselList) {
-    margin-inline: -1rem;
-    inline-size: calc(100cqi + 2rem);
-  }
-}
-
 .controls {
-  --controls-height: 32px;
-  top: calc(50% - var(--controls-height) / 2);
-  inset-inline: 0;
+  position: absolute;
+  top: 50%;
+  inset-inline: -1rem;
+  width: calc(100cqi + 2rem);
+  --controls-height: 40px;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
+  justify-content: space-between;
+  pointer-events: none;
   padding: 0;
   & li {
     width: fit-content;
@@ -339,6 +336,7 @@
     height: var(--controls-height);
     color: var(--verdigris-100);
     border-radius: var(--border-radius-balloon);
+    pointer-events: all;
     width: var(--controls-height);
     border: 2px solid var(--verdigris-300);
     background-color: var(--verdigris-500);
@@ -364,43 +362,53 @@
       transform: scale(1.2);
     }
   }
-
-  & .indicators {
-    display: none;
-    aspect-ratio: calc((var(--card-length) + 1) * 15) / 10;
+}
+.indicators {
+  aspect-ratio: calc((var(--card-length) + 1) * 15) / 10;
+  display: none;
+  margin-inline: auto;
+  height: 1rem;
+  @supports (animation-timeline: view()) {
+    display: flex;
+  }
+  & div {
+    --gradient-color: light-dark(
+      var(--system-shadow-7),
+      var(--system-dark-200-16)
+    );
+    background: linear-gradient(var(--gradient-color), var(--gradient-color))
+      padding-box;
+    flex: 1;
+    border-radius: 100px;
+    height: 1rem;
+    min-width: 1rem;
+    padding: 0;
+    position: relative;
+    border: 2px solid transparent;
     @supports (animation-timeline: view()) {
-      display: flex;
-      timeline-scope: slide-in;
-    }
-    & div {
-      --gradient-color: light-dark(
-        var(--system-shadow-7),
-        var(--system-dark-200-16)
-      );
-      background: linear-gradient(var(--gradient-color), var(--gradient-color))
-        padding-box;
-      flex: 1;
-      border-radius: 100px;
-      height: 100%;
-      min-width: 15px;
-      padding: 0;
-      position: relative;
-      border: 2px solid transparent;
-      @supports (animation-timeline: view()) {
-        --buffer: calc(var(--card-width) * 0.9);
-        -webkit-animation: blink both linear;
-        animation: expand both linear;
-
-        animation-range: contain calc(50% - var(--buffer)) contain
-          calc(50% + var(--buffer));
-      }
+      scroll-timeline-axis: inline;
+      animation: expandControls;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      --buffer: calc(0.9 * var(--card-width));
+      --test: 100cqi;
+      animation-range: cover calc(100cqi - var(--index - 2) * var(--card-width))
+        contain calc(100cqi - var(--index - 1) * var(--buffer));
     }
   }
-  & hr {
-    display: block;
-    width: 200px;
-    @supports (animation-timeline: view()) {
-      display: none;
-    }
+}
+
+/* break-point--medium (768px) minus 32px padding */
+@container carousel (width <= 736px) {
+  /* Create a full-width illusion of the carousel */
+  :global(#carouselList) {
+    margin-inline: -1rem;
+    inline-size: calc(100cqi + 2rem);
+  }
+  .controls {
+    inset-inline: 0;
+    width: 100cqi;
+    top: unset;
+    bottom: calc(-0.25 * var(--controls-height));
   }
 }

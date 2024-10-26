@@ -1,0 +1,253 @@
+---
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
+import styles from './skillCardPagination.module.css';
+import { techSkills } from '@content/techSkills';
+import type { SkillInfo } from '@customTypes/skillTypes';
+import { notEmpty } from '@customTypes/index';
+
+interface Props {
+  title: string;
+}
+
+const PAGINATION_LENGTH = 5;
+
+const getTransitionName = (index: number) => {
+  if (index === 0) {
+    return `skill-pagination-button-first`;
+  }
+  if (index === PAGINATION_LENGTH - 1) {
+    return 'skill-pagination-button-last';
+  }
+  return `skill-pagination-button-${index}`;
+};
+
+function getPaginationItems(array: SkillInfo[], currentIndex: number) {
+  const totalItems = array.length;
+  const halfItems = Math.floor(PAGINATION_LENGTH / 2);
+  const result = [];
+
+  // Calculate how many items we need before and after
+  const itemsBefore = halfItems;
+  const itemsAfter = PAGINATION_LENGTH - halfItems - 1;
+
+  // Add items before current
+  for (let i = itemsBefore; i > 0; i--) {
+    let index = currentIndex - i;
+    // If index is negative, wrap around to end of array
+    if (index < 0) index = totalItems + index;
+    result.push(array[index]);
+  }
+
+  // Add current item
+  result.push(array[currentIndex]);
+
+  // Add items after current
+  for (let i = 1; i <= itemsAfter; i++) {
+    let index = (currentIndex + i) % totalItems;
+    result.push(array[index]);
+  }
+
+  return result;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const t_skills = useTranslations(lang, 'skills');
+
+const { title } = Astro.props;
+
+const currentSkill =
+  techSkills[lang].find((skill) => skill.title === title) ||
+  (techSkills[lang][0] as SkillInfo);
+
+const currentSkillIndex = techSkills[lang].indexOf(currentSkill);
+
+const paginationItems = getPaginationItems(
+  techSkills[lang],
+  currentSkillIndex
+).filter(notEmpty);
+
+const skillIndex = paginationItems.indexOf(currentSkill);
+---
+
+<script is:inline>
+  window.addEventListener('pagereveal', async (e) => {
+    if (e.viewTransition) {
+      const transitionType = sessionStorage['transition-direction'];
+      e.viewTransition.types.add(transitionType);
+      sessionStorage.removeItem('transition-direction');
+    }
+  });
+</script>
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { TRANSITION_DIRECTION_KEY } from '../../utils/localStorage';
+  import { getLangFromUrl, removeTrailingSlash } from '../../i18n/utils';
+  import { techSkills } from '../../content/techSkills';
+
+  if (window.skillPagination) {
+    initializeKeyboardArrowNavigation(window.skillPagination);
+  }
+
+  const refererIsWork =
+    document.referrer.startsWith(window.location.origin) &&
+    document.referrer.includes('work');
+  if (window.skillBackButton && refererIsWork) {
+    window.skillBackButton.dataset.active = 'true';
+    window.skillBackButton.addEventListener('click', () => {
+      window.history.back();
+    });
+  }
+
+  if ('CSSViewTransitionRule' in window) {
+    window.addEventListener('pageswap', async (e: PageSwapEvent) => {
+      if (e.viewTransition) {
+        const currentURL = e.activation.from?.url
+          ? new URL(e.activation.from?.url)
+          : null;
+        const targetURL = new URL(e.activation.entry.url);
+
+        let transitionType: 'reload' | 'forwards' | 'backwards';
+
+        if (!currentURL) {
+          transitionType = 'reload';
+          e.viewTransition.types.add(transitionType);
+          sessionStorage[TRANSITION_DIRECTION_KEY] = transitionType;
+          return;
+        }
+        const currentPathname = removeTrailingSlash(currentURL.pathname);
+        const destinationPathname = removeTrailingSlash(targetURL.pathname);
+
+        const lang = getLangFromUrl(currentURL);
+
+        const nextSkill = techSkills[lang].find(
+          (skill) => skill.href === destinationPathname.split('/').pop()
+        );
+        const thisSkill = techSkills[lang].find(
+          (skill) => skill.href === currentPathname.split('/').pop()
+        );
+
+        if (
+          currentPathname === destinationPathname ||
+          !nextSkill ||
+          !thisSkill
+        ) {
+          transitionType = 'reload';
+          e.viewTransition.types.add(transitionType);
+          sessionStorage[TRANSITION_DIRECTION_KEY] = transitionType;
+          return;
+        }
+
+        if (nextSkill && thisSkill) {
+          const thisSkillIndex = techSkills[lang].indexOf(thisSkill);
+          const nextSkillIndex = techSkills[lang].indexOf(nextSkill);
+          if (
+            thisSkillIndex - nextSkillIndex === 1 ||
+            (thisSkillIndex === 0 &&
+              nextSkillIndex === techSkills[lang].length - 1)
+          ) {
+            transitionType = 'backwards';
+            e.viewTransition.types.add(transitionType);
+            sessionStorage[TRANSITION_DIRECTION_KEY] = transitionType;
+            e.viewTransition.types.add(transitionType);
+            return;
+          }
+          if (
+            thisSkillIndex - nextSkillIndex === -1 ||
+            (thisSkillIndex === techSkills[lang].length - 1 &&
+              nextSkillIndex === 0)
+          ) {
+            transitionType = 'forwards';
+            e.viewTransition.types.add(transitionType);
+            sessionStorage[TRANSITION_DIRECTION_KEY] = transitionType;
+            e.viewTransition.types.add(transitionType);
+            return;
+          }
+          if (
+            thisSkillIndex > nextSkillIndex ||
+            (thisSkillIndex === 1 &&
+              nextSkillIndex === techSkills[lang].length - 1)
+          ) {
+            transitionType = 'backwards';
+            e.viewTransition.types.add(transitionType);
+            sessionStorage[TRANSITION_DIRECTION_KEY] = transitionType;
+            e.viewTransition.types.add(transitionType);
+            return;
+          }
+          if (
+            thisSkillIndex < nextSkillIndex ||
+            (thisSkillIndex === techSkills[lang].length - 2 &&
+              nextSkillIndex === 0)
+          ) {
+            transitionType = 'forwards';
+            e.viewTransition.types.add(transitionType);
+            sessionStorage[TRANSITION_DIRECTION_KEY] = transitionType;
+            e.viewTransition.types.add(transitionType);
+            return;
+          }
+        }
+      }
+    });
+  }
+</script>
+<div class={styles.paginationWrapper}>
+  <button class={styles.backButton} id="skillBackButton">
+    <svg width="6" viewBox="0 0 10 17" aria-hidden="true" fill="none">
+      <path
+        d="M8.66675 15.333L2.00008 8.66634L8.66675 1.99967"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"></path>
+    </svg>
+    <span class="body-text">
+      {t_skills('go_back')}
+    </span>
+  </button>
+  <ul
+    style={{
+      '--slide-length': PAGINATION_LENGTH,
+      'aspect-ratio': `${PAGINATION_LENGTH + 1} / 1`,
+    }}
+    class={styles.controls}
+    id="skillPagination"
+  >
+    {
+      paginationItems.map((techSkill, index) => {
+        const viewTransitionName = getTransitionName(index);
+
+        return (
+          <li
+            class={styles.control}
+            style={
+              viewTransitionName
+                ? {
+                    'view-transition-name': viewTransitionName,
+                  }
+                : undefined
+            }
+          >
+            <a
+              href={
+                index === skillIndex
+                  ? undefined
+                  : translatePath(`skills/${techSkill.href}`)
+              }
+              aria-label={`${t_skills('go_to')} ${techSkill.title}`}
+              title={`${t_skills('go_to')} ${techSkill.title}`}
+              aria-current={index === skillIndex}
+              data-index={index}
+              data-main-index={techSkills[lang].indexOf(techSkill)}
+              {...(index === skillIndex ? {} : { ['data-arrow-nav']: 'true' })}
+            >
+              <span class="sr-only">{`${t_skills('go_to')} ${techSkill.title}`}</span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>

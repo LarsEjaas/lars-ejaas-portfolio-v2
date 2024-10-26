@@ -1,4 +1,5 @@
 export const DARKMODE_KEY = 'ejaas_dark_mode' as const;
+export const TRANSITION_DIRECTION_KEY = 'transition-direction' as const;
 
 const serializeJSON = <T>(value: T) => {
   try {

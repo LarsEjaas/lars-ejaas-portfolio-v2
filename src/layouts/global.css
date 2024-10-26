@@ -133,8 +133,8 @@
     --highlight: light-dark(var(--system-light-100), var(--system-dark-500));
     --shade: light-dark(var(--system-light-500), var(--system-light-100));
     --card-shadow: inset 0 4px 8px 2px
-        color-mix(in hsl, var(--highlight), transparent 75%),
-      inset 0 -2px 8px 2px color-mix(in hsl, var(--shade), transparent 60%);
+        color-mix(in hsl, var(--highlight), transparent 80%),
+      inset 0 -2px 8px 2px color-mix(in hsl, var(--shade), transparent 80%);
     --card-background: linear-gradient(
         transparent,
         transparent calc(100% - 80px),

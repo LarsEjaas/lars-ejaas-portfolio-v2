@@ -51,6 +51,13 @@ const showArchiveCard =
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
+const timeLine = [
+  ...itemList,
+  ...(showArchiveCard ? [{ title: 'placeholder' }] : []),
+];
+const timelineScope = timeLine
+  .map((_, i) => `--card-${timeLine.length - 1 - i}`)
+  .join(', ');
 ---
 
 <script>
@@ -105,7 +112,7 @@ const t = useTranslations(lang, 'navigation');
   aria-labelledby="carouselHeading"
   id="carousel"
   class="fullgrid"
-  style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}`}
+  style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}; timeline-scope: ${timelineScope}`}
   inert={inert}
 >
   <h2 id="carouselHeading">{labels.title}</h2>
@@ -125,7 +132,9 @@ const t = useTranslations(lang, 'navigation');
     </span>
     {
       showArchiveCard && (
-        <li style={`--index: ${0}`}>
+        <li
+          style={`--index: ${0}; view-timeline: --card-${itemList.length} inline`}
+        >
           <a data-arrow-nav="true" id={ARCHIVE_ID} href={`#${ARCHIVE_HREF}`}>
             <article class={styles[ARCHIVE_ID]}>
               <h3>{labels.archiveTitle}</h3>
@@ -151,7 +160,9 @@ const t = useTranslations(lang, 'navigation');
         const isExtURL = isExternalLink(item.href);
 
         return (
-          <li style={`--index: ${index + 1}`}>
+          <li
+            style={`--index: ${index + 1}; view-timeline: --card-${index} inline`}
+          >
             <a
               data-arrow-nav="true"
               id={`card${index}`}
@@ -190,7 +201,7 @@ const t = useTranslations(lang, 'navigation');
     <li>
       <button id="previous" aria-label={labels.previous}>
         <svg
-          width="12"
+          width="16"
           fill="currentColor"
           aria-hidden="true"
           viewBox="4.5 7 15 15"
@@ -199,29 +210,36 @@ const t = useTranslations(lang, 'navigation');
           <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
         </svg>
       </button>
-    </li>
-    <li class={styles.indicators} aria-hidden="true">
-      {
-        [
-          ...itemList,
-          ...(items.length > MAX_NUMBER_OF_ITEMS
-            ? [{ title: 'placeholder' }]
-            : []),
-        ].map((_item, index) => <div style={`--index: ${index + 1}`} />)
-      }
-    </li>
-    <hr />
-    <li>
-      <button id="next" aria-label={labels.next}>
-        <svg
-          width="12"
-          fill="currentColor"
-          aria-hidden="true"
-          viewBox="4.5 7 15 15"
-        >
-          <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
-        </svg>
-      </button>
+      <li>
+        <button id="next" aria-label={labels.next}>
+          <svg
+            width="16"
+            fill="currentColor"
+            aria-hidden="true"
+            viewBox="4.5 7 15 15"
+          >
+            <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z"></path>
+          </svg>
+        </button>
+      </li>
     </li>
   </ul>
+  <div
+    aria-hidden="true"
+    class={styles.indicators}
+    style={`aspect-ratio: ${timeLine.length + 2} / 1;`}
+  >
+    {
+      [
+        ...itemList,
+        ...(items.length > MAX_NUMBER_OF_ITEMS
+          ? [{ title: 'placeholder' }]
+          : []),
+      ].map((_item, index) => (
+        <div
+          style={`--index: ${timeLine.length - 1 - index}; animation-timeline: --card-${timeLine.length - 1 - index}`}
+        />
+      ))
+    }
+  </div>
 </section>

@@ -7,17 +7,40 @@ declare global {
   }
 }
 
+interface ViewTransitionTypeSet {
+  add(value: string): ViewTransitionTypeSet;
+  clear(): void;
+  delete(value: string): boolean;
+  entries(): IterableIterator<[string, string]>;
+  forEach(
+    callback: (
+      value: string,
+      value2: string,
+      set: ViewTransitionTypeSet
+    ) => void
+  ): void;
+  has(value: string): boolean;
+  keys(): IterableIterator<string>;
+  readonly size: number;
+  values(): IterableIterator<string>;
+  [Symbol.iterator](): IterableIterator<string>;
+}
+
 interface ViewTransition {
   readonly updateCallbackDone: Promise<void>;
   readonly ready: Promise<void>;
   readonly finished: Promise<void>;
   skipTransition(): void;
+  types: ViewTransitionTypeSet;
 }
 
 type NavigationHistoryEntry = {
   id: string;
   index: number;
   key: string;
+  ondispose: (callback: () => void) => void;
+  sameDocument: boolean;
+  url: string;
 };
 
 type NavigationActivation = {
@@ -55,6 +78,8 @@ interface Window {
   skillTileScene: HTMLDivElement | null;
   lightbox: HTMLDialogElement | null;
   aboutArticle: HTMLElement | null;
+  skillBackButton: HTMLButtonElement | null;
+  skillPagination: HTMLUListElement | null;
   navigation: Navigation;
   onpagereveal?: (event: PageRevealEvent) => void;
   onpageswap?: (event: PageSwapEvent) => void;

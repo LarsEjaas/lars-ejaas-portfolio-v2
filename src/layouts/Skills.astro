@@ -8,6 +8,7 @@ import styles from './skills.module.css';
 import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillRating } from '@customTypes/skillTypes';
+import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
 
 interface Props {
   title: string;
@@ -48,28 +49,31 @@ const DescriptionComponent = skillDescription;
       </h2>
       <p class="body-text">{t_skills('although_i_have')}</p>
     </div>
-    <PresentationCard
-      gradientColor="flirt"
-      title={skillTitle}
-      iconImage={skillImageSrc}
-      iconImageAlt={skillImageAlt}
-      responsiveSquircleSize={true}
-      inert={inert}
-    >
-      <div class={styles.presentationCardContent}>
-        {DescriptionComponent && <DescriptionComponent />}
-        <div class={styles.proficiencyRating}>
-          {
-            !!skillRating && [
-              <p class="stylized-lead-text">
-                {t_skills('proficiency_rating')}
-              </p>,
-              <StarRating rating={skillRating} />,
-            ]
-          }
+    <div>
+      <PresentationCard
+        gradientColor="flirt"
+        title={skillTitle}
+        iconImage={skillImageSrc}
+        iconImageAlt={skillImageAlt}
+        responsiveSquircleSize={true}
+        inert={inert}
+      >
+        <div class={styles.presentationCardContent}>
+          {DescriptionComponent && <DescriptionComponent />}
+          <div class={styles.proficiencyRating}>
+            {
+              !!skillRating && [
+                <p class="stylized-lead-text">
+                  {t_skills('proficiency_rating')}
+                </p>,
+                <StarRating rating={skillRating} />,
+              ]
+            }
+          </div>
         </div>
-      </div>
-    </PresentationCard>
+      </PresentationCard>
+      <SkillCardPagination title={skillTitle} />
+    </div>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
   <TechSkillsMarquee />

@@ -233,7 +233,10 @@
     min-width: 1rem;
     display: block;
     outline-offset: var(--outline-offset);
-    background-color: var(--system-light-300);
+    background-color: light-dark(
+      var(--system-light-300),
+      var(--system-light-400)
+    );
     border-radius: var(--border-radius-lg);
     box-shadow:
       0px 0px 2px #00000040,
