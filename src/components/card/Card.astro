@@ -7,12 +7,17 @@ type Props = {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
   viewTransitionName?: string;
+  /** Unique identifier for this card. Should be written in camelCase
+   * This can also be used as an anchor to go directly to this card.
+   */
+  id?: string;
 };
 
-const { inert, viewTransitionName = 'card' } = Astro.props;
+const { inert, viewTransitionName = 'card', id } = Astro.props;
 ---
 
 <section
+  id={id}
   inert={inert}
   class={styles.card}
   style={`view-transition-name: ${viewTransitionName}`}

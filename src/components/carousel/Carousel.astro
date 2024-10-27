@@ -7,7 +7,11 @@ import type {
   EnglishDate,
   ImageModule,
 } from '@customTypes/index';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
 import { isExternalLink } from '@utils/misc';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
@@ -39,17 +43,18 @@ interface Props {
 const { items, labels, inert } = Astro.props;
 
 const ARCHIVE_ID = 'newsArchive';
-const ARCHIVE_HREF = 'news-archive';
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const ARCHIVE_HREF = translatePath('archive');
 
 const itemList =
   MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS
-    ? items.slice(0, MAX_NUMBER_OF_ITEMS)
+    ? items.slice(-MAX_NUMBER_OF_ITEMS)
     : items;
 
 const showArchiveCard =
   MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS;
 
-const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const timeLine = [
   ...itemList,
@@ -118,10 +123,10 @@ const timelineScope = timeLine
   <h2 id="carouselHeading">{labels.title}</h2>
   <!-- remove tabindex in Firefox -->
   <ul
+    tabindex="-1"
     id="carouselList"
     role="group"
     aria-describedby="carouselArrowNav"
-    tabindex="-1"
   >
     <span
       id="carouselArrowNav"
@@ -132,10 +137,8 @@ const timelineScope = timeLine
     </span>
     {
       showArchiveCard && (
-        <li
-          style={`--index: ${0}; view-timeline: --card-${itemList.length} inline`}
-        >
-          <a data-arrow-nav="true" id={ARCHIVE_ID} href={`#${ARCHIVE_HREF}`}>
+        <li style={`--index: ${0}; view-timeline: --card-${0} inline`}>
+          <a data-arrow-nav="true" id={ARCHIVE_ID} href={ARCHIVE_HREF}>
             <article class={styles[ARCHIVE_ID]}>
               <h3>{labels.archiveTitle}</h3>
             </article>
@@ -161,7 +164,7 @@ const timelineScope = timeLine
 
         return (
           <li
-            style={`--index: ${index + 1}; view-timeline: --card-${index} inline`}
+            style={`--index: ${index + 1}; view-timeline: --card-${showArchiveCard ? index + 1 : index} inline`}
           >
             <a
               data-arrow-nav="true"
@@ -227,15 +230,10 @@ const timelineScope = timeLine
   <div
     aria-hidden="true"
     class={styles.indicators}
-    style={`aspect-ratio: ${timeLine.length + 2} / 1;`}
+    style={`aspect-ratio: ${timeLine.length + 3} / 1;`}
   >
     {
-      [
-        ...itemList,
-        ...(items.length > MAX_NUMBER_OF_ITEMS
-          ? [{ title: 'placeholder' }]
-          : []),
-      ].map((_item, index) => (
+      timeLine.map((_item, index) => (
         <div
           style={`--index: ${timeLine.length - 1 - index}; animation-timeline: --card-${timeLine.length - 1 - index}`}
         />

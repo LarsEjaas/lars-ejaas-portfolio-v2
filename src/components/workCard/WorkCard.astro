@@ -8,13 +8,15 @@ import {
   useTranslations,
 } from '@i18n/utils';
 import type { SlugWithSkillKeys } from '@i18n/routes';
-import ImageLink from './ImageLink.astro';
+import ConditionalLink from './ConditionalLink.astro';
 
 type Props = {
   inert: boolean;
   headline: string;
   subHeadline: string;
-  /** Unique identifier for this card. Should be written in camelCase */
+  /** Unique identifier for this card. Should be written in camelCase
+   * This can also be used as an anchor to go directly to this card.
+   */
   id: string;
   date: string;
   headerImage: ImageMetadata;
@@ -101,9 +103,9 @@ const t = useTranslations(lang, 'navigation');
     }
   });
 </script>
-<Card inert={inert} viewTransitionName={viewTransitionName}>
+<Card inert={inert} viewTransitionName={viewTransitionName} id={id}>
   <div class={styles.headerContent}>
-    <ImageLink href={href}>
+    <ConditionalLink href={href}>
       <Picture
         formats={['avif']}
         quality="high"
@@ -123,7 +125,7 @@ const t = useTranslations(lang, 'navigation');
           },
         }}
       />
-    </ImageLink>
+    </ConditionalLink>
     <h2>{headline}</h2>
   </div>
   <div class={styles.cardContent}>
@@ -179,7 +181,7 @@ const t = useTranslations(lang, 'navigation');
   {
     footerImages && (
       <div class={styles.footerImagesWrapper}>
-        <ul class={styles.footerImages}>
+        <ul tabindex="-1" class={styles.footerImages}>
           {footerImages.map((image) => (
             <li id={image.id}>
               <Picture
@@ -219,7 +221,6 @@ const t = useTranslations(lang, 'navigation');
           <ul
             style={{
               '--slide-length': footerImages?.length,
-              'aspect-ratio': `${footerImages?.length + 1} / 1`,
             }}
             class={styles.controls}
           >

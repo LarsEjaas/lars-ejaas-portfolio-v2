@@ -226,12 +226,17 @@
   main {
     display: grid;
     grid-template-rows: min-content;
-    margin-inline: 2rem;
+    margin-inline: 2rem 0;
     margin-block: 2rem;
     grid-template-columns: 1fr 1fr;
-
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
     gap: 2rem;
     min-width: calc(100% - 4rem);
+    @media (min-width: 769px) {
+      & > *:nth-child(2n + 1):not(.fullgrid) {
+        grid-column: 1 / 2;
+      }
+    }
   }
 
   hr {
@@ -288,7 +293,7 @@
   }
 
   .fullgrid {
-    grid-column: 1 / 4;
+    grid-column: 1 / 3;
   }
 
   @media (max-width: 768px) {
@@ -344,6 +349,14 @@
     margin-block-end: 0.3rem;
     text-wrap: balance;
   }
+}
+
+button,
+span,
+input,
+label,
+textarea {
+  font-family: var(--default-font);
 }
 
 .sr-only {

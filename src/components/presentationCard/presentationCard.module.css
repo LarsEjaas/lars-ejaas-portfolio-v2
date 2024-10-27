@@ -55,7 +55,7 @@
     font-weight: 800;
     line-height: 0.58;
     text-wrap: nowrap;
-    color: light-dark(var(--system-light-100), var(--system-light-300));
+    color: light-dark(var(--system-light-400), var(--system-light-200));
     margin-block-end: unset;
   }
   & :global(.squircle) {

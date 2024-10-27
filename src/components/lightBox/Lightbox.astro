@@ -132,6 +132,7 @@ const nextUrl = `${aboutTranslatedPath}/${URLArray[currentIndex + 1]}`;
     <div
       class={styles.thumbnailGridContainer}
       style={`--img-count: ${aboutImagesInfo.length - 1};`}
+      tabindex="-1"
     >
       {
         aboutImagesInfo.map(async (imgInfo, index) => {

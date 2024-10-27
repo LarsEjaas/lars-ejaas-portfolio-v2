@@ -95,7 +95,8 @@ const skillIndex = paginationItems.indexOf(currentSkill);
 
   const refererIsWork =
     document.referrer.startsWith(window.location.origin) &&
-    document.referrer.includes('work');
+    (document.referrer.includes('work') ||
+      document.referrer.includes('arbejde'));
   if (window.skillBackButton && refererIsWork) {
     window.skillBackButton.dataset.active = 'true';
     window.skillBackButton.addEventListener('click', () => {
@@ -196,7 +197,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
 </script>
 <div class={styles.paginationWrapper}>
   <button class={styles.backButton} id="skillBackButton">
-    <svg width="6" viewBox="0 0 10 17" aria-hidden="true" fill="none">
+    <svg width="7" viewBox="0 0 10 17" aria-hidden="true" fill="none">
       <path
         d="M8.66675 15.333L2.00008 8.66634L8.66675 1.99967"
         stroke="currentColor"

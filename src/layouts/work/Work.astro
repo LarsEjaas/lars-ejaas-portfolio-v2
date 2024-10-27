@@ -5,6 +5,7 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './work.module.css';
 import WorkCard from '@components/workCard/WorkCard.astro';
+import FriggTechHeaderImage from '@assets/images/frigg_tech_hero.png';
 import AccuRankerHeaderImage from '@assets/images/accuranker_grump_wall.jpg';
 import SallingGroupHeaderImage from '@assets/images/salling_group_digital.png';
 import BruceWillisHeaderImage from '@assets/images/bruce_willis_rocks.png';
@@ -17,6 +18,7 @@ import AccuRankerFooter2 from '@assets/images/accuranker_footer_image_2.png';
 import Popover from '@components/popover/Popover.astro';
 import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
+import FriggTechLogo from './FriggTechLogo.astro';
 
 interface Props {
   title: string;
@@ -42,6 +44,56 @@ const t_work = useTranslations(lang, 'work');
     <p class="body-text">{t_work('from_code_to_career')}</p>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="aquamarine" />
+  <WorkCard
+    inert={inert}
+    viewTransitionName="card"
+    id="friggTech"
+    headline={t_work('frontend_developer')}
+    subHeadline={'Frigg Tech A/S, Aarhus'}
+    headerImage={FriggTechHeaderImage}
+    headerImageAlt={t_work('friggtech_hero_image_alt')}
+    date={t_work('friggtech_employment_date')}
+    tags={[
+      { title: 'React', href: 'skills/react' },
+      { title: 'Typescript', href: 'skills/typescript' },
+      { title: 'GraphQL', href: 'skills/graphql' },
+      { title: 'Tailwind', href: 'skills/tailwind' },
+      { title: 'Storybook', href: 'skills/storybook' },
+    ]}
+    footerImages={[
+      {
+        src: FriggTechHeaderImage,
+        alt: '-',
+        id: 'FriggTechFooterImage',
+      },
+    ]}
+  >
+    <p class="small-body-text">
+      {t_work('friggtech_employment_description')}
+    </p>
+    <Popover id="friggTech">
+      <div class={styles.flexWrapper} slot="description">
+        <p class={`${styles.popoverDesc} body-text`}>
+          {t_work('about')}
+        </p>
+        <FriggTechLogo />
+      </div>
+      <div class={styles.flexColumnWrapper}>
+        <FriggTechLogo width={160} />
+        <p class="small-body-text">{t_work('friggtech_is_a_danish')}</p>
+        <div class={styles.flexWrapper}>
+          <p class=`${styles.websiteVisit} small-body-text`>
+            {`${t_work('visit_website')}:`}
+          </p>
+          <a
+            class=`${styles.websiteVisit} small-body-text`
+            href={'https://www.friggtech.dk/'}
+            target="_blank">friggtech.dk</a
+          >
+        </div>
+      </div>
+    </Popover></WorkCard
+  >
   <WorkCard
     inert={inert}
     viewTransitionName="card"

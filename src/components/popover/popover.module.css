@@ -53,7 +53,8 @@
   display: flex;
   gap: 4px;
   align-items: center;
-  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  margin-top: auto;
   &:has(.popover:popover-open) .button {
     background: var(--active-color);
   }

@@ -1,5 +1,6 @@
 @media (max-width: 768px) {
   .floatingBalloons {
+    /*grid-row: 5; Change when adding frigg tech*/
     grid-row: 4;
   }
 }
@@ -18,10 +19,17 @@
     color: var(--system-dark-400);
     margin-left: 2px;
   }
+  & :global(#friggTechLogo) {
+    color: #00396e;
+  }
+}
+
+:global(:root[data-dark-mode='true'] #friggTechLogo) {
+  color: #ccfbf1;
 }
 
 .flexWrapper {
-  gap: 4px;
+  gap: 8px;
   align-items: center;
 }
 

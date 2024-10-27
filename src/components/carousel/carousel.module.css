@@ -390,10 +390,6 @@
       animation: expandControls;
       animation-fill-mode: both;
       animation-timing-function: linear;
-      --buffer: calc(0.9 * var(--card-width));
-      --test: 100cqi;
-      animation-range: cover calc(100cqi - var(--index - 2) * var(--card-width))
-        contain calc(100cqi - var(--index - 1) * var(--buffer));
     }
   }
 }

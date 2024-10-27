@@ -62,10 +62,10 @@
 }
 
 .control {
-  display: block;
+  display: flex;
   height: 26px;
   flex: 1;
-  border: 5px solid transparent;
+  border: 4px solid transparent;
   transition: transform 300ms ease-in-out;
   &:not(:has(a[aria-current='true'])) {
     aspect-ratio: 1 / 1;
@@ -74,12 +74,16 @@
       transform: scale(1.2);
     }
   }
+  &:nth-of-type(1),
+  &:last-child {
+    border: 6px solid transparent;
+  }
   &:has(a[aria-current='true']) {
+    border: 2px solid transparent;
     aspect-ratio: 2 / 1;
   }
   & a {
-    height: 16px;
-    display: block;
+    flex: 1;
     outline-offset: var(--outline-offset);
     box-shadow: var(--stacks-2-shadow);
     background-color: var(--system-light-400);
@@ -127,6 +131,8 @@
   }
   & span {
     margin-block-end: 0;
+    font-weight: 600;
+    color: currentColor;
     margin-top: 1px;
     text-decoration: underline;
     text-decoration-color: transparent;

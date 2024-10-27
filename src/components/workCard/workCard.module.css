@@ -17,7 +17,7 @@
 .headerContent {
   display: flex;
   justify-content: space-between;
-  height: 220px;
+  min-height: 220px;
   width: 100%;
   overflow: hidden;
   border-top-left-radius: var(--border-radius-md);
@@ -54,8 +54,10 @@
       background: linear-gradient(
         180deg,
         transparent 0%,
-        transparent 70%,
-        var(--system-dark-300-55) 100%
+        transparent 60%,
+        color-mix(in hsl, var(--system-dark-300-80), transparent 84%) 74%,
+        color-mix(in hsl, var(--system-dark-300-80), transparent 68%) 83%,
+        color-mix(in hsl, var(--system-dark-300-80), transparent 40%) 100%
       );
     }
   }
@@ -67,7 +69,7 @@
     font-weight: 800;
     line-height: 0.56;
     text-wrap: nowrap;
-    color: light-dark(var(--system-light-100), var(--system-light-300));
+    color: light-dark(var(--system-light-400), var(--system-light-200));
     margin-block-end: unset;
     margin-inline: 32px;
   }
@@ -82,6 +84,9 @@
 .cardContent {
   padding-inline: 32px;
   padding-block: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   & li,
   & p {
     color: light-dark(var(--system-dark-200), var(--system-dark-100));
@@ -196,6 +201,10 @@
   transform: translatex(-50%);
   margin-block: 12px;
   list-style-type: none;
+  aspect-ratio: calc(var(--slide-length) / 1);
+  @supports (animation-timeline: view()) {
+    aspect-ratio: calc(var(--slide-length) + 1 / 1);
+  }
 }
 
 .control {
@@ -224,9 +233,6 @@
     animation: expandControls;
     animation-fill-mode: both;
     animation-timing-function: linear;
-    --buffer: 90cqi;
-    animation-range: contain calc(50% - var(--buffer)) contain
-      calc(50% + var(--buffer));
   }
   & a {
     height: 1rem;

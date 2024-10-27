@@ -23,6 +23,8 @@ const newsFeed = [
   'updatedSkills',
   'accuRanker',
   'x',
+  'v2',
+  'friggTech',
 ] as const;
 
 /**
@@ -48,7 +50,7 @@ const newsObject = {
       date: '28. februar 2021',
       imageSrc: 'ejaas_logo.png',
       imageAlt: '',
-      href: '/da/',
+      href: '/da/arbejde#larsEjaasComV1',
       outline: '1',
     },
     skillsTimeline: {
@@ -76,7 +78,7 @@ const newsObject = {
       date: '11. maj 2021',
       imageSrc: 'lars_ejaas_com_timeline.png',
       imageAlt: 'Screenshot mosaik fra larsejaas.com',
-      href: '/portfolio/#mosaic/',
+      href: '/da/arbejde#larsEjaasComV1',
       outline: '2',
     },
     bruceWillis: {
@@ -86,7 +88,7 @@ const newsObject = {
       date: '13. maj 2021',
       imageSrc: 'bruce_willis_rocks.png',
       imageAlt: 'Screenshot fra siden bruce-willis.rocks',
-      href: '/portfolio/#brucewillis/',
+      href: '/da/arbejde#bruceWillis',
       outline: '3',
     },
     salling_group: {
@@ -96,7 +98,7 @@ const newsObject = {
       date: '10. februar 2022',
       imageSrc: 'salling_group.png',
       imageAlt: 'Salling Group logo',
-      href: '/',
+      href: '/da/arbejde#sallingGroup',
       outline: 'gold',
     },
     twitter: {
@@ -126,7 +128,7 @@ const newsObject = {
       date: '29. april 2022',
       imageSrc: 'accuranker_timeline.png',
       imageAlt: 'AccuRanker logo på turkis baggrund',
-      href: '/',
+      href: '/da/arbejde#accuRanker',
       outline: '3',
     },
     x: {
@@ -139,6 +141,26 @@ const newsObject = {
       href: 'https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas',
       outline: 'gold',
     },
+    v2: {
+      title: 'Redesignet hjemmeside',
+      description:
+        'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nTjek den ud!',
+      date: '15. november 2024',
+      imageSrc: 'new_website.png',
+      imageAlt: 'Bærbar computer med skærmbillede af det nye hjemmesidedesign',
+      href: '/',
+      outline: '3',
+    },
+    friggTech: {
+      title: 'Nyt job hos Frigg Tech',
+      description:
+        'Jeg er begejstret for at offentliggøre at jeg er starter hos Frigg Tech som frontend-udvikler pr. 1. januar.',
+      date: '1. januar 2025',
+      imageSrc: 'frigg_tech.png',
+      imageAlt: 'Lysegrønt Frigg Tech logo på en mørkeblå baggrund',
+      href: '/work#friggTech',
+      outline: '4',
+    },
   },
   en: {
     welcome: {
@@ -148,7 +170,7 @@ const newsObject = {
       date: 'February 28th, 2021',
       imageSrc: 'ejaas_logo.png',
       imageAlt: '',
-      href: '/',
+      href: '/work#larsEjaasComV1',
       outline: '1',
     },
     skillsTimeline: {
@@ -176,7 +198,7 @@ const newsObject = {
       date: 'May 11th, 2021',
       imageSrc: 'lars_ejaas_com_timeline.png',
       imageAlt: 'Screenshot mosaic from larsejaas.com',
-      href: '/en/portfolio/#mosaic/',
+      href: '/work#larsEjaasComV1',
       outline: '2',
     },
     bruceWillis: {
@@ -186,7 +208,7 @@ const newsObject = {
       date: 'May 13th, 2021',
       imageSrc: 'bruce_willis_rocks.png',
       imageAlt: 'Screenshot from bruce-willis.rocks',
-      href: '/en/portfolio/#brucewillis/',
+      href: '/work#bruceWillis',
       outline: '3',
     },
     salling_group: {
@@ -196,7 +218,7 @@ const newsObject = {
       date: 'February 10th, 2022',
       imageSrc: 'salling_group.png',
       imageAlt: 'Salling Group logo',
-      href: '/en/',
+      href: '/work#sallingGroup',
       outline: 'gold',
     },
     twitter: {
@@ -226,7 +248,7 @@ const newsObject = {
       date: 'April 29th, 2022',
       imageSrc: 'accuranker_timeline.png',
       imageAlt: 'AccuRanker logo on top of a turquoise background',
-      href: '/',
+      href: '/work#accuRanker',
       outline: '3',
     },
     x: {
@@ -238,6 +260,26 @@ const newsObject = {
       imageAlt: 'Stylized X silver logo on black background',
       href: 'https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas',
       outline: 'gold',
+    },
+    v2: {
+      title: 'Redesigned Website',
+      description:
+        'I’ve completely redesigned my website with a fresh new look and updated content.\n\nCheck it out!',
+      date: 'November 15th, 2024',
+      imageSrc: 'new_website.png',
+      imageAlt: 'Laptop with screenshot of the new website design',
+      href: '/',
+      outline: '3',
+    },
+    friggTech: {
+      title: 'New job at Frigg Tech',
+      description:
+        'I am thrilled to announce that I have joined Frigg Tech as a frontend developer, starting January 1st.',
+      date: 'January 1st, 2025',
+      imageSrc: 'frigg_tech.png',
+      imageAlt: 'Light green Frigg Tech logo on dark blue background',
+      href: '/work#friggTech',
+      outline: '4',
     },
   },
 } as const satisfies NewsItems;
