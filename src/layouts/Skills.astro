@@ -14,7 +14,7 @@ interface Props {
   title: string;
   inert: boolean;
   skillTitle: string;
-  skillDescription: ((_props: Record<string, any>) => any) | undefined;
+  skillDescription: (_props: Record<string, any>) => any;
   skillImageSrc?: ImageMetadata;
   skillImageAlt?: string;
   skillRating?: SkillRating;

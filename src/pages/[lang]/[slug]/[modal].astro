@@ -11,6 +11,7 @@ import type { DanishLanguageSlug } from '@i18n/settings';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
+import Archive from '@layouts/Archive.astro';
 
 type DanishModalSlugPaths = {
   [P in SlugWithModalTypes<'da'>]: {
@@ -102,14 +103,14 @@ const danishModalSlugMap: Record<
     modalTitle: t('contact'),
   },
   ['arkiv/del']: {
-    pageComponent: About,
+    pageComponent: Archive,
     modalComponent: ShareContent,
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
   },
   ['arkiv/kontakt']: {
-    pageComponent: About,
+    pageComponent: Archive,
     modalComponent: ContactContent,
     modalIcon: IconContact,
     pageTitle: t('work'),

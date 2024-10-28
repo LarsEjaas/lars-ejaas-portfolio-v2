@@ -6,6 +6,7 @@ import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import EnglishDescription from '@content/techSkillDescriptions/english/Main.astro';
+import Archive from '@layouts/Archive.astro';
 
 type EnglishSlugPaths = {
   [K in SlugTypes<'en'>]: { params: { slug: K } };
@@ -45,7 +46,7 @@ const englishSlugMap: Record<
     skillDescription: EnglishDescription,
   },
   about: { component: About, title: t('about') },
-  archive: { component: () => {}, title: t('archive') },
+  archive: { component: Archive, title: t('archive') },
 };
 
 const pageTitle = englishSlugMap[slug]?.title;

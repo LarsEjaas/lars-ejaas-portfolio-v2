@@ -4,6 +4,7 @@ import { home } from './translations/home';
 import { about } from './translations/about';
 import { skills } from './translations/skills';
 import { work } from './translations/work';
+import { archive } from './translations/archive';
 
 export type Language = keyof typeof languages;
 
@@ -23,6 +24,7 @@ export const translations = {
   about,
   skills,
   work,
+  archive,
 } as const;
 
 export const showDefaultLang = false;

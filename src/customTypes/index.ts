@@ -117,6 +117,16 @@ export type ColorVariants =
   | 'aquamarine'
   | 'bluemunsell';
 
+export type IconImage =
+  | 'about'
+  | 'alert'
+  | 'contact'
+  | 'ejaas'
+  | 'share'
+  | 'skillset'
+  | 'work'
+  | 'archive';
+
 /**
  * Type predicate to filter out empty instances of an array
  * Returns true if a value is not empty (i.e., not null or undefined).

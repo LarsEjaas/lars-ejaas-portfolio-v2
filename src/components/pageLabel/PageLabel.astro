@@ -1,5 +1,5 @@
 ---
-import type { ImageModule } from '@customTypes/index';
+import type { IconImage, ImageModule } from '@customTypes/index';
 import { Picture } from 'astro:assets';
 import styles from './PageLabel.module.css';
 import { getLangFromUrl } from '@i18n/utils';
@@ -8,20 +8,21 @@ import { languages } from '@i18n/settings';
 const iconImages = import.meta.glob('@assets/menuIcons/*.{jpg,png}');
 const taglineSVGs = import.meta.glob('@assets/taglines/*.svg');
 
-type Props = {
-  title: string;
-  iconImage:
-    | 'about'
-    | 'alert'
-    | 'contact'
-    | 'ejaas'
-    | 'share'
-    | 'skillset'
-    | 'work';
-  tagLine: 'about' | 'home' | 'toolkit' | 'work';
-  /** Alt text for the tagline SVG to make it accessible */
-  taglineAlt: string;
-};
+type Props =
+  | {
+      title: string;
+      iconImage: IconImage;
+      tagLine: 'about' | 'home' | 'toolkit' | 'work';
+      /** Alt text for the tagline SVG to make it accessible */
+      taglineAlt: string;
+    }
+  | {
+      title: string;
+      iconImage: IconImage;
+      tagLine?: never;
+      /** Alt text for the tagline SVG to make it accessible */
+      taglineAlt?: never;
+    };
 
 const lang = getLangFromUrl(Astro.url);
 
@@ -34,6 +35,7 @@ const imageImport = Object.entries(iconImages).find(([path]) =>
 );
 
 const svgImport = Object.entries(taglineSVGs).find(([path]) => {
+  if (!tagLine) return undefined;
   return path.includes(`${tagLine}_${language}`);
 });
 
@@ -43,14 +45,16 @@ if (!imageImport) {
   );
 }
 
-if (!svgImport) {
+if (tagLine && !svgImport) {
   throw new Error(
     `Tagline SVG not found for: ${tagLine}_${language}.svg in the PageLabel component`
   );
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const TaglineComponent = ((await svgImport[1]()) as ImageModule).default;
+const TaglineComponent = tagLine
+  ? ((await svgImport?.[1]?.()) as ImageModule).default
+  : null;
 ---
 
 <div class={styles.pageLabel}>
@@ -71,12 +75,12 @@ const TaglineComponent = ((await svgImport[1]()) as ImageModule).default;
     </div>
     <h1>{title}</h1>
   </div>
-  <div
+  {TaglineComponent && taglineAlt && (<div
     class={styles.tagline}
-    style=`aspect-ratio: ${TaglineComponent.width}/${TaglineComponent.height}; mask-image: url(${TaglineComponent.src});`
+    style={`aspect-ratio: ${TaglineComponent.width}/${TaglineComponent.height}; mask-image: url(${TaglineComponent.src});`}
     role="img"
     aria-labelledby="taglineHeading"
   >
   </div>
-  <h2 id="taglineHeading" class="sr-only">{taglineAlt}</h2>
+  <h2 id="taglineHeading" class="sr-only">{taglineAlt}</h2>)}
 </div>

@@ -16,7 +16,7 @@ import { isExternalLink } from '@utils/misc';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
-const MAX_NUMBER_OF_ITEMS = 10;
+export const MAX_NUMBER_OF_ITEMS = 10;
 
 export type CardInfo = {
   title: string;
@@ -138,8 +138,12 @@ const timelineScope = timeLine
     {
       showArchiveCard && (
         <li style={`--index: ${0}; view-timeline: --card-${0} inline`}>
-          <a data-arrow-nav="true" id={ARCHIVE_ID} href={ARCHIVE_HREF}>
-            <article class={styles[ARCHIVE_ID]}>
+          <a
+            data-arrow-nav="true"
+            id={ARCHIVE_ID}
+            href={`${ARCHIVE_HREF}#oldNews`}
+          >
+            <article class={`${styles[ARCHIVE_ID]} ${styles.article}`}>
               <h3>{labels.archiveTitle}</h3>
             </article>
           </a>
@@ -172,7 +176,9 @@ const timelineScope = timeLine
               href={item.href}
               {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
             >
-              <article class={styles[`outline${item.outline}`]}>
+              <article
+                class={`${styles[`outline${item.outline}`]} ${styles.article}`}
+              >
                 <Picture
                   formats={['avif']}
                   quality="high"

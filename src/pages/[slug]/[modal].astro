@@ -10,6 +10,7 @@ import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
+import Archive from '@layouts/Archive.astro';
 
 type EnglishModalSlugPaths = {
   [P in SlugWithModalTypes<'en'>]: {
@@ -101,14 +102,14 @@ const englishModalSlugMap: Record<
     modalTitle: t('contact'),
   },
   ['archive/share']: {
-    pageComponent: About,
+    pageComponent: Archive,
     modalComponent: ShareContent,
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
   },
   ['archive/contact']: {
-    pageComponent: About,
+    pageComponent: Archive,
     modalComponent: ContactContent,
     modalIcon: IconContact,
     pageTitle: t('work'),

@@ -265,6 +265,9 @@ const t_work = useTranslations(lang, 'work');
   <WorkCard
     inert={inert}
     id="larsEjaasComV1"
+    href={lang === 'en'
+      ? 'https://larsejaasv1.netlify.app/en'
+      : 'https://larsejaasv1.netlify.app'}
     animatedHeader
     animationDelay={2000}
     viewTransitionName="lars-ejaas-card"
