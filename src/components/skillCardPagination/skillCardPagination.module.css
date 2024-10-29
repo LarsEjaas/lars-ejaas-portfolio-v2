@@ -86,7 +86,10 @@
     flex: 1;
     outline-offset: var(--outline-offset);
     box-shadow: var(--stacks-2-shadow);
-    background-color: var(--system-light-400);
+    background-color: light-dark(
+      var(--system-light-300),
+      var(--system-light-400)
+    );
     border-radius: var(--border-radius-lg);
     &[aria-current='true'] {
       pointer-events: none;

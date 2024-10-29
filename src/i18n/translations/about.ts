@@ -19,7 +19,7 @@ export const about = {
     the_proud_father: 'The proud father of two children.',
     a_winding_road: 'A Winding Road to Web Development',
     from_racetracks_to_code_tracks:
-      'From Racetracks to Code Tracks:\nMy Unexpected Journey',
+      'From Racetracks to Code Tracks: My Unexpected Journey',
     life_rarely_follows:
       'Life rarely follows a straight path, and my journey to becoming a developer at 40 is a testament to that.\nHere are a few pit stops along the way that shaped who I am today.',
     chasing_dreams: 'Chasing Dreams on Two Wheels',
@@ -36,7 +36,7 @@ export const about = {
     a_lateblooming_passion: 'A Late-Blooming Passion for Programming',
     it_wasnt_until:
       'It wasn’t until my late thirties that I discovered programming as a hobby. Suddenly, everything clicked. Frontend development offered the perfect blend of problem-solving, structure, and creativity I had been searching for all along. It was like finding the missing piece of a puzzle I didn’t even know I was solving.\nThis newfound passion quickly evolved into a career change. At 40, I took the leap and landed my first developer job, embarking on an exciting new career path.\n\nWhile not every job task is ground-breaking, the overall satisfaction I derive from my work is unparalleled. I’ve even found myself anticipating Monday mornings – a novel experience that speaks volumes about how much I enjoy what I do.',
-    the_lesson: 'The Lesson?\n It’s Never Too Late to Pivot',
+    the_lesson: 'The Lesson? It’s Never Too Late to Pivot',
     if_theres_one:
       'If there’s one thing I’ve learned, it’s this: Follow your dreams but don’t be afraid to change course along the way.\nWho knows? Like me, you might even end up doing something more exciting than what you initially dreamed about.',
     drawing_house_alt:

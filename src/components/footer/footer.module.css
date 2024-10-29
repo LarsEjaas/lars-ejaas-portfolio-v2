@@ -9,6 +9,31 @@
     ),
     var(--verdigris-700);
   overflow: hidden;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    opacity: 0.04;
+    background-image: var(--background-pattern);
+    background-size: 20px 35px;
+    background-position:
+      0 0,
+      0 0,
+      10px 18px,
+      10px 18px,
+      0 0,
+      10px 18px;
+    filter: blur(2px);
+    mix-blend-mode: multiply;
+  }
+}
+
+:global(html[data-dark-mode='true']) {
+  & footer::before {
+    mix-blend-mode: soft-light;
+  }
 }
 
 .someLinks {
@@ -68,7 +93,7 @@
       transition: text-decoration-color 0.25s;
       &:hover,
       &:focus-visible {
-        text-decoration-color: var(--system-dark-300);
+        text-decoration-color: currentColor;
         transition: text-decoration-color 0.4s;
       }
     }

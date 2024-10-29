@@ -19,10 +19,7 @@
     transition: text-decoration-color 0.25s;
     &:not([aria-disabled]):hover,
     &:not([aria-disabled]):focus-visible {
-      text-decoration-color: var(--system-dark-400);
-      transition:
-        text-decoration-color 0.4s,
-        color 0.4s;
+      text-decoration-color: currentColor;
       color: var(--system-dark-400);
     }
     &[aria-disabled] {
