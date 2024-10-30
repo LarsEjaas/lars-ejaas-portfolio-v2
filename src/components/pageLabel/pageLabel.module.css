@@ -1,5 +1,7 @@
 .pageLabel {
   view-transition-name: page-label;
+  container-name: pageLabel;
+  container-type: inline-size;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -15,7 +17,7 @@
   }
   & h1 {
     color: var(--system-dark-300);
-    font-size: var(--font-size-8);
+    font-size: clamp(var(--font-size-5), 6cqi, var(--font-size-8));
     line-height: 0.9;
     font-weight: 700;
   }

@@ -7,9 +7,10 @@ import './global.css';
 interface Props {
   title: string;
   inert: boolean;
+  gridColumns?: 2 | 3;
 }
 
-const { title, inert } = Astro.props;
+const { title, inert, gridColumns = 2 } = Astro.props;
 
 /** Root layout should only be used directly in the index page file
  * On other pages it will be included in other layouts */
@@ -26,7 +27,10 @@ const { title, inert } = Astro.props;
       crossorigin
     />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height initial-scale=1.0, viewport-fit=cover"
+    />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -91,7 +95,7 @@ const { title, inert } = Astro.props;
       </defs>
     </svg>
     <HeaderMenu inert={inert} />
-    <main>
+    <main class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
       <slot />
     </main>
     <Footer inert={inert} />

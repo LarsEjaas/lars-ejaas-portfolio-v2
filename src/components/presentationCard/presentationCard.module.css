@@ -50,13 +50,16 @@
     view-transition-name: presentation-card-header-title;
     align-self: flex-end;
     text-transform: uppercase;
-    font-size: var(--font-size-5);
+    font-size: clamp(var(--font-size-4), 4cqi, var(--font-size-7));
     letter-spacing: 2px;
     font-weight: 800;
-    line-height: 0.58;
-    text-wrap: nowrap;
+    line-height: 1;
+    text-wrap: balance;
     color: light-dark(var(--system-light-400), var(--system-light-200));
     margin-block-end: unset;
+    max-width: calc(100cqi - (64px + 80px));
+    vertical-align: baseline;
+    transform: translateY(0.24em);
   }
   & :global(.squircle) {
     clip-path: url(#squircle);
@@ -168,14 +171,11 @@
   }
 }
 
-@container card (width >= 400px) {
+@container card (width >= 450px) {
   .header {
     height: 76px;
   }
   .headerContent {
-    & h2 {
-      font-size: var(--font-size-7);
-    }
     & .iconContent {
       transform: translateY(38px);
       &[data-responsive] {

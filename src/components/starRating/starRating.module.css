@@ -20,8 +20,8 @@
 }
 
 .backgroundStar {
-  color: light-dark(var(--system-light-400), var(--system-shadow-2));
-  stroke: light-dark(var(--system-light-500), var(--system-shadow-7));
+  color: light-dark(var(--system-light-400), var(--system-light-300));
+  stroke: light-dark(var(--system-light-500), var(--system-light-200));
   grid-row: 1;
   grid-column: calc(var(--index) + 1);
 }

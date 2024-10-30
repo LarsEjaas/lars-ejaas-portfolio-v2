@@ -30,7 +30,7 @@ const { title, inert } = Astro.props;
 const t_work = useTranslations(lang, 'work');
 ---
 
-<Layout title={title} inert={inert}>
+<Layout title={title} inert={inert} gridColumns={3}>
   <div class="presentation">
     <PageLabel
       title={t_work('work_title')}
@@ -96,7 +96,7 @@ const t_work = useTranslations(lang, 'work');
   >
   <WorkCard
     inert={inert}
-    viewTransitionName="card"
+    viewTransitionName="accuRankerCard"
     id="accuRanker"
     headline={t_work('frontend_developer')}
     subHeadline={'Accuranker ApS, Aarhus'}

@@ -13,10 +13,7 @@
   container-type: inline-size;
   display: grid;
   gap: 0.5rem;
-  max-width: max(
-    calc(20% * var(--number-of-images) - 4rem),
-    calc(20cqi * var(--number-of-images) - 4rem)
-  );
+  max-width: calc(20cqi * var(--number-of-images) - 4rem);
   min-width: 70%;
   margin-block: 2rem;
   margin-inline: auto;

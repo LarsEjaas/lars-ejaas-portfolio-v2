@@ -55,59 +55,87 @@ const t_about = useTranslations(lang, 'about');
   </div>
   <FloatingBalloons balloonColor="princeton" />
   <article class={styles.article} id="aboutArticle">
-    <h2>{t_about('a_winding_road')}</h2>
-    <h3>{t_about('from_racetracks_to_code_tracks')}</h3>
-    <p class="body-text">{t_about('life_rarely_follows')}</p>
-    <h3>{t_about('chasing_dreams')}</h3>
-    <p class="body-text">{t_about('for_13_seasons')}</p>
-    <PhotoCards
-      inert={inert}
-      reverseRotation={true}
-      imageNames={['hjørring_2011', 'cross_fredericia_2009', 'hammel_2007']}
-    />
-    <PhotoCards
-      inert={inert}
-      reverseRotation={false}
-      imageNames={['dm_sønderborg_2009', 'nice_2009']}
-    />
-    <h3>{t_about('finding_my_stride')}</h3>
-    <p class="body-text">{t_about('my_thirties_saw')}</p>
-    <PhotoCards
-      inert={inert}
-      reverseRotation={true}
-      imageNames={[
-        'esbjerg_2017',
-        'half_marathon_aarhus_2015',
-        'marselislobet_aarhus_2015',
-        'aarhus_track_race_2017',
-      ]}
-    />
-    <p class="body-text">{t_about('the_pinnacle')}</p>
-    <PhotoCards
-      inert={inert}
-      reverseRotation={false}
-      imageNames={['hannover_2016_2', 'hannover_2016_1']}
-    />
-    <h3>{t_about('an_architectural_detour')}</h3>
-    <p class="body-text">{t_about('as_a_teenager')}</p>
-    <Picture
-      formats={['avif', 'webp']}
-      quality="high"
-      src={DrawingHouse}
-      alt={t_about('drawing_house_alt')}
-      widths={[260, 320, 440, 520]}
-      sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
-      loading="eager"
-      decoding="sync"
-      pictureAttributes={{
-        style: `aspect-ratio: ${DrawingHouse.width}/${DrawingHouse.height};`,
-        class: styles.drawingHouse,
-      }}
-    />
-    <h3>{t_about('a_lateblooming_passion')}</h3>
-    <p class="body-text">{t_about('it_wasnt_until')}</p>
-    <h3>{t_about('the_lesson')}</h3>
-    <p class="body-text">{t_about('if_theres_one')}</p>
+    <div class={styles.articleContent}>
+      <div class={styles.textContent}>
+        <h2>{t_about('a_winding_road')}</h2>
+        <h3>{t_about('from_racetracks_to_code_tracks')}</h3>
+        <p class="body-text">{t_about('life_rarely_follows')}</p>
+        <h3>{t_about('chasing_dreams')}</h3>
+        <p class="body-text">{t_about('for_13_seasons')}</p>
+      </div>
+      <div class={styles.imageContent}>
+        <PhotoCards
+          inert={inert}
+          reverseRotation={true}
+          imageNames={['hjørring_2011', 'cross_fredericia_2009', 'hammel_2007']}
+        />
+        <PhotoCards
+          inert={inert}
+          reverseRotation={false}
+          imageNames={['dm_sønderborg_2009', 'nice_2009']}
+        />
+      </div>
+    </div>
+    <div class={styles.articleContent}>
+      <div class={styles.textContent}>
+        <h3>{t_about('finding_my_stride')}</h3>
+        <p class="body-text">{t_about('my_thirties_saw')}</p>
+      </div>
+      <div class={styles.imageContent}>
+        <PhotoCards
+          inert={inert}
+          reverseRotation={true}
+          imageNames={[
+            'esbjerg_2017',
+            'half_marathon_aarhus_2015',
+            'marselislobet_aarhus_2015',
+            'aarhus_track_race_2017',
+          ]}
+        />
+      </div>
+    </div>
+    <div class={styles.articleContent}>
+      <div class={styles.textContent}>
+        <p class="body-text">{t_about('the_pinnacle')}</p>
+      </div>
+      <div class={styles.imageContent}>
+        <PhotoCards
+          inert={inert}
+          reverseRotation={false}
+          imageNames={['hannover_2016_2', 'hannover_2016_1']}
+        />
+      </div>
+    </div>
+    <div class={styles.articleContent}>
+      <div class={styles.textContent}>
+        <h3>{t_about('an_architectural_detour')}</h3>
+        <p class="body-text">{t_about('as_a_teenager')}</p>
+      </div>
+      <div class={styles.imageContent}>
+        <Picture
+          formats={['avif', 'webp']}
+          quality="high"
+          src={DrawingHouse}
+          alt={t_about('drawing_house_alt')}
+          widths={[260, 320, 440, 520]}
+          sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
+          loading="eager"
+          decoding="sync"
+          pictureAttributes={{
+            style: `aspect-ratio: ${DrawingHouse.width}/${DrawingHouse.height};`,
+            class: styles.drawingHouse,
+          }}
+        />
+      </div>
+    </div>
+    <div class={styles.articleContent}>
+      <div class={styles.textContent}>
+        <h3>{t_about('a_lateblooming_passion')}</h3>
+        <p class="body-text">{t_about('it_wasnt_until')}</p>
+        <h3>{t_about('the_lesson')}</h3>
+        <p class="body-text">{t_about('if_theres_one')}</p>
+      </div>
+    </div>
   </article>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot />
