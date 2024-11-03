@@ -24,7 +24,7 @@ const t = useTranslations(lang, 'contact');
         class={styles.input}
         autocomplete="on"
         spellcheck="false"
-        placeholder="Indtast navn"
+        placeholder={t('enter_your_full_name')}
         minlength="4"
         type="text"
         name="name"
@@ -44,7 +44,7 @@ const t = useTranslations(lang, 'contact');
         autocomplete="on"
         spellcheck="false"
         type="email"
-        placeholder="Indtast e-mailadresse"
+        placeholder={t('enter_your_email')}
         name="email"
         required="true"
       /><span class={styles.error} aria-hidden="true"
@@ -56,7 +56,7 @@ const t = useTranslations(lang, 'contact');
         class={styles.input}
         autocomplete="off"
         type="text"
-        placeholder="Indtast emne"
+        placeholder={t('enter_a_subject')}
         name="subject"
         required="true"
       /><span class={styles.error} aria-hidden="true"
@@ -68,7 +68,7 @@ const t = useTranslations(lang, 'contact');
         class={styles.textArea}
         autocomplete="off"
         name="message"
-        placeholder="Skriv en besked"
+        placeholder={t('write_a_message')}
         required="true"></textarea><span class={styles.error} aria-hidden="true"
         >{t('the_message_cannot_be')}</span
       ></label

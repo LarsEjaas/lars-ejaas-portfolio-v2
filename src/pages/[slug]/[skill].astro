@@ -7,8 +7,10 @@ import {
   techSkillEntries,
   type TechSkill,
 } from '@content/techSkills';
-import type { ImageModule } from '@customTypes/index';
-const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  query: '?raw',
+  import: 'default',
+});
 
 type EnglishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'en'>]: {
@@ -38,25 +40,18 @@ const { skill } = Astro.params;
 
 const skillData = skillsObject[lang][skill];
 
-const imageImport = Object.entries(skillIconImages).find(([path]) =>
+const svgPath = Object.entries(skillIconImages).find(([path]) =>
   path.includes(skillData.imageSrc)
 );
 
-if (!imageImport) {
+if (!svgPath) {
   console.error(`Skill image not found for: ${skillData.imageSrc}`);
   return null;
 }
-const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+const svgContent = (await svgPath[1]()) as string;
+const techSkill = { ...skillData, svgContent };
 
 const pageTitle = skillData.title;
 ---
 
-<SkillsLayout
-  title={pageTitle}
-  inert={false}
-  skillTitle={pageTitle}
-  skillDescription={skillData.description}
-  skillImageAlt={skillData.imageAlt}
-  skillImageSrc={ImageComponent}
-  skillRating={skillData.rating}
-/>
+<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill} />

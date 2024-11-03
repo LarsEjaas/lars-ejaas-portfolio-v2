@@ -78,6 +78,9 @@
     height: 200%;
     display: grid;
     align-items: flex-end;
+    & svg {
+      clip-path: url(#squircle);
+    }
   }
   .gradientBackground {
     background: linear-gradient(

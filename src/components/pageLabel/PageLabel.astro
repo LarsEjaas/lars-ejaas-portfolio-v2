@@ -6,7 +6,10 @@ import { getLangFromUrl } from '@i18n/utils';
 import { languages } from '@i18n/settings';
 
 const iconImages = import.meta.glob('@assets/menuIcons/*.{jpg,png}');
-const taglineSVGs = import.meta.glob('@assets/taglines/*.svg');
+const taglineSVGs = import.meta.glob('@assets/taglines/*.svg', {
+  query: '?raw',
+  import: 'default',
+});
 
 type Props =
   | {
@@ -52,8 +55,8 @@ if (tagLine && !svgImport) {
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const TaglineComponent = tagLine
-  ? ((await svgImport?.[1]?.()) as ImageModule).default
+const TaglineComponent = svgImport
+  ? (await svgImport[1]()) as string
   : null;
 ---
 
@@ -77,9 +80,9 @@ const TaglineComponent = tagLine
   </div>
   {TaglineComponent && taglineAlt && (<div
     class={styles.tagline}
-    style={`aspect-ratio: ${TaglineComponent.width}/${TaglineComponent.height}; mask-image: url(${TaglineComponent.src});`}
     role="img"
     aria-labelledby="taglineHeading"
+    set:html={TaglineComponent}
   >
   </div>
   <h2 id="taglineHeading" class="sr-only">{taglineAlt}</h2>)}

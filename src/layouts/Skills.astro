@@ -9,27 +9,32 @@ import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillRating } from '@customTypes/skillTypes';
 import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
+import type { SVGFileType } from '../customTypes';
 
 interface Props {
   title: string;
   inert: boolean;
-  skillTitle: string;
-  skillDescription: (_props: Record<string, any>) => any;
-  skillImageSrc?: ImageMetadata;
-  skillImageAlt?: string;
-  skillRating?: SkillRating;
+  techSkill: {
+    svgContent: string;
+    title: string;
+    description: (_props: Record<string, any>) => any;
+    imageSrc: SVGFileType;
+    imageAlt: string;
+    href: string;
+    rating: SkillRating;
+  };
 }
 
 const lang = getLangFromUrl(Astro.url);
+const { title, inert, techSkill } = Astro.props;
+
 const {
-  title,
-  inert,
-  skillTitle,
-  skillDescription,
-  skillImageSrc,
-  skillImageAlt,
-  skillRating,
-} = Astro.props;
+  title: skillTitle,
+  description: skillDescription,
+  svgContent,
+  imageAlt: skillImageAlt,
+  rating: skillRating,
+} = techSkill || {};
 const t_skills = useTranslations(lang, 'skills');
 
 const DescriptionComponent = skillDescription;
@@ -53,7 +58,7 @@ const DescriptionComponent = skillDescription;
       <PresentationCard
         gradientColor="flirt"
         title={skillTitle}
-        iconImage={skillImageSrc}
+        iconSVGContent={svgContent}
         iconImageAlt={skillImageAlt}
         responsiveSquircleSize={true}
         inert={inert}

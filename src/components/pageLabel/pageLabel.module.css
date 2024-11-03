@@ -25,13 +25,7 @@
 
 .tagline {
   view-transition-name: tagline;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: right center;
-  background-color: light-dark(
-    var(--system-dark-200),
-    var(--system-dark-300-80)
-  );
+  color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
   max-width: 140px;
   flex: 4 0 92px;
 }

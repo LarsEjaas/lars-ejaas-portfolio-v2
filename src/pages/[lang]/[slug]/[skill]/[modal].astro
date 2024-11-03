@@ -7,13 +7,15 @@ import {
   techSkillEntries,
   type TechSkill,
 } from '@content/techSkills';
-import type { ImageModule } from '@customTypes/index';
 import ModalDialog from '@components/modalDialog/ModalDialog.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
-const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  query: '?raw',
+  import: 'default',
+});
 
 type DanishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'da'>]: {
@@ -57,15 +59,16 @@ const { skill, modal } = Astro.params;
 
 const skillData = skillsObject[lang][skill];
 
-const imageImport = Object.entries(skillIconImages).find(([path]) =>
+const svgPath = Object.entries(skillIconImages).find(([path]) =>
   path.includes(skillData.imageSrc)
 );
 
-if (!imageImport) {
+if (!svgPath) {
   console.error(`Skill image not found for: ${skillData.imageSrc}`);
   return null;
 }
-const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+const svgContent = (await svgPath[1]()) as string;
+const techSkill = { ...skillData, svgContent };
 
 const pageTitle = skillData.title;
 const modalTitle = modal === 'del' ? t('share') : t('contact');
@@ -73,15 +76,7 @@ const modalIcon = modal === 'del' ? IconShare : IconContact;
 const ModalContent = modal === 'del' ? ShareContent : ContactContent;
 ---
 
-<SkillsLayout
-  title={pageTitle}
-  inert={false}
-  skillTitle={pageTitle}
-  skillDescription={skillData.description}
-  skillImageAlt={skillData.imageAlt}
-  skillImageSrc={ImageComponent}
-  skillRating={skillData.rating}
->
+<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}
