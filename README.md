@@ -12,6 +12,7 @@
 The second iteration of [larsejaas.com](https://larsejaas.com) built with [Astro](https://astro.build/) and deployed on [Netlify](https://www.netlify.com/)
 
 [![Project Status: Active.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cab35f90-2300-41e1-b0da-524bef7b3eaf/deploy-status)](https://app.netlify.com/sites/larsejaas-v2/deploys)
 
 ## ⚠️ Before you fork this repo - please read!
 
@@ -47,6 +48,20 @@ While I typically work with React frameworks, I decided to challenge myself by b
 
 <p align="right"><<a href="#top">back to top⬆️</a>></p>
 
+## 🛠️ Prerequisites & Requirements
+
+- [x] Node.js (v20 or higher)
+- [x] npm
+- [x] Git
+- [x] A Gmail account for SMTP services
+- [x] Netlify CLI (making it possible to debug serverless functions locally).
+  - Install the Netlify CLI globally: `npm install -g netlify-cli`
+
+## 🔌 Recommended VS Code Extensions
+
+- [x] **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
+- [x] **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
+
 ## 💻 Getting started
 
 Clone the repository to your local development environment:
@@ -70,7 +85,7 @@ npm install
 Start the development server:
 
 ```bash
-npm run dev
+netlify dev
 ```
 
 That's it!

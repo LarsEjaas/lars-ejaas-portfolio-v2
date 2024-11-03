@@ -67,6 +67,11 @@
     align-self: flex-end;
     text-transform: uppercase;
     color: light-dark(var(--system-light-100), var(--system-light-300));
+    line-height: 1.4;
+    text-wrap: balance;
+    margin-block-end: unset;
+    max-width: calc(100cqi - (64px + 80px));
+    font-size: clamp(var(--font-size-4), 5cqi, var(--font-size-5));
   }
 
   & :global(.squircle) {

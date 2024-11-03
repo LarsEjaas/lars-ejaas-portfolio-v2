@@ -3,67 +3,76 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './contact.module.css';
 import { ValidationPattern } from '@customTypes/index';
 
+const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
+const CONTACT_FORM_NAME = 'writeToMe';
+
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang, 'share');
+const t = useTranslations(lang, 'contact');
 ---
 
-<div class="contact-container">
+<div class={styles.contactContainer}>
   <form
-    name="skrivTilMig"
+    class={styles.form}
+    name={CONTACT_FORM_NAME}
     autocomplete="off"
     method="post"
-    action="./besked-modtaget/"
-    data-netlify="true"
+    action={FUNCTION_ENDPOINT}
   >
-    <input
-      type="hidden"
-      autocomplete="prevent-autocomplete-in-chrome"
-      name="form-name"
-      value="skrivTilMig"
-    /><noscript></noscript><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >Navn<input
-          autocomplete="on"
-          placeholder="Indtast navn"
-          minlength="4"
-          type="text"
-          name="name"
-          id="modal-focus"
-          required="true"
-        /></label
-      >
-    </p><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >E-mail<br /><input
-          pattern={ValidationPattern.email}
-          multiple="false"
-          autocomplete="on"
-          type="email"
-          placeholder="Indtast e-mailadresse"
-          name="email"
-          required="true"
-        /><span></span></label
-      >
-    </p><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >Emne<br /><input
-          autocomplete="off"
-          type="text"
-          placeholder="Indtast emne"
-          name="subject"
-          required="true"
-        /><span></span></label
-      >
-    </p><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >Besked<br /><textarea
-          autocomplete="off"
-          name="message"
-          placeholder="Skriv en besked"
-          required="true"
-          style="height: 100px;"></textarea><span></span></label
-      >
-    </p>
+    <label class={styles.label}
+      ><span>{t('name')}</span>
+      <input
+        class={styles.input}
+        autocomplete="on"
+        spellcheck="false"
+        placeholder="Indtast navn"
+        minlength="4"
+        type="text"
+        name="name"
+        id="modal-focus"
+        required="true"
+      /><span class={styles.error} aria-hidden="true"
+        >{t('the_length_of_the_name')}</span
+      ></label
+    >
+
+    <label class={styles.label}
+      ><span>{t('email')}</span>
+      <input
+        pattern={ValidationPattern.email}
+        class={styles.input}
+        multiple="false"
+        autocomplete="on"
+        spellcheck="false"
+        type="email"
+        placeholder="Indtast e-mailadresse"
+        name="email"
+        required="true"
+      /><span class={styles.error} aria-hidden="true"
+        >{t('please_provide_a_valid_email')}</span
+      ></label
+    >
+    <label class={styles.label}
+      ><span>{t('subject')}</span><input
+        class={styles.input}
+        autocomplete="off"
+        type="text"
+        placeholder="Indtast emne"
+        name="subject"
+        required="true"
+      /><span class={styles.error} aria-hidden="true"
+        >{t('please_provide_a_subject')}</span
+      ></label
+    >
+    <label class={styles.label}
+      ><span>{t('message')}</span><textarea
+        class={styles.textArea}
+        autocomplete="off"
+        name="message"
+        placeholder="Skriv en besked"
+        required="true"></textarea><span class={styles.error} aria-hidden="true"
+        >{t('the_message_cannot_be')}</span
+      ></label
+    >
     <input
       type="hidden"
       name="language"
@@ -71,10 +80,13 @@ const t = useTranslations(lang, 'share');
       aria-hidden="true"
       value={lang}
       readonly="true"
-    /><span>
-      <p>
-        <button id="sendEmail" title="Send e-mail" type="submit">Send</button>
-      </p>
-    </span>
+    /><div>
+      <button
+        class={styles.submitButton}
+        id="sendEmail"
+        title="Send e-mail"
+        type="submit">{t('send')}</button
+      >
+    </div>
   </form>
 </div>

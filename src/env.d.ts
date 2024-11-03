@@ -1,5 +1,11 @@
 /// <reference path="../.astro/types.d.ts" />
 
+import type { NetlifyLocals } from '@astrojs/netlify';
+
+declare namespace App {
+  interface Locals extends NetlifyLocals {}
+}
+
 declare global {
   interface WindowEventMap {
     pagereveal: PageRevealEvent;

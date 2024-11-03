@@ -3,7 +3,8 @@ import styles from './techSkillsMarquee.module.css';
 import { techSkills } from '@content/techSkills';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
-  as: 'raw',
+  query: '?raw',
+  import: 'default',
 });
 
 const lang = getLangFromUrl(Astro.url);

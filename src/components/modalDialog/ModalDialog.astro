@@ -13,7 +13,7 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
 
 <script>
   const handleKeydown = (event: KeyboardEvent) => {
-    if (event.key.toLowerCase() === 'escape') {
+    if (event.key?.toLowerCase() === 'escape') {
       // Do the change asynchronously at the back of the event queue to make sure the change is ALWAYS applied.
       setTimeout(() => {
         window.location.href = './';
