@@ -1,7 +1,6 @@
 @media (max-width: 768px) {
   .floatingBalloons {
-    /*grid-row: 5; Change when adding frigg tech*/
-    grid-row: 4;
+    grid-row: 5;
   }
 }
 
@@ -29,7 +28,7 @@
 }
 
 .flexWrapper {
-  gap: 8px;
+  gap: 6px;
   align-items: center;
 }
 
@@ -56,4 +55,8 @@
       transition: text-decoration-color 0.4s;
     }
   }
+}
+
+.workCardLazy {
+  content-visibility: auto;
 }

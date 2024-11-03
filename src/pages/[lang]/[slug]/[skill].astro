@@ -1,5 +1,4 @@
 ---
-import { getLangFromUrl } from '@i18n/utils';
 import SkillsLayout from '@layouts/Skills.astro';
 import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
 import {
@@ -7,16 +6,17 @@ import {
   techSkillEntries,
   type TechSkill,
 } from '@content/techSkills';
-import type { ImageModule } from '@customTypes/index';
-const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  import: 'default',
+});
+
+type Props = Record<string, never>;
 
 type DanishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'da'>]: {
     params: SkillSlugPath<P> & { lang: 'da' };
   };
 };
-
-const lang = getLangFromUrl(Astro.url);
 
 export function getStaticPaths() {
   // Helper function to create a type-safe path object
@@ -38,27 +38,19 @@ export function getStaticPaths() {
 
 const { skill } = Astro.params;
 
-const skillData = skillsObject[lang][skill];
+const skillData = skillsObject[skill];
 
-const imageImport = Object.entries(skillIconImages).find(([path]) =>
-  path.includes(skillData.imageSrc)
+const svgFile = Object.entries(skillIconImages).find(([file]) =>
+  file.includes(skillData.imageSrc)
 );
 
-if (!imageImport) {
-  console.error(`Skill image not found for: ${skillData.imageSrc}`);
-  return null;
+if (!svgFile) {
+  throw new Error(`Skill image not found for: ${skillData.imageSrc}`);
 }
-const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+const imageContent = (await svgFile[1]()) as ImageMetadata;
+const techSkill = { ...skillData, iconImage: imageContent };
 
 const pageTitle = skillData.title;
 ---
 
-<SkillsLayout
-  title={pageTitle}
-  inert={false}
-  skillTitle={pageTitle}
-  skillDescription={skillData.description}
-  skillImageAlt={skillData.imageAlt}
-  skillImageSrc={ImageComponent}
-  skillRating={skillData.rating}
-/>
+<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill} />

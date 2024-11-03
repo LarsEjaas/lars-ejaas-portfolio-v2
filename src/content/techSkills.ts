@@ -4,10 +4,7 @@ import type {
   SkillRatings,
   TechSkillItems,
 } from '@customTypes/skillTypes';
-import {
-  danishSkillDescriptions,
-  englishSkillDescriptions,
-} from './techSkillDescriptions';
+import { skillDescriptions } from './skillDescriptions';
 
 export type TechSkill = (typeof techSkillEntries)[number];
 
@@ -375,7 +372,7 @@ const techSkillTiles: Record<
   },
 };
 
-const getTechSkills = () => {
+const getTechSkills = (): TechSkillItems => {
   // Helper function to create skills for a specific language
   const createLanguageSkills = (descriptions: SkillDescriptions) => {
     return Object.entries(techSkillTiles).reduce(
@@ -383,7 +380,7 @@ const getTechSkills = () => {
         ...acc,
         [key]: {
           ...value,
-          description: descriptions[key as TechSkill].description,
+          description: descriptions[key as TechSkill],
           rating: skillRatings[key as TechSkill].rating,
         },
       }),
@@ -391,16 +388,11 @@ const getTechSkills = () => {
     );
   };
 
-  const items: TechSkillItems = {
-    da: createLanguageSkills(danishSkillDescriptions),
-    en: createLanguageSkills(englishSkillDescriptions),
-  };
-  return items;
+  return createLanguageSkills(skillDescriptions);
 };
 
 export const skillsObject = getTechSkills();
 
-export const techSkills = {
-  da: Object.entries(skillsObject.da).map(([_key, value]) => value),
-  en: Object.entries(skillsObject.en).map(([_key, value]) => value),
-};
+export const techSkills = Object.entries(skillsObject).map(
+  ([_key, value]) => value
+);

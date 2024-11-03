@@ -1,0 +1,20 @@
+---
+import type { MetaTheme } from '@customTypes/seo';
+
+type Props = {
+  metaTheme: MetaTheme | Partial<MetaTheme>;
+};
+
+const { metaTheme } = Astro.props;
+---
+
+<!-- Favicons -->{
+  metaTheme?.favicons?.sizes.map((faviconSize) => (
+    <link
+      rel="icon"
+      type={faviconSize.type}
+      sizes={`${faviconSize.size}x${faviconSize.size}`}
+      href={faviconSize.path}
+    />
+  ))
+}

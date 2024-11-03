@@ -1,71 +1,20 @@
-@keyframes fade-out-to-left {
-  100% {
-    translate: -26px 0;
-    opacity: 0;
-  }
-}
-
-@keyframes fade-out-to-right {
-  100% {
-    translate: 26px 0;
-    opacity: 0;
-  }
-}
-
-@keyframes fade-in-from-right {
-  0% {
-    translate: 26px 0;
-    opacity: 0;
-  }
-}
-
-@keyframes fade-in-from-left {
-  0% {
-    translate: -26px 0;
-    opacity: 0;
-  }
-}
-
-@keyframes move-left {
-  from {
-    translate: 26px 0;
-    opacity: 0;
-  }
-  to {
-    translate: 0;
-    opacity: 1;
-  }
-}
-
-@keyframes move-right {
-  from {
-    translate: -26px 0;
-    opacity: 0;
-  }
-  to {
-    translate: 0;
-    opacity: 1;
-  }
-}
-
 .controls {
   grid-column: 2;
   align-self: center;
   display: flex;
   justify-content: center;
+  position: relative;
   padding: 0;
   height: 26px;
   bottom: 0;
-  margin-block: 12px;
   list-style-type: none;
-  view-transition-name: pagination;
+  gap: 4px;
 }
 
 .control {
   display: flex;
   height: 26px;
-  flex: 1;
-  border: 4px solid transparent;
+  padding: 4px;
   transition: transform 300ms ease-in-out;
   &:not(:has(a[aria-current='true'])) {
     aspect-ratio: 1 / 1;
@@ -76,10 +25,10 @@
   }
   &:nth-of-type(1),
   &:last-child {
-    border: 6px solid transparent;
+    padding: 6px;
   }
   &:has(a[aria-current='true']) {
-    border: 2px solid transparent;
+    padding: 2px;
     aspect-ratio: 2 / 1;
   }
   & a {
@@ -101,6 +50,7 @@
 .paginationWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  margin-block: 12px;
   justify-content: space-between;
   align-items: center;
 }
@@ -150,50 +100,79 @@
   }
 }
 
-html:active-view-transition-type(forwards) {
-  &::view-transition-old(skill-pagination-button-last) {
-    animation-name: fade-out-to-right;
-    animation-timing-function: ease-in;
-  }
-
-  &::view-transition-new(skill-pagination-button-first) {
-    animation-name: fade-in-from-left;
-    animation-timing-function: ease-out;
-  }
-
-  &::view-transition-new(skill-pagination-button-last),
-  &::view-transition-old(skill-pagination-button-first),
-  &::view-transition-old(skill-pagination-button-1),
-  &::view-transition-new(skill-pagination-button-1),
-  &::view-transition-old(skill-pagination-button-2),
-  &::view-transition-new(skill-pagination-button-2),
-  &::view-transition-old(skill-pagination-button-3),
-  &::view-transition-new(skill-pagination-button-3) {
-    animation-name: move-right;
-    animation-timing-function: ease-in-out;
-  }
-}
-
-html:active-view-transition-type(backwards) {
-  &::view-transition-old(skill-pagination-button-first) {
-    animation-name: fade-out-to-left;
-    animation-timing-function: ease-in;
-  }
-
-  &::view-transition-new(skill-pagination-button-last) {
-    animation-name: fade-in-from-right;
-    animation-timing-function: ease-out;
-  }
-
-  &::view-transition-old(skill-pagination-button-1),
-  &::view-transition-new(skill-pagination-button-1),
-  &::view-transition-old(skill-pagination-button-2),
-  &::view-transition-new(skill-pagination-button-2),
-  &::view-transition-old(skill-pagination-button-3),
-  &::view-transition-new(skill-pagination-button-3),
-  &::view-transition-old(skill-pagination-button-last),
-  &::view-transition-new(skill-pagination-button-first) {
-    animation-name: move-left;
-    animation-timing-function: ease-in-out;
-  }
+::view-transition-new(accessibility),
+::view-transition-old(accessibility),
+::view-transition-new(algolia),
+::view-transition-old(algolia),
+::view-transition-new(apollo-client),
+::view-transition-old(apollo-client),
+::view-transition-new(astro),
+::view-transition-old(astro),
+::view-transition-new(bash),
+::view-transition-old(bash),
+::view-transition-new(css),
+::view-transition-old(css),
+::view-transition-new(docker),
+::view-transition-old(docker),
+::view-transition-new(figma),
+::view-transition-old(figma),
+::view-transition-new(gatsby),
+::view-transition-old(gatsby),
+::view-transition-new(git),
+::view-transition-old(git),
+::view-transition-new(github),
+::view-transition-old(github),
+::view-transition-new(gitlab),
+::view-transition-old(gitlab),
+::view-transition-new(graphql),
+::view-transition-old(graphql),
+::view-transition-new(graphql-codegen),
+::view-transition-old(graphql-codegen),
+::view-transition-new(html),
+::view-transition-old(html),
+::view-transition-new(inkscape),
+::view-transition-old(inkscape),
+::view-transition-new(javascript),
+::view-transition-old(javascript),
+::view-transition-new(jest),
+::view-transition-old(jest),
+::view-transition-new(mantine),
+::view-transition-old(mantine),
+::view-transition-new(nextjs),
+::view-transition-old(nextjs),
+::view-transition-new(playwright),
+::view-transition-old(playwright),
+::view-transition-new(react),
+::view-transition-old(react),
+::view-transition-new(react-native),
+::view-transition-old(react-native),
+::view-transition-new(react-testing-library),
+::view-transition-old(react-testing-library),
+::view-transition-new(redux),
+::view-transition-old(redux),
+::view-transition-new(sass),
+::view-transition-old(sass),
+::view-transition-new(storybook),
+::view-transition-old(storybook),
+::view-transition-new(strapi),
+::view-transition-old(strapi),
+::view-transition-new(styled-components),
+::view-transition-old(styled-components),
+::view-transition-new(svg),
+::view-transition-old(svg),
+::view-transition-new(tailwind),
+::view-transition-old(tailwind),
+::view-transition-new(typescript),
+::view-transition-old(typescript),
+::view-transition-new(vite),
+::view-transition-old(vite),
+::view-transition-new(vscode),
+::view-transition-old(vscode),
+::view-transition-new(webpack),
+::view-transition-old(webpack),
+::view-transition-new(wordpress),
+::view-transition-old(wordpress),
+::view-transition-new(wp-graphql),
+::view-transition-old(wp-graphql) {
+  block-size: 100%;
 }

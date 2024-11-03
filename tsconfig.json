@@ -1,6 +1,14 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
+    /* Base Options: */
+    "skipLibCheck": true,
+    "target": "es2022",
+    "moduleDetection": "force",
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": false,
+    /* TypeScript transpiling */
+    "incremental": true,
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
@@ -12,7 +20,20 @@
       //@types is reserved for type declaration packages installed from npm - so I use a different alias
       "@customTypes/*": ["src/customTypes/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "lib": ["dom", "es2015", "es2017", "es2021.String"],
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "plugins": [{ "name": "@astrojs/ts-plugin" }]
   },
+  "exclude": ["node_modules"],
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.astro",
+    "functions/**/*.mts"
+  ],
   "$schema": "https://json.schemastore.org/tsconfig"
 }

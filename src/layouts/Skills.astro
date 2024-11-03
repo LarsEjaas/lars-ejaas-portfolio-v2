@@ -9,51 +9,71 @@ import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillRating } from '@customTypes/skillTypes';
 import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
+import type { SVGFileType } from '../customTypes';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-  skillTitle: string;
-  skillDescription: (_props: Record<string, any>) => any;
-  skillImageSrc?: ImageMetadata;
-  skillImageAlt?: string;
-  skillRating?: SkillRating;
-}
+  techSkill: TechSkillProps;
+};
+
+export type TechSkillProps = {
+  title: string;
+  description: (_props: Record<string, never>) => any;
+  imageSrc?: SVGFileType;
+  imageAlt?: string;
+  href?: string;
+  rating?: SkillRating;
+  iconImage?: ImageMetadata;
+};
 
 const lang = getLangFromUrl(Astro.url);
+const { title, inert, techSkill } = Astro.props;
+
 const {
-  title,
-  inert,
-  skillTitle,
-  skillDescription,
-  skillImageSrc,
-  skillImageAlt,
-  skillRating,
-} = Astro.props;
+  title: skillTitle,
+  description: skillDescription,
+  iconImage,
+  imageAlt: skillImageAlt,
+  rating: skillRating,
+} = techSkill || {};
 const t_skills = useTranslations(lang, 'skills');
 
 const DescriptionComponent = skillDescription;
 ---
 
+<script>
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
+  /** Always scroll to the top of the skill presentation when navigating to another skill */
+  const skillPresentation = window.skillPresentation;
+  const paginationElements = Array.from(
+    window.skillPagination?.querySelectorAll('a:not([data-disabled])') || []
+  ).filter((item) => item instanceof HTMLAnchorElement);
+  const tileSceneElements = Array.from(
+    window.skillTileScene?.querySelectorAll('a:not([data-active])') || []
+  ).filter((item) => item instanceof HTMLAnchorElement);
+  const elements = [...Array.from(paginationElements), ...tileSceneElements];
+  if (skillPresentation) {
+    elements.forEach((anchor) =>
+      storeScrollPositionOnClick(anchor, skillPresentation, -16)
+    );
+  }
+</script>
+
 <Layout title={title} inert={inert}>
   <div class="presentation">
-    <PageLabel
-      title={t_skills('skills_title')}
-      iconImage="skillset"
-      tagLine="toolkit"
-      taglineAlt={t_skills('skills_tagline')}
-    />
+    <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
     <div>
       <h2>
         {t_skills('browse_my_tech_skills')}
       </h2>
       <p class="body-text">{t_skills('although_i_have')}</p>
     </div>
-    <div>
+    <div id="skillPresentation">
       <PresentationCard
         gradientColor="flirt"
         title={skillTitle}
-        iconImage={skillImageSrc}
+        iconImage={iconImage}
         iconImageAlt={skillImageAlt}
         responsiveSquircleSize={true}
         inert={inert}

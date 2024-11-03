@@ -53,19 +53,22 @@
     margin-bottom: 6rem;
   }
 
-  & nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    grid-row: 1;
-    & li {
+  & .footerMenu {
+    & ul {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 16px;
+      & li {
+        display: flex;
+      }
     }
   }
 
   & nav {
     margin-inline: auto;
+    grid-row: 1;
+    position: relative;
     & ul {
       list-style-type: none;
       padding: 0;
@@ -117,9 +120,11 @@
     gap: 4px;
   }
 
-  & svg {
-    color: light-dark(var(--system-light-300), var(--system-dark-300));
-    line-height: 0;
+  & .footerIcon {
+    mask-size: contain;
+    width: auto;
+    height: auto;
+    background-color: currentColor;
   }
   & p {
     font-size: var(--font-size-2);

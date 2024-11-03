@@ -7,17 +7,27 @@ import {
   techSkillEntries,
   type TechSkill,
 } from '@content/techSkills';
-import type { ImageModule } from '@customTypes/index';
 import ModalDialog from '@components/modalDialog/ModalDialog.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
-const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
+
+type Props = Record<string, never>;
+
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  query: '?raw',
+  import: 'default',
+});
 
 type DanishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'da'>]: {
-    params: SkillSlugPath<P> & { lang: 'da'; modal: 'del' | 'kontakt' };
+    params: SkillSlugPath<P> & {
+      lang: 'da';
+      modal: 'del' | 'kontakt' | 'besked-modtaget' | 'besked-fejl';
+    };
   };
 };
 
@@ -32,6 +42,22 @@ export function getStaticPaths() {
       const kontaktRoute = {
         [`da/kompetencer/${skill}/kontact`]: {
           params: { lang: 'da', slug: 'kompetencer', skill, modal: 'kontakt' },
+        },
+        [`da/kompetencer/${skill}/besked-modtaget`]: {
+          params: {
+            lang: 'da',
+            slug: 'kompetencer',
+            skill,
+            modal: 'besked-modtaget',
+          },
+        },
+        [`da/kompetencer/${skill}/besked-fejl`]: {
+          params: {
+            lang: 'da',
+            slug: 'kompetencer',
+            skill,
+            modal: 'besked-fejl',
+          },
         },
       };
 
@@ -55,33 +81,39 @@ export function getStaticPaths() {
 
 const { skill, modal } = Astro.params;
 
-const skillData = skillsObject[lang][skill];
+const skillData = skillsObject[skill];
 
-const imageImport = Object.entries(skillIconImages).find(([path]) =>
-  path.includes(skillData.imageSrc)
+const svgFile = Object.entries(skillIconImages).find(([file]) =>
+  file.includes(skillData.imageSrc)
 );
 
-if (!imageImport) {
-  console.error(`Skill image not found for: ${skillData.imageSrc}`);
-  return null;
+if (!svgFile) {
+  throw new Error(`Skill image not found for: ${skillData.imageSrc}`);
 }
-const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+const svgContent = (await svgFile[1]()) as string;
+const techSkill = { ...skillData, svgContent };
 
 const pageTitle = skillData.title;
-const modalTitle = modal === 'del' ? t('share') : t('contact');
+const modalTitle =
+  modal === 'del'
+    ? t('share')
+    : modal === 'kontakt'
+      ? t('contact')
+      : modal === 'besked-modtaget'
+        ? t('thank_you')
+        : t('whoops');
 const modalIcon = modal === 'del' ? IconShare : IconContact;
-const ModalContent = modal === 'del' ? ShareContent : ContactContent;
+const ModalContent =
+  modal === 'del'
+    ? ShareContent
+    : modal === 'kontakt'
+      ? ContactContent
+      : modal === 'besked-modtaget'
+        ? ContactConfirmation
+        : ContactError;
 ---
 
-<SkillsLayout
-  title={pageTitle}
-  inert={false}
-  skillTitle={pageTitle}
-  skillDescription={skillData.description}
-  skillImageAlt={skillData.imageAlt}
-  skillImageSrc={ImageComponent}
-  skillRating={skillData.rating}
->
+<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

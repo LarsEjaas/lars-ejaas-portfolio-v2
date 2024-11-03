@@ -6,14 +6,25 @@ import { newsItems } from '@content/newsItems';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
-import { useTranslations } from '@i18n/utils';
+import { removeTrailingSlash, useTranslations } from '@i18n/utils';
+import { appRoutes } from '@i18n/routes';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
 import ProfileImage from '@assets/images/profile_clip.png';
-import SocialLinks from '../components/socialLinks/SocialLinks.astro';
-import AboutIcon from '../components/icons/AboutIcon.astro';
-import DownloadIcon from '../components/icons/DownloadIcon.astro';
-const resumeFiles = import.meta.glob('/public/resume/*.pdf');
+import SocialLinks from '@components/socialLinks/SocialLinks.astro';
+import AboutIcon from '@components/icons/AboutIcon.astro';
+import DownloadIcon from '@components/icons/DownloadIcon.astro';
+import IconContact from '@assets/menuIcons/contact.png';
+import { Picture } from 'astro:assets';
+import Sparkle from '@components/sparkle/Sparkle.astro';
+
+type Props = {
+  title: string;
+  lang: Language;
+  inert: boolean;
+};
+
+const resumeFiles = import.meta.glob('@assets/resume/*.pdf');
 
 /** Add a key that easily identifies the latest resume - located in public/resume */
 const LATEST_RESUME_KEY = 'july_2024.pdf';
@@ -29,24 +40,14 @@ if (!latestResumeURL) {
   throw new Error(`No resume file found for ${latestResumeURL}`);
 }
 
-interface Props {
-  title: string;
-  lang: Language;
-  inert: boolean;
-}
-
 const { title, lang, inert } = Astro.props;
 const t_home = useTranslations(lang, 'home');
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
 <Layout title={title} inert={inert}>
   <div class="presentation">
-    <PageLabel
-      title={t_home('home_title')}
-      iconImage="ejaas"
-      tagLine="home"
-      taglineAlt={t_home('home_tagline')}
-    />
+    <PageLabel title={t_home('home_title')} iconImage="ejaas" />
     <PresentationCard
       gradientColor="verdigris"
       title="Lars Ejaas"
@@ -61,6 +62,40 @@ const t_home = useTranslations(lang, 'home');
         <p class="small-body-text">
           {t_home('frontend_developer_description')}
         </p>
+        <div class={styles.contactContainer}>
+          <Sparkle>
+            <a
+              data-arrow-nav="true"
+              href={contactUrl}
+              title={t_home('contact')}
+              aria-label={t_home('contact')}
+              class={styles.outline}
+            >
+              <div class={styles.contact}>
+                <div class="squircle" data-with-shadow="true">
+                  <Picture
+                    aria-hidden="true"
+                    formats={['avif', 'webp']}
+                    quality="high"
+                    src={IconContact}
+                    alt=""
+                    width={40}
+                    height={40}
+                    densities={[1, 2, 3]}
+                    loading="eager"
+                    decoding="sync"
+                    pictureAttributes={{
+                      style: 'filter: grayscale(0.7);',
+                    }}
+                  />
+                </div>
+                <p class="small-body-text">
+                  {t_home('hi_there')}
+                </p>
+              </div>
+            </a>
+          </Sparkle>
+        </div>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
             <a href="/about" title={t_home('about_me_title')}>

@@ -24,9 +24,17 @@
   box-shadow: var(--stacks-4-shadow);
   backdrop-filter: saturate(180%) brightness(80%) blur(6px);
   width: fit-content;
-  max-width: fit-content;
   & a {
     border-radius: 30%;
     outline-offset: var(--outline-offset);
+  }
+  & .placeholder,
+  & picture,
+  & :global(.squircle) {
+    width: 48px;
+    height: 48px;
+  }
+  & .placeholder {
+    clip-path: url('#squircle');
   }
 }

@@ -1,0 +1,21 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Viby J",
+			"country": {
+				"code": "DK",
+				"name": "Denmark"
+			},
+			"subdivision": {
+				"code": "82",
+				"name": "Central Jutland"
+			},
+			"timezone": "Europe/Copenhagen",
+			"latitude": 56.1313,
+			"longitude": 10.1339,
+			"postalCode": "8260"
+		},
+		"timestamp": 1748720934909
+	},
+	"siteId": "cab35f90-2300-41e1-b0da-524bef7b3eaf"
+}

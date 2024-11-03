@@ -9,23 +9,19 @@ import notFound404 from '@assets/images/404.png';
 import styles from './_404.module.css';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
 
-interface Props {
+type Props = {
   title: string;
   lang: Language;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
+
 const t = useTranslations(lang, 'navigation');
 ---
 
 <Layout title={t('not_found_title')} inert={false}>
-  <PageLabel
-    title={t('not_found')}
-    iconImage="alert"
-    tagLine="home"
-    taglineAlt={t('home_tagline')}
-  />
+  <PageLabel title={t('not_found')} iconImage="alert" />
   <FloatingBalloons balloonColor="bluemunsell" />
   <div class={styles.centerWrapper}>
     <Picture

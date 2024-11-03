@@ -42,10 +42,12 @@
 
 /* Fallback for browsers that does not support anchor when JS is disabled */
 :global(:root[data-js-enabled='false']) {
-  & .popover {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
+  @supports not (anchor-name: --anchor) {
+    & .popover {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+    }
   }
 }
 
@@ -63,11 +65,12 @@
 .button {
   border: unset;
   background: unset;
-  padding: 8px;
+  padding: 4px 8px;
   display: flex;
   cursor: pointer;
+  outline-offset: var(--outline-offset);
   color: var(--system-dark-100);
-  border-radius: 50%;
+  border-radius: var(--border-radius-sm);
   transition: background 200ms ease-in-out 100ms;
   --active-color: light-dark(
     var(--system-light-300),

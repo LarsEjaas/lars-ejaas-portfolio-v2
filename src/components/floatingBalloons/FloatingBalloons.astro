@@ -3,6 +3,11 @@ import styles from './floatingBalloons.module.css';
 import type { BalloonProps } from './Balloon.astro';
 import Balloon from './Balloon.astro';
 
+type Props = Pick<BalloonProps, 'balloonColor'> & {
+  coverPhoto?: ImageMetadata;
+  class?: string | undefined;
+};
+
 export type BalloonConfig = {
   xA: number;
   yA: number;
@@ -41,11 +46,6 @@ const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
     },
   };
 
-type Props = Pick<BalloonProps, 'balloonColor'> & {
-  coverPhoto?: ImageMetadata;
-  class?: string | undefined;
-};
-
 const { balloonColor, coverPhoto } = Astro.props;
 ---
 
@@ -68,9 +68,10 @@ const { balloonColor, coverPhoto } = Astro.props;
     const balloon = event.target as HTMLDivElement;
 
     // Remove- and re-apply the animation to restart it
+
     balloon.style.animationName = 'none';
     requestAnimationFrame(() => {
-      // remove the animation name so we again refer to the style sheet - this restarts the animation
+      // Restart the animation
       balloon.style.animationName = '';
     });
 
@@ -81,43 +82,63 @@ const { balloonColor, coverPhoto } = Astro.props;
       | 1
       | -1;
     const newDirection = (direction * -1) as 1 | -1;
+    // Batch write new values using requestAnimationFrame
+    requestAnimationFrame(() => {
+      balloon.style.setProperty('--xA', finalX);
+      balloon.style.setProperty('--yA', finalY);
 
-    balloon.style.setProperty('--xA', finalX);
-    balloon.style.setProperty('--yA', finalY);
-
-    balloon.style.setProperty(
-      '--xB',
-      random(
-        RANDOM_CONFIG.randomX.min,
-        RANDOM_CONFIG.randomX.max,
-        newDirection
-      ) + 'px'
-    );
-    balloon.style.setProperty(
-      '--yB',
-      random(
-        RANDOM_CONFIG.randomY.min,
-        RANDOM_CONFIG.randomY.max,
-        newDirection
-      ) + 'px'
-    );
-    balloon.style.setProperty(
-      '--duration',
-      random(RANDOM_CONFIG.randomTime.min, RANDOM_CONFIG.randomTime.max, 1) +
-        's'
-    );
-    balloon.style.setProperty('--direction', `${newDirection}`);
+      balloon.style.setProperty(
+        '--xB',
+        random(
+          RANDOM_CONFIG.randomX.min,
+          RANDOM_CONFIG.randomX.max,
+          newDirection
+        ) + 'px'
+      );
+      balloon.style.setProperty(
+        '--yB',
+        random(
+          RANDOM_CONFIG.randomY.min,
+          RANDOM_CONFIG.randomY.max,
+          newDirection
+        ) + 'px'
+      );
+      balloon.style.setProperty(
+        '--duration',
+        random(RANDOM_CONFIG.randomTime.min, RANDOM_CONFIG.randomTime.max, 1) +
+          's'
+      );
+      balloon.style.setProperty('--direction', `${newDirection}`);
+    });
   };
 
-  // Function to set new random CSS variables and start animations
+  // Function to restart balloon animation with new random values every time the animation is finished
   const balloons = [window.two, window.three, window.four].filter(notEmpty);
 
   if (balloons.length) {
-    balloons.map((balloon) => {
-      balloon?.addEventListener('animationend', (e) => changePosition(e), true);
+    balloons.forEach((balloon) => {
+      balloon.addEventListener('animationend', changePosition, {
+        passive: true,
+      });
       balloon.style.animationPlayState = 'running';
     });
   }
+
+  // Pause animations before navigating away from the page to avoid issue
+  // with "sicky" navigation on low powered devices
+  const stopBalloonAnimations = () => {
+    if (balloons.length) {
+      balloons.forEach((balloon) => {
+        balloon.style.setProperty(
+          'animation-play-state',
+          'paused',
+          'important'
+        );
+      });
+    }
+  };
+
+  window.addEventListener('beforeunload', stopBalloonAnimations);
 </script>
 
 <div class={`${styles.balloonsWrapper} ${Astro.props.class ?? ''}`}>

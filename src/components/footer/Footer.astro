@@ -1,17 +1,19 @@
 ---
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './footer.module.css';
-import FigmaLogo from './FigmaLogo.astro';
-import AstroLogo from './AstroLogo.astro';
-import NetlifyLogo from './NetlifyLogo.astro';
-import GitHubLogo from './GitHubLogo.astro';
+import figmaLogo from './figmaLogo.svg';
+import astroLogo from './astroLogo.svg';
+import netlifyLogo from './netlifyLogo.svg';
+import gitHubLogo from './gitHubLogo.svg';
 import SocialLinks from '../socialLinks/SocialLinks.astro';
 import FooterMenu from './FooterMenu.astro';
+
 type Props = {
   inert: boolean;
+  withModalLinks?: boolean;
 };
 
-const { inert } = Astro.props;
+const { inert, withModalLinks = true } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const currentYear = new Date().getFullYear();
@@ -19,7 +21,7 @@ const currentYear = new Date().getFullYear();
 
 <footer class={styles.footer} inert={inert}>
   <div class={styles.footerContent}>
-    <FooterMenu />
+    <FooterMenu withModalLinks={withModalLinks} />
     <div class={styles.copyright}>
       <p>
         ©&nbsp;{currentYear} | Lars Ejaas
@@ -39,7 +41,16 @@ const currentYear = new Date().getFullYear();
         <li>
           <p>{t('designed_in')}</p>
           <a href="https://figma.com" target="_blank" rel="noopener noreferrer">
-            <FigmaLogo />
+            <p id="lightboxTitle" class="sr-only">Figma</p>
+            <div
+              class={styles.footerIcon}
+              style={{
+                maskImage: `url(${figmaLogo.src})`,
+                width: `${figmaLogo.width}px`,
+                height: `${figmaLogo.height}px`,
+              }}
+            >
+            </div>
           </a>
         </li>
         <li>
@@ -49,7 +60,16 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
           >
-            <AstroLogo />
+            <p id="lightboxTitle" class="sr-only">Astro</p>
+            <div
+              class={styles.footerIcon}
+              style={{
+                maskImage: `url(${astroLogo.src})`,
+                width: `${astroLogo.width}px`,
+                height: `${astroLogo.height}px`,
+              }}
+            >
+            </div>
           </a>
         </li>
         <li>
@@ -59,7 +79,16 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
           >
-            <NetlifyLogo />
+            <p id="lightboxTitle" class="sr-only">Netlify</p>
+            <div
+              class={styles.footerIcon}
+              style={{
+                maskImage: `url(${netlifyLogo.src})`,
+                width: `${netlifyLogo.width}px`,
+                height: `${netlifyLogo.height}px`,
+              }}
+            >
+            </div>
           </a>
         </li>
         <li>
@@ -69,7 +98,16 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GitHubLogo />
+            <p id="lightboxTitle" class="sr-only">GitHub</p>
+            <div
+              class={styles.footerIcon}
+              style={{
+                maskImage: `url(${gitHubLogo.src})`,
+                width: `${gitHubLogo.width}px`,
+                height: `${gitHubLogo.height}px`,
+              }}
+            >
+            </div>
           </a>
         </li>
       </ul>

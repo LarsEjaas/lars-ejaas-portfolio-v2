@@ -1,6 +1,7 @@
 @keyframes unwrapImage {
   0% {
-    transform: translateX(calc(var(--index) * -100px)) rotate(0);
+    transform: translateX(calc(var(--index) * -100px))
+      rotate(calc(var(--rotation) * var(--rotate-direction, 1) * -1));
   }
   100% {
     transform: translateX(0)
@@ -22,50 +23,74 @@
     outline-offset: var(--outline-offset);
     transition: all 250ms;
     transform-origin: 50% 50%;
+    /* fallback rotation for browsers that don't support animation-timeline */
     transform: rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
     &[data-reverse-rotate] {
       --rotate-direction: -1;
     }
-    &:hover,
-    &:focus-visible {
-      transform: scale(1.05)
-        rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
-      & .photocard {
-        box-shadow: var(--stacks-6-shadow);
-        background-color: light-dark(
-          var(--system-light-200),
-          var(--system-dark-400)
-        );
+    & .photocard {
+      box-shadow: var(--stacks-6-shadow);
+      background-color: light-dark(
+        var(--system-light-200),
+        var(--system-dark-400)
+      );
+      transition: transform 250ms;
+      &:hover,
+      &:focus-visible {
+        transform: scale(1.05);
       }
     }
   }
   &:not([inert='true']) {
     & a:not([data-disable-animation='true']) {
-      animation: unwrapImage 300ms calc(var(--index) * 150ms) ease-in-out;
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          view-timeline-name: --unwrapImage;
+          animation-timeline: --unwrapImage;
+          animation-name: unwrapImage;
+          animation-fill-mode: both;
+          animation-timing-function: ease-in-out;
+          animation-duration: 1ms; /* needed for Firefox */
+          animation-range: contain 0% entry-crossing 180%;
+          animation-range: entry 75% entry 180%;
+        }
+      }
     }
+  }
+}
+
+.anchor {
+  &[data-disabled] {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.7;
   }
 }
 
 .photocard {
   border-radius: var(--border-radius-sm);
   height: inherit;
-  width: fit-content;
+  width: 100%;
   background-color: light-dark(var(--system-light-200), var(--system-dark-400));
-  padding-inline: 5px;
-  padding-block: 5px 25px;
+  padding: 5px 5px 25px;
   box-shadow: var(--stacks-5-shadow);
+  & .placeholder {
+    inset: 5px 5px 25px;
+  }
   & picture {
-    overflow: hidden;
-    border-radius: 2px;
     height: 100%;
-    filter: sepia(60%);
+    overflow: hidden;
     &::after {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 2px;
       box-shadow: inset 0 0 10px 3px #00000066;
     }
+  }
+  & .placeholder,
+  & picture {
+    border-radius: 2px;
+    filter: sepia(60%);
   }
 }
 
@@ -82,4 +107,18 @@
 ::view-transition-group(img10),
 ::view-transition-group(img11) {
   z-index: 1;
+}
+
+::view-transition-image-pair(img1),
+::view-transition-image-pair(img2),
+::view-transition-image-pair(img3),
+::view-transition-image-pair(img4),
+::view-transition-image-pair(img5),
+::view-transition-image-pair(img6),
+::view-transition-image-pair(img7),
+::view-transition-image-pair(img8),
+::view-transition-image-pair(img9),
+::view-transition-image-pair(img10),
+::view-transition-image-pair(img11) {
+  isolation: isolate;
 }

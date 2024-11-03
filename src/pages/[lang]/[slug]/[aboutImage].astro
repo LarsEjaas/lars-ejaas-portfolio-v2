@@ -7,6 +7,8 @@ import type { ImageDetails } from '@content/aboutImages/aboutImages';
 import type { ImageModule } from '@customTypes/index';
 import Lightbox from '@components/lightBox/Lightbox.astro';
 
+type Props = Record<string, never>;
+
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type DanishAboutLightboxPaths = {
@@ -51,8 +53,7 @@ const imageImport = Object.entries(aboutImageGlob).find(([path]) =>
 );
 
 if (!imageImport) {
-  console.error(`aboutImages not found for: ${imageInfo?.imageName}`);
-  return null;
+  throw new Error(`aboutImages not found for: ${imageInfo?.imageName}`);
 }
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 

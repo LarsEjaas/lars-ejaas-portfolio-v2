@@ -1,0 +1,37 @@
+---
+import type { CardInfo } from './Carousel.astro';
+import styles from './carousel.module.css';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+
+type Props = Omit<CardInfo, 'imageSrc' | 'href'> & {
+  index: number;
+  image: ImageMetadata;
+};
+
+const { title, description, date, imageAlt, outline, index, image } =
+  Astro.props;
+---
+
+<article class={`${styles[`outline${outline}`]} ${styles.article}`}>
+  <PictureWithPlaceholder
+    formats={['avif', 'webp']}
+    quality="high"
+    src={image}
+    alt={imageAlt}
+    width="232"
+    height="148"
+    densities={[1, 2, 3]}
+    loading="lazy"
+    decoding="async"
+    classNames={{ placeholder: styles.placeholder }}
+  />
+  <div class={styles.newsContent}>
+    <div>
+      <h3>{title}</h3>
+      <p id={`articleDescription${index}`}>{description}</p>
+    </div>
+    <div class={styles.date}>
+      <p>{date}</p>
+    </div>
+  </div>
+</article>

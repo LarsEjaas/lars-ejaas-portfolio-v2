@@ -1,46 +1,53 @@
 .pageLabel {
-  view-transition-name: page-label;
   container-name: pageLabel;
   container-type: inline-size;
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 8px;
   justify-content: space-between;
   height: fit-content;
-
+  height: 98px; /* (add a bit of margin to prevent the squircle from cutting off) */
+  line-height: 0;
   & :global(.squircle) {
+    view-transition-name: page-icon;
     &[data-with-shadow] {
       &::before {
         box-shadow: var(--stacks-6-shadow);
       }
     }
   }
+
   & h1 {
+    view-transition-name: page-title;
     color: var(--system-dark-300);
-    font-size: clamp(var(--font-size-5), 6cqi, var(--font-size-8));
     line-height: 0.9;
     font-weight: 700;
   }
 }
 
-.tagline {
-  view-transition-name: tagline;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: right center;
-  background-color: light-dark(
-    var(--system-dark-200),
-    var(--system-dark-300-80)
-  );
-  max-width: 140px;
-  flex: 4 0 92px;
+::view-transition-old(page-title),
+::view-transition-new(page-title) {
+  object-fit: none;
+  object-position: bottom left;
 }
 
 .iconAndTitle {
   display: flex;
+  position: relative;
   align-items: center;
   gap: 16px;
   & :global(.squircle) {
-    flex: 1 0 48px;
+    flex: 1;
+  }
+  & Picture {
+    width: 96px;
+    height: 96px;
+    background-size: cover;
+  }
+  & .placeholder {
+    height: 100%;
+    aspect-ratio: 1;
+    clip-path: url(#squircle);
   }
 }

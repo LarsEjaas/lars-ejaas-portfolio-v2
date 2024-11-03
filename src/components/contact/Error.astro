@@ -1,0 +1,27 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './contact.module.css';
+
+type Props = Record<string, never>;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'contact');
+---
+
+<script>
+  const errorMessage = new URLSearchParams(window.location.search).get('error');
+  const errorCode = new URLSearchParams(window.location.search).get('code');
+  if (errorMessage && errorCode && window.errorMessage) {
+    console.error(`${errorCode}: ${errorMessage}`);
+    window.errorMessage.innerHTML = errorMessage;
+  }
+</script>
+<div class={styles.contactContainer}>
+  <div class={styles.messageWrapper}>
+    <h3>{t('this_did_not_go_as_expected')}</h3>
+    <p id="errorMessage" class="body-text">
+      {t('an_unexpected_error')}
+    </p>
+    <a class={styles.closeButton} href="./">{t('close_modal_title')}</a>
+  </div>
+</div>

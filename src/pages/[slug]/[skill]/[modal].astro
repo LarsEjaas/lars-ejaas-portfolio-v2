@@ -7,18 +7,28 @@ import {
   techSkillEntries,
   type TechSkill,
 } from '@content/techSkills';
-import type { ImageModule } from '@customTypes/index';
 import ModalDialog from '@components/modalDialog/ModalDialog.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
-const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg');
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
+
+type Props = {
+  skill: TechSkill;
+  modal: 'share' | 'contact' | 'message-received' | 'message-error';
+};
+
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  query: '?raw',
+  import: 'default',
+});
 
 type EnglishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'en'>]: {
     params: SkillSlugPath<P> & {
-      modal: 'share' | 'contact';
+      modal: 'share' | 'contact' | 'message-received' | 'message-error';
     };
   };
 };
@@ -34,6 +44,12 @@ export function getStaticPaths() {
       const contactRoute = {
         [`skills/${skill}/contact`]: {
           params: { slug: 'skills', skill, modal: 'contact' },
+        },
+        [`skills/${skill}/message-received`]: {
+          params: { slug: 'skills', skill, modal: 'message-received' },
+        },
+        [`skills/${skill}/message-error`]: {
+          params: { slug: 'skills', skill, modal: 'message-error' },
         },
       };
 
@@ -57,33 +73,39 @@ export function getStaticPaths() {
 
 const { skill, modal } = Astro.params;
 
-const skillData = skillsObject[lang][skill];
+const skillData = skillsObject[skill];
 
-const imageImport = Object.entries(skillIconImages).find(([path]) =>
-  path.includes(skillData.imageSrc)
+const svgFile = Object.entries(skillIconImages).find(([file]) =>
+  file.includes(skillData.imageSrc)
 );
 
-if (!imageImport) {
-  console.error(`Skill image not found for: ${skillData.imageSrc}`);
-  return null;
+if (!svgFile) {
+  throw new Error(`Skill image not found for: ${skillData.imageSrc}`);
 }
-const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+const svgContent = (await svgFile[1]()) as string;
+const techSkill = { ...skillData, svgContent };
 
 const pageTitle = skillData.title;
-const modalTitle = modal === 'share' ? t('share') : t('contact');
+const modalTitle =
+  modal === 'share'
+    ? t('share')
+    : modal === 'contact'
+      ? t('contact')
+      : modal === 'message-received'
+        ? t('thank_you')
+        : t('whoops');
 const modalIcon = modal === 'share' ? IconShare : IconContact;
-const ModalContent = modal === 'share' ? ShareContent : ContactContent;
+const ModalContent =
+  modal === 'share'
+    ? ShareContent
+    : modal === 'contact'
+      ? ContactContent
+      : modal === 'message-received'
+        ? ContactConfirmation
+        : ContactError;
 ---
 
-<SkillsLayout
-  title={pageTitle}
-  inert={false}
-  skillTitle={pageTitle}
-  skillDescription={skillData.description}
-  skillImageAlt={skillData.imageAlt}
-  skillImageSrc={ImageComponent}
-  skillRating={skillData.rating}
->
+<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

@@ -4,11 +4,6 @@ import styles from './balloon.module.css';
 import type { BalloonConfig } from './FloatingBalloons.astro';
 import type { ColorVariants } from '@customTypes/index';
 
-export type BalloonProps = {
-  variant: 'two' | 'three' | 'four';
-  balloonColor: ColorVariants;
-};
-
 type Props =
   | {
       variant: Exclude<BalloonProps['variant'], 'three'>;
@@ -22,6 +17,11 @@ type Props =
       coverPhoto: ImageMetadata | undefined;
       config: BalloonConfig;
     };
+
+export type BalloonProps = {
+  variant: 'two' | 'three' | 'four';
+  balloonColor: ColorVariants;
+};
 
 const { variant, coverPhoto, balloonColor, config } = Astro.props;
 ---
@@ -41,12 +41,12 @@ const { variant, coverPhoto, balloonColor, config } = Astro.props;
     coverPhoto && (
       <Picture
         aria-hidden="true"
-        formats={['avif']}
-        quality="mid"
+        formats={['avif', 'webp']}
+        quality="high"
         src={coverPhoto}
         alt=""
-        widths={[177, 295, 540, 354]}
-        sizes={`(max-width: 360px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${coverPhoto.width}px`}
+        widths={[182, 286, 398, 364, 572, 796, 546, 858, 1194]}
+        sizes={`(max-width: 360px) 182px, (max-width: 564px) 286px,(max-width: 768px) 398px, (max-width: 1154px) 286px, 398px`}
         loading="eager"
         decoding="sync"
       />

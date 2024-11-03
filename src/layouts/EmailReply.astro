@@ -1,0 +1,515 @@
+---
+import Layout from '@layouts/Root.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import Logo1 from '@assets/emailReplyImages/logo1_email.png';
+import Logo2 from '@assets/emailReplyImages/logo2_email.png';
+import ProfilePicture from '@assets/emailReplyImages/profile.png';
+import Signature from '@assets/emailReplyImages/signature.png';
+import GitHubIcon from '@assets/emailReplyImages/github_icon.png';
+import XIcon from '@assets/emailReplyImages/x_icon.png';
+import LinkedInIcon from '@assets/emailReplyImages/linkedin_icon.png';
+import LetterIcon from '@assets/emailReplyImages/letter_icon.png';
+
+type Props = {
+  title: string;
+  inert: boolean;
+};
+
+const { title, inert } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'emailReply');
+---
+
+<script>
+  const searchParams = new URLSearchParams(window.location.search);
+  const firstName = searchParams.get('name');
+
+  if (window.firstName) {
+    const lang = window.firstName.dataset.lang || 'en';
+    const hi = lang === 'da' ? 'Hej' : 'Hi';
+    window.firstName.innerHTML = firstName ? `${hi} ${firstName}` : hi;
+  }
+</script>
+<Layout
+  title={title}
+  inert={inert}
+  withDarkkModeToggle={false}
+  withModalLinks={false}
+>
+  <div
+    class="fullgrid"
+    style="max-width: min(calc(100vw - 2rem),800px); margin-inline: auto; display: inline-block; z-index: 1;"
+  >
+    <div style="line-height: 0; padding: 0px 30px 30px 30px">
+      <img
+        src={Logo1.src}
+        width="144"
+        height="144"
+        alt={t('ejaas_logo_in_floating')}
+        style="border: none"
+      />
+    </div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="padding-bottom: 10px">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td
+                class="tbrr p30-15"
+                style="
+                            padding: 60px 30px;
+                            border-radius: 16px 16px 0px 0px;
+                            background: #171c1c;
+                          "
+              >
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td
+                      class="h1 pb25"
+                      style="
+                                  color: #eef1f1;
+                                  font-family: 'Heebo', Arial, sans-serif;
+                                  font-size: 32px;
+                                  line-height: 46px;
+                                  text-align: center;
+                                  padding-bottom: 25px;
+                                "
+                      id="firstName"
+                      data-lang={lang}>{t('hi')}</td
+                    >
+                  </tr>
+                  <tr>
+                    <td
+                      class="text-center pb25"
+                      style="
+                                  color: #d8dfdf;
+                                  font-family: 'Roboto', Arial, Helvetica,
+                                    sans-serif;
+                                  font-size: 16px;
+                                  line-height: 30px;
+                                  text-align: center;
+                                  padding-bottom: 25px;
+                                  white-space: pre-line;
+                                "
+                    >
+                      <span>{t('thank_you_for_reaching_out')} </span>
+                    </td>
+                  </tr>
+                  <!-- Blob -->
+                  <tr>
+                    <td align="center">
+                      <table
+                        class="center"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        style="text-align: center"
+                      >
+                        <tr>
+                          <td
+                            class="pink-button text-button"
+                            style="
+                                        background: #00879d;
+                                        height: 70px;
+                                        width: 80px;
+                                        border-radius: 67% 35% 69% 36% / 47%
+                                          31% 75% 59%;
+                                        font-weight: bold;
+                                      "
+                          ></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- END Blob -->
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <!-- END Intro -->
+
+    <!-- Article / Full Width Image + Title + Copy + Button -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="padding-bottom: 10px">
+          <table
+            width="100%"
+            border="0"
+            cellspacing="0"
+            cellpadding="0"
+            bgcolor="#171C1C"
+          >
+            <tr>
+              <td
+                class="fluid-img"
+                style="
+                            font-size: 0pt;
+                            line-height: 0pt;
+                            text-align: left;
+                          "
+              >
+                <img
+                  src={Logo2.src}
+                  width="650"
+                  style="max-width: calc(100vw - 2rem); aspect-ratio: 650 / 366; border: none"
+                  alt={t('ejaas_logo_on_turquoise')}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="p30-15" style="padding: 50px 30px">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td
+                      class="h3 pb20"
+                      style="
+                                  color: #eef1f1;
+                                  font-family: 'Heebo', Arial, sans-serif;
+                                  font-size: 25px;
+                                  line-height: 32px;
+                                  text-align: left;
+                                  padding-bottom: 20px;
+                                "
+                    >
+                      {t('i_will_get_back')}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="text pb20"
+                      style="
+                                  color: #d8dfdf;
+                                  font-family: 'Roboto', Arial, Helvetica,
+                                    sans-serif;
+                                  font-size: 14px;
+                                  line-height: 26px;
+                                  text-align: left;
+                                  padding-bottom: 20px;
+                                "
+                    >
+                      <span>{t('by_the_way')}</span>
+                    </td>
+                  </tr>
+                  <td
+                    class="text pb20"
+                    style="
+                                color: #eef1f1;
+                                font-family: 'Roboto', Arial, Helvetica,
+                                  sans-serif;
+                                font-size: 14px;
+                                line-height: 26px;
+                                text-align: center;
+                              "
+                  >
+                    <span><b>{t('have_a_great_day')}</b></span><br /><span
+                      >Lars</span
+                    >
+                  </td>
+                  <tr>
+                    <td
+                      class="img"
+                      style="
+                                  font-size: 0pt;
+                                  line-height: 0pt;
+                                  text-align: center;
+                                "
+                    >
+                      <img
+                        src={Signature.src}
+                        width="150"
+                        height="62"
+                        style="filter: brightness(0.7); border: none;"
+                        alt={t('signature_of')}
+                      />
+                    </td>
+                  </tr>
+                  <!-- Blob -->
+                  <tr>
+                    <td align="center" style="padding-top: 20px">
+                      <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td
+                            class="blue-button text-button"
+                            style="
+                                        background: #00adb7;
+                                        transform: rotate(-12deg);
+                                        height: 52px;
+                                        width: 62px;
+                                        border-radius: 67% 35% 69% 36% / 47%
+                                          31% 75% 59%;
+                                      "
+                          ></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- END Blob -->
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <!-- END Article / Full Width Image + Title + Copy + Button -->
+    <!-- Footer -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td
+            class="p30-15 bbrr"
+            style="padding: 50px 30px; border-radius: 0 0 16px 16px; background: #171c1c"
+          >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tbody>
+                <tr>
+                  <td align="center" style="padding-bottom: 12px">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td
+                            class="img"
+                            style="
+                                        font-size: 0pt;
+                                        line-height: 0pt;
+                                        text-align: center;
+                                        padding-right: 16px;
+                                      "
+                          >
+                            <img
+                              src={ProfilePicture.src}
+                              width="82"
+                              height="113"
+                              alt={t('profile_picture')}
+                              style="border: none"
+                            />
+                          </td>
+                          <td>
+                            <table
+                              border="0"
+                              cellspacing="0"
+                              cellpadding="0"
+                              style="
+                                          border-left: 4px solid #00adb7;
+                                          margin-top: 32px;
+                                        "
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style="
+                                                padding-bottom: 2px;
+                                                padding-left: 12px;
+                                                font-family: 'Heebo', Arial,
+                                                  Helvetica, sans-serif;
+                                                font-size: 24px;
+                                                line-height: 1;
+                                                letter-spacing: 1px;
+                                                color: #4e5f60;
+                                                font-weight: 900;
+                                              "
+                                  >
+                                    <p
+                                      style="
+                                                  white-space: nowrap;
+                                                  margin: 0;
+                                                "
+                                    >
+                                      LARS EJAAS
+                                    </p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    style="
+                                                padding-bottom: 30px;
+                                                padding-left: 12px;
+                                                font-family: 'Heebo', Arial,
+                                                  Helvetica, sans-serif;
+                                                font-size: 16px;
+                                                font-weight: 400;
+                                                line-height: 1;
+                                                letter-spacing: 1px;
+                                                color: #00adb7;
+                                              "
+                                  >
+                                    <p
+                                      style="
+                                                  white-space: nowrap;
+                                                  margin: 0;
+                                                "
+                                    >
+                                      {t('frontend_developer')}
+                                    </p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                                color: #698081;
+                                font-family: 'Heebo', Arial, Helvetica,
+                                  sans-serif;
+                                font-size: 14px;
+                                line-height: 16px;
+                                text-align: center;
+                                letter-spacing: 1px;
+                                padding-bottom: 8px;
+                              "
+                  >
+                    {t('visit_my_website')}
+                    <a
+                      href="https://larsejaas.com"
+                      target="_blank"
+                      style="
+                                  text-decoration: underline;
+                                  color: #698081;
+                                "
+                      >larsejaas.com</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td
+                            class="img"
+                            style="
+                                        font-size: 0pt;
+                                        line-height: 0pt;
+                                        text-align: center;
+                                        width: 55px;
+                                      "
+                          >
+                            <a
+                              href="https://github.com/LarsEjaas"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              ><img
+                                src={GitHubIcon.src}
+                                width="32"
+                                height="32"
+                                alt="GitHub logo"
+                                style="border:unset"
+                              /></a
+                            >
+                          </td>
+                          <td
+                            class="img"
+                            style="
+                                        font-size: 0pt;
+                                        line-height: 0pt;
+                                        text-align: center;
+                                        width: 55px;
+                                      "
+                          >
+                            <a
+                              href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
+                              target="_blank"
+                              ><img
+                                src={XIcon.src}
+                                width="32"
+                                height="32"
+                                alt="X logo"
+                                style="border:unset"
+                              /></a
+                            >
+                          </td>
+                          <td
+                            class="img"
+                            style="
+                                        font-size: 0pt;
+                                        line-height: 0pt;
+                                        text-align: center;
+                                        width: 55px;
+                                      "
+                          >
+                            <a
+                              href="https://www.linkedin.com/in/lars-ejaas"
+                              target="_blank"
+                              ><img
+                                src={LinkedInIcon.src}
+                                width="32"
+                                height="32"
+                                alt="LinkedIn logo"
+                                style="border:unset"
+                              /></a
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding-top: 20px">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td
+                            class="img"
+                            style="
+                                        font-size: 0pt;
+                                        line-height: 0pt;
+                                        text-align: center;
+                                        padding-right: 8px;
+                                        width: 40px;
+                                      "
+                          >
+                            <img
+                              src={LetterIcon.src}
+                              width="40"
+                              height="40"
+                              alt={t('icon_with_an_illustration')}
+                              style="border:unset"
+                            />
+                          </td>
+                          <td
+                            style="
+                                        font-family: 'Heebo', Arial, Helvetica,
+                                          sans-serif;
+                                        font-size: 12px;
+                                        line-height: 1;
+                                        letter-spacing: 1px;
+                                        color: #00adb7;
+                                        white-space: pre-line;
+                                        font-weight: 400;
+                                      "
+                          >
+                            {t('this_is_an_automated_response')}
+                            <a
+                              href="https://larsejaas.com/contact"
+                              target="_blank"
+                              style="
+                                          text-decoration: underline;
+                                          color: #00adb7;
+                                        "
+                              >larsejaas.com/contact</a
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</Layout>
+<!-- END Footer -->

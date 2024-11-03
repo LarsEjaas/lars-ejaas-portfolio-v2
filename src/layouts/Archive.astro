@@ -13,10 +13,10 @@ import type { ImageModule } from '../customTypes';
 import { isExternalLink } from '../utils/misc';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
 const { title, inert } = Astro.props;
@@ -38,7 +38,7 @@ const newsGridItems =
       <p class="body-text">{t_arch('welcome_to_memory_lane')}</p>
     </div>
   </div>
-  <FloatingBalloons balloonColor="bluemunsell" />
+  <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
   <div class="fullgrid">
     <h2>
       {t_arch('old_versions_of_my_website')}
@@ -73,15 +73,14 @@ const newsGridItems =
           <p class="body-text">{t_arch('welcome_to')}</p>
         </div>
         <div class={`fullgrid ${styles.newsGrid}`}>
-          {newsGridItems.toReversed().map(async (item, index) => {
+          {[...newsGridItems].reverse().map(async (item, index) => {
             const imageName = item.imageSrc;
             const imageImport = Object.entries(newsImages).find(([path]) =>
               path.includes(imageName)
             );
 
             if (!imageImport) {
-              console.error(`News image not found for: ${imageName}`);
-              return null;
+              throw new Error(`News image not found for: ${imageName}`);
             }
             const ImageComponent = ((await imageImport[1]()) as ImageModule)
               .default;
@@ -100,15 +99,15 @@ const newsGridItems =
                   class={`${styles[`outline${item.outline}`]} ${styles.article}`}
                 >
                   <Picture
-                    formats={['avif']}
+                    formats={['avif', 'webp']}
                     quality="high"
                     src={ImageComponent}
                     alt={item.imageAlt}
                     width="232"
                     height="148"
-                    densities={[1, 2, 3, 4]}
+                    densities={[1, 2, 3]}
                     loading="lazy"
-                    decoding="sync"
+                    decoding="async"
                   />
                   <div class={styles.newsContent}>
                     <div>

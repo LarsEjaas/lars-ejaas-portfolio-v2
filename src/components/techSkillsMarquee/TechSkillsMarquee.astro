@@ -2,8 +2,11 @@
 import styles from './techSkillsMarquee.module.css';
 import { techSkills } from '@content/techSkills';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
+
+type Props = Record<string, never>;
+
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
-  as: 'raw',
+  import: 'default',
 });
 
 const lang = getLangFromUrl(Astro.url);
@@ -12,33 +15,47 @@ const { skill } = Astro.params;
 
 // Process SVGs
 const processedSkills = await Promise.all(
-  techSkills[lang].map(async (techSkill, index) => {
+  techSkills.map(async (techSkill, index) => {
     const imageName = techSkill.imageSrc;
-    const svgPath = Object.entries(skillIconImages).find(([path]) =>
-      path.includes(imageName)
+    const svgFile = Object.entries(skillIconImages).find(([file]) =>
+      file.includes(imageName)
     );
 
-    if (!svgPath) {
-      console.error(`SVG not found for tech skill image: ${imageName}`);
-      return null;
+    if (!svgFile) {
+      throw new Error(`SVG not found for tech skill image: ${imageName}`);
     }
 
-    const svgContent = await svgPath[1]();
-    return { ...techSkill, svgContent, index };
+    const svgInfo = (await svgFile[1]()) as ImageMetadata;
+
+    return {
+      ...techSkill,
+      svgFile: svgInfo,
+      index,
+    };
   })
 );
 ---
 
 <script>
   import { initializeTileArrowNavigation } from '@utils/marqueeKeyboardNavigation';
+  import { notEmpty } from '../../customTypes';
 
-  if (window.skillTileScene)
-    initializeTileArrowNavigation(window.skillTileScene);
+  const scene = window.skillTileScene;
+
+  if (scene) {
+    initializeTileArrowNavigation(scene);
+    // Pause animations before navigating away from the page to avoid issue
+    // with "sicky" navigation on low powered devices
+    window.addEventListener('beforeunload', () => {
+      Array.from(scene.querySelectorAll('li'))
+        .filter(notEmpty)
+        .forEach((li) => {
+          li.style.setProperty('animation-play-state', 'paused', 'important');
+        });
+    });
+  }
 </script>
-<div
-  class={styles.marquee}
-  style={`--number-of-items: ${techSkills[lang].length}`}
->
+<div class={styles.marquee} style={`--number-of-items: ${techSkills.length}`}>
   <div class={styles.scene} id="skillTileScene">
     <ul class={styles.skillsGrid}>
       {
@@ -47,15 +64,24 @@ const processedSkills = await Promise.all(
             return (
               <li class={styles.skill} style={`--index: ${techSkill.index};`}>
                 <a
-                  href={translatePath(`skills/${techSkill.href}`)}
+                  href={translatePath(`skills/${techSkill.href}/`)}
                   title={techSkill.title}
                   data-arrow-nav="true"
                   data-active={
                     skill && skill === techSkill.href ? 'true' : undefined
                   }
                 >
+                  <p id="lightboxTitle" class="sr-only">
+                    {techSkill.title}
+                  </p>
                   <div class={`${styles.outline} squircle`}>
-                    <Fragment set:html={techSkill.svgContent} />
+                    <img
+                      class={styles.skillImage}
+                      loading="lazy"
+                      src={techSkill.svgFile.src}
+                      width={techSkill.svgFile.width}
+                      height={techSkill.svgFile.height}
+                    />
                   </div>
                 </a>
               </li>
@@ -68,12 +94,8 @@ const processedSkills = await Promise.all(
           <li
             class={styles.skill}
             data-placeholder={true}
-            style={`--index: ${index + techSkills[lang].length};`}
-          >
-            <div class={`${styles.outline} squircle`}>
-              <div class={styles.placeholder} />
-            </div>
-          </li>
+            style={`--index: ${index + techSkills.length};`}
+          />
         ))
       }
     </ul>

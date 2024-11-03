@@ -3,67 +3,103 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './contact.module.css';
 import { ValidationPattern } from '@customTypes/index';
 
+type Props = Record<string, never>;
+
+const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
+const CONTACT_FORM_NAME = 'writeToMe';
+
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang, 'share');
+const t = useTranslations(lang, 'contact');
 ---
 
-<div class="contact-container">
+<script>
+  import { initializeRichTextEditor } from './initRichTextEditor';
+  const richTextEditor = window.richtextEditor;
+  const textArea = window.contactTextArea;
+
+  if (richTextEditor && textArea) {
+    initializeRichTextEditor();
+  }
+
+  const form = window.writeToMe;
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      const submitButton = event.submitter;
+      // Show loading indicator
+      submitButton?.setAttribute('data-submitted', 'true');
+    });
+  }
+</script>
+
+<div class={styles.contactContainer}>
   <form
-    name="skrivTilMig"
+    class={styles.form}
+    name={CONTACT_FORM_NAME}
+    id="writeToMe"
     autocomplete="off"
     method="post"
-    action="./besked-modtaget/"
-    data-netlify="true"
+    action={FUNCTION_ENDPOINT}
   >
-    <input
-      type="hidden"
-      autocomplete="prevent-autocomplete-in-chrome"
-      name="form-name"
-      value="skrivTilMig"
-    /><noscript></noscript><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >Navn<input
-          autocomplete="on"
-          placeholder="Indtast navn"
-          minlength="4"
-          type="text"
-          name="name"
-          id="modal-focus"
-          required="true"
-        /></label
+    <label class={styles.label}
+      ><span>{t('name')}</span>
+      <input
+        class={styles.input}
+        autofocus="true"
+        autocomplete="on"
+        spellcheck="false"
+        placeholder={t('enter_your_full_name')}
+        minlength="4"
+        type="text"
+        name="name"
+        required="true"
+      /><span class={styles.error} aria-hidden="true"
+        >{t('the_length_of_the_name')}</span
+      ></label
+    >
+
+    <label class={styles.label}
+      ><span>{t('email')}</span>
+      <input
+        pattern={ValidationPattern.email}
+        class={styles.input}
+        multiple="false"
+        autocomplete="on"
+        spellcheck="false"
+        type="email"
+        placeholder={t('enter_your_email')}
+        name="email"
+        required="true"
+      /><span class={styles.error} aria-hidden="true"
+        >{t('please_provide_a_valid_email')}</span
+      ></label
+    >
+    <label class={styles.label}
+      ><span>{t('subject')}</span><input
+        class={styles.input}
+        autocomplete="off"
+        type="text"
+        placeholder={t('enter_a_subject')}
+        name="subject"
+        required="true"
+      /><span class={styles.error} aria-hidden="true"
+        >{t('please_provide_a_subject')}</span
+      ></label
+    >
+    <label for="contactTextArea" class={styles.label}
+      ><span>{t('message')}</span></label
+    >
+    <div style="position: relative;">
+      <div id="richtextEditor" data-lang={lang} style="display:none;"></div>
+      <textarea
+        id="contactTextArea"
+        class={styles.textArea}
+        autocomplete="off"
+        name="message"
+        placeholder={t('write_a_message')}
+        required="true"></textarea><span class={styles.error} aria-hidden="true"
+        >{t('the_message_cannot_be')}</span
       >
-    </p><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >E-mail<br /><input
-          pattern={ValidationPattern.email}
-          multiple="false"
-          autocomplete="on"
-          type="email"
-          placeholder="Indtast e-mailadresse"
-          name="email"
-          required="true"
-        /><span></span></label
-      >
-    </p><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >Emne<br /><input
-          autocomplete="off"
-          type="text"
-          placeholder="Indtast emne"
-          name="subject"
-          required="true"
-        /><span></span></label
-      >
-    </p><p class="mediumLabel" style="margin-top: 16px;">
-      <label
-        >Besked<br /><textarea
-          autocomplete="off"
-          name="message"
-          placeholder="Skriv en besked"
-          required="true"
-          style="height: 100px;"></textarea><span></span></label
-      >
-    </p>
+    </div>
     <input
       type="hidden"
       name="language"
@@ -71,10 +107,52 @@ const t = useTranslations(lang, 'share');
       aria-hidden="true"
       value={lang}
       readonly="true"
-    /><span>
-      <p>
-        <button id="sendEmail" title="Send e-mail" type="submit">Send</button>
-      </p>
-    </span>
+    />
+    <div class={styles.tipContainer}>
+      <div class={styles.tip}>
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          opacity="0.8"
+        >
+          <path
+            d="M12 2V3M3 12H2M5.5 5.5L4.8999 4.8999M18.5 5.5L19.1002 4.8999M22 12H21M10 13.5H14M12 13.5V18.5M15.5 16.874C17.0141 15.7848 18 14.0075 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 14.0075 6.98593 15.7848 8.5 16.874V18.8C8.5 19.9201 8.5 20.4802 8.71799 20.908C8.90973 21.2843 9.21569 21.5903 9.59202 21.782C10.0198 22 10.5799 22 11.7 22H12.3C13.4201 22 13.9802 22 14.408 21.782C14.7843 21.5903 15.0903 21.2843 15.282 20.908C15.5 20.4802 15.5 19.9201 15.5 18.8V16.874Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        <div class={styles.textContainer}>
+          <p>{t('paste_formatted_text')}</p>
+        </div>
+        <svg
+          viewBox="0 0 160.1 280.8"
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid meet"
+          class={styles.arrow}
+          fill="currentColor"
+          opacity="0.5"
+        >
+          <path
+            d="M92 0c-3 0-6 1-9 4-5 12-4 21-6 32-1 28-1 27-7 55l19-9c4-3 9-9 11-15 2-2 3 4 4 5 9 21 14 44 13 67-4-3-10-4-16-4 2-8-7-15-15-15H48c-7-1-17 7-18 15-17 1-31 15-30 32v85c0 15 12 28 27 28l65 1c10 0 22 0 30-8 8-7 10-18 9-28v-56c8-17 14-35 16-54 1-17-1-34-7-49l-13-35 14 5c9 0 15-8 19-14L111 9c-6-3-13-9-19-9Zm-4 135v14H44v-14h44zm-60 15h2c-1 9 8 15 17 14h43c8 0 11-9 12-14 7-1 12 4 14 9-5 28-18 54-38 75-3 5-13 8-11 14 4 4 10-1 15-2 15-6 26-19 35-32l-1 35c1 7-3 15-11 16-15 2-30 1-45 1-12 0-23 1-35-1-8-1-11-10-10-17v-83c-1-8 5-15 13-15z"
+          ></path>
+        </svg>
+      </div>
+      <button
+        class={styles.submitButton}
+        id="sendEmail"
+        title="Send e-mail"
+        type="submit"
+        ><span>{t('send')}</span>
+        <div class={styles.loadingIndicator}>
+          <div class={styles.dot}></div>
+          <div class={styles.dot} style="--delay: 200ms"></div>
+          <div class={styles.dot} style="--delay: 400ms"></div>
+        </div>
+      </button>
+    </div>
   </form>
 </div>

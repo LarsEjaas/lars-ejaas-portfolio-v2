@@ -20,5 +20,8 @@
     "typescriptreact"
   ],
   "css.lint.unknownAtRules": "ignore",
-  "typescript.tsdk": "./node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Optional: Force VS Code to use your workspace's TypeScript version
+  "typescript.disableAutomaticTypeAcquisition": false
 }

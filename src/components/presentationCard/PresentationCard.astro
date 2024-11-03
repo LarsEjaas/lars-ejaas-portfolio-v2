@@ -50,18 +50,14 @@ const {
               data-with-background={iconImage ? 'true' : undefined}
             >
               {iconImage ? (
-                <Picture
-                  data-responsive={responsiveSquircleSize ? 'true' : undefined}
-                  formats={['avif', 'webp']}
-                  quality="high"
-                  src={iconImage}
-                  alt={iconImageAlt}
-                  width="72"
-                  height="72"
-                  densities={[1, 2, 3, 4]}
-                  loading="eager"
-                  decoding="sync"
-                />
+                <figure aria-label={iconImageAlt}>
+                  <div
+                    class={styles.icon}
+                    style={{
+                      backgroundImage: `url(${iconImage.src})`,
+                    }}
+                  />
+                </figure>
               ) : (
                 <div
                   class={`${styles.gradientBackground} squircle`}
@@ -86,16 +82,16 @@ const {
               formats={['avif', 'webp']}
               quality="high"
               src={overlayImage}
-              alt={overlayImageAlt}
+              alt={overlayImageAlt || null}
               widths={
-                (responsiveSquircleSize
-                  ? [80, 135]
-                  : undefined) as (typeof Picture.arguments)['widths']
+                responsiveSquircleSize
+                  ? [80, 160, 240, 136, 272, 408]
+                  : [72, 144, 216]
               }
-              width={
-                (responsiveSquircleSize
-                  ? undefined
-                  : 72) as (typeof Picture.arguments)['width']
+              sizes={
+                responsiveSquircleSize
+                  ? '(max-width: 482px) 80px, (max-width: 768px) 136px, (max-width: 995px) 80px, 136px'
+                  : '72px'
               }
               loading="eager"
               decoding="sync"

@@ -19,11 +19,12 @@ import Popover from '@components/popover/Popover.astro';
 import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
+import InfoIcon from './infoIcon.astro';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
 const { title, inert } = Astro.props;
@@ -32,12 +33,7 @@ const t_work = useTranslations(lang, 'work');
 
 <Layout title={title} inert={inert} gridColumns={3}>
   <div class="presentation">
-    <PageLabel
-      title={t_work('work_title')}
-      iconImage="work"
-      tagLine="work"
-      taglineAlt={t_work('work_tagline')}
-    />
+    <PageLabel title={t_work('work_title')} iconImage="work" />
     <h2>
       {t_work('professional_developer_journey')}
     </h2>
@@ -48,7 +44,7 @@ const t_work = useTranslations(lang, 'work');
     inert={inert}
     viewTransitionName="card"
     id="friggTech"
-    headline={t_work('frontend_developer')}
+    headline={t_work('software_developer')}
     subHeadline={'Frigg Tech A/S, Aarhus'}
     headerImage={FriggTechHeaderImage}
     headerImageAlt={t_work('friggtech_hero_image_alt')}
@@ -71,12 +67,13 @@ const t_work = useTranslations(lang, 'work');
     <p class="small-body-text">
       {t_work('friggtech_employment_description')}
     </p>
-    <Popover id="friggTech">
-      <div class={styles.flexWrapper} slot="description">
+    <Popover id="friggTech" buttonLabel={t_work('learn_more_about_friggtech')}>
+      <div class={styles.flexWrapper} slot="buttonContent">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
         </p>
         <FriggTechLogo />
+        <InfoIcon />
       </div>
       <div class={styles.flexColumnWrapper}>
         <FriggTechLogo width={160} />
@@ -95,6 +92,7 @@ const t_work = useTranslations(lang, 'work');
     </Popover></WorkCard
   >
   <WorkCard
+    className={styles.workCardLazy}
     inert={inert}
     viewTransitionName="accuRankerCard"
     id="accuRanker"
@@ -140,12 +138,16 @@ const t_work = useTranslations(lang, 'work');
     <p class="small-body-text">
       {t_work('accuranker_employment_description')}
     </p>
-    <Popover id="accuRanker">
-      <div class={styles.flexWrapper} slot="description">
+    <Popover
+      id="accuRanker"
+      buttonLabel={t_work('learn_more_about_accuranker')}
+    >
+      <div class={styles.flexWrapper} slot="buttonContent">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
         </p>
         <AccuRankerLogoWithTitle />
+        <InfoIcon />
       </div>
       <div class={styles.flexColumnWrapper}>
         <AccuRankerLogoWithTitle width={160} />
@@ -164,6 +166,7 @@ const t_work = useTranslations(lang, 'work');
     </Popover></WorkCard
   >
   <WorkCard
+    className={styles.workCardLazy}
     inert={inert}
     id="sallingGroup"
     viewTransitionName="salling-group-card"
@@ -207,12 +210,16 @@ const t_work = useTranslations(lang, 'work');
     <p class="small-body-text">
       {t_work('salling_group_employment_description')}
     </p>
-    <Popover id="sallingGroup">
-      <div class={styles.flexWrapper} slot="description">
+    <Popover
+      id="sallingGroup"
+      buttonLabel={t_work('learn_more_about_salling_group')}
+    >
+      <div class={styles.flexWrapper} slot="buttonContent">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
         </p>
         <SallingGroupLogo />
+        <InfoIcon />
       </div>
       <div class={styles.flexColumnWrapper}>
         <SallingGroupLogo width={160} />
@@ -239,6 +246,7 @@ const t_work = useTranslations(lang, 'work');
     <p class="body-text">{t_work('where_curiosity_meets_code')}</p>
   </div>
   <WorkCard
+    className={styles.workCardLazy}
     inert={inert}
     id="bruceWillis"
     href={lang === 'en'
@@ -263,6 +271,7 @@ const t_work = useTranslations(lang, 'work');
     </p></WorkCard
   >
   <WorkCard
+    className={styles.workCardLazy}
     inert={inert}
     id="larsEjaasComV1"
     href={lang === 'en'

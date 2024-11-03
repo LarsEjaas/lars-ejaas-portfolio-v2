@@ -3,14 +3,26 @@ import MobileMenu from '@components/mobileMenu/MobileMenu.astro';
 import Footer from '@components/footer/Footer.astro';
 import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
 import './global.css';
+import Seo from '@components/seo/Seo.astro';
+import type { SeoProps } from '../customTypes/seo';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
   gridColumns?: 2 | 3;
-}
+  withDarkkModeToggle?: boolean;
+  withModalLinks?: boolean;
+  seo?: SeoProps;
+};
 
-const { title, inert, gridColumns = 2 } = Astro.props;
+const {
+  title,
+  inert,
+  gridColumns = 2,
+  withDarkkModeToggle = true,
+  withModalLinks = true,
+  seo,
+} = Astro.props;
 
 /** Root layout should only be used directly in the index page file
  * On other pages it will be included in other layouts */
@@ -33,7 +45,13 @@ const { title, inert, gridColumns = 2 } = Astro.props;
     />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <Seo
+      metaData={{ ...seo?.metaData, title }}
+      metaTheme={seo?.metaTheme}
+      facebook={seo?.facebook}
+      twitter={seo?.twitter}
+      openGraph={seo?.openGraph}
+    />
     <script is:inline>
       if ('onpagereveal' in window) {
         window.onpagereveal = (event) => restoreModalScrollPosition(event);
@@ -55,7 +73,8 @@ const { title, inert, gridColumns = 2 } = Astro.props;
       // Detect dark mode before page load
       if (
         getStoredDarkmode() === 'true' ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches
+        (!getStoredDarkmode() &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         document.documentElement.dataset.darkMode = 'true';
       }
@@ -94,11 +113,15 @@ const { title, inert, gridColumns = 2 } = Astro.props;
         </clipPath>
       </defs>
     </svg>
-    <HeaderMenu inert={inert} />
+    <HeaderMenu
+      inert={inert}
+      withDarkkModeToggle={withDarkkModeToggle}
+      withModalLinks={withModalLinks}
+    />
     <main class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
       <slot />
     </main>
-    <Footer inert={inert} />
-    <MobileMenu inert={inert} />
+    <Footer inert={inert} withModalLinks={withModalLinks} />
+    <MobileMenu inert={inert} withModalLinks={withModalLinks} />
   </body>
 </html>

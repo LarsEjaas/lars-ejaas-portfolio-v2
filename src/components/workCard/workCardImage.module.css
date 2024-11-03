@@ -1,0 +1,11 @@
+.image {
+  height: 100%;
+  & .placeholder {
+    z-index: -1;
+    inset: 0;
+  }
+  & .picture {
+    height: 100%;
+    overflow: hidden;
+  }
+}

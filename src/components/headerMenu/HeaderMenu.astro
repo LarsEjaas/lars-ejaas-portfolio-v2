@@ -6,7 +6,6 @@ import {
   useTranslatedPath,
   useTranslations,
 } from '@i18n/utils';
-import { Picture } from 'astro:assets';
 import IconWork from '@assets/menuIcons/work.png';
 import IconSkills from '@assets/menuIcons/skillset.png';
 import IconAbout from '@assets/menuIcons/about.png';
@@ -14,16 +13,25 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
-import EjaasLogo from './EjaasLogo.astro';
+import ejaasLogo from './ejaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
-type Props = { inert: boolean };
+type Props = {
+  inert: boolean;
+  withDarkkModeToggle?: boolean;
+  withModalLinks?: boolean;
+};
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
-const { inert } = Astro.props;
-const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
-const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
+const {
+  inert,
+  withDarkkModeToggle = true,
+  withModalLinks = true,
+} = Astro.props;
+const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}/`;
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
 <script>
@@ -45,128 +53,177 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     id="desktopMenuContainer"
     role="group"
     aria-keyshortcuts="ArrowLeft ArrowRight"
-    aria-describedby="desktopArrowNavDescription"
     class={`${styles.desktopMenu} desktop-only`}
   >
-    <span id="desktopArrowNavDescription" class="sr-only">
-      {t('section_with_arrow_nav')}
-    </span>
-    <nav aria-labelledby="desktopMenuTitle">
-      <h2 class="sr-only" id="#desktopMenuTitle">
+    <nav
+      aria-labelledby="desktopMenuTitle"
+      role="listbox"
+      aria-label={t('nav_desktop')}
+    >
+      <h2 class="sr-only" id="desktopMenuTitle">
         {t('nav_desktop')}
       </h2>
-      <a data-arrow-nav="true" href={translatePath('/')} class={styles.homeLink}
-        ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
-      >
       <a
         data-arrow-nav="true"
-        href={translatePath('/work')}
+        title={t('home')}
+        role="option"
+        href={translatePath('/')}
+        class={styles.homeLink}
+      >
+        <p id="lightboxTitle" class="sr-only">{t('home')}</p>
+        <div
+          class={styles.ejaasLogo}
+          style={{
+            backgroundImage: `url(${ejaasLogo.src})`,
+            width: `${ejaasLogo.width}px`,
+            aspectRatio: `${ejaasLogo.width / ejaasLogo.height}`,
+          }}
+        >
+        </div>
+      </a>
+      <a
+        data-arrow-nav="true"
+        role="option"
+        href={translatePath('/work/')}
         class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
-          <Picture
+          {
+            /* Render images slightly too large to avoid dublicating for mobile menu */
+          }
+          <PictureWithPlaceholder
             aria-hidden="true"
-            formats={['avif']}
+            formats={['avif', 'webp']}
             quality="high"
             src={IconWork}
             alt=""
             width="40"
             height="40"
-            densities={[1, 2, 3, 4]}
+            widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
+            placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+            classNames={{ placeholder: styles.placeholder }}
           />
         </div>
         <p>{t('work')}</p>
       </a>
       <a
         data-arrow-nav="true"
-        href={translatePath('/skills')}
+        role="option"
+        href={translatePath('/skills/')}
         class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
-          <Picture
+          {
+            /* Render images slightly too large to avoid dublicating for mobile menu */
+          }
+          <PictureWithPlaceholder
             aria-hidden="true"
-            formats={['avif']}
+            formats={['avif', 'webp']}
             quality="high"
             src={IconSkills}
             alt=""
             width="40"
             height="40"
-            densities={[1, 2, 3, 4]}
+            widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
+            placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+            classNames={{ placeholder: styles.placeholder }}
           />
         </div><p>{t('skills')}</p></a
       >
       <a
         data-arrow-nav="true"
-        href={translatePath('/about')}
+        role="option"
+        href={translatePath('/about/')}
         class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
-          <Picture
+          {
+            /* Render images slightly too large to avoid dublicating for mobile menu */
+          }
+          <PictureWithPlaceholder
             aria-hidden="true"
-            formats={['avif']}
+            formats={['avif', 'webp']}
             quality="high"
             src={IconAbout}
             alt=""
-            width="40"
-            height="40"
-            densities={[1, 2, 3, 4]}
+            width="48"
+            height="48"
+            widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
+            placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+            classNames={{ placeholder: styles.placeholder }}
           />
         </div><p>{t('about')}</p></a
       >
+      {
+        withModalLinks && (
+          <div class={styles.navSection}>
+            <a
+              data-arrow-nav="true"
+              role="option"
+              href={contactUrl}
+              title={t('contact')}
+              aria-label={t('contact')}
+              id="desktopContactLink"
+            >
+              <div class="squircle" data-with-shadow="true">
+                {/* Render images slightly too large to avoid dublicating for mobile menu */}
+                <PictureWithPlaceholder
+                  aria-hidden="true"
+                  formats={['avif', 'webp']}
+                  quality="high"
+                  src={IconContact}
+                  alt=""
+                  width="48"
+                  height="48"
+                  widths={[48, 96, 144]}
+                  loading="eager"
+                  decoding="sync"
+                  placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+                  classNames={{ placeholder: styles.placeholder }}
+                />
+              </div>
+            </a>
+            <a
+              data-arrow-nav="true"
+              role="option"
+              href={shareUrl}
+              title={t('share')}
+              aria-label={t('share')}
+              id="desktopShareLink"
+            >
+              <div class="squircle" data-with-shadow="true">
+                {/* Render images slightly too large to avoid dublicating for mobile menu */}
+                <PictureWithPlaceholder
+                  aria-hidden="true"
+                  formats={['avif', 'webp']}
+                  quality="high"
+                  src={IconShare}
+                  alt=""
+                  width="48"
+                  height="48"
+                  widths={[48, 96, 144]}
+                  loading="eager"
+                  decoding="sync"
+                  placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+                  classNames={{ placeholder: styles.placeholder }}
+                />
+              </div>
+            </a>
+          </div>
+        )
+      }
     </nav>
     <div class={styles.actions}>
-      <a
-        data-arrow-nav="true"
-        href={contactUrl}
-        title={t('contact')}
-        aria-label={t('contact')}
-        id="desktopContactLink"
-        ><div class="squircle" data-with-shadow="true">
-          <Picture
-            aria-hidden="true"
-            formats={['avif']}
-            quality="high"
-            src={IconContact}
-            alt=""
-            width="40"
-            height="40"
-            densities={[1, 2, 3, 4]}
-            loading="eager"
-            decoding="sync"
-          />
-        </div></a
-      >
-      <a
-        data-arrow-nav="true"
-        href={shareUrl}
-        title={t('share')}
-        aria-label={t('share')}
-        id="desktopShareLink"
-        ><div class="squircle" data-with-shadow="true">
-          <Picture
-            aria-hidden="true"
-            formats={['avif']}
-            quality="high"
-            src={IconShare}
-            alt=""
-            width="40"
-            height="40"
-            densities={[1, 2, 3, 4]}
-            loading="eager"
-            decoding="sync"
-          />
-        </div></a
-      >
       <div class={styles.divider}></div>
       <LanguageToggle />
-      <ThemeSwitch withGlow={false} isMobile={false} />
+      {withDarkkModeToggle && <ThemeSwitch withGlow={false} isMobile={false} />}
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
     <LanguageToggle withBackground={true} />
-    <ThemeSwitch withGlow={true} isMobile={true} />
+    {withDarkkModeToggle && <ThemeSwitch withGlow={true} isMobile={true} />}
   </div>
 </header>

@@ -32,7 +32,7 @@
 }
 
 .backdrop {
-  view-transition-name: lightboxBackdrop;
+  view-transition-name: lightbox-backdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -41,7 +41,6 @@
   inset: 0;
   z-index: 1000;
   background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
-  animation-fill-mode: both;
   backdrop-filter: saturate(180%) brightness(60%) blur(6px);
   transition: backdrop-filter 0.3s ease-in-out 0.1s;
   &:hover {
@@ -49,33 +48,36 @@
   }
 }
 
-/* :global(::view-transition-group(lightboxBackdrop)) {
-  backdrop-filter: none !important;
-} */
-
 ::view-transition-old(lightboxBackdrop) {
   animation: 300ms blurOut ease-in both;
-  backdrop-filter: none !important;
-  background-blend-mode: unset;
 }
 
 ::view-transition-new(lightboxBackdrop) {
   animation: 300ms blurIn ease-out both;
 }
 
+::view-transition-group(lightbox-backdrop),
+::view-transition-new(lightbox-backdrop),
+::view-transition-old(lightbox-backdrop) {
+  animation: none !important;
+  animation-duration: 0s !important;
+  mix-blend-mode: normal !important;
+  animation-fill-mode: none !important;
+}
+
 .dialog {
   view-transition-name: lightbox;
   position: fixed;
+  pointer-events: none;
   container-name: lightbox;
   container-type: inline-size;
-  margin-inline: auto;
-  margin-block: min(20vh, 4rem) 2rem;
-  max-width: min(calc(800px + 2rem), 100vw);
+  margin: 2rem auto;
+  max-width: min(calc(880px + 2rem), 100vw);
   padding: 0;
   display: flex;
   flex-direction: column;
   width: auto;
-  height: calc(100vh - (min(20vh, 4rem) + 2rem));
+  height: calc(100vb - (4rem));
   z-index: 1000;
   inset: 0;
   background-color: unset;
@@ -89,27 +91,62 @@
 
 .content {
   view-transition-name: lightbox-content;
-  margin-inline: 3rem;
-  max-height: 70cqb;
-  min-height: 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  margin-inline: 1rem;
+  height: 70cqb;
+  min-height: 0;
+
+  & .imageContainer {
+    pointer-events: all;
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    width: 320px;
+    height: 100%;
+    max-height: 70cqb;
+  }
+
+  @media (min-width: 561px) {
+    & .imageContainer {
+      width: 480px;
+    }
+  }
+
+  @media (min-width: 821px) {
+    & .imageContainer {
+      width: 640px;
+    }
+  }
   & picture,
   & img {
     border-radius: var(--border-radius-md);
+    max-height: 70cqb;
   }
   & picture {
-    max-height: 100%;
-    margin-inline: auto;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+  }
+  & .placeholder {
+    inset: 0;
+    border-radius: var(--border-radius-md);
+    z-index: -1;
+    max-height: 70cqb;
+    margin: auto;
   }
 }
 
 .closeLink {
   display: block;
+  pointer-events: all;
   border-radius: var(--border-radius-sm);
   border: none;
   height: fit-content;
   line-height: 0;
-  margin: 8px;
+  margin: 8px 16px;
   padding: 4px;
   color: var(--verdigris-600);
   transition: transform 0.3s ease;
@@ -128,17 +165,17 @@
 
 .thumbnailGridContainer {
   view-transition-name: thumbnail-grid-container;
+  pointer-events: all;
   --mask-width: 2rem;
   display: grid;
   grid-auto-flow: dense;
   gap: 0.5rem;
-  margin-inline: var(--mask-width);
-  padding-inline: 2rem;
+  margin-inline: 1rem;
+  padding-inline: var(--mask-width);
   overflow-x: scroll;
   max-width: calc(100% - 2 * var(--mask-width));
   padding-block: 32px 16px;
   will-change: grid-template-columns;
-  /* animation: spreadCards 400ms 250ms ease-in-out backwards; */
   mask: linear-gradient(
     90deg,
     transparent,
@@ -156,25 +193,26 @@
   }
 }
 
-::view-transition-old(thumbnailGridContainer) {
+::view-transition-old(thumbnail-grid-container) {
   animation: 250ms fadeOut ease-in both;
 }
 
-::view-transition-new(thumbnailGridContainer) {
+::view-transition-new(thumbnail-grid-container) {
   animation: 250ms fadeIn 300ms ease-out both;
 }
 
 .controls {
-  display: none;
+  display: flex;
   --controls-height: 40px;
   top: calc(50% - var(--controls-height) / 2);
   inset-inline: -1rem;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
   position: absolute;
   & li {
     width: fit-content;
+    pointer-events: all;
+    padding: 1rem;
     z-index: 1;
     display: block;
   }
@@ -221,9 +259,6 @@
 }
 
 @container lightbox (width > 800px) {
-  .controls {
-    display: flex;
-  }
   .footer {
     & a:hover,
     & a:focus-visible {

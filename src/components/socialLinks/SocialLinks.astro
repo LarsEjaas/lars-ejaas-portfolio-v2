@@ -22,64 +22,50 @@ const t = useTranslations(lang, 'navigation');
 
   //there may be more than one element with this class on the page - we needd to initialize the keyboard navigation for each of them
   const elements: HTMLElement[] = Array.from(
-    document.querySelectorAll(`div.${styles.socialLinks}`)
+    document.querySelectorAll(`nav.${styles.socialLinks}`)
   );
 
   elements.forEach((element) => {
     initializeKeyboardArrowNavigation(element);
   });
 </script>
-<div
+<nav
   class={styles.socialLinks}
   data-alt-colors={alternativeColors || undefined}
   aria-labelledby=`socialLinksTitle${onCard ? 1 : 2}`
+  role="listbox"
 >
   <h2 id=`socialLinksTitle${onCard ? 1 : 2}` class="sr-only">
     {t('follow_me')}
   </h2>
-  <span
-    aria-keyshortcuts="ArrowLeft ArrowRight"
-    id=`socialArrowNavDescription${onCard ? 1 : 2}`
-    class="sr-only"
+  <a
+    role="option"
+    href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t('x_label')}
+    data-arrow-nav="true"
   >
-    {t('section_with_arrow_nav')}
-  </span>
-  <ul
-    role="group"
-    aria-describedby=`socialArrowNavDescription${onCard ? 1 : 2}`
+    <XIcon title={t('x_label')} />
+  </a>
+  <a
+    role="option"
+    href="https://linkedin.com/in/lars-ejaas"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t('linkedin_label')}
+    data-arrow-nav="true"
   >
-    <li>
-      <a
-        href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t('x_label')}
-        data-arrow-nav="true"
-      >
-        <XIcon title={t('x_label')} />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://linkedin.com/in/lars-ejaas"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t('linkedin_label')}
-        data-arrow-nav="true"
-      >
-        <LinkedInIcon title={t('linkedin_label')} />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://github.com/LarsEjaas"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t('github_label')}
-        data-arrow-nav="true"
-      >
-        <GitHubIcon title={t('github_label')} />
-      </a>
-    </li>
-  </ul>
-</div>
+    <LinkedInIcon title={t('linkedin_label')} />
+  </a>
+  <a
+    role="option"
+    href="https://github.com/LarsEjaas"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t('github_label')}
+    data-arrow-nav="true"
+  >
+    <GitHubIcon title={t('github_label')} />
+  </a>
+</nav>

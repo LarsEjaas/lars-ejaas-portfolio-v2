@@ -58,8 +58,7 @@
     color: light-dark(var(--system-light-400), var(--system-light-200));
     margin-block-end: unset;
     max-width: calc(100cqi - (64px + 80px));
-    vertical-align: baseline;
-    transform: translateY(0.24em);
+    transform: translateY(0.2em);
   }
   & :global(.squircle) {
     clip-path: url(#squircle);
@@ -79,6 +78,11 @@
     height: 200%;
     display: grid;
     align-items: flex-end;
+    & .icon {
+      clip-path: url(#squircle);
+      width: inherit;
+      aspect-ratio: 1;
+    }
   }
   .gradientBackground {
     background: linear-gradient(
@@ -112,6 +116,12 @@
       --gradient-tone-500: var(--aquamarine-500);
     }
   }
+}
+
+::view-transition-old(presentation-card-header-title),
+::view-transition-new(presentation-card-header-title) {
+  object-fit: none;
+  object-position: bottom left;
 }
 
 .outline {
@@ -162,7 +172,7 @@
   view-transition-name: overlay-image;
   grid-row: 1;
   grid-column: 1;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   margin-inline: auto;
   z-index: 1;
   width: 80px;

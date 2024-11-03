@@ -1,7 +1,6 @@
 export const about = {
   en: {
     about_title: 'About',
-    about_tagline: 'My journey so far',
     hello: 'Hello',
     profile_lars_alt: 'Profile picture of Lars Ejaas',
     i_am: 'I am',
@@ -22,7 +21,7 @@ export const about = {
       'From Racetracks to Code Tracks: My Unexpected Journey',
     life_rarely_follows:
       'Life rarely follows a straight path, and my journey to becoming a developer at 40 is a testament to that.\nHere are a few pit stops along the way that shaped who I am today.',
-    chasing_dreams: 'Chasing Dreams on Two Wheels',
+    chasing_dreams: '',
     for_13_seasons:
       'For 13 seasons, I lived and breathed amateur road cycling. The dream of going pro pushed me to compete in elite national races and even a few international events. While I realized my physical talents weren’t quite cut out for the professional peloton, those years were an incredible adventure.\nThe thrill of competition and the personal growth I experienced along the way were invaluable. If given the chance, I’d do it all over again in a heartbeat. These adventurous years taught me the value of perseverance and the joy of pushing my limits.',
     finding_my_stride: 'Finding My Stride in Endurance Running',
@@ -44,7 +43,6 @@ export const about = {
   },
   da: {
     about_title: 'Om mig',
-    about_tagline: 'Min rejse indtil videre',
     hello: 'Hej',
     profile_lars_alt: 'Profilbillede af Lars Ejaas',
     i_am: 'Jeg er',
@@ -59,5 +57,29 @@ export const about = {
     a_cheerful_individual: 'En glad person med et positivt syn på livet.',
     living_in_aarhus: 'Bor i Aarhus.',
     the_proud_father: 'Den stolte far til to børn.',
+    a_winding_road: 'Den kringlede vej til webudvikling',
+    from_racetracks_to_code_tracks:
+      'Fra løbebane til programmering: Min uventede rejse',
+    life_rarely_follows:
+      'Livet følger sjældent en lige vej, og min rejse til at blive udvikler som 40-årig er i den grad et bevis på det.\nHer er et par stop undervejs, som har formet den, jeg er i dag.',
+    chasing_dreams: 'Drømmen om et liv på 2 hjul',
+    for_13_seasons: '',
+    finding_my_stride: 'At finde mit ståsted i udholdenhedsløb',
+    my_thirties_saw:
+      'I trediverne skiftede jeg cykelpedalerne ud med løbesko. Jeg kastede mig ud i alt fra 5 km-løb til udmarvende maratonløb og prøvede endda kort kræfter med løbebanen.',
+    the_pinnacle:
+      'Højdepunktet? At gennemføre Hannover Marathon på 2:33 timer og vinde min aldersgruppe. Den rejse - fra den intense træning til at krydse målstregen - har virkelig vist mig styrken ved disciplineret forberedelse og den søde smag af hårdt optjent succes',
+    an_architectural_detour: 'En arkitektonisk omvej',
+    as_a_teenager:
+      'Som teenager fik min kærlighed til at tegne mig til at gå i gang med at studere arkitektur. Jeg tilbragte endda et år på Arkitektskolen Aarhus. Det kunstneriske miljø var virkelig ikke noget for mig, men det var en erfaring som viste mig vigtigheden af at udforske forskellige veje og have modet til at ændre kurs.',
+    a_lateblooming_passion: 'En sent opstået passion for programmering',
+    it_wasnt_until:
+      'Det var først, da jeg var sidst i trediverne, at jeg opdagede programmering som en hobby. Pludselig faldt brikkerne på plads. Frontend-udvikling tilbød den perfekte blanding af problemløsning, struktur og kreativitet, som jeg hele tiden havde ledt efter. Det var som at finde den manglende brik i et puslespil, jeg ikke engang vidste, jeg var i gang med at løse.\nDenne nyfundne passion udviklede sig hurtigt til et karriereskift. Som 40-årig tog jeg springet og fik mit første udviklerjob og begyndte på en spændende ny karrierevej.\n\nSelvom ikke alle arbejdsopgaver er banebrydende, er den overordnede tilfredsstillelse, jeg får ud af mit arbejde, uden sidestykke. Jeg har endda taget mig selv i at glæde mig til mandag morgen - en ny oplevelse, der siger meget om, hvor meget jeg nyder det, jeg laver',
+    the_lesson:
+      'Hvad kan man lære af det? Det er aldrig for sent at skifte retning',
+    if_theres_one:
+      'Hvis der er én ting, jeg har lært, så er det dette: Følg dine drømme, men vær ikke bange for at ændre kurs undervejs.« Hvem ved? Ligesom mig ender du måske med at gøre noget, der er mere spændende end det, du oprindeligt drømte om.',
+    drawing_house_alt:
+      'Nærbillede af en hånd, der holder en blyant, mens den tegner en skitse af et hus på et stykke papir',
   },
 } as const;

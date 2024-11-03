@@ -127,6 +127,10 @@ export type IconImage =
   | 'work'
   | 'archive';
 
+export type StringWithTrailingSlash = `${string}/`;
+export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
+export type ExternalLink = `https://${string}`;
+
 /**
  * Type predicate to filter out empty instances of an array
  * Returns true if a value is not empty (i.e., not null or undefined).
@@ -156,3 +160,7 @@ export function hasProperty<
 >(key: KeyType, obj: ObjectType): key is KeyType & keyof ObjectType {
   return key in obj;
 }
+/**  Sets all properties of T to required recursively */
+export type DeepRequired<T> = Required<{
+  [K in keyof T]: T[K] extends Required<T[K]> ? T[K] : DeepRequired<T[K]>;
+}>;

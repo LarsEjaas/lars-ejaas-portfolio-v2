@@ -1,34 +1,23 @@
 ---
 import styles from './carousel.module.css';
-import { Picture } from 'astro:assets';
 import type {
   ImageType,
   DanishDate,
   EnglishDate,
   ImageModule,
+  StringWithTrailingSlash,
+  StringWithTrailingSlashAndAnchor,
+  ExternalLink,
 } from '@customTypes/index';
-import {
-  getLangFromUrl,
-  useTranslatedPath,
-  useTranslations,
-} from '@i18n/utils';
+import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 import { isExternalLink } from '@utils/misc';
+import ArticleCard from './ArticleCard.astro';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
 export const MAX_NUMBER_OF_ITEMS = 10;
 
-export type CardInfo = {
-  title: string;
-  description: string;
-  date: EnglishDate | DanishDate;
-  imageSrc: ImageType;
-  imageAlt: string;
-  href: string;
-  outline: '1' | '2' | '3' | '4' | 'gold';
-};
-
-interface Props {
+type Props = {
   labels: {
     title: string;
     /** Title of the archive card */
@@ -38,14 +27,27 @@ interface Props {
   };
   items: CardInfo[];
   inert: boolean;
-}
+};
+
+export type CardInfo = {
+  title: string;
+  description: string;
+  date: EnglishDate | DanishDate;
+  imageSrc: ImageType;
+  imageAlt: string;
+  href:
+    | StringWithTrailingSlash
+    | StringWithTrailingSlashAndAnchor
+    | ExternalLink;
+  outline: '1' | '2' | '3' | '4' | 'gold';
+};
 
 const { items, labels, inert } = Astro.props;
 
 const ARCHIVE_ID = 'newsArchive';
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
-const ARCHIVE_HREF = translatePath('archive');
+const ARCHIVE_HREF = translatePath('/archive/');
 
 const itemList =
   MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS
@@ -55,7 +57,6 @@ const itemList =
 const showArchiveCard =
   MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS;
 
-const t = useTranslations(lang, 'navigation');
 const timeLine = [
   ...itemList,
   ...(showArchiveCard ? [{ title: 'placeholder' }] : []),
@@ -114,7 +115,6 @@ const timelineScope = timeLine
   });
 </script>
 <section
-  aria-labelledby="carouselHeading"
   id="carousel"
   class="fullgrid"
   style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}; timeline-scope: ${timelineScope}`}
@@ -125,21 +125,17 @@ const timelineScope = timeLine
   <ul
     tabindex="-1"
     id="carouselList"
-    role="group"
-    aria-describedby="carouselArrowNav"
+    role="listbox"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    aria-labelledby="carouselHeading"
   >
-    <span
-      id="carouselArrowNav"
-      aria-keyshortcuts="ArrowLeft ArrowRight"
-      class="sr-only"
-    >
-      {t('section_with_arrow_nav')}
-    </span>
     {
       showArchiveCard && (
         <li style={`--index: ${0}; view-timeline: --card-${0} inline`}>
           <a
             data-arrow-nav="true"
+            role="option"
+            aria-label={labels.archiveTitle}
             id={ARCHIVE_ID}
             href={`${ARCHIVE_HREF}#oldNews`}
           >
@@ -158,8 +154,7 @@ const timelineScope = timeLine
         );
 
         if (!imageImport) {
-          console.error(`News image not found for: ${imageName}`);
-          return null;
+          throw new Error(`News image not found for: ${imageName}`);
         }
         const ImageComponent = ((await imageImport[1]()) as ImageModule)
           .default;
@@ -172,34 +167,25 @@ const timelineScope = timeLine
           >
             <a
               data-arrow-nav="true"
+              role="option"
               id={`card${index}`}
               href={item.href}
+              aria-labelledby={`articleTitle${index}`}
+              aria-describedby={`articleDescription${index}`}
               {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
             >
-              <article
-                class={`${styles[`outline${item.outline}`]} ${styles.article}`}
-              >
-                <Picture
-                  formats={['avif']}
-                  quality="high"
-                  src={ImageComponent}
-                  alt={item.imageAlt}
-                  width="232"
-                  height="148"
-                  densities={[1, 2, 3, 4]}
-                  loading="lazy"
-                  decoding="sync"
-                />
-                <div class={styles.newsContent}>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                  <div class={styles.date}>
-                    <p>{item.date}</p>
-                  </div>
-                </div>
-              </article>
+              <span class="sr-only" style="left: 50%; top: 50%;">
+                {item.title}
+              </span>
+              <ArticleCard
+                title={item.title}
+                description={item.description}
+                date={item.date}
+                imageAlt={item.imageAlt}
+                outline={item.outline}
+                index={index}
+                image={ImageComponent}
+              />
             </a>
           </li>
         );

@@ -12,6 +12,8 @@
 The second iteration of [larsejaas.com](https://larsejaas.com) built with [Astro](https://astro.build/) and deployed on [Netlify](https://www.netlify.com/)
 
 [![Project Status: Active.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Code Quality Checks](https://github.com/LarsEjaas/lars-ejaas-portfolio-v2/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/LarsEjaas/lars-ejaas-portfolio-v2/actions/workflows/checks.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cab35f90-2300-41e1-b0da-524bef7b3eaf/deploy-status)](https://app.netlify.com/sites/larsejaas-v2/deploys)
 
 ## ⚠️ Before you fork this repo - please read!
 
@@ -30,7 +32,7 @@ I'm dedicated to keeping this project open-source, mainly as a source of inspira
 <br />
 Thank you for understanding and respecting my work!
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ---
 
@@ -43,9 +45,26 @@ Fast-forward to today, and I've grown significantly as a developer.
 Working professionally in the field has allowed me to build numerous exciting projects and expand my knowledge base.
 <br />
 <br />
-While I typically work with React frameworks, I decided to challenge myself by building this site using Astro without React and without any CSS frameworks.
+While I typically would choose to build a bage like with a React framework like Nextjs, I decided to challenge myself by building this site using Astro without any JavaScript framework and without any CSS framework either.
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
+
+## 🛠️ Prerequisites & Requirements
+
+- [x] Node.js (v20 or higher)
+- [x] npm
+- [x] Git
+- [x] A Gmail account for SMTP services
+- [x] Netlify CLI (making it possible to debug serverless functions locally).
+  - Install the Netlify CLI globally: `npm install -g netlify-cli`
+
+## 🔌 Recommended VS Code Extensions
+
+- [x] **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
+- [x] **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
+- [x] **ESLint** - [vscode:extension/dbaeumer.vscode-eslint](vscode:extension/dbaeumer.vscode-eslint)
+- [x] **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
+- [x] **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
 
 ## 💻 Getting started
 
@@ -67,17 +86,23 @@ Install dependencies:
 npm install
 ```
 
+Install the pre-commit hook (you can skip this step if you do not plan to commit code):
+
+```bash
+npx husky install
+```
+
 Start the development server:
 
 ```bash
-npm run dev
+netlify dev
 ```
 
 That's it!
 
 The project is intentionally simple, with no JavaScript frameworks, no CSS frameworks, and limited use of TypeScript/JavaScript.
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 🎯 Project objectives
 
@@ -91,11 +116,11 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
   - [**View Transitions API**](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
   - [**Popover API**](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - Enhance accessibility and gain more experience with screen readers.
-- Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable..
+- Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable.
 - Maintain the previous design and color scheme while improving areas that needed a face-lift.
 - Focus the site on my professional career - but also include a bit about myself and my sports background.
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 🙏Attribution
 
@@ -112,10 +137,10 @@ I'm grateful to the following developers whose content has inspired me in creati
 
 </div>
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 📬 Contact
 
 If you have any questions or feedback, feel free to write to me using my contact form at: https://larsejaas.com/contact
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>

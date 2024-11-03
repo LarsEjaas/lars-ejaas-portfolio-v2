@@ -1,0 +1,36 @@
+@keyframes sparkle {
+  0%,
+  30%,
+  100% {
+    transform: scale(0);
+  }
+  5% {
+    transform: scale(0);
+  }
+  15% {
+    transform: scale(-1, 0);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+}
+
+.wrapper {
+  position: relative;
+  line-height: 0;
+  width: fit-content;
+}
+
+.sparkle {
+  --duration: 8s;
+  clip-path: url('#sparkle');
+  aspect-ratio: 1;
+  position: absolute;
+  z-index: 100;
+  pointer-events: none;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: sparkle var(--duration) var(--delay, 0ms) infinite ease-in-out;
+    animation-fill-mode: both;
+  }
+}

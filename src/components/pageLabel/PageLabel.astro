@@ -1,86 +1,50 @@
 ---
 import type { IconImage, ImageModule } from '@customTypes/index';
-import { Picture } from 'astro:assets';
-import styles from './PageLabel.module.css';
-import { getLangFromUrl } from '@i18n/utils';
-import { languages } from '@i18n/settings';
+import styles from './pageLabel.module.css';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+
+type Props = {
+  title: string;
+  iconImage: IconImage;
+};
 
 const iconImages = import.meta.glob('@assets/menuIcons/*.{jpg,png}');
-const taglineSVGs = import.meta.glob('@assets/taglines/*.svg');
 
-type Props =
-  | {
-      title: string;
-      iconImage: IconImage;
-      tagLine: 'about' | 'home' | 'toolkit' | 'work';
-      /** Alt text for the tagline SVG to make it accessible */
-      taglineAlt: string;
-    }
-  | {
-      title: string;
-      iconImage: IconImage;
-      tagLine?: never;
-      /** Alt text for the tagline SVG to make it accessible */
-      taglineAlt?: never;
-    };
-
-const lang = getLangFromUrl(Astro.url);
-
-const language = languages[lang].toLowerCase();
-
-const { title, iconImage, tagLine, taglineAlt } = Astro.props;
+const { title, iconImage } = Astro.props;
 
 const imageImport = Object.entries(iconImages).find(([path]) =>
   path.includes(iconImage)
 );
 
-const svgImport = Object.entries(taglineSVGs).find(([path]) => {
-  if (!tagLine) return undefined;
-  return path.includes(`${tagLine}_${language}`);
-});
-
 if (!imageImport) {
   throw new Error(
-    `News image not found for: ${iconImage} in the PageLabel component`
-  );
-}
-
-if (tagLine && !svgImport) {
-  throw new Error(
-    `Tagline SVG not found for: ${tagLine}_${language}.svg in the PageLabel component`
+    `Icon image not found for: ${iconImage} in the PageLabel component`
   );
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const TaglineComponent = tagLine
-  ? ((await svgImport?.[1]?.()) as ImageModule).default
-  : null;
 ---
 
 <div class={styles.pageLabel}>
   <div class={styles.iconAndTitle}>
     <div class="squircle" data-with-shadow="true">
-      <Picture
+      <PictureWithPlaceholder
         aria-hidden="true"
-        formats={['avif']}
+        formats={['avif', 'webp']}
         quality="high"
         src={ImageComponent}
         alt=""
         width="96"
         height="96"
-        densities={[1, 2, 3, 4]}
+        densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
+        classNames={{ placeholder: styles.placeholder }}
+        placeholderSettings={{
+          width: 24,
+        }}
       />
     </div>
     <h1>{title}</h1>
   </div>
-  {TaglineComponent && taglineAlt && (<div
-    class={styles.tagline}
-    style={`aspect-ratio: ${TaglineComponent.width}/${TaglineComponent.height}; mask-image: url(${TaglineComponent.src});`}
-    role="img"
-    aria-labelledby="taglineHeading"
-  >
-  </div>
-  <h2 id="taglineHeading" class="sr-only">{taglineAlt}</h2>)}
 </div>

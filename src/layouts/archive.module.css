@@ -11,6 +11,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .baloons {
+    grid-row: 4;
+  }
+}
+
 .articleCard {
   display: block;
   position: relative;

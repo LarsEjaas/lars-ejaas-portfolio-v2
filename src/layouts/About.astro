@@ -8,12 +8,12 @@ import styles from './about.module.css';
 import ProfileImage from '@assets/images/profile.png';
 import PhotoCards from '@components/photoCards/PhotoCards.astro';
 import DrawingHouse from '@assets/aboutImages/drawing_house.png';
-import { Picture } from 'astro:assets';
+import PictureWithPlaceholder from '../components/picture/PictureWithPlaceholder.astro';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
 const { title, inert } = Astro.props;
@@ -22,12 +22,7 @@ const t_about = useTranslations(lang, 'about');
 
 <Layout title={title} inert={inert}>
   <div class="presentation">
-    <PageLabel
-      title={t_about('about_title')}
-      iconImage="about"
-      tagLine="about"
-      taglineAlt={t_about('about_tagline')}
-    />
+    <PageLabel title={t_about('about_title')} iconImage="about" />
     <PresentationCard
       gradientColor="princeton"
       title={t_about('hello')}
@@ -53,7 +48,7 @@ const t_about = useTranslations(lang, 'about');
       </div>
     </PresentationCard>
   </div>
-  <FloatingBalloons balloonColor="princeton" />
+  <FloatingBalloons balloonColor="princeton" class={styles.floatingBalloons} />
   <article class={styles.article} id="aboutArticle">
     <div class={styles.articleContent}>
       <div class={styles.textContent}>
@@ -111,8 +106,8 @@ const t_about = useTranslations(lang, 'about');
         <h3>{t_about('an_architectural_detour')}</h3>
         <p class="body-text">{t_about('as_a_teenager')}</p>
       </div>
-      <div class={styles.imageContent}>
-        <Picture
+      <div class={styles.drawingHouse}>
+        <PictureWithPlaceholder
           formats={['avif', 'webp']}
           quality="high"
           src={DrawingHouse}
@@ -122,8 +117,18 @@ const t_about = useTranslations(lang, 'about');
           loading="eager"
           decoding="sync"
           pictureAttributes={{
-            style: `aspect-ratio: ${DrawingHouse.width}/${DrawingHouse.height};`,
-            class: styles.drawingHouse,
+            style: {
+              aspectRatio: `${DrawingHouse.width}/${DrawingHouse.height};`,
+            },
+          }}
+          classNames={{
+            placeholder: styles.placeholder,
+          }}
+          placeholderSettings={{
+            style: {
+              aspectRatio: `${DrawingHouse.width}/${DrawingHouse.height};`,
+            },
+            width: 32,
           }}
         />
       </div>

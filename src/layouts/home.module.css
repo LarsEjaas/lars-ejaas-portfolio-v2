@@ -64,3 +64,82 @@
     }
   }
 }
+
+.contactContainer {
+  display: flex;
+  margin-bottom: 8px;
+  & a {
+    outline-offset: var(--outline-offset);
+    text-decoration-line: none;
+    width: fit-content;
+    display: block;
+    box-shadow: var(--stacks-4-shadow);
+    & p {
+      text-wrap: balance;
+      white-space: pre-line;
+      margin-block-end: 0;
+    }
+  }
+}
+
+.contact {
+  position: relative;
+  font-size: var(--font-size-2);
+  user-select: none;
+  font-weight: 300;
+  background: var(--system-light-300);
+  color: light-dark(var(--system-dark-200), var(--system-dark-300-55));
+  border-radius: var(--border-radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  width: fit-content;
+  gap: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  &::before {
+    background: radial-gradient(
+      75% 63.6% at 50% 2.5%,
+      var(--verdigris-100) 0%,
+      transparent 100%
+    );
+    position: absolute;
+    content: '';
+    inset: 0;
+    opacity: 0.3;
+    transition: opacity 0.2s ease-in-out;
+    filter: blur(2px);
+  }
+  & picture {
+    width: 40px;
+    aspect-ratio: 1 / 1;
+    background-color: #1bb3b9;
+  }
+  & p {
+    z-index: 1;
+    color: light-dark(var(--system-dark-400), var(--system-dark-100));
+  }
+}
+
+.outline {
+  composes: outlinegold from '@components/carousel/carousel.module.css';
+  background-size: 100% 125%;
+  background-position-y: top;
+  border-radius: 6px;
+  padding: 2px;
+  & :global(.squircle) {
+    transition: transform 0.4s ease-in-out;
+    flex-shrink: 0;
+  }
+  &:hover,
+  &:focus-visible {
+    & .contact::before {
+      opacity: 0.5;
+      /* transform: scale(1.2); */
+    }
+    & :global(.squircle) {
+      transform: translateY(-3px);
+    }
+  }
+}

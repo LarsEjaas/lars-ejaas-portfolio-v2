@@ -1,6 +1,11 @@
 ---
 import styles from './starRating.module.css';
 
+type Props = {
+  starSize?: number;
+  rating: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
+};
+
 const STAR_POLYGON_POINTS =
   '12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
 
@@ -9,11 +14,6 @@ const STAR_DEFAULT_ATTRIBUTES = {
   fill: 'currentColor',
   ['stroke-width']: '1.5',
 };
-
-interface Props {
-  starSize?: number;
-  rating: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
-}
 
 const MAX_RATING = 5;
 
