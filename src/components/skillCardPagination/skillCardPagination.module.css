@@ -59,6 +59,7 @@
   margin-block: 12px;
   list-style-type: none;
   view-transition-name: pagination;
+  gap: 4px;
 }
 
 .control {

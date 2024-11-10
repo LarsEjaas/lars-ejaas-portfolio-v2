@@ -48,7 +48,7 @@ const t_work = useTranslations(lang, 'work');
     inert={inert}
     viewTransitionName="card"
     id="friggTech"
-    headline={t_work('frontend_developer')}
+    headline={t_work('software_developer')}
     subHeadline={'Frigg Tech A/S, Aarhus'}
     headerImage={FriggTechHeaderImage}
     headerImageAlt={t_work('friggtech_hero_image_alt')}
@@ -71,7 +71,7 @@ const t_work = useTranslations(lang, 'work');
     <p class="small-body-text">
       {t_work('friggtech_employment_description')}
     </p>
-    <Popover id="friggTech">
+    <Popover id="friggTech" buttonLabel={t_work('learn_more_about_friggtech')}>
       <div class={styles.flexWrapper} slot="description">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
@@ -140,7 +140,10 @@ const t_work = useTranslations(lang, 'work');
     <p class="small-body-text">
       {t_work('accuranker_employment_description')}
     </p>
-    <Popover id="accuRanker">
+    <Popover
+      id="accuRanker"
+      buttonLabel={t_work('learn_more_about_accuranker')}
+    >
       <div class={styles.flexWrapper} slot="description">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
@@ -207,7 +210,10 @@ const t_work = useTranslations(lang, 'work');
     <p class="small-body-text">
       {t_work('salling_group_employment_description')}
     </p>
-    <Popover id="sallingGroup">
+    <Popover
+      id="sallingGroup"
+      buttonLabel={t_work('learn_more_about_salling_group')}
+    >
       <div class={styles.flexWrapper} slot="description">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}

@@ -2,22 +2,11 @@
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
     /* Base Options: */
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
     "moduleDetection": "force",
-    "isolatedModules": true,
-
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noEmit": true,
 
     /* TypeScript transpiling */
-    "moduleResolution": "Node",
-    "module": "ESNext",
     "incremental": true,
     "baseUrl": ".",
     "paths": {
@@ -32,15 +21,12 @@
       "@utils/*": ["src/utils/*"]
     },
     "lib": ["dom", "es2015", "es2017", "es2021.String"],
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "removeComments": false,
     "preserveConstEnums": true,
     "strictNullChecks": true,
-    "noImplicitAny": true,
-    "forceConsistentCasingInFileNames": true
+    "noImplicitAny": true
   },
   "exclude": ["node_modules"],
-  "include": ["src", "env.d.ts", "netlify/functions"],
+  "include": ["src", "env.d.ts", "functions"],
   "$schema": "https://json.schemastore.org/tsconfig"
 }

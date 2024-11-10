@@ -20,35 +20,43 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     initializeKeyboardArrowNavigation(window.footerMenuNavigation);
   }
 </script>
-<nav id="footerMenuNavigation" aria-labelledby="footerMenuTitle">
-  <span id="footerArrowNavDescription" class="sr-only">
-    {t('section_with_arrow_nav')}
-  </span>
-  <h2 class="sr-only" id="#footerMenuTitle">
+<nav id="footerMenuNavigation" role="listbox">
+  <h2 class="sr-only" id="footerMenuTitle">
     {t('nav_footer')}
   </h2>
   <ul
     role="group"
     aria-keyshortcuts="ArrowLeft ArrowRight"
-    aria-describedby="footerArrowNavDescription"
+    aria-labeledby="footerMenuTitle"
   >
     <li>
-      <a data-arrow-nav="true" href={translatePath('work')} title={t('work')}
-        >{t('work')}</a
+      <a
+        data-arrow-nav="true"
+        role="option"
+        href={translatePath('work')}
+        title={t('work')}>{t('work')}</a
       >
       <a
         data-arrow-nav="true"
+        role="option"
         href={translatePath('skills')}
         title={t('skills')}>{t('skills')}</a
       >
-      <a data-arrow-nav="true" href={translatePath('about')} title={t('about')}
-        >{t('about')}</a
-      >
-      <a data-arrow-nav="true" href={contactUrl} title={t('contact')}
-        >{t('contact')}</a
+      <a
+        data-arrow-nav="true"
+        role="option"
+        href={translatePath('about')}
+        title={t('about')}>{t('about')}</a
       >
       <a
         data-arrow-nav="true"
+        role="option"
+        href={contactUrl}
+        title={t('contact')}>{t('contact')}</a
+      >
+      <a
+        data-arrow-nav="true"
+        role="option"
         href={translatePath('archive')}
         title={t('archive')}>{t('archive')}</a
       >

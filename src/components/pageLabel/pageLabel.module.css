@@ -3,6 +3,7 @@
   container-name: pageLabel;
   container-type: inline-size;
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 8px;
   justify-content: space-between;
@@ -26,8 +27,8 @@
 .tagline {
   view-transition-name: tagline;
   color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-  max-width: 140px;
-  flex: 4 0 92px;
+  max-width: 170px;
+  flex: 4 0 120px;
 }
 
 .iconAndTitle {

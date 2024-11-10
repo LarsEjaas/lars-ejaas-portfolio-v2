@@ -48,16 +48,23 @@ const danishUrl =
 <div
   class={styles.languageToggle}
   data-with-background={withBackground || undefined}
+  aria-label={lang === 'en'
+    ? 'Showing English version. Click to view Danish version.'
+    : 'Viser dansk version. Klik for at se den engelske version.'}
 >
   <a
     tabindex={lang === 'en' ? -1 : 0}
     aria-disabled={lang === 'en' || undefined}
-    href={englishUrl}>EN</a
+    href={englishUrl}
   >
+    EN
+  </a>
   <span>|</span>
   <a
     tabindex={lang === 'da' ? -1 : 0}
     aria-disabled={lang === 'da' || undefined}
-    href={danishUrl}>DA</a
+    href={danishUrl}
   >
+    DA
+  </a>
 </div>

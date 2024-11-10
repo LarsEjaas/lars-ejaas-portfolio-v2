@@ -10,10 +10,10 @@ import { useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
 import ProfileImage from '@assets/images/profile_clip.png';
-import SocialLinks from '../components/socialLinks/SocialLinks.astro';
-import AboutIcon from '../components/icons/AboutIcon.astro';
-import DownloadIcon from '../components/icons/DownloadIcon.astro';
-const resumeFiles = import.meta.glob('/public/resume/*.pdf');
+import SocialLinks from '@components/socialLinks/SocialLinks.astro';
+import AboutIcon from '@components/icons/AboutIcon.astro';
+import DownloadIcon from '@components/icons/DownloadIcon.astro';
+const resumeFiles = import.meta.glob('@assets/resume/*.pdf');
 
 /** Add a key that easily identifies the latest resume - located in public/resume */
 const LATEST_RESUME_KEY = 'july_2024.pdf';

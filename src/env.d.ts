@@ -92,6 +92,7 @@ declare global {
     aboutArticle: HTMLElement | null;
     skillBackButton: HTMLButtonElement | null;
     skillPagination: HTMLUListElement | null;
+    errorMessage: HTMLParagraphElement | null;
     navigation: Navigation;
     onpagereveal?: (event: PageRevealEvent) => void;
     onpageswap?: (event: PageSwapEvent) => void;

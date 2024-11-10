@@ -5,6 +5,8 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import ModalDialog from '@components/modalDialog/ModalDialog.astro';
 import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import type { ModalTypes } from '@i18n/routes';
@@ -22,6 +24,8 @@ export function getStaticPaths() {
   const paths = createPaths({
     share: { params: { modal: 'share' } },
     contact: { params: { modal: 'contact' } },
+    ['message-received']: { params: { modal: 'message-received' } },
+    ['message-error']: { params: { modal: 'message-error' } },
   });
   return Object.values(paths);
 }
@@ -37,6 +41,16 @@ const modalMap: Record<
     component: ContactContent,
     icon: IconContact,
     title: t('contact_title'),
+  },
+  ['message-received']: {
+    component: ContactConfirmation,
+    icon: IconContact,
+    title: t('thank_you'),
+  },
+  ['message-error']: {
+    component: ContactError,
+    icon: IconContact,
+    title: t('whoops'),
   },
 };
 

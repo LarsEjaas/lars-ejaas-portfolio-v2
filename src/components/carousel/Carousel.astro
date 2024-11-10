@@ -55,7 +55,6 @@ const itemList =
 const showArchiveCard =
   MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS;
 
-const t = useTranslations(lang, 'navigation');
 const timeLine = [
   ...itemList,
   ...(showArchiveCard ? [{ title: 'placeholder' }] : []),
@@ -114,7 +113,6 @@ const timelineScope = timeLine
   });
 </script>
 <section
-  aria-labelledby="carouselHeading"
   id="carousel"
   class="fullgrid"
   style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}; timeline-scope: ${timelineScope}`}
@@ -125,21 +123,17 @@ const timelineScope = timeLine
   <ul
     tabindex="-1"
     id="carouselList"
-    role="group"
-    aria-describedby="carouselArrowNav"
+    role="listbox"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+    aria-labelledby="carouselHeading"
   >
-    <span
-      id="carouselArrowNav"
-      aria-keyshortcuts="ArrowLeft ArrowRight"
-      class="sr-only"
-    >
-      {t('section_with_arrow_nav')}
-    </span>
     {
       showArchiveCard && (
         <li style={`--index: ${0}; view-timeline: --card-${0} inline`}>
           <a
             data-arrow-nav="true"
+            role="option"
+            aria-label={labels.archiveTitle}
             id={ARCHIVE_ID}
             href={`${ARCHIVE_HREF}#oldNews`}
           >
@@ -172,10 +166,16 @@ const timelineScope = timeLine
           >
             <a
               data-arrow-nav="true"
+              role="option"
               id={`card${index}`}
               href={item.href}
+              aria-labelledby={`articleTitle${index}`}
+              aria-describedby={`articleDescription${index}`}
               {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
             >
+              <span class="sr-only" style="left: 50%; top: 50%;">
+                {item.title}
+              </span>
               <article
                 class={`${styles[`outline${item.outline}`]} ${styles.article}`}
               >
@@ -193,7 +193,7 @@ const timelineScope = timeLine
                 <div class={styles.newsContent}>
                   <div>
                     <h3>{item.title}</h3>
-                    <p>{item.description}</p>
+                    <p id={`articleDescription${index}`}>{item.description}</p>
                   </div>
                   <div class={styles.date}>
                     <p>{item.date}</p>

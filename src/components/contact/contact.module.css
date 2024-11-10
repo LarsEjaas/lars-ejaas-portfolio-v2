@@ -113,3 +113,22 @@
     --gradient-tone-3: var(--verdigris-700);
   }
 }
+
+.messageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 200px;
+  & p,
+  h3 {
+    text-align: center;
+  }
+}
+
+:global(html[data-dark-mode='false']) {
+  .signature {
+    filter: invert(0.3) opacity(0.8);
+  }
+}

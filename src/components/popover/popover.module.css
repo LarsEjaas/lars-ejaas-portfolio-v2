@@ -42,10 +42,12 @@
 
 /* Fallback for browsers that does not support anchor when JS is disabled */
 :global(:root[data-js-enabled='false']) {
-  & .popover {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
+  @supports not (anchor-name: --anchor) {
+    & .popover {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+    }
   }
 }
 

@@ -41,20 +41,17 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
 <nav
   class={`${styles.mobileMenu} mobile-only`}
   aria-labelledby="mobileMenuTitle"
-  aria-describedby="mobileArrowNavDescription"
   inert={inert}
   role="group"
   aria-keyshortcuts="ArrowLeft ArrowRight"
   id="mobileMenuNavigation"
 >
-  <h2 class="sr-only" id="#mobileMenuTitle">
+  <h2 class="sr-only" id="mobileMenuTitle">
     {t('nav_mobile')}
   </h2>
-  <span class="sr-only" id="mobileArrowNavDescription">
-    {t('section_with_arrow_nav')}
-  </span>
   <a
     data-arrow-nav="true"
+    role="option"
     href={translatePath('/')}
     title={t('home')}
     aria-label={t('home')}
@@ -75,6 +72,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
+    role="option"
     href={translatePath('/work')}
     title={t('work')}
     aria-label={t('work')}
@@ -95,6 +93,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
+    role="option"
     href={translatePath('/skills')}
     title={t('skills')}
     aria-label={t('skills')}
@@ -115,6 +114,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
+    role="option"
     href={translatePath('/about')}
     title={t('about')}
     aria-label={t('about')}
@@ -135,6 +135,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
+    role="option"
     href={contactUrl}
     title={t('contact')}
     aria-label={t('contact')}
@@ -156,6 +157,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
+    role="option"
     href={shareUrl}
     title={t('share')}
     aria-label={t('share')}

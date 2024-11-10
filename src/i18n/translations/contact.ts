@@ -14,6 +14,14 @@ export const contact = {
     the_message_cannot_be: 'The message cannot be empty',
     write_a_message: 'Write a message to me',
     send: 'Send',
+    this_did_not_go_as_expected: 'This did not go as expected',
+    an_unexpected_error:
+      'An unexpected error occurred while submitting the message. Please try again later.',
+    thank_you_for_your: 'Thank you for your message',
+    a_confirmation_was_sent:
+      'A confirmation email has been sent to your address.\n\nIf you haven’t received it, please check your spam folder.\nIf it’s still missing, feel free to reach out to me again.',
+    best_regards: 'Best regards',
+    signature: 'Signature from Lars Ejaas',
   },
   da: {
     name: 'Navn',
@@ -29,5 +37,13 @@ export const contact = {
     the_message_cannot_be: 'Beskeden kan ikke være tom',
     write_a_message: 'Skriv en besked til mig',
     send: 'Send',
+    this_did_not_go_as_expected: 'Dette gik ikke som forventet',
+    an_unexpected_error:
+      'Der opstod et uventet fejl under indsendelsen af beskeden. Prøv venligst igen senere.',
+    thank_you_for_your: 'Tak for din besked',
+    a_confirmation_was_sent:
+      'En e-mailbekræftelse er blevet sendt til din adresse.\n\nHvis du ikke har modtaget den, så tjek venligst din spam-mappe.\nHvis den stadig mangler, så er du velkommen til at kontakte mig igen.',
+    best_regards: 'Med venlig hilsen',
+    signature: 'Signatur fra Lars Ejaas',
   },
 } as const;

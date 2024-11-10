@@ -29,7 +29,7 @@ export const archive = {
       'Første version of larsejaas.com bygget med React i Gatsby.js.\n',
     old_news: 'Ældre nyheder',
     welcome_to:
-      'Velkommen til arkivets hyggekrog, hvor gamle opdateringer udveksler historier om dengang de crashede produktionen (men overlevede til at fortælle historien videre)..."',
+      'Velkommen til arkivets hyggekrog, hvor gamle opdateringer udveksler historier om dengang de crashede produktionen (men overlevede til at fortælle historien videre)...',
     lars_ejaas_v1_date: 'Feb 2021',
   },
 } as const;

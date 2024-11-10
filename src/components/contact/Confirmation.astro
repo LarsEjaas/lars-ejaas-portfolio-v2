@@ -1,0 +1,28 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './contact.module.css';
+import { Image } from 'astro:assets';
+import signature from '@assets/images/signature.png';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'contact');
+---
+
+<div class={styles.contactContainer}>
+  <div class={styles.messageWrapper}>
+    <h3>{t('thank_you_for_your')}</h3>
+    <p class="body-text">
+      {t('a_confirmation_was_sent')}
+    </p>
+    <p class="stylized-lead-text">{t('best_regards')}</p>
+    <Image
+      alt={t('signature')}
+      quality="high"
+      class={styles.signature}
+      src={signature}
+      width={220}
+      height={92}
+      loading="eager"
+    />
+  </div>
+</div>

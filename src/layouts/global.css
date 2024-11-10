@@ -433,6 +433,9 @@ textarea {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+  /* avoid element distorting outline for keyboard navigation */
+  top: 50%;
+  left: 50%;
 }
 
 @media (max-width: 768px) {
