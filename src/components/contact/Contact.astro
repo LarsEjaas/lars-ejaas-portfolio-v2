@@ -3,6 +3,12 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './contact.module.css';
 import { ValidationPattern } from '@customTypes/index';
 
+type Props = {
+  textAreaHeight?: number;
+};
+
+const { textAreaHeight = 140 } = Astro.props;
+
 const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
 const CONTACT_FORM_NAME = 'writeToMe';
 
@@ -10,6 +16,73 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'contact');
 ---
 
+<script>
+  import { exec, init } from 'pell';
+  import styles from './contact.module.css';
+  const richTextEditor = window.richtextEditor;
+  const textArea = window.contactTextArea;
+
+  if (richTextEditor && textArea) {
+    document.addEventListener('DOMContentLoaded', () => {
+      const lang = richTextEditor.dataset.lang || 'en';
+      const editor = init({
+        element: richTextEditor,
+        onChange: (html) => {
+          textArea.value = html;
+        },
+        actions: [
+          {
+            name: 'bold',
+            icon: `<svg width="20" height="20" viewBox="0 0 16 16">
+          <path d="M8.21 13c2.106 0 3.412-1.087 3.412-2.823 0-1.306-.984-2.283-2.324-2.386v-.055a2.176 2.176 0 0 0 1.852-2.14c0-1.51-1.162-2.46-3.014-2.46H3.843V13h4.368zM5.908 4.674h1.696c.963 0 1.517.451 1.517 1.244 0 .834-.629 1.32-1.73 1.32H5.908V4.673zm0 6.788V8.598h1.73c1.217 0 1.88.492 1.88 1.415 0 .943-.643 1.449-1.832 1.449H5.907z" fill="currentColor"/>
+        </svg>`,
+            title: lang === 'en' ? 'Bold' : 'Fed',
+            result: () => exec('bold'),
+          },
+          {
+            name: 'italic',
+            icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="4" x2="10" y2="4"/>
+          <line x1="14" y1="20" x2="5" y2="20"/>
+          <line x1="15" y1="4" x2="9" y2="20"/>
+        </svg>`,
+          },
+          {
+            name: 'link',
+            icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>`,
+          },
+          {
+            name: 'ulist',
+            icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>`,
+          },
+        ],
+        classes: {
+          actionbar: styles.pellActionbar,
+          button: styles.pellButton,
+          content: styles.pellContent,
+          selected: styles.pellSelected,
+        },
+      });
+
+      // Show rich editor, hide textarea
+      richTextEditor.style.display = 'block';
+      textArea.style.display = 'none';
+
+      // Set initial content if textarea has value
+      editor.content.innerHTML = textArea.value;
+    });
+  }
+</script>
 <div class={styles.contactContainer}>
   <form
     class={styles.form}
@@ -63,8 +136,13 @@ const t = useTranslations(lang, 'contact');
         >{t('please_provide_a_subject')}</span
       ></label
     >
-    <label class={styles.label}
-      ><span>{t('message')}</span><textarea
+    <label
+      style={`--rich-text-height: ${textAreaHeight}px`}
+      class={styles.label}
+      ><span>{t('message')}</span>
+      <div id="richtextEditor" data-lang={lang}></div>
+      <textarea
+        id="contactTextArea"
         class={styles.textArea}
         autocomplete="off"
         name="message"
@@ -81,6 +159,25 @@ const t = useTranslations(lang, 'contact');
       value={lang}
       readonly="true"
     /><div>
+      <div class={styles.tip}>
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          fill="none"
+          opacity="0.8"
+        >
+          <path
+            d="M12 2V3M3 12H2M5.5 5.5L4.8999 4.8999M18.5 5.5L19.1002 4.8999M22 12H21M10 13.5H14M12 13.5V18.5M15.5 16.874C17.0141 15.7848 18 14.0075 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 14.0075 6.98593 15.7848 8.5 16.874V18.8C8.5 19.9201 8.5 20.4802 8.71799 20.908C8.90973 21.2843 9.21569 21.5903 9.59202 21.782C10.0198 22 10.5799 22 11.7 22H12.3C13.4201 22 13.9802 22 14.408 21.782C14.7843 21.5903 15.0903 21.2843 15.282 20.908C15.5 20.4802 15.5 19.9201 15.5 18.8V16.874Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        <div class={styles.textContainer}>
+          <p>{t('paste_formatted_text')}</p>
+        </div>
+      </div>
       <button
         class={styles.submitButton}
         id="sendEmail"

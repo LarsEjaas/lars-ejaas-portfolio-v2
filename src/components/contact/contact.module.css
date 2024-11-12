@@ -35,14 +35,15 @@
 }
 
 .input,
-.textArea {
+.textArea,
+.pellContent {
   background-color: light-dark(
     var(--system-light-300),
     var(--system-light-200)
   );
   padding: 4px 8px;
   line-height: 150%;
-  border: solid 1px light-dark(var(--system-light-500), var(--system-light-500));
+  border: solid 1px var(--system-light-500);
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-2);
   font-weight: 500;
@@ -59,13 +60,6 @@
       opacity: 1;
     }
   }
-}
-
-.textArea {
-  resize: none;
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 100px;
 }
 
 .submitButton {
@@ -106,14 +100,6 @@
   }
 }
 
-:global(html[data-dark-mode='true']) {
-  .submitButton {
-    --gradient-tone-1: var(--verdigris-300);
-    --gradient-tone-2: var(--verdigris-500);
-    --gradient-tone-3: var(--verdigris-700);
-  }
-}
-
 .messageWrapper {
   display: flex;
   flex-direction: column;
@@ -127,8 +113,89 @@
   }
 }
 
-:global(html[data-dark-mode='false']) {
-  .signature {
-    filter: invert(0.3) opacity(0.8);
+.textArea {
+  min-height: var(--rich-text-height);
+}
+.textArea,
+:global(#richtextEditor) {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+:global(html) {
+  &[data-dark-mode='true'] {
+    .submitButton {
+      --gradient-tone-1: var(--verdigris-300);
+      --gradient-tone-2: var(--verdigris-500);
+      --gradient-tone-3: var(--verdigris-700);
+    }
   }
+  &[data-dark-mode='false'] {
+    .signature {
+      filter: invert(0.3) opacity(0.8);
+    }
+  }
+}
+
+.tip {
+  font-size: var(--font-size-2);
+  user-select: none;
+  font-weight: 500;
+  background-color: light-dark(var(--system-light-200), var(--system-shadow-5));
+  box-shadow: var(--stacks-1-shadow);
+  /* color: light-dark(var(--system-dark-300-55), var(--system-light-500)); */
+  color: light-dark(var(--system-dark-300-55), var(--system-light-400));
+  /* color: light-dark(var(--system-light-100), var(--system-light-300)); */
+  border-radius: var(--border-radius-sm);
+  padding: 8px 8px 10px;
+  display: flex;
+  width: fit-content;
+  gap: 8px;
+  box-shadow: inset -2px -2px 0 0
+    light-dark(var(--system-light-300), var(--system-light-200));
+  & svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  & .textContainer {
+    width: 188px;
+  }
+  & p {
+    text-wrap: balance;
+  }
+}
+
+.pellContent {
+  min-height: calc(var(--rich-text-height) - 32px);
+  resize: both;
+  overflow: auto;
+  min-width: 100%;
+  max-width: 100%;
+}
+.pellActionbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-bottom: 6px;
+}
+.pellButton {
+  background-color: unset;
+  color: light-dark(var(--system-dark-300-55), var(--system-light-500));
+  border: 1px solid transparent;
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease-in-out;
+  outline-offset: var(--outline-offset);
+  padding: 0 2px;
+  line-height: 0;
+  &:hover,
+  &:focus-visible {
+    border: 1px solid var(--system-light-400);
+    box-shadow: 0 2px 0 0 var(--system-light-400);
+  }
+}
+.pellSelected {
+  background-color: light-dark(var(--system-light-300), var(--system-shadow-5));
+  color: light-dark(var(--system-dark-300), var(--system-dark-100));
 }

@@ -13,6 +13,8 @@ export const contact = {
     message: 'Message',
     the_message_cannot_be: 'The message cannot be empty',
     write_a_message: 'Write a message to me',
+    paste_formatted_text:
+      'Paste formatted text directly from Gmail, Outlook, or other email clients!',
     send: 'Send',
     this_did_not_go_as_expected: 'This did not go as expected',
     an_unexpected_error:
@@ -36,6 +38,8 @@ export const contact = {
     message: 'Besked',
     the_message_cannot_be: 'Beskeden kan ikke være tom',
     write_a_message: 'Skriv en besked til mig',
+    paste_formatted_text:
+      'Indsæt formateret tekst direkte fra Gmail, Outlook eller andre e-mail-klienter!',
     send: 'Send',
     this_did_not_go_as_expected: 'Dette gik ikke som forventet',
     an_unexpected_error:
