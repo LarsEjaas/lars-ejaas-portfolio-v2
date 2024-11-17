@@ -95,6 +95,7 @@ declare global {
     errorMessage: HTMLParagraphElement | null;
     richtextEditor: HTMLDivElement | null;
     contactTextArea: HTMLTextAreaElement | null;
+    writeToMe: HTMLFormElement | null;
     navigation: Navigation;
     onpagereveal?: (event: PageRevealEvent) => void;
     onpageswap?: (event: PageSwapEvent) => void;

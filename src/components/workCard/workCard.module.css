@@ -116,9 +116,10 @@
   & li {
     display: contents;
     & a {
-      background-color: light-dark(
+      background: linear-gradient(
+        180deg,
         var(--aquamarine-600),
-        var(--aquamarine-500)
+        var(--aquamarine-700) 130%
       );
       outline-offset: var(--outline-offset);
       user-select: none;
@@ -132,7 +133,11 @@
       box-shadow: 0 0 0 0 var(--color);
       &:hover,
       &:focus-visible {
-        box-shadow: 0 0 0 3px var(--verdigris-100-op);
+        box-shadow: 0 0 0 3px
+          light-dark(var(--system-light-400), var(--system-dark-200-16));
+      }
+      &:active {
+        filter: brightness(0.8);
       }
     }
   }
