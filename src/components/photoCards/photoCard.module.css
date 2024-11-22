@@ -49,7 +49,7 @@
 .photocard {
   border-radius: var(--border-radius-sm);
   height: inherit;
-  width: fit-content;
+  width: 100%;
   background-color: light-dark(var(--system-light-200), var(--system-dark-400));
   padding-inline: 5px;
   padding-block: 5px 25px;

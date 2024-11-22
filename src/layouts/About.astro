@@ -122,7 +122,9 @@ const t_about = useTranslations(lang, 'about');
           loading="eager"
           decoding="sync"
           pictureAttributes={{
-            style: `aspect-ratio: ${DrawingHouse.width}/${DrawingHouse.height};`,
+            style: {
+              aspectRatio: `${DrawingHouse.width}/${DrawingHouse.height};`,
+            },
             class: styles.drawingHouse,
           }}
         />

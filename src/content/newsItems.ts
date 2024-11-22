@@ -144,7 +144,7 @@ const newsObject = {
     v2: {
       title: 'Redesignet hjemmeside',
       description:
-        'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nTjek den ud!',
+        'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nJeg håber du kan lide den!',
       date: '15. november 2024',
       imageSrc: 'new_website.png',
       imageAlt: 'Bærbar computer med skærmbillede af det nye hjemmesidedesign',
@@ -264,7 +264,7 @@ const newsObject = {
     v2: {
       title: 'Redesigned Website',
       description:
-        'I’ve completely redesigned my website with a fresh new look and updated content.\n\nCheck it out!',
+        'I’ve completely redesigned my website with a fresh new look and updated content.\n\nI hope you like it!',
       date: 'November 15th, 2024',
       imageSrc: 'new_website.png',
       imageAlt: 'Laptop with screenshot of the new website design',

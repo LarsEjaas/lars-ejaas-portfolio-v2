@@ -24,6 +24,7 @@ export const contact = {
       'A confirmation email has been sent to your address.\n\nIf you haven’t received it, please check your spam folder.\nIf it’s still missing, feel free to reach out to me again.',
     best_regards: 'Best regards',
     signature: 'Signature from Lars Ejaas',
+    close_modal_title: 'Close modal',
   },
   da: {
     name: 'Navn',
@@ -49,5 +50,6 @@ export const contact = {
       'En e-mailbekræftelse er blevet sendt til din adresse.\n\nHvis du ikke har modtaget den, så tjek venligst din spam-mappe.\nHvis den stadig mangler, så er du velkommen til at kontakte mig igen.',
     best_regards: 'Med venlig hilsen',
     signature: 'Signatur fra Lars Ejaas',
+    close_modal_title: 'Luk modal',
   },
 } as const;

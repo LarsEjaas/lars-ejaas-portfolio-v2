@@ -23,6 +23,7 @@ const t = useTranslations(lang, 'contact');
   if (form) {
     form.addEventListener('submit', (event) => {
       const submitButton = event.submitter;
+      // Show loading indicator
       submitButton?.setAttribute('data-submitted', 'true');
     });
   }
@@ -85,7 +86,7 @@ const t = useTranslations(lang, 'contact');
     <label for="contactTextArea" class={styles.label}
       ><span>{t('message')}</span></label
     >
-    <div id="richtextEditor" data-lang={lang}></div>
+    <div id="richtextEditor" data-lang={lang} style="display:none;"></div>
     <textarea
       id="contactTextArea"
       class={styles.textArea}

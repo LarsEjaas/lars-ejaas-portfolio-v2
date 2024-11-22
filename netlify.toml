@@ -11,11 +11,13 @@
 [functions]
   node_bundler = "esbuild"
   directory = "functions"
-  included_files = ["functions/*.handlebars"]
+  included_files = ["functions/*.handlebars", "functions/*.png"]
   external_node_modules = [
     "nodemailer",
     "nodemailer-express-handlebars",
-    "zod"
+    "zod",
+    "dompurify",
+    "jsdom",
   ]
 
 [[headers]]

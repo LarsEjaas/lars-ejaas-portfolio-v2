@@ -269,3 +269,30 @@
   margin-inline: 4px;
   border-right: 1px solid var(--system-dark-200-16);
 }
+
+.closeButton {
+  margin-top: 1rem;
+  position: relative;
+  cursor: pointer;
+  display: block;
+  padding: 12px 48px;
+  font-size: var(--font-size-2);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.75px;
+  border: solid 1px light-dark(var(--system-light-500), var(--system-light-500));
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-2);
+  background: var(--system-light-400);
+  color: light-dark(var(--system-dark-300), var(--system-dark-400));
+  text-decoration: none;
+  outline-offset: var(--outline-offset);
+  transition: filter 0.3s ease-in-out;
+  &:hover,
+  &:focus-visible {
+    filter: brightness(1.1);
+  }
+  &:active {
+    filter: brightness(0.8);
+  }
+}

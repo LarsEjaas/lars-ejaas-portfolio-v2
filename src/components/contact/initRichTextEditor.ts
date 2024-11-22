@@ -100,7 +100,7 @@ class PellRichTextEditor {
     const horizontalLineButton = this.richTextElement.querySelector(
       'button[aria-label="Horizontal Line"], button[aria-label="Vandret linje"]'
     );
-    console.log(alignRightButton, strikethroughButton, horizontalLineButton);
+
     if (alignRightButton && strikethroughButton && horizontalLineButton) {
       const lineBreakElement1 = document.createElement('div');
       lineBreakElement1.className = styles.pellBreak || '';

@@ -8,7 +8,7 @@ import { useTranslatedPath } from '@i18n/utils';
 const CARD_ROTATIONS = [-4, 6, -2, 3, -5, 2, -4, 3, -4, 2, -5, 4, -3, 2, -4, 5];
 
 type Props = {
-  ImageComponent: ImageMetadata;
+  ImageComponent: ImageMetadata & { placeholder?: string };
   imageName: string;
   index: number;
   includeViewTransitionId: boolean;
@@ -32,7 +32,8 @@ if (!imageInfo) {
   throw new Error(`No aboutImagesInfo found for the name: ${imageName}`);
 }
 
-const imageAlt = imageInfo[`imageAlt${language.toUpperCase()}`];
+const imageAlt =
+  imageInfo[`imageAlt${language.toUpperCase()}` as keyof typeof imageInfo];
 const englishUrl = `about/${imageInfo.hrefEN}`;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
@@ -55,12 +56,19 @@ const translatePath = useTranslatedPath(lang);
       quality="high"
       src={ImageComponent}
       alt={imageAlt}
+      width={ImageComponent.width}
+      height={ImageComponent.height}
       widths={[260, 320, 440, 520]}
       sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
       loading="eager"
       decoding="sync"
       pictureAttributes={{
-        style: `aspect-ratio: ${ImageComponent.width}/${ImageComponent.height};`,
+        style: {
+          aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+          ...(ImageComponent.placeholder
+            ? { backgroundImage: `url(${ImageComponent.placeholder});` }
+            : {}),
+        },
       }}
     />
   </div>

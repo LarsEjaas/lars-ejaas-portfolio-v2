@@ -19,6 +19,7 @@
   margin-block: 2rem;
   max-width: 400px;
   margin-left: 2rem;
+  background-color: light-dark(var(--system-light-200), var(--system-dark-400));
   &::after {
     content: '';
     position: absolute;
