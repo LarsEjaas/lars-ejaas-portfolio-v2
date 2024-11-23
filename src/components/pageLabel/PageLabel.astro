@@ -55,9 +55,7 @@ if (tagLine && !svgImport) {
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const TaglineComponent = svgImport
-  ? (await svgImport[1]()) as string
-  : null;
+const TaglineComponent = svgImport ? ((await svgImport[1]()) as string) : null;
 ---
 
 <div class={styles.pageLabel}>
@@ -78,12 +76,19 @@ const TaglineComponent = svgImport
     </div>
     <h1>{title}</h1>
   </div>
-  {TaglineComponent && taglineAlt && (<div
-    class={styles.tagline}
-    role="img"
-    aria-labelledby="taglineHeading"
-    set:html={TaglineComponent}
-  >
-  </div>
-  <h2 id="taglineHeading" class="sr-only">{taglineAlt}</h2>)}
+  {
+    TaglineComponent && taglineAlt && (
+      <>
+        <div
+          class={styles.tagline}
+          role="img"
+          aria-labelledby="taglineHeading"
+          set:html={TaglineComponent}
+        />
+        <h2 id="taglineHeading" class="sr-only">
+          {taglineAlt}
+        </h2>
+      </>
+    )
+  }
 </div>
