@@ -6,7 +6,7 @@ export const getSkillSlugs = <T extends Language>(lang: T) => {
   type key = TechSkill;
   type SlugSkillKey = `skills/${key}`;
   type SlugSkillValue = T extends 'da' ? `kompetencer/${key}` : SlugSkillKey;
-  return techSkills[lang].reduce(
+  return techSkills.reduce(
     (acc, { href }) => ({
       ...acc,
       [`skills/${href}`]: `${lang === 'da' ? 'kompetencer' : 'skills'}/${href}`,

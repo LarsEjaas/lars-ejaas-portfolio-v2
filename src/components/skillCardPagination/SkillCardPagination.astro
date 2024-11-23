@@ -61,13 +61,13 @@ const t_skills = useTranslations(lang, 'skills');
 const { title } = Astro.props;
 
 const currentSkill =
-  techSkills[lang].find((skill) => skill.title === title) ||
-  (techSkills[lang][0] as SkillInfo);
+  techSkills.find((skill) => skill.title === title) ||
+  (techSkills[0] as SkillInfo);
 
-const currentSkillIndex = techSkills[lang].indexOf(currentSkill);
+const currentSkillIndex = techSkills.indexOf(currentSkill);
 
 const paginationItems = getPaginationItems(
-  techSkills[lang],
+  techSkills,
   currentSkillIndex
 ).filter(notEmpty);
 
@@ -86,8 +86,9 @@ const skillIndex = paginationItems.indexOf(currentSkill);
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
   import { TRANSITION_DIRECTION_KEY } from '../../utils/localStorage';
-  import { getLangFromUrl, removeTrailingSlash } from '../../i18n/utils';
+  import { removeTrailingSlash } from '../../i18n/utils';
   import { techSkills } from '../../content/techSkills';
+  import type { PageSwapEvent } from '../../env';
 
   if (window.skillPagination) {
     initializeKeyboardArrowNavigation(window.skillPagination);
@@ -123,12 +124,10 @@ const skillIndex = paginationItems.indexOf(currentSkill);
         const currentPathname = removeTrailingSlash(currentURL.pathname);
         const destinationPathname = removeTrailingSlash(targetURL.pathname);
 
-        const lang = getLangFromUrl(currentURL);
-
-        const nextSkill = techSkills[lang].find(
+        const nextSkill = techSkills.find(
           (skill) => skill.href === destinationPathname.split('/').pop()
         );
-        const thisSkill = techSkills[lang].find(
+        const thisSkill = techSkills.find(
           (skill) => skill.href === currentPathname.split('/').pop()
         );
 
@@ -144,12 +143,11 @@ const skillIndex = paginationItems.indexOf(currentSkill);
         }
 
         if (nextSkill && thisSkill) {
-          const thisSkillIndex = techSkills[lang].indexOf(thisSkill);
-          const nextSkillIndex = techSkills[lang].indexOf(nextSkill);
+          const thisSkillIndex = techSkills.indexOf(thisSkill);
+          const nextSkillIndex = techSkills.indexOf(nextSkill);
           if (
             thisSkillIndex - nextSkillIndex === 1 ||
-            (thisSkillIndex === 0 &&
-              nextSkillIndex === techSkills[lang].length - 1)
+            (thisSkillIndex === 0 && nextSkillIndex === techSkills.length - 1)
           ) {
             transitionType = 'backwards';
             e.viewTransition.types.add(transitionType);
@@ -159,8 +157,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
           }
           if (
             thisSkillIndex - nextSkillIndex === -1 ||
-            (thisSkillIndex === techSkills[lang].length - 1 &&
-              nextSkillIndex === 0)
+            (thisSkillIndex === techSkills.length - 1 && nextSkillIndex === 0)
           ) {
             transitionType = 'forwards';
             e.viewTransition.types.add(transitionType);
@@ -170,8 +167,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
           }
           if (
             thisSkillIndex > nextSkillIndex ||
-            (thisSkillIndex === 1 &&
-              nextSkillIndex === techSkills[lang].length - 1)
+            (thisSkillIndex === 1 && nextSkillIndex === techSkills.length - 1)
           ) {
             transitionType = 'backwards';
             e.viewTransition.types.add(transitionType);
@@ -181,8 +177,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
           }
           if (
             thisSkillIndex < nextSkillIndex ||
-            (thisSkillIndex === techSkills[lang].length - 2 &&
-              nextSkillIndex === 0)
+            (thisSkillIndex === techSkills.length - 2 && nextSkillIndex === 0)
           ) {
             transitionType = 'forwards';
             e.viewTransition.types.add(transitionType);
@@ -241,7 +236,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
               title={`${t_skills('go_to')} ${techSkill.title}`}
               aria-current={index === skillIndex}
               data-index={index}
-              data-main-index={techSkills[lang].indexOf(techSkill)}
+              data-main-index={techSkills.indexOf(techSkill)}
               {...(index === skillIndex ? {} : { ['data-arrow-nav']: 'true' })}
             >
               <span class="sr-only">{`${t_skills('go_to')} ${techSkill.title}`}</span>

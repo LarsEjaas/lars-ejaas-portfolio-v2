@@ -1,5 +1,4 @@
 ---
-import { getLangFromUrl } from '@i18n/utils';
 import SkillsLayout from '@layouts/Skills.astro';
 import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
 import {
@@ -17,8 +16,6 @@ type DanishSkillSlugPaths = {
     params: SkillSlugPath<P> & { lang: 'da' };
   };
 };
-
-const lang = getLangFromUrl(Astro.url);
 
 export function getStaticPaths() {
   // Helper function to create a type-safe path object
@@ -40,7 +37,7 @@ export function getStaticPaths() {
 
 const { skill } = Astro.params;
 
-const skillData = skillsObject[lang][skill];
+const skillData = skillsObject[skill];
 
 const svgPath = Object.entries(skillIconImages).find(([path]) =>
   path.includes(skillData.imageSrc)

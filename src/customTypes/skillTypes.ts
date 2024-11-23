@@ -12,14 +12,11 @@ export type SkillInfo = {
   rating: SkillRating;
 };
 
-export type TechSkillItems = {
-  da: Record<TechSkill, SkillInfo>;
-  en: Record<TechSkill, SkillInfo>;
-};
+export type TechSkillItems = Record<TechSkill, SkillInfo>;
 
 export type SkillDescriptions = Record<
   TechSkill,
-  { description: (_props: Record<string, any>) => any }
+  (_props: Record<string, any>) => any
 >;
 
 export type SkillRatings = Record<TechSkill, { rating: SkillRating }>;

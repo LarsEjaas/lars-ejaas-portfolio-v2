@@ -2,10 +2,10 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SlugTypes } from '@i18n/routes';
 import About from '@layouts/About.astro';
-import Skills from '@layouts/Skills.astro';
+import Skills, { type TechSkillProps } from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
-import EnglishDescription from '@content/techSkillDescriptions/english/Main.astro';
+import Description from '@content/techSkillDescriptions/Main.astro';
 import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
 
@@ -36,16 +36,17 @@ const englishSlugMap: Record<
   {
     component: AstroComponentFactory;
     title: string;
-    skillTitle?: string;
-    skillDescription?: (_props: Record<string, any>) => any;
+    techSkill?: TechSkillProps;
   }
 > = {
   work: { component: Work, title: t('work') },
   skills: {
     component: Skills,
     title: t('skills'),
-    skillTitle: t('tech_skills'),
-    skillDescription: EnglishDescription,
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   about: { component: About, title: t('about') },
   archive: { component: Archive, title: t('archive') },
@@ -56,15 +57,9 @@ const englishSlugMap: Record<
 };
 
 const pageTitle = englishSlugMap[slug]?.title;
-const skillTitle = englishSlugMap[slug]?.skillTitle;
-const SkillDescription = englishSlugMap[slug]?.skillDescription;
 
 const PageContent = englishSlugMap[slug]?.component;
+const techSkill = englishSlugMap[slug]?.techSkill;
 ---
 
-<PageContent
-  title={pageTitle}
-  inert={false}
-  skillTitle={skillTitle}
-  skillDescription={SkillDescription}
-/>
+<PageContent title={pageTitle} inert={false} techSkill={techSkill} />

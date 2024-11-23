@@ -3,12 +3,12 @@ import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SlugTypes } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 import About from '@layouts/About.astro';
-import Skills from '@layouts/Skills.astro';
+import Skills, { type TechSkillProps } from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
-import DanishDescription from '@content/techSkillDescriptions/danish/Main.astro';
+import Description from '@content/techSkillDescriptions/Main.astro';
 
 type DanishSlugPaths = {
   [K in SlugTypes<'da'>]: { params: { lang: DanishLanguageSlug; slug: K } };
@@ -37,16 +37,17 @@ const danishSlugMap: Record<
   {
     component: AstroComponentFactory;
     title: string;
-    skillTitle?: string;
-    skillDescription?: (_props: Record<string, any>) => any;
+    techSkill?: TechSkillProps;
   }
 > = {
   arbejde: { component: Work, title: t('work') },
   kompetencer: {
     component: Skills,
     title: t('skills'),
-    skillTitle: t('tech_skills'),
-    skillDescription: DanishDescription,
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['om-mig']: { component: About, title: t('about') },
   arkiv: { component: Archive, title: t('archive') },
@@ -57,15 +58,9 @@ const danishSlugMap: Record<
 };
 
 const pageTitle = danishSlugMap[slug]?.title;
-const skillTitle = danishSlugMap[slug]?.skillTitle;
-const SkillDescription = danishSlugMap[slug]?.skillDescription;
 
 const PageContent = danishSlugMap[slug]?.component;
+const techSkill = danishSlugMap[slug]?.techSkill;
 ---
 
-<PageContent
-  title={pageTitle}
-  inert={false}
-  skillTitle={skillTitle}
-  skillDescription={SkillDescription}
-/>
+<PageContent title={pageTitle} inert={false} techSkill={techSkill} />

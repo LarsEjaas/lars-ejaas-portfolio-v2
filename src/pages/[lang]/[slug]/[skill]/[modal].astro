@@ -78,7 +78,7 @@ export function getStaticPaths() {
 
 const { skill, modal } = Astro.params;
 
-const skillData = skillsObject[lang][skill];
+const skillData = skillsObject[skill];
 
 const svgPath = Object.entries(skillIconImages).find(([path]) =>
   path.includes(skillData.imageSrc)

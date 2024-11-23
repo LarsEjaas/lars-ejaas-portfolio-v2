@@ -13,7 +13,7 @@ const { skill } = Astro.params;
 
 // Process SVGs
 const processedSkills = await Promise.all(
-  techSkills[lang].map(async (techSkill, index) => {
+  techSkills.map(async (techSkill, index) => {
     const imageName = techSkill.imageSrc;
     const svgPath = Object.entries(skillIconImages).find(([path]) =>
       path.includes(imageName)
@@ -36,10 +36,7 @@ const processedSkills = await Promise.all(
   if (window.skillTileScene)
     initializeTileArrowNavigation(window.skillTileScene);
 </script>
-<div
-  class={styles.marquee}
-  style={`--number-of-items: ${techSkills[lang].length}`}
->
+<div class={styles.marquee} style={`--number-of-items: ${techSkills.length}`}>
   <div class={styles.scene} id="skillTileScene">
     <ul class={styles.skillsGrid}>
       {
@@ -69,7 +66,7 @@ const processedSkills = await Promise.all(
           <li
             class={styles.skill}
             data-placeholder={true}
-            style={`--index: ${index + techSkills[lang].length};`}
+            style={`--index: ${index + techSkills.length};`}
           >
             <div class={`${styles.outline} squircle`}>
               <div class={styles.placeholder} />

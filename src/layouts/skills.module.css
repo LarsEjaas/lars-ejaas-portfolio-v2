@@ -9,6 +9,7 @@
   flex-direction: column;
   gap: 4px;
   white-space: pre-line;
+  min-height: 200px;
   & ul {
     padding-inline-start: 20px;
   }
@@ -20,6 +21,7 @@
   align-items: center;
   gap: 8px;
   justify-content: space-between;
+  margin-top: auto;
 }
 
 @media (max-width: 768px) {
