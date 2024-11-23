@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, loadEnv } from 'astro/config';
 import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
@@ -48,6 +48,9 @@ export default defineConfig({
         output: {
           entryFileNames: 'restoreScrollPosition.min.js',
         },
+      },
+      define: {
+        'import.meta.env.DEV': JSON.stringify(process.env.DEV || false),
       },
     },
   },
