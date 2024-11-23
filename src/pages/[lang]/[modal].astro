@@ -7,6 +7,8 @@ import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
 import type { ModalTypes } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 
@@ -23,6 +25,10 @@ export function getStaticPaths() {
   const paths = createPaths({
     del: { params: { lang: 'da', modal: 'del' } },
     kontakt: { params: { lang: 'da', modal: 'kontakt' } },
+    ['besked-modtaget']: {
+      params: { lang: 'da', modal: 'besked-modtaget' },
+    },
+    ['besked-fejl']: { params: { lang: 'da', modal: 'besked-fejl' } },
   });
   return Object.values(paths);
 }
@@ -38,6 +44,16 @@ const danishModalMap: Record<
     component: ContactContent,
     icon: IconContact,
     title: t('contact_title'),
+  },
+  ['besked-modtaget']: {
+    component: ContactConfirmation,
+    icon: IconContact,
+    title: t('thank_you'),
+  },
+  ['besked-fejl']: {
+    component: ContactError,
+    icon: IconContact,
+    title: t('whoops'),
   },
 };
 

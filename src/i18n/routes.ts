@@ -28,6 +28,7 @@ export const appRoutes = {
     skills: 'kompetencer',
     about: 'om-mig',
     archive: 'arkiv',
+    ['email-reply']: 'email-svar',
     //slugs with modals
     ['work/contact']: 'arbejde/kontakt',
     ['work/message-received']: 'arbejde/besked-modtaget',
@@ -60,6 +61,7 @@ export const appRoutes = {
     skills: 'skills',
     about: 'about',
     archive: 'archive',
+    ['email-reply']: 'email-reply',
     //slugs with modals
     ['work/contact']: 'work/contact',
     ['work/message-received']: 'work/message-received',
@@ -110,7 +112,7 @@ export type LanguageKey = Exclude<Language, DefaultLang>;
 export type ModalTypes<Lang extends Language> =
   (typeof appRoutes)[Lang][ModalKeys];
 
-type SlugKeys = 'work' | 'skills' | 'about' | 'archive';
+type SlugKeys = 'work' | 'skills' | 'about' | 'archive' | 'email-reply';
 
 export type SlugTypes<Lang extends Language> =
   (typeof appRoutes)[Lang][SlugKeys];

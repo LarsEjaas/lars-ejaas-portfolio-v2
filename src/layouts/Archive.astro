@@ -73,7 +73,7 @@ const newsGridItems =
           <p class="body-text">{t_arch('welcome_to')}</p>
         </div>
         <div class={`fullgrid ${styles.newsGrid}`}>
-          {newsGridItems.toReversed().map(async (item, index) => {
+          {[...newsGridItems].reverse().map(async (item, index) => {
             const imageName = item.imageSrc;
             const imageImport = Object.entries(newsImages).find(([path]) =>
               path.includes(imageName)

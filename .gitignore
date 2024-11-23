@@ -7,6 +7,9 @@ dist/
 # dependencies
 node_modules/
 
+# TS build info
+*.tsbuildinfo
+
 # logs
 npm-debug.log*
 
@@ -15,7 +18,6 @@ npm-debug.log*
 
 # macOS-specific files
 .DS_Store
-
 
 # Local Netlify folder
 .netlify

@@ -9,9 +9,10 @@ import SocialLinks from '../socialLinks/SocialLinks.astro';
 import FooterMenu from './FooterMenu.astro';
 type Props = {
   inert: boolean;
+  withModalLinks?: boolean;
 };
 
-const { inert } = Astro.props;
+const { inert, withModalLinks = true } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const currentYear = new Date().getFullYear();
@@ -19,7 +20,7 @@ const currentYear = new Date().getFullYear();
 
 <footer class={styles.footer} inert={inert}>
   <div class={styles.footerContent}>
-    <FooterMenu />
+    <FooterMenu withModalLinks={withModalLinks} />
     <div class={styles.copyright}>
       <p>
         ©&nbsp;{currentYear} | Lars Ejaas

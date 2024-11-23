@@ -1,4 +1,4 @@
-import type { CardInfo } from '../components/carousel/Carousel.astro';
+import type { CardInfo } from '@components/carousel/Carousel.astro';
 
 type NewsFeed = (typeof newsFeed)[number];
 

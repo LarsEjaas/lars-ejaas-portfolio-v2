@@ -8,6 +8,8 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
@@ -30,19 +32,43 @@ export function getStaticPaths() {
     ['arbejde/kontakt']: {
       params: { lang: 'da', slug: 'arbejde', modal: 'kontakt' },
     },
+    ['arbejde/besked-modtaget']: {
+      params: { lang: 'da', slug: 'arbejde', modal: 'besked-modtaget' },
+    },
+    ['arbejde/besked-fejl']: {
+      params: { lang: 'da', slug: 'arbejde', modal: 'besked-fejl' },
+    },
     ['kompetencer/del']: {
       params: { lang: 'da', slug: 'kompetencer', modal: 'del' },
     },
     ['kompetencer/kontakt']: {
       params: { lang: 'da', slug: 'kompetencer', modal: 'kontakt' },
     },
+    ['kompetencer/besked-modtaget']: {
+      params: { lang: 'da', slug: 'kompetencer', modal: 'besked-modtaget' },
+    },
+    ['kompetencer/besked-fejl']: {
+      params: { lang: 'da', slug: 'kompetencer', modal: 'besked-fejl' },
+    },
     ['om-mig/del']: { params: { lang: 'da', slug: 'om-mig', modal: 'del' } },
     ['om-mig/kontakt']: {
       params: { lang: 'da', slug: 'om-mig', modal: 'kontakt' },
     },
+    ['om-mig/besked-modtaget']: {
+      params: { lang: 'da', slug: 'om-mig', modal: 'besked-modtaget' },
+    },
+    ['om-mig/besked-fejl']: {
+      params: { lang: 'da', slug: 'om-mig', modal: 'besked-fejl' },
+    },
     ['arkiv/del']: { params: { lang: 'da', slug: 'arkiv', modal: 'del' } },
     ['arkiv/kontakt']: {
       params: { lang: 'da', slug: 'arkiv', modal: 'kontakt' },
+    },
+    ['arkiv/besked-modtaget']: {
+      params: { lang: 'da', slug: 'arkiv', modal: 'besked-modtaget' },
+    },
+    ['arkiv/besked-fejl']: {
+      params: { lang: 'da', slug: 'arkiv', modal: 'besked-fejl' },
     },
   });
   return Object.values(paths);
@@ -74,6 +100,20 @@ const danishModalSlugMap: Record<
     pageTitle: t('work'),
     modalTitle: t('contact'),
   },
+  ['arbejde/besked-modtaget']: {
+    pageComponent: Work,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('thank_you'),
+  },
+  ['arbejde/besked-fejl']: {
+    pageComponent: Work,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('whoops'),
+  },
   ['kompetencer/del']: {
     pageComponent: Skills,
     modalComponent: ShareContent,
@@ -88,33 +128,75 @@ const danishModalSlugMap: Record<
     pageTitle: t('work'),
     modalTitle: t('contact'),
   },
+  ['kompetencer/besked-modtaget']: {
+    pageComponent: Skills,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('thank_you'),
+  },
+  ['kompetencer/besked-fejl']: {
+    pageComponent: Skills,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('whoops'),
+  },
   ['om-mig/del']: {
     pageComponent: About,
     modalComponent: ShareContent,
     modalIcon: IconShare,
-    pageTitle: t('work'),
+    pageTitle: t('about'),
     modalTitle: t('share'),
   },
   ['om-mig/kontakt']: {
     pageComponent: About,
     modalComponent: ContactContent,
     modalIcon: IconContact,
-    pageTitle: t('work'),
+    pageTitle: t('about'),
     modalTitle: t('contact'),
+  },
+  ['om-mig/besked-modtaget']: {
+    pageComponent: About,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('about'),
+    modalTitle: t('thank_you'),
+  },
+  ['om-mig/besked-fejl']: {
+    pageComponent: About,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('about'),
+    modalTitle: t('whoops'),
   },
   ['arkiv/del']: {
     pageComponent: Archive,
     modalComponent: ShareContent,
     modalIcon: IconShare,
-    pageTitle: t('work'),
+    pageTitle: t('archive'),
     modalTitle: t('share'),
   },
   ['arkiv/kontakt']: {
     pageComponent: Archive,
     modalComponent: ContactContent,
     modalIcon: IconContact,
-    pageTitle: t('work'),
+    pageTitle: t('archive'),
     modalTitle: t('contact'),
+  },
+  ['arkiv/besked-modtaget']: {
+    pageComponent: Archive,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('archive'),
+    modalTitle: t('thank_you'),
+  },
+  ['arkiv/besked-fejl']: {
+    pageComponent: Archive,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('archive'),
+    modalTitle: t('whoops'),
   },
 };
 

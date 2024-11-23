@@ -33,6 +33,7 @@ export const navigation = {
     next: 'Scroll to next news card',
     previous: 'Scroll to previous news card',
     close_popover: 'Close popover',
+    thank_you_for_your_email: 'Thank you for your email',
   },
   da: {
     section_with_arrow_nav:
@@ -68,5 +69,6 @@ export const navigation = {
     next: 'Scroll til det næste kort',
     previous: 'Scroll til det forrige kort',
     close_popover: 'Luk popover',
+    thank_you_for_your_email: 'Tak for din e-mail',
   },
 } as const;

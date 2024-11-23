@@ -7,10 +7,16 @@ import {
 } from '@i18n/utils';
 import { appRoutes } from '@i18n/routes';
 
+type Props = {
+  withModalLinks?: boolean;
+};
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
+
+const { withModalLinks = true } = Astro.props;
 ---
 
 <script>
@@ -48,12 +54,18 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('about')}
         title={t('about')}>{t('about')}</a
       >
-      <a
-        data-arrow-nav="true"
-        role="option"
-        href={contactUrl}
-        title={t('contact')}>{t('contact')}</a
-      >
+      {
+        withModalLinks && (
+          <a
+            data-arrow-nav="true"
+            role="option"
+            href={contactUrl}
+            title={t('contact')}
+          >
+            {t('contact')}
+          </a>
+        )
+      }
       <a
         data-arrow-nav="true"
         role="option"

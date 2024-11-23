@@ -15,11 +15,11 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import { appRoutes } from '@i18n/routes';
 
-type Props = { inert: boolean };
+type Props = { inert: boolean; withModalLinks?: boolean };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
-const { inert } = Astro.props;
+const { inert, withModalLinks = true } = Astro.props;
 const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
 ---
@@ -133,48 +133,56 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       />
     </div></a
   >
-  <a
-    data-arrow-nav="true"
-    role="option"
-    href={contactUrl}
-    title={t('contact')}
-    aria-label={t('contact')}
-    id="mobileContactLink"
-    ><div class="squircle" data-with-shadow="true">
-      <Picture
-        aria-hidden="true"
-        formats={['avif']}
-        quality="high"
-        src={IconContact}
-        alt=""
-        width="48"
-        height="48"
-        densities={[1, 2, 3, 4]}
-        loading="eager"
-        decoding="sync"
-      />
-    </div></a
-  >
-  <a
-    data-arrow-nav="true"
-    role="option"
-    href={shareUrl}
-    title={t('share')}
-    aria-label={t('share')}
-    id="mobileShareLink"
-    ><div class="squircle" data-with-shadow="true">
-      <Picture
-        aria-hidden="true"
-        formats={['avif']}
-        quality="high"
-        src={IconShare}
-        alt=""
-        width="48"
-        height="48"
-        densities={[1, 2, 3, 4]}
-        loading="eager"
-        decoding="sync"
-      />
-    </div></a
-  >
+  {
+    withModalLinks && (
+      <>
+        <a
+          data-arrow-nav="true"
+          role="option"
+          href={contactUrl}
+          title={t('contact')}
+          aria-label={t('contact')}
+          id="mobileContactLink"
+        >
+          <div class="squircle" data-with-shadow="true">
+            <Picture
+              aria-hidden="true"
+              formats={['avif']}
+              quality="high"
+              src={IconContact}
+              alt=""
+              width="48"
+              height="48"
+              densities={[1, 2, 3, 4]}
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+        </a>
+        <a
+          data-arrow-nav="true"
+          role="option"
+          href={shareUrl}
+          title={t('share')}
+          aria-label={t('share')}
+          id="mobileShareLink"
+        >
+          <div class="squircle" data-with-shadow="true">
+            <Picture
+              aria-hidden="true"
+              formats={['avif']}
+              quality="high"
+              src={IconShare}
+              alt=""
+              width="48"
+              height="48"
+              densities={[1, 2, 3, 4]}
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+        </a>
+      </>
+    )
+  }
 </nav>

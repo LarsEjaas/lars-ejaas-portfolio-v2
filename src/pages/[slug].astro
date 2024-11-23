@@ -7,6 +7,7 @@ import Work from '@layouts/work/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import EnglishDescription from '@content/techSkillDescriptions/english/Main.astro';
 import Archive from '@layouts/Archive.astro';
+import EmailReply from '@layouts/EmailReply.astro';
 
 type EnglishSlugPaths = {
   [K in SlugTypes<'en'>]: { params: { slug: K } };
@@ -20,6 +21,7 @@ export function getStaticPaths() {
     skills: { params: { slug: 'skills' } },
     about: { params: { slug: 'about' } },
     archive: { params: { slug: 'archive' } },
+    'email-reply': { params: { slug: 'email-reply' } },
   });
   return Object.values(paths);
 }
@@ -47,6 +49,10 @@ const englishSlugMap: Record<
   },
   about: { component: About, title: t('about') },
   archive: { component: Archive, title: t('archive') },
+  'email-reply': {
+    component: EmailReply,
+    title: t('thank_you_for_your_email'),
+  },
 };
 
 const pageTitle = englishSlugMap[slug]?.title;

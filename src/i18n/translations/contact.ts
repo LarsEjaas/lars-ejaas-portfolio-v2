@@ -21,7 +21,7 @@ export const contact = {
       'An unexpected error occurred while submitting the message. Please try again later.',
     thank_you_for_your: 'Thank you for your message',
     a_confirmation_was_sent:
-      'A confirmation email has been sent to your address.\n\nIf you haven’t received it, please check your spam folder.\nIf it’s still missing, feel free to reach out to me again.',
+      'A confirmation email has been sent to your inbox.\n\nIf you haven’t received it, please check your spam folder.\nIf it’s still missing, feel free to reach out to me again.',
     best_regards: 'Best regards',
     signature: 'Signature from Lars Ejaas',
     close_modal_title: 'Close modal',
@@ -42,12 +42,12 @@ export const contact = {
     paste_formatted_text:
       'Indsæt formateret tekst direkte fra Gmail, Outlook eller andre e-mail-klienter!',
     send: 'Send',
-    this_did_not_go_as_expected: 'Dette gik ikke som forventet',
+    this_did_not_go_as_expected: 'Det gik ikke som forventet',
     an_unexpected_error:
       'Der opstod et uventet fejl under indsendelsen af beskeden. Prøv venligst igen senere.',
     thank_you_for_your: 'Tak for din besked',
     a_confirmation_was_sent:
-      'En e-mailbekræftelse er blevet sendt til din adresse.\n\nHvis du ikke har modtaget den, så tjek venligst din spam-mappe.\nHvis den stadig mangler, så er du velkommen til at kontakte mig igen.',
+      'En e-mailbekræftelse er blevet sendt til din indboks.\n\nHvis du ikke har modtaget den, så tjek venligst din spam-mappe.\nHvis den stadig mangler, så er du velkommen til at kontakte mig igen.',
     best_regards: 'Med venlig hilsen',
     signature: 'Signatur fra Lars Ejaas',
     close_modal_title: 'Luk modal',

@@ -12,6 +12,8 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   query: '?raw',
   import: 'default',
@@ -20,7 +22,7 @@ const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
 type EnglishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'en'>]: {
     params: SkillSlugPath<P> & {
-      modal: 'share' | 'contact';
+      modal: 'share' | 'contact' | 'message-received' | 'message-error';
     };
   };
 };
@@ -36,6 +38,12 @@ export function getStaticPaths() {
       const contactRoute = {
         [`skills/${skill}/contact`]: {
           params: { slug: 'skills', skill, modal: 'contact' },
+        },
+        [`skills/${skill}/message-received`]: {
+          params: { slug: 'skills', skill, modal: 'message-received' },
+        },
+        [`skills/${skill}/message-error`]: {
+          params: { slug: 'skills', skill, modal: 'message-error' },
         },
       };
 
@@ -73,9 +81,23 @@ const svgContent = (await svgPath[1]()) as string;
 const techSkill = { ...skillData, svgContent };
 
 const pageTitle = skillData.title;
-const modalTitle = modal === 'share' ? t('share') : t('contact');
+const modalTitle =
+  modal === 'share'
+    ? t('share')
+    : modal === 'contact'
+      ? t('contact')
+      : modal === 'message-received'
+        ? t('thank_you')
+        : t('whoops');
 const modalIcon = modal === 'share' ? IconShare : IconContact;
-const ModalContent = modal === 'share' ? ShareContent : ContactContent;
+const ModalContent =
+  modal === 'share'
+    ? ShareContent
+    : modal === 'contact'
+      ? ContactContent
+      : modal === 'message-received'
+        ? ContactConfirmation
+        : ContactError;
 ---
 
 <SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>

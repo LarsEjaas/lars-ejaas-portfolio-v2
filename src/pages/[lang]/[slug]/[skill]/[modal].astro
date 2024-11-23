@@ -12,6 +12,8 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import ShareContent from '@components/share/Share.astro';
 import ContactContent from '@components/contact/Contact.astro';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   query: '?raw',
   import: 'default',
@@ -19,7 +21,10 @@ const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
 
 type DanishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'da'>]: {
-    params: SkillSlugPath<P> & { lang: 'da'; modal: 'del' | 'kontakt' };
+    params: SkillSlugPath<P> & {
+      lang: 'da';
+      modal: 'del' | 'kontakt' | 'besked-modtaget' | 'besked-fejl';
+    };
   };
 };
 
@@ -34,6 +39,22 @@ export function getStaticPaths() {
       const kontaktRoute = {
         [`da/kompetencer/${skill}/kontact`]: {
           params: { lang: 'da', slug: 'kompetencer', skill, modal: 'kontakt' },
+        },
+        [`da/kompetencer/${skill}/besked-modtaget`]: {
+          params: {
+            lang: 'da',
+            slug: 'kompetencer',
+            skill,
+            modal: 'besked-modtaget',
+          },
+        },
+        [`da/kompetencer/${skill}/besked-fejl`]: {
+          params: {
+            lang: 'da',
+            slug: 'kompetencer',
+            skill,
+            modal: 'besked-fejl',
+          },
         },
       };
 
@@ -71,9 +92,23 @@ const svgContent = (await svgPath[1]()) as string;
 const techSkill = { ...skillData, svgContent };
 
 const pageTitle = skillData.title;
-const modalTitle = modal === 'del' ? t('share') : t('contact');
+const modalTitle =
+  modal === 'del'
+    ? t('share')
+    : modal === 'kontakt'
+      ? t('contact')
+      : modal === 'besked-modtaget'
+        ? t('thank_you')
+        : t('whoops');
 const modalIcon = modal === 'del' ? IconShare : IconContact;
-const ModalContent = modal === 'del' ? ShareContent : ContactContent;
+const ModalContent =
+  modal === 'del'
+    ? ShareContent
+    : modal === 'kontakt'
+      ? ContactContent
+      : modal === 'besked-modtaget'
+        ? ContactConfirmation
+        : ContactError;
 ---
 
 <SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>

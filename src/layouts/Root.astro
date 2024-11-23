@@ -8,9 +8,17 @@ interface Props {
   title: string;
   inert: boolean;
   gridColumns?: 2 | 3;
+  withDarkkModeToggle?: boolean;
+  withModalLinks?: boolean;
 }
 
-const { title, inert, gridColumns = 2 } = Astro.props;
+const {
+  title,
+  inert,
+  gridColumns = 2,
+  withDarkkModeToggle = true,
+  withModalLinks = true,
+} = Astro.props;
 
 /** Root layout should only be used directly in the index page file
  * On other pages it will be included in other layouts */
@@ -94,11 +102,15 @@ const { title, inert, gridColumns = 2 } = Astro.props;
         </clipPath>
       </defs>
     </svg>
-    <HeaderMenu inert={inert} />
+    <HeaderMenu
+      inert={inert}
+      withDarkkModeToggle={withDarkkModeToggle}
+      withModalLinks={withModalLinks}
+    />
     <main class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
       <slot />
     </main>
-    <Footer inert={inert} />
-    <MobileMenu inert={inert} />
+    <Footer inert={inert} withModalLinks={withModalLinks} />
+    <MobileMenu inert={inert} withModalLinks={withModalLinks} />
   </body>
 </html>

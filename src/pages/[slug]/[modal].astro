@@ -7,6 +7,8 @@ import ContactContent from '@components/contact/Contact.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
 import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
@@ -29,19 +31,43 @@ export function getStaticPaths() {
     ['work/contact']: {
       params: { slug: 'work', modal: 'contact' },
     },
+    ['work/message-received']: {
+      params: { slug: 'work', modal: 'message-received' },
+    },
+    ['work/message-error']: {
+      params: { slug: 'work', modal: 'message-error' },
+    },
     ['skills/share']: {
       params: { slug: 'skills', modal: 'share' },
     },
     ['skills/contact']: {
       params: { slug: 'skills', modal: 'contact' },
     },
+    ['skills/message-received']: {
+      params: { slug: 'skills', modal: 'message-received' },
+    },
+    ['skills/message-error']: {
+      params: { slug: 'skills', modal: 'message-error' },
+    },
     ['about/share']: { params: { slug: 'about', modal: 'share' } },
     ['about/contact']: {
       params: { slug: 'about', modal: 'contact' },
     },
+    ['about/message-received']: {
+      params: { slug: 'about', modal: 'message-received' },
+    },
+    ['about/message-error']: {
+      params: { slug: 'about', modal: 'message-error' },
+    },
     ['archive/share']: { params: { slug: 'archive', modal: 'share' } },
     ['archive/contact']: {
       params: { slug: 'archive', modal: 'contact' },
+    },
+    ['archive/message-received']: {
+      params: { slug: 'archive', modal: 'message-received' },
+    },
+    ['archive/message-error']: {
+      params: { slug: 'archive', modal: 'message-error' },
     },
   });
   return Object.values(paths);
@@ -73,47 +99,103 @@ const englishModalSlugMap: Record<
     pageTitle: t('work'),
     modalTitle: t('contact'),
   },
+  ['work/message-received']: {
+    pageComponent: Work,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('thank_you'),
+  },
+  ['work/message-error']: {
+    pageComponent: Work,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('work'),
+    modalTitle: t('whoops'),
+  },
   ['skills/share']: {
     pageComponent: Skills,
     modalComponent: ShareContent,
     modalIcon: IconShare,
-    pageTitle: t('work'),
+    pageTitle: t('skills'),
     modalTitle: t('share'),
   },
   ['skills/contact']: {
     pageComponent: Skills,
     modalComponent: ContactContent,
     modalIcon: IconContact,
-    pageTitle: t('work'),
+    pageTitle: t('skills'),
     modalTitle: t('contact'),
+  },
+  ['skills/message-received']: {
+    pageComponent: Skills,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('skills'),
+    modalTitle: t('thank_you'),
+  },
+  ['skills/message-error']: {
+    pageComponent: Skills,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('skills'),
+    modalTitle: t('whoops'),
   },
   ['about/share']: {
     pageComponent: About,
     modalComponent: ShareContent,
     modalIcon: IconShare,
-    pageTitle: t('work'),
+    pageTitle: t('about'),
     modalTitle: t('share'),
   },
   ['about/contact']: {
     pageComponent: About,
     modalComponent: ContactContent,
     modalIcon: IconContact,
-    pageTitle: t('work'),
+    pageTitle: t('about'),
     modalTitle: t('contact'),
+  },
+  ['about/message-received']: {
+    pageComponent: About,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('about'),
+    modalTitle: t('thank_you'),
+  },
+  ['about/message-error']: {
+    pageComponent: About,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('about'),
+    modalTitle: t('whoops'),
   },
   ['archive/share']: {
     pageComponent: Archive,
     modalComponent: ShareContent,
     modalIcon: IconShare,
-    pageTitle: t('work'),
+    pageTitle: t('archive'),
     modalTitle: t('share'),
   },
   ['archive/contact']: {
     pageComponent: Archive,
     modalComponent: ContactContent,
     modalIcon: IconContact,
-    pageTitle: t('work'),
+    pageTitle: t('archive'),
     modalTitle: t('contact'),
+  },
+  ['archive/message-received']: {
+    pageComponent: Archive,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('archive'),
+    modalTitle: t('thank_you'),
+  },
+  ['archive/message-error']: {
+    pageComponent: Archive,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('archive'),
+    modalTitle: t('whoops'),
   },
 };
 

@@ -17,11 +17,19 @@ import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import EjaasLogo from './EjaasLogo.astro';
 import { appRoutes } from '@i18n/routes';
 
-type Props = { inert: boolean };
+type Props = {
+  inert: boolean;
+  withDarkkModeToggle?: boolean;
+  withModalLinks?: boolean;
+};
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
-const { inert } = Astro.props;
+const {
+  inert,
+  withDarkkModeToggle = true,
+  withModalLinks = true,
+} = Astro.props;
 const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
 ---
@@ -123,61 +131,67 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           />
         </div><p>{t('about')}</p></a
       >
-      <div class={styles.navSection}>
-        <a
-          data-arrow-nav="true"
-          role="option"
-          href={contactUrl}
-          title={t('contact')}
-          aria-label={t('contact')}
-          id="desktopContactLink"
-          ><div class="squircle" data-with-shadow="true">
-            <Picture
-              aria-hidden="true"
-              formats={['avif']}
-              quality="high"
-              src={IconContact}
-              alt=""
-              width="40"
-              height="40"
-              densities={[1, 2, 3, 4]}
-              loading="eager"
-              decoding="sync"
-            />
-          </div></a
-        >
-        <a
-          data-arrow-nav="true"
-          role="option"
-          href={shareUrl}
-          title={t('share')}
-          aria-label={t('share')}
-          id="desktopShareLink"
-          ><div class="squircle" data-with-shadow="true">
-            <Picture
-              aria-hidden="true"
-              formats={['avif']}
-              quality="high"
-              src={IconShare}
-              alt=""
-              width="40"
-              height="40"
-              densities={[1, 2, 3, 4]}
-              loading="eager"
-              decoding="sync"
-            />
-          </div></a
-        >
-      </div>
+      {
+        withModalLinks && (
+          <div class={styles.navSection}>
+            <a
+              data-arrow-nav="true"
+              role="option"
+              href={contactUrl}
+              title={t('contact')}
+              aria-label={t('contact')}
+              id="desktopContactLink"
+            >
+              <div class="squircle" data-with-shadow="true">
+                <Picture
+                  aria-hidden="true"
+                  formats={['avif']}
+                  quality="high"
+                  src={IconContact}
+                  alt=""
+                  width="40"
+                  height="40"
+                  densities={[1, 2, 3, 4]}
+                  loading="eager"
+                  decoding="sync"
+                />
+              </div>
+            </a>
+            <a
+              data-arrow-nav="true"
+              role="option"
+              href={shareUrl}
+              title={t('share')}
+              aria-label={t('share')}
+              id="desktopShareLink"
+            >
+              <div class="squircle" data-with-shadow="true">
+                <Picture
+                  aria-hidden="true"
+                  formats={['avif']}
+                  quality="high"
+                  src={IconShare}
+                  alt=""
+                  width="40"
+                  height="40"
+                  densities={[1, 2, 3, 4]}
+                  loading="eager"
+                  decoding="sync"
+                />
+              </div>
+            </a>
+          </div>
+        )
+      }
     </nav>
     <div class={styles.actions}>
       <div class={styles.divider}></div>
       <LanguageToggle />
-      <ThemeSwitch withGlow={false} isMobile={false} />
+      {withDarkkModeToggle && <ThemeSwitch withGlow={false} isMobile={false} />}
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
     <LanguageToggle withBackground={true} />
-    <ThemeSwitch withGlow={true} isMobile={true} />
+    {withDarkkModeToggle && <ThemeSwitch withGlow={true} isMobile={true} />}
   </div>
 </header>

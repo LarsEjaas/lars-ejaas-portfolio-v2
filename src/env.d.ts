@@ -96,6 +96,7 @@ declare global {
     richtextEditor: HTMLDivElement | null;
     contactTextArea: HTMLTextAreaElement | null;
     writeToMe: HTMLFormElement | null;
+    firstName: HTMLTableCellElement | null;
     navigation: Navigation;
     onpagereveal?: (event: PageRevealEvent) => void;
     onpageswap?: (event: PageSwapEvent) => void;
