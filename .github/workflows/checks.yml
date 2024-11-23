@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: ['**']
 
+env:
+  DEV: ${{ secrets.DEV }}
+
 jobs:
   quality:
     name: Code Quality
@@ -28,5 +31,3 @@ jobs:
 
       - name: Type check
         run: npm run typecheck
-        env:
-          DEV: ${{ secrets.DEV }}
