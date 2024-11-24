@@ -9,14 +9,14 @@ type Props =
   | {
       title: string;
       iconImage: IconImage;
-      tagLine: 'about' | 'home' | 'toolkit' | 'work';
+      tagline: 'about' | 'home' | 'toolkit' | 'work' | 'not_found' | 'archive';
       /** Alt text for the tagline SVG to make it accessible */
       taglineAlt: string;
     }
   | {
       title: string;
       iconImage: IconImage;
-      tagLine?: never;
+      tagline?: never;
       /** Alt text for the tagline SVG to make it accessible */
       taglineAlt?: never;
     };
@@ -31,15 +31,15 @@ const lang = getLangFromUrl(Astro.url);
 
 const language = languages[lang].toLowerCase();
 
-const { title, iconImage, tagLine, taglineAlt } = Astro.props;
+const { title, iconImage, tagline, taglineAlt } = Astro.props;
 
 const imageImport = Object.entries(iconImages).find(([path]) =>
   path.includes(iconImage)
 );
 
 const svgImport = Object.entries(taglineSVGs).find(([path]) => {
-  if (!tagLine) return undefined;
-  return path.includes(`${tagLine}_${language}`);
+  if (!tagline) return undefined;
+  return path.includes(`${tagline}_${language}`);
 });
 
 if (!imageImport) {
@@ -48,9 +48,9 @@ if (!imageImport) {
   );
 }
 
-if (tagLine && !svgImport) {
+if (tagline && !svgImport) {
   throw new Error(
-    `Tagline SVG not found for: ${tagLine}_${language}.svg in the PageLabel component`
+    `Tagline SVG not found for: ${tagline}_${language}.svg in the PageLabel component`
   );
 }
 

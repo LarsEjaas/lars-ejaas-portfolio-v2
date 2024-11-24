@@ -6,13 +6,16 @@ import { newsItems } from '@content/newsItems';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
-import { useTranslations } from '@i18n/utils';
+import { removeTrailingSlash, useTranslations } from '@i18n/utils';
+import { appRoutes } from '@i18n/routes';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
 import ProfileImage from '@assets/images/profile_clip.png';
 import SocialLinks from '@components/socialLinks/SocialLinks.astro';
 import AboutIcon from '@components/icons/AboutIcon.astro';
 import DownloadIcon from '@components/icons/DownloadIcon.astro';
+import IconContact from '@assets/menuIcons/contact.png';
+import { Picture } from 'astro:assets';
 
 type Props = {
   title: string;
@@ -38,6 +41,7 @@ if (!latestResumeURL) {
 
 const { title, lang, inert } = Astro.props;
 const t_home = useTranslations(lang, 'home');
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
 ---
 
 <Layout title={title} inert={inert}>
@@ -45,7 +49,7 @@ const t_home = useTranslations(lang, 'home');
     <PageLabel
       title={t_home('home_title')}
       iconImage="ejaas"
-      tagLine="home"
+      tagline="home"
       taglineAlt={t_home('home_tagline')}
     />
     <PresentationCard
@@ -62,6 +66,39 @@ const t_home = useTranslations(lang, 'home');
         <p class="small-body-text">
           {t_home('frontend_developer_description')}
         </p>
+        <div class={styles.contactContainer}>
+          <a
+            data-arrow-nav="true"
+            role="option"
+            href={contactUrl}
+            title={t_home('contact')}
+            aria-label={t_home('contact')}
+            id="desktopContactLink"
+          >
+            <div class={styles.contact}>
+              <div class="squircle" data-with-shadow="true">
+                <Picture
+                  aria-hidden="true"
+                  formats={['avif']}
+                  quality="high"
+                  src={IconContact}
+                  alt=""
+                  width={40}
+                  height={40}
+                  densities={[1, 2, 3, 4]}
+                  loading="eager"
+                  decoding="sync"
+                  pictureAttributes={{
+                    style: 'filter: grayscale(0.8) hue-rotate(15deg);',
+                  }}
+                />
+              </div>
+              <p class="small-body-text">
+                {t_home('hi_there')}
+              </p>
+            </div>
+          </a>
+        </div>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
             <a href="/about" title={t_home('about_me_title')}>

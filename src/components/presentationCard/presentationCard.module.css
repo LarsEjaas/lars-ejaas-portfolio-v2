@@ -58,7 +58,7 @@
     color: light-dark(var(--system-light-400), var(--system-light-200));
     margin-block-end: unset;
     max-width: calc(100cqi - (64px + 80px));
-    transform: translateY(0.24em);
+    transform: translateY(0.2em);
   }
   & :global(.squircle) {
     clip-path: url(#squircle);

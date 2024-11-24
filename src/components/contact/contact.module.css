@@ -201,9 +201,7 @@
   user-select: none;
   font-weight: 300;
   background-color: light-dark(var(--system-light-200), var(--system-shadow-5));
-  box-shadow: var(--stacks-1-shadow);
   color: light-dark(var(--system-dark-200), var(--system-dark-300-55));
-
   border-radius: var(--border-radius-sm);
   padding: 8px 8px 10px;
   display: flex;
