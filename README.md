@@ -31,7 +31,7 @@ I'm dedicated to keeping this project open-source, mainly as a source of inspira
 <br />
 Thank you for understanding and respecting my work!
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ---
 
@@ -44,9 +44,9 @@ Fast-forward to today, and I've grown significantly as a developer.
 Working professionally in the field has allowed me to build numerous exciting projects and expand my knowledge base.
 <br />
 <br />
-While I typically work with React frameworks, I decided to challenge myself by building this site using Astro without React and without any CSS frameworks.
+While I typically would choose to build a bage like with a React framework like Nextjs, I decided to challenge myself by building this site using Astro without any JavaScript framework and without any CSS framework either.
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 🛠️ Prerequisites & Requirements
 
@@ -92,7 +92,7 @@ That's it!
 
 The project is intentionally simple, with no JavaScript frameworks, no CSS frameworks, and limited use of TypeScript/JavaScript.
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 🎯 Project objectives
 
@@ -106,11 +106,11 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
   - [**View Transitions API**](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
   - [**Popover API**](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - Enhance accessibility and gain more experience with screen readers.
-- Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable..
+- Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable.
 - Maintain the previous design and color scheme while improving areas that needed a face-lift.
 - Focus the site on my professional career - but also include a bit about myself and my sports background.
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 🙏Attribution
 
@@ -127,10 +127,10 @@ I'm grateful to the following developers whose content has inspired me in creati
 
 </div>
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
 
 ## 📬 Contact
 
 If you have any questions or feedback, feel free to write to me using my contact form at: https://larsejaas.com/contact
 
-<p align="right"><<a href="#top">back to top⬆️</a>></p>
+<p align="right"><a href="#top">back to top⬆️</a></p>
