@@ -23,7 +23,7 @@ export default defineConfig({
   },
   base: '/',
   output: 'static',
-  trailingSlash: 'ignore',
+  trailingSlash: 'never',
   devToolbar: {
     enabled: false,
   },
