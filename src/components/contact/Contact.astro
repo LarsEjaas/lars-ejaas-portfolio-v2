@@ -3,6 +3,8 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './contact.module.css';
 import { ValidationPattern } from '@customTypes/index';
 
+type Props = Record<string, never>;
+
 const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
 const CONTACT_FORM_NAME = 'writeToMe';
 

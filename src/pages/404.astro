@@ -9,11 +9,11 @@ import notFound404 from '@assets/images/404.png';
 import styles from './_404.module.css';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
 
-interface Props {
+type Props = {
   title: string;
   lang: Language;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
 

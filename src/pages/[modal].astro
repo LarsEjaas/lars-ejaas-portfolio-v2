@@ -11,6 +11,8 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import type { ModalTypes } from '@i18n/routes';
 
+type Props = Record<string, never>;
+
 type EnglishModalPaths = {
   [K in ModalTypes<'en'>]: { params: { modal: K } };
 };

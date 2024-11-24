@@ -2,6 +2,8 @@
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './contact.module.css';
 
+type Props = Record<string, never>;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'contact');
 ---

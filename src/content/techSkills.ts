@@ -4,7 +4,7 @@ import type {
   SkillRatings,
   TechSkillItems,
 } from '@customTypes/skillTypes';
-import { skillDescriptions } from './techSkillDescriptions';
+import { skillDescriptions } from './skillDescriptions';
 
 export type TechSkill = (typeof techSkillEntries)[number];
 

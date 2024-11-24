@@ -10,6 +10,8 @@ import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
 import Description from '@content/techSkillDescriptions/Main.astro';
 
+type Props = Record<string, never>;
+
 type DanishSlugPaths = {
   [K in SlugTypes<'da'>]: { params: { lang: DanishLanguageSlug; slug: K } };
 };

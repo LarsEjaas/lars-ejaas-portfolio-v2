@@ -4,13 +4,13 @@ import Footer from '@components/footer/Footer.astro';
 import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
 import './global.css';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
   gridColumns?: 2 | 3;
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
-}
+};
 
 const {
   title,

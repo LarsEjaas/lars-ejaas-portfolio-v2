@@ -12,6 +12,8 @@ import ContactError from '@components/contact/Error.astro';
 import type { ModalTypes } from '@i18n/routes';
 import type { DanishLanguageSlug } from '@i18n/settings';
 
+type Props = Record<string, never>;
+
 type DanishModalPaths = {
   [K in ModalTypes<'da'>]: { params: { lang: DanishLanguageSlug; modal: K } };
 };

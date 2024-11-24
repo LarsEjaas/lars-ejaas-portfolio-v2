@@ -10,10 +10,10 @@ import PhotoCards from '@components/photoCards/PhotoCards.astro';
 import DrawingHouse from '@assets/aboutImages/drawing_house.png';
 import { Picture } from 'astro:assets';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
 const { title, inert } = Astro.props;

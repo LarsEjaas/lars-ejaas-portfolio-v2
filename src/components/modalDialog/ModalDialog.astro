@@ -2,12 +2,14 @@
 import Picture from 'astro/components/Picture.astro';
 import styles from './modalDialog.module.css';
 import type { ColorVariants } from '@customTypes/index';
+
 type Props = {
   title: string;
   labels: { close: string };
   iconImage: ImageMetadata;
   gradientColor: Extract<ColorVariants, 'flirt' | 'verdigris'>;
 };
+
 const { title, labels, iconImage, gradientColor } = Astro.props;
 ---
 

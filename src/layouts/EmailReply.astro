@@ -10,10 +10,10 @@ import XIcon from '@assets/emailReplyImages/x_icon.png';
 import LinkedInIcon from '@assets/emailReplyImages/linkedin_icon.png';
 import LetterIcon from '@assets/emailReplyImages/letter_icon.png';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-}
+};
 
 const { title, inert } = Astro.props;
 const lang = getLangFromUrl(Astro.url);

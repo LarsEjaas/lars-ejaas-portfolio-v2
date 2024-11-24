@@ -13,6 +13,13 @@ import ProfileImage from '@assets/images/profile_clip.png';
 import SocialLinks from '@components/socialLinks/SocialLinks.astro';
 import AboutIcon from '@components/icons/AboutIcon.astro';
 import DownloadIcon from '@components/icons/DownloadIcon.astro';
+
+type Props = {
+  title: string;
+  lang: Language;
+  inert: boolean;
+};
+
 const resumeFiles = import.meta.glob('@assets/resume/*.pdf');
 
 /** Add a key that easily identifies the latest resume - located in public/resume */
@@ -27,12 +34,6 @@ const latestResumeURL = resumeFiles
 
 if (!latestResumeURL) {
   throw new Error(`No resume file found for ${latestResumeURL}`);
-}
-
-interface Props {
-  title: string;
-  lang: Language;
-  inert: boolean;
 }
 
 const { title, lang, inert } = Astro.props;

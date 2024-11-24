@@ -4,6 +4,8 @@ import styles from './contact.module.css';
 import { Image } from 'astro:assets';
 import signature from '@assets/images/signature.png';
 
+type Props = Record<string, never>;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'contact');
 ---

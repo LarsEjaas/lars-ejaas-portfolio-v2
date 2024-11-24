@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "typecheck": "tsc --noEmit && astro check",
+    "typecheck": "astro check",
+    "typecheck:watch": "astro check --watch",
     "prepare": "husky install"
   },
   "engines": {
@@ -19,6 +20,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/netlify": "^5.5.4",
+    "@astrojs/ts-plugin": "^1.10.4",
     "astro": "^4.15.1",
     "dompurify": "^3.2.0",
     "dotenv": "^16.4.5",

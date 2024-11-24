@@ -16,6 +16,7 @@ import IconShare from '@assets/menuIcons/share.png';
 import { appRoutes } from '@i18n/routes';
 
 type Props = { inert: boolean; withModalLinks?: boolean };
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);

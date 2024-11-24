@@ -1,6 +1,6 @@
-import GatsbyDescription from '@content/techSkillDescriptions/Gatsby.astro';
 import type { SkillDescriptions } from '@customTypes/skillTypes';
-import EmptyComponent from '@content/techSkillDescriptions/EmptyComponent.astro';
+import GatsbyDescription from './techSkillDescriptions/Gatsby.astro';
+import EmptyComponent from './techSkillDescriptions/EmptyComponent.astro';
 
 export const skillDescriptions: SkillDescriptions = {
   accessibility: EmptyComponent,

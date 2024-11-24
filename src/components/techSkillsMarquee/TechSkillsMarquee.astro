@@ -2,6 +2,9 @@
 import styles from './techSkillsMarquee.module.css';
 import { techSkills } from '@content/techSkills';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
+
+type Props = Record<string, never>;
+
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   query: '?raw',
   import: 'default',

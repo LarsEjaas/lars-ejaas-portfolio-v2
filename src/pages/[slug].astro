@@ -9,6 +9,8 @@ import Description from '@content/techSkillDescriptions/Main.astro';
 import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
 
+type Props = Record<string, never>;
+
 type EnglishSlugPaths = {
   [K in SlugTypes<'en'>]: { params: { slug: K } };
 };

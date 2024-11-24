@@ -4,11 +4,6 @@ import styles from './balloon.module.css';
 import type { BalloonConfig } from './FloatingBalloons.astro';
 import type { ColorVariants } from '@customTypes/index';
 
-export type BalloonProps = {
-  variant: 'two' | 'three' | 'four';
-  balloonColor: ColorVariants;
-};
-
 type Props =
   | {
       variant: Exclude<BalloonProps['variant'], 'three'>;
@@ -22,6 +17,11 @@ type Props =
       coverPhoto: ImageMetadata | undefined;
       config: BalloonConfig;
     };
+
+export type BalloonProps = {
+  variant: 'two' | 'three' | 'four';
+  balloonColor: ColorVariants;
+};
 
 const { variant, coverPhoto, balloonColor, config } = Astro.props;
 ---

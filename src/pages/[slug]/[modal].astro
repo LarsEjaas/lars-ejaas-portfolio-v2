@@ -14,6 +14,8 @@ import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import Archive from '@layouts/Archive.astro';
 
+type Props = Record<string, never>;
+
 type EnglishModalSlugPaths = {
   [P in SlugWithModalTypes<'en'>]: {
     params: ModalSlugPath<P>;

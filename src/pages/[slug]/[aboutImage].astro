@@ -7,6 +7,8 @@ import type { ImageDetails } from '@content/aboutImages/aboutImages';
 import type { ImageModule } from '@customTypes/index';
 import Lightbox from '@components/lightBox/Lightbox.astro';
 
+type Props = Record<string, never>;
+
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type EnglishAboutLightboxPaths = {

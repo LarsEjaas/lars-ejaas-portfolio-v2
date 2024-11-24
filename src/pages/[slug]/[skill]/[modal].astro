@@ -15,10 +15,10 @@ import ContactContent from '@components/contact/Contact.astro';
 import ContactConfirmation from '@components/contact/Confirmation.astro';
 import ContactError from '@components/contact/Error.astro';
 
-interface Props {
+type Props = {
   skill: TechSkill;
   modal: 'share' | 'contact' | 'message-received' | 'message-error';
-}
+};
 
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   query: '?raw',

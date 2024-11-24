@@ -11,6 +11,8 @@ const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   import: 'default',
 });
 
+type Props = Record<string, never>;
+
 type DanishSkillSlugPaths = {
   [P in SlugWithSkillTypes<'da'>]: {
     params: SkillSlugPath<P> & { lang: 'da' };

@@ -11,21 +11,21 @@ import type { SkillRating } from '@customTypes/skillTypes';
 import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
 import type { SVGFileType } from '../customTypes';
 
+type Props = {
+  title: string;
+  inert: boolean;
+  techSkill: TechSkillProps;
+};
+
 export type TechSkillProps = {
   title: string;
-  description: (_props: Record<string, any>) => any;
+  description: (_props: Record<string, never>) => any;
   svgContent?: string;
   imageSrc?: SVGFileType;
   imageAlt?: string;
   href?: string;
   rating?: SkillRating;
 };
-
-interface Props {
-  title: string;
-  inert: boolean;
-  techSkill: TechSkillProps;
-}
 
 const lang = getLangFromUrl(Astro.url);
 const { title, inert, techSkill } = Astro.props;

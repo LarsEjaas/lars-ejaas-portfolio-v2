@@ -2,6 +2,8 @@
 import HomeLayout from '@layouts/Home.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
+type Props = Record<string, never>;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'home');
 ---

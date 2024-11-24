@@ -3,6 +3,11 @@ import styles from './floatingBalloons.module.css';
 import type { BalloonProps } from './Balloon.astro';
 import Balloon from './Balloon.astro';
 
+type Props = Pick<BalloonProps, 'balloonColor'> & {
+  coverPhoto?: ImageMetadata;
+  class?: string | undefined;
+};
+
 export type BalloonConfig = {
   xA: number;
   yA: number;
@@ -40,11 +45,6 @@ const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
       direction: -1,
     },
   };
-
-type Props = Pick<BalloonProps, 'balloonColor'> & {
-  coverPhoto?: ImageMetadata;
-  class?: string | undefined;
-};
 
 const { balloonColor, coverPhoto } = Astro.props;
 ---

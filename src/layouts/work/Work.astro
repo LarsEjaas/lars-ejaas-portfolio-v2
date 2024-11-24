@@ -20,10 +20,10 @@ import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
 
-interface Props {
+type Props = {
   title: string;
   inert: boolean;
-}
+};
 
 const lang = getLangFromUrl(Astro.url);
 const { title, inert } = Astro.props;

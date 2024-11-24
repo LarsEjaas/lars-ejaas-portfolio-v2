@@ -14,17 +14,7 @@ const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
 export const MAX_NUMBER_OF_ITEMS = 10;
 
-export type CardInfo = {
-  title: string;
-  description: string;
-  date: EnglishDate | DanishDate;
-  imageSrc: ImageType;
-  imageAlt: string;
-  href: string;
-  outline: '1' | '2' | '3' | '4' | 'gold';
-};
-
-interface Props {
+type Props = {
   labels: {
     title: string;
     /** Title of the archive card */
@@ -34,7 +24,17 @@ interface Props {
   };
   items: CardInfo[];
   inert: boolean;
-}
+};
+
+export type CardInfo = {
+  title: string;
+  description: string;
+  date: EnglishDate | DanishDate;
+  imageSrc: ImageType;
+  imageAlt: string;
+  href: string;
+  outline: '1' | '2' | '3' | '4' | 'gold';
+};
 
 const { items, labels, inert } = Astro.props;
 

@@ -6,17 +6,17 @@ declare namespace App {
   interface Locals extends NetlifyLocals {}
 }
 
-interface String {
-  /** Converts all the alphabetic characters in a string to uppercase. */
-  toUpperCase<T extends string>(this: T): Uppercase<T>;
-  /** Converts all the alphabetic characters in a string to lowercase. */
-  toLowerCase<T extends string>(this: T): Lowercase<T>;
-}
-
 declare global {
   interface WindowEventMap {
     pagereveal: PageRevealEvent;
     pageswap: PageSwapEvent;
+  }
+
+  interface String {
+    /** Converts all the alphabetic characters in a string to uppercase. */
+    toUpperCase<T extends string>(this: T): Uppercase<T>;
+    /** Converts all the alphabetic characters in a string to lowercase. */
+    toLowerCase<T extends string>(this: T): Lowercase<T>;
   }
 
   interface ViewTransitionTypeSet {

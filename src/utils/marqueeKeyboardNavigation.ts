@@ -1,5 +1,5 @@
 import { getFocusableElements } from './keyboardArrowNavigation';
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV || false;
 
 type Position = {
   rowIndex: number;
