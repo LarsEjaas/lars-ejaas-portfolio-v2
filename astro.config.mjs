@@ -8,6 +8,10 @@ export default defineConfig({
     edgeMiddleware: false,
     functionPerRoute: false,
   }),
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'load',
+  },
   redirects: {
     '/en': '/',
     '/artikler': '/da',
