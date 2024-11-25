@@ -230,7 +230,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
               href={
                 index === skillIndex
                   ? undefined
-                  : translatePath(`skills/${techSkill.href}`)
+                  : translatePath(`skills/${techSkill.href}/`)
               }
               aria-label={`${t_skills('go_to')} ${techSkill.title}`}
               title={`${t_skills('go_to')} ${techSkill.title}`}

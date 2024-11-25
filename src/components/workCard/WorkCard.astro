@@ -166,7 +166,7 @@ const t = useTranslations(lang, 'navigation');
               <li>
                 <a
                   data-arrow-nav="true"
-                  href={translatePath(tag.href)}
+                  href={translatePath(`${tag.href}/`)}
                   class={styles.tag}
                 >
                   {tag.title}

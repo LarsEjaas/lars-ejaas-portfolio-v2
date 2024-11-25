@@ -127,6 +127,10 @@ export type IconImage =
   | 'work'
   | 'archive';
 
+export type StringWithTrailingSlash = `${string}/`;
+export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
+export type ExternalLink = `https://${string}`;
+
 /**
  * Type predicate to filter out empty instances of an array
  * Returns true if a value is not empty (i.e., not null or undefined).

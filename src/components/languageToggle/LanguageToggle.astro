@@ -9,6 +9,7 @@ import { defaultLang } from '@i18n/settings';
 import styles from './languageToggle.module.css';
 import { appRoutes } from '@i18n/routes';
 import type { LanguageKey } from '@i18n/routes';
+import type { StringWithTrailingSlash } from '@customTypes/index';
 
 type Props = { withBackground?: boolean };
 
@@ -17,8 +18,8 @@ const { withBackground } = Astro.props;
 /** Get the English appRoute when only the translated path is provided */
 const getEnglishTranslation = (
   language: LanguageKey,
-  pathname: string
-): string | undefined => {
+  pathname: StringWithTrailingSlash
+) => {
   const rawPath = removeLeadingSlash(removeTrailingSlash(pathname));
   const slug = rawPath.replace(`${language}/`, '');
   const [translationKey] =
@@ -26,8 +27,10 @@ const getEnglishTranslation = (
       ([_, routePath]) => routePath === slug
     ) || [];
 
-  return translationKey ? `/${translationKey}` : '/';
+  return translationKey ? `/${translationKey}/` : '/';
 };
+
+const currentPath = `${removeTrailingSlash(Astro.url.pathname)}/` as const;
 
 const lang = getLangFromUrl(Astro.url);
 const translatedPath = useTranslatedPath(lang);
@@ -35,14 +38,14 @@ const translatedPath = useTranslatedPath(lang);
 const englishUrl =
   lang === defaultLang
     ? Astro.url.pathname
-    : getEnglishTranslation(lang, Astro.url.pathname);
+    : getEnglishTranslation(lang, currentPath);
 
 const danishUrl =
   lang === defaultLang
     ? Astro.url.pathname === '/'
-      ? `/da`
-      : translatedPath(Astro.url.pathname, 'da')
-    : Astro.url.pathname;
+      ? `/da/`
+      : translatedPath(currentPath, 'da')
+    : currentPath;
 ---
 
 <div

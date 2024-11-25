@@ -34,7 +34,7 @@ if (!imageInfo) {
 
 const imageAlt =
   imageInfo[`imageAlt${language.toUpperCase()}` as keyof typeof imageInfo];
-const englishUrl = `about/${imageInfo.hrefEN}`;
+const englishUrl = `/about/${imageInfo.hrefEN}/` as const;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 ---

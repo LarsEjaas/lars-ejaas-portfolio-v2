@@ -50,7 +50,7 @@ const newsObject = {
       date: '28. februar 2021',
       imageSrc: 'ejaas_logo.png',
       imageAlt: '',
-      href: '/da/arbejde#larsEjaasComV1',
+      href: '/da/arbejde/#larsEjaasComV1',
       outline: '1',
     },
     skillsTimeline: {
@@ -60,7 +60,7 @@ const newsObject = {
       date: '1. marts 2021',
       imageSrc: 'skills_timeline.png',
       imageAlt: 'Visuel oversigt over kompetencer for lars ejaas',
-      href: '/da/kompetencer',
+      href: '/da/kompetencer/',
       outline: '2',
     },
     letter: {
@@ -69,7 +69,7 @@ const newsObject = {
       date: '1. marts 2021',
       imageSrc: 'hand_holding_letter.jpg',
       imageAlt: 'Hånd der holder et brev',
-      href: '/da/kontakt',
+      href: '/da/kontakt/',
       outline: '4',
     },
     makingOf: {
@@ -78,7 +78,7 @@ const newsObject = {
       date: '11. maj 2021',
       imageSrc: 'lars_ejaas_com_timeline.png',
       imageAlt: 'Screenshot mosaik fra larsejaas.com',
-      href: '/da/arbejde#larsEjaasComV1',
+      href: '/da/arbejde/#larsEjaasComV1',
       outline: '2',
     },
     bruceWillis: {
@@ -88,7 +88,7 @@ const newsObject = {
       date: '13. maj 2021',
       imageSrc: 'bruce_willis_rocks.png',
       imageAlt: 'Screenshot fra siden bruce-willis.rocks',
-      href: '/da/arbejde#bruceWillis',
+      href: '/da/arbejde/#bruceWillis',
       outline: '3',
     },
     salling_group: {
@@ -98,7 +98,7 @@ const newsObject = {
       date: '10. februar 2022',
       imageSrc: 'salling_group.png',
       imageAlt: 'Salling Group logo',
-      href: '/da/arbejde#sallingGroup',
+      href: '/da/arbejde/#sallingGroup',
       outline: 'gold',
     },
     twitter: {
@@ -128,7 +128,7 @@ const newsObject = {
       date: '29. april 2022',
       imageSrc: 'accuranker_timeline.png',
       imageAlt: 'AccuRanker logo på turkis baggrund',
-      href: '/da/arbejde#accuRanker',
+      href: '/da/arbejde/#accuRanker',
       outline: '3',
     },
     x: {
@@ -158,7 +158,7 @@ const newsObject = {
       date: '1. januar 2025',
       imageSrc: 'frigg_tech.png',
       imageAlt: 'Lysegrønt Frigg Tech logo på en mørkeblå baggrund',
-      href: '/work#friggTech',
+      href: '/work/#friggTech',
       outline: '4',
     },
   },
@@ -170,7 +170,7 @@ const newsObject = {
       date: 'February 28th, 2021',
       imageSrc: 'ejaas_logo.png',
       imageAlt: '',
-      href: '/work#larsEjaasComV1',
+      href: '/work/#larsEjaasComV1',
       outline: '1',
     },
     skillsTimeline: {
@@ -180,7 +180,7 @@ const newsObject = {
       date: 'March 1st, 2021',
       imageSrc: 'skills_timeline.png',
       imageAlt: 'Visual overview of skills for lars ejaas',
-      href: '/skills',
+      href: '/skills/',
       outline: '2',
     },
     letter: {
@@ -189,7 +189,7 @@ const newsObject = {
       date: 'March 1st, 2021',
       imageSrc: 'hand_holding_letter.jpg',
       imageAlt: 'Hand holding a letter',
-      href: '/contact',
+      href: '/contact/',
       outline: '4',
     },
     makingOf: {
@@ -198,7 +198,7 @@ const newsObject = {
       date: 'May 11th, 2021',
       imageSrc: 'lars_ejaas_com_timeline.png',
       imageAlt: 'Screenshot mosaic from larsejaas.com',
-      href: '/work#larsEjaasComV1',
+      href: '/work/#larsEjaasComV1',
       outline: '2',
     },
     bruceWillis: {
@@ -208,7 +208,7 @@ const newsObject = {
       date: 'May 13th, 2021',
       imageSrc: 'bruce_willis_rocks.png',
       imageAlt: 'Screenshot from bruce-willis.rocks',
-      href: '/work#bruceWillis',
+      href: '/work/#bruceWillis',
       outline: '3',
     },
     salling_group: {
@@ -218,7 +218,7 @@ const newsObject = {
       date: 'February 10th, 2022',
       imageSrc: 'salling_group.png',
       imageAlt: 'Salling Group logo',
-      href: '/work#sallingGroup',
+      href: '/work/#sallingGroup',
       outline: 'gold',
     },
     twitter: {
@@ -238,7 +238,7 @@ const newsObject = {
       date: 'February 17th, 2022',
       imageSrc: 'updated_skills.png',
       imageAlt: 'Updated list of skills',
-      href: '/skills',
+      href: '/skills/',
       outline: '1',
     },
     accuRanker: {
@@ -248,7 +248,7 @@ const newsObject = {
       date: 'April 29th, 2022',
       imageSrc: 'accuranker_timeline.png',
       imageAlt: 'AccuRanker logo on top of a turquoise background',
-      href: '/work#accuRanker',
+      href: '/work#accuRanker/',
       outline: '3',
     },
     x: {
@@ -278,7 +278,7 @@ const newsObject = {
       date: 'January 1st, 2025',
       imageSrc: 'frigg_tech.png',
       imageAlt: 'Light green Frigg Tech logo on dark blue background',
-      href: '/work#friggTech',
+      href: '/work/#friggTech',
       outline: '4',
     },
   },

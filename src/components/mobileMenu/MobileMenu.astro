@@ -21,8 +21,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
 const { inert, withModalLinks = true } = Astro.props;
-const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}`;
-const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
+const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}/`;
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
 <script>
@@ -74,7 +74,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   <a
     data-arrow-nav="true"
     role="option"
-    href={translatePath('/work')}
+    href={translatePath('/work/')}
     title={t('work')}
     aria-label={t('work')}
     ><div class="squircle" data-with-shadow="true">
@@ -95,7 +95,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   <a
     data-arrow-nav="true"
     role="option"
-    href={translatePath('/skills')}
+    href={translatePath('/skills/')}
     title={t('skills')}
     aria-label={t('skills')}
     ><div class="squircle" data-with-shadow="true">
@@ -116,7 +116,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   <a
     data-arrow-nav="true"
     role="option"
-    href={translatePath('/about')}
+    href={translatePath('/about/')}
     title={t('about')}
     aria-label={t('about')}
     ><div class="squircle" data-with-shadow="true">

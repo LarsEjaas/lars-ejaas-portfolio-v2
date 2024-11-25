@@ -6,6 +6,9 @@ import type {
   DanishDate,
   EnglishDate,
   ImageModule,
+  StringWithTrailingSlash,
+  StringWithTrailingSlashAndAnchor,
+  ExternalLink,
 } from '@customTypes/index';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 import { isExternalLink } from '@utils/misc';
@@ -32,7 +35,10 @@ export type CardInfo = {
   date: EnglishDate | DanishDate;
   imageSrc: ImageType;
   imageAlt: string;
-  href: string;
+  href:
+    | StringWithTrailingSlash
+    | StringWithTrailingSlashAndAnchor
+    | ExternalLink;
   outline: '1' | '2' | '3' | '4' | 'gold';
 };
 
@@ -41,7 +47,7 @@ const { items, labels, inert } = Astro.props;
 const ARCHIVE_ID = 'newsArchive';
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
-const ARCHIVE_HREF = translatePath('archive');
+const ARCHIVE_HREF = translatePath('/archive/');
 
 const itemList =
   MAX_NUMBER_OF_ITEMS && items.length > MAX_NUMBER_OF_ITEMS

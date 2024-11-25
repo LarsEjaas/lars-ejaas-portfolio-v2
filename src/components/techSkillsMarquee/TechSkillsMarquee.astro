@@ -48,7 +48,7 @@ const processedSkills = await Promise.all(
             return (
               <li class={styles.skill} style={`--index: ${techSkill.index};`}>
                 <a
-                  href={translatePath(`skills/${techSkill.href}`)}
+                  href={translatePath(`skills/${techSkill.href}/`)}
                   title={techSkill.title}
                   data-arrow-nav="true"
                   data-active={

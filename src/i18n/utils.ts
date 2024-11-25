@@ -6,7 +6,7 @@ import {
   type Language,
 } from './settings';
 import { appRoutes } from './routes';
-import { hasProperty } from '@customTypes/index';
+import { hasProperty, type StringWithTrailingSlash } from '@customTypes/index';
 
 /**
  * Extracts the language code from a URL's pathname or returns the default language if no language code is found in the pathname.
@@ -52,20 +52,30 @@ export function useTranslations<
 }
 
 export function useTranslatedPath(lang: keyof typeof languages) {
-  return function translatePath(path: string, language: Language = lang) {
+  return function translatePath(
+    path: StringWithTrailingSlash,
+    language: Language = lang
+  ) {
+    if (path === '/') {
+      return !showDefaultLang && language === defaultLang
+        ? '/'
+        : `/${language}/`;
+    }
     const pathName = removeTrailingSlash(removeLeadingSlash(path));
-    const pathNameWithoutLocale = pathName.replace(`${lang}/`, '');
+    const pathNameWithoutLocale = removeTrailingSlash(
+      pathName.replace(`${lang}/`, '')
+    );
     // If this is a translated index page, return the translated index page without trailing slash
     if (pathNameWithoutLocale === '' && lang !== defaultLang) {
-      return `/${lang}`;
+      return `/${lang}/`;
     }
     const hasTranslation = hasProperty(
       pathNameWithoutLocale,
       appRoutes[language]
     );
     const translatedPath = hasTranslation
-      ? `/${appRoutes[language][pathNameWithoutLocale]}`
-      : `/${pathName}`;
+      ? `/${appRoutes[language][pathNameWithoutLocale]}/`
+      : `/${pathName}/`;
 
     return !showDefaultLang && language === defaultLang
       ? translatedPath
