@@ -11,7 +11,7 @@
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "typecheck": "astro check",
     "typecheck:watch": "astro check --watch",
-    "prepare": "husky install"
+    "prepare": "test \"$NODE_ENV\" = production || husky install"
   },
   "engines": {
     "node": ">=21.2.0",
