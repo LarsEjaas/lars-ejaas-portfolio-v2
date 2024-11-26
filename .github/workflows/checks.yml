@@ -33,15 +33,3 @@ jobs:
         # Skip build on main branch
         if: github.ref != 'refs/heads/main'
         run: npm run build
-
-  deploy:
-    name: Trigger Netlify Deploy
-    needs: quality
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && success()
-    steps:
-      - name: Trigger Netlify Deploy
-        env:
-          NETLIFY_WEBHOOK_URL: ${{ secrets.NETLIFY_WEBHOOK_URL }}
-        run: |
-          curl -X POST -d '{}' "$NETLIFY_WEBHOOK_URL?trigger_branch=main&trigger_title=triggered+by+github+action"
