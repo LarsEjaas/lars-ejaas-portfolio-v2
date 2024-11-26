@@ -1,4 +1,4 @@
-name: Code Quality Checks
+name: Code Quality and Conditional Deploy
 
 on:
   push:
@@ -30,11 +30,18 @@ jobs:
         run: npm run typecheck
 
       - name: Build Project
+        # Skip build on main branch
+        if: github.ref != 'refs/heads/main'
         run: npm run build
 
+  deploy:
+    name: Trigger Netlify Deploy
+    needs: quality
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && success()
+    steps:
       - name: Trigger Netlify Deploy
-        if: success() # Only runs if all previous steps pass
         env:
           NETLIFY_WEBHOOK_URL: ${{ secrets.NETLIFY_WEBHOOK_URL }}
         run: |
-          curl -X POST $NETLIFY_WEBHOOK_URL
+          curl -X POST -d '{}' "$NETLIFY_WEBHOOK_URL?trigger_branch=main&trigger_title=triggered+by+github+action"
