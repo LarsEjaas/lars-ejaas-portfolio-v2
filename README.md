@@ -12,6 +12,7 @@
 The second iteration of [larsejaas.com](https://larsejaas.com) built with [Astro](https://astro.build/) and deployed on [Netlify](https://www.netlify.com/)
 
 [![Project Status: Active.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Code Quality Checks](https://github.com/LarsEjaas/lars-ejaas-portfolio-v2/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/LarsEjaas/lars-ejaas-portfolio-v2/actions/workflows/checks.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cab35f90-2300-41e1-b0da-524bef7b3eaf/deploy-status)](https://app.netlify.com/sites/larsejaas-v2/deploys)
 
 ## ⚠️ Before you fork this repo - please read!

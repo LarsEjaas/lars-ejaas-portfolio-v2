@@ -44,6 +44,9 @@
   }
   scrollbar-width: none; /* Firefox 64 */
   inline-size: 100cqi;
+  content-visibility: auto;
+  --height: calc(332px + 4rem);
+  contain-intrinsic-size: auto 100% auto var(--height);
   display: grid;
   grid-auto-flow: column;
   overflow-x: auto;

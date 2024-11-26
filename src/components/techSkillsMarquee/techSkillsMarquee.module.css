@@ -16,20 +16,23 @@
 }
 
 .scene {
+  --height: calc((var(--grid-row-count) - 1) * 54px);
   --mask-width: 3rem;
   /* Inset and outset controls the grid animation offset on entry/exit */
   --inset: -0.5;
   --outset: 3.5;
   --speed: 10s;
   --items-in-row: 3;
-  scroll-behavior: smooth;
   --grid-row-count: round(
     up,
     calc(var(--number-of-items) / var(--items-in-row))
   );
+  height: var(--height);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 100% auto var(--height);
+  scroll-behavior: smooth;
   overflow: hidden;
   width: 100%;
-  height: calc((var(--grid-row-count) - 1) * 54px);
   mask: linear-gradient(
       transparent,
       white var(--mask-width) calc(100% - var(--mask-width)),
