@@ -16,6 +16,7 @@ import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import EjaasLogo from './EjaasLogo.astro';
 import { appRoutes } from '@i18n/routes';
+import { iconColors } from '@utils/misc';
 
 type Props = {
   inert: boolean;
@@ -87,6 +88,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
+            pictureAttributes={{
+              style: `background-color: ${iconColors.work};`,
+            }}
           />
         </div>
         <p>{t('work')}</p>
@@ -108,6 +112,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
+            pictureAttributes={{
+              style: `background-color: ${iconColors.skillset};`,
+            }}
           />
         </div><p>{t('skills')}</p></a
       >
@@ -128,6 +135,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             densities={[1, 2, 3, 4]}
             loading="eager"
             decoding="sync"
+            pictureAttributes={{
+              style: `background-color: ${iconColors.about};`,
+            }}
           />
         </div><p>{t('about')}</p></a
       >
@@ -154,6 +164,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   densities={[1, 2, 3, 4]}
                   loading="eager"
                   decoding="sync"
+                  pictureAttributes={{
+                    style: `background-color: ${iconColors.contact};`,
+                  }}
                 />
               </div>
             </a>
@@ -177,6 +190,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   densities={[1, 2, 3, 4]}
                   loading="eager"
                   decoding="sync"
+                  pictureAttributes={{
+                    style: `background-color: ${iconColors.share};`,
+                  }}
                 />
               </div>
             </a>

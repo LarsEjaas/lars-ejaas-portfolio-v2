@@ -14,6 +14,7 @@ import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import { appRoutes } from '@i18n/routes';
+import { iconColors } from '@utils/misc';
 
 type Props = { inert: boolean; withModalLinks?: boolean };
 
@@ -68,6 +69,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3, 4]}
         loading="eager"
         decoding="sync"
+        pictureAttributes={{
+          style: `background-color: ${iconColors.ejaas};`,
+        }}
       />
     </div></a
   >
@@ -89,6 +93,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3, 4]}
         loading="eager"
         decoding="sync"
+        pictureAttributes={{
+          style: `background-color: ${iconColors.work};`,
+        }}
       />
     </div></a
   >
@@ -110,6 +117,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3, 4]}
         loading="eager"
         decoding="sync"
+        pictureAttributes={{
+          style: `background-color: ${iconColors.skillset};`,
+        }}
       />
     </div></a
   >
@@ -131,6 +141,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3, 4]}
         loading="eager"
         decoding="sync"
+        pictureAttributes={{
+          style: `background-color: ${iconColors.about};`,
+        }}
       />
     </div></a
   >
@@ -157,6 +170,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               densities={[1, 2, 3, 4]}
               loading="eager"
               decoding="sync"
+              pictureAttributes={{
+                style: `background-color: ${iconColors.contact};`,
+              }}
             />
           </div>
         </a>
@@ -180,6 +196,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               densities={[1, 2, 3, 4]}
               loading="eager"
               decoding="sync"
+              pictureAttributes={{
+                style: `background-color: ${iconColors.share};`,
+              }}
             />
           </div>
         </a>

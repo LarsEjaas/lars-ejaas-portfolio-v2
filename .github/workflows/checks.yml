@@ -1,4 +1,4 @@
-name: Code Quality and Conditional Deploy
+name: Code Quality Checks
 
 on:
   push:

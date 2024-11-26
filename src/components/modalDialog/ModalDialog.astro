@@ -1,16 +1,18 @@
 ---
 import Picture from 'astro/components/Picture.astro';
 import styles from './modalDialog.module.css';
-import type { ColorVariants } from '@customTypes/index';
+import type { ColorVariants, IconImage } from '@customTypes/index';
+import { iconColors } from '@utils/misc';
 
 type Props = {
   title: string;
   labels: { close: string };
   iconImage: ImageMetadata;
+  iconColor: IconImage;
   gradientColor: Extract<ColorVariants, 'flirt' | 'verdigris'>;
 };
 
-const { title, labels, iconImage, gradientColor } = Astro.props;
+const { title, labels, iconImage, gradientColor, iconColor } = Astro.props;
 ---
 
 <script>
@@ -58,6 +60,9 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
               densities={[1, 2, 3, 4]}
               loading="eager"
               decoding="sync"
+              pictureAttributes={{
+                style: `background-color: ${iconColors[iconColor]};`,
+              }}
             />
           </div>
         )

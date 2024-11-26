@@ -112,6 +112,7 @@ const ModalContent =
       : modal === 'besked-modtaget'
         ? ContactConfirmation
         : ContactError;
+const iconColor = modal === 'del' ? 'share' : 'contact';
 ---
 
 <SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
@@ -120,6 +121,7 @@ const ModalContent =
     labels={{ close: t('close_modal_title') }}
     iconImage={modalIcon}
     gradientColor="verdigris"
+    iconColor={iconColor}
     ><ModalContent />
   </ModalDialog>
 </SkillsLayout>

@@ -36,6 +36,11 @@
   align-items: center;
   gap: 16px;
   & :global(.squircle) {
-    flex: 1 0 48px;
+    flex: 1;
+  }
+  & Picture {
+    width: 96px;
+    height: 96px;
+    background-size: cover;
   }
 }

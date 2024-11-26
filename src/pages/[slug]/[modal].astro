@@ -13,6 +13,7 @@ import About from '@layouts/About.astro';
 import Skills from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import Archive from '@layouts/Archive.astro';
+import type { IconImage } from '@customTypes/index';
 
 type Props = Record<string, never>;
 
@@ -83,6 +84,7 @@ const englishModalSlugMap: Record<
     pageComponent: AstroComponentFactory;
     modalComponent: AstroComponentFactory;
     modalIcon: ImageMetadata;
+    iconColor: IconImage;
     pageTitle: string;
     modalTitle: string;
   }
@@ -91,6 +93,7 @@ const englishModalSlugMap: Record<
     pageComponent: Work,
     modalComponent: ShareContent,
     modalIcon: IconShare,
+    iconColor: 'share',
     pageTitle: t('work'),
     modalTitle: t('share'),
   },
@@ -98,6 +101,7 @@ const englishModalSlugMap: Record<
     pageComponent: Work,
     modalComponent: ContactContent,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('work'),
     modalTitle: t('contact'),
   },
@@ -105,6 +109,7 @@ const englishModalSlugMap: Record<
     pageComponent: Work,
     modalComponent: ContactConfirmation,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('work'),
     modalTitle: t('thank_you'),
   },
@@ -112,6 +117,7 @@ const englishModalSlugMap: Record<
     pageComponent: Work,
     modalComponent: ContactError,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('work'),
     modalTitle: t('whoops'),
   },
@@ -119,6 +125,7 @@ const englishModalSlugMap: Record<
     pageComponent: Skills,
     modalComponent: ShareContent,
     modalIcon: IconShare,
+    iconColor: 'share',
     pageTitle: t('skills'),
     modalTitle: t('share'),
   },
@@ -126,6 +133,7 @@ const englishModalSlugMap: Record<
     pageComponent: Skills,
     modalComponent: ContactContent,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('skills'),
     modalTitle: t('contact'),
   },
@@ -133,6 +141,7 @@ const englishModalSlugMap: Record<
     pageComponent: Skills,
     modalComponent: ContactConfirmation,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('skills'),
     modalTitle: t('thank_you'),
   },
@@ -140,6 +149,7 @@ const englishModalSlugMap: Record<
     pageComponent: Skills,
     modalComponent: ContactError,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('skills'),
     modalTitle: t('whoops'),
   },
@@ -147,6 +157,7 @@ const englishModalSlugMap: Record<
     pageComponent: About,
     modalComponent: ShareContent,
     modalIcon: IconShare,
+    iconColor: 'share',
     pageTitle: t('about'),
     modalTitle: t('share'),
   },
@@ -154,6 +165,7 @@ const englishModalSlugMap: Record<
     pageComponent: About,
     modalComponent: ContactContent,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('about'),
     modalTitle: t('contact'),
   },
@@ -161,6 +173,7 @@ const englishModalSlugMap: Record<
     pageComponent: About,
     modalComponent: ContactConfirmation,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('about'),
     modalTitle: t('thank_you'),
   },
@@ -168,6 +181,7 @@ const englishModalSlugMap: Record<
     pageComponent: About,
     modalComponent: ContactError,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('about'),
     modalTitle: t('whoops'),
   },
@@ -175,6 +189,7 @@ const englishModalSlugMap: Record<
     pageComponent: Archive,
     modalComponent: ShareContent,
     modalIcon: IconShare,
+    iconColor: 'share',
     pageTitle: t('archive'),
     modalTitle: t('share'),
   },
@@ -182,6 +197,7 @@ const englishModalSlugMap: Record<
     pageComponent: Archive,
     modalComponent: ContactContent,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('archive'),
     modalTitle: t('contact'),
   },
@@ -189,6 +205,7 @@ const englishModalSlugMap: Record<
     pageComponent: Archive,
     modalComponent: ContactConfirmation,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('archive'),
     modalTitle: t('thank_you'),
   },
@@ -196,6 +213,7 @@ const englishModalSlugMap: Record<
     pageComponent: Archive,
     modalComponent: ContactError,
     modalIcon: IconContact,
+    iconColor: 'contact',
     pageTitle: t('archive'),
     modalTitle: t('whoops'),
   },
@@ -209,6 +227,7 @@ const iconImage = englishModalSlugMap[`${slug}/${modal}`]?.modalIcon;
 
 const modalTitle = englishModalSlugMap[`${slug}/${modal}`]?.modalTitle;
 const pageTitle = englishModalSlugMap[`${slug}/${modal}`]?.pageTitle;
+const iconColor = englishModalSlugMap[`${slug}/${modal}`]?.iconColor;
 ---
 
 <PageContent title={pageTitle} inert={true}>
@@ -217,6 +236,7 @@ const pageTitle = englishModalSlugMap[`${slug}/${modal}`]?.pageTitle;
     labels={{ close: t('close_modal_title') }}
     iconImage={iconImage}
     gradientColor="verdigris"
+    iconColor={iconColor}
     ><ModalContent />
   </ModalDialog>
 </PageContent>

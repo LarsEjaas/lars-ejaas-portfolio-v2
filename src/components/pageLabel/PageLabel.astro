@@ -4,6 +4,7 @@ import { Picture } from 'astro:assets';
 import styles from './pageLabel.module.css';
 import { getLangFromUrl } from '@i18n/utils';
 import { languages } from '@i18n/settings';
+import { iconColors } from '@utils/misc';
 
 type Props =
   | {
@@ -72,6 +73,9 @@ const TaglineComponent = svgImport ? ((await svgImport[1]()) as string) : null;
         densities={[1, 2, 3, 4]}
         loading="eager"
         decoding="sync"
+        pictureAttributes={{
+          style: `background-color: ${iconColors[iconImage]};`,
+        }}
       />
     </div>
     <h1>{title}</h1>
