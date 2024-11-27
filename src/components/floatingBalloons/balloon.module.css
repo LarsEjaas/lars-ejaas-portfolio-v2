@@ -87,6 +87,9 @@
     &:global(#two) {
       background-color: var(--verdigris-400);
     }
+    &:global(#three) {
+      background-color: #009a98;
+    }
     &:global(#four) {
       background-color: var(--verdigris-500);
     }

@@ -57,3 +57,8 @@
     margin-top: 4rem;
   }
 }
+@media (max-width: 768px) {
+  .floatingBalloons {
+    grid-row: 3;
+  }
+}

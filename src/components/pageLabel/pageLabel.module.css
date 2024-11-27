@@ -8,6 +8,7 @@
   gap: 8px;
   justify-content: space-between;
   height: fit-content;
+  max-height: 96px;
 
   & :global(.squircle) {
     &[data-with-shadow] {
