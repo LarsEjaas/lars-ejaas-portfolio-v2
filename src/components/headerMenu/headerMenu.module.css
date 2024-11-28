@@ -91,11 +91,9 @@
 }
 
 .ejaasLogo {
-  --shadow: 0px 8px 16px var(--system-dark-300-80);
+  --shadow: 0px 3px 5px var(--system-dark-300-80);
   overflow: visible;
-  & path {
-    filter: drop-shadow(var(--shadow));
-  }
+  filter: drop-shadow(var(--shadow));
 }
 
 .homeLink,

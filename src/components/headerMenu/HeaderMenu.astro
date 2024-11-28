@@ -14,7 +14,7 @@ import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
-import EjaasLogo from './EjaasLogo.astro';
+import ejaasLogo from './EjaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
 import { iconColors } from '@utils/misc';
 
@@ -66,11 +66,22 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </h2>
       <a
         data-arrow-nav="true"
+        title={t('home')}
         role="option"
         href={translatePath('/')}
         class={styles.homeLink}
-        ><EjaasLogo title={t('home')} className={styles.ejaasLogo || ''} /></a
       >
+        <p id="lightboxTitle" class="sr-only">{t('home')}</p>
+        <div
+          class={styles.ejaasLogo}
+          style={{
+            backgroundImage: `url(${ejaasLogo.src})`,
+            width: `${ejaasLogo.width}px`,
+            height: `${ejaasLogo.height}px`,
+          }}
+        >
+        </div>
+      </a>
       <a
         data-arrow-nav="true"
         role="option"

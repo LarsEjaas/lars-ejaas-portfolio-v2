@@ -6,7 +6,6 @@ import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 type Props = Record<string, never>;
 
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
-  query: '?raw',
   import: 'default',
 });
 
@@ -18,17 +17,22 @@ const { skill } = Astro.params;
 const processedSkills = await Promise.all(
   techSkills.map(async (techSkill, index) => {
     const imageName = techSkill.imageSrc;
-    const svgPath = Object.entries(skillIconImages).find(([path]) =>
-      path.includes(imageName)
+    const svgFile = Object.entries(skillIconImages).find(([file]) =>
+      file.includes(imageName)
     );
 
-    if (!svgPath) {
+    if (!svgFile) {
       console.error(`SVG not found for tech skill image: ${imageName}`);
       return null;
     }
 
-    const svgContent = await svgPath[1]();
-    return { ...techSkill, svgContent, index };
+    const svgInfo = (await svgFile[1]()) as ImageMetadata;
+
+    return {
+      ...techSkill,
+      svgFile: svgInfo,
+      index,
+    };
   })
 );
 ---
@@ -55,8 +59,18 @@ const processedSkills = await Promise.all(
                     skill && skill === techSkill.href ? 'true' : undefined
                   }
                 >
+                  <p id="lightboxTitle" class="sr-only">
+                    {techSkill.title}
+                  </p>
                   <div class={`${styles.outline} squircle`}>
-                    <Fragment set:html={techSkill.svgContent} />
+                    <div
+                      class={styles.skillImage}
+                      style={{
+                        backgroundImage: `url(${techSkill.svgFile.src})`,
+                        width: `${techSkill.svgFile.width}px`,
+                        height: `${techSkill.svgFile.height}px`,
+                      }}
+                    />
                   </div>
                 </a>
               </li>

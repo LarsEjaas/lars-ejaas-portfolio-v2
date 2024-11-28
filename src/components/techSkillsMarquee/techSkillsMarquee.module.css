@@ -150,7 +150,7 @@
       line-height: 0;
     }
   }
-  & svg {
+  & .skillImage {
     width: 80px;
     height: 80px;
   }
@@ -175,7 +175,7 @@
     --items-in-row: 6;
     --speed: 7s;
   }
-  .skill svg {
+  .skill .skillImage {
     width: 96px;
     height: 96px;
   }

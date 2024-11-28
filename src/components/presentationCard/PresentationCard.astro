@@ -8,7 +8,7 @@ type Props = {
   title: string;
   gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
   inert: boolean;
-  iconSVGContent?: string | undefined;
+  iconImage?: ImageMetadata | undefined;
   iconImageAlt?: string | undefined;
   overlayImage?: ImageMetadata;
   overlayImageAlt?: string;
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const {
-  iconSVGContent,
+  iconImage,
   title,
   gradientColor,
   overlayImage,
@@ -43,15 +43,21 @@ const {
         data-responsive={responsiveSquircleSize ? 'true' : undefined}
       >
         {
-          (overlayImage || iconSVGContent) && (
+          (overlayImage || iconImage) && (
             <div
               class={`${styles.outline} squircle`}
               data-responsive={responsiveSquircleSize ? 'true' : undefined}
-              data-with-background={iconSVGContent ? 'true' : undefined}
+              data-with-background={iconImage ? 'true' : undefined}
             >
-              {iconSVGContent ? (
+              {iconImage ? (
                 <figure aria-label={iconImageAlt}>
-                  <Fragment set:html={iconSVGContent} />
+                  <div
+                    class={styles.icon}
+                    style={{
+                      backgroundImage: `url(${iconImage.src})`,
+                    }}
+                  />
+                  {/* <Fragment set:html={iconSVGContent} /> */}
                 </figure>
               ) : (
                 <div

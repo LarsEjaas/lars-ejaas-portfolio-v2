@@ -20,11 +20,11 @@ type Props = {
 export type TechSkillProps = {
   title: string;
   description: (_props: Record<string, never>) => any;
-  svgContent?: string;
   imageSrc?: SVGFileType;
   imageAlt?: string;
   href?: string;
   rating?: SkillRating;
+  iconImage?: ImageMetadata;
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -33,7 +33,7 @@ const { title, inert, techSkill } = Astro.props;
 const {
   title: skillTitle,
   description: skillDescription,
-  svgContent,
+  iconImage,
   imageAlt: skillImageAlt,
   rating: skillRating,
 } = techSkill || {};
@@ -60,7 +60,7 @@ const DescriptionComponent = skillDescription;
       <PresentationCard
         gradientColor="flirt"
         title={skillTitle}
-        iconSVGContent={svgContent}
+        iconImage={iconImage}
         iconImageAlt={skillImageAlt}
         responsiveSquircleSize={true}
         inert={inert}

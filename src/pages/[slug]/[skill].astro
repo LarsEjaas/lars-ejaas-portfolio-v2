@@ -7,7 +7,6 @@ import {
   type TechSkill,
 } from '@content/techSkills';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
-  query: '?raw',
   import: 'default',
 });
 
@@ -39,16 +38,16 @@ const { skill } = Astro.params;
 
 const skillData = skillsObject[skill];
 
-const svgPath = Object.entries(skillIconImages).find(([path]) =>
-  path.includes(skillData.imageSrc)
+const svgFile = Object.entries(skillIconImages).find(([file]) =>
+  file.includes(skillData.imageSrc)
 );
 
-if (!svgPath) {
+if (!svgFile) {
   console.error(`Skill image not found for: ${skillData.imageSrc}`);
   return null;
 }
-const svgContent = (await svgPath[1]()) as string;
-const techSkill = { ...skillData, svgContent };
+const imageContent = (await svgFile[1]()) as ImageMetadata;
+const techSkill = { ...skillData, iconImage: imageContent };
 
 const pageTitle = skillData.title;
 ---

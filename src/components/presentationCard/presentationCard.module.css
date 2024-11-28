@@ -78,8 +78,10 @@
     height: 200%;
     display: grid;
     align-items: flex-end;
-    & svg {
+    & .icon {
       clip-path: url(#squircle);
+      width: inherit;
+      aspect-ratio: 1;
     }
   }
   .gradientBackground {
