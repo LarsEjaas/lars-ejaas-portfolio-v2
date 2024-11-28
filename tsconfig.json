@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "target": "es2022",
     "moduleDetection": "force",
+    "forceConsistentCasingInFileNames": true,
 
     /* TypeScript transpiling */
     "incremental": true,
