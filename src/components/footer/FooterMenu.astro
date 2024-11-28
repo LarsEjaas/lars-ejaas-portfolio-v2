@@ -6,6 +6,7 @@ import {
   useTranslations,
 } from '@i18n/utils';
 import { appRoutes } from '@i18n/routes';
+import styles from './footer.module.css';
 
 type Props = {
   withModalLinks?: boolean;
@@ -26,36 +27,42 @@ const { withModalLinks = true } = Astro.props;
     initializeKeyboardArrowNavigation(window.footerMenuNavigation);
   }
 </script>
-<nav id="footerMenuNavigation" role="listbox">
+<nav id="footerMenuNavigation" role="listbox" class={styles.footerMenu}>
   <h2 class="sr-only" id="footerMenuTitle">
     {t('nav_footer')}
   </h2>
   <ul
-    role="group"
+    role="menu"
     aria-keyshortcuts="ArrowLeft ArrowRight"
     aria-labeledby="footerMenuTitle"
   >
-    <li>
+    <li role="none">
       <a
         data-arrow-nav="true"
         role="option"
         href={translatePath('/work/')}
         title={t('work')}>{t('work')}</a
       >
+    </li>
+    <li role="none">
       <a
         data-arrow-nav="true"
         role="option"
         href={translatePath('/skills/')}
         title={t('skills')}>{t('skills')}</a
       >
+    </li>
+    <li role="none">
       <a
         data-arrow-nav="true"
         role="option"
         href={translatePath('/about/')}
         title={t('about')}>{t('about')}</a
       >
-      {
-        withModalLinks && (
+    </li>
+    {
+      withModalLinks && (
+        <li role="none">
           <a
             data-arrow-nav="true"
             role="option"
@@ -64,8 +71,10 @@ const { withModalLinks = true } = Astro.props;
           >
             {t('contact')}
           </a>
-        )
-      }
+        </li>
+      )
+    }
+    <li role="none">
       <a
         data-arrow-nav="true"
         role="option"

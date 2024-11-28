@@ -53,19 +53,22 @@
     margin-bottom: 6rem;
   }
 
-  & nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    grid-row: 1;
-    & li {
+  & .footerMenu {
+    & ul {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 16px;
+      & li {
+        display: flex;
+      }
     }
   }
 
   & nav {
     margin-inline: auto;
+    grid-row: 1;
+    position: relative;
     & ul {
       list-style-type: none;
       padding: 0;
