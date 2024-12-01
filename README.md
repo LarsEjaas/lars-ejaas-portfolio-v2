@@ -62,6 +62,9 @@ While I typically would choose to build a bage like with a React framework like 
 
 - [x] **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
 - [x] **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
+- [x] **ESLint** - [vscode:extension/dbaeumer.vscode-eslint](vscode:extension/dbaeumer.vscode-eslint)
+- [x] **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
+- [x] **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
 
 ## 💻 Getting started
 

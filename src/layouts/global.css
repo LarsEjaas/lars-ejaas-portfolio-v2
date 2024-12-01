@@ -239,6 +239,8 @@
   body {
     min-block-size: 100vh;
     height: fit-content;
+    max-width: 100vw;
+    overflow: hidden;
     font-family: var(--default-font);
     background-image: radial-gradient(
         at 50% 85%,

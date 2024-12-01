@@ -10,7 +10,7 @@ export default defineConfig({
   }),
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'load',
+    defaultStrategy: 'viewport',
   },
   redirects: {
     '/en': '/',

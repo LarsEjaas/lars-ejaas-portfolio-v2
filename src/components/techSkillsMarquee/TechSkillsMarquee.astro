@@ -39,9 +39,22 @@ const processedSkills = await Promise.all(
 
 <script>
   import { initializeTileArrowNavigation } from '@utils/marqueeKeyboardNavigation';
+  import { notEmpty } from '../../customTypes';
 
-  if (window.skillTileScene)
-    initializeTileArrowNavigation(window.skillTileScene);
+  const scene = window.skillTileScene;
+
+  if (scene) {
+    initializeTileArrowNavigation(scene);
+    // Pause animations before navigating away from the page to avoid issue
+    // with "sicky" navigation on low powered devices
+    window.addEventListener('beforeunload', () => {
+      Array.from(scene.querySelectorAll('li'))
+        .filter(notEmpty)
+        .forEach((li) => {
+          li.style.animationPlayState = 'paused';
+        });
+    });
+  }
 </script>
 <div class={styles.marquee} style={`--number-of-items: ${techSkills.length}`}>
   <div class={styles.scene} id="skillTileScene">
