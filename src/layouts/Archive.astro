@@ -85,8 +85,7 @@ const newsGridItems =
             );
 
             if (!imageImport) {
-              console.error(`News image not found for: ${imageName}`);
-              return null;
+              throw new Error(`News image not found for: ${imageName}`);
             }
             const ImageComponent = ((await imageImport[1]()) as ImageModule)
               .default;

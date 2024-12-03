@@ -43,10 +43,9 @@ const imageImports = await Promise.all(
     );
 
     if (!imageImport) {
-      console.error(
+      throw new Error(
         `aboutImages not found for: ${imageName} in calculateGridTemplateColumns`
       );
-      return null;
     }
 
     const ImageComponent = ((await imageImport[1]()) as ImageModule).default;

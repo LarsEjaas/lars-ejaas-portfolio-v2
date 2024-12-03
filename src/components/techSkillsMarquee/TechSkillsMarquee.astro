@@ -22,8 +22,7 @@ const processedSkills = await Promise.all(
     );
 
     if (!svgFile) {
-      console.error(`SVG not found for tech skill image: ${imageName}`);
-      return null;
+      throw new Error(`SVG not found for tech skill image: ${imageName}`);
     }
 
     const svgInfo = (await svgFile[1]()) as ImageMetadata;

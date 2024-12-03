@@ -80,8 +80,7 @@ const svgFile = Object.entries(skillIconImages).find(([file]) =>
 );
 
 if (!svgFile) {
-  console.error(`Skill image not found for: ${skillData.imageSrc}`);
-  return null;
+  throw new Error(`Skill image not found for: ${skillData.imageSrc}`);
 }
 const svgContent = (await svgFile[1]()) as string;
 const techSkill = { ...skillData, svgContent };
