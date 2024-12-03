@@ -1,0 +1,185 @@
+---
+import styles from './sparkle.module.css';
+
+type PixelValue = `${number}px`;
+type PercentValue = `${number}%`;
+type Coordinate = PixelValue | PercentValue;
+
+type Coordinates =
+  | { top: Coordinate; bottom?: never; left: Coordinate; right?: never }
+  | { top: Coordinate; bottom?: never; left?: never; right: Coordinate }
+  | { top?: never; bottom: Coordinate; left: Coordinate; right?: never }
+  | { top?: never; bottom: Coordinate; left?: never; right: Coordinate };
+
+const getPosition = ({
+  top,
+  bottom,
+  left,
+  right,
+  width,
+}: Coordinates & { width: number }): string => {
+  const baseStyles = {
+    ...(top ? { top } : {}),
+    ...(bottom ? { bottom } : {}),
+    ...(left ? { left } : {}),
+    ...(right ? { right } : {}),
+  };
+  const additionalStyles = { width: `${width}px` };
+
+  const styleString = `
+  ${Object.entries({ ...baseStyles, ...additionalStyles })
+    .map(([key, value]) => `${key}: ${value};`)
+    .join('')}
+`;
+  return styleString;
+};
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="0"
+  aria-hidden="true"
+  viewBox="0 0 1 1"
+>
+  <defs>
+    <clipPath id="sparkle" clipPathUnits="objectBoundingBox">
+      <path
+        d="m0.5 0a0.59 0.56 0 0 1-0.5 0.5 0.59 0.56 0 0 1 0.5 0.5 0.59 0.56 0 0 1 0.5-0.5 0.59 0.56 0 0 1-0.5-0.5z"
+      ></path>
+    </clipPath>
+  </defs>
+</svg>
+
+<div class={styles.wrapper}>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        left: '15%',
+        bottom: '-9px',
+        width: 15,
+      })}; background: #dec57e; --delay: 340ms`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`${getPosition({
+      right: '-10px',
+      top: '0%',
+      width: 22,
+    })}; background: #ceae5f; --delay: 6800ms;`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        left: '80%',
+        top: '-9px',
+        width: 12,
+      })}; background: #dec57e; --delay: 1200ms
+    `}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        bottom: '74%',
+        left: '-4px',
+        width: 25,
+      })}; background: #dec57e; --delay: 3600ms
+`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        right: '84%',
+        bottom: '-4px',
+        width: 22,
+      })}; background: #dec57e; --delay: 550ms
+`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        bottom: '62%',
+        left: '-12px',
+        width: 17,
+      })}; background: #f9f1b6; --delay: 2100ms
+    `}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        top: '37%',
+        left: '-3px',
+        width: 20,
+      })}; background: #ceae5f; --delay: 4200ms
+    `}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        right: '20%',
+        top: '-10px',
+        width: 28,
+      })}; background: #dec57e; --delay: 800ms
+`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        right: '41%',
+        bottom: '-9px',
+        width: 27,
+      })}; background: #f9f1b6; --delay: 1600ms
+`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        left: '54%',
+        top: '-4px',
+        width: 25,
+      })}; background: #ceae5f; --delay: 3050ms
+`}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        right: '49%',
+        top: '4px',
+        width: 16,
+      })}; background: #ceae5f; --delay: 0ms
+      `}
+  >
+  </div>
+  <div
+    class={styles.sparkle}
+    style={`
+      ${getPosition({
+        right: '-3%',
+        bottom: '-8px',
+        width: 26,
+      })}; background: #f9f1b6; --delay: 7200ms
+`}
+  >
+  </div>
+
+  <slot />
+</div>

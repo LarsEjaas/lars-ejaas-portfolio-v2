@@ -15,6 +15,7 @@
     var(--system-light-100),
     var(--system-light-300)
   );
+  overflow-y: auto;
 }
 .form {
   display: flex;

@@ -1,5 +1,4 @@
 .pageLabel {
-  view-transition-name: page-label;
   container-name: pageLabel;
   container-type: inline-size;
   display: flex;
@@ -11,6 +10,7 @@
   max-height: 96px;
 
   & :global(.squircle) {
+    view-transition-name: page-icon;
     &[data-with-shadow] {
       &::before {
         box-shadow: var(--stacks-6-shadow);
@@ -18,6 +18,7 @@
     }
   }
   & h1 {
+    view-transition-name: page-title;
     color: var(--system-dark-300);
     font-size: clamp(var(--font-size-5), 6cqi, var(--font-size-8));
     line-height: 0.9;

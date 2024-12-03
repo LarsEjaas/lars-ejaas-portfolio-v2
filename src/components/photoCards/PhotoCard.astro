@@ -60,8 +60,8 @@ const translatePath = useTranslatedPath(lang);
       height={ImageComponent.height}
       widths={[260, 320, 440, 520]}
       sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
-      loading="eager"
-      decoding="sync"
+      loading="lazy"
+      decoding="async"
       pictureAttributes={{
         style: {
           aspectRatio: `${ImageComponent.width / ImageComponent.height}`,

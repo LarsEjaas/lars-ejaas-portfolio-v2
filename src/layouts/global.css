@@ -240,7 +240,6 @@
     min-block-size: 100vh;
     height: fit-content;
     max-width: 100vw;
-    overflow: hidden;
     font-family: var(--default-font);
     background-image: radial-gradient(
         at 50% 85%,
@@ -283,12 +282,13 @@
   main {
     display: grid;
     grid-template-rows: min-content;
-    margin-inline: 2rem;
-    margin-block: 2rem;
-    grid-template-columns: 1fr 1fr;
+    padding-inline: 2rem;
+    padding-block: 2rem;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    width: calc(100% - 2rem);
-    min-width: calc(100% - 2rem);
+    width: 100%;
+    min-width: 100%;
+    overflow: hidden;
     & .fullgrid {
       grid-column: 1 / -1;
     }
@@ -298,10 +298,9 @@
     }
 
     @media (min-width: 1280px) {
-      min-width: calc(100% - 4rem);
-      max-width: calc(100% - 4rem);
+      max-width: 100%;
       &.threeColumnGrid {
-        grid-template-columns: repeat(3, minmax(320px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         & > *:nth-child(2n + 1):not(.fullgrid) {
           grid-column: unset;
         }
@@ -368,7 +367,7 @@
       grid-template-columns: 1fr;
     }
     main {
-      margin-inline: 1rem;
+      padding-inline: 1rem;
       column-gap: unset;
     }
     .fullgrid {

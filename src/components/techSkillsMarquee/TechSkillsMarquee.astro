@@ -76,13 +76,12 @@ const processedSkills = await Promise.all(
                     {techSkill.title}
                   </p>
                   <div class={`${styles.outline} squircle`}>
-                    <div
+                    <img
                       class={styles.skillImage}
-                      style={{
-                        backgroundImage: `url(${techSkill.svgFile.src})`,
-                        width: `${techSkill.svgFile.width}px`,
-                        height: `${techSkill.svgFile.height}px`,
-                      }}
+                      loading="lazy"
+                      src={techSkill.svgFile.src}
+                      width={techSkill.svgFile.width}
+                      height={techSkill.svgFile.height}
                     />
                   </div>
                 </a>

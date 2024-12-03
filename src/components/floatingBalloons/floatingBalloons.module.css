@@ -2,7 +2,7 @@
   height: fit-content;
   position: relative;
   @media (min-width: 769px) {
-    grid-column: 2/4;
+    grid-column: 2/-1;
   }
 }
 

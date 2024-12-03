@@ -57,7 +57,6 @@ const {
                       backgroundImage: `url(${iconImage.src})`,
                     }}
                   />
-                  {/* <Fragment set:html={iconSVGContent} /> */}
                 </figure>
               ) : (
                 <div
@@ -84,16 +83,7 @@ const {
               quality="high"
               src={overlayImage}
               alt={overlayImageAlt}
-              widths={
-                (responsiveSquircleSize
-                  ? [80, 135]
-                  : undefined) as (typeof Picture.arguments)['widths']
-              }
-              width={
-                (responsiveSquircleSize
-                  ? undefined
-                  : 72) as (typeof Picture.arguments)['width']
-              }
+              densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
               pictureAttributes={{

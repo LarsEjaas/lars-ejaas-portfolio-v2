@@ -49,6 +49,7 @@
 }
 
 .controls {
+  view-transition-name: skill-pagination;
   grid-column: 2;
   align-self: center;
   display: flex;
@@ -58,7 +59,6 @@
   bottom: 0;
   margin-block: 12px;
   list-style-type: none;
-  view-transition-name: pagination;
   gap: 4px;
 }
 

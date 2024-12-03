@@ -16,6 +16,7 @@ import AboutIcon from '@components/icons/AboutIcon.astro';
 import DownloadIcon from '@components/icons/DownloadIcon.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import { Picture } from 'astro:assets';
+import Sparkle from '@components/sparkle/Sparkle.astro';
 
 type Props = {
   title: string;
@@ -41,7 +42,7 @@ if (!latestResumeURL) {
 
 const { title, lang, inert } = Astro.props;
 const t_home = useTranslations(lang, 'home');
-const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}`;
+const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
 <Layout title={title} inert={inert}>
@@ -67,36 +68,38 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           {t_home('frontend_developer_description')}
         </p>
         <div class={styles.contactContainer}>
-          <a
-            data-arrow-nav="true"
-            role="option"
-            href={contactUrl}
-            title={t_home('contact')}
-            aria-label={t_home('contact')}
-          >
-            <div class={styles.contact}>
-              <div class="squircle" data-with-shadow="true">
-                <Picture
-                  aria-hidden="true"
-                  formats={['avif']}
-                  quality="high"
-                  src={IconContact}
-                  alt=""
-                  width={40}
-                  height={40}
-                  densities={[1, 2, 3, 4]}
-                  loading="eager"
-                  decoding="sync"
-                  pictureAttributes={{
-                    style: 'filter: grayscale(0.8) hue-rotate(15deg);',
-                  }}
-                />
+          <Sparkle>
+            <a
+              data-arrow-nav="true"
+              href={contactUrl}
+              title={t_home('contact')}
+              aria-label={t_home('contact')}
+              class={styles.outline}
+            >
+              <div class={styles.contact}>
+                <div class="squircle" data-with-shadow="true">
+                  <Picture
+                    aria-hidden="true"
+                    formats={['avif']}
+                    quality="high"
+                    src={IconContact}
+                    alt=""
+                    width={40}
+                    height={40}
+                    densities={[1, 2, 3]}
+                    loading="eager"
+                    decoding="sync"
+                    pictureAttributes={{
+                      style: 'filter: grayscale(0.7);',
+                    }}
+                  />
+                </div>
+                <p class="small-body-text">
+                  {t_home('hi_there')}
+                </p>
               </div>
-              <p class="small-body-text">
-                {t_home('hi_there')}
-              </p>
-            </div>
-          </a>
+            </a>
+          </Sparkle>
         </div>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>

@@ -9,7 +9,7 @@
 }
 
 .article {
-  grid-column: 1/4;
+  grid-column: 1/-1;
 }
 
 .drawingHouse {
