@@ -118,6 +118,8 @@
 
 .outline {
   composes: outlinegold from '@components/carousel/carousel.module.css';
+  background-size: 100% 125%;
+  background-position-y: top;
   border-radius: 6px;
   padding: 2px;
   & :global(.squircle) {

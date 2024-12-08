@@ -128,9 +128,14 @@ const { balloonColor, coverPhoto } = Astro.props;
   // Pause animations before navigating away from the page to avoid issue
   // with "sicky" navigation on low powered devices
   const stopBalloonAnimations = () => {
+    console.log('stopping Balloon Animations');
     if (balloons.length) {
       balloons.forEach((balloon) => {
-        balloon.style.animationPlayState = 'paused';
+        balloon.style.setProperty(
+          'animation-play-state',
+          'paused',
+          'important'
+        );
       });
     }
   };

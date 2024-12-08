@@ -1,6 +1,7 @@
 @keyframes unwrapImage {
   0% {
-    transform: translateX(calc(var(--index) * -100px)) rotate(0);
+    transform: translateX(calc(var(--index) * -100px))
+      rotate(calc(var(--rotation) * var(--rotate-direction, 1) * -1));
   }
   100% {
     transform: translateX(0)
@@ -22,26 +23,38 @@
     outline-offset: var(--outline-offset);
     transition: all 250ms;
     transform-origin: 50% 50%;
+    /* fallback rotation for browsers that don't support animation-timeline */
     transform: rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
     &[data-reverse-rotate] {
       --rotate-direction: -1;
     }
-    &:hover,
-    &:focus-visible {
-      transform: scale(1.05)
-        rotate(calc(var(--rotation) * var(--rotate-direction, 1)));
-      & .photocard {
-        box-shadow: var(--stacks-6-shadow);
-        background-color: light-dark(
-          var(--system-light-200),
-          var(--system-dark-400)
-        );
+    & .photocard {
+      box-shadow: var(--stacks-6-shadow);
+      background-color: light-dark(
+        var(--system-light-200),
+        var(--system-dark-400)
+      );
+      transition: transform 250ms;
+      &:hover,
+      &:focus-visible {
+        transform: scale(1.05);
       }
     }
   }
   &:not([inert='true']) {
     & a:not([data-disable-animation='true']) {
-      animation: unwrapImage 300ms calc(var(--index) * 150ms) ease-in-out;
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          view-timeline-name: --unwrapImage;
+          animation-timeline: --unwrapImage;
+          animation-name: unwrapImage;
+          animation-fill-mode: both;
+          animation-timing-function: ease-in-out;
+          animation-duration: 1ms; /* needed for Firefox */
+          animation-range: contain 0% entry-crossing 180%;
+          animation-range: entry 75% entry 180%;
+        }
+      }
     }
   }
 }

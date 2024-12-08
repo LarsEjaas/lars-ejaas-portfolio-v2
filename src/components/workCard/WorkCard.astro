@@ -35,6 +35,7 @@ type Props = {
   /** Delay in milliseconds before the animation starts */
   animationDelay?: number;
   href?: string;
+  className?: string | undefined;
 };
 
 const {
@@ -51,6 +52,7 @@ const {
   animationDelay,
   href,
   footerImages,
+  className,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -103,18 +105,31 @@ const t = useTranslations(lang, 'navigation');
     }
   });
 </script>
-<Card inert={inert} viewTransitionName={viewTransitionName} id={id}>
+<Card
+  inert={inert}
+  viewTransitionName={viewTransitionName}
+  id={id}
+  className={className}
+>
   <div class={styles.headerContent}>
     <ConditionalLink href={href}>
       <Picture
-        formats={['avif']}
+        formats={['avif', 'webp']}
         quality="high"
         src={headerImage}
         alt={headerImageAlt}
-        width="232"
-        height="148"
-        widths={[320, 480, 656, 736]}
-        sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
+        widths={[
+          328,
+          532,
+          736,
+          656,
+          Math.min(1064, headerImage.width),
+          Math.min(1472, headerImage.width),
+          Math.min(984, headerImage.width),
+          Math.min(1596, headerImage.width),
+          Math.min(2208, headerImage.width),
+        ]}
+        sizes={`(max-width: 360px) 328px, (max-width: 564px) 532px, (max-width: 768px) 736px, 532px`}
         loading="lazy"
         decoding="sync"
         pictureAttributes={{
@@ -185,16 +200,24 @@ const t = useTranslations(lang, 'navigation');
           {footerImages.map((image) => (
             <li id={image.id}>
               <Picture
-                formats={['avif']}
+                formats={['avif', 'webp']}
                 quality="high"
                 src={image.src}
                 alt={image.alt}
-                width="232"
-                height="148"
-                widths={[320, 480, 656, 736]}
-                sizes={`(max-width: 320px) 177px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${headerImage.width}px`}
+                widths={[
+                  328,
+                  532,
+                  736,
+                  656,
+                  Math.min(1064, headerImage.width),
+                  Math.min(1472, headerImage.width),
+                  Math.min(984, headerImage.width),
+                  Math.min(1596, headerImage.width),
+                  Math.min(2208, headerImage.width),
+                ]}
+                sizes={`(max-width: 360px) 328px, (max-width: 564px) 532px, (max-width: 768px) 736px, 532px`}
                 loading="lazy"
-                decoding="sync"
+                decoding="async"
                 pictureAttributes={{
                   class: styles.picture,
                   'data-animated': animatedHeader || null,

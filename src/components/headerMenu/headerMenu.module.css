@@ -43,6 +43,10 @@
   }
   & .navSection {
     margin-left: auto;
+    & a {
+      flex-shrink: 1;
+      min-width: 0;
+    }
   }
   & .actions {
     & a {
@@ -60,7 +64,8 @@
     border-right: 1px solid var(--border-color);
   }
   & nav {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
+    min-width: 0;
     & a {
       color: var(--system-dark-300);
       border-radius: 30%;
@@ -94,6 +99,8 @@
   --shadow: 0px 3px 5px var(--system-dark-300-80);
   overflow: visible;
   filter: drop-shadow(var(--shadow));
+  aspect-ratio: 72/48;
+  background-size: cover;
 }
 
 .homeLink,
@@ -101,9 +108,16 @@
 .aboutLink,
 .workLink,
 .navSection {
+  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;
+  & :global(.squircle) {
+    flex-shrink: 1;
+    min-width: 0;
+  }
   & picture {
     width: 40px;
-    height: 40px;
+    aspect-ratio: 1/1;
   }
 }
 

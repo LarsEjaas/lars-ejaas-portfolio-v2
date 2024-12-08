@@ -77,7 +77,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           style={{
             backgroundImage: `url(${ejaasLogo.src})`,
             width: `${ejaasLogo.width}px`,
-            height: `${ejaasLogo.height}px`,
+            aspectRatio: `${ejaasLogo.width / ejaasLogo.height}`,
           }}
         >
         </div>
@@ -88,15 +88,18 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/work/')}
         class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
+          {
+            /* Render images slightly too large to avoid dublicating for mobile menu */
+          }
           <Picture
             aria-hidden="true"
-            formats={['avif']}
+            formats={['avif', 'webp']}
             quality="high"
             src={IconWork}
             alt=""
             width="40"
             height="40"
-            densities={[1, 2, 3]}
+            widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
             pictureAttributes={{
@@ -112,15 +115,18 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/skills/')}
         class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
+          {
+            /* Render images slightly too large to avoid dublicating for mobile menu */
+          }
           <Picture
             aria-hidden="true"
-            formats={['avif']}
+            formats={['avif', 'webp']}
             quality="high"
             src={IconSkills}
             alt=""
             width="40"
             height="40"
-            densities={[1, 2, 3]}
+            widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
             pictureAttributes={{
@@ -135,15 +141,18 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/about/')}
         class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
+          {
+            /* Render images slightly too large to avoid dublicating for mobile menu */
+          }
           <Picture
             aria-hidden="true"
-            formats={['avif']}
+            formats={['avif', 'webp']}
             quality="high"
             src={IconAbout}
             alt=""
-            width="40"
-            height="40"
-            densities={[1, 2, 3]}
+            width="48"
+            height="48"
+            widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
             pictureAttributes={{
@@ -164,15 +173,16 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               id="desktopContactLink"
             >
               <div class="squircle" data-with-shadow="true">
+                {/* Render images slightly too large to avoid dublicating for mobile menu */}
                 <Picture
                   aria-hidden="true"
-                  formats={['avif']}
+                  formats={['avif', 'webp']}
                   quality="high"
                   src={IconContact}
                   alt=""
-                  width="40"
-                  height="40"
-                  densities={[1, 2, 3]}
+                  width="48"
+                  height="48"
+                  widths={[48, 96, 144]}
                   loading="eager"
                   decoding="sync"
                   pictureAttributes={{
@@ -190,15 +200,16 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               id="desktopShareLink"
             >
               <div class="squircle" data-with-shadow="true">
+                {/* Render images slightly too large to avoid dublicating for mobile menu */}
                 <Picture
                   aria-hidden="true"
-                  formats={['avif']}
+                  formats={['avif', 'webp']}
                   quality="high"
                   src={IconShare}
                   alt=""
-                  width="40"
-                  height="40"
-                  densities={[1, 2, 3]}
+                  width="48"
+                  height="48"
+                  widths={[48, 96, 144]}
                   loading="eager"
                   decoding="sync"
                   pictureAttributes={{

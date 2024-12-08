@@ -83,7 +83,16 @@ const {
               quality="high"
               src={overlayImage}
               alt={overlayImageAlt}
-              densities={[1, 2, 3]}
+              widths={
+                responsiveSquircleSize
+                  ? [80, 160, 240, 136, 272, 408]
+                  : [72, 144, 216]
+              }
+              sizes={
+                responsiveSquircleSize
+                  ? '(max-width: 482px) 80px, (max-width: 768px) 136px, (max-width: 995px) 80px, 136px'
+                  : '72px'
+              }
               loading="eager"
               decoding="sync"
               pictureAttributes={{

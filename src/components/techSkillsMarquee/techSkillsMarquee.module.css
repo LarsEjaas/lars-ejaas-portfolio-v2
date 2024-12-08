@@ -62,6 +62,8 @@
   transition: transform 0.5s;
   /* 3D translation */
   transform: rotateX(48deg) rotateZ(-6deg) skewX(6deg);
+  /* Add margin to make all items visible when navigating with keyboard */
+  margin-block: calc((var(--items-in-row) - 1.5) * 1rem);
   &:hover .skill,
   &:focus-within .skill {
     animation-play-state: paused;
@@ -76,7 +78,8 @@
   --row-index: round(down, calc(var(--index) / var(--items-in-row)));
   --duration: calc(var(--speed) * 2);
   --delay: calc(
-    (var(--duration) / var(--grid-row-count)) * (var(--row-index, 0) - 8)
+    (var(--duration) / var(--grid-row-count)) *
+      (var(--row-index, 0) - calc(var(--grid-row-count)))
   );
   @media (prefers-reduced-motion: no-preference) {
     /*Delay the animation to after fade in*/

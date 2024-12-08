@@ -181,15 +181,15 @@ const timelineScope = timeLine
                 class={`${styles[`outline${item.outline}`]} ${styles.article}`}
               >
                 <Picture
-                  formats={['avif']}
+                  formats={['avif', 'webp']}
                   quality="high"
                   src={ImageComponent}
                   alt={item.imageAlt}
                   width="232"
                   height="148"
-                  densities={[1, 2, 3, 4]}
+                  densities={[1, 2, 3]}
                   loading="lazy"
-                  decoding="sync"
+                  decoding="async"
                 />
                 <div class={styles.newsContent}>
                   <div>

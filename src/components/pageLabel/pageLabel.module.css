@@ -7,8 +7,8 @@
   gap: 8px;
   justify-content: space-between;
   height: fit-content;
-  max-height: 96px;
-
+  height: 98px; /* (add a bit of margin to prevent the squircle from cutting off) */
+  line-height: 0;
   & :global(.squircle) {
     view-transition-name: page-icon;
     &[data-with-shadow] {
@@ -17,6 +17,7 @@
       }
     }
   }
+
   & h1 {
     view-transition-name: page-title;
     color: var(--system-dark-300);

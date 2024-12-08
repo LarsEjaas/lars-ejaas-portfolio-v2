@@ -11,6 +11,7 @@ type Props = {
    * This can also be used as an anchor to go directly to this card.
    */
   id?: string;
+  className?: string | undefined;
 };
 
 const { inert, viewTransitionName = 'card', id } = Astro.props;
@@ -19,7 +20,7 @@ const { inert, viewTransitionName = 'card', id } = Astro.props;
 <section
   id={id}
   inert={inert}
-  class={styles.card}
+  class={`${styles.card} ${Astro.props.className || ''}`}
   style={`view-transition-name: ${viewTransitionName}`}
 >
   <slot />
