@@ -24,12 +24,7 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t('not_found_title')} inert={false}>
-  <PageLabel
-    title={t('not_found')}
-    iconImage="alert"
-    tagline="not_found"
-    taglineAlt={t('not_found_tagline')}
-  />
+  <PageLabel title={t('not_found')} iconImage="alert" />
   <FloatingBalloons balloonColor="bluemunsell" />
   <div class={styles.centerWrapper}>
     <Picture

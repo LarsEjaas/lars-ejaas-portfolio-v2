@@ -21,17 +21,9 @@
   & h1 {
     view-transition-name: page-title;
     color: var(--system-dark-300);
-    font-size: clamp(var(--font-size-5), 6cqi, var(--font-size-8));
     line-height: 0.9;
     font-weight: 700;
   }
-}
-
-.tagline {
-  view-transition-name: tagline;
-  color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-  max-width: 170px;
-  flex: 4 0 120px;
 }
 
 .iconAndTitle {

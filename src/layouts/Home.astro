@@ -47,12 +47,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
 
 <Layout title={title} inert={inert}>
   <div class="presentation">
-    <PageLabel
-      title={t_home('home_title')}
-      iconImage="ejaas"
-      tagline="home"
-      taglineAlt={t_home('home_tagline')}
-    />
+    <PageLabel title={t_home('home_title')} iconImage="ejaas" />
     <PresentationCard
       gradientColor="verdigris"
       title="Lars Ejaas"

@@ -1,7 +1,6 @@
 export const archive = {
   en: {
     archive_title: 'Archive',
-    archive_tagline: 'Oldies but goodies',
     looking_for_old_content: 'Looking for old content?',
     welcome_to_memory_lane:
       'Welcome to memory lane: A cozy corner where my website’s past lives on through archived pages and retired updates.',
@@ -20,7 +19,6 @@ export const archive = {
   },
   da: {
     archive_title: 'Arkiv',
-    archive_tagline: 'Gamle kendinge',
     looking_for_old_content: 'Leder du efter ældre indhold?',
     welcome_to_memory_lane:
       'Velkommen til gamle minder: Et hyggeligt hjørne, hvor min hjemmesides fortid lever videre gennem arkiverede sider og gamle opdateringer.',

@@ -22,12 +22,7 @@ const t_about = useTranslations(lang, 'about');
 
 <Layout title={title} inert={inert}>
   <div class="presentation">
-    <PageLabel
-      title={t_about('about_title')}
-      iconImage="about"
-      tagline="about"
-      taglineAlt={t_about('about_tagline')}
-    />
+    <PageLabel title={t_about('about_title')} iconImage="about" />
     <PresentationCard
       gradientColor="princeton"
       title={t_about('hello')}

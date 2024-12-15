@@ -1,7 +1,6 @@
 export const skills = {
   en: {
     skills_title: 'Skills',
-    skills_tagline: 'My developer’s toolkit',
     proficiency_rating: 'Proficiency rating',
     browse_my_tech_skills: 'Browse my tech skills',
     although_i_have:
@@ -11,7 +10,6 @@ export const skills = {
   },
   da: {
     skills_title: 'Kompetencer',
-    skills_tagline: 'Mine udviklerkompetencer',
     proficiency_rating: 'Færdighedsniveau',
     browse_my_tech_skills: 'Gennemse mine tekniske kompetencer',
     although_i_have:

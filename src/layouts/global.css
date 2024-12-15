@@ -402,11 +402,21 @@
     font-weight: 600;
   }
 
+  h1 {
+    font-size: var(--font-size-8);
+    @media (max-width: 402px) {
+      font-size: var(--font-size-6);
+    }
+  }
+
   h2 {
     color: var(--system-dark-300);
     font-size: var(--font-size-6);
     margin-block-end: 1rem;
     text-wrap: balance;
+    @media (max-width: 402px) {
+      font-size: var(--font-size-5);
+    }
   }
 
   h3,

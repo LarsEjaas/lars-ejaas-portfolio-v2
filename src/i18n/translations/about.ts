@@ -1,7 +1,6 @@
 export const about = {
   en: {
     about_title: 'About',
-    about_tagline: 'My journey so far',
     hello: 'Hello',
     profile_lars_alt: 'Profile picture of Lars Ejaas',
     i_am: 'I am',
@@ -44,7 +43,6 @@ export const about = {
   },
   da: {
     about_title: 'Om mig',
-    about_tagline: 'Min rejse indtil videre',
     hello: 'Hej',
     profile_lars_alt: 'Profilbillede af Lars Ejaas',
     i_am: 'Jeg er',

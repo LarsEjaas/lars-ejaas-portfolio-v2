@@ -19,6 +19,7 @@ import Popover from '@components/popover/Popover.astro';
 import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
+import InfoIcon from './infoIcon.astro';
 
 type Props = {
   title: string;
@@ -32,12 +33,7 @@ const t_work = useTranslations(lang, 'work');
 
 <Layout title={title} inert={inert} gridColumns={3}>
   <div class="presentation">
-    <PageLabel
-      title={t_work('work_title')}
-      iconImage="work"
-      tagline="work"
-      taglineAlt={t_work('work_tagline')}
-    />
+    <PageLabel title={t_work('work_title')} iconImage="work" />
     <h2>
       {t_work('professional_developer_journey')}
     </h2>
@@ -72,11 +68,12 @@ const t_work = useTranslations(lang, 'work');
       {t_work('friggtech_employment_description')}
     </p>
     <Popover id="friggTech" buttonLabel={t_work('learn_more_about_friggtech')}>
-      <div class={styles.flexWrapper} slot="description">
+      <div class={styles.flexWrapper} slot="buttonContent">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
         </p>
         <FriggTechLogo />
+        <InfoIcon />
       </div>
       <div class={styles.flexColumnWrapper}>
         <FriggTechLogo width={160} />
@@ -145,11 +142,12 @@ const t_work = useTranslations(lang, 'work');
       id="accuRanker"
       buttonLabel={t_work('learn_more_about_accuranker')}
     >
-      <div class={styles.flexWrapper} slot="description">
+      <div class={styles.flexWrapper} slot="buttonContent">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
         </p>
         <AccuRankerLogoWithTitle />
+        <InfoIcon />
       </div>
       <div class={styles.flexColumnWrapper}>
         <AccuRankerLogoWithTitle width={160} />
@@ -216,11 +214,12 @@ const t_work = useTranslations(lang, 'work');
       id="sallingGroup"
       buttonLabel={t_work('learn_more_about_salling_group')}
     >
-      <div class={styles.flexWrapper} slot="description">
+      <div class={styles.flexWrapper} slot="buttonContent">
         <p class={`${styles.popoverDesc} body-text`}>
           {t_work('about')}
         </p>
         <SallingGroupLogo />
+        <InfoIcon />
       </div>
       <div class={styles.flexColumnWrapper}>
         <SallingGroupLogo width={160} />

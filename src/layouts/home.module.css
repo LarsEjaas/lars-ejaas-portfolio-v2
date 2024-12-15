@@ -66,6 +66,7 @@
 }
 
 .contactContainer {
+  display: flex;
   margin-bottom: 8px;
   & a {
     outline-offset: var(--outline-offset);

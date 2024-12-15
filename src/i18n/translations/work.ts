@@ -1,7 +1,6 @@
 export const work = {
   en: {
     work_title: 'Work',
-    work_tagline: 'Developer by trade - explorer at heart',
     professional_developer_journey: 'Professional Developer Journey',
     from_code_to_career:
       'From Code to Career: My path as a professional developer, crafting solutions and building experiences that matter.\n\nBrowse through my professional milestones below:',
@@ -46,7 +45,6 @@ export const work = {
   },
   da: {
     work_title: 'Arbejde',
-    work_tagline: 'Professionel udvikler - nysgerrig af natur',
     professional_developer_journey: 'Erhvervserfaring som udvikler',
     from_code_to_career:
       'Fra kode til karriere: Min vej som professionel udvikler. Jeg skaber løsninger med fokus på at gøre en forskel.\n\nSe mine professionelle milepæle herunder:',

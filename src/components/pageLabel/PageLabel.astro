@@ -2,61 +2,28 @@
 import type { IconImage, ImageModule } from '@customTypes/index';
 import { Picture } from 'astro:assets';
 import styles from './pageLabel.module.css';
-import { getLangFromUrl } from '@i18n/utils';
-import { languages } from '@i18n/settings';
 import { iconColors } from '@utils/misc';
 
-type Props =
-  | {
-      title: string;
-      iconImage: IconImage;
-      tagline: 'about' | 'home' | 'toolkit' | 'work' | 'not_found' | 'archive';
-      /** Alt text for the tagline SVG to make it accessible */
-      taglineAlt: string;
-    }
-  | {
-      title: string;
-      iconImage: IconImage;
-      tagline?: never;
-      /** Alt text for the tagline SVG to make it accessible */
-      taglineAlt?: never;
-    };
+type Props = {
+  title: string;
+  iconImage: IconImage;
+};
 
 const iconImages = import.meta.glob('@assets/menuIcons/*.{jpg,png}');
-const taglineSVGs = import.meta.glob('@assets/taglines/*.svg', {
-  query: '?raw',
-  import: 'default',
-});
 
-const lang = getLangFromUrl(Astro.url);
-
-const language = languages[lang].toLowerCase();
-
-const { title, iconImage, tagline, taglineAlt } = Astro.props;
+const { title, iconImage } = Astro.props;
 
 const imageImport = Object.entries(iconImages).find(([path]) =>
   path.includes(iconImage)
 );
 
-const svgImport = Object.entries(taglineSVGs).find(([path]) => {
-  if (!tagline) return undefined;
-  return path.includes(`${tagline}_${language}`);
-});
-
 if (!imageImport) {
   throw new Error(
-    `News image not found for: ${iconImage} in the PageLabel component`
-  );
-}
-
-if (tagline && !svgImport) {
-  throw new Error(
-    `Tagline SVG not found for: ${tagline}_${language}.svg in the PageLabel component`
+    `Icon image not found for: ${iconImage} in the PageLabel component`
   );
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const TaglineComponent = svgImport ? ((await svgImport[1]()) as string) : null;
 ---
 
 <div class={styles.pageLabel}>
@@ -80,19 +47,4 @@ const TaglineComponent = svgImport ? ((await svgImport[1]()) as string) : null;
     </div>
     <h1>{title}</h1>
   </div>
-  {
-    TaglineComponent && taglineAlt && (
-      <>
-        <div
-          class={styles.tagline}
-          role="img"
-          aria-labelledby="taglineHeading"
-          set:html={TaglineComponent}
-        />
-        <h2 id="taglineHeading" class="sr-only">
-          {taglineAlt}
-        </h2>
-      </>
-    )
-  }
 </div>
