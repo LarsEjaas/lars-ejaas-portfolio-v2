@@ -1,5 +1,4 @@
 ---
-import { Picture } from 'astro:assets';
 import styles from './workCard.module.css';
 import Card from '@components/card/Card.astro';
 import {
@@ -9,6 +8,7 @@ import {
 } from '@i18n/utils';
 import type { SlugWithSkillKeys } from '@i18n/routes';
 import ConditionalLink from './ConditionalLink.astro';
+import WorkCardImage from './WorkCardImage.astro';
 
 type Props = {
   inert: boolean;
@@ -113,25 +113,8 @@ const t = useTranslations(lang, 'navigation');
 >
   <div class={styles.headerContent}>
     <ConditionalLink href={href}>
-      <Picture
-        formats={['avif', 'webp']}
-        quality="high"
-        src={headerImage}
-        alt={headerImageAlt}
-        widths={[
-          328,
-          532,
-          736,
-          656,
-          Math.min(1064, headerImage.width),
-          Math.min(1472, headerImage.width),
-          Math.min(984, headerImage.width),
-          Math.min(1596, headerImage.width),
-          Math.min(2208, headerImage.width),
-        ]}
-        sizes={`(max-width: 360px) 328px, (max-width: 564px) 532px, (max-width: 768px) 736px, 532px`}
-        loading="lazy"
-        decoding="sync"
+      <WorkCardImage
+        image={{ src: headerImage, alt: headerImageAlt }}
         pictureAttributes={{
           class: styles.picture,
           'data-animated': animatedHeader || null,
@@ -199,31 +182,11 @@ const t = useTranslations(lang, 'navigation');
         <ul tabindex="-1" class={styles.footerImages}>
           {footerImages.map((image) => (
             <li id={image.id}>
-              <Picture
-                formats={['avif', 'webp']}
-                quality="high"
-                src={image.src}
-                alt={image.alt}
-                widths={[
-                  328,
-                  532,
-                  736,
-                  656,
-                  Math.min(1064, headerImage.width),
-                  Math.min(1472, headerImage.width),
-                  Math.min(984, headerImage.width),
-                  Math.min(1596, headerImage.width),
-                  Math.min(2208, headerImage.width),
-                ]}
-                sizes={`(max-width: 360px) 328px, (max-width: 564px) 532px, (max-width: 768px) 736px, 532px`}
-                loading="lazy"
-                decoding="async"
+              <WorkCardImage
+                image={image}
                 pictureAttributes={{
                   class: styles.picture,
                   'data-animated': animatedHeader || null,
-                  style: {
-                    '--animation-delay': `${animationDelay || 0}ms`,
-                  },
                 }}
               />
             </li>

@@ -50,7 +50,6 @@ const processedSkills = await Promise.all(
       Array.from(scene.querySelectorAll('li'))
         .filter(notEmpty)
         .forEach((li) => {
-          console.log('stopping marquee animations');
           li.style.setProperty('animation-play-state', 'paused', 'important');
         });
     });

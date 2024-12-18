@@ -1,0 +1,14 @@
+.placeholder {
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  clip-path: border-box;
+}
+
+.picture {
+  height: 100%;
+  overflow: hidden;
+}

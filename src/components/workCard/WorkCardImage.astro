@@ -1,0 +1,54 @@
+---
+import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import style from './workCardImage.module.css';
+import { Picture } from 'astro:assets';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
+  image: {
+    src: ImageMetadata;
+    alt: string;
+    /** `id` used for footerImage scroll */
+    id?: string;
+  };
+  pictureAttributes?: HTMLAttributes<'picture'>;
+};
+
+const { image, pictureAttributes = {} } = Astro.props;
+
+const placeholder = await generateBlurPlaceholder(image.src.src);
+---
+
+<div style={{ height: '100%' }}>
+  {
+    placeholder && (
+      <div
+        class={style.placeholder}
+        style={{
+          'background-image': `url('${placeholder}')`,
+        }}
+      />
+    )
+  }
+  <Picture
+    formats={['avif', 'webp']}
+    quality="high"
+    src={image.src}
+    alt={image.alt}
+    widths={[
+      328,
+      532,
+      736,
+      656,
+      Math.min(1064, image.src.width),
+      Math.min(1472, image.src.width),
+      Math.min(984, image.src.width),
+      Math.min(1596, image.src.width),
+      Math.min(2208, image.src.width),
+    ]}
+    sizes={`(max-width: 360px) 328px, (max-width: 564px) 532px, (max-width: 768px) 736px, 532px`}
+    loading="lazy"
+    decoding="async"
+    pictureAttributes={pictureAttributes}
+  />
+</div>

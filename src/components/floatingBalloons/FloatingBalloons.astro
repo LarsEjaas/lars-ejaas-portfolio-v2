@@ -65,7 +65,6 @@ const { balloonColor, coverPhoto } = Astro.props;
   };
 
   const changePosition = (event: AnimationEvent) => {
-    console.log(event, 'changePosition');
     const balloon = event.target as HTMLDivElement;
 
     // Remove- and re-apply the animation to restart it
@@ -128,7 +127,6 @@ const { balloonColor, coverPhoto } = Astro.props;
   // Pause animations before navigating away from the page to avoid issue
   // with "sicky" navigation on low powered devices
   const stopBalloonAnimations = () => {
-    console.log('stopping Balloon Animations');
     if (balloons.length) {
       balloons.forEach((balloon) => {
         balloon.style.setProperty(
