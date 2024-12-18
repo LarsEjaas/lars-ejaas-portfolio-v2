@@ -1,6 +1,6 @@
 ---
 import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
-import style from './workCardImage.module.css';
+import styles from './workCardImage.module.css';
 import { Picture } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
 
@@ -23,7 +23,7 @@ const placeholder = await generateBlurPlaceholder(image.src.src);
   {
     placeholder && (
       <div
-        class={style.placeholder}
+        class={styles.placeholder}
         style={{
           'background-image': `url('${placeholder}')`,
         }}

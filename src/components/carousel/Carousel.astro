@@ -1,6 +1,5 @@
 ---
 import styles from './carousel.module.css';
-import { Picture } from 'astro:assets';
 import type {
   ImageType,
   DanishDate,
@@ -12,6 +11,7 @@ import type {
 } from '@customTypes/index';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 import { isExternalLink } from '@utils/misc';
+import ArticleCard from './ArticleCard.astro';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
@@ -177,30 +177,15 @@ const timelineScope = timeLine
               <span class="sr-only" style="left: 50%; top: 50%;">
                 {item.title}
               </span>
-              <article
-                class={`${styles[`outline${item.outline}`]} ${styles.article}`}
-              >
-                <Picture
-                  formats={['avif', 'webp']}
-                  quality="high"
-                  src={ImageComponent}
-                  alt={item.imageAlt}
-                  width="232"
-                  height="148"
-                  densities={[1, 2, 3]}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div class={styles.newsContent}>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p id={`articleDescription${index}`}>{item.description}</p>
-                  </div>
-                  <div class={styles.date}>
-                    <p>{item.date}</p>
-                  </div>
-                </div>
-              </article>
+              <ArticleCard
+                title={item.title}
+                description={item.description}
+                date={item.date}
+                imageAlt={item.imageAlt}
+                outline={item.outline}
+                index={index}
+                image={ImageComponent}
+              />
             </a>
           </li>
         );

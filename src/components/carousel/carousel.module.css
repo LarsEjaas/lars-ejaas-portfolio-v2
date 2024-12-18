@@ -231,6 +231,7 @@
 
   & picture,
   & img {
+    z-index: 1;
     object-fit: cover;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -418,4 +419,15 @@
     top: unset;
     bottom: calc(-0.25 * var(--controls-height));
   }
+}
+
+.placeholder {
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  width: 232px;
+  height: 148px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
 }

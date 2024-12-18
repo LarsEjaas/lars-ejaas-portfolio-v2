@@ -1,6 +1,8 @@
 import sharp from 'sharp';
 import { getLocalImagePath } from './getLocalImagePath';
 
+const BLUR_SIGMA = 1;
+
 /** Generates a base64 blur placeholder for the supplied image. */
 export async function generateBlurPlaceholder(
   imagePath: string,
@@ -10,6 +12,7 @@ export async function generateBlurPlaceholder(
     const path = getLocalImagePath(imagePath);
     const image = await sharp(path)
       .resize(width || 16)
+      .blur(BLUR_SIGMA)
       .toBuffer();
 
     const base64 = `data:image/png;base64,${image.toString('base64')}`;
