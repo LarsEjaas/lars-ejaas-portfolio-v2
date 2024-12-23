@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import { getLocalImagePath } from './getLocalImagePath';
 
-const BLUR_SIGMA = 1;
+const BLUR_SIGMA = 1.2;
 
 /** Generates a base64 blur placeholder for the supplied image. */
 export async function generateBlurPlaceholder(

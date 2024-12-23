@@ -82,7 +82,7 @@ const {
               formats={['avif', 'webp']}
               quality="high"
               src={overlayImage}
-              alt={overlayImageAlt}
+              alt={overlayImageAlt || null}
               widths={
                 responsiveSquircleSize
                   ? [80, 160, 240, 136, 272, 408]

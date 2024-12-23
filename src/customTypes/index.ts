@@ -160,3 +160,7 @@ export function hasProperty<
 >(key: KeyType, obj: ObjectType): key is KeyType & keyof ObjectType {
   return key in obj;
 }
+/**  Sets all properties of T to required recursively */
+export type DeepRequired<T> = Required<{
+  [K in keyof T]: T[K] extends Required<T[K]> ? T[K] : DeepRequired<T[K]>;
+}>;
