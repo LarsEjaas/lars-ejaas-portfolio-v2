@@ -1,5 +1,13 @@
 import sharp from 'sharp';
-import { getLocalImagePath } from './getLocalImagePath';
+import fs from 'fs';
+import { removeLeadingSlash } from '@i18n/utils';
+
+async function getImageBuffer(imagePath: string) {
+  const buffer = await fs.promises.readFile(removeLeadingSlash(imagePath));
+  return buffer;
+}
+
+const images = import.meta.glob('/src/assets/**/*.{jpg,png}');
 
 const BLUR_SIGMA = 1.2;
 
@@ -8,9 +16,26 @@ export async function generateBlurPlaceholder(
   imagePath: string,
   width?: number
 ): Promise<string | null> {
+  const imageName = imagePath.split('?')[0]?.split('/').pop();
+  if (!imageName) {
+    throw new Error(`no imageName found for: ${imagePath.split('?')[0]}`);
+  }
+
+  const imageImport = Object.entries(images).find(([filePath]) =>
+    filePath.includes(imageName)
+  );
+
+  if (!imageImport) {
+    throw new Error(
+      `Image not found for: ${imageName} in the generateBlurPlaceholder method.`
+    );
+  }
+
+  const filePath = imageImport[0];
+
   try {
-    const path = getLocalImagePath(imagePath);
-    const image = await sharp(path)
+    const imageBuffer = await getImageBuffer(filePath);
+    const image = await sharp(imageBuffer)
       .resize(width || 16)
       .blur(BLUR_SIGMA)
       .toBuffer();
@@ -19,7 +44,7 @@ export async function generateBlurPlaceholder(
     return base64;
   } catch (error) {
     console.error(
-      `Error generating blur placeholder for the image: ${imagePath}`,
+      `Error generating blur placeholder for the image: ${filePath}`,
       error
     );
     return null;
