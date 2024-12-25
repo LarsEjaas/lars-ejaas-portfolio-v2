@@ -3,6 +3,14 @@ import fs from 'fs';
 import { removeLeadingSlash } from '@i18n/utils';
 
 async function getImageBuffer(imagePath: string) {
+  while (true) {
+    try {
+      await fs.promises.access(removeLeadingSlash(imagePath));
+      break;
+    } catch {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+  }
   const buffer = await fs.promises.readFile(removeLeadingSlash(imagePath));
   return buffer;
 }
@@ -16,7 +24,9 @@ export async function generateBlurPlaceholder(
   imagePath: string,
   width?: number
 ): Promise<string | null> {
-  const imageName = imagePath.split('?')[0]?.split('/').pop();
+  //get the filename without extension
+  const imageName = imagePath.split('?')[0]?.split('/').pop()?.split('.')[0];
+
   if (!imageName) {
     throw new Error(`no imageName found for: ${imagePath.split('?')[0]}`);
   }
