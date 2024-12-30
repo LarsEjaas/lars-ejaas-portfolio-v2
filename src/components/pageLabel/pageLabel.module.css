@@ -28,6 +28,7 @@
 
 .iconAndTitle {
   display: flex;
+  position: relative;
   align-items: center;
   gap: 16px;
   & :global(.squircle) {
@@ -37,5 +38,10 @@
     width: 96px;
     height: 96px;
     background-size: cover;
+  }
+  & :global(.placeholder) {
+    height: 100%;
+    aspect-ratio: 1;
+    clip-path: url(#squircle);
   }
 }

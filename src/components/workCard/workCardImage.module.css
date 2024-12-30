@@ -1,12 +1,11 @@
-.placeholder {
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  position: absolute;
-  inset: 0;
-}
-
-.picture {
+.image {
   height: 100%;
-  overflow: hidden;
+  & :global(.placeholder) {
+    z-index: -1;
+    inset: 0;
+  }
+  & .picture {
+    height: 100%;
+    overflow: hidden;
+  }
 }

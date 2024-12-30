@@ -169,9 +169,15 @@
 
 .textArea,
 .pellContent {
-  min-height: 120px;
   min-width: 100%;
   max-width: 100%;
+}
+
+.textArea {
+  min-height: 170px;
+  @container (max-width: 422px) {
+    min-height: 194px;
+  }
 }
 
 :global(html) {
@@ -231,11 +237,13 @@
 .pellContent {
   resize: both;
   overflow: auto;
+  min-height: 120px;
 }
 .pellActionbar {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  min-height: 44px;
   padding-bottom: 6px;
 }
 .pellButton {

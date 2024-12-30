@@ -92,6 +92,10 @@
       width: 80px;
       height: 80px;
       z-index: 1;
+      & :global(.placeholder) {
+        inset: 4px;
+        clip-path: url(#squircle);
+      }
     }
   }
   & picture,

@@ -89,17 +89,50 @@
 
 .content {
   view-transition-name: lightbox-content;
-  margin-inline: 3rem;
-  max-height: 70cqb;
-  min-height: 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  margin-inline: 3rem;
+  height: 70cqb;
+  min-height: 0;
+
+  & .imageContainer {
+    line-height: 0;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    width: 260px;
+  }
+
+  @media (min-width: 481px) {
+    & .imageContainer {
+      width: 320px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    & .imageContainer {
+      width: 440px;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    & .imageContainer {
+      width: 520px;
+    }
+  }
   & picture,
   & img {
     border-radius: var(--border-radius-md);
   }
   & picture {
-    max-height: 100%;
+    display: inline-block;
     margin-inline: auto;
+  }
+  & :global(.placeholder) {
+    inset: 0;
+    border-radius: var(--border-radius-md);
+    z-index: -1;
   }
 }
 

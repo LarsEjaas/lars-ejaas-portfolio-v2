@@ -90,10 +90,10 @@
   background: var(--system-light-300);
   color: light-dark(var(--system-dark-200), var(--system-dark-300-55));
   border-radius: var(--border-radius-sm);
-  padding: 8px;
+  padding: 8px 12px;
   display: flex;
   width: fit-content;
-  gap: 8px;
+  gap: 16px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -110,6 +110,11 @@
     opacity: 0.3;
     transition: opacity 0.2s ease-in-out;
     filter: blur(2px);
+  }
+  & picture {
+    width: 40px;
+    aspect-ratio: 1 / 1;
+    background-color: #1bb3b9;
   }
   & p {
     z-index: 1;

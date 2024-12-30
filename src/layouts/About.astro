@@ -9,6 +9,7 @@ import ProfileImage from '@assets/images/profile.png';
 import PhotoCards from '@components/photoCards/PhotoCards.astro';
 import DrawingHouse from '@assets/aboutImages/drawing_house.png';
 import { Picture } from 'astro:assets';
+import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 
 type Props = {
   title: string;
@@ -18,6 +19,10 @@ type Props = {
 const lang = getLangFromUrl(Astro.url);
 const { title, inert } = Astro.props;
 const t_about = useTranslations(lang, 'about');
+const drawingHousePlaceholder = await generateBlurPlaceholder(
+  DrawingHouse.src,
+  32
+);
 ---
 
 <Layout title={title} inert={inert}>
@@ -106,7 +111,18 @@ const t_about = useTranslations(lang, 'about');
         <h3>{t_about('an_architectural_detour')}</h3>
         <p class="body-text">{t_about('as_a_teenager')}</p>
       </div>
-      <div class={styles.imageContent}>
+      <div class={styles.drawingHouse}>
+        {
+          drawingHousePlaceholder && (
+            <div
+              class={`placeholder`}
+              style={{
+                'background-image': `url('${drawingHousePlaceholder}')`,
+                'aspect-ratio': `${DrawingHouse.width}/${DrawingHouse.height};`,
+              }}
+            />
+          )
+        }
         <Picture
           formats={['avif', 'webp']}
           quality="high"
@@ -120,7 +136,6 @@ const t_about = useTranslations(lang, 'about');
             style: {
               aspectRatio: `${DrawingHouse.width}/${DrawingHouse.height};`,
             },
-            class: styles.drawingHouse,
           }}
         />
       </div>

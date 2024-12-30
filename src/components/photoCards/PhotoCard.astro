@@ -4,6 +4,7 @@ import { Picture } from 'astro:assets';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { getLangFromUrl } from '@i18n/utils';
 import { useTranslatedPath } from '@i18n/utils';
+import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 
 type Props = {
   ImageComponent: ImageMetadata & { placeholder?: string };
@@ -37,6 +38,7 @@ const imageAlt =
 const englishUrl = `/about/${imageInfo.hrefEN}/` as const;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
+const placeholder = await generateBlurPlaceholder(ImageComponent.src, null, 16);
 ---
 
 <a
@@ -51,6 +53,16 @@ const translatePath = useTranslatedPath(lang);
       ? `view-transition-name: ${imageInfo.id};`
       : undefined}
   >
+    {
+      placeholder && (
+        <div
+          class="placeholder"
+          style={{
+            'background-image': `url('${placeholder}')`,
+          }}
+        />
+      )
+    }
     <Picture
       formats={['avif', 'webp']}
       quality="high"
@@ -65,9 +77,6 @@ const translatePath = useTranslatedPath(lang);
       pictureAttributes={{
         style: {
           aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
-          ...(ImageComponent.placeholder
-            ? { backgroundImage: `url(${ImageComponent.placeholder});` }
-            : {}),
         },
       }}
     />

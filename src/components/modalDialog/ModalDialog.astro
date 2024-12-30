@@ -1,18 +1,18 @@
 ---
 import Picture from 'astro/components/Picture.astro';
 import styles from './modalDialog.module.css';
-import type { ColorVariants, IconImage } from '@customTypes/index';
-import { iconColors } from '@utils/misc';
+import type { ColorVariants } from '@customTypes/index';
+import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 
 type Props = {
   title: string;
   labels: { close: string };
   iconImage: ImageMetadata;
-  iconColor: IconImage;
   gradientColor: Extract<ColorVariants, 'flirt' | 'verdigris'>;
 };
 
-const { title, labels, iconImage, gradientColor, iconColor } = Astro.props;
+const { title, labels, iconImage, gradientColor } = Astro.props;
+const placeholder = await generateBlurPlaceholder(iconImage.src, 16);
 ---
 
 <script>
@@ -49,6 +49,14 @@ const { title, labels, iconImage, gradientColor, iconColor } = Astro.props;
       {
         iconImage && (
           <div class={`${styles.outline} squircle`}>
+            {placeholder && (
+              <div
+                class="placeholder"
+                style={{
+                  'background-image': `url('${placeholder}')`,
+                }}
+              />
+            )}
             <Picture
               aria-hidden="true"
               formats={['avif', 'webp']}
@@ -60,9 +68,6 @@ const { title, labels, iconImage, gradientColor, iconColor } = Astro.props;
               densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
-              pictureAttributes={{
-                style: `background-color: ${iconColors[iconColor]};`,
-              }}
             />
           </div>
         )

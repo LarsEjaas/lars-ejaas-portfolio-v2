@@ -228,6 +228,12 @@
       transition: opacity 0s;
     }
   }
+  & :global(.placeholder) {
+    width: 232px;
+    height: 148px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
 
   & picture,
   & img {
@@ -419,15 +425,4 @@
     top: unset;
     bottom: calc(-0.25 * var(--controls-height));
   }
-}
-
-.placeholder {
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  width: 232px;
-  height: 148px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  overflow: hidden;
 }

@@ -6,7 +6,8 @@ import { getLangFromUrl } from '@i18n/utils';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { useTranslatedPath } from '@i18n/utils';
 import PhotoCard from '@components/photoCards/PhotoCard.astro';
-import type { ImageModule } from '../../customTypes';
+import type { ImageModule } from '@customTypes/index';
+import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type Props = {
@@ -32,6 +33,7 @@ const previousUrl = `${aboutTranslatedPath}${URLArray[currentIndex - 1]}/`;
 const isFirst = currentIndex === 0;
 const isLast = currentIndex === URLArray.length - 1;
 const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
+const placeholder = await generateBlurPlaceholder(image.src, null, 24);
 ---
 
 <script>
@@ -80,19 +82,34 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
     >
   </div>
   <div class={styles.content}>
-    <Picture
-      formats={['avif', 'webp']}
-      quality="high"
-      src={image}
-      alt={imageAlt}
-      widths={[260, 320, 440, 520]}
-      sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
-      loading="eager"
-      decoding="sync"
-      pictureAttributes={{
-        style: `aspect-ratio: ${image.width}/${image.height}; view-transition-name: ${imageInfo.id};`,
+    <div
+      style={{
+        'aspect-ratio': `${image.width}/${image.height}`,
+        'view-transition-name': imageInfo.id,
       }}
-    />
+      class={styles.imageContainer}
+    >
+      {
+        placeholder && (
+          <div
+            class="placeholder"
+            style={{
+              'background-image': `url('${placeholder}')`,
+            }}
+          />
+        )
+      }
+      <Picture
+        formats={['avif', 'webp']}
+        quality="high"
+        src={image}
+        alt={imageAlt}
+        widths={[260, 320, 440, 520]}
+        sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
+        loading="eager"
+        decoding="sync"
+      />
+    </div>
     <ul class={styles.controls}>
       <li>
         <a

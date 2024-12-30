@@ -17,12 +17,25 @@ async function getImageBuffer(imagePath: string) {
 
 const images = import.meta.glob('/src/assets/**/*.{jpg,png}');
 
-const BLUR_SIGMA = 1.2;
+const BLUR_SIGMA = 2;
+
+export function generateBlurPlaceholder(
+  imagePath: string,
+  width?: number,
+  height?: never
+): Promise<string | null>;
+
+export function generateBlurPlaceholder(
+  imagePath: string,
+  width: null,
+  height: number
+): Promise<string | null>;
 
 /** Generates a base64 blur placeholder for the supplied image. */
 export async function generateBlurPlaceholder(
   imagePath: string,
-  width?: number
+  width?: number | null,
+  height?: number
 ): Promise<string | null> {
   //get the filename without extension
   const imageName = imagePath.split('?')[0]?.split('/').pop()?.split('.')[0];
@@ -43,10 +56,12 @@ export async function generateBlurPlaceholder(
 
   const filePath = imageImport[0];
 
+  const finalWidth = height ? null : width || 16;
+
   try {
     const imageBuffer = await getImageBuffer(filePath);
     const image = await sharp(imageBuffer)
-      .resize(width || 16)
+      .resize(finalWidth, height)
       .blur(BLUR_SIGMA)
       .toBuffer();
 

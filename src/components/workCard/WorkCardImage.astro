@@ -16,14 +16,14 @@ type Props = {
 
 const { image, pictureAttributes = {} } = Astro.props;
 
-const placeholder = await generateBlurPlaceholder(image.src.src);
+const placeholder = await generateBlurPlaceholder(image.src.src, 32);
 ---
 
-<div style={{ height: '100%' }}>
+<div class={styles.image}>
   {
     placeholder && (
       <div
-        class={styles.placeholder}
+        class="placeholder"
         style={{
           'background-image': `url('${placeholder}')`,
         }}
