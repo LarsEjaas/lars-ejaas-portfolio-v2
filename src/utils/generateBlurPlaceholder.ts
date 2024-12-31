@@ -22,20 +22,23 @@ const BLUR_SIGMA = 2;
 export function generateBlurPlaceholder(
   imagePath: string,
   width?: number,
-  height?: never
+  height?: never,
+  blurSigma?: number
 ): Promise<string | null>;
 
 export function generateBlurPlaceholder(
   imagePath: string,
   width: null,
-  height: number
+  height: number,
+  blurSigma?: number
 ): Promise<string | null>;
 
 /** Generates a base64 blur placeholder for the supplied image. */
 export async function generateBlurPlaceholder(
   imagePath: string,
   width?: number | null,
-  height?: number
+  height?: number | null,
+  blurSigma?: number
 ): Promise<string | null> {
   //get the filename without extension
   const imageName = imagePath.split('?')[0]?.split('/').pop()?.split('.')[0];
@@ -44,8 +47,9 @@ export async function generateBlurPlaceholder(
     throw new Error(`no imageName found for: ${imagePath.split('?')[0]}`);
   }
 
-  const imageImport = Object.entries(images).find(([filePath]) =>
-    filePath.includes(imageName)
+  const imageImport = Object.entries(images).find(
+    ([filePath]) =>
+      filePath.split('/').at(-1)?.split('.').slice(0, -1)[0] === imageName
   );
 
   if (!imageImport) {
@@ -62,7 +66,7 @@ export async function generateBlurPlaceholder(
     const imageBuffer = await getImageBuffer(filePath);
     const image = await sharp(imageBuffer)
       .resize(finalWidth, height)
-      .blur(BLUR_SIGMA)
+      .blur(blurSigma || BLUR_SIGMA)
       .toBuffer();
 
     const base64 = `data:image/png;base64,${image.toString('base64')}`;

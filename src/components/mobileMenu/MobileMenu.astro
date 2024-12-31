@@ -14,7 +14,7 @@ import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import { appRoutes } from '@i18n/routes';
-import { iconColors } from '@utils/misc';
+import { menuIconPlaceholders } from '@utils/misc';
 
 type Props = { inert: boolean; withModalLinks?: boolean };
 
@@ -58,6 +58,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('home')}
     aria-label={t('home')}
     ><div class="squircle" data-with-shadow="true">
+      <div
+        class="placeholder"
+        style={{
+          'background-image': `url('${menuIconPlaceholders.home}')`,
+        }}
+      >
+      </div>
       <Picture
         aria-hidden="true"
         formats={['avif', 'webp']}
@@ -69,9 +76,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
-        pictureAttributes={{
-          style: `background-color: ${iconColors.ejaas};`,
-        }}
       />
     </div></a
   >
@@ -82,6 +86,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('work')}
     aria-label={t('work')}
     ><div class="squircle" data-with-shadow="true">
+      <div
+        class="placeholder"
+        style={{
+          'background-image': `url('${menuIconPlaceholders.work}')`,
+        }}
+      >
+      </div>
       <Picture
         aria-hidden="true"
         formats={['avif', 'webp']}
@@ -93,9 +104,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
-        pictureAttributes={{
-          style: `background-color: ${iconColors.work};`,
-        }}
       />
     </div></a
   >
@@ -106,6 +114,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('skills')}
     aria-label={t('skills')}
     ><div class="squircle" data-with-shadow="true">
+      <div
+        class="placeholder"
+        style={{
+          'background-image': `url('${menuIconPlaceholders.skills}')`,
+        }}
+      >
+      </div>
       <Picture
         aria-hidden="true"
         formats={['avif', 'webp']}
@@ -117,9 +132,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
-        pictureAttributes={{
-          style: `background-color: ${iconColors.skillset};`,
-        }}
       />
     </div></a
   >
@@ -130,6 +142,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('about')}
     aria-label={t('about')}
     ><div class="squircle" data-with-shadow="true">
+      <div
+        class="placeholder"
+        style={{
+          'background-image': `url('${menuIconPlaceholders.about}')`,
+        }}
+      >
+      </div>
       <Picture
         aria-hidden="true"
         formats={['avif', 'webp']}
@@ -141,9 +160,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
-        pictureAttributes={{
-          style: `background-color: ${iconColors.about};`,
-        }}
       />
     </div></a
   >
@@ -159,6 +175,12 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           id="mobileContactLink"
         >
           <div class="squircle" data-with-shadow="true">
+            <div
+              class="placeholder"
+              style={{
+                'background-image': `url('${menuIconPlaceholders.contact}')`,
+              }}
+            />
             <Picture
               aria-hidden="true"
               formats={['avif', 'webp']}
@@ -170,9 +192,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
-              pictureAttributes={{
-                style: `background-color: ${iconColors.contact};`,
-              }}
             />
           </div>
         </a>
@@ -185,6 +204,12 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           id="mobileShareLink"
         >
           <div class="squircle" data-with-shadow="true">
+            <div
+              class="placeholder"
+              style={{
+                'background-image': `url('${menuIconPlaceholders.share}')`,
+              }}
+            />
             <Picture
               aria-hidden="true"
               formats={['avif', 'webp']}
@@ -196,9 +221,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
-              pictureAttributes={{
-                style: `background-color: ${iconColors.share};`,
-              }}
             />
           </div>
         </a>

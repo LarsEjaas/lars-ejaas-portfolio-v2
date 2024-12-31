@@ -16,7 +16,7 @@ import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import ejaasLogo from './ejaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
-import { iconColors } from '@utils/misc';
+import { menuIconPlaceholders } from '@utils/misc';
 
 type Props = {
   inert: boolean;
@@ -88,6 +88,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/work/')}
         class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
+          <div
+            class="placeholder"
+            style={{
+              'background-image': `url('${menuIconPlaceholders.work}')`,
+            }}
+          >
+          </div>
           {
             /* Render images slightly too large to avoid dublicating for mobile menu */
           }
@@ -102,9 +109,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
-            pictureAttributes={{
-              style: `background-color: ${iconColors.work};`,
-            }}
           />
         </div>
         <p>{t('work')}</p>
@@ -115,6 +119,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/skills/')}
         class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
+          <div
+            class="placeholder"
+            style={{
+              'background-image': `url('${menuIconPlaceholders.skills}')`,
+            }}
+          >
+          </div>
           {
             /* Render images slightly too large to avoid dublicating for mobile menu */
           }
@@ -129,9 +140,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
-            pictureAttributes={{
-              style: `background-color: ${iconColors.skillset};`,
-            }}
           />
         </div><p>{t('skills')}</p></a
       >
@@ -141,6 +149,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/about/')}
         class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
+          <div
+            class="placeholder"
+            style={{
+              'background-image': `url('${menuIconPlaceholders.about}')`,
+            }}
+          >
+          </div>
           {
             /* Render images slightly too large to avoid dublicating for mobile menu */
           }
@@ -155,9 +170,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
-            pictureAttributes={{
-              style: `background-color: ${iconColors.about};`,
-            }}
           />
         </div><p>{t('about')}</p></a
       >
@@ -173,6 +185,12 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               id="desktopContactLink"
             >
               <div class="squircle" data-with-shadow="true">
+                <div
+                  class="placeholder"
+                  style={{
+                    'background-image': `url('${menuIconPlaceholders.contact}')`,
+                  }}
+                />
                 {/* Render images slightly too large to avoid dublicating for mobile menu */}
                 <Picture
                   aria-hidden="true"
@@ -185,9 +203,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   widths={[48, 96, 144]}
                   loading="eager"
                   decoding="sync"
-                  pictureAttributes={{
-                    style: `background-color: ${iconColors.contact};`,
-                  }}
                 />
               </div>
             </a>
@@ -200,6 +215,12 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               id="desktopShareLink"
             >
               <div class="squircle" data-with-shadow="true">
+                <div
+                  class="placeholder"
+                  style={{
+                    'background-image': `url('${menuIconPlaceholders.share}')`,
+                  }}
+                />
                 {/* Render images slightly too large to avoid dublicating for mobile menu */}
                 <Picture
                   aria-hidden="true"
@@ -212,9 +233,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   widths={[48, 96, 144]}
                   loading="eager"
                   decoding="sync"
-                  pictureAttributes={{
-                    style: `background-color: ${iconColors.share};`,
-                  }}
                 />
               </div>
             </a>

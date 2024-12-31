@@ -119,6 +119,11 @@
     width: 40px;
     aspect-ratio: 1/1;
   }
+  & :global(.placeholder) {
+    width: 40px;
+    aspect-ratio: 1/1;
+    clip-path: url('#squircle');
+  }
 }
 
 .homeLink {
