@@ -1,5 +1,4 @@
 ---
-import { Picture } from 'astro:assets';
 import styles from './lightbox.module.css';
 import type { ImageDetails } from '@content/aboutImages/aboutImages.ts';
 import { getLangFromUrl } from '@i18n/utils';
@@ -7,7 +6,7 @@ import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { useTranslatedPath } from '@i18n/utils';
 import PhotoCard from '@components/photoCards/PhotoCard.astro';
 import type { ImageModule } from '@customTypes/index';
-import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
 
 type Props = {
@@ -33,7 +32,6 @@ const previousUrl = `${aboutTranslatedPath}${URLArray[currentIndex - 1]}/`;
 const isFirst = currentIndex === 0;
 const isLast = currentIndex === URLArray.length - 1;
 const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
-const placeholder = await generateBlurPlaceholder(image.src, null, 24);
 ---
 
 <script>
@@ -88,18 +86,7 @@ const placeholder = await generateBlurPlaceholder(image.src, null, 24);
       }}
       class={styles.imageContainer}
     >
-      {
-        placeholder && (
-          <div
-            class="placeholder"
-            style={{
-              'background-image': `url('${placeholder}')`,
-              'aspect-ratio': `${image.width}/${image.height}`,
-            }}
-          />
-        )
-      }
-      <Picture
+      <PictureWithPlaceholder
         formats={['avif', 'webp']}
         quality="high"
         src={image}
@@ -119,6 +106,14 @@ const placeholder = await generateBlurPlaceholder(image.src, null, 24);
           style: {
             'aspect-ratio': `${image.width}/${image.height}`,
           },
+        }}
+        classNames={{ placeholder: styles.placeholder }}
+        placeholderSettings={{
+          style: {
+            'aspect-ratio': `${image.width}/${image.height}`,
+          },
+          width: null,
+          height: 24,
         }}
       />
     </div>

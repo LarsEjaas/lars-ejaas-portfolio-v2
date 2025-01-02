@@ -1,8 +1,7 @@
 ---
-import { Picture } from 'astro:assets';
 import type { CardInfo } from './Carousel.astro';
 import styles from './carousel.module.css';
-import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = Omit<CardInfo, 'imageSrc' | 'href'> & {
   index: number;
@@ -11,22 +10,10 @@ type Props = Omit<CardInfo, 'imageSrc' | 'href'> & {
 
 const { title, description, date, imageAlt, outline, index, image } =
   Astro.props;
-
-const placeholder = await generateBlurPlaceholder(image.src);
 ---
 
 <article class={`${styles[`outline${outline}`]} ${styles.article}`}>
-  {
-    placeholder && (
-      <div
-        class="placeholder"
-        style={{
-          'background-image': `url('${placeholder}')`,
-        }}
-      />
-    )
-  }
-  <Picture
+  <PictureWithPlaceholder
     formats={['avif', 'webp']}
     quality="high"
     src={image}
@@ -36,6 +23,7 @@ const placeholder = await generateBlurPlaceholder(image.src);
     densities={[1, 2, 3]}
     loading="lazy"
     decoding="async"
+    classNames={{ placeholder: styles.placeholder }}
   />
   <div class={styles.newsContent}>
     <div>

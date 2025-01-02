@@ -42,6 +42,25 @@ const t_skills = useTranslations(lang, 'skills');
 const DescriptionComponent = skillDescription;
 ---
 
+<script>
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
+  /** Always scroll to the top of the skill presentation when navigating to another skill */
+  const skillPresentation = window.skillPresentation;
+  const paginationElements = Array.from(
+    window.skillPagination?.querySelectorAll('a:not([data-disabled])') || []
+  ).filter((item) => item instanceof HTMLAnchorElement);
+  const tileSceneElements = Array.from(
+    window.skillTileScene?.querySelectorAll('a:not([data-active])') || []
+  ).filter((item) => item instanceof HTMLAnchorElement);
+  const elements = [...Array.from(paginationElements), ...tileSceneElements];
+  console.log('anchorElements', elements);
+  if (skillPresentation) {
+    elements.forEach((anchor) =>
+      storeScrollPositionOnClick(anchor, skillPresentation, -16)
+    );
+  }
+</script>
+
 <Layout title={title} inert={inert}>
   <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
@@ -51,7 +70,7 @@ const DescriptionComponent = skillDescription;
       </h2>
       <p class="body-text">{t_skills('although_i_have')}</p>
     </div>
-    <div>
+    <div id="skillPresentation">
       <PresentationCard
         gradientColor="flirt"
         title={skillTitle}

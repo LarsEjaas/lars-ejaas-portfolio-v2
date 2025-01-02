@@ -1,8 +1,7 @@
 ---
 import type { IconImage, ImageModule } from '@customTypes/index';
-import { Picture } from 'astro:assets';
 import styles from './pageLabel.module.css';
-import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = {
   title: string;
@@ -24,23 +23,12 @@ if (!imageImport) {
 }
 
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
-const iconPlaceholder = await generateBlurPlaceholder(ImageComponent.src, 24);
 ---
 
 <div class={styles.pageLabel}>
   <div class={styles.iconAndTitle}>
-    {
-      iconPlaceholder && (
-        <div
-          class="placeholder"
-          style={{
-            'background-image': `url('${iconPlaceholder}')`,
-          }}
-        />
-      )
-    }
     <div class="squircle" data-with-shadow="true">
-      <Picture
+      <PictureWithPlaceholder
         aria-hidden="true"
         formats={['avif', 'webp']}
         quality="high"
@@ -51,6 +39,10 @@ const iconPlaceholder = await generateBlurPlaceholder(ImageComponent.src, 24);
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
+        classNames={{ placeholder: styles.placeholder }}
+        placeholderSettings={{
+          width: 24,
+        }}
       />
     </div>
     <h1>{title}</h1>

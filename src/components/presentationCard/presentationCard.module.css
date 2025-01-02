@@ -118,6 +118,12 @@
   }
 }
 
+::view-transition-old(presentation-card-header-title),
+::view-transition-new(presentation-card-header-title) {
+  object-fit: none;
+  object-position: bottom left;
+}
+
 .outline {
   view-transition-name: outline;
   background-color: light-dark(

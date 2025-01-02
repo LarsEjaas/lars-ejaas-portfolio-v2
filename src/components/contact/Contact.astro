@@ -44,13 +44,13 @@ const t = useTranslations(lang, 'contact');
       ><span>{t('name')}</span>
       <input
         class={styles.input}
+        autofocus="true"
         autocomplete="on"
         spellcheck="false"
         placeholder={t('enter_your_full_name')}
         minlength="4"
         type="text"
         name="name"
-        id="modal-focus"
         required="true"
       /><span class={styles.error} aria-hidden="true"
         >{t('the_length_of_the_name')}</span

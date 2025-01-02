@@ -26,6 +26,12 @@
   }
 }
 
+::view-transition-old(page-title),
+::view-transition-new(page-title) {
+  object-fit: none;
+  object-position: bottom left;
+}
+
 .iconAndTitle {
   display: flex;
   position: relative;
@@ -39,7 +45,7 @@
     height: 96px;
     background-size: cover;
   }
-  & :global(.placeholder) {
+  & .placeholder {
     height: 100%;
     aspect-ratio: 1;
     clip-path: url(#squircle);

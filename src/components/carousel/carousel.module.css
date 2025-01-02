@@ -228,7 +228,7 @@
       transition: opacity 0s;
     }
   }
-  & :global(.placeholder) {
+  & .placeholder {
     width: 232px;
     height: 148px;
     border-top-left-radius: 8px;

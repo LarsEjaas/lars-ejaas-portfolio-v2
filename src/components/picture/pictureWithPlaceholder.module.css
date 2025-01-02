@@ -1,0 +1,6 @@
+.placeholder {
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  overflow: hidden;
+}

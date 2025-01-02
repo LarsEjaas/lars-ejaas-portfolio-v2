@@ -128,7 +128,7 @@
     inset: 0;
     margin: auto;
   }
-  & :global(.placeholder) {
+  & .placeholder {
     inset: 0;
     border-radius: var(--border-radius-md);
     z-index: -1;

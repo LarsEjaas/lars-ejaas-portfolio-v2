@@ -6,7 +6,6 @@ import {
   useTranslatedPath,
   useTranslations,
 } from '@i18n/utils';
-import { Picture } from 'astro:assets';
 import IconHome from '@assets/menuIcons/ejaas.png';
 import IconWork from '@assets/menuIcons/work.png';
 import IconSkills from '@assets/menuIcons/skillset.png';
@@ -14,7 +13,7 @@ import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import { appRoutes } from '@i18n/routes';
-import { menuIconPlaceholders } from '@utils/misc';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = { inert: boolean; withModalLinks?: boolean };
 
@@ -58,14 +57,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('home')}
     aria-label={t('home')}
     ><div class="squircle" data-with-shadow="true">
-      <div
-        class="placeholder"
-        style={{
-          'background-image': `url('${menuIconPlaceholders.home}')`,
-        }}
-      >
-      </div>
-      <Picture
+      <PictureWithPlaceholder
         aria-hidden="true"
         formats={['avif', 'webp']}
         quality="high"
@@ -76,9 +68,11 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
+        placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+        classNames={{ placeholder: styles.placeholder }}
       />
-    </div></a
-  >
+    </div>
+  </a>
   <a
     data-arrow-nav="true"
     role="option"
@@ -86,14 +80,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('work')}
     aria-label={t('work')}
     ><div class="squircle" data-with-shadow="true">
-      <div
-        class="placeholder"
-        style={{
-          'background-image': `url('${menuIconPlaceholders.work}')`,
-        }}
-      >
-      </div>
-      <Picture
+      <PictureWithPlaceholder
         aria-hidden="true"
         formats={['avif', 'webp']}
         quality="high"
@@ -104,6 +91,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
+        placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+        classNames={{ placeholder: styles.placeholder }}
       />
     </div></a
   >
@@ -114,14 +103,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('skills')}
     aria-label={t('skills')}
     ><div class="squircle" data-with-shadow="true">
-      <div
-        class="placeholder"
-        style={{
-          'background-image': `url('${menuIconPlaceholders.skills}')`,
-        }}
-      >
-      </div>
-      <Picture
+      <PictureWithPlaceholder
         aria-hidden="true"
         formats={['avif', 'webp']}
         quality="high"
@@ -132,6 +114,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
+        placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+        classNames={{ placeholder: styles.placeholder }}
       />
     </div></a
   >
@@ -142,14 +126,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     title={t('about')}
     aria-label={t('about')}
     ><div class="squircle" data-with-shadow="true">
-      <div
-        class="placeholder"
-        style={{
-          'background-image': `url('${menuIconPlaceholders.about}')`,
-        }}
-      >
-      </div>
-      <Picture
+      <PictureWithPlaceholder
         aria-hidden="true"
         formats={['avif', 'webp']}
         quality="high"
@@ -160,6 +137,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         densities={[1, 2, 3]}
         loading="eager"
         decoding="sync"
+        placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+        classNames={{ placeholder: styles.placeholder }}
       />
     </div></a
   >
@@ -175,13 +154,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           id="mobileContactLink"
         >
           <div class="squircle" data-with-shadow="true">
-            <div
-              class="placeholder"
-              style={{
-                'background-image': `url('${menuIconPlaceholders.contact}')`,
-              }}
-            />
-            <Picture
+            <PictureWithPlaceholder
               aria-hidden="true"
               formats={['avif', 'webp']}
               quality="high"
@@ -192,6 +165,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
+              placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+              classNames={{ placeholder: styles.placeholder }}
             />
           </div>
         </a>
@@ -204,13 +179,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           id="mobileShareLink"
         >
           <div class="squircle" data-with-shadow="true">
-            <div
-              class="placeholder"
-              style={{
-                'background-image': `url('${menuIconPlaceholders.share}')`,
-              }}
-            />
-            <Picture
+            <PictureWithPlaceholder
               aria-hidden="true"
               formats={['avif', 'webp']}
               quality="high"
@@ -221,6 +190,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
+              placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+              classNames={{ placeholder: styles.placeholder }}
             />
           </div>
         </a>

@@ -1,0 +1,55 @@
+---
+import { Picture } from 'astro:assets';
+import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import styles from './pictureWithPlaceholder.module.css';
+
+type Props = Omit<Parameters<typeof Picture>[0], 'src'> & {
+  src: ImageMetadata;
+  placeholderSettings?: PlaceholderSettings;
+  classNames?: Partial<ClassNames>;
+};
+
+type PlaceholderSettings = { style?: string | astroHTML.JSX.CSSProperties } & (
+  | {
+      width?: number;
+      height?: never;
+      blurSigma?: number;
+    }
+  | { width: null; height: number; blurSigma?: number }
+);
+
+type ClassNames = {
+  placeholder: string;
+  image: string;
+};
+
+const { placeholderSettings, ...props } = Astro.props;
+const placeholder = await (placeholderSettings?.height
+  ? generateBlurPlaceholder(
+      props.src.src,
+      null,
+      placeholderSettings.height,
+      placeholderSettings?.blurSigma
+    )
+  : generateBlurPlaceholder(
+      props.src.src,
+      placeholderSettings?.width || 16,
+      undefined,
+      placeholderSettings?.blurSigma
+    ));
+---
+
+<div
+  class={`${styles.placeholder} ${props.classNames?.placeholder}`}
+  style={{
+    'background-image': `url('${placeholder}')`,
+    ...(typeof placeholderSettings?.style === 'string'
+      ? { style: placeholderSettings.style }
+      : placeholderSettings?.style || {}),
+  }}
+>
+</div>
+<Picture
+  {...props as Parameters<typeof Picture>[0]}
+  class={props.classNames?.image}
+/>

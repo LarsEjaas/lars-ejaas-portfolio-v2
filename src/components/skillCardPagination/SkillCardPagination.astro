@@ -85,10 +85,9 @@ const skillIndex = paginationItems.indexOf(currentSkill);
 </script>
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
-  import { TRANSITION_DIRECTION_KEY } from '../../utils/localStorage';
-  import { removeTrailingSlash } from '../../i18n/utils';
-  import { techSkills } from '../../content/techSkills';
-  import type { PageSwapEvent } from '../../env';
+  import { TRANSITION_DIRECTION_KEY } from '@utils/localStorage';
+  import { removeTrailingSlash } from '@i18n/utils';
+  import { techSkills } from '@content/techSkills';
 
   if (window.skillPagination) {
     initializeKeyboardArrowNavigation(window.skillPagination);
@@ -235,6 +234,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
               aria-label={`${t_skills('go_to')} ${techSkill.title}`}
               title={`${t_skills('go_to')} ${techSkill.title}`}
               aria-current={index === skillIndex}
+              data-disabled={index === skillIndex || undefined}
               data-index={index}
               data-main-index={techSkills.indexOf(techSkill)}
               {...(index === skillIndex ? {} : { ['data-arrow-nav']: 'true' })}

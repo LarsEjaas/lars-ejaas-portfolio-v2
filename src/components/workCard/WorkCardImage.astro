@@ -1,8 +1,7 @@
 ---
-import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 import styles from './workCardImage.module.css';
-import { Picture } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = {
   image: {
@@ -15,22 +14,10 @@ type Props = {
 };
 
 const { image, pictureAttributes = {} } = Astro.props;
-
-const placeholder = await generateBlurPlaceholder(image.src.src, 32);
 ---
 
 <div class={styles.image}>
-  {
-    placeholder && (
-      <div
-        class="placeholder"
-        style={{
-          'background-image': `url('${placeholder}')`,
-        }}
-      />
-    )
-  }
-  <Picture
+  <PictureWithPlaceholder
     formats={['avif', 'webp']}
     quality="high"
     src={image.src}
@@ -50,5 +37,7 @@ const placeholder = await generateBlurPlaceholder(image.src.src, 32);
     loading="lazy"
     decoding="async"
     pictureAttributes={pictureAttributes}
+    placeholderSettings={{ width: 32 }}
+    classNames={{ placeholder: styles.placeholder }}
   />
 </div>

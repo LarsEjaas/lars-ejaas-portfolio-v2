@@ -28,13 +28,13 @@
     border-radius: 30%;
     outline-offset: var(--outline-offset);
   }
-  & :global(.placeholder),
+  & .placeholder,
   & picture,
   & :global(.squircle) {
     width: 48px;
     height: 48px;
   }
-  & :global(.placeholder) {
+  & .placeholder {
     clip-path: url('#squircle');
   }
 }

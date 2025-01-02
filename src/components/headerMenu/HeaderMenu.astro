@@ -6,7 +6,6 @@ import {
   useTranslatedPath,
   useTranslations,
 } from '@i18n/utils';
-import { Picture } from 'astro:assets';
 import IconWork from '@assets/menuIcons/work.png';
 import IconSkills from '@assets/menuIcons/skillset.png';
 import IconAbout from '@assets/menuIcons/about.png';
@@ -16,7 +15,7 @@ import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
 import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import ejaasLogo from './ejaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
-import { menuIconPlaceholders } from '@utils/misc';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = {
   inert: boolean;
@@ -88,17 +87,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/work/')}
         class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
-          <div
-            class="placeholder"
-            style={{
-              'background-image': `url('${menuIconPlaceholders.work}')`,
-            }}
-          >
-          </div>
           {
             /* Render images slightly too large to avoid dublicating for mobile menu */
           }
-          <Picture
+          <PictureWithPlaceholder
             aria-hidden="true"
             formats={['avif', 'webp']}
             quality="high"
@@ -109,6 +101,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
+            placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+            classNames={{ placeholder: styles.placeholder }}
           />
         </div>
         <p>{t('work')}</p>
@@ -119,17 +113,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/skills/')}
         class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
-          <div
-            class="placeholder"
-            style={{
-              'background-image': `url('${menuIconPlaceholders.skills}')`,
-            }}
-          >
-          </div>
           {
             /* Render images slightly too large to avoid dublicating for mobile menu */
           }
-          <Picture
+          <PictureWithPlaceholder
             aria-hidden="true"
             formats={['avif', 'webp']}
             quality="high"
@@ -140,6 +127,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
+            placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+            classNames={{ placeholder: styles.placeholder }}
           />
         </div><p>{t('skills')}</p></a
       >
@@ -149,17 +138,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         href={translatePath('/about/')}
         class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
-          <div
-            class="placeholder"
-            style={{
-              'background-image': `url('${menuIconPlaceholders.about}')`,
-            }}
-          >
-          </div>
           {
             /* Render images slightly too large to avoid dublicating for mobile menu */
           }
-          <Picture
+          <PictureWithPlaceholder
             aria-hidden="true"
             formats={['avif', 'webp']}
             quality="high"
@@ -170,6 +152,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             widths={[48, 96, 144]}
             loading="eager"
             decoding="sync"
+            placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+            classNames={{ placeholder: styles.placeholder }}
           />
         </div><p>{t('about')}</p></a
       >
@@ -185,14 +169,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               id="desktopContactLink"
             >
               <div class="squircle" data-with-shadow="true">
-                <div
-                  class="placeholder"
-                  style={{
-                    'background-image': `url('${menuIconPlaceholders.contact}')`,
-                  }}
-                />
                 {/* Render images slightly too large to avoid dublicating for mobile menu */}
-                <Picture
+                <PictureWithPlaceholder
                   aria-hidden="true"
                   formats={['avif', 'webp']}
                   quality="high"
@@ -203,6 +181,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   widths={[48, 96, 144]}
                   loading="eager"
                   decoding="sync"
+                  placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+                  classNames={{ placeholder: styles.placeholder }}
                 />
               </div>
             </a>
@@ -215,14 +195,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               id="desktopShareLink"
             >
               <div class="squircle" data-with-shadow="true">
-                <div
-                  class="placeholder"
-                  style={{
-                    'background-image': `url('${menuIconPlaceholders.share}')`,
-                  }}
-                />
                 {/* Render images slightly too large to avoid dublicating for mobile menu */}
-                <Picture
+                <PictureWithPlaceholder
                   aria-hidden="true"
                   formats={['avif', 'webp']}
                   quality="high"
@@ -233,6 +207,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   widths={[48, 96, 144]}
                   loading="eager"
                   decoding="sync"
+                  placeholderSettings={{ width: 10, blurSigma: 0.5 }}
+                  classNames={{ placeholder: styles.placeholder }}
                 />
               </div>
             </a>

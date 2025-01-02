@@ -1,10 +1,9 @@
 ---
 import styles from './photoCard.module.css';
-import { Picture } from 'astro:assets';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { getLangFromUrl } from '@i18n/utils';
 import { useTranslatedPath } from '@i18n/utils';
-import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = {
   ImageComponent: ImageMetadata & { placeholder?: string };
@@ -38,7 +37,6 @@ const imageAlt =
 const englishUrl = `/about/${imageInfo.hrefEN}/` as const;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
-const placeholder = await generateBlurPlaceholder(ImageComponent.src, null, 16);
 ---
 
 <a
@@ -53,17 +51,7 @@ const placeholder = await generateBlurPlaceholder(ImageComponent.src, null, 16);
       ? `view-transition-name: ${imageInfo.id};`
       : undefined}
   >
-    {
-      placeholder && (
-        <div
-          class="placeholder"
-          style={{
-            'background-image': `url('${placeholder}')`,
-          }}
-        />
-      )
-    }
-    <Picture
+    <PictureWithPlaceholder
       formats={['avif', 'webp']}
       quality="high"
       src={ImageComponent}
@@ -79,6 +67,7 @@ const placeholder = await generateBlurPlaceholder(ImageComponent.src, null, 16);
           aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
         },
       }}
+      classNames={{ placeholder: styles.placeholder }}
     />
   </div>
 </a>

@@ -15,7 +15,7 @@ async function getImageBuffer(imagePath: string) {
   return buffer;
 }
 
-const images = import.meta.glob('/src/assets/**/*.{jpg,png}');
+const images = import.meta.glob('/src/assets/**/*.{jpg,png,svg}');
 
 const BLUR_SIGMA = 2;
 

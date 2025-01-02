@@ -1,8 +1,7 @@
 ---
-import Picture from 'astro/components/Picture.astro';
 import styles from './modalDialog.module.css';
 import type { ColorVariants } from '@customTypes/index';
-import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = {
   title: string;
@@ -12,7 +11,6 @@ type Props = {
 };
 
 const { title, labels, iconImage, gradientColor } = Astro.props;
-const placeholder = await generateBlurPlaceholder(iconImage.src, 16);
 ---
 
 <script>
@@ -49,15 +47,7 @@ const placeholder = await generateBlurPlaceholder(iconImage.src, 16);
       {
         iconImage && (
           <div class={`${styles.outline} squircle`}>
-            {placeholder && (
-              <div
-                class="placeholder"
-                style={{
-                  'background-image': `url('${placeholder}')`,
-                }}
-              />
-            )}
-            <Picture
+            <PictureWithPlaceholder
               aria-hidden="true"
               formats={['avif', 'webp']}
               quality="high"
@@ -68,6 +58,7 @@ const placeholder = await generateBlurPlaceholder(iconImage.src, 16);
               densities={[1, 2, 3]}
               loading="eager"
               decoding="sync"
+              classNames={{ placeholder: styles.placeholder }}
             />
           </div>
         )
