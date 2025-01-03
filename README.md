@@ -86,6 +86,12 @@ Install dependencies:
 npm install
 ```
 
+Install the pre-commit hook:
+
+```bash
+npx husky install
+```
+
 Start the development server:
 
 ```bash
