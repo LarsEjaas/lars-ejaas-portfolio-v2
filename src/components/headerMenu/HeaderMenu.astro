@@ -16,11 +16,13 @@ import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import ejaasLogo from './ejaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+import type { Language } from '@i18n/settings';
 
 type Props = {
   inert: boolean;
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
+  translationUrls?: Record<Language, string>;
 };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
@@ -29,6 +31,7 @@ const {
   inert,
   withDarkkModeToggle = true,
   withModalLinks = true,
+  translationUrls,
 } = Astro.props;
 const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}/`;
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
@@ -55,19 +58,20 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     aria-keyshortcuts="ArrowLeft ArrowRight"
     class={`${styles.desktopMenu} desktop-only`}
   >
+    <h2 class="sr-only" id="desktopMenuTitle">
+      {t('nav_desktop')}
+    </h2>
     <nav
       aria-labelledby="desktopMenuTitle"
-      role="listbox"
+      role="menubar"
       aria-label={t('nav_desktop')}
     >
-      <h2 class="sr-only" id="desktopMenuTitle">
-        {t('nav_desktop')}
-      </h2>
       <a
         data-arrow-nav="true"
         title={t('home')}
-        role="option"
+        role="menuitem"
         href={translatePath('/')}
+        data-current={Astro.url.pathname === translatePath('/') || undefined}
         class={styles.homeLink}
       >
         <p id="lightboxTitle" class="sr-only">{t('home')}</p>
@@ -83,8 +87,11 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </a>
       <a
         data-arrow-nav="true"
-        role="option"
+        role="menuitem"
+        title={t('work')}
         href={translatePath('/work/')}
+        data-current={Astro.url.pathname.startsWith(translatePath('/work/')) ||
+          undefined}
         class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
           {
@@ -109,8 +116,11 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </a>
       <a
         data-arrow-nav="true"
-        role="option"
+        role="menuitem"
+        title={t('skills')}
         href={translatePath('/skills/')}
+        data-current={Astro.url.pathname === translatePath('/skills/') ||
+          undefined}
         class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
           {
@@ -134,8 +144,11 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       >
       <a
         data-arrow-nav="true"
-        role="option"
+        role="menuitem"
+        title={t('about')}
         href={translatePath('/about/')}
+        data-current={Astro.url.pathname.startsWith(translatePath('/about/')) ||
+          undefined}
         class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
           {
@@ -162,7 +175,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           <div class={styles.navSection}>
             <a
               data-arrow-nav="true"
-              role="option"
+              role="menuitem"
               href={contactUrl}
               title={t('contact')}
               aria-label={t('contact')}
@@ -188,7 +201,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             </a>
             <a
               data-arrow-nav="true"
-              role="option"
+              role="menuitem"
               href={shareUrl}
               title={t('share')}
               aria-label={t('share')}
@@ -218,12 +231,12 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     </nav>
     <div class={styles.actions}>
       <div class={styles.divider}></div>
-      <LanguageToggle />
+      <LanguageToggle translationUrls={translationUrls} />
       {withDarkkModeToggle && <ThemeSwitch withGlow={false} isMobile={false} />}
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
-    <LanguageToggle withBackground={true} />
+    <LanguageToggle withBackground={true} translationUrls={translationUrls} />
     {withDarkkModeToggle && <ThemeSwitch withGlow={true} isMobile={true} />}
   </div>
 </header>

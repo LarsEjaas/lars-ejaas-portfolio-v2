@@ -3,11 +3,17 @@ import type { StringWithTrailingSlash } from './index';
 export type MetaData = {
   title: string;
   description: string;
+  pinterestDescription?: string;
   siteUrl: string;
+  siteName: string;
   author: string;
   keywords: string[];
-  language: 'en' | 'da';
   rights: string;
+};
+
+export type MetaImage = {
+  name: string;
+  alt: string;
 };
 
 export type MetaTheme = {
@@ -31,40 +37,50 @@ export type MetaTheme = {
 
 export type OpenGraph = {
   type: string;
-  article: {
-    publishedTime: string;
-    modifiedTime: string;
-    section: string;
-    tags: string[];
-  };
-  image: string;
-  imageAlt: string;
+  image: MetaImage;
+} & (
+  | {
+      type: string;
+      image: MetaImage;
+      article: {
+        publishedTime: string;
+        modifiedTime: string;
+        expirationTime: string;
+        section: string;
+        tags: string[];
+        authors: string[];
+      };
+    }
+  | {}
+);
+
+type HttpEquiv =
+  | 'content-security-policy'
+  | 'content-type'
+  | 'default-style'
+  | 'refresh';
+
+export type metaTag = {
+  name?: string;
+  content: string;
+  property?: string;
+  'http-equiv'?: HttpEquiv;
+  media?: string;
 };
 
-export type metaTag =
-  | {
-      name: string;
-      content: string;
-      property?: never;
-    }
-  | {
-      property: string;
-      content: string;
-      name?: never;
-    };
-
 export type SeoProps = {
-  metaData?: Partial<MetaData>;
-  metaTheme?: Partial<MetaTheme>;
-  facebook?: {
+  metaData: MetaData;
+  metaTheme: MetaTheme;
+  facebook: {
     appId: string;
   };
-  twitter?: Partial<{
+  twitter: {
     cardType: 'summary_large_image' | 'summary' | 'app' | 'player';
     site: string;
     siteId: string;
     creator: string;
     creatorId: string;
-  }>;
-  openGraph?: Partial<OpenGraph>;
+  };
+  openGraph: OpenGraph;
+  metaTags: metaTag[];
 };

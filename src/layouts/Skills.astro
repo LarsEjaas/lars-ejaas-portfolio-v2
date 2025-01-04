@@ -9,17 +9,20 @@ import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillRating } from '@customTypes/skillTypes';
 import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
-import type { SVGFileType } from '../customTypes';
+import type { SVGFileType, DistributiveOmit } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
   techSkill: TechSkillProps;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 export type TechSkillProps = {
   title: string;
-  description: (_props: Record<string, never>) => any;
+  description: string | ((_props: Record<string, never>) => any);
   imageSrc?: SVGFileType;
   imageAlt?: string;
   href?: string;
@@ -28,75 +31,79 @@ export type TechSkillProps = {
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert, techSkill } = Astro.props;
+const { title, description, inert, techSkill, seo } = Astro.props;
 
 const {
   title: skillTitle,
-  description: skillDescription,
+  description: SkillDescription,
   iconImage,
   imageAlt: skillImageAlt,
   rating: skillRating,
-} = techSkill || {};
+} = techSkill;
 const t_skills = useTranslations(lang, 'skills');
-
-const DescriptionComponent = skillDescription;
 ---
 
-<script>
-  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
-  /** Always scroll to the top of the skill presentation when navigating to another skill */
-  const skillPresentation = window.skillPresentation;
-  const paginationElements = Array.from(
-    window.skillPagination?.querySelectorAll('a:not([data-disabled])') || []
-  ).filter((item) => item instanceof HTMLAnchorElement);
-  const tileSceneElements = Array.from(
-    window.skillTileScene?.querySelectorAll('a:not([data-active])') || []
-  ).filter((item) => item instanceof HTMLAnchorElement);
-  const elements = [...Array.from(paginationElements), ...tileSceneElements];
-  if (skillPresentation) {
-    elements.forEach((anchor) =>
-      storeScrollPositionOnClick(anchor, skillPresentation, -16)
-    );
-  }
-</script>
-
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+      ...(seo.noIndex && { noIndex: seo.noIndex }),
+    },
+  }}
+>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
     <div>
       <h2>
         {t_skills('browse_my_tech_skills')}
       </h2>
-      <p class="body-text">{t_skills('although_i_have')}</p>
-    </div>
-    <div id="skillPresentation">
-      <PresentationCard
-        gradientColor="flirt"
-        title={skillTitle}
-        iconImage={iconImage}
-        iconImageAlt={skillImageAlt}
-        responsiveSquircleSize={true}
-        inert={inert}
-      >
-        <div class={styles.presentationCardContent}>
-          {DescriptionComponent && <DescriptionComponent />}
-          <div class={styles.proficiencyRating}>
-            {
-              !!skillRating && [
-                <p class="stylized-lead-text">
-                  {t_skills('proficiency_rating')}
-                </p>,
-                <StarRating rating={skillRating} />,
-              ]
-            }
-          </div>
-        </div>
-      </PresentationCard>
-      <SkillCardPagination title={skillTitle} />
+      <p class="body-text">{t_skills('along_the_way')}</p>
+      <blockquote class={styles.quote}>
+        <p class="body-text">{t_skills('one_of_the_great')}</p>
+      </blockquote>
+      <p class="body-text">{t_skills('read_on_to')}</p>
     </div>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
+  <div id="skillPresentation">
+    <PresentationCard
+      gradientColor="flirt"
+      title={skillTitle}
+      iconImage={iconImage}
+      iconImageAlt={skillImageAlt}
+      responsiveSquircleSize={true}
+      inert={inert}
+      iconImageViewTransitionName="icon-image"
+    >
+      <div class={styles.presentationCardContent}>
+        {
+          typeof SkillDescription === 'string' ? (
+            <div set:html={SkillDescription} />
+          ) : (
+            <SkillDescription />
+          )
+        }
+        {
+          !!skillRating && (
+            <>
+              <div class={styles.divider} />
+              <div class={styles.proficiencyRating}>
+                <p>{t_skills('hands_on_experience_rating')}</p>
+                <StarRating rating={skillRating} />
+              </div>
+            </>
+          )
+        }
+      </div>
+    </PresentationCard>
+    <SkillCardPagination title={skillTitle} />
+  </div>
   <TechSkillsMarquee />
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
 </Layout>

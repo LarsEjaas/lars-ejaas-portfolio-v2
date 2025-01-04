@@ -1,5 +1,7 @@
 .shareContainer {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  text-wrap-style: balance;
   grid-template-columns: auto auto auto;
   margin-block: 48px 32px;
   margin-inline: 4rem;
@@ -9,12 +11,12 @@
   & Picture,
   & img,
   & .placeholder {
-    width: 48px;
-    height: 48px;
-  }
-  & .noPlaceholder {
-    width: 0;
-    height: 0;
+    width: 72px;
+    height: 72px;
+    @media (max-width: 768px) {
+      width: 48px;
+      height: 48px;
+    }
   }
   & .placeholder {
     clip-path: url(#squircle);
@@ -22,5 +24,6 @@
   & a {
     outline-offset: var(--outline-offset);
     border-radius: var(--border-radius-lg);
+    position: relative;
   }
 }

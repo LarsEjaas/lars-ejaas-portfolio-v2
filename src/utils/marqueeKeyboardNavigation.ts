@@ -1,5 +1,5 @@
 import { getFocusableElements } from './keyboardArrowNavigation';
-const isDev = import.meta.env.DEV || false;
+const IS_DEV = import.meta.env.DEV || false;
 
 type Position = {
   rowIndex: number;
@@ -95,7 +95,7 @@ const createElementGrid = (elements: HTMLElement[], itemsPerRow: number) => {
     itemsPerRow < 3 ||
     itemsPerRow > 6
   ) {
-    if (isDev) {
+    if (IS_DEV) {
       throw new Error(
         `Invalid input: Elements should be an array, found: ${elements}. itemsPerRow should be a number between 3 and 6, found: ${itemsPerRow}`
       );
@@ -152,6 +152,13 @@ const handleKeyDown = (
     }
     moveUp(elementGrid, position);
   }
+  if (
+    event.key === 'Enter' &&
+    event.target instanceof HTMLElement &&
+    event.target.dataset.active === 'true'
+  ) {
+    event.preventDefault();
+  }
 };
 
 /**
@@ -184,6 +191,9 @@ export const initializeTileArrowNavigation = (hostElement: HTMLElement) => {
     );
     if (index !== 0) {
       element.tabIndex = -1;
+    } else {
+      // This is needed in Safari to make the first element focusable
+      element.tabIndex = 0;
     }
   });
   hostElement.dataset.arrowNavInitialized = 'true';

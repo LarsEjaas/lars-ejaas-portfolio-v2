@@ -1,13 +1,14 @@
 ---
 import styles from './lightbox.module.css';
-import type { ImageDetails } from '@content/aboutImages/aboutImages.ts';
+import type { ImageDetails } from '@collections/aboutImages/aboutImages.mts';
+import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
 import { getLangFromUrl } from '@i18n/utils';
-import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { useTranslatedPath } from '@i18n/utils';
 import PhotoCard from '@components/photoCards/PhotoCard.astro';
 import type { ImageModule } from '@customTypes/index';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+const IS_DEV = import.meta.env.DEV || false;
 
 type Props = {
   labels: { title: string; close: string; previous: string; next: string };
@@ -32,9 +33,46 @@ const previousUrl = `${aboutTranslatedPath}${URLArray[currentIndex - 1]}/`;
 const isFirst = currentIndex === 0;
 const isLast = currentIndex === URLArray.length - 1;
 const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
+const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
+
+if (!imageDescription && IS_DEV) {
+  console.error(`⚠️ Image description not found for ${imageInfo.imageName}`);
+}
+
+/** Achors have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
+<script is:inline>
+  window.addEventListener('pagereveal', async (e) => {
+    const transitionType = sessionStorage['transition-type'] || 'fade';
+    if (!transitionType || !e.viewTransition) {
+      return;
+    }
+    e.viewTransition.types.add(transitionType);
+    sessionStorage.removeItem('transition-type');
+    const figure = window.lightbox.querySelector('figure');
+
+    if (figure && transitionType === 'keep-in-place') {
+      const originalName = figure.style.viewTransitionName;
+      figure.style.viewTransitionName = 'figure';
+      await e.viewTransition.finished;
+      figure.style.viewTransitionName = originalName;
+    }
+  });
+</script>
 <script>
+  import { setLightboxTransitionType } from './setTransitionType';
+  setLightboxTransitionType();
+
+  /** Scroll to the current photo in the thumbnail grid. */
+  if (window.thumbnailGridContainer) {
+    const currentPhotoCard = window.thumbnailGridContainer.querySelector(
+      `a[href="${window.location.pathname}"]`
+    );
+    if (currentPhotoCard) {
+      currentPhotoCard.scrollIntoView({ behavior: 'instant' });
+    }
+  }
   const handleKeydown = (event: KeyboardEvent) => {
     if (event.key?.toLowerCase() === 'escape') {
       // Do the change asynchronously at the back of the event queue to make sure the change is ALWAYS applied.
@@ -48,7 +86,11 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
     window.addEventListener('keydown', handleKeydown, { passive: true });
   }
 </script>
-<a class={styles.backdrop} aria-hidden tabindex="-1" href="../"></a>
+<a class={styles.backdrop} aria-hidden tabindex="-1" href="../"
+  ><p class="sr-only">
+    {labels.close}
+  </p></a
+>
 <!-- remove tabindex in Firefox -->
 <dialog
   tabindex="-1"
@@ -66,25 +108,30 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
       href="../"
       title={labels.close}
       aria-label={labels.close}
-      ><svg
+    >
+      <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
         aria-hidden="true"
       >
         <path
-          d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 0.418636C14.0123 -0.139545 13.1073 -0.139545 12.5486 0.418636L8 4.96727L3.45136 0.418636C2.89318 -0.139545 1.98818 -0.139545 1.42955 0.418636L0.418636 1.42955C-0.139545 1.98773 -0.139545 2.89273 0.418636 3.45136L4.96727 8L0.418636 12.5486C-0.139545 13.1068 -0.139545 14.0118 0.418636 14.5705L1.42955 15.5814C1.98773 16.1395 2.89318 16.1395 3.45136 15.5814L8 11.0327L12.5486 15.5814C13.1068 16.1395 14.0123 16.1395 14.5705 15.5814L15.5814 14.5705C16.1395 14.0123 16.1395 13.1073 15.5814 12.5486L11.0327 8Z"
+          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
           fill="currentColor"></path>
-      </svg></a
-    >
+      </svg>
+    </a>
   </div>
   <div class={styles.content}>
-    <div
+    <figure
       style={{
         'view-transition-name': imageInfo.id,
+        '--width': `${image.width}px`,
+        '--height': `${image.height}px`,
+        '--aspect-ratio': `${image.width}/${image.height}`,
       }}
-      class={styles.imageContainer}
+      data-portrait={image.height > image.width || undefined}
+      data-landscape={image.width > image.height || undefined}
     >
       <PictureWithPlaceholder
         formats={['avif', 'webp']}
@@ -116,13 +163,15 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
           height: 24,
         }}
       />
-    </div>
+      {imageDescription && <figcaption>{imageDescription}</figcaption>}
+    </figure>
     <ul class={styles.controls}>
       <li>
         <a
           data-disabled={isFirst || undefined}
           href={isFirst ? undefined : previousUrl}
           aria-label={labels.previous}
+          tabindex={isFirst ? -1 : 0}
         >
           <svg
             width="16"
@@ -140,6 +189,7 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
           data-disabled={isLast || undefined}
           href={isLast ? undefined : nextUrl}
           aria-label={labels.next}
+          tabindex={isLast ? -1 : 0}
         >
           <svg
             width="16"
@@ -158,6 +208,7 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
       class={styles.thumbnailGridContainer}
       style={`--img-count: ${aboutImagesInfo.length - 1};`}
       tabindex="-1"
+      id="thumbnailGridContainer"
     >
       {
         aboutImagesInfo.map(async (imgInfo, index) => {
@@ -176,12 +227,12 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
 
           return (
             <PhotoCard
-              includeViewTransitionId={false}
               ImageComponent={ImageComponent}
               imageName={imgInfo.imageName}
               reverseRotation={false}
               disabled={imgInfo.id === imageInfo.id || undefined}
               index={index}
+              includeViewTransitionId={false}
             />
           );
         })

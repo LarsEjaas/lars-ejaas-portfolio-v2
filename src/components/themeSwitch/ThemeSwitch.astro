@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl } from '@i18n/utils';
-import './themeSwitch.css';
+import styles from './themeSwitch.module.css';
 
 type Props = {
   withGlow: boolean;
@@ -9,6 +9,8 @@ type Props = {
 
 const { withGlow, isMobile } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+
+/** input field have tabindex=0 as this is needed in Safari to set focus on the field */
 ---
 
 <script>
@@ -18,6 +20,7 @@ const lang = getLangFromUrl(Astro.url);
 
 <div
   id={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
+  class={isMobile ? styles.themeSwitchMobile : styles.themeSwitch}
   aria-label="Switch to dark mode"
   title="Switch to dark mode"
   data-lang={lang}
@@ -25,7 +28,9 @@ const lang = getLangFromUrl(Astro.url);
   <input
     aria-labelledby={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
     type="checkbox"
+    tabindex="0"
     id={isMobile ? 'themeToggleMobile' : 'themeToggle'}
+    class={isMobile ? styles.themeToggleMobile : styles.themeToggle}
     data-animation-disabled="true"
   />
   <span data-with-glow={withGlow || undefined}></span>

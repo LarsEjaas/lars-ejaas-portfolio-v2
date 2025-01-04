@@ -1,5 +1,5 @@
 .mobileMenu {
-  view-transition-name: mobileMenu;
+  view-transition-name: mobile-menu;
   z-index: 200;
   --border-color: light-dark(
     var(--verdigris-100-op),
@@ -12,9 +12,9 @@
     left: -10px;
     right: -10px;
   }
-  bottom: 24px;
-  left: 0;
-  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  right: env(safe-area-inset-right, 0);
+  left: env(safe-area-inset-left, 0);
   margin-inline: auto;
   padding-inline: 12px;
   padding-block: 8px;
@@ -27,6 +27,10 @@
   & a {
     border-radius: 30%;
     outline-offset: var(--outline-offset);
+    &[data-current] {
+      cursor: default;
+      pointer-events: none;
+    }
   }
   & .placeholder,
   & picture,
@@ -37,4 +41,10 @@
   & .placeholder {
     clip-path: url('#squircle');
   }
+}
+
+::view-transition-group(mobile-menu) {
+  z-index: 2;
+  border-radius: 16px;
+  overflow: hidden;
 }

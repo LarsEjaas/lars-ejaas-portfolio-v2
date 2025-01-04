@@ -29,16 +29,17 @@
 .desktopMenu {
   gap: 16px;
   width: 100%;
+  min-height: 64px;
   max-width: var(--break-point--2-xl);
   margin-inline: auto;
-  padding-block: 8px;
+  padding-block: 4px;
   padding-inline: 2rem;
   justify-content: space-between;
   & .actions,
   & nav,
   & .navSection {
     display: flex;
-    gap: 12px;
+    gap: 6px;
     align-items: center;
   }
   & .navSection {
@@ -49,37 +50,48 @@
     }
   }
   & .actions {
+    gap: 12px;
     & a {
       border-radius: 30%;
       outline-offset: var(--outline-offset);
     }
   }
   & .divider {
-    height: calc(100% - 8px);
+    height: calc(100% - 16px);
     --border-color: light-dark(
       var(--system-dark-300-55),
       var(--system-light-500)
     );
     margin-inline: 8px;
     border-right: 1px solid var(--border-color);
+    opacity: 0.5;
   }
   & nav {
     flex: 1 1 auto;
     min-width: 0;
     & a {
       color: var(--system-dark-300);
-      border-radius: 30%;
-      outline-offset: var(--outline-offset);
-      border-radius: var(--border-radius-sm);
+      border-radius: var(--border-radius-lg);
       text-decoration: underline transparent;
-      transition: text-decoration-color 0.25s;
+      transition:
+        text-decoration-color 300ms,
+        background-color 300ms;
+      transition-timing-function: linear;
       display: flex;
       align-items: center;
       gap: 8px;
       &:hover,
       &:focus-visible {
         text-decoration-color: currentColor;
-        transition: text-decoration-color 0.4s;
+        background-color: var(--system-dark-200-16);
+      }
+
+      &[data-current] {
+        cursor: default;
+        pointer-events: none;
+        & p {
+          color: var(--system-dark-300-55);
+        }
       }
       & p {
         user-select: none;
@@ -88,11 +100,15 @@
         text-wrap: nowrap;
       }
     }
+    & a:not(.homeLink) {
+      padding: 6px;
+    }
   }
 }
 
 .mobileActions {
   justify-content: space-between;
+  align-items: center;
 }
 
 .ejaasLogo {
@@ -113,21 +129,27 @@
   min-width: 0;
   & :global(.squircle) {
     flex-shrink: 1;
-    min-width: 0;
+    min-width: 24px;
   }
   & picture {
     width: 40px;
     aspect-ratio: 1/1;
   }
   & .placeholder {
-    width: 40px;
+    width: 100%;
     aspect-ratio: 1/1;
     clip-path: url('#squircle');
+  }
+  & p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
 .homeLink {
-  margin-right: 12px;
+  margin-right: 6px;
+  padding: 4px 6px;
 }
 
 .skillsLink p {

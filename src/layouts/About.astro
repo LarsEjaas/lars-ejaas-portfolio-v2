@@ -7,22 +7,48 @@ import PresentationCard from '@components/presentationCard/PresentationCard.astr
 import styles from './about.module.css';
 import ProfileImage from '@assets/images/profile.png';
 import PhotoCards from '@components/photoCards/PhotoCards.astro';
-import DrawingHouse from '@assets/aboutImages/drawing_house.png';
-import PictureWithPlaceholder from '../components/picture/PictureWithPlaceholder.astro';
+import type { DistributiveOmit } from '@customTypes/index';
+import Signature from '@assets/emailReplyImages/signature.png';
+import type { OpenGraph } from '@customTypes/seo';
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert } = Astro.props;
+const { title, description, inert, seo } = Astro.props;
 const t_about = useTranslations(lang, 'about');
 ---
 
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_about('about_title')} iconImage="about" />
+    <div>
+      <h2>
+        {t_about('life_outside_the_codebase')}
+      </h2>
+      <p class="body-text">{t_about('so_this_is_where')}</p>
+      <blockquote class={styles.quote}>
+        <p class="body-text">{t_about('i_didnt_start')}</p>
+      </blockquote>
+    </div>
     <PresentationCard
       gradientColor="princeton"
       title={t_about('hello')}
@@ -33,11 +59,15 @@ const t_about = useTranslations(lang, 'about');
     >
       <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">{t_about('i_am')}</h3>
-        <p class="small-body-text">{t_about('a_positive_and')}</p>
+        <p data-with-cutout="true" class="small-body-text">
+          {t_about('a_positive_and')}
+        </p>
         <h3 class="stylized-capitalized-text">{t_about('background')}</h3>
         <ul>
           <li class="small-body-text">{t_about('bachelors_degree')}</li>
-          <li class="small-body-text">{t_about('transitioned_to_a_caree')}</li>
+          <li class="small-body-text">
+            {t_about('transitioned_to_a_caree')}
+          </li>
         </ul>
         <h3 class="stylized-capitalized-text">{t_about('personal_life')}</h3>
         <ul>
@@ -45,6 +75,10 @@ const t_about = useTranslations(lang, 'about');
           <li class="small-body-text">{t_about('living_in_aarhus')}</li>
           <li class="small-body-text">{t_about('the_proud_father')}</li>
         </ul>
+        <h3 class="stylized-capitalized-text">
+          {t_about('when_i_do_not_code')}
+        </h3>
+        <p class="small-body-text">{t_about('i_enjoy_spending_time')}</p>
       </div>
     </PresentationCard>
   </div>
@@ -52,11 +86,18 @@ const t_about = useTranslations(lang, 'about');
   <article class={styles.article} id="aboutArticle">
     <div class={styles.articleContent}>
       <div class={styles.textContent}>
-        <h2>{t_about('a_winding_road')}</h2>
-        <h3>{t_about('from_racetracks_to_code_tracks')}</h3>
-        <p class="body-text">{t_about('life_rarely_follows')}</p>
+        <h2>
+          {t_about('an_unexpected_path_to_code')}
+        </h2>
+        <p class="body-text">{t_about('my_code_has_a_backstory')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <h3>{t_about('the_architectural_beginning')}</h3>
+        <p class="body-text">{t_about('pencil_met_paper')}</p>
+      </div>
+      <div class={styles.textContent}>
         <h3>{t_about('chasing_dreams')}</h3>
-        <p class="body-text">{t_about('for_13_seasons')}</p>
+        <p class="body-text">{t_about('a_few_years_before_my')}</p>
       </div>
       <div class={styles.imageContent}>
         <PhotoCards
@@ -70,11 +111,12 @@ const t_about = useTranslations(lang, 'about');
           imageNames={['dm_sønderborg_2009', 'nice_2009']}
         />
       </div>
-    </div>
-    <div class={styles.articleContent}>
       <div class={styles.textContent}>
-        <h3>{t_about('finding_my_stride')}</h3>
-        <p class="body-text">{t_about('my_thirties_saw')}</p>
+        <p class="body-text">{t_about('if_given_the_chance')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <h3>{t_about('trading_wheels_for_running_shoes')}</h3>
+        <p class="body-text">{t_about('after_cycling')}</p>
       </div>
       <div class={styles.imageContent}>
         <PhotoCards
@@ -88,10 +130,8 @@ const t_about = useTranslations(lang, 'about');
           ]}
         />
       </div>
-    </div>
-    <div class={styles.articleContent}>
       <div class={styles.textContent}>
-        <p class="body-text">{t_about('the_pinnacle')}</p>
+        <p class="body-text">{t_about('my_proudest_moment')}</p>
       </div>
       <div class={styles.imageContent}>
         <PhotoCards
@@ -100,48 +140,43 @@ const t_about = useTranslations(lang, 'about');
           imageNames={['hannover_2016_2', 'hannover_2016_1']}
         />
       </div>
-    </div>
-    <div class={styles.articleContent}>
       <div class={styles.textContent}>
-        <h3>{t_about('an_architectural_detour')}</h3>
-        <p class="body-text">{t_about('as_a_teenager')}</p>
+        <p class="body-text">{t_about('that_taught_me')}</p>
       </div>
-      <div class={styles.drawingHouse}>
-        <PictureWithPlaceholder
-          formats={['avif', 'webp']}
-          quality="high"
-          src={DrawingHouse}
-          alt={t_about('drawing_house_alt')}
-          widths={[260, 320, 440, 520]}
-          sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
-          loading="eager"
-          decoding="sync"
-          pictureAttributes={{
-            style: {
-              aspectRatio: `${DrawingHouse.width}/${DrawingHouse.height};`,
-            },
-          }}
-          classNames={{
-            placeholder: styles.placeholder,
-          }}
-          placeholderSettings={{
-            style: {
-              aspectRatio: `${DrawingHouse.width}/${DrawingHouse.height};`,
-            },
-            width: 32,
-          }}
+      <div class={styles.textContent}>
+        <h3>{t_about('the_winding_career_path')}</h3>
+        <p class="body-text">{t_about('despite_completing_a_bachelors')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <p class="body-text">{t_about('customer_support_positions')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <h3>{t_about('the_unexpected_discovery')}</h3>
+        <p class="body-text">{t_about('years_of_unfulfilling_jobs')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <h3>{t_about('starting_fresh_at_40')}</h3>
+        <p class="body-text">{t_about('taking_the_leap')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <h3>{t_about('where_i_am_today')}</h3>
+        <p class="body-text">{t_about('today_ive_found_my_place')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <h3>{t_about('the_lesson')}</h3>
+        <p class="body-text">{t_about('life_rarely_follows_a_linear_path')}</p>
+      </div>
+      <div class={styles.textContent}>
+        <p class={styles.endquote}>{t_about('keep_chasing_your_dreams')}</p>
+        <img
+          class={styles.signature}
+          src={Signature.src}
+          width="150"
+          height="62"
+          style="filter: brightness(0.7); border: none;"
+          alt={t_about('signature_of')}
         />
       </div>
     </div>
-    <div class={styles.articleContent}>
-      <div class={styles.textContent}>
-        <h3>{t_about('a_lateblooming_passion')}</h3>
-        <p class="body-text">{t_about('it_wasnt_until')}</p>
-        <h3>{t_about('the_lesson')}</h3>
-        <p class="body-text">{t_about('if_theres_one')}</p>
-      </div>
-    </div>
   </article>
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
 </Layout>

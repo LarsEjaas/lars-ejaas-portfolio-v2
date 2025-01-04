@@ -1,4 +1,4 @@
-import type { TechSkill } from '@content/techSkills';
+import type { TechSkill } from '@collections/techSkills';
 import type { SVGFileType } from './index';
 
 export type SkillRating = 1 | 2 | 3 | 4 | 3.5 | 0.5 | 1.5 | 2.5 | 4.5 | 5;
@@ -13,10 +13,5 @@ export type SkillInfo = {
 };
 
 export type TechSkillItems = Record<TechSkill, SkillInfo>;
-
-export type SkillDescriptions = Record<
-  TechSkill,
-  (_props: Record<string, never>) => any
->;
 
 export type SkillRatings = Record<TechSkill, { rating: SkillRating }>;

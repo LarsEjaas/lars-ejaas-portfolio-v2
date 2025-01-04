@@ -1,6 +1,6 @@
 ---
 import styles from './techSkillsMarquee.module.css';
-import { techSkills } from '@content/techSkills';
+import { getTechSkillEntries } from '@collections/techSkills';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 
 type Props = Record<string, never>;
@@ -12,6 +12,8 @@ const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 const { skill } = Astro.params;
+
+const techSkills = getTechSkillEntries(lang);
 
 // Process SVGs
 const processedSkills = await Promise.all(
@@ -56,17 +58,23 @@ const processedSkills = await Promise.all(
   }
 </script>
 <div class={styles.marquee} style={`--number-of-items: ${techSkills.length}`}>
-  <div class={styles.scene} id="skillTileScene">
-    <ul class={styles.skillsGrid}>
+  <nav
+    class={styles.scene}
+    id="skillTileScene"
+    role="menubar"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+  >
+    <div class={styles.skillsGrid}>
       {
         processedSkills.map(async (techSkill) => {
           if (techSkill)
             return (
-              <li class={styles.skill} style={`--index: ${techSkill.index};`}>
+              <div class={styles.skill} style={`--index: ${techSkill.index};`}>
                 <a
-                  href={translatePath(`skills/${techSkill.href}/`)}
+                  href={`${translatePath(`skills/${techSkill.href}/`)}#skillPresentation`}
                   title={techSkill.title}
                   data-arrow-nav="true"
+                  role="menuitem"
                   data-active={
                     skill && skill === techSkill.href ? 'true' : undefined
                   }
@@ -81,23 +89,25 @@ const processedSkills = await Promise.all(
                       src={techSkill.svgFile.src}
                       width={techSkill.svgFile.width}
                       height={techSkill.svgFile.height}
+                      alt={`${techSkill.title} logo`}
+                      aria-hidden="true"
                     />
                   </div>
                 </a>
-              </li>
+              </div>
             );
         })
       }
       <!-- Extra items to fill empty slots in the marquee grid. Excess items will automatically be layered below other skill cards. -->
       {
         [1, 2, 3, 4, 5].map((_placeholder, index) => (
-          <li
+          <div
             class={styles.skill}
             data-placeholder={true}
             style={`--index: ${index + techSkills.length};`}
           />
         ))
       }
-    </ul>
-  </div>
+    </div>
+  </nav>
 </div>

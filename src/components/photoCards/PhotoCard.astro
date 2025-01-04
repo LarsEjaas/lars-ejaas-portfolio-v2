@@ -1,7 +1,7 @@
 ---
 import styles from './photoCard.module.css';
-import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
-import { getLangFromUrl } from '@i18n/utils';
+import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import { useTranslatedPath } from '@i18n/utils';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
@@ -13,6 +13,8 @@ type Props = {
   /** Can be used to rotate all the images in the opposite direction */
   reverseRotation?: boolean;
   disabled?: boolean;
+  /** Manually pass a viewTransitionId. If not provided, one will be generated from the imageInfo.id. */
+  viewTransitionId?: string;
 };
 
 const CARD_ROTATIONS = [-4, 6, -2, 3, -5, 2, -4, 3, -4, 2, -5, 4, -3, 2, -4, 5];
@@ -25,6 +27,7 @@ const {
   reverseRotation,
   index,
   includeViewTransitionId,
+  viewTransitionId,
   disabled,
 } = Astro.props;
 
@@ -39,25 +42,31 @@ const imageAlt =
 const englishUrl = `/about/${imageInfo.hrefEN}/` as const;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
+const t = useTranslations(lang, 'navigation');
 ---
 
 <a
   href={translatePath(englishUrl)}
   id={includeViewTransitionId ? imageInfo.id : undefined}
   class={styles.anchor}
+  tabindex={disabled ? -1 : 0}
   data-disabled={disabled || undefined}
   data-reverse-rotate={reverseRotation || undefined}
   style={`--index: ${index}; --rotation: ${CARD_ROTATIONS[index]}deg;`}
 >
+  <p class="sr-only">
+    {`${t('go_to_image')}: ${imageInfo[lang === 'en' ? 'titleEN' : 'titleDA']}`}
+  </p>
   <div
     class={styles.photocard}
     style={includeViewTransitionId
-      ? `view-transition-name: ${imageInfo.id};`
+      ? `view-transition-name: ${viewTransitionId || imageInfo.id};`
       : undefined}
   >
     <PictureWithPlaceholder
       formats={['avif', 'webp']}
       quality="high"
+      aria-disabled={disabled || undefined}
       src={ImageComponent}
       alt={imageAlt}
       width={ImageComponent.width}

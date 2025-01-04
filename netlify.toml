@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "22.12.0"
-  AWS_LAMBDA_JS_RUNTIME = "nodejs20.x"
+  AWS_LAMBDA_JS_RUNTIME = "nodejs22.x"
 
 [build.processing.html]
   pretty_urls = true
@@ -35,7 +35,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Content-Type-Options = "nosniff"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'self';"
+    Content-Security-Policy = "default-src 'self' https://*.piwik.pro; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'self';"
 
 [[headers]]
   for = "/assets/*"

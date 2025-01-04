@@ -9,6 +9,9 @@ import {
 import type { SlugWithSkillKeys } from '@i18n/routes';
 import ConditionalLink from './ConditionalLink.astro';
 import WorkCardImage from './WorkCardImage.astro';
+import CurrentEmploymentBadge from './CurrentEmploymentBadge.astro';
+import CalendarIcon from './CalendarIcon.astro';
+import CodeIcon from './CodeIcon.astro';
 
 type Props = {
   inert: boolean;
@@ -19,9 +22,10 @@ type Props = {
    */
   id: string;
   date: string;
-  headerImage: ImageMetadata;
-  headerImageAlt: string;
-  tags?: { title: string; href: SlugWithSkillKeys }[];
+  headerImage?: ImageMetadata;
+  headerImageAlt?: string;
+  currentEmployment?: boolean;
+  tags?: { title: string; href?: SlugWithSkillKeys }[];
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
@@ -46,6 +50,7 @@ const {
   date,
   headerImage,
   headerImageAlt,
+  currentEmployment,
   tags,
   viewTransitionName,
   animatedHeader,
@@ -53,11 +58,27 @@ const {
   href,
   footerImages,
   className,
+  /** data-attributes, etc. */
+  ...rest
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 const t = useTranslations(lang, 'navigation');
+
+if (headerImage && !headerImageAlt) {
+  console.warn(
+    `<WorkCard> headerImageAlt is missing for ${headerImage.src}. This is required for accessibility.`
+  );
+}
+
+footerImages?.forEach((footerImage) => {
+  if (!footerImage.alt) {
+    console.warn(
+      `<WorkCard> footerImage.alt is missing for ${footerImage.src.src}. This is required for accessibility.`
+    );
+  }
+});
 ---
 
 <script>
@@ -110,39 +131,36 @@ const t = useTranslations(lang, 'navigation');
   viewTransitionName={viewTransitionName}
   id={id}
   className={className}
+  {...rest}
 >
-  <div class={styles.headerContent}>
-    <ConditionalLink href={href}>
-      <WorkCardImage
-        image={{ src: headerImage, alt: headerImageAlt }}
-        pictureAttributes={{
-          class: styles.picture,
-          'data-animated': animatedHeader || null,
-          style: {
-            '--animation-delay': `${animationDelay || 0}ms`,
-          },
-        }}
-      />
-    </ConditionalLink>
-    {headline && <h2>{headline}</h2>}
+  {currentEmployment && <CurrentEmploymentBadge lang={lang} />}
+  <div data-with-image={!!headerImage || undefined} class={styles.header}>
+    <div class={styles.headerContent}>
+      <ConditionalLink href={href}>
+        {
+          headerImage && (
+            <WorkCardImage
+              image={{ src: headerImage, alt: headerImageAlt || '' }}
+              pictureAttributes={{
+                class: styles.picture,
+                'data-animated': animatedHeader || null,
+                style: {
+                  '--animation-delay': `${animationDelay || 0}ms`,
+                },
+              }}
+            />
+          )
+        }
+      </ConditionalLink>
+      {headline && <h2>{headline}</h2>}
+    </div>
   </div>
   <div class={styles.cardContent}>
     {subHeadline && <h3 class="stylized-capitalized-text">{subHeadline}</h3>}
     {
       date && (
-        <div class={styles.dateWrapper}>
-          <svg
-            width="12"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 12 13"
-            style="margin-bottom:3px;"
-          >
-            <path
-              d="M1.3 13.5c-.3 0-.6-.1-1-.4-.2-.2-.3-.5-.3-.9V3.1c0-.4.1-.7.4-1 .3-.2.6-.3 1-.3H2V.5h1.3v1.3h5.4V.5H10v1.3h.7c.3 0 .6.1 1 .4.2.2.3.5.3.9v9.1c0 .4-.1.7-.4 1-.3.2-.6.3-1 .3H1.4Zm0-1.3h9.4V5.7H1.3v6.5Zm0-7.8h9.4V3.1H1.3v1.3ZM6 8.3c-.2 0-.3 0-.5-.2a.6.6 0 0 1-.2-.4l.2-.5L6 7c.2 0 .3 0 .5.2l.2.5-.2.4-.5.2Zm-2.7 0c-.2 0-.3 0-.4-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.4-.2c.2 0 .4 0 .5.2l.2.5c0 .1 0 .3-.2.4l-.5.2Zm5.4 0c-.2 0-.4 0-.5-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.5-.2c.2 0 .3 0 .4.2.2.1.2.3.2.5 0 .1 0 .3-.2.4l-.4.2ZM6 10.9c-.2 0-.3 0-.5-.2a.6.6 0 0 1-.2-.4l.2-.5.5-.2c.2 0 .3 0 .5.2l.2.4-.2.5-.5.2Zm-2.7 0c-.2 0-.3 0-.4-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.4-.2c.2 0 .4 0 .5.2l.2.4c0 .2 0 .4-.2.5l-.5.2Zm5.4 0c-.2 0-.4 0-.5-.2a.6.6 0 0 1-.2-.4c0-.2 0-.4.2-.5l.5-.2c.2 0 .3 0 .4.2.2.1.2.3.2.4 0 .2 0 .4-.2.5l-.4.2Z"
-              opacity="0.8"
-            />
-          </svg>
+        <div class={styles.textWithIcon}>
+          <CalendarIcon />
           <p class="small-body-text">{date}</p>
         </div>
       )
@@ -150,28 +168,39 @@ const t = useTranslations(lang, 'navigation');
     <slot />
     {
       tags && (
-        <div
-          id={`${id}WorkCardTags`}
-          role="group"
-          aria-keyshortcuts="ArrowLeft ArrowRight"
-          aria-describedby={`${id}tagsArrowNavDescription`}
-        >
-          <span id={`${id}tagsArrowNavDescription`} class="sr-only">
-            {t('section_with_arrow_nav')}
-          </span>
-          <ul class={styles.tags}>
+        <div id={`${id}WorkCardTags`} class={styles.tagsWrapper}>
+          <div class={styles.textWithIcon}>
+            <CodeIcon />
+            <p id={`${id}tagsArrowNavDescription`} class="small-body-text">
+              {t('tech_stack')}
+            </p>
+          </div>
+          <nav
+            class={styles.tags}
+            role="menubar"
+            aria-orientation="horizontal"
+            aria-keyshortcuts="ArrowLeft ArrowRight"
+            aria-describedby={`${id}tagsArrowNavDescription`}
+          >
             {tags.map((tag) => (
-              <li>
-                <a
-                  data-arrow-nav="true"
-                  href={translatePath(`${tag.href}/`)}
-                  class={styles.tag}
-                >
-                  {tag.title}
-                </a>
-              </li>
+              <>
+                {tag.href ? (
+                  <a
+                    role="menuitem"
+                    data-arrow-nav="true"
+                    href={`${translatePath(`${tag.href}/`)}#skillPresentation`}
+                    class={styles.tag}
+                  >
+                    {tag.title}
+                  </a>
+                ) : (
+                  <span role="menuitem" class={styles.tag}>
+                    {tag.title}
+                  </span>
+                )}
+              </>
             ))}
-          </ul>
+          </nav>
         </div>
       )
     }
@@ -194,29 +223,32 @@ const t = useTranslations(lang, 'navigation');
         </ul>
         <div
           id={`${id}footerNavigation`}
-          role="group"
+          role="menubar"
           aria-describedby={`${id}ArrowNav`}
+          aria-keyshortcuts="ArrowLeft ArrowRight"
         >
-          <span
-            id={`${id}ArrowNav`}
-            aria-keyshortcuts="ArrowLeft ArrowRight"
-            class="sr-only"
-          >
-            {t('section_with_arrow_nav')}
-          </span>
-          <ul
+          <div
             style={{
               '--slide-length': footerImages?.length,
             }}
             class={styles.controls}
           >
             {footerImages?.length > 1 &&
-              footerImages.map((image) => (
-                <li class={styles.control}>
-                  <a href={`#${image.id}`} data-arrow-nav="true" />
-                </li>
+              footerImages.map((image, index) => (
+                <div class={styles.control}>
+                  <a
+                    href={`#${image.id}`}
+                    role="menuitem"
+                    data-arrow-nav="true"
+                    title={`${t('scroll_to_image')} ${index + 1}`}
+                  >
+                    <p class="sr-only">
+                      {`${t('scroll_to_image')} ${index + 1}`}
+                    </p>
+                  </a>
+                </div>
               ))}
-          </ul>
+          </div>
         </div>
       </div>
     )

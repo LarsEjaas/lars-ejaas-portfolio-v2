@@ -11,12 +11,6 @@
   }
 }
 
-@media (max-width: 768px) {
-  .baloons {
-    grid-row: 4;
-  }
-}
-
 .articleCard {
   display: block;
   position: relative;
@@ -33,34 +27,32 @@
   }
 }
 
-.article {
-  composes: article from '@components/carousel/carousel.module.css';
-}
-
-.outline1 {
-  composes: outline1 from '@components/carousel/carousel.module.css';
-}
-
-.outline2 {
-  composes: outline2 from '@components/carousel/carousel.module.css';
-}
-
-.outline3 {
-  composes: outline3 from '@components/carousel/carousel.module.css';
-}
-
-.outline4 {
-  composes: outline4 from '@components/carousel/carousel.module.css';
-}
-
-.outlinegold {
-  composes: outlinegold from '@components/carousel/carousel.module.css';
-}
-
-.newsContent {
-  composes: newsContent from '@components/carousel/carousel.module.css';
-}
-
-.date {
-  composes: date from '@components/carousel/carousel.module.css';
+.animationTimeline {
+  display: contents;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      & .animatedWorkCard,
+      & .animatedText:not([data-mobile-animation='false']),
+      & .articleCard {
+        animation: var(--animation-scale-up);
+        animation-timeline: view();
+        animation-range: var(--scale-up-animation-range);
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    & .baloons {
+      grid-row: 4;
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          animation: var(--animation-scale-up);
+          animation-timeline: view();
+          animation-range: var(--scale-up-animation-range);
+        }
+      }
+    }
+    & .animatedWorkCard[data-mobile-animation='false'] {
+      animation: none;
+    }
+  }
 }

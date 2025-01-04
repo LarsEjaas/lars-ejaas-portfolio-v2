@@ -8,7 +8,8 @@ import Work from '@layouts/work/Work.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
-import Description from '@content/techSkillDescriptions/Main.astro';
+import Description from '@collections/techSkillDescriptions/Main.astro';
+import PrivacyPolicy from '@layouts/PrivacyPolicy.astro';
 
 type Props = Record<string, never>;
 
@@ -25,6 +26,7 @@ export function getStaticPaths() {
     ['om-mig']: { params: { lang: 'da', slug: 'om-mig' } },
     arkiv: { params: { lang: 'da', slug: 'arkiv' } },
     ['email-svar']: { params: { lang: 'da', slug: 'email-svar' } },
+    privatlivspolitik: { params: { lang: 'da', slug: 'privatlivspolitik' } },
   });
   return Object.values(paths);
 }
@@ -39,10 +41,32 @@ const danishSlugMap: Record<
   {
     component: AstroComponentFactory;
     title: string;
+    description: string;
+    seo: {
+      openGraph: {
+        image: {
+          name: string;
+          alt: string;
+        };
+      };
+      noIndex?: true;
+    };
     techSkill?: TechSkillProps;
   }
 > = {
-  arbejde: { component: Work, title: t('work') },
+  arbejde: {
+    component: Work,
+    title: t('work'),
+    description: t('work_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'work_en',
+          alt: t('work_seo_image_alt'),
+        },
+      },
+    },
+  },
   kompetencer: {
     component: Skills,
     title: t('skills'),
@@ -50,19 +74,106 @@ const danishSlugMap: Record<
       title: t('tech_skills'),
       description: Description,
     },
+    description: t('skills_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'skills_en',
+          alt: t('skills_seo_image_alt'),
+        },
+      },
+    },
   },
-  ['om-mig']: { component: About, title: t('about') },
-  arkiv: { component: Archive, title: t('archive') },
+  ['om-mig']: {
+    component: About,
+    title: t('about'),
+    description: t('about_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'about_en',
+          alt: t('about_seo_image_alt'),
+        },
+      },
+    },
+  },
+  arkiv: {
+    component: Archive,
+    title: t('archive'),
+    description: t('archive_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'archive_en',
+          alt: t('archive_seo_image_alt'),
+        },
+      },
+    },
+  },
   ['email-svar']: {
     component: EmailReply,
     title: t('thank_you_for_your_email'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Do not index this reply-page
+      noIndex: true,
+    },
+    description: t('contact_seo_description'),
+  },
+  privatlivspolitik: {
+    component: PrivacyPolicy,
+    title: t('privacy_policy'),
+    description: t('privacy_policy_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'default_da',
+          alt: t('default_seo_image_alt'),
+        },
+      },
+    },
   },
 };
 
 const pageTitle = danishSlugMap[slug]?.title;
+const description = danishSlugMap[slug]?.description;
 
-const PageContent = danishSlugMap[slug]?.component;
-const techSkill = danishSlugMap[slug]?.techSkill;
+const PageContent = danishSlugMap[slug]?.component as
+  | typeof About
+  | typeof Skills;
+
+const imageName = danishSlugMap[slug]?.seo.openGraph.image.name;
+
+const imageAlt = danishSlugMap[slug]?.seo.openGraph.image.alt;
+
+const noIndex = danishSlugMap[slug]?.seo.noIndex;
+
+const restProps = (
+  'techSkill' in danishSlugMap[slug]
+    ? {
+        techSkill: danishSlugMap[slug].techSkill,
+      }
+    : {}
+) as { techSkill: TechSkillProps };
 ---
 
-<PageContent title={pageTitle} inert={false} techSkill={techSkill} />
+<PageContent
+  title={pageTitle}
+  inert={false}
+  seo={{
+    openGraph: {
+      image: {
+        name: imageName,
+        alt: imageAlt,
+      },
+    },
+    noIndex: noIndex ?? false,
+  }}
+  description={description}
+  {...restProps}
+/>

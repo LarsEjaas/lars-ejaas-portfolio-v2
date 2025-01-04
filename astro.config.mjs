@@ -1,23 +1,47 @@
 import { defineConfig } from 'astro/config';
 import netlify from '@astrojs/netlify';
-import node from '@astrojs/node';
+import sitemap from '@astrojs/sitemap';
+import { loadEnv } from 'vite';
 
-let adapter = netlify({
-  edgeMiddleware: false,
-  functionPerRoute: false,
-});
+const { createSitemapFilter, serializeSitemap } = await import(
+  /* @vite-ignore */
+  new URL('./src/utils/sitemapUtils.mjs', import.meta.url)
+);
 
-if (process.argv[3] === '--node' || process.argv[4] === '--node') {
-  adapter = node({ mode: 'standalone' });
-}
+const { NODE_ENV, SITE_URL: SITE_URL_RAW } = loadEnv(
+  process.env.NODE_ENV,
+  process.cwd(),
+  ''
+);
+
+const SITE_URL = SITE_URL_RAW.endsWith('/')
+  ? SITE_URL_RAW.slice(0, -1)
+  : SITE_URL_RAW;
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://larsejaas.com',
-  adapter,
+  site: SITE_URL,
+  adapter: netlify({
+    edgeMiddleware: false,
+    functionPerRoute: false,
+  }),
+  integrations: [
+    sitemap({
+      xslURL: '/sitemap.xsl',
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          da: 'da-DK',
+        },
+      },
+      filter: createSitemapFilter,
+      serialize: serializeSitemap,
+    }),
+  ],
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'viewport',
+    defaultStrategy: 'load',
   },
   redirects: {
     '/en': '/',
@@ -51,18 +75,7 @@ export default defineConfig({
   },
   vite: {
     build: {
-      minify: process.env.NODE_ENV === 'production',
-      // rollupOptions: {
-      //   input: {
-      //     main: './src/scripts/restoreScrollPosition.ts',
-      //   },
-      //   output: {
-      //     entryFileNames: 'restoreScrollPosition.min.js',
-      //   },
-      // },
-      define: {
-        'import.meta.env.DEV': JSON.stringify(process.env.DEV || false),
-      },
+      minify: NODE_ENV === 'production',
     },
   },
 });

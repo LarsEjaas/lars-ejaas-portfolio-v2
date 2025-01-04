@@ -1,12 +1,16 @@
 ---
 import Layout from '@layouts/Root.astro';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslations,
+} from '@i18n/utils';
 import Logo1 from '@assets/emailReplyImages/logo1_email.png';
 import Logo2 from '@assets/emailReplyImages/logo2_email.png';
 import ProfilePicture from '@assets/emailReplyImages/profile.png';
 import Signature from '@assets/emailReplyImages/signature.png';
 import GitHubIcon from '@assets/emailReplyImages/github_icon.png';
-import XIcon from '@assets/emailReplyImages/x_icon.png';
+import BlueskyIcon from '@assets/emailReplyImages/bluesky_icon.png';
 import LinkedInIcon from '@assets/emailReplyImages/linkedin_icon.png';
 import LetterIcon from '@assets/emailReplyImages/letter_icon.png';
 
@@ -18,6 +22,10 @@ type Props = {
 const { title, inert } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'emailReply');
+
+const siteUrl = removeTrailingSlash(
+  import.meta.env.SITE_URL || 'https://example.com'
+);
 ---
 
 <script>
@@ -31,8 +39,13 @@ const t = useTranslations(lang, 'emailReply');
   }
 </script>
 <Layout
-  title={title}
   inert={inert}
+  seo={{
+    metaData: { title },
+    openGraph: undefined,
+    // Do not index emailReply page
+    noIndex: true,
+  }}
   withDarkkModeToggle={false}
   withModalLinks={false}
 >
@@ -170,7 +183,7 @@ const t = useTranslations(lang, 'emailReply');
                                   font-family: 'Heebo', Arial, sans-serif;
                                   font-size: 25px;
                                   line-height: 32px;
-                                  text-align: left;
+                                  text-align: center;
                                   padding-bottom: 20px;
                                 "
                     >
@@ -186,7 +199,7 @@ const t = useTranslations(lang, 'emailReply');
                                     sans-serif;
                                   font-size: 14px;
                                   line-height: 26px;
-                                  text-align: left;
+                                  text-align: center;
                                   padding-bottom: 20px;
                                 "
                     >
@@ -204,9 +217,7 @@ const t = useTranslations(lang, 'emailReply');
                                 text-align: center;
                               "
                   >
-                    <span><b>{t('have_a_great_day')}</b></span><br /><span
-                      >Lars</span
-                    >
+                    <span><b>{t('have_a_great_day')}</b></span><br /><br />
                   </td>
                   <tr>
                     <td
@@ -369,7 +380,7 @@ const t = useTranslations(lang, 'emailReply');
                   >
                     {t('visit_my_website')}
                     <a
-                      href="https://larsejaas.com"
+                      href={lang === 'en' ? siteUrl : `${siteUrl}/da/`}
                       target="_blank"
                       style="
                                   text-decoration: underline;
@@ -416,13 +427,14 @@ const t = useTranslations(lang, 'emailReply');
                                       "
                           >
                             <a
-                              href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
+                              href="https://bsky.app/profile/larsejaas.bsky.social"
                               target="_blank"
+                              rel="noopener noreferrer"
                               ><img
-                                src={XIcon.src}
+                                src={BlueskyIcon.src}
                                 width="32"
                                 height="32"
-                                alt="X logo"
+                                alt="Bluesky logo"
                                 style="border:unset"
                               /></a
                             >
@@ -439,6 +451,8 @@ const t = useTranslations(lang, 'emailReply');
                             <a
                               href="https://www.linkedin.com/in/lars-ejaas"
                               target="_blank"
+                              target="_blank"
+                              rel="noopener noreferrer"
                               ><img
                                 src={LinkedInIcon.src}
                                 width="32"
@@ -490,13 +504,17 @@ const t = useTranslations(lang, 'emailReply');
                           >
                             {t('this_is_an_automated_response')}
                             <a
-                              href="https://larsejaas.com/contact"
+                              href={`${siteUrl}/${lang === 'en' ? 'contact/' : 'da/kontakt/'}`}
                               target="_blank"
                               style="
                                           text-decoration: underline;
                                           color: #00adb7;
                                         "
-                              >larsejaas.com/contact</a
+                              >{
+                                lang === 'en'
+                                  ? 'larsejaas.com/contact'
+                                  : 'larsejaas.com/da/kontakt'
+                              }</a
                             >
                           </td>
                         </tr>

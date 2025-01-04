@@ -57,11 +57,8 @@ const gridTemplateColumns = await calculateGridTemplateColumns(imageImports);
 ---
 
 <script>
-  import {
-    checkIfPreviousRouteWasLightbox,
-    storeScrollPositionOnClick,
-  } from '@utils/scrollPosition';
-  import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
+  import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
 
   const imageIds = aboutImagesInfo.map((imageName) => imageName.id);
 
@@ -74,10 +71,6 @@ const gridTemplateColumns = await calculateGridTemplateColumns(imageImports);
       const imageAnchor: HTMLAnchorElement =
         id in window ? window[id as keyof Window] : null;
       if (imageAnchor) {
-        const navigatesFromLightbox = checkIfPreviousRouteWasLightbox();
-        if (navigatesFromLightbox) {
-          imageAnchor.dataset.disableAnimation = 'true';
-        }
         storeScrollPositionOnClick(imageAnchor);
       }
     });

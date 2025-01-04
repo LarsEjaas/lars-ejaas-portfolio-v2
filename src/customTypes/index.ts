@@ -125,7 +125,8 @@ export type IconImage =
   | 'share'
   | 'skillset'
   | 'work'
-  | 'archive';
+  | 'archive'
+  | 'lock';
 
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
@@ -160,7 +161,24 @@ export function hasProperty<
 >(key: KeyType, obj: ObjectType): key is KeyType & keyof ObjectType {
   return key in obj;
 }
-/**  Sets all properties of T to required recursively */
-export type DeepRequired<T> = Required<{
-  [K in keyof T]: T[K] extends Required<T[K]> ? T[K] : DeepRequired<T[K]>;
-}>;
+
+/**
+ * Utility type used to make union types more readable in the IDE.
+ * @example
+ * type Intersected = {
+ *   a: number;
+ * } & {
+ *   b: number;
+ * } & {
+ *   c: string;
+ * };
+ * type Result = PrettifyUnion<intersected>
+ */
+export type PrettifyUnion<Type> = {
+  [Key in keyof Type]: Type[Key];
+} & {};
+
+/** Omit one- or more keys from a union type */
+export type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? PrettifyUnion<Omit<T, K>>
+  : never;

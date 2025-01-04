@@ -2,7 +2,7 @@
 import type { Language } from '@i18n/settings';
 import Layout from '@layouts/Root.astro';
 import Carousel from '@components/carousel/Carousel.astro';
-import { newsItems } from '@content/newsItems';
+import { newsItems } from '@collections/newsItems';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
@@ -17,37 +17,77 @@ import DownloadIcon from '@components/icons/DownloadIcon.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import { Picture } from 'astro:assets';
 import Sparkle from '@components/sparkle/Sparkle.astro';
+import type { DistributiveOmit } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
+import { getPublicFiles } from '../utils/publicFileValidator';
+
+/** Add a key that easily identifies the latest resume - located in public/resume */
+const LATEST_RESUME_KEY = 'july_2024';
 
 type Props = {
   title: string;
+  description: string;
   lang: Language;
   inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex?: boolean };
 };
 
-const resumeFiles = import.meta.glob('@assets/resume/*.pdf');
-
-/** Add a key that easily identifies the latest resume - located in public/resume */
-const LATEST_RESUME_KEY = 'july_2024.pdf';
+const resumeFiles = getPublicFiles('resume');
 
 // Get the correct  resume PDF file
-const latestResumeURL = resumeFiles
-  ? Object.entries(resumeFiles).find(([path]) =>
-      path.includes(LATEST_RESUME_KEY)
-    )?.[0]
-  : undefined;
+const latestResumeURL = `/${
+  resumeFiles
+    ? Object.values(resumeFiles).find(
+        (filePath) =>
+          filePath.includes(LATEST_RESUME_KEY) && filePath.endsWith('.pdf')
+      )
+    : undefined
+}`;
 
 if (!latestResumeURL) {
   throw new Error(`No resume file found for ${latestResumeURL}`);
 }
 
-const { title, lang, inert } = Astro.props;
+const { title, description, lang, inert, seo } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
+
+/** Achors have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
-<Layout title={title} inert={inert}>
+<script>
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
+
+  if (window.contactButton) {
+    storeScrollPositionOnClick(window.contactButton);
+  }
+</script>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
   <div class="presentation">
-    <PageLabel title={t_home('home_title')} iconImage="ejaas" />
+    <PageLabel title={title} iconImage="ejaas" />
+    <div>
+      <h2>
+        {t_home('hi_my_name_is')}
+      </h2>
+      <p class="body-text">{t_home('a_developer_driven')}</p>
+      <blockquote class={`${styles.quoteColor} ${styles.quote}`}>
+        <p class="body-text">{t_home('this_little_corner')}</p>
+      </blockquote>
+    </div>
     <PresentationCard
       gradientColor="verdigris"
       title="Lars Ejaas"
@@ -59,13 +99,16 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         <h3 class="stylized-capitalized-text">
           {t_home('frontend_developer')}
         </h3>
-        <p class="small-body-text">
-          {t_home('frontend_developer_description')}
-        </p>
+        <p
+          class="small-body-text"
+          set:html={t_home('frontend_developer_description')}
+        />
         <div class={styles.contactContainer}>
           <Sparkle>
             <a
+              id="contactButton"
               data-arrow-nav="true"
+              tabindex="0"
               href={contactUrl}
               title={t_home('contact')}
               aria-label={t_home('contact')}
@@ -89,16 +132,17 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                     }}
                   />
                 </div>
-                <p class="small-body-text">
-                  {t_home('hi_there')}
-                </p>
+                <p
+                  class="small-body-text"
+                  set:html={t_home('got_something_on')}
+                />
               </div>
             </a>
           </Sparkle>
         </div>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
-            <a href="/about" title={t_home('about_me_title')}>
+            <a href="/about" title={t_home('about_me_title')} tabindex="0">
               <AboutIcon />
               <p>{t_home('about_me')}</p>
             </a>
@@ -106,6 +150,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               href={latestResumeURL}
               download
               title={t_home('download_resume_title')}
+              tabindex="0"
             >
               <DownloadIcon className={styles.downloadIcon} />
               <p>{t_home('download_resume')}</p>
@@ -127,6 +172,4 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     items={newsItems[lang]}
     inert={inert}
   />
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
 </Layout>

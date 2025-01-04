@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exclude from Sitemap",
+  "description": "Schema for defining paths that should be excluded from the sitemap as well as patterns that should only appear once in the sitemap at the root level.",
+  "type": "object",
+  "properties": {
+    "rootOnlyPatterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "The slug that appears at the end of URLs (e.g., 'contact'). Should be defined in the default language."
+          },
+          "variations": {
+            "type": "object",
+            "description": "Variations of the slug for different languages (default language not included).",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["slug", "variations"],
+        "additionalProperties": false
+      },
+      "required": false,
+      "description": "Patterns that should appear only once in the sitemap at the root level.\n\nTo exclude a pattern completely from the sitemap, add it to the `excludedPaths` array and add the root level paths in the 'excludedPaths' array."
+    },
+    "excludedPaths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "The path to exclude from the sitemap. Must include all slugs(including localization) but not protocol. eg.: '/some-example-path'.",
+        "required": false,
+        "additionalProperties": false
+      },
+      "description": "Paths to exclude from the sitemap.\n\nTo exclude a pattern completely from the sitemap, you also need to add the pattern to the `excludedPaths` array as well."
+    }
+  },
+  "required": [],
+  "additionalProperties": true
+}

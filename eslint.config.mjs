@@ -37,7 +37,10 @@ export default [
 
     rules: {
       ...eslintPluginAstro.configs.recommended.rules,
-      'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+      'no-console': [
+        'error',
+        { allow: ['warn', 'error', 'info', 'table', 'group', 'groupEnd'] },
+      ],
       // Add any Astro-specific rules here
     },
   },
@@ -54,7 +57,10 @@ export default [
       '@typescript-eslint': tsPlugin,
     },
     rules: {
-      'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+      'no-console': [
+        'error',
+        { allow: ['warn', 'error', 'info', 'table', 'group', 'groupEnd'] },
+      ],
       '@typescript-eslint/ban-ts-comment': 'off',
       // note you must disable the base rule
       // as it can report incorrect errors
@@ -76,7 +82,10 @@ export default [
   {
     files: ['**/*.mjs'],
     rules: {
-      'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+      'no-console': [
+        'error',
+        { allow: ['warn', 'error', 'info', 'table', 'group', 'groupEnd'] },
+      ],
       // Add any JavaScript-specific rules here
     },
   },

@@ -38,38 +38,96 @@ const modalMap: Record<
   ModalTypes<'en'>,
   {
     component: AstroComponentFactory;
-    icon: ImageMetadata;
+    modalIcon: ImageMetadata;
     title: string;
+    description: string;
+    seo: {
+      openGraph: {
+        image: {
+          name: string;
+          alt: string;
+        };
+      };
+      noIndex?: true;
+    };
   }
 > = {
   share: {
     component: ShareContent,
-    icon: IconShare,
+    modalIcon: IconShare,
     title: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_en',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+    },
   },
   contact: {
     component: ContactContent,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('contact_title'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+    },
   },
   ['message-received']: {
     component: ContactConfirmation,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Do not index this confirmation-page
+      noIndex: true,
+    },
   },
   ['message-error']: {
     component: ContactError,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Do not index this error-page
+      noIndex: true,
+    },
   },
 };
 
 const ModalContent: AstroComponentFactory | undefined =
   modalMap[modal]?.component;
 
-const iconImage = modalMap[modal]?.icon;
+const iconImage = modalMap[modal]?.modalIcon;
 
 const modalTitle = modalMap[modal]?.title;
+
+const description = modalMap[modal]?.description;
+
+const imageName = modalMap[modal]?.seo.openGraph.image.name;
+
+const imageAlt = modalMap[modal]?.seo.openGraph.image.alt;
+
+const noIndex = modalMap[modal]?.seo.noIndex;
 
 const gradientColor = 'verdigris';
 
@@ -89,7 +147,20 @@ if (!modalTitle) {
 }
 ---
 
-<HomeLayout title={modalTitle} lang={lang} inert
+<HomeLayout
+  title={t('home')}
+  lang={lang}
+  inert
+  seo={{
+    openGraph: {
+      image: {
+        name: imageName,
+        alt: imageAlt,
+      },
+    },
+    ...(noIndex && { noIndex }),
+  }}
+  description={description}
   ><ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

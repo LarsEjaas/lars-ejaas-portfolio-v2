@@ -6,20 +6,23 @@ import styles from './archive.module.css';
 import WorkCard from '@components/workCard/WorkCard.astro';
 import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
-import { newsItems } from '@content/newsItems';
+import { newsItems } from '@collections/newsItems';
 import { MAX_NUMBER_OF_ITEMS } from '@components/carousel/Carousel.astro';
-import { Picture } from 'astro:assets';
-import type { ImageModule } from '../customTypes';
-import { isExternalLink } from '../utils/misc';
+import type { DistributiveOmit, ImageModule } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
+import { isExternalLink } from '@utils/misc';
+import ArticleCard from '@components/carousel/ArticleCard.astro';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert } = Astro.props;
+const { title, description, inert, seo } = Astro.props;
 const t_arch = useTranslations(lang, 'archive');
 
 const newsGridItems =
@@ -28,7 +31,21 @@ const newsGridItems =
     : undefined;
 ---
 
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_arch('archive_title')} iconImage="archive" />
     <div>
@@ -38,94 +55,81 @@ const newsGridItems =
       <p class="body-text">{t_arch('welcome_to_memory_lane')}</p>
     </div>
   </div>
-  <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
-  <div class="fullgrid">
-    <h2>
-      {t_arch('old_versions_of_my_website')}
-    </h2>
-    <p class="body-text">{t_arch('curious_how_my_website')}</p>
-  </div>
-  <div class={styles.firstGridColumn}>
-    <WorkCard
-      inert={inert}
-      id="larsEjaasComVersionOne"
-      animatedHeader
-      href={lang === 'en'
-        ? 'https://larsejaasv1.netlify.app/en'
-        : 'https://larsejaasv1.netlify.app'}
-      animationDelay={0}
-      viewTransitionName="lars-ejaas-card"
-      subHeadline={t_arch('larsejaas_v1_subheadline')}
-      headerImage={LarsEjaasComV1HeaderImage}
-      headerImageAlt={t_arch('lars_ejaas_v1_image_alt')}
-      date={t_arch('lars_ejaas_v1_date')}
-    >
-      <p class="small-body-text">
-        {t_arch('lars_ejaas_com_v1_description')}
-      </p>
-    </WorkCard>
-  </div>
-  {
-    newsGridItems && (
-      <>
-        <div class="fullgrid" id="oldNews">
-          <h2>{t_arch('old_news')}</h2>
-          <p class="body-text">{t_arch('welcome_to')}</p>
-        </div>
-        <div class={`fullgrid ${styles.newsGrid}`}>
-          {[...newsGridItems].reverse().map(async (item, index) => {
-            const imageName = item.imageSrc;
-            const imageImport = Object.entries(newsImages).find(([path]) =>
-              path.includes(imageName)
-            );
+  <div class={styles.animationTimeline}>
+    <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
+    <div class="fullgrid">
+      <h2>
+        {t_arch('old_version_of_my_website')}
+      </h2>
+      <p class="body-text">{t_arch('curious_how_my_website')}</p>
+    </div>
+    <div class={styles.firstGridColumn}>
+      <WorkCard
+        className={styles.animatedWorkCard}
+        inert={inert}
+        id="larsEjaasComVersionOne"
+        animatedHeader
+        href={lang === 'en'
+          ? 'https://larsejaasv1.netlify.app/en'
+          : 'https://larsejaasv1.netlify.app'}
+        animationDelay={0}
+        viewTransitionName="lars-ejaas-card"
+        subHeadline={t_arch('larsejaas_v1_subheadline')}
+        headerImage={LarsEjaasComV1HeaderImage}
+        headerImageAlt={t_arch('lars_ejaas_v1_image_alt')}
+        date={t_arch('lars_ejaas_v1_date')}
+      >
+        <p class="small-body-text">
+          {t_arch('lars_ejaas_com_v1_description')}
+        </p>
+      </WorkCard>
+    </div>
+    {
+      newsGridItems && (
+        <>
+          <div class={`fullgrid ${styles.animatedText}`} id="oldNews">
+            <h2>{t_arch('old_news')}</h2>
+            <p class="body-text">{t_arch('browse_through')}</p>
+          </div>
+          <div class={`fullgrid ${styles.newsGrid}`}>
+            {[...newsGridItems].reverse().map(async (item, index) => {
+              const imageName = item.imageSrc;
+              const imageImport = Object.entries(newsImages).find(([path]) =>
+                path.includes(imageName)
+              );
 
-            if (!imageImport) {
-              throw new Error(`News image not found for: ${imageName}`);
-            }
-            const ImageComponent = ((await imageImport[1]()) as ImageModule)
-              .default;
+              if (!imageImport) {
+                throw new Error(`News image not found for: ${imageName}`);
+              }
+              const ImageComponent = ((await imageImport[1]()) as ImageModule)
+                .default;
 
-            const isExtURL = isExternalLink(item.href);
+              const isExtURL = isExternalLink(item.href);
 
-            return (
-              <a
-                class={styles.articleCard}
-                data-arrow-nav="true"
-                id={`card${index}`}
-                href={item.href}
-                {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
-              >
-                <article
-                  class={`${styles[`outline${item.outline}`]} ${styles.article}`}
+              return (
+                <a
+                  class={styles.articleCard}
+                  aria-describedby={`articleDescription${index}`}
+                  data-arrow-nav="true"
+                  id={`card${index}`}
+                  href={item.href}
+                  {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
                 >
-                  <Picture
-                    formats={['avif', 'webp']}
-                    quality="high"
-                    src={ImageComponent}
-                    alt={item.imageAlt}
-                    width="232"
-                    height="148"
-                    densities={[1, 2, 3]}
-                    loading="lazy"
-                    decoding="async"
+                  <ArticleCard
+                    title={item.title}
+                    description={item.description}
+                    date={item.date}
+                    imageAlt={item.imageAlt}
+                    outline={item.outline}
+                    index={index}
+                    image={ImageComponent}
                   />
-                  <div class={styles.newsContent}>
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <div class={styles.date}>
-                      <p>{item.date}</p>
-                    </div>
-                  </div>
-                </article>
-              </a>
-            );
-          })}
-        </div>
-      </>
-    )
-  }
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
+                </a>
+              );
+            })}
+          </div>
+        </>
+      )
+    }
+  </div>
 </Layout>

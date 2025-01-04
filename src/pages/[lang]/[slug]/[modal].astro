@@ -11,9 +11,11 @@ import type { DanishLanguageSlug } from '@i18n/settings';
 import ContactConfirmation from '@components/contact/Confirmation.astro';
 import ContactError from '@components/contact/Error.astro';
 import About from '@layouts/About.astro';
-import Skills from '@layouts/Skills.astro';
+import Skills, { type TechSkillProps } from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import Archive from '@layouts/Archive.astro';
+import Description from '@collections/techSkillDescriptions/Main.astro';
+import PrivacyPolicy from '@layouts/PrivacyPolicy.astro';
 
 type Props = Record<string, never>;
 
@@ -72,6 +74,22 @@ export function getStaticPaths() {
     ['arkiv/besked-fejl']: {
       params: { lang: 'da', slug: 'arkiv', modal: 'besked-fejl' },
     },
+    ['privatlivspolitik/del']: {
+      params: { lang: 'da', slug: 'privatlivspolitik', modal: 'del' },
+    },
+    ['privatlivspolitik/kontakt']: {
+      params: { lang: 'da', slug: 'privatlivspolitik', modal: 'kontakt' },
+    },
+    ['privatlivspolitik/besked-modtaget']: {
+      params: {
+        lang: 'da',
+        slug: 'privatlivspolitik',
+        modal: 'besked-modtaget',
+      },
+    },
+    ['privatlivspolitik/besked-fejl']: {
+      params: { lang: 'da', slug: 'privatlivspolitik', modal: 'besked-fejl' },
+    },
   });
   return Object.values(paths);
 }
@@ -86,6 +104,17 @@ const danishModalSlugMap: Record<
     modalIcon: ImageMetadata;
     pageTitle: string;
     modalTitle: string;
+    description: string;
+    seo: {
+      openGraph: {
+        image: {
+          name: string;
+          alt: string;
+        };
+      };
+      noIndex?: true;
+    };
+    techSkill?: TechSkillProps;
   }
 > = {
   ['arbejde/del']: {
@@ -94,6 +123,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arbejde/kontakt']: {
     pageComponent: Work,
@@ -101,6 +141,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arbejde/besked-modtaget']: {
     pageComponent: Work,
@@ -108,6 +159,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arbejde/besked-fejl']: {
     pageComponent: Work,
@@ -115,6 +177,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['kompetencer/del']: {
     pageComponent: Skills,
@@ -122,6 +195,21 @@ const danishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['kompetencer/kontakt']: {
     pageComponent: Skills,
@@ -129,6 +217,21 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['kompetencer/besked-modtaget']: {
     pageComponent: Skills,
@@ -136,6 +239,21 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['kompetencer/besked-fejl']: {
     pageComponent: Skills,
@@ -143,6 +261,21 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['om-mig/del']: {
     pageComponent: About,
@@ -150,6 +283,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('about'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['om-mig/kontakt']: {
     pageComponent: About,
@@ -157,6 +301,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('about'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['om-mig/besked-modtaget']: {
     pageComponent: About,
@@ -164,6 +319,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('about'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['om-mig/besked-fejl']: {
     pageComponent: About,
@@ -171,6 +337,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('about'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arkiv/del']: {
     pageComponent: Archive,
@@ -178,6 +355,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('archive'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arkiv/kontakt']: {
     pageComponent: Archive,
@@ -185,6 +373,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('archive'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arkiv/besked-modtaget']: {
     pageComponent: Archive,
@@ -192,6 +391,17 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('archive'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['arkiv/besked-fejl']: {
     pageComponent: Archive,
@@ -199,20 +409,138 @@ const danishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('archive'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/del']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/kontakt']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/besked-modtaget']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/besked-fejl']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
 };
 
 const ModalContent = danishModalSlugMap[`${slug}/${modal}`]?.modalComponent;
 
-const PageContent = danishModalSlugMap[`${slug}/${modal}`]?.pageComponent;
+const PageContent = danishModalSlugMap[`${slug}/${modal}`]?.pageComponent as
+  | typeof Skills
+  | typeof Work
+  | typeof About
+  | typeof Archive;
 
 const iconImage = danishModalSlugMap[`${slug}/${modal}`]?.modalIcon;
 
 const modalTitle = danishModalSlugMap[`${slug}/${modal}`]?.modalTitle;
 const pageTitle = danishModalSlugMap[`${slug}/${modal}`]?.pageTitle;
+const description = danishModalSlugMap[`${slug}/${modal}`]?.description;
+
+const imageName =
+  danishModalSlugMap[`${slug}/${modal}`]?.seo.openGraph.image.name;
+
+const imageAlt =
+  danishModalSlugMap[`${slug}/${modal}`]?.seo.openGraph.image.alt;
+
+const noIndex = danishModalSlugMap[`${slug}/${modal}`]?.seo.noIndex;
+
+const restProps = (
+  'techSkill' in danishModalSlugMap[`${slug}/${modal}`]
+    ? {
+        techSkill: danishModalSlugMap[`${slug}/${modal}`].techSkill,
+      }
+    : {}
+) as { techSkill: TechSkillProps };
 ---
 
-<PageContent title={pageTitle} inert={true}>
+<PageContent
+  title={pageTitle}
+  inert={true}
+  seo={{
+    openGraph: {
+      image: {
+        name: imageName,
+        alt: imageAlt,
+      },
+    },
+    noIndex: noIndex ?? false,
+  }}
+  description={description}
+  {...restProps}
+>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

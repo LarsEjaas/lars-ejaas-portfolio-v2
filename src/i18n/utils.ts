@@ -1,12 +1,9 @@
-import {
-  translations,
-  defaultLang,
-  languages,
-  showDefaultLang,
-  type Language,
-} from './settings';
-import { appRoutes } from './routes';
+import { translations, defaultLang, showDefaultLang } from './settings';
+import { languages } from './languageDefinition.mts';
+import { appRoutes, type LanguageKey } from './routes';
 import { hasProperty, type StringWithTrailingSlash } from '@customTypes/index';
+
+export type Language = keyof typeof languages;
 
 /**
  * Extracts the language code from a URL's pathname or returns the default language if no language code is found in the pathname.
@@ -51,6 +48,7 @@ export function useTranslations<
   };
 }
 
+/** Get the translated path for a given language when the path is provided in the default language. */
 export function useTranslatedPath(lang: keyof typeof languages) {
   return function translatePath(
     path: StringWithTrailingSlash,
@@ -82,6 +80,23 @@ export function useTranslatedPath(lang: keyof typeof languages) {
       : `/${language}${translatedPath}`;
   };
 }
+
+/** Get the appRoute in the default language when only the translated path is provided */
+export const getEnglishTranslation = (
+  language: LanguageKey,
+  pathname: StringWithTrailingSlash,
+  /** Fallback if no translation is found - defaults to "/" */
+  fallback?: string | false
+) => {
+  const rawPath = removeLeadingSlash(removeTrailingSlash(pathname));
+  const slug = rawPath.replace(`${language}/`, '');
+  const [translationKey] =
+    Object.entries(appRoutes[language]).find(
+      ([_, routePath]) => routePath === slug
+    ) || [];
+
+  return translationKey ? `/${translationKey}/` : (fallback ?? '/');
+};
 
 /**
  * Remove leading slash from a slug or url, preserving literal type

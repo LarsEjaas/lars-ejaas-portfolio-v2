@@ -9,6 +9,7 @@ export const share = {
     linkedin_title: 'Share this page on LinkedIn',
     reddit_title: 'Share this page on Reddit',
     whatsapp_title: 'Share this page in WhatsApp',
+    bluesky_title: 'Share this page on Bluesky',
     telegram_title: 'Share this page on Telegram',
   },
   da: {
@@ -21,6 +22,7 @@ export const share = {
     linkedin_title: 'Del denne side på LinkedIn',
     reddit_title: 'Del denne side på Reddit',
     whatsapp_title: 'Del denne side i WhatsApp',
+    bluesky_title: 'Del denne side på Bluesky',
     telegram_title: 'Del denne side på Telegram',
   },
 } as const;

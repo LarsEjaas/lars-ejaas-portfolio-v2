@@ -1,4 +1,9 @@
+:import('@components/techSkillsMarquee/techSkillsMarquee.module.css') {
+  fadeIn: fadeIn;
+}
+
 .dialogBackdrop {
+  view-transition-name: dialog-backdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -14,10 +19,16 @@
   }
 }
 
+::view-transition-group(dialog-backdrop) {
+  z-index: 3;
+}
+
 .dialog {
   view-transition-name: dialog;
   position: fixed;
-  border: 1px solid var(--system-light-200);
+  --header-height: 64px;
+  --footer-height: 48px;
+  border: 1px solid var(--system-light-300);
   container-name: modal;
   container-type: inline-size;
   margin: auto;
@@ -26,25 +37,37 @@
   max-height: calc(100vh - min(20vh, 160px) - 40px);
   @media (max-width: 768px) {
     margin-top: 1rem;
-    max-height: calc(100vb - 2rem);
+    max-height: calc(
+      100vb - env(safe-area-inset-top, 0) - env(safe-area-inset-bottom, 0) -
+        2rem
+    );
   }
   padding: 0;
   display: flex;
   flex-direction: column;
-
   width: calc(100vw - 2rem);
   z-index: 1000;
-  background-color: var(--system-light-300);
+  background-color: light-dark(
+    var(--system-light-100),
+    var(--system-light-300)
+  );
   border-radius: var(--border-radius-md);
   box-shadow: var(--stacks-4-shadow);
-  inset: 0;
+  top: env(safe-area-inset-top, 20px);
+  right: env(safe-area-inset-right, 20px);
+  left: env(safe-area-inset-left, 20px);
+  bottom: env(safe-area-inset-bottom, 20px);
+}
+
+::view-transition-group(dialog) {
+  z-index: 4;
 }
 
 .modalHeader {
   display: flex;
   justify-content: space-between;
-  height: 64px;
-  background: radial-gradient(
+  height: var(--header-height);
+  background-image: radial-gradient(
       ellipse at 70% 10%,
       color-mix(in hsl, var(--gradient-tone-100), transparent 70%) 0%,
       color-mix(in hsl, var(--gradient-tone-400), transparent 70%) 30%,
@@ -87,7 +110,10 @@
     margin-top: 18px;
 
     &.outline {
-      background-color: var(--system-light-300);
+      background-color: light-dark(
+        var(--system-light-100),
+        var(--system-light-300)
+      );
       padding: 4px;
       width: 80px;
       height: 80px;
@@ -110,12 +136,49 @@
   gap: 16px;
 }
 
+.modalBody {
+  position: relative;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  --bg: light-dark(var(--system-light-100), var(--system-light-300));
+  --shadow-height: 40px;
+  --shadow-opacity: 75%;
+  --shadow-tone: light-dark(var(--system-dark-200), var(--system-light-200));
+  --shadow-color: color-mix(
+    in hsl,
+    var(--shadow-tone),
+    transparent var(--shadow-opacity, 100%)
+  );
+  /** Scroll-shadows */
+  background:
+        /** Masks for hiding the shadows*/
+    linear-gradient(var(--bg) 50%, transparent) center top,
+    linear-gradient(transparent, var(--bg) 50%) center bottom,
+    /** Scroll-shadows*/
+      linear-gradient(to bottom, var(--shadow-color), transparent) center top,
+    linear-gradient(to top, var(--shadow-color), transparent) center bottom;
+  background-repeat: no-repeat;
+  background-size:
+    100% calc(var(--shadow-height) * 2),
+    100% calc(var(--shadow-height) * 2),
+    100% var(--shadow-height),
+    100% var(--shadow-height);
+  background-attachment: local, local, scroll, scroll;
+}
+
+:global(:root[data-dark-mode='true']) {
+  .modalBody {
+    --shadow-opacity: 40%;
+  }
+}
+
 .modalFooter {
   background-color: var(--system-light-400);
   border-bottom-left-radius: var(--border-radius-md);
   border-bottom-right-radius: var(--border-radius-md);
   border-top: 1px solid var(--system-light-500);
-  height: 48px;
+  height: var(--footer-height);
   flex-shrink: 0;
 }
 
@@ -125,14 +188,19 @@
   border-radius: var(--border-radius-sm);
   border: none;
   height: fit-content;
+  transition: background-color 300ms;
   line-height: 0;
-  margin: 8px;
-  padding: 4px;
+  margin: 4px;
+  padding: 8px;
   &[data-flirt] {
     color: var(--flirt-600);
   }
   &[data-verdigris] {
     color: var(--verdigris-600);
+  }
+  &:hover,
+  &:focus-visible {
+    background-color: var(--system-shadow-6);
   }
 }
 
@@ -140,11 +208,18 @@
   @keyframes scale-in {
     from {
       transform: scale(0.9) translateY(-30px);
+      /* Avoid visual glitches from mix-blend-mode by animating opacity from 0.01 instead of 0 */
+      opacity: 0.01;
     }
   }
 
   ::view-transition-new(dialog) {
-    animation: 200ms ease-in-out forwards scale-in;
+    animation: 400ms ease-out both scale-in;
     position: fixed;
+    transform-origin: top center;
+  }
+
+  ::view-transition-new(dialog-backdrop) {
+    animation: fadeIn 400ms 100ms ease-out both;
   }
 }

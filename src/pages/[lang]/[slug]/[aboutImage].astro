@@ -2,8 +2,10 @@
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import AboutLayout from '@layouts/About.astro';
 import type { AboutImageSlugPath, SlugWithAboutImageTypes } from '@i18n/routes';
-import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
-import type { ImageDetails } from '@content/aboutImages/aboutImages';
+import {
+  aboutImagesInfo,
+  type ImageDetails,
+} from '@collections/aboutImages/aboutImages.mts';
 import type { ImageModule } from '@customTypes/index';
 import Lightbox from '@components/lightBox/Lightbox.astro';
 
@@ -60,7 +62,20 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 const pageTitle = imageInfo.titleDA;
 ---
 
-<AboutLayout title={pageTitle} inert={true}>
+<AboutLayout
+  title={pageTitle}
+  inert={true}
+  description={`🏃‍♂️🚴 Gennemse billeder fra mine år som sportsudøver. ${imageInfo.imageDescriptionDA}`}
+  seo={{
+    openGraph: {
+      image: {
+        name: 'about_da',
+        alt: t_nav('about_seo_image_alt'),
+      },
+    },
+    noIndex: false,
+  }}
+>
   <Lightbox
     labels={{
       title: pageTitle,

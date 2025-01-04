@@ -17,6 +17,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 4px;
+  position: relative;
 }
 
 .backgroundStar {
@@ -32,7 +33,7 @@
   grid-row: 1;
   grid-column: calc(var(--index) + 1);
   animation: starAppear 0.5s ease-out forwards
-    calc(((var(--index) + 1) * 100ms) + 400ms);
+    calc(((var(--index) + 1) * 100ms) + 600ms);
   opacity: 0;
   transform: scale(0.8);
   &[data-half-star] {

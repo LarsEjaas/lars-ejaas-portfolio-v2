@@ -18,15 +18,6 @@ declare global {
     }
   }
 
-  class PageSwapEvent extends Event {
-    constructor(
-      public readonly viewTransition: ViewTransition | null,
-      public readonly activation: NavigationActivation
-    ) {
-      super('pageswap');
-    }
-  }
-
   interface String {
     /** Converts all the alphabetic characters in a string to uppercase. */
     toUpperCase<T extends string>(this: T): Uppercase<T>;
@@ -84,6 +75,9 @@ declare global {
   };
 
   interface Window {
+    contactButton: HTMLAnchorElement | null;
+    footerMenuContact: HTMLAnchorElement | null;
+    mainContent: HTMLElement | null;
     themeToggle: HTMLInputElement | null;
     themeToggleMobile: HTMLInputElement | null;
     carouselList: HTMLDivElement | null;
@@ -104,6 +98,7 @@ declare global {
     desktopContactLink: HTMLAnchorElement | null;
     skillTileScene: HTMLDivElement | null;
     lightbox: HTMLDialogElement | null;
+    thumbnailGridContainer: HTMLDivElement | null;
     aboutArticle: HTMLElement | null;
     skillBackButton: HTMLButtonElement | null;
     skillPagination: HTMLUListElement | null;
@@ -113,6 +108,8 @@ declare global {
     contactTextArea: HTMLTextAreaElement | null;
     writeToMe: HTMLFormElement | null;
     firstName: HTMLTableCellElement | null;
+    //404 page
+    goBack: HTMLDivElement | null;
     navigation: Navigation;
     onpagereveal?: (event: PageRevealEvent) => void;
     onpageswap?: (event: PageSwapEvent) => void;

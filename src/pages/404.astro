@@ -1,42 +1,7 @@
 ---
-import type { Language } from '@i18n/settings';
-import Layout from '@layouts/Root.astro';
-import '@layouts/global.css';
-import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
-import { Picture } from 'astro:assets';
-import notFound404 from '@assets/images/404.png';
-import styles from './_404.module.css';
-import PageLabel from '@components/pageLabel/PageLabel.astro';
+import NotFoundLayout from '@layouts/404.astro';
 
-type Props = {
-  title: string;
-  lang: Language;
-  inert: boolean;
-};
-
-const lang = getLangFromUrl(Astro.url);
-
-const t = useTranslations(lang, 'navigation');
+type Props = Record<string, never>;
 ---
 
-<Layout title={t('not_found_title')} inert={false}>
-  <PageLabel title={t('not_found')} iconImage="alert" />
-  <FloatingBalloons balloonColor="bluemunsell" />
-  <div class={styles.centerWrapper}>
-    <Picture
-      aria-hidden="true"
-      formats={['avif', 'webp']}
-      quality="high"
-      src={notFound404}
-      alt=""
-      widths={[260, 320, 440, 520]}
-      sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
-      loading="eager"
-      decoding="sync"
-      pictureAttributes={{
-        style: `width: 80%;max-width: 520px; aspect-ratio: ${notFound404.width}/${notFound404.height}`,
-      }}
-    />
-  </div>
-</Layout>
+<NotFoundLayout />

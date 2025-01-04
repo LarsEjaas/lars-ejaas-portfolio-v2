@@ -4,24 +4,26 @@ import Footer from '@components/footer/Footer.astro';
 import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
 import './global.css';
 import Seo from '@components/seo/Seo.astro';
-import type { SeoProps } from '../customTypes/seo';
+import type { SeoComponentProps } from '@components/seo/Seo.astro';
+import type { Language } from '@i18n/settings';
+import PiwikProScript from '@scripts/PiwikPro.astro';
 
 type Props = {
-  title: string;
   inert: boolean;
+  seo: SeoComponentProps;
   gridColumns?: 2 | 3;
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
-  seo?: SeoProps;
+  translationUrls?: Record<Language, string>;
 };
 
 const {
-  title,
   inert,
   gridColumns = 2,
   withDarkkModeToggle = true,
   withModalLinks = true,
   seo,
+  translationUrls,
 } = Astro.props;
 
 /** Root layout should only be used directly in the index page file
@@ -31,6 +33,18 @@ const {
 <!doctype html>
 <html lang="en" data-dark-mode="false" data-js-enabled="false">
   <head>
+    <script is:inline type="speculationrules">
+      {
+        "prerender": [
+          {
+            "where": {
+              "href_matches": "/*"
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
     <link
       rel="preload"
       href="/fonts/Mona-Sans.woff2"
@@ -38,30 +52,27 @@ const {
       type="font/woff2"
       crossorigin
     />
+    <link rel="preconnect" href="https://larsejaas.piwik.pro" crossorigin />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, height=device-height initial-scale=1.0, viewport-fit=cover"
     />
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <Seo
-      metaData={{ ...seo?.metaData, title }}
-      metaTheme={seo?.metaTheme}
-      facebook={seo?.facebook}
-      twitter={seo?.twitter}
-      openGraph={seo?.openGraph}
+      metaData={seo.metaData}
+      openGraph={seo.openGraph}
+      noIndex={seo.noIndex}
+      noFollow={seo.noFollow}
     />
     <script is:inline>
       if ('onpagereveal' in window) {
-        window.onpagereveal = (event) => restoreModalScrollPosition(event);
+        window.onpagereveal = (e) => rmsp(e);
       } else {
-        document.addEventListener(
-          'DOMContentLoaded',
-          restoreModalScrollPosition
-        );
+        document.addEventListener('DOMContentLoaded', rmsp);
       }
-      const getStoredDarkmode = () => {
+      const gsdm = () => {
         if (
           typeof window.localStorage !== 'undefined' &&
           localStorage.getItem('ejaas_dark_mode')
@@ -70,40 +81,37 @@ const {
         }
         return false;
       };
-      // Detect dark mode before page load
+
       if (
-        getStoredDarkmode() === 'true' ||
-        (!getStoredDarkmode() &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
+        gsdm() === 'true' ||
+        (!gsdm() && window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         document.documentElement.dataset.darkMode = 'true';
       }
-      /* Show interactive elements that require JS to be enabled */
+
       document.documentElement.dataset.jsEnabled = 'true';
 
-      function restoreModalScrollPosition() {
-        const scrollPosition =
-          Number(sessionStorage.getItem('scrollPosition')) || 0;
+      function rmsp() {
+        const sp = Number(sessionStorage.getItem('scrollPosition')) || 0;
 
-        const referrerIsSameHost = document.referrer.startsWith(
-          window.location.origin
-        );
-        if (scrollPosition && referrerIsSameHost) {
+        const rish = document.referrer.startsWith(window.location.origin);
+        if (sp && rish) {
           window.scrollTo({
-            top: scrollPosition,
+            top: sp,
             behavior: 'instant',
           });
         }
-        //check if this route includes a modal or lightbox
-        const routeIncludesModal = window.modalDialog || window.lightbox;
-        if (!routeIncludesModal || !referrerIsSameHost) {
+        const rim = window.modalDialog || window.lightbox;
+        if (!rim || !rish) {
           sessionStorage.removeItem('scrollPosition');
         }
       }
     </script>
-    <!-- <script is:inline src="/restoreScrollPosition.min.js"></script> -->
+    {/* @ts-ignore */}
+    <link rel="expect" blocking="render" href="#mainContent" />
   </head>
   <body>
+    <slot name="body-top" />
     <svg aria-hidden="true" height="0">
       <defs>
         <clipPath id="squircle" clipPathUnits="objectBoundingBox"
@@ -117,11 +125,13 @@ const {
       inert={inert}
       withDarkkModeToggle={withDarkkModeToggle}
       withModalLinks={withModalLinks}
+      translationUrls={translationUrls}
     />
-    <main class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
+    <main id="mainContent" class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
       <slot />
     </main>
     <Footer inert={inert} withModalLinks={withModalLinks} />
     <MobileMenu inert={inert} withModalLinks={withModalLinks} />
+    <PiwikProScript />
   </body>
 </html>

@@ -1,5 +1,5 @@
-import { allLightboxKeys } from '../i18n/routes';
-import { removeTrailingSlash } from '../i18n/utils';
+import { allLightboxKeys } from '@i18n/routes';
+import { removeTrailingSlash } from '@i18n/utils';
 
 export const SCROLL_POSITION_KEY = 'scrollPosition';
 
@@ -22,15 +22,15 @@ export const storeScrollPositionOnClick = (
   });
 };
 
-export const checkIfPreviousRouteWasLightbox = () => {
-  const previousRoute = removeTrailingSlash(document.referrer);
+export const isLightboxRoute = (route: string) => {
+  const routeToCheck = removeTrailingSlash(route);
   // Get the last slug of the previous route
-  const possibleLightboxSlug = previousRoute.split('/').slice(-1)[0];
-  const previousRouteWasLightbox = !!(
+  const possibleLightboxSlug = routeToCheck.split('/').slice(-1)[0];
+  const routeIsLightbox = !!(
     possibleLightboxSlug &&
     allLightboxKeys.includes(
       possibleLightboxSlug as (typeof allLightboxKeys)[number]
     )
   );
-  return previousRouteWasLightbox;
+  return routeIsLightbox;
 };

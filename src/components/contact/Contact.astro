@@ -52,9 +52,9 @@ const t = useTranslations(lang, 'contact');
         type="text"
         name="name"
         required="true"
-      /><span class={styles.error} aria-hidden="true"
-        >{t('the_length_of_the_name')}</span
-      ></label
+      /><p class={styles.error} aria-live="polite">
+        <span>{t('the_length_of_the_name')}</span>
+      </p></label
     >
 
     <label class={styles.label}
@@ -69,10 +69,11 @@ const t = useTranslations(lang, 'contact');
         placeholder={t('enter_your_email')}
         name="email"
         required="true"
-      /><span class={styles.error} aria-hidden="true"
-        >{t('please_provide_a_valid_email')}</span
-      ></label
-    >
+      />
+      <p class={styles.error} aria-live="polite">
+        <span>{t('please_provide_a_valid_email')}</span>
+      </p>
+    </label>
     <label class={styles.label}
       ><span>{t('subject')}</span><input
         class={styles.input}
@@ -81,10 +82,11 @@ const t = useTranslations(lang, 'contact');
         placeholder={t('enter_a_subject')}
         name="subject"
         required="true"
-      /><span class={styles.error} aria-hidden="true"
-        >{t('please_provide_a_subject')}</span
-      ></label
-    >
+      />
+      <p class={styles.error} aria-live="polite">
+        <span>{t('please_provide_a_subject')}</span>
+      </p>
+    </label>
     <label for="contactTextArea" class={styles.label}
       ><span>{t('message')}</span></label
     >
@@ -96,9 +98,10 @@ const t = useTranslations(lang, 'contact');
         autocomplete="off"
         name="message"
         placeholder={t('write_a_message')}
-        required="true"></textarea><span class={styles.error} aria-hidden="true"
-        >{t('the_message_cannot_be')}</span
-      >
+        required="true"></textarea>
+      <p class={styles.error} aria-live="polite">
+        <span>{t('the_message_cannot_be')}</span>
+      </p>
     </div>
     <input
       type="hidden"

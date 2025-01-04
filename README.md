@@ -27,7 +27,7 @@ I'm dedicated to keeping this project open-source, mainly as a source of inspira
 - If you need assistance with Astro, please refer to their [official documentation](https://docs.astro.build/en/getting-started/).
   <br />
 
-**To summarize:** Feel free to fork this repository for inspiration! Just be sure to create your own unique site and credit me by linking back to [larsejaas.com](https://larsejaas.com) if you use any parts of my code.
+**To summarize:** Feel free to fork this repository for inspiration on creating your own portfolio! Just be sure to create your own unique site and credit me by linking back to [larsejaas.com](https://larsejaas.com) if you directly re-use parts of my code.
 <br />
 <br />
 Thank you for understanding and respecting my work!
@@ -51,7 +51,7 @@ While I typically would choose to build a bage like with a React framework like 
 
 ## 🛠️ Prerequisites & Requirements
 
-- [x] Node.js (v20 or higher)
+- [x] Node.js (v21 or higher)
 - [x] npm
 - [x] Git
 - [x] A Gmail account for SMTP services
@@ -60,11 +60,12 @@ While I typically would choose to build a bage like with a React framework like 
 
 ## 🔌 Recommended VS Code Extensions
 
-- [x] **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
-- [x] **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
-- [x] **ESLint** - [vscode:extension/dbaeumer.vscode-eslint](vscode:extension/dbaeumer.vscode-eslint)
-- [x] **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
-- [x] **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
+- **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
+- **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
+- **ESLint** - [vscode:extension/dbaeumer.vscode-eslint](vscode:extension/dbaeumer.vscode-eslint)
+- **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
+- **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
+- **XML Tools** - [vscode:extension/DotJoshJohnson.xml](vscode:extension/DotJoshJohnson.xml)
 
 ## 💻 Getting started
 
@@ -86,6 +87,8 @@ Install dependencies:
 npm install
 ```
 
+Create an `.env` file in the root directory and inspect the `.env.example` file in the root of the project for the required environment variables.
+
 Install the pre-commit hook (you can skip this step if you do not plan to commit code):
 
 ```bash
@@ -100,7 +103,7 @@ netlify dev
 
 That's it!
 
-The project is intentionally simple, with no JavaScript frameworks, no CSS frameworks, and limited use of TypeScript/JavaScript.
+The project is intentionally simple, with no JavaScript frameworks, no CSS frameworks, and limited use of JavaScript in the browser.
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 
@@ -122,7 +125,15 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 
-## 🙏Attribution
+## 😉 Gotchas, Caveats and tips
+
+- The `generate:routes script` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script. However, Astro is not compatible with this Node version (so you probably need NVM to go back and forth between Node versions for now).
+- All TypeScript files with the .mts extension are optimized for both the project itself and for use in npm scripts.
+- You can use the [XML Tools extension](vscode:extension/DotJoshJohnson.xml) to format sitemap files to be human readable in VSCode directly. Go to the command palette and select: `XML Tools: Format as XML`
+
+<p align="right"><a href="#top">back to top⬆️</a></p>
+
+## 🙏 Attribution
 
 I'm grateful to the following developers whose content has inspired me in creating this site:
 

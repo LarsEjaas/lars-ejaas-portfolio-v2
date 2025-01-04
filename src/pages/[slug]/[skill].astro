@@ -1,11 +1,9 @@
 ---
 import SkillsLayout from '@layouts/Skills.astro';
 import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
-import {
-  skillsObject,
-  techSkillEntries,
-  type TechSkill,
-} from '@content/techSkills';
+import { getTechSkills, type TechSkill } from '@collections/techSkills';
+import { techSkillEntries } from '@collections/techSkillTypes.mts';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   import: 'default',
 });
@@ -34,7 +32,12 @@ export function getStaticPaths() {
   return Object.values(paths);
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
 const { skill } = Astro.params;
+
+const skillsObject = getTechSkills(lang);
 
 const skillData = skillsObject[skill];
 
@@ -51,4 +54,18 @@ const techSkill = { ...skillData, iconImage: imageContent };
 const pageTitle = skillData.title;
 ---
 
-<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill} />
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  techSkill={techSkill}
+  seo={{
+    openGraph: {
+      image: {
+        name: 'skills_da',
+        alt: t('skills_seo_image_alt'),
+      },
+    },
+    noIndex: false,
+  }}
+  description={`💻 Detailed overview of my tech-skills and experience in web development as a frontend-developer. Learn more about my expertise in ${techSkill.title}.`}
+/>

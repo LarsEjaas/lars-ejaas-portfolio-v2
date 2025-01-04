@@ -13,6 +13,8 @@ type Props = {
 const { id, buttonLabel } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
+
+/** popover button have tabindex=0 as this is needed in Safari to set focus on the button */
 ---
 
 <script>
@@ -47,6 +49,7 @@ const t = useTranslations(lang, 'navigation');
     popovertarget=`popover${capitalize(id)}`
     id=`popover${capitalize(id)}Button`
     aria-label={buttonLabel}
+    tabindex="0"
   >
     <slot name="buttonContent" />
   </button>
@@ -60,7 +63,7 @@ const t = useTranslations(lang, 'navigation');
       class={styles.closeButton}
       popovertarget=`popover${capitalize(id)}`
       title={t('close_popover')}
-      aria-label={'close_popover'}
+      aria-label={t('close_popover')}
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         width="12"

@@ -2,11 +2,8 @@
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import SkillsLayout from '@layouts/Skills.astro';
 import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
-import {
-  skillsObject,
-  techSkillEntries,
-  type TechSkill,
-} from '@content/techSkills';
+import { getTechSkills, type TechSkill } from '@collections/techSkills';
+import { techSkillEntries } from '@collections/techSkillTypes.mts';
 import ModalDialog from '@components/modalDialog/ModalDialog.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
@@ -81,6 +78,8 @@ export function getStaticPaths() {
 
 const { skill, modal } = Astro.params;
 
+const skillsObject = getTechSkills(lang);
+
 const skillData = skillsObject[skill];
 
 const svgFile = Object.entries(skillIconImages).find(([file]) =>
@@ -111,9 +110,39 @@ const ModalContent =
       : modal === 'besked-modtaget'
         ? ContactConfirmation
         : ContactError;
+const seo =
+  modal === 'del'
+    ? {
+        openGraph: {
+          image: {
+            name: 'share_da',
+            alt: t('share_seo_image_alt'),
+          },
+        },
+        //Only index modalpages on the main index page
+        noIndex: true,
+      }
+    : {
+        openGraph: {
+          image: {
+            name: 'contact_me_da',
+            alt: t('contact_seo_image_alt'),
+          },
+        },
+        //Only index modalpages on the main index page
+        noIndex: true,
+      };
+const description =
+  modal === 'del' ? t('share_seo_description') : t('contact_seo_description');
 ---
 
-<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  techSkill={techSkill}
+  seo={seo}
+  description={description}
+>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

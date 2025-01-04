@@ -11,6 +11,8 @@ type Props = {
 };
 
 const { title, labels, iconImage, gradientColor } = Astro.props;
+
+/** closeLink have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
 <script>
@@ -27,7 +29,11 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
     window.addEventListener('keydown', handleKeydown, { passive: true });
   }
 </script>
-<a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="../"></a>
+<a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="../"
+  ><p class="sr-only">
+    {labels.close}
+  </p></a
+>
 <!-- remove tabindex in Firefox -->
 <dialog
   tabindex="-1"
@@ -72,6 +78,7 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
       href="../"
       title={labels.close}
       aria-label={labels.close}
+      tabindex="0"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -85,6 +92,8 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
       </svg></a
     >
   </div>
-  <slot />
+  <div class={styles.modalBody}>
+    <slot />
+  </div>
   <div class={styles.modalFooter}></div>
 </dialog>

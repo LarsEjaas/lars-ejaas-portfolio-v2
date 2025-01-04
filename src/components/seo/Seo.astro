@@ -1,29 +1,73 @@
 ---
-import type { metaTag, SeoProps } from '@customTypes/seo';
-import { languages as availableLanguages, type Language } from '@i18n/settings';
+import type { metaTag, MetaData, OpenGraph } from '@customTypes/seo';
+import type { DistributiveOmit, PrettifyUnion } from '@customTypes/index';
+import {
+  languages as availableLanguages,
+  defaultLang,
+  type Language,
+} from '@i18n/settings';
 import Favicon from './Favicon.astro';
-import { getDefaultSiteMetaData } from './siteMetaData';
-import { getLangFromUrl } from '@i18n/utils';
+import { getDefaultSiteMetaData, siteInfo } from './siteMetaData';
+import {
+  getEnglishTranslation,
+  getLangFromUrl,
+  removeLeadingSlash,
+  removeTrailingSlash,
+} from '@i18n/utils';
+import type { ImageInputFormat } from 'astro';
+import { appRoutes } from '../../i18n/routes';
 
-type Props = {} & SeoProps;
+const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
+
+const BLOCK_ALL_INDEXING =
+  String(import.meta.env.BLOCK_ALL_INDEXING || 'false')
+    .trim()
+    .toLowerCase() === 'true';
+
+type Props = SeoComponentProps;
+
+export type SeoComponentProps = {
+  metaData: PrettifyUnion<
+    Pick<MetaData, 'title'> &
+      Partial<
+        Pick<MetaData, 'description' | 'pinterestDescription' | 'keywords'>
+      >
+  >;
+  openGraph: DistributiveOmit<OpenGraph, 'type'> | undefined;
+  noIndex?: true;
+  noFollow?: true;
+};
 
 type ImageMetadataReturn = {
   src: string;
   width: number;
   height: number;
+  mimeType: ImageMimeType<ImageInputFormat>;
 };
 
+type ImageMimeType<T extends ImageInputFormat> = T extends 'svg'
+  ? 'image/svg+xml'
+  : `image/${T}`;
+
 /** Validate path to meta image at build time */
-async function validateAndGetPublicPath(
+export async function validateAndGetPublicPath(
   imageName: string
 ): Promise<ImageMetadataReturn> {
   const metaImages = import.meta.glob<ImageMetadata>(
-    '/public/openGraphImages/*.{jpg,png}',
+    '/public/**/*.{jpg,jpeg,png,tiff,webp,gif,avif}',
     {
       import: 'default',
       eager: true,
     }
   );
+
+  const getImageMimeType = (
+    format: ImageInputFormat
+  ): ImageMimeType<typeof format> => {
+    return format === 'svg'
+      ? 'image/svg+xml'
+      : (`image/${format}` as ImageMimeType<typeof format>);
+  };
 
   const imageEntry = Object.entries(metaImages).find(([path]) =>
     path.includes(imageName)
@@ -41,37 +85,94 @@ async function validateAndGetPublicPath(
     );
   }
 
+  const mimeType = getImageMimeType(metadata.format);
+
   return {
     src: path.replace('/public', ''),
     width: metadata.width,
     height: metadata.height,
+    mimeType,
   };
 }
 
 const lang = getLangFromUrl(Astro.url);
 
-const defaultSiteMetaData = getDefaultSiteMetaData(lang);
+const getCannonicalUrl = (language: Language) => {
+  const pathNameWithoutLocale = removeTrailingSlash(
+    removeLeadingSlash(Astro.url.pathname.replace(`${lang}/`, ''))
+  );
+  // If this is the index page we cannot find a translation - so we create it manually
+  if (pathNameWithoutLocale === '') {
+    return language === defaultLang
+      ? `${SITE_URL}/`
+      : `${SITE_URL}/${language}/`;
+  }
+  const translation =
+    language === defaultLang
+      ? getEnglishTranslation(
+          'da',
+          `${removeTrailingSlash(Astro.url.pathname)}/`,
+          false
+        )
+      : `/da/${
+          appRoutes[language][
+            pathNameWithoutLocale as keyof (typeof appRoutes)[Language]
+          ]
+        }/`;
+
+  return translation ? `${SITE_URL}${translation}` : undefined;
+};
+
+const defaultSiteMetaData = await getDefaultSiteMetaData(lang);
 
 const languages = Object.keys(availableLanguages) as Language[];
 
-const {
-  metaData,
-  metaTheme,
-  //facebook,
-  twitter,
-  openGraph,
-} = Astro.props;
+const { metaData, openGraph, noIndex, noFollow } = Astro.props;
+
+if (openGraph?.image?.name && !openGraph?.image?.alt) {
+  const error =
+    "WARNING(SEO): You defined `openGraph.image.name`, but didn't define `openGraph.image.alt`. This is strongly discouraged.'";
+  console.warn(error);
+}
 
 // Determine image details
-const imageUrl = openGraph?.image ?? defaultSiteMetaData.openGraph.image;
+const imageName =
+  openGraph?.image?.name ?? defaultSiteMetaData.openGraph.image.name;
+const pinterestImageName = openGraph?.image?.name
+  ? openGraph?.image?.name.replace(`_${lang}`, '_pinterest')
+  : defaultSiteMetaData.openGraph.image.name.replace(`_${lang}`, '_pinterest');
 
-const publicImageUrl = await validateAndGetPublicPath(imageUrl);
+const publicImage = await validateAndGetPublicPath(imageName);
+const ImageSrc = `${SITE_URL}${publicImage.src}`;
+
+if (!publicImage) {
+  throw new Error(
+    `Meta image not found for: ${imageName} in the SEO component`
+  );
+}
+
+const pinterestImage = await validateAndGetPublicPath(pinterestImageName);
+const pinterestImageSrc = `${SITE_URL}${pinterestImage.src}`;
+
+if (!pinterestImage) {
+  throw new Error(
+    `Meta Pinterest image not found for: ${imageName} in the SEO component`
+  );
+}
 
 // Construct canonical URL
-const canonicalUrl = new URL(
-  Astro.url.pathname,
-  metaData?.siteUrl || defaultSiteMetaData.metaData.siteUrl
-).toString();
+const baseUrl = Astro.site ?? Astro.url;
+const defaultCanonicalUrl = new URL(
+  Astro.url.pathname + Astro.url.search,
+  baseUrl
+);
+const canonicalUrl = defaultCanonicalUrl.href;
+
+const pageTitle = metaData?.title
+  ? `Lars Ejaas | ${metaData?.title}`
+  : `Lars Ejaas | ${defaultSiteMetaData.metaData.title}`;
+
+const additionalMetaTags = defaultSiteMetaData.metaTags;
 
 // Generate meta tags dynamically
 const metaTags: metaTag[] = [
@@ -90,7 +191,7 @@ const metaTags: metaTag[] = [
   // Open Graph
   {
     property: 'og:title',
-    content: metaData?.title || defaultSiteMetaData.metaData.title,
+    content: pageTitle,
   },
   {
     property: 'og:description',
@@ -99,109 +200,156 @@ const metaTags: metaTag[] = [
   { property: 'og:url', content: canonicalUrl },
   {
     property: 'og:site_name',
-    content: metaData?.title || defaultSiteMetaData.metaData.title,
+    content: defaultSiteMetaData.metaData.siteName,
   },
-  { property: 'og:type', content: openGraph?.type ?? 'website' },
-  { property: 'og:image', content: publicImageUrl.src },
-  { property: 'og:image:width', content: `${publicImageUrl.width}` },
+  { property: 'og:locale', content: lang === defaultLang ? 'en_US' : 'da_DK' },
+  { property: 'og:locale:alternate', content: 'en_US' },
+  { property: 'og:locale:alternate', content: 'da_DK' },
+  {
+    property: 'og:type',
+    content: defaultSiteMetaData.openGraph.type,
+  },
+  { property: 'og:image:url', content: ImageSrc },
+  { property: 'og:image:secure_url', content: ImageSrc },
+  { property: 'og:image:type', content: publicImage.mimeType },
+  { property: 'og:image:width', content: `${publicImage.width}` },
   {
     property: 'og:image:height',
-    content: `${publicImageUrl.height}`,
+    content: `${publicImage.height}`,
   },
+  ...(openGraph?.image?.alt
+    ? [{ property: 'og:image:alt', content: openGraph.image.alt }]
+    : []),
+  // Pinterest
+  {
+    property: 'pinterest:description',
+    content:
+      metaData?.pinterestDescription ||
+      metaData?.description ||
+      defaultSiteMetaData.metaData.description,
+  },
+  { property: 'pinterest:image', content: pinterestImageSrc },
 
   // Twitter Card
   { name: 'twitter:card', content: 'summary_large_image' },
   {
     name: 'twitter:title',
-    content: metaData?.title || defaultSiteMetaData.metaData.title,
+    content: pageTitle,
   },
   {
     name: 'twitter:description',
     content: metaData?.description || defaultSiteMetaData.metaData.description,
   },
-  { name: 'twitter:image', content: publicImageUrl.src },
+  { name: 'twitter:image', content: ImageSrc },
+  ...(openGraph?.image?.alt
+    ? [{ property: 'twitter:image:alt', content: openGraph.image.alt }]
+    : []),
+  ...(additionalMetaTags.length ? additionalMetaTags : []),
 ];
 
-// Conditionally add Twitter creator/site if provided
-if (twitter?.creator)
-  metaTags.push({ name: 'twitter:creator', content: twitter.creator });
-if (twitter?.site)
-  metaTags.push({ name: 'twitter:site', content: twitter.site });
+metaTags.push({
+  name: 'twitter:creator',
+  content: defaultSiteMetaData.twitter.creator,
+});
+metaTags.push({
+  name: 'twitter:site',
+  content: defaultSiteMetaData.twitter.site,
+});
 
 // Add article-specific Open Graph tags if available
-if (openGraph?.article) {
-  if (openGraph.article.publishedTime)
+if (openGraph && 'article' in openGraph && openGraph.article) {
+  if (openGraph.article.publishedTime) {
     metaTags.push({
       property: 'article:published_time',
       content: openGraph.article.publishedTime,
     });
-  if (openGraph.article.modifiedTime)
+  }
+  if (openGraph.article.modifiedTime) {
     metaTags.push({
       property: 'article:modified_time',
       content: openGraph.article.modifiedTime,
     });
-  if (openGraph.article.section)
+  }
+  if (openGraph.article.expirationTime) {
+    metaTags.push({
+      property: 'article:expiration_time',
+      content: openGraph.article.modifiedTime,
+    });
+  }
+  if (openGraph.article.authors) {
+    openGraph.article.authors.forEach((author) => {
+      metaTags.push({
+        property: 'article:author',
+        content: author,
+      });
+    });
+  }
+  if (openGraph.article.section) {
     metaTags.push({
       property: 'article:section',
       content: openGraph.article.section,
     });
-  if (openGraph.article.tags)
+  }
+  if (openGraph.article.tags) {
     openGraph.article.tags.forEach((tag) =>
       metaTags.push({ property: 'article:tag', content: tag })
     );
+  }
 }
 ---
 
 <!-- Title -->
-<title>{metaData?.title || defaultSiteMetaData.metaData.title}</title>
+<title>{pageTitle}</title>
 <link rel="canonical" href={canonicalUrl} />
 
-<Favicon metaTheme={metaTheme || defaultSiteMetaData.metaTheme} />
-
-<!-- Apple Touch Icons -->
-{
-  (
-    metaTheme?.appleTouchIcon || defaultSiteMetaData.metaTheme.appleTouchIcon
-  )?.sizes.map((size) => (
-    <link
-      rel="apple-touch-icon"
-      sizes={`${size}x${size}`}
-      href={`${(metaTheme?.appleTouchIcon || defaultSiteMetaData.metaTheme.appleTouchIcon)?.path}icon-${size}x${size}.png`}
-    />
-  ))
-}
-
-<!-- Theme Color -->
-<meta
-  name="theme-color"
-  content={metaTheme?.themeColor || defaultSiteMetaData.metaTheme.themeColor}
-/>
+<!-- Theme -->
+<Favicon metaTheme={defaultSiteMetaData.metaTheme} />
+<meta name="theme-color" content={defaultSiteMetaData.metaTheme.themeColor} />
 
 <!-- Dynamic Meta Tags -->
 {
-  metaTags.map(({ name, property, content }) =>
-    name ? (
-      <meta name={name} content={content} />
-    ) : (
-      <meta property={property} content={content} />
+  metaTags.map(
+    ({ name, property, content, 'http-equiv': httpEquiv, media }) => (
+      <meta
+        name={name}
+        content={content}
+        property={property}
+        http-equiv={httpEquiv}
+        media={media}
+      />
     )
   )
 }
 
 <!-- Internationalization -->
 {
-  languages.map((lang) => (
-    <>
+  !noIndex &&
+    languages.map((language) => (
       <link
         rel="alternate"
-        hreflang={lang}
-        href={`https://larsejaas.com/${lang}/`}
+        hreflang={language === 'en' ? 'en-US' : 'da-DK'}
+        href={
+          language === lang
+            ? `${SITE_URL}${removeTrailingSlash(Astro.url.pathname)}/`
+            : getCannonicalUrl(language)
+        }
       />
-      <link rel="alternate" href={Astro.url} hreflang="x-default" />
-      <link rel="alternate" href="https://larsejaas.com/en/" hreflang={lang} />
-    </>
-  ))
+    ))
 }
+<link
+  rel="alternate"
+  href={lang === defaultLang
+    ? `${SITE_URL}${removeTrailingSlash(Astro.url.pathname)}/`
+    : getCannonicalUrl(defaultLang)}
+  hreflang="x-default"
+/>
+
+<meta
+  name="robots"
+  content={`${BLOCK_ALL_INDEXING || noIndex ? 'noindex' : 'index'}, ${
+    noFollow ? 'nofollow' : 'follow'
+  }`}
+/>
 
 <!-- Structured JSON-LD -->
 <script
@@ -209,17 +357,32 @@ if (openGraph?.article) {
   type="application/ld+json"
   set:html={JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    headline: metaData?.title || defaultSiteMetaData.metaData.title,
+    '@type': 'ProfilePage',
+    name: pageTitle,
     description:
       metaData?.description || defaultSiteMetaData.metaData.description,
-    author: {
-      '@type': 'Person',
-      name: metaData?.author || defaultSiteMetaData.metaData.author,
+    image: ImageSrc,
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: ImageSrc,
     },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl,
+    mainEntity: {
+      '@type': 'Person',
+      name: defaultSiteMetaData.metaData.author,
+      url: canonicalUrl,
+      image: ImageSrc,
+      sameAs: Object.values(siteInfo.social),
+      jobTitle: siteInfo.author.jobTitle,
+      worksFor: {
+        '@type': siteInfo.author.worksFor.type,
+        name: siteInfo.author.worksFor.name,
+      },
+      skills: siteInfo.author.skills,
+    },
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: siteInfo.name,
     },
   })}
 />

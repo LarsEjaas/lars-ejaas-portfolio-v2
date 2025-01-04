@@ -18,7 +18,7 @@ const UNIQUE_IDENTIFIER = 'contact';
 
 const GITHUB_ICON = 'github_icon.png';
 const LINKEDIN_ICON = 'linkedin_icon.png';
-const X_ICON = 'x_icon.png';
+const BLUESKY_ICON = 'bluesky_icon.png';
 const LETTER_ICON = 'letter_icon.png';
 const WRITE_TO_ME = 'write_to_me.png';
 const SKRIV_TIL_MIG = 'skriv_til_mig.png';
@@ -79,7 +79,7 @@ const REDIRECT_SLUGS = {
 /**
  * Remove trailing slash from a slug or url, preserving literal type
  */
-export function removeTrailingSlash<T extends string>(
+function removeTrailingSlash<T extends string>(
   url: T
 ): T extends `${infer Rest}/` ? Rest : T {
   return (
@@ -219,7 +219,7 @@ type EmailTemplateContext = {
   logo2: `cid:logo2@${typeof UNIQUE_IDENTIFIER}`;
   linkedIn: `cid:linkedin@${typeof UNIQUE_IDENTIFIER}`;
   github: `cid:github@${typeof UNIQUE_IDENTIFIER}`;
-  x: `cid:x@${typeof UNIQUE_IDENTIFIER}`;
+  bluesky: `cid:bluesky@${typeof UNIQUE_IDENTIFIER}`;
   letter: `cid:letter@${typeof UNIQUE_IDENTIFIER}`;
   writeToMe: `cid:write@${typeof UNIQUE_IDENTIFIER}`;
   profilePic: `cid:profile@${typeof UNIQUE_IDENTIFIER}`;
@@ -232,7 +232,7 @@ type Identifier =
   | 'logo2'
   | 'linkedin'
   | 'github'
-  | 'x'
+  | 'bluesky'
   | 'letter'
   | 'write'
   | 'profile'
@@ -242,7 +242,7 @@ type MailAttachment = {
   filename:
     | typeof LINKEDIN_ICON
     | typeof GITHUB_ICON
-    | typeof X_ICON
+    | typeof BLUESKY_ICON
     | typeof LETTER_ICON
     | typeof WRITE_TO_ME
     | typeof SKRIV_TIL_MIG
@@ -271,9 +271,9 @@ const getMailAttachments = (
       cid: `github@${UNIQUE_IDENTIFIER}`,
     },
     {
-      filename: X_ICON,
-      path: path.resolve(__dirname, `./${X_ICON}`),
-      cid: `x@${UNIQUE_IDENTIFIER}`,
+      filename: BLUESKY_ICON,
+      path: path.resolve(__dirname, `./${BLUESKY_ICON}`),
+      cid: `bluesky@${UNIQUE_IDENTIFIER}`,
     },
     {
       filename: LETTER_ICON,
@@ -380,22 +380,35 @@ const mockTransporter = {
 
 export default async (req: Request, context: Context) => {
   // Enable CORS for local development
-  const headers = {
+  const devHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  } as const;
+  };
+
+  const site_url = removeTrailingSlash(context.url.origin);
+  if (req.headers.get('origin') !== site_url) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers:
+        process.env.NODE_ENV === 'development'
+          ? devHeaders
+          : { 'content-type': 'application/json' },
+    });
+  }
 
   // Default to English redirect
   let redirectUrl = getRedirectUrl('en', req.headers.get('referer') || '');
   let language: 'en' | 'da' = 'en';
 
   if (context.url.pathname !== FUNCTION_ENDPOINT) {
-    return {
-      statusCode: 404,
-      body: JSON.stringify({ message: 'Not Found' }),
-      headers: { 'content-type': 'application/json' },
-    };
+    return new Response(JSON.stringify({ message: 'Not Found' }), {
+      status: 404,
+      headers:
+        process.env.NODE_ENV === 'development'
+          ? devHeaders
+          : { 'content-type': 'application/json' },
+    });
   }
 
   try {
@@ -412,14 +425,14 @@ export default async (req: Request, context: Context) => {
         }),
         {
           status: 400,
-          headers,
+          headers:
+            process.env.NODE_ENV === 'development' ? devHeaders : undefined,
         }
       );
     }
 
     const { data } = parseResult;
     const first_name = getFirstName(data.name);
-    const site_url = context.url.origin;
     const {
       name: sender_name,
       email: sender_email,
@@ -482,7 +495,7 @@ export default async (req: Request, context: Context) => {
         siteURL: site_url,
         linkedIn: `cid:linkedin@${UNIQUE_IDENTIFIER}`,
         github: `cid:github@${UNIQUE_IDENTIFIER}`,
-        x: `cid:x@${UNIQUE_IDENTIFIER}`,
+        bluesky: `cid:bluesky@${UNIQUE_IDENTIFIER}`,
         letter: `cid:letter@${UNIQUE_IDENTIFIER}`,
         writeToMe: `cid:write@${UNIQUE_IDENTIFIER}`,
         logo1: `cid:logo1@${UNIQUE_IDENTIFIER}`,
@@ -498,7 +511,8 @@ export default async (req: Request, context: Context) => {
       sender_language === 'da' ? 'newMessageDa' : 'newMessageEn';
 
     const mailNotificationOptions: MailWithTemplateOptions = {
-      from: `${sender_name} <${sender_email}>`,
+      from: `Lars 👨‍💻 Ejaas <${process.env.PRIVATE_EMAIL_USER}>`, // this has to be the actual email address as the email client will otherwise rewriting it.
+      replyTo: `${sender_name} <${sender_email}>`, // Sender's email for replies
       to: process.env.PRIVATE_EMAIL_USER,
       subject: sender_subject,
       template: notificationTemplate,
@@ -507,7 +521,7 @@ export default async (req: Request, context: Context) => {
         siteURL: site_url,
         linkedIn: `cid:linkedin@${UNIQUE_IDENTIFIER}`,
         github: `cid:github@${UNIQUE_IDENTIFIER}`,
-        x: `cid:x@${UNIQUE_IDENTIFIER}`,
+        bluesky: `cid:bluesky@${UNIQUE_IDENTIFIER}`,
         letter: `cid:letter@${UNIQUE_IDENTIFIER}`,
         writeToMe: `cid:write@${UNIQUE_IDENTIFIER}`,
         logo1: `cid:logo1@${UNIQUE_IDENTIFIER}`,
@@ -536,7 +550,7 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...headers,
+          ...devHeaders,
           Location: redirectUrl,
         },
       }
@@ -557,7 +571,7 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...headers,
+          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }
@@ -568,4 +582,8 @@ export default async (req: Request, context: Context) => {
 export const config: Config = {
   method: 'POST',
   path: FUNCTION_ENDPOINT,
+  rateLimit: {
+    action: 'rate_limit',
+    windowSize: 2,
+  },
 };

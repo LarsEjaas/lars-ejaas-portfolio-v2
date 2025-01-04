@@ -5,15 +5,19 @@ import {
   removeLeadingSlash,
   useTranslatedPath,
 } from '@i18n/utils';
-import { defaultLang } from '@i18n/settings';
+import { defaultLang, type Language } from '@i18n/settings';
 import styles from './languageToggle.module.css';
 import { appRoutes } from '@i18n/routes';
 import type { LanguageKey } from '@i18n/routes';
 import type { StringWithTrailingSlash } from '@customTypes/index';
 
-type Props = { withBackground?: boolean };
+type Props = {
+  withBackground?: boolean;
+  /** Manually overwrite the URLs on the toggle */
+  translationUrls?: Record<Language, string>;
+};
 
-const { withBackground } = Astro.props;
+const { withBackground, translationUrls } = Astro.props;
 
 /** Get the English appRoute when only the translated path is provided */
 const getEnglishTranslation = (
@@ -58,7 +62,7 @@ const danishUrl =
   <a
     tabindex={lang === 'en' ? -1 : 0}
     aria-disabled={lang === 'en' || undefined}
-    href={englishUrl}
+    href={translationUrls?.en || englishUrl}
   >
     EN
   </a>
@@ -66,7 +70,7 @@ const danishUrl =
   <a
     tabindex={lang === 'da' ? -1 : 0}
     aria-disabled={lang === 'da' || undefined}
-    href={danishUrl}
+    href={translationUrls?.da || danishUrl}
   >
     DA
   </a>

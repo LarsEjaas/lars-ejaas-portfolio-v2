@@ -1,14 +1,12 @@
-@media (max-width: 768px) {
-  .floatingBalloons {
-    grid-row: 5;
-  }
-}
-
 .flexWrapper,
 .flexColumnWrapper {
   display: flex;
+  color: light-dark(var(--system-dark-200), var(--system-dark-100));
   & .popoverDesc {
     margin-block-end: 0;
+    font-weight: 500;
+    font-size: var(--font-size-2);
+    color: currentColor;
   }
   & :global(#sallingGroupLogo) {
     color: #004a62;
@@ -16,7 +14,6 @@
   }
   & :global(#accuRankerLogo) {
     color: var(--system-dark-400);
-    margin-left: 2px;
   }
   & :global(#friggTechLogo) {
     color: #00396e;
@@ -28,8 +25,13 @@
 }
 
 .flexWrapper {
-  gap: 6px;
+  column-gap: 6px;
+  row-gap: 0;
   align-items: center;
+  flex-wrap: wrap;
+  &[data-accuranker] {
+    margin-block: -2px -6px;
+  }
 }
 
 .flexColumnWrapper {
@@ -44,6 +46,7 @@
 
 .websiteVisit {
   margin-block-end: 0;
+  white-space: normal;
   &:is(a) {
     --color: light-dark(var(--verdigris-700), var(--primary-lighter));
     color: var(--color);
@@ -59,4 +62,75 @@
 
 .workCardLazy {
   content-visibility: auto;
+}
+
+.animatedText {
+  max-width: 68ch;
+}
+
+.animationTimeline {
+  display: contents;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      & .animatedWorkCard,
+      & .animatedText:not([data-mobile-animation='false']) {
+        animation: var(--animation-scale-up);
+        animation-timeline: view();
+        animation-range: var(--scale-up-animation-range);
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    & .floatingBalloons {
+      grid-row: 5;
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          animation: var(--animation-scale-up);
+          animation-timeline: view();
+          animation-range: var(--scale-up-animation-range);
+        }
+      }
+    }
+    & .animatedWorkCard[data-mobile-animation='false'] {
+      animation: none;
+    }
+  }
+}
+
+.githubLogo {
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  width: auto;
+  height: auto;
+  background-color: currentColor;
+  opacity: 0.8;
+}
+
+.buttonLink {
+  margin-top: 0.5rem;
+  border: unset;
+  background-color: light-dark(
+    var(--system-light-300),
+    color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
+  );
+  text-decoration: unset;
+  width: fit-content;
+  padding: 8px 12px;
+  display: flex;
+  cursor: pointer;
+  outline-offset: var(--outline-offset);
+  color: var(--system-dark-100);
+  border-radius: var(--border-radius-md);
+  &:active,
+  &:focus-visible,
+  &:hover {
+    background-color: light-dark(
+      var(--system-light-400),
+      var(--system-dark-200-16)
+    );
+  }
+}
+
+.textWithMargin {
+  margin-block-end: auto;
 }

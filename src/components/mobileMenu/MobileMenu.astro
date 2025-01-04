@@ -39,21 +39,22 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     storeScrollPositionOnClick(window.mobileContactLink);
   }
 </script>
+<h2 class="sr-only" id="mobileMenuTitle">
+  {t('nav_mobile')}
+</h2>
 <nav
   class={`${styles.mobileMenu} mobile-only`}
   aria-labelledby="mobileMenuTitle"
   inert={inert}
-  role="group"
+  role="listbox"
   aria-keyshortcuts="ArrowLeft ArrowRight"
   id="mobileMenuNavigation"
 >
-  <h2 class="sr-only" id="mobileMenuTitle">
-    {t('nav_mobile')}
-  </h2>
   <a
     data-arrow-nav="true"
     role="option"
     href={translatePath('/')}
+    data-current={Astro.url.pathname === translatePath('/') || undefined}
     title={t('home')}
     aria-label={t('home')}
     ><div class="squircle" data-with-shadow="true">
@@ -77,6 +78,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     data-arrow-nav="true"
     role="option"
     href={translatePath('/work/')}
+    data-current={Astro.url.pathname.startsWith(translatePath('/work/')) ||
+      undefined}
     title={t('work')}
     aria-label={t('work')}
     ><div class="squircle" data-with-shadow="true">
@@ -100,6 +103,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     data-arrow-nav="true"
     role="option"
     href={translatePath('/skills/')}
+    data-current={Astro.url.pathname === translatePath('/skills/') || undefined}
     title={t('skills')}
     aria-label={t('skills')}
     ><div class="squircle" data-with-shadow="true">
@@ -123,6 +127,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     data-arrow-nav="true"
     role="option"
     href={translatePath('/about/')}
+    data-current={Astro.url.pathname.startsWith(translatePath('/about/')) ||
+      undefined}
     title={t('about')}
     aria-label={t('about')}
     ><div class="squircle" data-with-shadow="true">

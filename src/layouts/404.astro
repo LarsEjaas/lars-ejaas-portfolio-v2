@@ -1,0 +1,94 @@
+---
+import { defaultLang } from '@i18n/settings';
+import Layout from '@layouts/Root.astro';
+import '@layouts/global.css';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import {
+  getLangFromUrl,
+  removeLeadingSlash,
+  useTranslations,
+} from '@i18n/utils';
+import { Picture } from 'astro:assets';
+import notFound404 from '@assets/images/404.png';
+import styles from './_404.module.css';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+
+type Props = Record<string, never>;
+
+const lang = getLangFromUrl(Astro.url);
+
+const basePath = `/${removeLeadingSlash(Astro.url.pathname)}`;
+
+const translatedUrls = {
+  en: lang === 'en' ? basePath : basePath.replace('/da/', '/'),
+  da: lang === 'en' ? `/da${basePath}` : basePath,
+};
+
+const t = useTranslations(lang, 'navigation');
+---
+
+<script>
+  const internalReferer = document.referrer.startsWith(window.location.origin);
+  const IS_DEV = import.meta.env.DEV || false;
+  if (IS_DEV) {
+    console.info('document.referrer:', document.referrer);
+  }
+  if (
+    internalReferer &&
+    window.navigation.canGoBack &&
+    window.goBack instanceof HTMLDivElement
+  ) {
+    window.goBack.dataset.active = 'true';
+    const backButton = window.goBack.querySelector('button');
+    if (backButton) {
+      backButton.addEventListener('click', () => {
+        window.history.back();
+      });
+    }
+  }
+</script>
+<Layout
+  inert={false}
+  seo={{
+    metaData: { title: t('not_found_title'), description: '' },
+    openGraph: undefined,
+    // Do not index 404 page
+    noIndex: true,
+  }}
+  withDarkkModeToggle={true}
+  withModalLinks={false}
+  translationUrls={translatedUrls}
+>
+  <PageLabel title={t('not_found')} iconImage="alert" />
+  <FloatingBalloons
+    class={styles.floatingBalloons}
+    maxHeight={300}
+    balloonColor="bluemunsell"
+  />
+  <div class={styles.centerWrapper}>
+    <Picture
+      aria-hidden="true"
+      formats={['avif', 'webp']}
+      quality="high"
+      src={notFound404}
+      alt=""
+      widths={[260, 320, 440, 520]}
+      sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
+      loading="eager"
+      decoding="sync"
+      pictureAttributes={{
+        style: `width: 80%;max-width: 520px; aspect-ratio: ${notFound404.width}/${notFound404.height}`,
+      }}
+    />
+    <div class={styles.textWrapper}>
+      <p>{t('the_page_you_are_looking_for')}</p>
+    </div>
+    <div id="goBack" class={styles.goBack}>
+      <button>{t('go_back')}</button>
+      <p>{`────${'   '}${t('or') || ''}${'   '}────`}</p>
+    </div>
+    <a tabindex="0" href={lang === defaultLang ? '/' : `/${lang}/`}>
+      {t('go_to_home')}
+    </a>
+  </div>
+</Layout>

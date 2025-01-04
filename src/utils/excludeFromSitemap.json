@@ -1,0 +1,37 @@
+{
+  "$schema": "./excludeFromSitemap.schema.json",
+  "rootOnlyPatterns": [
+    {
+      "slug": "contact",
+      "variations": {
+        "da": "kontakt"
+      }
+    },
+    {
+      "slug": "message-received",
+      "variations": {
+        "da": "besked-modtaget"
+      }
+    },
+    {
+      "slug": "message-error",
+      "variations": {
+        "da": "besked-fejl"
+      }
+    },
+    {
+      "slug": "share",
+      "variations": {
+        "da": "del"
+      }
+    }
+  ],
+  "excludedPaths": [
+    "/da/email-svar/",
+    "/email-reply/",
+    "/message-received",
+    "/da/besked-modtaget",
+    "/message-error",
+    "/da/besked-fejl"
+  ]
+}

@@ -1,5 +1,9 @@
 ---
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslations,
+} from '@i18n/utils';
 import IconFacebook from '@assets/someIcons/facebook.png';
 import IconMessenger from '@assets/someIcons/messenger.png';
 import IconX from '@assets/someIcons/x.png';
@@ -9,8 +13,13 @@ import IconLinkedIn from '@assets/someIcons/linkedin.png';
 import IconReddit from '@assets/someIcons/reddit.png';
 import IconWhatsApp from '@assets/someIcons/whatsapp.png';
 import IconTelegram from '@assets/someIcons/telegram.png';
+import IconBluesky from '@assets/someIcons/bluesky.png';
 import styles from './share.module.css';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+import { getMetaForPage } from '@collections/meta';
+import { validateAndGetPublicPath } from '@components/seo/Seo.astro';
+import { getDefaultSiteMetaData } from '@components/seo/siteMetaData';
+const IS_DEV = import.meta.env.DEV || false;
 
 type Props = Record<string, never>;
 
@@ -21,54 +30,144 @@ type ShareAttributes = {
   hiddenOnDesktop?: boolean;
 };
 
+const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'share');
 
+// remove the modal-slug from the path
+const pathToShare = removeTrailingSlash(Astro.url.pathname)
+  ?.split('/')
+  .filter(Boolean)
+  .slice(0, -1)
+  .join('/');
+
+const meta = getMetaForPage(pathToShare, lang);
+
+const {
+  title,
+  description: metaDesc,
+  image: opengraphImage,
+  pinterestDescription,
+} = meta || {};
+const {
+  metaData: { description: defaultDescription },
+  openGraph: { image: defaultImage },
+} = await getDefaultSiteMetaData(lang);
+
+const pinterestImageName = opengraphImage.name
+  ? opengraphImage.name.replace(`_${lang}`, '_pinterest')
+  : defaultImage.name.replace(`_${lang}`, '_pinterest');
+
+const imageSrc = (
+  await validateAndGetPublicPath(opengraphImage.name || defaultImage.name)
+).src;
+
+const pinterestImageSrc = (await validateAndGetPublicPath(pinterestImageName))
+  .src;
+
+//combine domain and location
+const locationToShare = `${SITE_URL}/${pathToShare ? `${pathToShare}/` : ''}`;
+
+const shareURL = encodeURIComponent(locationToShare);
+
+//Get the meta description for this page or use the translated default description as fallback
+const description = metaDesc ? metaDesc.trim() : defaultDescription.trim();
+const pinterestDesc = pinterestDescription?.trim();
+
+const image = `${SITE_URL}${imageSrc}`;
+const pinterestImage = `${SITE_URL}${pinterestImageSrc}`;
+const descriptionURL = encodeURIComponent(description);
+const pinterestDescriptionURL = encodeURIComponent(
+  pinterestDesc || description
+);
+const titleURL = encodeURIComponent(`Lars Ejaas | ${title.trim()}`);
+
+const facebookBaseURL = 'https://facebook.com/sharer/sharer.php?u=';
+const messengerBaseURL = 'fb-messenger://share/?link=';
+const messengerURL = `${messengerBaseURL}${shareURL}`;
+const xBaseURL1 = 'https://x.com/share?text=';
+const xBaseURL2 = `${descriptionURL}&url=${shareURL}&title=${titleURL}&media=${image}`;
+const blueskyBaseURL1 = 'https://bsky.app/intent/compose?text=';
+const blueskyBaseURL2 = `${titleURL} | ${descriptionURL}%0A${shareURL}`;
+const blueskyURL = `${blueskyBaseURL1}${blueskyBaseURL2}`;
+
+const facebookURL = `${facebookBaseURL}${shareURL}`;
+const xURL = `${xBaseURL1}${xBaseURL2}`;
+const mailURL = `mailto:?subject=${titleURL}&body=${shareURL}%0A${descriptionURL}`;
+const pinterestURL = `https://pinterest.com/pin/create/button/?url=${shareURL}&amp;media=${pinterestImage}&description=${pinterestDescriptionURL}`;
+const linkedInURL = `https://www.linkedin.com/sharing/share-offsite/?url=
+    ${shareURL}&text=${titleURL} | ${descriptionURL}`;
+const redditURL = `https://reddit.com/web/submit/?url=${shareURL}&title=${titleURL}&text=${descriptionURL}`;
+const whatsAppURL = `whatsapp://send?text=${descriptionURL}%20${shareURL}`;
+const telegramURL = `https://t.me/share/url?url=${shareURL}&text=${descriptionURL}`;
+
+if (IS_DEV) {
+  console.group('shareAttributes for this route:');
+  console.table({
+    'Image source': imageSrc,
+    'Pinterest image source': pinterestImageSrc,
+    Description: metaDesc,
+    'Default description (fallback)': defaultDescription,
+    Title: `Lars Ejaas | ${title.trim()}`,
+    'Pinterest Description': pinterestDesc,
+  });
+  console.groupEnd();
+}
+
+//===================================================================================
+
 const shareAttributes: ShareAttributes[] = [
   {
-    href: '',
+    href: facebookURL,
     title: t('facebook_title'),
     image: IconFacebook,
   },
   {
-    href: '',
+    href: messengerURL,
     title: t('messenger_title'),
     image: IconMessenger,
     hiddenOnDesktop: true,
   },
   {
-    href: '',
+    href: xURL,
     title: t('x_title'),
     image: IconX,
   },
   {
-    href: '',
+    href: mailURL,
     title: t('email_title'),
     image: IconEmail,
   },
   {
-    href: '',
+    href: pinterestURL,
     title: t('pinterest_title'),
     image: IconPinterest,
   },
   {
-    href: '',
+    href: linkedInURL,
     title: t('linkedin_title'),
     image: IconLinkedIn,
   },
   {
-    href: '',
+    href: redditURL,
     title: t('reddit_title'),
     image: IconReddit,
   },
   {
-    href: '',
+    href: whatsAppURL,
     title: t('whatsapp_title'),
     image: IconWhatsApp,
     hiddenOnDesktop: true,
   },
   {
-    href: '',
+    href: blueskyURL,
+    title: t('bluesky_title'),
+    image: IconBluesky,
+    hiddenOnDesktop: false,
+  },
+  {
+    href: telegramURL,
     title: t('telegram_title'),
     image: IconTelegram,
     hiddenOnDesktop: true,
@@ -84,7 +183,10 @@ const shareAttributes: ShareAttributes[] = [
         title={attr.title}
         aria-label={attr.title}
         class={`${attr.hiddenOnDesktop ? 'mobile-only' : ''}`}
+        target="_blank"
+        rel="noopener noreferrer"
       >
+        <p class="sr-only">{attr.title}</p>
         <div class="squircle" data-with-shadow="true">
           <PictureWithPlaceholder
             aria-hidden="true"
@@ -92,15 +194,12 @@ const shareAttributes: ShareAttributes[] = [
             quality="high"
             src={attr.image}
             alt=""
-            width="48"
-            height="48"
-            densities={[1, 2, 3]}
+            widths={[48, 96, 144, 72, 144, 216]}
+            sizes="(max-width: 640px) 48px, 72px"
             loading="eager"
             decoding="sync"
             classNames={{
-              placeholder: ![IconMessenger, IconPinterest].includes(attr.image)
-                ? styles.placeholder
-                : styles.noPlaceholder,
+              placeholder: styles.placeholder,
             }}
           />
         </div>
