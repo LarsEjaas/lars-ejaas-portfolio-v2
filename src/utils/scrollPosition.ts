@@ -1,5 +1,5 @@
-import { allLightboxKeys } from '../i18n/routes';
-import { removeTrailingSlash } from '../i18n/utils';
+import { allLightboxKeys } from '@i18n/routes';
+import { removeTrailingSlash } from '@i18n/utils';
 
 export const SCROLL_POSITION_KEY = 'scrollPosition';
 

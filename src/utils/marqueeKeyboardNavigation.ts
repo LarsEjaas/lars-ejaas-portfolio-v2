@@ -152,6 +152,13 @@ const handleKeyDown = (
     }
     moveUp(elementGrid, position);
   }
+  if (
+    event.key === 'Enter' &&
+    event.target instanceof HTMLElement &&
+    event.target.dataset.active === 'true'
+  ) {
+    event.preventDefault();
+  }
 };
 
 /**

@@ -48,21 +48,16 @@
   }
 }
 
-::view-transition-old(lightboxBackdrop) {
+::view-transition-group(lightbox-backdrop) {
+  isolation: isolate;
+}
+
+::view-transition-old(lightbox-backdrop) {
   animation: 300ms blurOut ease-in both;
 }
 
-::view-transition-new(lightboxBackdrop) {
+::view-transition-new(lightbox-backdrop) {
   animation: 300ms blurIn ease-out both;
-}
-
-::view-transition-group(lightbox-backdrop),
-::view-transition-new(lightbox-backdrop),
-::view-transition-old(lightbox-backdrop) {
-  animation: none !important;
-  animation-duration: 0s !important;
-  mix-blend-mode: normal !important;
-  animation-fill-mode: none !important;
 }
 
 .dialog {
@@ -82,6 +77,17 @@
   inset: 0;
   background-color: unset;
   border-style: none;
+}
+
+:global(html) {
+  &:active-view-transition-type(keep-in-place) {
+    & .backdrop {
+      view-transition-name: none;
+    }
+    & .dialog {
+      view-transition-name: none;
+    }
+  }
 }
 
 .header {

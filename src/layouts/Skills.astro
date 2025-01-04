@@ -61,6 +61,8 @@ const DescriptionComponent = skillDescription;
 </script>
 
 <Layout title={title} inert={inert}>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
   <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
     <div>
@@ -97,6 +99,4 @@ const DescriptionComponent = skillDescription;
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
   <TechSkillsMarquee />
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
 </Layout>

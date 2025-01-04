@@ -104,6 +104,7 @@ declare global {
     desktopContactLink: HTMLAnchorElement | null;
     skillTileScene: HTMLDivElement | null;
     lightbox: HTMLDialogElement | null;
+    thumbnailGridContainer: HTMLDivElement | null;
     aboutArticle: HTMLElement | null;
     skillBackButton: HTMLButtonElement | null;
     skillPagination: HTMLUListElement | null;

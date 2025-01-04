@@ -21,6 +21,8 @@ const t_about = useTranslations(lang, 'about');
 ---
 
 <Layout title={title} inert={inert}>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
   <div class="presentation">
     <PageLabel title={t_about('about_title')} iconImage="about" />
     <PresentationCard
@@ -142,6 +144,4 @@ const t_about = useTranslations(lang, 'about');
       </div>
     </div>
   </article>
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
 </Layout>

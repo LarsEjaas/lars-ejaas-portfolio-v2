@@ -132,6 +132,7 @@
     }
   }
   a[data-active] {
+    pointer-events: none;
     &::after {
       content: '';
       position: absolute;

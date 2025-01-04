@@ -29,6 +29,8 @@ const newsGridItems =
 ---
 
 <Layout title={title} inert={inert}>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot />
   <div class="presentation">
     <PageLabel title={t_arch('archive_title')} iconImage="archive" />
     <div>
@@ -126,6 +128,4 @@ const newsGridItems =
       </>
     )
   }
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
 </Layout>

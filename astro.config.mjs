@@ -1,20 +1,13 @@
 import { defineConfig } from 'astro/config';
 import netlify from '@astrojs/netlify';
-import node from '@astrojs/node';
-
-let adapter = netlify({
-  edgeMiddleware: false,
-  functionPerRoute: false,
-});
-
-if (process.argv[3] === '--node' || process.argv[4] === '--node') {
-  adapter = node({ mode: 'standalone' });
-}
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://larsejaas.com',
-  adapter,
+  adapter: netlify({
+    edgeMiddleware: false,
+    functionPerRoute: false,
+  }),
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport',
