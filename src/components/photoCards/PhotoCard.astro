@@ -12,6 +12,7 @@ type Props = {
   includeViewTransitionId: boolean;
   /** Can be used to rotate all the images in the opposite direction */
   reverseRotation?: boolean;
+  disabled?: boolean;
 };
 
 const CARD_ROTATIONS = [-4, 6, -2, 3, -5, 2, -4, 3, -4, 2, -5, 4, -3, 2, -4, 5];
@@ -24,6 +25,7 @@ const {
   reverseRotation,
   index,
   includeViewTransitionId,
+  disabled,
 } = Astro.props;
 
 const imageInfo = aboutImagesInfo.find((info) => info.imageName === imageName);
@@ -42,6 +44,8 @@ const translatePath = useTranslatedPath(lang);
 <a
   href={translatePath(englishUrl)}
   id={includeViewTransitionId ? imageInfo.id : undefined}
+  class={styles.anchor}
+  data-disabled={disabled || undefined}
   data-reverse-rotate={reverseRotation || undefined}
   style={`--index: ${index}; --rotation: ${CARD_ROTATIONS[index]}deg;`}
 >

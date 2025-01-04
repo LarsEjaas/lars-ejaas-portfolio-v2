@@ -73,7 +73,8 @@ const {
       // Detect dark mode before page load
       if (
         getStoredDarkmode() === 'true' ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches
+        (!getStoredDarkmode() &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         document.documentElement.dataset.darkMode = 'true';
       }

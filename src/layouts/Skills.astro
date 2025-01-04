@@ -53,7 +53,6 @@ const DescriptionComponent = skillDescription;
     window.skillTileScene?.querySelectorAll('a:not([data-active])') || []
   ).filter((item) => item instanceof HTMLAnchorElement);
   const elements = [...Array.from(paginationElements), ...tileSceneElements];
-  console.log('anchorElements', elements);
   if (skillPresentation) {
     elements.forEach((anchor) =>
       storeScrollPositionOnClick(anchor, skillPresentation, -16)

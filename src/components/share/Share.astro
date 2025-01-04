@@ -1,6 +1,5 @@
 ---
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
-import { Picture } from 'astro:assets';
 import IconFacebook from '@assets/someIcons/facebook.png';
 import IconMessenger from '@assets/someIcons/messenger.png';
 import IconX from '@assets/someIcons/x.png';
@@ -11,6 +10,7 @@ import IconReddit from '@assets/someIcons/reddit.png';
 import IconWhatsApp from '@assets/someIcons/whatsapp.png';
 import IconTelegram from '@assets/someIcons/telegram.png';
 import styles from './share.module.css';
+import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
 type Props = Record<string, never>;
 
@@ -86,7 +86,7 @@ const shareAttributes: ShareAttributes[] = [
         class={`${attr.hiddenOnDesktop ? 'mobile-only' : ''}`}
       >
         <div class="squircle" data-with-shadow="true">
-          <Picture
+          <PictureWithPlaceholder
             aria-hidden="true"
             formats={['avif', 'webp']}
             quality="high"
@@ -97,6 +97,11 @@ const shareAttributes: ShareAttributes[] = [
             densities={[1, 2, 3]}
             loading="eager"
             decoding="sync"
+            classNames={{
+              placeholder: ![IconMessenger, IconPinterest].includes(attr.image)
+                ? styles.placeholder
+                : styles.noPlaceholder,
+            }}
           />
         </div>
       </a>

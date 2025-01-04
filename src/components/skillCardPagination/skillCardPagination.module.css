@@ -153,12 +153,12 @@
 
 html:active-view-transition-type(forwards) {
   &::view-transition-old(skill-pagination-button-last) {
-    animation-name: fade-out-to-right;
+    animation-name: fade-out-to-left;
     animation-timing-function: ease-in;
   }
 
   &::view-transition-new(skill-pagination-button-first) {
-    animation-name: fade-in-from-left;
+    animation-name: fade-in-from-right;
     animation-timing-function: ease-out;
   }
 
@@ -170,19 +170,19 @@ html:active-view-transition-type(forwards) {
   &::view-transition-new(skill-pagination-button-2),
   &::view-transition-old(skill-pagination-button-3),
   &::view-transition-new(skill-pagination-button-3) {
-    animation-name: move-right;
+    animation-name: move-left;
     animation-timing-function: ease-in-out;
   }
 }
 
 html:active-view-transition-type(backwards) {
   &::view-transition-old(skill-pagination-button-first) {
-    animation-name: fade-out-to-left;
+    animation-name: fade-out-to-right;
     animation-timing-function: ease-in;
   }
 
   &::view-transition-new(skill-pagination-button-last) {
-    animation-name: fade-in-from-right;
+    animation-name: fade-in-from-left;
     animation-timing-function: ease-out;
   }
 
@@ -194,7 +194,7 @@ html:active-view-transition-type(backwards) {
   &::view-transition-new(skill-pagination-button-3),
   &::view-transition-old(skill-pagination-button-last),
   &::view-transition-new(skill-pagination-button-first) {
-    animation-name: move-left;
+    animation-name: move-right;
     animation-timing-function: ease-in-out;
   }
 }

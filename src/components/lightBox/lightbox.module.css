@@ -32,7 +32,7 @@
 }
 
 .backdrop {
-  view-transition-name: lightboxBackdrop;
+  view-transition-name: lightbox-backdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -41,7 +41,6 @@
   inset: 0;
   z-index: 1000;
   background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
-  animation-fill-mode: both;
   backdrop-filter: saturate(180%) brightness(60%) blur(6px);
   transition: backdrop-filter 0.3s ease-in-out 0.1s;
   &:hover {
@@ -49,18 +48,21 @@
   }
 }
 
-/* :global(::view-transition-group(lightboxBackdrop)) {
-  backdrop-filter: none !important;
-} */
-
 ::view-transition-old(lightboxBackdrop) {
   animation: 300ms blurOut ease-in both;
-  backdrop-filter: none !important;
-  background-blend-mode: unset;
 }
 
 ::view-transition-new(lightboxBackdrop) {
   animation: 300ms blurIn ease-out both;
+}
+
+::view-transition-group(lightbox-backdrop),
+::view-transition-new(lightbox-backdrop),
+::view-transition-old(lightbox-backdrop) {
+  animation: none !important;
+  animation-duration: 0s !important;
+  mix-blend-mode: normal !important;
+  animation-fill-mode: none !important;
 }
 
 .dialog {
