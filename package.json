@@ -6,7 +6,8 @@
     "dev": "netlify dev",
     "start": "astro dev",
     "build": "npm ci --include=dev && astro check && astro build",
-    "preview": "astro preview",
+    "build:node": "npm ci --include=dev && astro check && astro build ./ --node",
+    "preview": "astro preview --node",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "typecheck": "astro check",
@@ -14,12 +15,13 @@
     "prepare": "test \"$NODE_ENV\" = production || husky install"
   },
   "engines": {
-    "node": ">=21.2.0",
+    "node": ">=21.0.0",
     "npm": ">=10.2.3"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/netlify": "^6.0.1",
+    "@astrojs/node": "^9.0.0",
     "@astrojs/ts-plugin": "^1.10.4",
     "astro": "^5.1.2",
     "dompurify": "^3.2.3",

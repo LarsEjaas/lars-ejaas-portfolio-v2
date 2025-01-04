@@ -1,5 +1,5 @@
 .marquee {
-  view-transition-name: skillMarquee;
+  view-transition-name: skill-marquee;
   container-type: inline-size;
   border-radius: var(--border-radius-md);
   container-name: marquee;
@@ -208,10 +208,10 @@
   }
 }
 
-::view-transition-old(skillMarquee) {
+::view-transition-old(skill-marquee) {
   animation: 300ms fadeOut ease-in-out both;
 }
 
-::view-transition-new(skillMarquee) {
+::view-transition-new(skill-marquee) {
   animation: 300ms fadeIn 300ms ease-in-out both;
 }

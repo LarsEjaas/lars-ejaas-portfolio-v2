@@ -176,7 +176,6 @@
   max-width: calc(100% - 2 * var(--mask-width));
   padding-block: 32px 16px;
   will-change: grid-template-columns;
-  /* animation: spreadCards 400ms 250ms ease-in-out backwards; */
   mask: linear-gradient(
     90deg,
     transparent,
@@ -194,11 +193,11 @@
   }
 }
 
-::view-transition-old(thumbnailGridContainer) {
+::view-transition-old(thumbnail-grid-container) {
   animation: 250ms fadeOut ease-in both;
 }
 
-::view-transition-new(thumbnailGridContainer) {
+::view-transition-new(thumbnail-grid-container) {
   animation: 250ms fadeIn 300ms ease-out both;
 }
 

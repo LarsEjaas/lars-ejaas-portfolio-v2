@@ -86,7 +86,7 @@ Install dependencies:
 npm install
 ```
 
-Install the pre-commit hook:
+Install the pre-commit hook (you can skip this step if you do not plan to commit code):
 
 ```bash
 npx husky install
