@@ -31,6 +31,9 @@
   @view-transition {
     navigation: auto;
   }
+  &::view-transition-group(*) {
+    animation-duration: 200ms;
+  }
 
   @media (prefers-reduced-motion) {
     @view-transition {
@@ -41,6 +44,7 @@
     ::view-transition-old(*),
     ::view-transition-new(*) {
       animation: none !important;
+      animation-duration: 0 !important;
     }
   }
 

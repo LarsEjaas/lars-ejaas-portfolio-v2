@@ -380,22 +380,35 @@ const mockTransporter = {
 
 export default async (req: Request, context: Context) => {
   // Enable CORS for local development
-  const headers = {
+  const devHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  } as const;
+  };
+
+  const site_url = removeTrailingSlash(context.url.origin);
+  if (req.headers.get('origin') !== site_url) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers:
+        process.env.NODE_ENV === 'development'
+          ? devHeaders
+          : { 'content-type': 'application/json' },
+    });
+  }
 
   // Default to English redirect
   let redirectUrl = getRedirectUrl('en', req.headers.get('referer') || '');
   let language: 'en' | 'da' = 'en';
 
   if (context.url.pathname !== FUNCTION_ENDPOINT) {
-    return {
-      statusCode: 404,
-      body: JSON.stringify({ message: 'Not Found' }),
-      headers: { 'content-type': 'application/json' },
-    };
+    return new Response(JSON.stringify({ message: 'Not Found' }), {
+      status: 404,
+      headers:
+        process.env.NODE_ENV === 'development'
+          ? devHeaders
+          : { 'content-type': 'application/json' },
+    });
   }
 
   try {
@@ -412,14 +425,14 @@ export default async (req: Request, context: Context) => {
         }),
         {
           status: 400,
-          headers,
+          headers:
+            process.env.NODE_ENV === 'development' ? devHeaders : undefined,
         }
       );
     }
 
     const { data } = parseResult;
     const first_name = getFirstName(data.name);
-    const site_url = removeTrailingSlash(context.url.origin);
     const {
       name: sender_name,
       email: sender_email,
@@ -536,7 +549,7 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...headers,
+          ...devHeaders,
           Location: redirectUrl,
         },
       }
@@ -557,7 +570,7 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...headers,
+          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }
@@ -568,4 +581,8 @@ export default async (req: Request, context: Context) => {
 export const config: Config = {
   method: 'POST',
   path: FUNCTION_ENDPOINT,
+  rateLimit: {
+    action: 'rate_limit',
+    windowSize: 2,
+  },
 };
