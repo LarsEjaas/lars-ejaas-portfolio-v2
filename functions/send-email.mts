@@ -511,7 +511,8 @@ export default async (req: Request, context: Context) => {
       sender_language === 'da' ? 'newMessageDa' : 'newMessageEn';
 
     const mailNotificationOptions: MailWithTemplateOptions = {
-      from: `${sender_name} <${sender_email}>`,
+      from: `Lars 👨‍💻 Ejaas <${process.env.PRIVATE_EMAIL_USER}>`, // this has to be the actual email address as the email client will otherwise rewriting it.
+      replyTo: `${sender_name} <${sender_email}>`, // Sender's email for replies
       to: process.env.PRIVATE_EMAIL_USER,
       subject: sender_subject,
       template: notificationTemplate,
