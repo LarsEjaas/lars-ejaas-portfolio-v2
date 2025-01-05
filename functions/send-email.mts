@@ -79,7 +79,7 @@ const REDIRECT_SLUGS = {
 /**
  * Remove trailing slash from a slug or url, preserving literal type
  */
-export function removeTrailingSlash<T extends string>(
+function removeTrailingSlash<T extends string>(
   url: T
 ): T extends `${infer Rest}/` ? Rest : T {
   return (
@@ -419,7 +419,7 @@ export default async (req: Request, context: Context) => {
 
     const { data } = parseResult;
     const first_name = getFirstName(data.name);
-    const site_url = context.url.origin;
+    const site_url = removeTrailingSlash(context.url.origin);
     const {
       name: sender_name,
       email: sender_email,

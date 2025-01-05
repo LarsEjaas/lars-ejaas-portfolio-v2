@@ -1,6 +1,10 @@
 ---
 import Layout from '@layouts/Root.astro';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslations,
+} from '@i18n/utils';
 import Logo1 from '@assets/emailReplyImages/logo1_email.png';
 import Logo2 from '@assets/emailReplyImages/logo2_email.png';
 import ProfilePicture from '@assets/emailReplyImages/profile.png';
@@ -18,6 +22,10 @@ type Props = {
 const { title, inert } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'emailReply');
+
+const siteUrl = removeTrailingSlash(
+  import.meta.env.SITE_URL || 'https://example.com'
+);
 ---
 
 <script>
@@ -170,7 +178,7 @@ const t = useTranslations(lang, 'emailReply');
                                   font-family: 'Heebo', Arial, sans-serif;
                                   font-size: 25px;
                                   line-height: 32px;
-                                  text-align: left;
+                                  text-align: center;
                                   padding-bottom: 20px;
                                 "
                     >
@@ -186,7 +194,7 @@ const t = useTranslations(lang, 'emailReply');
                                     sans-serif;
                                   font-size: 14px;
                                   line-height: 26px;
-                                  text-align: left;
+                                  text-align: center;
                                   padding-bottom: 20px;
                                 "
                     >
@@ -204,9 +212,7 @@ const t = useTranslations(lang, 'emailReply');
                                 text-align: center;
                               "
                   >
-                    <span><b>{t('have_a_great_day')}</b></span><br /><span
-                      >Lars</span
-                    >
+                    <span><b>{t('have_a_great_day')}</b></span><br /><br />
                   </td>
                   <tr>
                     <td
@@ -369,7 +375,7 @@ const t = useTranslations(lang, 'emailReply');
                   >
                     {t('visit_my_website')}
                     <a
-                      href="https://larsejaas.com"
+                      href={lang === 'en' ? siteUrl : `${siteUrl}/da/`}
                       target="_blank"
                       style="
                                   text-decoration: underline;
@@ -490,13 +496,17 @@ const t = useTranslations(lang, 'emailReply');
                           >
                             {t('this_is_an_automated_response')}
                             <a
-                              href="https://larsejaas.com/contact"
+                              href={`${siteUrl}/${lang === 'en' ? 'contact/' : 'da/kontakt/'}`}
                               target="_blank"
                               style="
                                           text-decoration: underline;
                                           color: #00adb7;
                                         "
-                              >larsejaas.com/contact</a
+                              >{
+                                lang === 'en'
+                                  ? 'larsejaas.com/contact'
+                                  : 'larsejaas.com/da/kontakt'
+                              }</a
                             >
                           </td>
                         </tr>

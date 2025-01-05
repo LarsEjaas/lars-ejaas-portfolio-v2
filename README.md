@@ -27,7 +27,7 @@ I'm dedicated to keeping this project open-source, mainly as a source of inspira
 - If you need assistance with Astro, please refer to their [official documentation](https://docs.astro.build/en/getting-started/).
   <br />
 
-**To summarize:** Feel free to fork this repository for inspiration! Just be sure to create your own unique site and credit me by linking back to [larsejaas.com](https://larsejaas.com) if you use any parts of my code.
+**To summarize:** Feel free to fork this repository for inspiration on creating your own portfolio! Just be sure to create your own unique site and credit me by linking back to [larsejaas.com](https://larsejaas.com) if you directly re-use parts of my code.
 <br />
 <br />
 Thank you for understanding and respecting my work!
@@ -51,7 +51,7 @@ While I typically would choose to build a bage like with a React framework like 
 
 ## 🛠️ Prerequisites & Requirements
 
-- [x] Node.js (v20 or higher)
+- [x] Node.js (v21 or higher)
 - [x] npm
 - [x] Git
 - [x] A Gmail account for SMTP services
@@ -86,6 +86,8 @@ Install dependencies:
 npm install
 ```
 
+Create an `.env` file in the root directory and inspect the `.env.example` file in the root of the project for the required environment variables.
+
 Install the pre-commit hook (you can skip this step if you do not plan to commit code):
 
 ```bash
@@ -100,7 +102,7 @@ netlify dev
 
 That's it!
 
-The project is intentionally simple, with no JavaScript frameworks, no CSS frameworks, and limited use of TypeScript/JavaScript.
+The project is intentionally simple, with no JavaScript frameworks, no CSS frameworks, and limited use of JavaScript in the browser.
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 

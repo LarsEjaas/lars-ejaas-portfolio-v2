@@ -122,3 +122,18 @@
 ::view-transition-image-pair(img11) {
   isolation: isolate;
 }
+
+::view-transition-old(img1),
+::view-transition-old(img2),
+::view-transition-old(img3),
+::view-transition-old(img4),
+::view-transition-old(img5),
+::view-transition-old(img6),
+::view-transition-old(img7),
+::view-transition-old(img8),
+::view-transition-old(img9),
+::view-transition-old(img10),
+::view-transition-old(img11) {
+  block-size: 100%;
+  object-fit: contain;
+}

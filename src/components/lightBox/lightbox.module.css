@@ -81,11 +81,17 @@
 
 :global(html) {
   &:active-view-transition-type(keep-in-place) {
-    & .backdrop {
-      view-transition-name: none;
+    &::view-transition-group(lightbox-backdrop),
+    &::view-transition-new(lightbox-backdrop),
+    &::view-transition-old(lightbox-backdrop) {
+      animation: none !important;
+      animation-duration: 0s !important;
+      mix-blend-mode: normal;
+      animation-fill-mode: both !important;
     }
-    & .dialog {
-      view-transition-name: none;
+    /* Prevent a flash of the new and old backdrops being layered on top of each other */
+    &::view-transition-new(lightbox-backdrop) {
+      opacity: 0 !important;
     }
   }
 }
@@ -215,6 +221,7 @@
   align-items: center;
   justify-content: space-between;
   position: absolute;
+  padding-left: 0;
   & li {
     width: fit-content;
     pointer-events: all;
