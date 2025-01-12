@@ -4,6 +4,7 @@ import GitHubIcon from '../icons/GitHubIcon.astro';
 import LinkedInIcon from '../icons/LinkedInIcon.astro';
 import XIcon from '../icons/XIcon.astro';
 import styles from './socialLinks.module.css';
+import BlueSkyIcon from '../icons/BlueSkyIcon.astro';
 
 type Props = {
   alternativeColors?: boolean;
@@ -40,6 +41,16 @@ const t = useTranslations(lang, 'navigation');
   </h2>
   <a
     role="option"
+    href="https://linkedin.com/in/lars-ejaas"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t('linkedin_label')}
+    data-arrow-nav="true"
+  >
+    <LinkedInIcon title={t('linkedin_label')} />
+  </a>
+  <a
+    role="option"
     href="https://x.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas"
     target="_blank"
     rel="noopener noreferrer"
@@ -50,13 +61,13 @@ const t = useTranslations(lang, 'navigation');
   </a>
   <a
     role="option"
-    href="https://linkedin.com/in/lars-ejaas"
+    href="https://bsky.app/profile/larsejaas.bsky.social"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label={t('linkedin_label')}
+    aria-label={t('bluesky_label')}
     data-arrow-nav="true"
   >
-    <LinkedInIcon title={t('linkedin_label')} />
+    <BlueSkyIcon title={t('bluesky_label')} />
   </a>
   <a
     role="option"

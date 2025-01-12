@@ -142,9 +142,9 @@
     --card-background: linear-gradient(
         transparent,
         transparent calc(100% - 80px),
-        light-dark(var(--system-light-300), var(--system-light-200))
+        light-dark(var(--system-light-400), var(--system-light-200))
       ),
-      light-dark(var(--system-light-100), var(--system-light-300));
+      light-dark(var(--system-light-200), var(--system-light-300));
     --stacks-balloon-shadow: 10px 10px 25px var(--system-shadow-7);
     --border-radius-sm: 4px;
     --border-radius-md: 8px;

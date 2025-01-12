@@ -1,6 +1,7 @@
 & .socialLinks {
   display: flex;
   gap: 16px;
+  margin-left: auto;
   &[data-alt-colors] {
     & svg {
       color: light-dark(var(--system-dark-100), var(--system-dark-200));

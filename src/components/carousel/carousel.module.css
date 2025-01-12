@@ -211,6 +211,7 @@
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
     background: radial-gradient(
       circle at calc(var(--x) * 1px) calc(var(--y) * 1px),
       light-dark(hsl(0 0% 100% / 0.36), hsl(0 0% 100% / 0.24)),

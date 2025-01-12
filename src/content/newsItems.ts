@@ -25,6 +25,7 @@ const newsFeed = [
   'x',
   'v2',
   'friggTech',
+  'bluesky',
 ] as const;
 
 /**
@@ -69,7 +70,7 @@ const newsObject = {
       date: '1. marts 2021',
       imageSrc: 'hand_holding_letter.jpg',
       imageAlt: 'Hånd der holder et brev',
-      href: '/da/kontakt/',
+      href: '/da/arkiv/kontakt/',
       outline: '4',
     },
     makingOf: {
@@ -154,12 +155,23 @@ const newsObject = {
     friggTech: {
       title: 'Nyt job hos Frigg Tech',
       description:
-        'Jeg er begejstret for at offentliggøre at jeg er starter hos Frigg Tech som frontend-udvikler pr. 1. januar.',
+        'Jeg er begejstret for at offentliggøre at jeg startede i nyt job hos Frigg Tech som frontend-udvikler pr. 1. januar.',
       date: '1. januar 2025',
       imageSrc: 'frigg_tech.png',
       imageAlt: 'Lysegrønt Frigg Tech logo på en mørkeblå baggrund',
       href: '/work/#friggTech',
       outline: '4',
+    },
+    bluesky: {
+      title: 'Nu kan du finde mig på Bluesky',
+      description:
+        'Mange techies er for nylig skiftet til Bluesky, så jeg tænkte, at jeg ville se, hvad al den begejstring handler om.\n\nJeg ville elske, hvis du ville komme og være med!',
+      date: '20. januar 2025',
+      imageSrc: 'bluesky.png',
+      imageAlt:
+        'Bluesky sommerfugle-logo afbilledet på en telefon foran en skyfyldt blå himmel',
+      href: 'https://bsky.app/profile/larsejaas.bsky.social',
+      outline: 'gold',
     },
   },
   en: {
@@ -189,7 +201,7 @@ const newsObject = {
       date: 'March 1st, 2021',
       imageSrc: 'hand_holding_letter.jpg',
       imageAlt: 'Hand holding a letter',
-      href: '/contact/',
+      href: '/archive/contact/',
       outline: '4',
     },
     makingOf: {
@@ -274,12 +286,23 @@ const newsObject = {
     friggTech: {
       title: 'New job at Frigg Tech',
       description:
-        'I am thrilled to announce that I have joined Frigg Tech as a frontend developer, starting January 1st.',
+        'I am thrilled to announce that I have joined Frigg Tech as a frontend developer January 1st.',
       date: 'January 1st, 2025',
       imageSrc: 'frigg_tech.png',
       imageAlt: 'Light green Frigg Tech logo on dark blue background',
       href: '/work/#friggTech',
       outline: '4',
+    },
+    bluesky: {
+      title: 'I am now on Bluesky',
+      description:
+        'Lots of techies have recently switched to Bluesky, so I thought I’d see what all the fuss is about.\n\nI’d love it if you’d come and join me!',
+      date: 'January 20th, 2025',
+      imageSrc: 'bluesky.png',
+      imageAlt:
+        'Bluesky butterfly logo pictured on a phone in front of a blue sky',
+      href: 'https://bsky.app/profile/larsejaas.bsky.social',
+      outline: '2',
     },
   },
 } as const satisfies NewsItems;
