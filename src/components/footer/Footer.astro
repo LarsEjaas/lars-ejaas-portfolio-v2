@@ -24,7 +24,11 @@ const currentYear = new Date().getFullYear();
     <FooterMenu withModalLinks={withModalLinks} />
     <div class={styles.copyright}>
       <p>
-        ©&nbsp;{currentYear} | Lars Ejaas
+        ©&nbsp;{
+          currentYear === 2025
+            ? `${currentYear} | Lars Ejaas`
+            : `2025 - ${currentYear} | Lars Ejaas`
+        }
       </p>
       <span>
         <p>

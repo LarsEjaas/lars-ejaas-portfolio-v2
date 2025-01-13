@@ -4,10 +4,16 @@ export type MetaData = {
   title: string;
   description: string;
   siteUrl: string;
+  siteName: string;
   author: string;
   keywords: string[];
   language: 'en' | 'da';
   rights: string;
+};
+
+export type Image = {
+  name: string;
+  alt: string;
 };
 
 export type MetaTheme = {
@@ -29,29 +35,37 @@ export type MetaTheme = {
   // }[];
 };
 
-export type OpenGraph = {
-  type: string;
-  article: {
-    publishedTime: string;
-    modifiedTime: string;
-    section: string;
-    tags: string[];
-  };
-  image: string;
-  imageAlt: string;
-};
-
-export type metaTag =
+export type OpenGraph =
   | {
-      name: string;
-      content: string;
-      property?: never;
+      type: string;
+      image: Image;
     }
   | {
-      property: string;
-      content: string;
-      name?: never;
+      type: string;
+      image: Image;
+      article: {
+        publishedTime: string;
+        modifiedTime: string;
+        expirationTime: string;
+        section: string;
+        tags: string[];
+        authors: string[];
+      };
     };
+
+type HttpEquiv =
+  | 'content-security-policy'
+  | 'content-type'
+  | 'default-style'
+  | 'refresh';
+
+export type metaTag = {
+  name?: string;
+  content: string;
+  property?: string;
+  'http-equiv'?: HttpEquiv;
+  media?: string;
+};
 
 export type SeoProps = {
   metaData?: Partial<MetaData>;
