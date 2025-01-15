@@ -5,7 +5,7 @@ import {
   showDefaultLang,
   type Language,
 } from './settings';
-import { appRoutes } from './routes';
+import { appRoutes, type LanguageKey } from './routes';
 import { hasProperty, type StringWithTrailingSlash } from '@customTypes/index';
 
 /**
@@ -82,6 +82,23 @@ export function useTranslatedPath(lang: keyof typeof languages) {
       : `/${language}${translatedPath}`;
   };
 }
+
+/** Get the English appRoute when only the translated path is provided */
+export const getEnglishTranslation = (
+  language: LanguageKey,
+  pathname: StringWithTrailingSlash,
+  /** Fallback if no translation is found - defaults to "/" */
+  fallback?: string | false
+) => {
+  const rawPath = removeLeadingSlash(removeTrailingSlash(pathname));
+  const slug = rawPath.replace(`${language}/`, '');
+  const [translationKey] =
+    Object.entries(appRoutes[language]).find(
+      ([_, routePath]) => routePath === slug
+    ) || [];
+
+  return translationKey ? `/${translationKey}/` : (fallback ?? '/');
+};
 
 /**
  * Remove leading slash from a slug or url, preserving literal type

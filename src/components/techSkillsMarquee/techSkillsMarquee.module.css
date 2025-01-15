@@ -5,18 +5,16 @@
   container-name: marquee;
   transform-style: preserve-3d;
   width: 100%;
-  margin-block: 2rem;
   margin-inline: auto;
   max-width: 720px;
   height: fit-content;
-  grid-column: 1 / 4;
   &:has(a:focus-visible) {
     outline: 2px dashed var(--system-dark-100);
   }
 }
 
 .scene {
-  --height: calc((var(--grid-row-count) - 1) * 54px);
+  --height: calc((var(--grid-row-count) - 3) * 54px);
   --mask-width: 3rem;
   /* Inset and outset controls the grid animation offset on entry/exit */
   --inset: -0.5;
@@ -164,6 +162,7 @@
   .scene {
     --items-in-row: 4;
     --speed: 9s;
+    --height: calc((var(--grid-row-count) - 1) * 54px);
   }
 }
 

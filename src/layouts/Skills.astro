@@ -59,44 +59,41 @@ const DescriptionComponent = skillDescription;
     );
   }
 </script>
-
+<!-- Modals can be inserted as a child here in the slot -->
+<slot />
 <Layout title={title} inert={inert}>
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
   <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
-    <div>
-      <h2>
-        {t_skills('browse_my_tech_skills')}
-      </h2>
-      <p class="body-text">{t_skills('although_i_have')}</p>
-    </div>
-    <div id="skillPresentation">
-      <PresentationCard
-        gradientColor="flirt"
-        title={skillTitle}
-        iconImage={iconImage}
-        iconImageAlt={skillImageAlt}
-        responsiveSquircleSize={true}
-        inert={inert}
-      >
-        <div class={styles.presentationCardContent}>
-          {DescriptionComponent && <DescriptionComponent />}
-          <div class={styles.proficiencyRating}>
-            {
-              !!skillRating && [
-                <p class="stylized-lead-text">
-                  {t_skills('proficiency_rating')}
-                </p>,
-                <StarRating rating={skillRating} />,
-              ]
-            }
-          </div>
-        </div>
-      </PresentationCard>
-      <SkillCardPagination title={skillTitle} />
-    </div>
+    <h2>
+      {t_skills('browse_my_tech_skills')}
+    </h2>
+    <p class="body-text">{t_skills('although_i_have')}</p>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
+  <div id="skillPresentation">
+    <PresentationCard
+      gradientColor="flirt"
+      title={skillTitle}
+      iconImage={iconImage}
+      iconImageAlt={skillImageAlt}
+      responsiveSquircleSize={true}
+      inert={inert}
+    >
+      <div class={styles.presentationCardContent}>
+        {DescriptionComponent && <DescriptionComponent />}
+        <div class={styles.proficiencyRating}>
+          {
+            !!skillRating && [
+              <p class="stylized-lead-text">
+                {t_skills('proficiency_rating')}
+              </p>,
+              <StarRating rating={skillRating} />,
+            ]
+          }
+        </div>
+      </div>
+    </PresentationCard>
+    <SkillCardPagination title={skillTitle} />
+  </div>
   <TechSkillsMarquee />
 </Layout>

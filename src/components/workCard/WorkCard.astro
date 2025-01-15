@@ -21,7 +21,7 @@ type Props = {
   date: string;
   headerImage: ImageMetadata;
   headerImageAlt: string;
-  tags?: { title: string; href: SlugWithSkillKeys }[];
+  tags?: { title: string; href?: SlugWithSkillKeys }[];
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
@@ -162,13 +162,17 @@ const t = useTranslations(lang, 'navigation');
           <ul class={styles.tags}>
             {tags.map((tag) => (
               <li>
-                <a
-                  data-arrow-nav="true"
-                  href={`${translatePath(`${tag.href}/`)}#skillPresentation`}
-                  class={styles.tag}
-                >
-                  {tag.title}
-                </a>
+                {tag.href ? (
+                  <a
+                    data-arrow-nav="true"
+                    href={`${translatePath(`${tag.href}/`)}#skillPresentation`}
+                    class={styles.tag}
+                  >
+                    {tag.title}
+                  </a>
+                ) : (
+                  <span class={styles.tag}>{tag.title}</span>
+                )}
               </li>
             ))}
           </ul>

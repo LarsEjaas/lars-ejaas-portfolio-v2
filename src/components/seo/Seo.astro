@@ -7,9 +7,16 @@ import {
 } from '@i18n/settings';
 import Favicon from './Favicon.astro';
 import { getDefaultSiteMetaData } from './siteMetaData';
-import { getLangFromUrl } from '@i18n/utils';
+import {
+  getEnglishTranslation,
+  getLangFromUrl,
+  removeLeadingSlash,
+  removeTrailingSlash,
+} from '@i18n/utils';
 import type { ImageInputFormat } from 'astro';
+import { appRoutes } from '../../i18n/routes';
 const isDev = import.meta.env.DEV || false;
+const SITE_URL = import.meta.env.SITE_URL;
 
 type Props = {} & SeoProps & {
     metaTags?: metaTag[];
@@ -75,6 +82,34 @@ export async function validateAndGetPublicPath(
 }
 
 const lang = getLangFromUrl(Astro.url);
+
+const getCannonicalUrl = (language: Language) => {
+  const pathNameWithoutLocale = removeTrailingSlash(
+    removeLeadingSlash(Astro.url.pathname.replace(`${lang}/`, ''))
+  );
+  // If this is the index page we cannot find a translation - so we create it manually
+  if (pathNameWithoutLocale === '') {
+    return language === defaultLang
+      ? `${removeTrailingSlash(SITE_URL)}/`
+      : `${removeTrailingSlash(SITE_URL)}/${language}/`;
+  }
+  const translation =
+    language === defaultLang
+      ? getEnglishTranslation(
+          'da',
+          `${removeTrailingSlash(Astro.url.pathname)}/`,
+          false
+        )
+      : `/da/${
+          appRoutes[language][
+            pathNameWithoutLocale as keyof (typeof appRoutes)[Language]
+          ]
+        }/`;
+
+  return translation
+    ? `${removeTrailingSlash(SITE_URL)}${translation}`
+    : undefined;
+};
 
 const defaultSiteMetaData = await getDefaultSiteMetaData(lang);
 
@@ -270,18 +305,26 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
 
 <!-- Internationalization -->
 {
-  languages.map((lang) => (
-    <>
+  !noIndex &&
+    languages.map((language) => (
       <link
         rel="alternate"
-        hreflang={lang}
-        href={`https://larsejaas.com/${lang}/`}
+        hreflang={language === 'en' ? 'en-US' : 'da-DK'}
+        href={
+          language === lang
+            ? `${removeTrailingSlash(SITE_URL)}${removeTrailingSlash(Astro.url.pathname)}/`
+            : getCannonicalUrl(language)
+        }
       />
-      <link rel="alternate" href={Astro.url} hreflang="x-default" />
-      <link rel="alternate" href="https://larsejaas.com/en/" hreflang={lang} />
-    </>
-  ))
+    ))
 }
+<link
+  rel="alternate"
+  href={lang === defaultLang
+    ? `${removeTrailingSlash(SITE_URL)}${removeTrailingSlash(Astro.url.pathname)}/`
+    : getCannonicalUrl(defaultLang)}
+  hreflang="x-default"
+/>
 
 <meta
   name="robots"
@@ -296,17 +339,39 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
   type="application/ld+json"
   set:html={JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    headline: pageTitle,
+    '@type': 'ProfilePage',
+    name: pageTitle,
     description:
       metaData?.description || defaultSiteMetaData.metaData.description,
-    author: {
+    image: publicImage.src,
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: publicImage.src,
+    },
+    mainEntity: {
       '@type': 'Person',
       name: metaData?.author || defaultSiteMetaData.metaData.author,
+      url: canonicalUrl,
+      image: publicImage.src,
+      sameAs: [
+        'https://github.com/larsejaas',
+        'https://www.linkedin.com/in/lars-ejaas',
+        'https://x.com/LarsEjaas',
+        'https://bsky.app/profile/larsejaas.bsky.social',
+      ],
+      jobTitle: 'Software Developer',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Frigg Tech',
+      },
+      skills: ['JavaScript', 'React', 'TypeScript'],
     },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl,
+    datePublished: '2024-01-15', // Add when your site was first published
+    dateModified: '2024-01-15', // Update this when you make significant changes
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `https://larsejaas.com/#website`,
+      name: 'Lars Ejaas Portfolio',
     },
   })}
 />

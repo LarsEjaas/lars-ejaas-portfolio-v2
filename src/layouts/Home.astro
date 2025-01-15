@@ -45,9 +45,9 @@ const t_home = useTranslations(lang, 'home');
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
+<!-- Modals can be inserted as a child here in the slot -->
+<slot />
 <Layout title={title} inert={inert}>
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
   <div class="presentation">
     <PageLabel title={t_home('home_title')} iconImage="ejaas" />
     <PresentationCard

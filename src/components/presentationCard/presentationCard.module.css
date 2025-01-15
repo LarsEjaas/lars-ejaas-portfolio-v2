@@ -55,7 +55,7 @@
     font-weight: 800;
     line-height: 1;
     text-wrap: balance;
-    color: light-dark(var(--system-light-400), var(--system-light-200));
+    color: light-dark(var(--system-light-300), var(--system-light-300));
     margin-block-end: unset;
     max-width: calc(100cqi - (64px + 80px));
     transform: translateY(0.2em);

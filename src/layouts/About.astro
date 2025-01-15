@@ -20,9 +20,9 @@ const { title, inert } = Astro.props;
 const t_about = useTranslations(lang, 'about');
 ---
 
+<!-- Modals can be inserted as a child here in the slot -->
+<slot />
 <Layout title={title} inert={inert}>
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
   <div class="presentation">
     <PageLabel title={t_about('about_title')} iconImage="about" />
     <PresentationCard

@@ -31,9 +31,9 @@ const { title, inert } = Astro.props;
 const t_work = useTranslations(lang, 'work');
 ---
 
+<!-- Modals can be inserted as a child here in the slot -->
+<slot />
 <Layout title={title} inert={inert} gridColumns={3}>
-  <!-- Modals can be inserted as a child here in the slot -->
-  <slot />
   <div class="presentation">
     <PageLabel title={t_work('work_title')} iconImage="work" />
     <h2>
@@ -57,6 +57,8 @@ const t_work = useTranslations(lang, 'work');
       { title: 'GraphQL', href: 'skills/graphql' },
       { title: 'Tailwind', href: 'skills/tailwind' },
       { title: 'Storybook', href: 'skills/storybook' },
+      { title: 'GitLab', href: 'skills/gitlab' },
+      { title: 'Turborepo' },
     ]}
     footerImages={[
       {
@@ -116,6 +118,7 @@ const t_work = useTranslations(lang, 'work');
       { title: 'Sass', href: 'skills/sass' },
       { title: 'Tailwind', href: 'skills/tailwind' },
       { title: 'Jest', href: 'skills/jest' },
+      { title: 'GitLab', href: 'skills/gitlab' },
       {
         title: 'React Testing Library',
         href: 'skills/react-testing-library',
@@ -185,6 +188,7 @@ const t_work = useTranslations(lang, 'work');
       { title: 'Storybook', href: 'skills/storybook' },
       { title: 'Tailwind', href: 'skills/tailwind' },
       { title: 'Styled Components', href: 'skills/styled-components' },
+      { title: 'GitHub', href: 'skills/github' },
       { title: 'Jest', href: 'skills/jest' },
       {
         title: 'React Testing Library',
