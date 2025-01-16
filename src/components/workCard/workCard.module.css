@@ -69,7 +69,7 @@
     font-weight: 800;
     line-height: 0.56;
     text-wrap: nowrap;
-    color: light-dark(var(--system-light-400), var(--system-light-200));
+    color: light-dark(var(--system-light-200), var(--system-light-300));
     margin-block-end: unset;
     margin-inline: 32px;
   }

@@ -214,6 +214,7 @@
 }
 
 .controls {
+  view-transition-name: lightbox-controls;
   display: flex;
   --controls-height: 40px;
   top: calc(50% - var(--controls-height) / 2);
@@ -269,6 +270,10 @@
       transform: scale(1.2);
     }
   }
+}
+
+::view-transition-group(lightbox-controls) {
+  z-index: 10;
 }
 
 @container lightbox (width > 800px) {

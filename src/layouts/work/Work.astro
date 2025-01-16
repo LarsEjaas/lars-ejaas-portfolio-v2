@@ -31,9 +31,9 @@ const { title, inert } = Astro.props;
 const t_work = useTranslations(lang, 'work');
 ---
 
-<!-- Modals can be inserted as a child here in the slot -->
-<slot />
 <Layout title={title} inert={inert} gridColumns={3}>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_work('work_title')} iconImage="work" />
     <h2>
