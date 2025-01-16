@@ -10,7 +10,7 @@ export default defineConfig({
   }),
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'viewport',
+    defaultStrategy: 'load',
   },
   redirects: {
     '/en': '/',
@@ -45,14 +45,6 @@ export default defineConfig({
   vite: {
     build: {
       minify: process.env.NODE_ENV === 'production',
-      // rollupOptions: {
-      //   input: {
-      //     main: './src/scripts/restoreScrollPosition.ts',
-      //   },
-      //   output: {
-      //     entryFileNames: 'restoreScrollPosition.min.js',
-      //   },
-      // },
       define: {
         'import.meta.env.DEV': JSON.stringify(process.env.DEV || false),
       },

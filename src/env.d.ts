@@ -84,6 +84,7 @@ declare global {
   };
 
   interface Window {
+    mainContent: HTMLElement | null;
     themeToggle: HTMLInputElement | null;
     themeToggleMobile: HTMLInputElement | null;
     carouselList: HTMLDivElement | null;

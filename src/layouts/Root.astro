@@ -101,6 +101,20 @@ const {
       }
     </script>
     <!-- <script is:inline src="/restoreScrollPosition.min.js"></script> -->
+    <script is:inline type="speculationrules">
+      {
+        "prerender": [
+          {
+            "where": {
+              "href_matches": "/*"
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+    {/* @ts-ignore */}
+    <link rel="expect" blocking="render" href="#mainContent" />
   </head>
   <body>
     <svg aria-hidden="true" height="0">
@@ -117,7 +131,7 @@ const {
       withDarkkModeToggle={withDarkkModeToggle}
       withModalLinks={withModalLinks}
     />
-    <main class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
+    <main id="mainContent" class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
       <slot />
     </main>
     <Footer inert={inert} withModalLinks={withModalLinks} />
