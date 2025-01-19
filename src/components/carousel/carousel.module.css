@@ -58,16 +58,11 @@
   padding-block: 2rem;
   user-select: none;
   mask: linear-gradient(
-      transparent,
-      white var(--mask-padding) calc(100cqi - var(--mask-padding)),
-      transparent
-    ),
-    linear-gradient(
-      90deg,
-      transparent,
-      white var(--mask-padding) calc(100cqi - var(--mask-padding)),
-      transparent
-    );
+    90deg,
+    transparent,
+    white var(--mask-padding) calc(100% - var(--mask-padding)),
+    transparent
+  );
   mask-composite: intersect;
 
   /* the before and afters have unsnappable elements that create bouncy edges to the scroll */
@@ -222,7 +217,7 @@
     );
     background-attachment: local;
     opacity: var(--active, 0);
-    transition: opacity 0.25s;
+    transition: opacity ease-in-out 0.25s;
     border-radius: 10px;
     pointer-events: none;
     &:hover {
@@ -244,6 +239,29 @@
     border-top-right-radius: 8px;
     aspect-ratio: 232/148;
   }
+}
+
+.borderGlow {
+  position: absolute;
+  pointer-events: none;
+  border: 5px solid transparent;
+  border-radius: 10px;
+  background-attachment: fixed;
+  background-size: calc(100% + (2 * 5px)) calc(100% + (2 * 5px));
+  mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+  inset: 0;
+  opacity: var(--active, 0);
+  transition: opacity ease-in-out 0.5s;
+  border-width: 5px;
+  z-index: 2;
+  filter: brightness(2) blur(3px);
+  background-image: radial-gradient(
+    100px 100px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    #ffffff,
+    transparent 100%
+  );
 }
 
 .newsContent {
@@ -419,6 +437,7 @@
   :global(#carouselList) {
     margin-inline: -1rem;
     inline-size: calc(100cqi + 2rem);
+    --mask-padding: 1rem;
   }
   .controls {
     inset-inline: 0;

@@ -4,19 +4,17 @@ import Footer from '@components/footer/Footer.astro';
 import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
 import './global.css';
 import Seo from '@components/seo/Seo.astro';
-import type { SeoProps } from '../customTypes/seo';
+import type { SeoComponentProps } from '@components/seo/Seo.astro';
 
 type Props = {
-  title: string;
   inert: boolean;
   gridColumns?: 2 | 3;
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
-  seo?: SeoProps;
+  seo: SeoComponentProps;
 };
 
 const {
-  title,
   inert,
   gridColumns = 2,
   withDarkkModeToggle = true,
@@ -56,13 +54,7 @@ const {
       content="width=device-width, height=device-height initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="generator" content={Astro.generator} />
-    <Seo
-      metaData={{ ...seo?.metaData, title }}
-      metaTheme={seo?.metaTheme}
-      facebook={seo?.facebook}
-      twitter={seo?.twitter}
-      openGraph={seo?.openGraph}
-    />
+    <Seo metaData={seo.metaData} openGraph={seo.openGraph} />
     <script is:inline>
       if ('onpagereveal' in window) {
         window.onpagereveal = (event) => restoreModalScrollPosition(event);

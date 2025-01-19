@@ -13,14 +13,24 @@ import PictureWithPlaceholder from '../components/picture/PictureWithPlaceholder
 type Props = {
   title: string;
   inert: boolean;
+  noIndex: boolean;
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert } = Astro.props;
+const { title, inert, noIndex } = Astro.props;
 const t_about = useTranslations(lang, 'about');
 ---
 
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description: t_about('seo_description') },
+    openGraph: {
+      image: { name: `about_${lang}`, alt: t_about('seo_image_alt') },
+    },
+    ...(noIndex && { noIndex }),
+  }}
+>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
   <div class="presentation">

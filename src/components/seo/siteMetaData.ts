@@ -1,15 +1,32 @@
-import type { metaTag, SeoProps } from '@customTypes/seo';
-import type { DeepRequired } from '@customTypes/index';
+import type { SeoProps } from '@customTypes/seo';
 import { validateAndGetPublicPath } from './Seo.astro';
 
 const FACEBOOK_APP_ID = import.meta.env.FACEBOOK_APP_ID;
 /** List of favicon file names */
 const FAVICON_FILE_NAMES = ['favicon_32', 'favicon_64'];
 
+export const siteInfo = {
+  name: 'Lars Ejaas Portfolio',
+  author: {
+    jobTitle: 'Software Developer',
+    worksFor: {
+      type: 'Organization',
+      name: 'Frigg Tech',
+    },
+    skills: ['JavaScript', 'TypeScript', 'React'],
+  },
+  social: {
+    x: 'https://x.com/LarsEjaas',
+    linkedin: 'https://www.linkedin.com/in/lars-ejaas/',
+    github: 'https://github.com/larsejaas',
+    bluesky: 'https://bsky.app/profile/larsejaas.bsky.social',
+  },
+} as const;
+
 /** Default site metadata */
 export const getDefaultSiteMetaData = async (
   lang: 'en' | 'da'
-): Promise<DeepRequired<SeoProps> & { metaTags?: metaTag[] }> => {
+): Promise<SeoProps> => {
   const isDefaultlang = lang === 'en';
   const favicons = await Promise.all(
     FAVICON_FILE_NAMES.map(async (path) => {
@@ -34,7 +51,6 @@ export const getDefaultSiteMetaData = async (
         ? '👨🏻‍💻 Frontend developer from Denmark. Passionate about web design and web development. Check out my portfolio and get an overview of my development skills.'
         : '👨🏻‍💻 Frontend-udvikler fra Aarhus. Brænder for hjemmesidedesign og webudvikling. Få et overblik over mine kompetencer og udviklingsmetoder jeg har erfaring med.',
       author: 'Lars Ejaas',
-      language: isDefaultlang ? 'en' : 'da',
       rights: isDefaultlang
         ? 'All rights reserved Lars Ejaas. Please contact me directly to get my consent before using any content from this page.'
         : 'Alle rettigheder forbeholdes Lars Ejaas. Kontakt mig direkte for at få mit samtykke, inden du bruger indhold fra denne side.',
@@ -72,5 +88,6 @@ export const getDefaultSiteMetaData = async (
       },
       type: 'website',
     },
+    metaTags: [],
   };
 };

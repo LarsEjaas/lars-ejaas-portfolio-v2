@@ -1,12 +1,13 @@
 ---
-import type { metaTag, SeoProps } from '@customTypes/seo';
+import type { metaTag, MetaData, OpenGraph } from '@customTypes/seo';
+import type { PrettifyUnion } from '@customTypes/index';
 import {
   languages as availableLanguages,
   defaultLang,
   type Language,
 } from '@i18n/settings';
 import Favicon from './Favicon.astro';
-import { getDefaultSiteMetaData } from './siteMetaData';
+import { getDefaultSiteMetaData, siteInfo } from './siteMetaData';
 import {
   getEnglishTranslation,
   getLangFromUrl,
@@ -15,14 +16,25 @@ import {
 } from '@i18n/utils';
 import type { ImageInputFormat } from 'astro';
 import { appRoutes } from '../../i18n/routes';
+
 const isDev = import.meta.env.DEV || false;
 const SITE_URL = import.meta.env.SITE_URL;
 
-type Props = {} & SeoProps & {
-    metaTags?: metaTag[];
-    noIndex?: true;
-    noFollow?: true;
-  };
+type Props = SeoComponentProps;
+
+type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? PrettifyUnion<Omit<T, K>>
+  : never;
+
+export type SeoComponentProps = {
+  metaData: PrettifyUnion<
+    Pick<MetaData, 'title'> &
+      Partial<Pick<MetaData, 'description' | 'keywords'>>
+  >;
+  openGraph: DistributiveOmit<OpenGraph, 'type'>;
+  noIndex?: true;
+  noFollow?: true;
+};
 
 type ImageMetadataReturn = {
   src: string;
@@ -115,15 +127,7 @@ const defaultSiteMetaData = await getDefaultSiteMetaData(lang);
 
 const languages = Object.keys(availableLanguages) as Language[];
 
-const {
-  metaData,
-  metaTheme,
-  twitter,
-  openGraph,
-  metaTags: additionalMetaTags,
-  noIndex,
-  noFollow,
-} = Astro.props;
+const { metaData, openGraph, noIndex, noFollow } = Astro.props;
 
 if (openGraph?.image?.name && !openGraph?.image?.alt) {
   const error =
@@ -151,6 +155,8 @@ const canonicalUrl = defaultCanonicalUrl.href;
 const pageTitle = metaData?.title
   ? `Lars Ejaas | ${metaData?.title}`
   : `Lars Ejaas | ${defaultSiteMetaData.metaData.title}`;
+
+const additionalMetaTags = defaultSiteMetaData.metaTags;
 
 // Generate meta tags dynamically
 const metaTags: metaTag[] = [
@@ -183,7 +189,10 @@ const metaTags: metaTag[] = [
   { property: 'og:locale', content: lang === defaultLang ? 'en_US' : 'da_DK' },
   { property: 'og:locale:alternate', content: 'en_US' },
   { property: 'og:locale:alternate', content: 'da_DK' },
-  { property: 'og:type', content: openGraph?.type ?? 'website' },
+  {
+    property: 'og:type',
+    content: defaultSiteMetaData.openGraph.type,
+  },
   { property: 'og:image:url', content: publicImage.src },
   { property: 'og:image:secure_url', content: publicImage.src },
   { property: 'og:image:type', content: publicImage.mimeType },
@@ -210,14 +219,17 @@ const metaTags: metaTag[] = [
   ...(openGraph?.image?.alt
     ? [{ property: 'twitter:image:alt', content: openGraph.image.alt }]
     : []),
-  ...(additionalMetaTags ? additionalMetaTags : []),
+  ...(additionalMetaTags.length ? additionalMetaTags : []),
 ];
 
-// Conditionally add Twitter creator/site if provided
-if (twitter?.creator)
-  metaTags.push({ name: 'twitter:creator', content: twitter.creator });
-if (twitter?.site)
-  metaTags.push({ name: 'twitter:site', content: twitter.site });
+metaTags.push({
+  name: 'twitter:creator',
+  content: defaultSiteMetaData.twitter.creator,
+});
+metaTags.push({
+  name: 'twitter:site',
+  content: defaultSiteMetaData.twitter.site,
+});
 
 // Add article-specific Open Graph tags if available
 if (openGraph && 'article' in openGraph && openGraph.article) {
@@ -267,26 +279,7 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
 
 <!-- Theme -->
 <Favicon metaTheme={defaultSiteMetaData.metaTheme} />
-{
-  (
-    metaTheme?.appleTouchIcon || defaultSiteMetaData.metaTheme.appleTouchIcon
-  )?.sizes.map(async (size) => {
-    const icon = await validateAndGetPublicPath(
-      `${defaultSiteMetaData.metaTheme.appleTouchIcon?.path}icon-${size}x${size}`
-    );
-    return (
-      <link
-        rel="apple-touch-icon"
-        sizes={`${icon.width}x${icon.height}`}
-        href={icon.src}
-      />
-    );
-  })
-}
-<meta
-  name="theme-color"
-  content={metaTheme?.themeColor || defaultSiteMetaData.metaTheme.themeColor}
-/>
+<meta name="theme-color" content={defaultSiteMetaData.metaTheme.themeColor} />
 
 <!-- Dynamic Meta Tags -->
 {
@@ -350,26 +343,21 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
     },
     mainEntity: {
       '@type': 'Person',
-      name: metaData?.author || defaultSiteMetaData.metaData.author,
+      name: defaultSiteMetaData.metaData.author,
       url: canonicalUrl,
       image: publicImage.src,
-      sameAs: [
-        'https://github.com/larsejaas',
-        'https://www.linkedin.com/in/lars-ejaas',
-        'https://x.com/LarsEjaas',
-        'https://bsky.app/profile/larsejaas.bsky.social',
-      ],
-      jobTitle: 'Software Developer',
+      sameAs: Object.values(siteInfo.social),
+      jobTitle: siteInfo.author.jobTitle,
       worksFor: {
-        '@type': 'Organization',
-        name: 'Frigg Tech',
+        '@type': siteInfo.author.worksFor.type,
+        name: siteInfo.author.worksFor.name,
       },
-      skills: ['JavaScript', 'React', 'TypeScript'],
+      skills: siteInfo.author.skills,
     },
     isPartOf: {
       '@type': 'WebSite',
-      '@id': `https://larsejaas.com/#website`,
-      name: 'Lars Ejaas Portfolio',
+      '@id': `${removeTrailingSlash(SITE_URL)}/#website`,
+      name: siteInfo.name,
     },
   })}
 />

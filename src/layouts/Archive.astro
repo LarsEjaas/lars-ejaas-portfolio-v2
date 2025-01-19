@@ -8,9 +8,9 @@ import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { newsItems } from '@content/newsItems';
 import { MAX_NUMBER_OF_ITEMS } from '@components/carousel/Carousel.astro';
-import { Picture } from 'astro:assets';
 import type { ImageModule } from '../customTypes';
 import { isExternalLink } from '../utils/misc';
+import ArticleCard from '../components/carousel/ArticleCard.astro';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 type Props = {
@@ -97,30 +97,15 @@ const newsGridItems =
                 href={item.href}
                 {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
               >
-                <article
-                  class={`${styles[`outline${item.outline}`]} ${styles.article}`}
-                >
-                  <Picture
-                    formats={['avif', 'webp']}
-                    quality="high"
-                    src={ImageComponent}
-                    alt={item.imageAlt}
-                    width="232"
-                    height="148"
-                    densities={[1, 2, 3]}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div class={styles.newsContent}>
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <div class={styles.date}>
-                      <p>{item.date}</p>
-                    </div>
-                  </div>
-                </article>
+                <ArticleCard
+                  title={item.title}
+                  description={item.description}
+                  date={item.date}
+                  imageAlt={item.imageAlt}
+                  outline={item.outline}
+                  index={0}
+                  image={ImageComponent}
+                />
               </a>
             );
           })}

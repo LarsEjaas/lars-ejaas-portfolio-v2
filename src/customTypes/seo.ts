@@ -7,7 +7,6 @@ export type MetaData = {
   siteName: string;
   author: string;
   keywords: string[];
-  language: 'en' | 'da';
   rights: string;
 };
 
@@ -68,17 +67,18 @@ export type metaTag = {
 };
 
 export type SeoProps = {
-  metaData?: Partial<MetaData>;
-  metaTheme?: Partial<MetaTheme>;
-  facebook?: {
+  metaData: MetaData;
+  metaTheme: MetaTheme;
+  facebook: {
     appId: string;
   };
-  twitter?: Partial<{
+  twitter: {
     cardType: 'summary_large_image' | 'summary' | 'app' | 'player';
     site: string;
     siteId: string;
     creator: string;
     creatorId: string;
-  }>;
-  openGraph?: Partial<OpenGraph>;
+  };
+  openGraph: OpenGraph;
+  metaTags: metaTag[];
 };

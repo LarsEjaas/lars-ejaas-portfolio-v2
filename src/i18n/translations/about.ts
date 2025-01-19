@@ -40,6 +40,8 @@ export const about = {
       'If there’s one thing I’ve learned, it’s this: Follow your dreams but don’t be afraid to change course along the way.\nWho knows? Like me, you might even end up doing something more exciting than what you initially dreamed about.',
     drawing_house_alt:
       'Closeup of a hand holding a pencil while drawing a sketch of a house on a piece of paper',
+    seo_description: '',
+    seo_image_alt: '',
   },
   da: {
     about_title: 'Om mig',
@@ -81,5 +83,7 @@ export const about = {
       'Hvis der er én ting, jeg har lært, så er det dette: Følg dine drømme, men vær ikke bange for at ændre kurs undervejs.« Hvem ved? Ligesom mig ender du måske med at gøre noget, der er mere spændende end det, du oprindeligt drømte om.',
     drawing_house_alt:
       'Nærbillede af en hånd, der holder en blyant, mens den tegner en skitse af et hus på et stykke papir',
+    seo_description: '',
+    seo_image_alt: '',
   },
 } as const;

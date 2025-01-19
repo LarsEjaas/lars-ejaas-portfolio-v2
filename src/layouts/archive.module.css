@@ -32,35 +32,3 @@
     transition: text-decoration-color 0.4s;
   }
 }
-
-.article {
-  composes: article from '@components/carousel/carousel.module.css';
-}
-
-.outline1 {
-  composes: outline1 from '@components/carousel/carousel.module.css';
-}
-
-.outline2 {
-  composes: outline2 from '@components/carousel/carousel.module.css';
-}
-
-.outline3 {
-  composes: outline3 from '@components/carousel/carousel.module.css';
-}
-
-.outline4 {
-  composes: outline4 from '@components/carousel/carousel.module.css';
-}
-
-.outlinegold {
-  composes: outlinegold from '@components/carousel/carousel.module.css';
-}
-
-.newsContent {
-  composes: newsContent from '@components/carousel/carousel.module.css';
-}
-
-.date {
-  composes: date from '@components/carousel/carousel.module.css';
-}

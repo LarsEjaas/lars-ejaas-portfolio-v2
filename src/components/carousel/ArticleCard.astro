@@ -6,10 +6,19 @@ import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 type Props = Omit<CardInfo, 'imageSrc' | 'href'> & {
   index: number;
   image: ImageMetadata;
+  withBorderGlow?: boolean;
 };
 
-const { title, description, date, imageAlt, outline, index, image } =
-  Astro.props;
+const {
+  title,
+  description,
+  date,
+  imageAlt,
+  outline,
+  index,
+  image,
+  withBorderGlow,
+} = Astro.props;
 ---
 
 <article class={`${styles[`outline${outline}`]} ${styles.article}`}>
@@ -34,4 +43,5 @@ const { title, description, date, imageAlt, outline, index, image } =
       <p>{date}</p>
     </div>
   </div>
+  {withBorderGlow && <div class={styles.borderGlow} />}
 </article>
