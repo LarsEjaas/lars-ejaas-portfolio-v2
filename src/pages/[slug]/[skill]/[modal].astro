@@ -103,9 +103,39 @@ const ModalContent =
       : modal === 'message-received'
         ? ContactConfirmation
         : ContactError;
+const seo =
+  modal === 'share'
+    ? {
+        openGraph: {
+          image: {
+            name: 'share_en',
+            alt: t('share_seo_image_alt'),
+          },
+        },
+        //Only index modalpages on the main index page
+        noIndex: true,
+      }
+    : {
+        openGraph: {
+          image: {
+            name: 'contact_me_en',
+            alt: t('contact_seo_image_alt'),
+          },
+        },
+        //Only index modalpages on the main index page
+        noIndex: true,
+      };
+const description =
+  modal === 'share' ? t('share_seo_description') : t('contact_seo_description');
 ---
 
-<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  techSkill={techSkill}
+  seo={seo}
+  description={description}
+>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

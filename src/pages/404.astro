@@ -12,7 +12,6 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 type Props = {
   title: string;
   lang: Language;
-  inert: boolean;
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -20,7 +19,17 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 ---
 
-<Layout title={t('not_found_title')} inert={false}>
+<Layout
+  inert={false}
+  seo={{
+    metaData: { title: t('not_found_title'), description: '' },
+    openGraph: undefined,
+    // Do not index 404 page
+    noIndex: true,
+  }}
+  withDarkkModeToggle={false}
+  withModalLinks={false}
+>
   <PageLabel title={t('not_found')} iconImage="alert" />
   <FloatingBalloons balloonColor="bluemunsell" />
   <div class={styles.centerWrapper}>

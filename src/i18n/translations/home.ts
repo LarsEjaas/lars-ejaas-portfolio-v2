@@ -15,6 +15,10 @@ export const home = {
     previous: 'Scroll to previous news card',
     hi_there: 'Hi there!\nFeel free to drop me a message anytime.',
     contact: 'Contact me directly via email',
+    seo_description:
+      '👨🏻‍💻 Frontend developer from Denmark. Passionate about web design and web development. Check out my portfolio and get an overview of my development skills.',
+    seo_image_alt:
+      'Screenshot of larsejaas.com homepage on a laptop, with Lars Ejaas’s profile picture and signature below alongside "frontend developer" text, set against a turquoise background.',
   },
   da: {
     frontend_developer: 'Frontend Udvikler',
@@ -32,5 +36,9 @@ export const home = {
     previous: 'Scroll til det forrige kort',
     hi_there: 'Hejsa!\nDu er altid velkommen til at sende mig en besked',
     contact: 'Kontakt mig direkte via e-mail',
+    seo_description:
+      '👨🏻‍💻 Frontend-udvikler fra Aarhus. Brænder for hjemmesidedesign og webudvikling. Få et overblik over mine kompetencer og udviklingsmetoder jeg har erfaring med.',
+    seo_image_alt:
+      'Screenshot af larsejaas.com index-side afbilledet på en laptop, med Lars Ejaas’ profilbillede og signatur nedenunder sammen med teksten "frontend udvikler", på turkis baggrund',
   },
 } as const;

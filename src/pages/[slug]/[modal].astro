@@ -10,9 +10,10 @@ import type { SlugWithModalTypes, ModalSlugPath } from '@i18n/routes';
 import ContactConfirmation from '@components/contact/Confirmation.astro';
 import ContactError from '@components/contact/Error.astro';
 import About from '@layouts/About.astro';
-import Skills from '@layouts/Skills.astro';
+import Skills, { type TechSkillProps } from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import Archive from '@layouts/Archive.astro';
+import Description from '@content/techSkillDescriptions/Main.astro';
 
 type Props = Record<string, never>;
 
@@ -85,6 +86,17 @@ const englishModalSlugMap: Record<
     modalIcon: ImageMetadata;
     pageTitle: string;
     modalTitle: string;
+    description: string;
+    seo: {
+      openGraph: {
+        image: {
+          name: string;
+          alt: string;
+        };
+      };
+      noIndex?: true;
+    };
+    techSkill?: TechSkillProps;
   }
 > = {
   ['work/share']: {
@@ -93,6 +105,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('work'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_en',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['work/contact']: {
     pageComponent: Work,
@@ -100,6 +123,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['work/message-received']: {
     pageComponent: Work,
@@ -107,6 +141,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['work/message-error']: {
     pageComponent: Work,
@@ -114,6 +159,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('work'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['skills/share']: {
     pageComponent: Skills,
@@ -121,6 +177,21 @@ const englishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('skills'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_en',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['skills/contact']: {
     pageComponent: Skills,
@@ -128,6 +199,21 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('skills'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['skills/message-received']: {
     pageComponent: Skills,
@@ -135,6 +221,21 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('skills'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['skills/message-error']: {
     pageComponent: Skills,
@@ -142,6 +243,21 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('skills'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+    techSkill: {
+      title: t('tech_skills'),
+      description: Description,
+    },
   },
   ['about/share']: {
     pageComponent: About,
@@ -149,6 +265,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('about'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_en',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['about/contact']: {
     pageComponent: About,
@@ -156,6 +283,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('about'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['about/message-received']: {
     pageComponent: About,
@@ -163,6 +301,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('about'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['about/message-error']: {
     pageComponent: About,
@@ -170,6 +319,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('about'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['archive/share']: {
     pageComponent: Archive,
@@ -177,6 +337,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconShare,
     pageTitle: t('archive'),
     modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_en',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['archive/contact']: {
     pageComponent: Archive,
@@ -184,6 +355,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('archive'),
     modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['archive/message-received']: {
     pageComponent: Archive,
@@ -191,6 +373,17 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('archive'),
     modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
   ['archive/message-error']: {
     pageComponent: Archive,
@@ -198,20 +391,66 @@ const englishModalSlugMap: Record<
     modalIcon: IconContact,
     pageTitle: t('archive'),
     modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
 };
 
 const ModalContent = englishModalSlugMap[`${slug}/${modal}`]?.modalComponent;
 
-const PageContent = englishModalSlugMap[`${slug}/${modal}`]?.pageComponent;
+const PageContent = englishModalSlugMap[`${slug}/${modal}`]?.pageComponent as
+  | typeof Skills
+  | typeof Work
+  | typeof About
+  | typeof Archive;
 
 const iconImage = englishModalSlugMap[`${slug}/${modal}`]?.modalIcon;
 
 const modalTitle = englishModalSlugMap[`${slug}/${modal}`]?.modalTitle;
 const pageTitle = englishModalSlugMap[`${slug}/${modal}`]?.pageTitle;
+const description = englishModalSlugMap[`${slug}/${modal}`]?.description;
+
+const imageName =
+  englishModalSlugMap[`${slug}/${modal}`]?.seo.openGraph.image.name;
+
+const imageAlt =
+  englishModalSlugMap[`${slug}/${modal}`]?.seo.openGraph.image.alt;
+
+const noIndex = englishModalSlugMap[`${slug}/${modal}`]?.seo.noIndex;
+
+const restProps = (
+  'techSkill' in englishModalSlugMap[`${slug}/${modal}`]
+    ? {
+        techSkill: englishModalSlugMap[`${slug}/${modal}`].techSkill,
+      }
+    : {}
+) as { techSkill: TechSkillProps };
 ---
 
-<PageContent title={pageTitle} inert={true}>
+<PageContent
+  title={pageTitle}
+  inert={true}
+  seo={{
+    openGraph: {
+      image: {
+        name: imageName,
+        alt: imageAlt,
+      },
+    },
+    noIndex: noIndex ?? false,
+  }}
+  description={description}
+  {...restProps}
+>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

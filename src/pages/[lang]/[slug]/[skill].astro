@@ -6,6 +6,7 @@ import {
   techSkillEntries,
   type TechSkill,
 } from '@content/techSkills';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
   import: 'default',
 });
@@ -36,6 +37,9 @@ export function getStaticPaths() {
   return Object.values(paths);
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
 const { skill } = Astro.params;
 
 const skillData = skillsObject[skill];
@@ -53,4 +57,18 @@ const techSkill = { ...skillData, iconImage: imageContent };
 const pageTitle = skillData.title;
 ---
 
-<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill} />
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  techSkill={techSkill}
+  seo={{
+    openGraph: {
+      image: {
+        name: 'skills_da',
+        alt: t('skills_seo_image_alt'),
+      },
+    },
+    noIndex: false,
+  }}
+  description={`💻 Detaljeret oversigt over mine kompetencer og erfaring inden for webudvikling som frontend-udvikler. Læs mere om min erfaring med ${techSkill.title}.`}
+/>

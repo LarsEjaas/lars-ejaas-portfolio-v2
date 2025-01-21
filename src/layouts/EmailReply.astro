@@ -39,8 +39,13 @@ const siteUrl = removeTrailingSlash(
   }
 </script>
 <Layout
-  title={title}
   inert={inert}
+  seo={{
+    metaData: { title, description: '' },
+    openGraph: undefined,
+    // Do not index emailReply page
+    noIndex: true,
+  }}
   withDarkkModeToggle={false}
   withModalLinks={false}
 >

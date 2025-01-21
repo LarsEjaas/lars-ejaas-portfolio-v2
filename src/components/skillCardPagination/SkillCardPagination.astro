@@ -10,19 +10,21 @@ import type { SkillInfo } from '@customTypes/skillTypes';
 import { notEmpty } from '@customTypes/index';
 
 type Props = {
-  title: string;
+  title: string | undefined;
 };
 
 const PAGINATION_LENGTH = 5;
 
 function getPaginationItems(array: SkillInfo[], currentIndex: number) {
+  // Add an extra hidden botton before and after to help view-transition animation
+  const dotsLength = PAGINATION_LENGTH + 2;
   const totalItems = array.length;
-  const halfItems = Math.floor(PAGINATION_LENGTH / 2);
+  const halfItems = Math.floor(dotsLength / 2);
   const result = [];
 
   // Calculate how many items we need before and after
   const itemsBefore = halfItems;
-  const itemsAfter = PAGINATION_LENGTH - halfItems - 1;
+  const itemsAfter = dotsLength - halfItems - 1;
 
   // Add items before current
   for (let i = itemsBefore; i > 0; i--) {
@@ -99,31 +101,33 @@ const skillIndex = paginationItems.indexOf(currentSkill);
   </button>
   <ul
     style={{
-      '--slide-length': PAGINATION_LENGTH,
-      'aspect-ratio': `${PAGINATION_LENGTH + 1} / 1`,
+      '--slide-length': PAGINATION_LENGTH + 2,
+      'aspect-ratio': `${PAGINATION_LENGTH + 3} / 1`,
     }}
     class={styles.controls}
     id="skillPagination"
   >
     {
       paginationItems.map((techSkill, index) => {
+        const isHidden = index === 0 || index === paginationItems.length - 1;
         return (
           <li
             class={styles.control}
             style={{
               'view-transition-name': techSkill.href,
             }}
+            aria-hidden={isHidden || undefined}
           >
             <a
               href={
-                index === skillIndex
+                index === skillIndex || isHidden
                   ? undefined
                   : translatePath(`skills/${techSkill.href}/`)
               }
               aria-label={`${t_skills('go_to')} ${techSkill.title}`}
               title={`${t_skills('go_to')} ${techSkill.title}`}
               aria-current={index === skillIndex}
-              data-disabled={index === skillIndex || undefined}
+              data-disabled={isHidden || index === skillIndex || undefined}
               data-index={index}
               data-main-index={techSkills.indexOf(techSkill)}
               {...(index === skillIndex ? {} : { ['data-arrow-nav']: 'true' })}

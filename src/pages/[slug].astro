@@ -38,10 +38,34 @@ const englishSlugMap: Record<
   {
     component: AstroComponentFactory;
     title: string;
+    description: string;
+    seo: {
+      openGraph: {
+        image: {
+          name: string;
+          alt: string;
+        };
+      };
+      noIndex?: true;
+    };
     techSkill?: TechSkillProps;
   }
 > = {
-  work: { component: Work, title: t('work') },
+  work: {
+    component: Work,
+    title: t('work'),
+    description: t('work_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'work_en',
+          alt: t('work_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
   skills: {
     component: Skills,
     title: t('skills'),
@@ -49,19 +73,99 @@ const englishSlugMap: Record<
       title: t('tech_skills'),
       description: Description,
     },
+    description: t('skills_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'skills_en',
+          alt: t('skills_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
   },
-  about: { component: About, title: t('about') },
-  archive: { component: Archive, title: t('archive') },
+  about: {
+    component: About,
+    title: t('about'),
+    description: t('about_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'about_en',
+          alt: t('about_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  archive: {
+    component: Archive,
+    title: t('archive'),
+    description: t('archive_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'archive_en',
+          alt: t('archive_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
   'email-reply': {
     component: EmailReply,
     title: t('thank_you_for_your_email'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_en',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Do not index this reply-page
+      noIndex: true,
+    },
+    description: t('contact_seo_description'),
   },
 };
 
 const pageTitle = englishSlugMap[slug]?.title;
+const description = englishSlugMap[slug]?.description;
 
-const PageContent = englishSlugMap[slug]?.component;
-const techSkill = englishSlugMap[slug]?.techSkill;
+const PageContent = englishSlugMap[slug]?.component as
+  | typeof About
+  | typeof Skills;
+
+const imageName = englishSlugMap[slug]?.seo.openGraph.image.name;
+
+const imageAlt = englishSlugMap[slug]?.seo.openGraph.image.alt;
+
+const noIndex = englishSlugMap[slug]?.seo.noIndex;
+
+const restProps = (
+  englishSlugMap[slug]
+    ? {
+        techSkill: englishSlugMap[slug].techSkill,
+      }
+    : {}
+) as { techSkill: TechSkillProps };
 ---
 
-<PageContent title={pageTitle} inert={false} techSkill={techSkill} />
+<PageContent
+  title={pageTitle}
+  inert={false}
+  seo={{
+    openGraph: {
+      image: {
+        name: imageName,
+        alt: imageAlt,
+      },
+    },
+    noIndex: noIndex ?? false,
+  }}
+  description={description}
+  {...restProps}
+/>

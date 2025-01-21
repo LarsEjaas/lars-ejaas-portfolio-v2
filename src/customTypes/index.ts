@@ -176,3 +176,8 @@ export function hasProperty<
 export type PrettifyUnion<Type> = {
   [Key in keyof Type]: Type[Key];
 } & {};
+
+/** Omit one- or more keys from a union type */
+export type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? PrettifyUnion<Omit<T, K>>
+  : never;

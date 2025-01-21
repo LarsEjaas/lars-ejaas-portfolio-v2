@@ -1,6 +1,6 @@
 ---
 import type { metaTag, MetaData, OpenGraph } from '@customTypes/seo';
-import type { PrettifyUnion } from '@customTypes/index';
+import type { DistributiveOmit, PrettifyUnion } from '@customTypes/index';
 import {
   languages as availableLanguages,
   defaultLang,
@@ -22,16 +22,12 @@ const SITE_URL = import.meta.env.SITE_URL;
 
 type Props = SeoComponentProps;
 
-type DistributiveOmit<T, K extends keyof any> = T extends any
-  ? PrettifyUnion<Omit<T, K>>
-  : never;
-
 export type SeoComponentProps = {
   metaData: PrettifyUnion<
     Pick<MetaData, 'title'> &
       Partial<Pick<MetaData, 'description' | 'keywords'>>
   >;
-  openGraph: DistributiveOmit<OpenGraph, 'type'>;
+  openGraph: DistributiveOmit<OpenGraph, 'type'> | undefined;
   noIndex?: true;
   noFollow?: true;
 };

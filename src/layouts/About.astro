@@ -9,26 +9,32 @@ import ProfileImage from '@assets/images/profile.png';
 import PhotoCards from '@components/photoCards/PhotoCards.astro';
 import DrawingHouse from '@assets/aboutImages/drawing_house.png';
 import PictureWithPlaceholder from '../components/picture/PictureWithPlaceholder.astro';
+import type { DistributiveOmit } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
-  noIndex: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert, noIndex } = Astro.props;
+const { title, description, inert, seo } = Astro.props;
 const t_about = useTranslations(lang, 'about');
 ---
 
 <Layout
   inert={inert}
   seo={{
-    metaData: { title, description: t_about('seo_description') },
+    metaData: { title, description },
     openGraph: {
-      image: { name: `about_${lang}`, alt: t_about('seo_image_alt') },
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
     },
-    ...(noIndex && { noIndex }),
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
   }}
 >
   <!-- Modals can be inserted as a child here in the slot -->

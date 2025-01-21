@@ -111,9 +111,39 @@ const ModalContent =
       : modal === 'besked-modtaget'
         ? ContactConfirmation
         : ContactError;
+const seo =
+  modal === 'del'
+    ? {
+        openGraph: {
+          image: {
+            name: 'share_da',
+            alt: t('share_seo_image_alt'),
+          },
+        },
+        //Only index modalpages on the main index page
+        noIndex: true,
+      }
+    : {
+        openGraph: {
+          image: {
+            name: 'contact_me_da',
+            alt: t('contact_seo_image_alt'),
+          },
+        },
+        //Only index modalpages on the main index page
+        noIndex: true,
+      };
+const description =
+  modal === 'del' ? t('share_seo_description') : t('contact_seo_description');
 ---
 
-<SkillsLayout title={pageTitle} inert={false} techSkill={techSkill}>
+<SkillsLayout
+  title={pageTitle}
+  inert={false}
+  techSkill={techSkill}
+  seo={seo}
+  description={description}
+>
   <ModalDialog
     title={modalTitle}
     labels={{ close: t('close_modal_title') }}

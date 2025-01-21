@@ -17,11 +17,15 @@ import DownloadIcon from '@components/icons/DownloadIcon.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import { Picture } from 'astro:assets';
 import Sparkle from '@components/sparkle/Sparkle.astro';
+import type { DistributiveOmit } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
 
 type Props = {
   title: string;
+  description: string;
   lang: Language;
   inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex?: boolean };
 };
 
 const resumeFiles = import.meta.glob('@assets/resume/*.pdf');
@@ -40,12 +44,24 @@ if (!latestResumeURL) {
   throw new Error(`No resume file found for ${latestResumeURL}`);
 }
 
-const { title, lang, inert } = Astro.props;
+const { title, description, lang, inert, seo } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
   <div class="presentation">

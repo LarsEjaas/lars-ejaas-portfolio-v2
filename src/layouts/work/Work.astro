@@ -20,18 +20,35 @@ import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
 import InfoIcon from './infoIcon.astro';
+import type { DistributiveOmit } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert } = Astro.props;
+const { inert, title, description, seo } = Astro.props;
 const t_work = useTranslations(lang, 'work');
 ---
 
-<Layout title={title} inert={inert} gridColumns={3}>
+<Layout
+  inert={inert}
+  gridColumns={3}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
   <div class="presentation">

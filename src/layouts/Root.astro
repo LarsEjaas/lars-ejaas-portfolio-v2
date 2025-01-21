@@ -54,7 +54,12 @@ const {
       content="width=device-width, height=device-height initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="generator" content={Astro.generator} />
-    <Seo metaData={seo.metaData} openGraph={seo.openGraph} />
+    <Seo
+      metaData={seo.metaData}
+      openGraph={seo.openGraph}
+      noIndex={seo.noIndex}
+      noFollow={seo.noFollow}
+    />
     <script is:inline>
       if ('onpagereveal' in window) {
         window.onpagereveal = (event) => restoreModalScrollPosition(event);

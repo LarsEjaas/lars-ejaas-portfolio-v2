@@ -6,7 +6,7 @@ import type { DanishLanguageSlug } from '@i18n/settings';
 type Props = Record<string, never>;
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang, 'home');
+const t_home = useTranslations(lang, 'home');
 
 type TranslatedHomePath = { params: { lang: DanishLanguageSlug } };
 
@@ -16,4 +16,17 @@ export function getStaticPaths() {
 }
 ---
 
-<HomeLayout title={t('home_title')} lang={lang} inert={false} />
+<HomeLayout
+  title={t_home('home_title')}
+  lang={lang}
+  inert={false}
+  seo={{
+    openGraph: {
+      image: {
+        name: `home_${lang}`,
+        alt: t_home('seo_image_alt'),
+      },
+    },
+  }}
+  description={t_home('seo_description')}
+/>

@@ -8,18 +8,21 @@ import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { newsItems } from '@content/newsItems';
 import { MAX_NUMBER_OF_ITEMS } from '@components/carousel/Carousel.astro';
-import type { ImageModule } from '../customTypes';
-import { isExternalLink } from '../utils/misc';
-import ArticleCard from '../components/carousel/ArticleCard.astro';
+import type { DistributiveOmit, ImageModule } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
+import { isExternalLink } from '@utils/misc';
+import ArticleCard from '@components/carousel/ArticleCard.astro';
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert } = Astro.props;
+const { title, description, inert, seo } = Astro.props;
 const t_arch = useTranslations(lang, 'archive');
 
 const newsGridItems =
@@ -28,7 +31,19 @@ const newsGridItems =
     : undefined;
 ---
 
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
   <div class="presentation">

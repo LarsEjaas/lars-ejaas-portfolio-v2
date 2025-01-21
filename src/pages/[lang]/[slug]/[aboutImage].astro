@@ -60,7 +60,20 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 const pageTitle = imageInfo.titleDA;
 ---
 
-<AboutLayout title={pageTitle} inert={true}>
+<AboutLayout
+  title={pageTitle}
+  inert={true}
+  description={`🏃‍♂️🚴 Gennemse billeder fra mine år som sportsudøver. ${imageInfo.imageDescriptionDA}`}
+  seo={{
+    openGraph: {
+      image: {
+        name: 'about_da',
+        alt: t_nav('about_seo_image_alt'),
+      },
+    },
+    noIndex: false,
+  }}
+>
   <Lightbox
     labels={{
       title: pageTitle,

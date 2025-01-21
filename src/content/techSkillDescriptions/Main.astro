@@ -1,4 +1,6 @@
 ---
+import Sparkle from '@components/sparkle/Sparkle.astro';
+
 type Props = Record<string, never>;
 //Klik på kortene nedenfor for at lære mere om mine tekniske kompetencer.
 ---
@@ -6,7 +8,13 @@ type Props = Record<string, never>;
 <p class="body-text">
   <br />
   <br />
-  Click the cards below to learn more about my tech skills.
+</p>
+<Sparkle>
+  <p class="body-text">
+    {'Click the cards below to learn more about my tech skills.'}
+  </p>
+</Sparkle>
+<p class="body-text">
   <br />
   <br />
 </p>

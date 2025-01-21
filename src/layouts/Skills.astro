@@ -9,12 +9,15 @@ import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillRating } from '@customTypes/skillTypes';
 import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
-import type { SVGFileType } from '../customTypes';
+import type { SVGFileType, DistributiveOmit } from '@customTypes/index';
+import type { OpenGraph } from '@customTypes/seo';
 
 type Props = {
   title: string;
+  description: string;
   inert: boolean;
   techSkill: TechSkillProps;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
 };
 
 export type TechSkillProps = {
@@ -28,7 +31,7 @@ export type TechSkillProps = {
 };
 
 const lang = getLangFromUrl(Astro.url);
-const { title, inert, techSkill } = Astro.props;
+const { title, description, inert, techSkill, seo } = Astro.props;
 
 const {
   title: skillTitle,
@@ -36,7 +39,7 @@ const {
   iconImage,
   imageAlt: skillImageAlt,
   rating: skillRating,
-} = techSkill || {};
+} = techSkill;
 const t_skills = useTranslations(lang, 'skills');
 
 const DescriptionComponent = skillDescription;
@@ -59,7 +62,19 @@ const DescriptionComponent = skillDescription;
     );
   }
 </script>
-<Layout title={title} inert={inert}>
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+      ...(seo.noIndex && { noIndex: seo.noIndex }),
+    },
+  }}
+>
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
   <div class="presentation">
