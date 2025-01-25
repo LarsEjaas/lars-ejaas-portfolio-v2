@@ -32,6 +32,7 @@ const previousUrl = `${aboutTranslatedPath}${URLArray[currentIndex - 1]}/`;
 const isFirst = currentIndex === 0;
 const isLast = currentIndex === URLArray.length - 1;
 const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
+const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
 ---
 
 <script is:inline>
@@ -100,11 +101,15 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
     >
   </div>
   <div class={styles.content}>
-    <div
+    <figure
       style={{
         'view-transition-name': imageInfo.id,
+        '--width': `${image.width}px`,
+        '--height': `${image.height}px`,
+        '--aspect-ratio': `${image.width}/${image.height}`,
       }}
-      class={styles.imageContainer}
+      data-portrait={image.height > image.width || undefined}
+      data-landscape={image.width > image.height || undefined}
     >
       <PictureWithPlaceholder
         formats={['avif', 'webp']}
@@ -136,7 +141,8 @@ const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
           height: 24,
         }}
       />
-    </div>
+      {imageDescription && <figcaption>{imageDescription}</figcaption>}
+    </figure>
     <ul class={styles.controls}>
       <li>
         <a

@@ -45,6 +45,19 @@
     }
   }
 
+  @keyframes modalFadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0.01;
+    }
+  }
+
+  ::view-transition-old(lightbox-backdrop) {
+    animation: modalFadeOut 300ms 100ms ease-in both;
+  }
+
   :root {
     /* light/dark mode color variables*/
     --system-light-100: light-dark(#fff, #000);

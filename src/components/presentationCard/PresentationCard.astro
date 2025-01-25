@@ -10,6 +10,7 @@ type Props = {
   inert: boolean;
   iconImage?: ImageMetadata | undefined;
   iconImageAlt?: string | undefined;
+  iconImageViewTransitionName?: string;
   overlayImage?: ImageMetadata;
   overlayImageAlt?: string;
   /** Make the squircle and overlay image size responsive */
@@ -23,6 +24,7 @@ const {
   overlayImage,
   responsiveSquircleSize,
   iconImageAlt,
+  iconImageViewTransitionName,
   overlayImageAlt,
   inert,
 } = Astro.props;
@@ -50,7 +52,14 @@ const {
               data-with-background={iconImage ? 'true' : undefined}
             >
               {iconImage ? (
-                <figure aria-label={iconImageAlt}>
+                <figure
+                  aria-label={iconImageAlt}
+                  style={
+                    iconImageViewTransitionName
+                      ? { viewTransitionName: iconImageViewTransitionName }
+                      : undefined
+                  }
+                >
                   <div
                     class={styles.icon}
                     style={{

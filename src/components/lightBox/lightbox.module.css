@@ -13,24 +13,6 @@
   }
 }
 
-@keyframes blurOut {
-  from {
-    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
-  }
-  to {
-    backdrop-filter: saturate(100%) brightness(100%) blur(0);
-  }
-}
-
-@keyframes blurIn {
-  from {
-    backdrop-filter: saturate(100%) brightness(100%) blur(0);
-  }
-  to {
-    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
-  }
-}
-
 .backdrop {
   view-transition-name: lightbox-backdrop;
   position: fixed;
@@ -46,18 +28,6 @@
   &:hover {
     backdrop-filter: saturate(150%) brightness(60%) blur(3px);
   }
-}
-
-::view-transition-group(lightbox-backdrop) {
-  isolation: isolate;
-}
-
-::view-transition-old(lightbox-backdrop) {
-  animation: 300ms blurOut ease-in both;
-}
-
-::view-transition-new(lightbox-backdrop) {
-  animation: 300ms blurIn ease-out both;
 }
 
 .dialog {
@@ -80,7 +50,7 @@
 }
 
 :global(html) {
-  &:active-view-transition-type(keep-in-place) {
+  :active-view-transition-type(keep-in-place) {
     &::view-transition-group(lightbox-backdrop),
     &::view-transition-new(lightbox-backdrop),
     &::view-transition-old(lightbox-backdrop) {
@@ -93,6 +63,11 @@
     &::view-transition-new(lightbox-backdrop) {
       opacity: 0 !important;
     }
+  }
+  /* The corresponding fade-out animation is placed in the global stylesheet 
+    as this stylesheet is removed from the DOM before the transition fires */
+  &::view-transition-new(lightbox-backdrop) {
+    animation: fadeIn 300ms 100ms ease-out both;
   }
 }
 
@@ -110,44 +85,80 @@
   height: 70cqb;
   min-height: 0;
 
-  & .imageContainer {
+  & figure {
+    --p-top: 8px;
+    --p-bottom: 60px;
+    --p-inline: 8px;
+    display: grid;
+    padding: var(--p-top) var(--p-inline) var(--p-bottom);
     pointer-events: all;
-    line-height: 0;
-    text-align: center;
-    margin: 0 auto;
+    margin-inline: auto;
     position: relative;
-    width: 320px;
-    height: 100%;
-    max-height: 70cqb;
-  }
-
-  @media (min-width: 561px) {
-    & .imageContainer {
-      width: 480px;
+    box-shadow: var(--stacks-6-shadow);
+    background-color: light-dark(
+      var(--system-light-200),
+      var(--system-dark-400)
+    );
+    border-radius: var(--border-radius-md);
+    &[data-landscape] {
+      & .placeholder,
+      & picture {
+        --frame-width: 320px;
+        height: unset;
+        width: min(
+          calc(var(--frame-width)),
+          var(--width),
+          100vw - 2 * var(--p-inline) - 2rem
+        );
+        @media (min-width: 561px) {
+          --frame-width: 480px;
+        }
+        @media (min-width: 821px) {
+          --frame-width: 640px;
+        }
+      }
     }
-  }
-
-  @media (min-width: 821px) {
-    & .imageContainer {
-      width: 640px;
+    & figcaption {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      height: 44px;
+      overflow: hidden;
+      font-size: var(--font-size-2);
+      font-style: italic;
+      color: light-dark(var(--system-dark-300), var(--system-light-300));
+      text-wrap: balance;
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
     }
   }
   & picture,
   & img {
-    border-radius: var(--border-radius-md);
-    max-height: 70cqb;
+    border-radius: var(--border-radius-sm);
   }
   & picture {
-    position: absolute;
-    inset: 0;
-    margin: auto;
+    grid-column: 1;
+    grid-row: 1;
   }
   & .placeholder {
-    inset: 0;
+    grid-column: 1;
+    grid-row: 1;
     border-radius: var(--border-radius-md);
     z-index: -1;
-    max-height: 70cqb;
-    margin: auto;
+    position: relative;
+  }
+  /* default portrait styling*/
+  & .placeholder,
+  & picture {
+    /* Get the smallest of: height of container, height of image, height of image when width is within viewport */
+    height: min(
+      calc(70cqb - var(--p-top) - var(--p-bottom)),
+      var(--height),
+      calc((100vw - (2 * var(--p-inline) + 2rem)) / (var(--aspect-ratio)))
+    );
   }
 }
 
@@ -206,11 +217,11 @@
 }
 
 ::view-transition-old(thumbnail-grid-container) {
-  animation: 250ms fadeOut ease-in both;
+  animation: 250ms 100ms fadeOut ease-in backwards;
 }
 
 ::view-transition-new(thumbnail-grid-container) {
-  animation: 250ms fadeIn 300ms ease-out both;
+  animation: 250ms fadeIn 100ms ease-out both;
 }
 
 .controls {
