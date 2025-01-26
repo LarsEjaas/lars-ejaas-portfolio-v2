@@ -120,17 +120,19 @@
     }
     & figcaption {
       position: absolute;
-      bottom: 8px;
+      bottom: 20px;
       left: 8px;
       right: 8px;
-      height: 44px;
+      height: 32px;
       overflow: hidden;
       font-size: var(--font-size-2);
       font-style: italic;
       color: light-dark(var(--system-dark-300), var(--system-light-300));
-      text-wrap: balance;
+      text-wrap: pretty;
+      text-overflow: ellipsis;
+      display: inline;
       display: -webkit-box;
-      -webkit-box-orient: horizontal;
+      -webkit-box-orient: vertical;
       line-clamp: 2;
       -webkit-line-clamp: 2;
     }
@@ -189,16 +191,16 @@
 .thumbnailGridContainer {
   view-transition-name: thumbnail-grid-container;
   pointer-events: all;
-  --mask-width: 2rem;
+  --mask-width: 1rem;
+  --margin-width: 1rem;
+  margin-inline: var(--margin-width);
   display: grid;
+  width: calc(100cqi - 2 * var(--margin-width));
   grid-auto-flow: dense;
   gap: 0.5rem;
-  margin-inline: 1rem;
   padding-inline: var(--mask-width);
   overflow-x: scroll;
-  max-width: calc(100% - 2 * var(--mask-width));
   padding-block: 32px 16px;
-  will-change: grid-template-columns;
   mask: linear-gradient(
     90deg,
     transparent,
@@ -206,7 +208,9 @@
     transparent
   );
   mask-composite: intersect;
-
+  @container lightbox (min-width: 600px) {
+    --mask-width: 2rem;
+  }
   & a {
     height: 120px;
     grid-row: 1;
@@ -214,14 +218,6 @@
     transition: transform 250ms ease-in-out;
     outline-offset: var(--outline-offset);
   }
-}
-
-::view-transition-old(thumbnail-grid-container) {
-  animation: 250ms 100ms fadeOut ease-in backwards;
-}
-
-::view-transition-new(thumbnail-grid-container) {
-  animation: 250ms fadeIn 100ms ease-out both;
 }
 
 .controls {

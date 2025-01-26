@@ -21,8 +21,9 @@ export const aboutImagesInfo = [
     imageAltDA:
       'Portrait of Lars Ejaas af a bicycle race in Hjørring, Denmark.',
     imageAltEN: 'Portræt af Lars Ejaas ved et cykelløb i Hjørring.',
-    imageDescriptionDA: 'Poserer after et cykelløb i Hjørring.',
-    imageDescriptionEN: 'Posing after a cycling race in Hjørring, Denmark.',
+    imageDescriptionDA: 'Poserer efter et cykelløb i Hjørring, 2011.',
+    imageDescriptionEN:
+      'Posing after a cycling race in Hjørring, Denmark - 2011.',
     hrefEN: 'cycling-hjorring-2011',
     hrefDA: 'cykling-hjorring-2011',
   },
@@ -35,7 +36,8 @@ export const aboutImagesInfo = [
       'Lars Ejaas under et cykelcross løb på et mudret græs-dækket spor.',
     imageAltEN:
       'Lars Ejaas racing a cyclocross bike on a muddy grass-covered trail.',
-    imageDescriptionDA: 'Poserer after et cykelløb i Hjørring.',
+    imageDescriptionDA:
+      'Cykelcross løb på en mudret vinterdag i Fredericia, 2009.',
     imageDescriptionEN:
       'Cyclocross racing on a muddy winter day in Fredericia, Denmark - 2009.',
     hrefEN: 'cyclocross-2009',
@@ -50,7 +52,7 @@ export const aboutImagesInfo = [
     imageAltEN: 'Lars Ejaas racing in an elite road race in Hammel, Denmark.',
     imageDescriptionDA: 'Deltager i et dansk elite-cykelløb i Hammel, 2007.',
     imageDescriptionEN:
-      'Competing in a danish elite road race in Hammel, Denmark - 2007.',
+      'Competing in a Danish elite road race in Hammel, Denmark - 2007.',
     hrefEN: 'cycling-hammel-2007',
     hrefDA: 'cykellob-hammel-2007',
   },

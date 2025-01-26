@@ -209,6 +209,8 @@ const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
               reverseRotation={false}
               disabled={imgInfo.id === imageInfo.id || undefined}
               index={index}
+              includeViewTransitionId={true}
+              viewTransitionId={`thumbnail-${imgInfo.id}`}
             />
           );
         })

@@ -9,6 +9,7 @@ import {
 import type { SlugWithSkillKeys } from '@i18n/routes';
 import ConditionalLink from './ConditionalLink.astro';
 import WorkCardImage from './WorkCardImage.astro';
+import CurrentEmploymentBadge from './CurrentEmploymentBadge.astro';
 
 type Props = {
   inert: boolean;
@@ -21,6 +22,7 @@ type Props = {
   date: string;
   headerImage: ImageMetadata;
   headerImageAlt: string;
+  currentEmployment?: boolean;
   tags?: { title: string; href?: SlugWithSkillKeys }[];
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
@@ -46,6 +48,7 @@ const {
   date,
   headerImage,
   headerImageAlt,
+  currentEmployment,
   tags,
   viewTransitionName,
   animatedHeader,
@@ -111,6 +114,7 @@ const t = useTranslations(lang, 'navigation');
   id={id}
   className={className}
 >
+  {currentEmployment && <CurrentEmploymentBadge lang={lang} />}
   <div class={styles.headerContent}>
     <ConditionalLink href={href}>
       <WorkCardImage
