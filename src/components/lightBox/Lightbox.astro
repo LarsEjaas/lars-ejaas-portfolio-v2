@@ -38,7 +38,9 @@ const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
 <script is:inline>
   window.addEventListener('pagereveal', (e) => {
     const transitionType = sessionStorage['transition-type'] || 'fade';
-    if (!transitionType) return;
+    if (!transitionType || !e.viewTransition) {
+      return;
+    }
     e.viewTransition.types.add(transitionType);
     sessionStorage.removeItem('transition-type');
   });
