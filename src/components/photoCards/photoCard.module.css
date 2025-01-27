@@ -42,7 +42,7 @@
     }
   }
   &:not([inert='true']) {
-    & a:not([data-disable-animation='true']) {
+    & a {
       @supports (animation-timeline: view()) {
         @media (prefers-reduced-motion: no-preference) {
           view-timeline-name: --unwrapImage;

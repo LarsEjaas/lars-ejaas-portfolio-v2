@@ -1,8 +1,7 @@
 import { TRANSITION_TYPE } from '@utils/localStorage';
-import { removeTrailingSlash } from '@i18n/utils';
-import { allLightboxKeys } from '@i18n/routes';
+import { isLightboxRoute } from '@utils/scrollPosition';
 
-export const setTransitionType = () => {
+export const setLightboxTransitionType = () => {
   if ('CSSViewTransitionRule' in window) {
     window.addEventListener('pageswap', async (e: PageSwapEvent) => {
       if (e.viewTransition) {
@@ -13,30 +12,25 @@ export const setTransitionType = () => {
 
         let transitionType: 'keep-in-place' | 'fade';
 
-        const currentPathname = currentURL
-          ? removeTrailingSlash(currentURL?.pathname)
-          : undefined;
-        const destinationPathname = removeTrailingSlash(targetURL.pathname);
-        const currentKey = currentPathname?.split('/').slice(-1)[0];
-        const destinationKey = destinationPathname.split('/').slice(-1)[0];
+        const currentIsLightbox = currentURL
+          ? isLightboxRoute(currentURL?.pathname)
+          : false;
 
-        const currentIsLightbox = allLightboxKeys.includes(
-          currentKey as (typeof allLightboxKeys)[number]
-        );
+        const destinationIsLightbox = isLightboxRoute(targetURL.pathname);
 
-        const destinationIsLightbox = allLightboxKeys.includes(
-          destinationKey as (typeof allLightboxKeys)[number]
-        );
-
-        // page was refreshed or navigating to a lightbox path
+        // page was refreshed or navigating to another lightbox path
         if (
-          !currentPathname ||
-          currentPathname === destinationPathname ||
+          !currentURL?.pathname ||
+          currentURL?.pathname === targetURL.pathname ||
           (destinationIsLightbox && currentIsLightbox)
         ) {
           transitionType = 'keep-in-place';
           e.viewTransition.types.add(transitionType);
           sessionStorage[TRANSITION_TYPE] = transitionType;
+          const figure = window.lightbox?.querySelector('figure');
+          if (figure && destinationIsLightbox) {
+            figure.style.viewTransitionName = 'figure';
+          }
           return;
         }
         if (currentIsLightbox && !destinationIsLightbox) {

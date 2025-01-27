@@ -50,12 +50,28 @@
       opacity: 1;
     }
     to {
+      /* Avoid visual glitches from mix-blend-mode by animating opacity to 0.01 instead of 0 */
       opacity: 0.01;
     }
   }
 
-  ::view-transition-old(lightbox-backdrop) {
+  @keyframes scale-out {
+    to {
+      transform: scale(0.9) translateY(-30px);
+      /* Avoid visual glitches from mix-blend-mode by animating opacity to 0.01 instead of 0 */
+      opacity: 0.01;
+    }
+  }
+
+  ::view-transition-old(lightbox-backdrop),
+  ::view-transition-old(dialog-backdrop) {
     animation: modalFadeOut 300ms 100ms ease-in both;
+  }
+
+  ::view-transition-old(dialog) {
+    animation: 300ms scale-out ease-in both;
+    position: fixed;
+    transform-origin: top center;
   }
 
   :root {

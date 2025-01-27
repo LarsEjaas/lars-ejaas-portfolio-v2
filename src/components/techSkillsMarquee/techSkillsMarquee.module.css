@@ -200,7 +200,7 @@
 
 @keyframes fadeIn {
   from {
-    /* Avoid visual glitches by animating opacity from 0.01 instead of 0 */
+    /* Avoid visual glitches from mix-blend-mode by animating opacity from 0.01 instead of 0 */
     opacity: 0.01;
   }
   to {

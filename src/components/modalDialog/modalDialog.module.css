@@ -1,4 +1,9 @@
+:import('@components/techSkillsMarquee/techSkillsMarquee.module.css') {
+  fadeIn: fadeIn;
+}
+
 .dialogBackdrop {
+  view-transition-name: dialog-backdrop;
   position: fixed;
   border-radius: 0;
   display: block;
@@ -31,7 +36,6 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-
   width: calc(100vw - 2rem);
   z-index: 1000;
   background-color: var(--system-light-300);
@@ -140,11 +144,18 @@
   @keyframes scale-in {
     from {
       transform: scale(0.9) translateY(-30px);
+      /* Avoid visual glitches from mix-blend-mode by animating opacity from 0.01 instead of 0 */
+      opacity: 0.01;
     }
   }
 
   ::view-transition-new(dialog) {
-    animation: 200ms ease-in-out forwards scale-in;
+    animation: 300ms ease-out both scale-in;
     position: fixed;
+    transform-origin: top center;
+  }
+
+  ::view-transition-new(dialog-backdrop) {
+    animation: fadeIn 300ms 100ms ease-out both;
   }
 }
