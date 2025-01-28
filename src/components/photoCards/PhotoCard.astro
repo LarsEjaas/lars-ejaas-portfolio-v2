@@ -61,6 +61,7 @@ const translatePath = useTranslatedPath(lang);
     <PictureWithPlaceholder
       formats={['avif', 'webp']}
       quality="high"
+      aria-disabled={disabled || undefined}
       src={ImageComponent}
       alt={imageAlt}
       width={ImageComponent.width}

@@ -63,11 +63,17 @@
     &::view-transition-new(lightbox-backdrop) {
       opacity: 0 !important;
     }
+    ::view-transition-old(thumbnail-grid-container) {
+      animation: fadeOut 250ms ease-in both;
+    }
+    ::view-transition-new(thumbnail-grid-container) {
+      animation: fadeIn 250ms 200ms ease-out both;
+    }
   }
   /* The corresponding fade-out animation is placed in the global stylesheet 
     as this stylesheet is removed from the DOM before the transition fires */
   &::view-transition-new(lightbox-backdrop) {
-    animation: fadeIn 300ms 100ms ease-out both;
+    animation: fadeIn 400ms 100ms ease-out both;
   }
 }
 
@@ -170,9 +176,10 @@
   border-radius: var(--border-radius-sm);
   border: none;
   height: fit-content;
+  z-index: 1;
   line-height: 0;
-  margin: 8px 16px;
-  padding: 4px;
+  margin: 4px 12px;
+  padding: 8px;
   color: var(--verdigris-600);
   transition: transform 0.3s ease;
   &:not([data-disabled]):hover,

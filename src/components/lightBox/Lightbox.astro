@@ -213,14 +213,12 @@ const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
 
           return (
             <PhotoCard
-              includeViewTransitionId={false}
               ImageComponent={ImageComponent}
               imageName={imgInfo.imageName}
               reverseRotation={false}
               disabled={imgInfo.id === imageInfo.id || undefined}
               index={index}
-              includeViewTransitionId={true}
-              viewTransitionId={`thumbnail-${imgInfo.id}`}
+              includeViewTransitionId={false}
             />
           );
         })

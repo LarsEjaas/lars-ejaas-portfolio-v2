@@ -130,8 +130,8 @@
   border: none;
   height: fit-content;
   line-height: 0;
-  margin: 8px;
-  padding: 4px;
+  margin: 4px;
+  padding: 8px;
   &[data-flirt] {
     color: var(--flirt-600);
   }
@@ -150,12 +150,12 @@
   }
 
   ::view-transition-new(dialog) {
-    animation: 300ms ease-out both scale-in;
+    animation: 400ms ease-out both scale-in;
     position: fixed;
     transform-origin: top center;
   }
 
   ::view-transition-new(dialog-backdrop) {
-    animation: fadeIn 300ms 100ms ease-out both;
+    animation: fadeIn 400ms 100ms ease-out both;
   }
 }
