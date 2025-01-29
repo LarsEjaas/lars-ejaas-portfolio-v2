@@ -3,6 +3,11 @@ import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 import { loadEnv } from 'vite';
 
+const { createSitemapFilter } = await import(
+  /* @vite-ignore */
+  new URL('./src/utils/sitemapUtils.mjs', import.meta.url)
+);
+
 const { NODE_ENV, SITE_URL: SITE_URL_RAW } = loadEnv(
   process.env.NODE_ENV,
   process.cwd(),
@@ -30,7 +35,7 @@ export default defineConfig({
           da: 'da-DK',
         },
       },
-      filter: (page) => true,
+      filter: createSitemapFilter,
     }),
   ],
   prefetch: {

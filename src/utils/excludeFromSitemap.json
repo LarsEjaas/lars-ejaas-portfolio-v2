@@ -1,0 +1,12 @@
+{
+  "$schema": "./excludeFromSitemap.schema.json",
+  "rootOnlyPatterns": [
+    {
+      "slug": "contact",
+      "variations": {
+        "da": "kontakt"
+      }
+    }
+  ],
+  "excludedPaths": ["/da/email-svar/", "/email-reply/"]
+}
