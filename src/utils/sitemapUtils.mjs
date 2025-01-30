@@ -37,7 +37,11 @@ function shouldIncludeUrl(url) {
     const cleanPath = pathWithNoTrailingSlash.startsWith('/')
       ? pathWithNoTrailingSlash.slice(1)
       : pathWithNoTrailingSlash;
-    if (cleanPath === cleanPathname) {
+    const pathToCompare = cleanPathname.startsWith('/')
+      ? cleanPathname.slice(1)
+      : cleanPathname;
+
+    if (cleanPath === pathToCompare) {
       return false;
     }
   }

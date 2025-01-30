@@ -24,7 +24,8 @@
         "required": ["slug", "variations"],
         "additionalProperties": false
       },
-      "required": false
+      "required": false,
+      "description": "Patterns that should appear only once in the sitemap at the root level.\n\nTo exclude a pattern completely from the sitemap, add it to the `excludedPaths` array and add the root level paths in the 'excludedPaths' array."
     },
     "excludedPaths": {
       "type": "array",
@@ -33,9 +34,10 @@
         "description": "The path to exclude from the sitemap. Must include all slugs(including localization) but not protocol. eg.: '/some-example-path'.",
         "required": false,
         "additionalProperties": false
-      }
+      },
+      "description": "Paths to exclude from the sitemap.\n\nTo exclude a pattern completely from the sitemap, you also need to add the pattern to the `excludedPaths` array as well."
     }
   },
-  "required": ["rootOnlyPatterns"],
+  "required": [],
   "additionalProperties": false
 }

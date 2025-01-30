@@ -24,7 +24,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm clean-install
+        run: npm clean-install --include=dev
 
       - name: Run ESLint
         run: npm run lint
