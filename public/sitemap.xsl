@@ -67,13 +67,24 @@
           :root ::-webkit-scrollbar-track {
             background: #aebabb;
           }
+          .language-alternates {
+            font-size: 0.9rem;
+            color: #323d3e;
+            margin-top: 0.25rem;
+          }
+          .language-alternates span {
+            background: #e3e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+          }
         </style>
       </head>
       <body>
         <div class="flex">
             <img src="/icons/icon-144x144.png" alt="Lars Ejaas Logo" width="144" height="144" />
         <h1>XML Sitemap</h1>
-        <div>
+        </div>
         <table>
           <tr>
             <th>URL</th>
@@ -85,17 +96,6 @@
             <tr>
               <td>
                 <a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a>
-                <xsl:if test="xhtml:link">
-                  <div class="language-alternates">
-                    Alternative versions:
-                    <xsl:for-each select="xhtml:link">
-                      <span>
-                        <xsl:value-of select="@hreflang"/>: 
-                        <a href="{@href}"><xsl:value-of select="@href"/></a>
-                      </span>
-                    </xsl:for-each>
-                  </div>
-                </xsl:if>
               </td>
               <td><xsl:value-of select="sitemap:lastmod"/></td>
               <td><xsl:value-of select="sitemap:changefreq"/></td>
