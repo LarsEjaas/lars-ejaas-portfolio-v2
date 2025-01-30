@@ -11,14 +11,19 @@
   <xsl:template match="/">
     <html>
       <head>
-        <title>XML Sitemap</title>
+        <title>Lars Ejaas | XML Sitemap</title>
         <style>
           body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            color: #333;
+            color: #171c1c;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+          }
+          .flex {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
           }
           table {
             width: 100%;
@@ -28,30 +33,47 @@
           th, td {
             padding: 0.5rem;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d8dfdf;
           }
           th {
-            background-color: #f5f5f5;
+            background-color: #f9fafa;
             font-weight: bold;
           }
           tr:hover {
-            background-color: #f9f9f9;
+            background-color: #f9fafa;
           }
           a {
-            color: #0066cc;
+            color: hsl(188.41deg 100% 30.78%);
             text-decoration: none;
           }
           a:hover {
             text-decoration: underline;
           }
           h1 {
-            color: #333;
+            color: #171c1c;
             margin-bottom: 1rem;
+          }
+          :root ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+          }
+          :root ::-webkit-scrollbar-thumb {
+            border-radius: 8px;
+            background: #4e5f60;
+          }
+          :root ::-webkit-scrollbar-corner {
+            background-color: #aebabb;
+          }
+          :root ::-webkit-scrollbar-track {
+            background: #aebabb;
           }
         </style>
       </head>
       <body>
+        <div class="flex">
+            <img src="/icons/icon-144x144.png" alt="Lars Ejaas Logo" width="144" height="144" />
         <h1>XML Sitemap</h1>
+        <div>
         <table>
           <tr>
             <th>URL</th>
@@ -63,6 +85,17 @@
             <tr>
               <td>
                 <a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a>
+                <xsl:if test="xhtml:link">
+                  <div class="language-alternates">
+                    Alternative versions:
+                    <xsl:for-each select="xhtml:link">
+                      <span>
+                        <xsl:value-of select="@hreflang"/>: 
+                        <a href="{@href}"><xsl:value-of select="@href"/></a>
+                      </span>
+                    </xsl:for-each>
+                  </div>
+                </xsl:if>
               </td>
               <td><xsl:value-of select="sitemap:lastmod"/></td>
               <td><xsl:value-of select="sitemap:changefreq"/></td>
