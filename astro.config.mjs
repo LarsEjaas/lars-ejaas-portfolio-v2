@@ -3,7 +3,7 @@ import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 import { loadEnv } from 'vite';
 
-const { createSitemapFilter } = await import(
+const { createSitemapFilter, serializeSitemap } = await import(
   /* @vite-ignore */
   new URL('./src/utils/sitemapUtils.mjs', import.meta.url)
 );
@@ -36,6 +36,7 @@ export default defineConfig({
         },
       },
       filter: createSitemapFilter,
+      serialize: serializeSitemap,
     }),
   ],
   prefetch: {

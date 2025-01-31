@@ -2,8 +2,10 @@
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import AboutLayout from '@layouts/About.astro';
 import type { AboutImageSlugPath, SlugWithAboutImageTypes } from '@i18n/routes';
-import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
-import type { ImageDetails } from '@content/aboutImages/aboutImages';
+import {
+  aboutImagesInfo,
+  type ImageDetails,
+} from '@content/aboutImages/aboutImages.mts';
 import type { ImageModule } from '@customTypes/index';
 import Lightbox from '@components/lightBox/Lightbox.astro';
 

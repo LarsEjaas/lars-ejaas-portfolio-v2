@@ -1,12 +1,9 @@
-import {
-  translations,
-  defaultLang,
-  languages,
-  showDefaultLang,
-  type Language,
-} from './settings';
+import { translations, defaultLang, showDefaultLang } from './settings';
+import { languages } from './languageDefinition.mts';
 import { appRoutes, type LanguageKey } from './routes';
 import { hasProperty, type StringWithTrailingSlash } from '@customTypes/index';
+
+export type Language = keyof typeof languages;
 
 /**
  * Extracts the language code from a URL's pathname or returns the default language if no language code is found in the pathname.

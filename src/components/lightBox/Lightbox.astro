@@ -1,13 +1,14 @@
 ---
 import styles from './lightbox.module.css';
-import type { ImageDetails } from '@content/aboutImages/aboutImages.ts';
+import type { ImageDetails } from '@content/aboutImages/aboutImages.mts';
+import { aboutImagesInfo } from '@content/aboutImages/aboutImages.mts';
 import { getLangFromUrl } from '@i18n/utils';
-import { aboutImagesInfo } from '@content/aboutImages/aboutImages';
 import { useTranslatedPath } from '@i18n/utils';
 import PhotoCard from '@components/photoCards/PhotoCard.astro';
 import type { ImageModule } from '@customTypes/index';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
+const isDev = import.meta.env.DEV || false;
 
 type Props = {
   labels: { title: string; close: string; previous: string; next: string };
@@ -33,6 +34,10 @@ const isFirst = currentIndex === 0;
 const isLast = currentIndex === URLArray.length - 1;
 const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
 const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
+
+if (!imageDescription && isDev) {
+  console.error(`⚠️ Image description not found for ${imageInfo.imageName}`);
+}
 ---
 
 <script is:inline>

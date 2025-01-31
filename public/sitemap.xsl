@@ -71,12 +71,17 @@
             font-size: 0.9rem;
             color: #323d3e;
             margin-top: 0.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-left: 0.25rem;
           }
           .language-alternates span {
             background: #e3e8e8;
             padding: 0.2rem 0.4rem;
             border-radius: 4px;
             margin-right: 0.5rem;
+            width: fit-content;
           }
         </style>
       </head>
@@ -98,7 +103,7 @@
                 <a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a>
                 <xsl:if test="xhtml:link">
                   <div class="language-alternates">
-                    Alternative versions:
+                    <div>Alternative versions:</div>
                     <xsl:for-each select="xhtml:link">
                       <span>
                         <xsl:value-of select="@hreflang"/>: 

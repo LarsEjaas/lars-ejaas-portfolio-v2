@@ -124,7 +124,15 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 
-## 🙏Attribution
+## 😉 Gotchas & Caveats
+
+- The `generate:routes script` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script (so you probably need NVM to go back and forth between Node versions for now).
+  However, Astro is not compatible with this Node version.
+- All TypeScript files with the .mts extension are optimized for both the project itself and for use in npm scripts.
+
+<p align="right"><a href="#top">back to top⬆️</a></p>
+
+## 🙏 Attribution
 
 I'm grateful to the following developers whose content has inspired me in creating this site:
 

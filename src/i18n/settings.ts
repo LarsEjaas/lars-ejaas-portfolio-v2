@@ -7,15 +7,11 @@ import { work } from './translations/work';
 import { archive } from './translations/archive';
 import { contact } from './translations/contact';
 import { emailReply } from './translations/emailReply';
+import { languages } from './languageDefinition.mts';
 
 export type Language = keyof typeof languages;
 
 export type DanishLanguageSlug = Exclude<Language, typeof defaultLang>;
-
-export const languages = {
-  en: 'English',
-  da: 'Dansk',
-} as const;
 
 export const defaultLang: Extract<Language, 'en'> = 'en';
 
@@ -32,3 +28,5 @@ export const translations = {
 } as const;
 
 export const showDefaultLang = false;
+
+export { languages };

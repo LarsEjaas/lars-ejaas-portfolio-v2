@@ -12,7 +12,8 @@
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "typecheck": "astro check",
     "typecheck:watch": "astro check --watch",
-    "prepare": "test \"$NODE_ENV\" = production || husky install"
+    "prepare": "test \"$NODE_ENV\" = production || husky install",
+    "generate:routes": "node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts"
   },
   "engines": {
     "node": ">=21.0.0",

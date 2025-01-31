@@ -1,8 +1,10 @@
 import exclude from './excludeFromSitemap.json';
+import { routes } from './sitemap-routes.mjs';
 
 /**
  * @typedef {import('@i18n/settings').Language} Language
  * @typedef {import('@i18n/settings').defaultLang} defaultLang
+ * @typedef {import('@astrojs/sitemap').SitemapItem} SitemapItem
  */
 
 /**
@@ -123,4 +125,75 @@ export const createSitemapFilter = (url, additionalFilter = undefined) => {
   }
 
   return passedDuplicateCheck;
+};
+
+/**
+ * Adds additional properties to each sitemap item before the sitemap is generated.
+ *
+ * @param {SitemapItem} item - The URL to check.
+ * //or
+ * integrations: [
+ *   sitemap({
+ *     filter: (page) => createSitemapFilter(page, additionalFilter)
+ *   })
+ * ]
+ */
+export const serializeSitemap = (item) => {
+  const getChangeFreq = (url) => {
+    return 'monthly';
+  };
+
+  const getLastMod = (url) => {
+    const currentUrl = new URL(url);
+    const pathname = currentUrl.pathname;
+    return new Date().toISOString();
+  };
+
+  const getPriority = (url) => {
+    const currentUrl = new URL(url);
+    const pathname = currentUrl.pathname;
+    if (pathname === '/' || pathname === '/da') return 1.0;
+    if (url.includes('/blog/')) return 0.8;
+    return 0.5;
+  };
+
+  const addAlternates = (item) => {
+    const currentUrl = new URL(item.url);
+    const pathnameRaw = currentUrl.pathname;
+    const pathWithNoTrailingSlash = pathnameRaw.endsWith('/')
+      ? pathnameRaw.slice(0, -1)
+      : pathnameRaw;
+    const pathName = pathWithNoTrailingSlash.startsWith('/')
+      ? pathWithNoTrailingSlash.slice(1)
+      : pathWithNoTrailingSlash;
+    const origin = currentUrl.origin;
+
+    if (!pathName) return item;
+
+    const routeMatch = Object.entries(routes).find(
+      ([routePath, _route]) => routePath === pathName
+    );
+
+    if (routeMatch) {
+      // override the url with the routeMatch to get the compplete URL including the origin
+      routeMatch[0] = item.url;
+      const [_path, links] = routeMatch;
+      const alternates = links.alternates?.map((alt) => ({
+        ...alt,
+        url: `${origin}/${alt.url}/`,
+      }));
+      if (alternates) {
+        item.links = [...alternates];
+      }
+    }
+    return item;
+  };
+
+  item.changefreq = getChangeFreq(item.url);
+  item.lastmod = getLastMod(item.url);
+  item.priority = getPriority(item.url);
+
+  const itemWithAlternates = addAlternates(item);
+
+  return itemWithAlternates;
 };

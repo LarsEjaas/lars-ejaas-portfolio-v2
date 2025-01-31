@@ -17,7 +17,6 @@ import {
 import type { ImageInputFormat } from 'astro';
 import { appRoutes } from '../../i18n/routes';
 
-const isDev = import.meta.env.DEV || false;
 const SITE_URL = import.meta.env.SITE_URL;
 
 type Props = SeoComponentProps;
@@ -128,9 +127,6 @@ const { metaData, openGraph, noIndex, noFollow } = Astro.props;
 if (openGraph?.image?.name && !openGraph?.image?.alt) {
   const error =
     "WARNING(SEO): You defined `openGraph.image.name`, but didn't define `openGraph.image.alt`. This is strongly discouraged.'";
-  if (isDev) {
-    throw new Error(error);
-  }
   console.warn(error);
 }
 

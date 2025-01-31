@@ -2,11 +2,8 @@
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import SkillsLayout from '@layouts/Skills.astro';
 import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
-import {
-  skillsObject,
-  techSkillEntries,
-  type TechSkill,
-} from '@content/techSkills';
+import { skillsObject, type TechSkill } from '@content/techSkills';
+import { techSkillEntries } from '@content/techSkillTypes.mts';
 import ModalDialog from '@components/modalDialog/ModalDialog.astro';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
