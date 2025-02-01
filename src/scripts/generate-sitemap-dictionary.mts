@@ -9,11 +9,17 @@ async function generateRoutes() {
     (acc, [page, alternate]) => {
       acc[page] = {
         url: page,
-        alternates: [{ url: `da/${alternate}`, lang: 'da', hreflang: 'da-DK' }],
+        alternates: [
+          { url: `da/${alternate}`, lang: 'da-DK' },
+          { url: page, lang: 'en-US' },
+        ],
       };
       acc[`da/${alternate}`] = {
         url: `da/${alternate}`,
-        alternates: [{ url: page, hreflang: 'en-US', lang: 'en' }],
+        alternates: [
+          { url: page, lang: 'en-US' },
+          { url: `da/${alternate}`, lang: 'da-DK' },
+        ],
       };
       return acc;
     },
@@ -21,9 +27,7 @@ async function generateRoutes() {
       string,
       {
         url: string;
-        alternates:
-          | { url: string; lang: 'da' | 'en'; hreflang: 'da-DK' | 'en-US' }[]
-          | null;
+        alternates: { url: string; lang: 'da-DK' | 'en-US' }[] | null;
       }
     >
   );

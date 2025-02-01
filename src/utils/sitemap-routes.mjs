@@ -9,8 +9,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kontakt",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "contact",
+        "lang": "en-US"
       }
     ]
   },
@@ -19,8 +22,11 @@ export const routes = {
     "alternates": [
       {
         "url": "contact",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kontakt",
+        "lang": "da-DK"
       }
     ]
   },
@@ -29,8 +35,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/besked-modtaget",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "message-received",
+        "lang": "en-US"
       }
     ]
   },
@@ -39,8 +48,11 @@ export const routes = {
     "alternates": [
       {
         "url": "message-received",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/besked-modtaget",
+        "lang": "da-DK"
       }
     ]
   },
@@ -49,8 +61,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/besked-fejl",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "message-error",
+        "lang": "en-US"
       }
     ]
   },
@@ -59,8 +74,11 @@ export const routes = {
     "alternates": [
       {
         "url": "message-error",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/besked-fejl",
+        "lang": "da-DK"
       }
     ]
   },
@@ -69,8 +87,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/del",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "share",
+        "lang": "en-US"
       }
     ]
   },
@@ -79,8 +100,11 @@ export const routes = {
     "alternates": [
       {
         "url": "share",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/del",
+        "lang": "da-DK"
       }
     ]
   },
@@ -89,8 +113,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arbejde",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "work",
+        "lang": "en-US"
       }
     ]
   },
@@ -99,8 +126,11 @@ export const routes = {
     "alternates": [
       {
         "url": "work",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arbejde",
+        "lang": "da-DK"
       }
     ]
   },
@@ -109,8 +139,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills",
+        "lang": "en-US"
       }
     ]
   },
@@ -119,8 +152,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer",
+        "lang": "da-DK"
       }
     ]
   },
@@ -129,8 +165,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about",
+        "lang": "en-US"
       }
     ]
   },
@@ -139,8 +178,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig",
+        "lang": "da-DK"
       }
     ]
   },
@@ -149,8 +191,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arkiv",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "archive",
+        "lang": "en-US"
       }
     ]
   },
@@ -159,8 +204,11 @@ export const routes = {
     "alternates": [
       {
         "url": "archive",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arkiv",
+        "lang": "da-DK"
       }
     ]
   },
@@ -169,8 +217,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/email-svar",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "email-reply",
+        "lang": "en-US"
       }
     ]
   },
@@ -179,8 +230,11 @@ export const routes = {
     "alternates": [
       {
         "url": "email-reply",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/email-svar",
+        "lang": "da-DK"
       }
     ]
   },
@@ -189,8 +243,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arbejde/kontakt",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "work/contact",
+        "lang": "en-US"
       }
     ]
   },
@@ -199,8 +256,11 @@ export const routes = {
     "alternates": [
       {
         "url": "work/contact",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arbejde/kontakt",
+        "lang": "da-DK"
       }
     ]
   },
@@ -209,8 +269,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arbejde/besked-modtaget",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "work/message-received",
+        "lang": "en-US"
       }
     ]
   },
@@ -219,8 +282,11 @@ export const routes = {
     "alternates": [
       {
         "url": "work/message-received",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arbejde/besked-modtaget",
+        "lang": "da-DK"
       }
     ]
   },
@@ -229,8 +295,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arbejde/besked-fejl",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "work/message-error",
+        "lang": "en-US"
       }
     ]
   },
@@ -239,8 +308,11 @@ export const routes = {
     "alternates": [
       {
         "url": "work/message-error",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arbejde/besked-fejl",
+        "lang": "da-DK"
       }
     ]
   },
@@ -249,8 +321,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arbejde/del",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "work/share",
+        "lang": "en-US"
       }
     ]
   },
@@ -259,8 +334,11 @@ export const routes = {
     "alternates": [
       {
         "url": "work/share",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arbejde/del",
+        "lang": "da-DK"
       }
     ]
   },
@@ -269,8 +347,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/kontakt",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/contact",
+        "lang": "en-US"
       }
     ]
   },
@@ -279,8 +360,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/contact",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/kontakt",
+        "lang": "da-DK"
       }
     ]
   },
@@ -289,8 +373,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/besked-modtaget",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/message-received",
+        "lang": "en-US"
       }
     ]
   },
@@ -299,8 +386,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/message-received",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/besked-modtaget",
+        "lang": "da-DK"
       }
     ]
   },
@@ -309,8 +399,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/besked-fejl",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/message-error",
+        "lang": "en-US"
       }
     ]
   },
@@ -319,8 +412,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/message-error",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/besked-fejl",
+        "lang": "da-DK"
       }
     ]
   },
@@ -329,8 +425,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/del",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/share",
+        "lang": "en-US"
       }
     ]
   },
@@ -339,8 +438,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/share",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/del",
+        "lang": "da-DK"
       }
     ]
   },
@@ -349,8 +451,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/accessibility",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/accessibility",
+        "lang": "en-US"
       }
     ]
   },
@@ -359,8 +464,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/accessibility",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/accessibility",
+        "lang": "da-DK"
       }
     ]
   },
@@ -369,8 +477,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/algolia",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/algolia",
+        "lang": "en-US"
       }
     ]
   },
@@ -379,8 +490,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/algolia",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/algolia",
+        "lang": "da-DK"
       }
     ]
   },
@@ -389,8 +503,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/apollo-client",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/apollo-client",
+        "lang": "en-US"
       }
     ]
   },
@@ -399,8 +516,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/apollo-client",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/apollo-client",
+        "lang": "da-DK"
       }
     ]
   },
@@ -409,8 +529,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/astro",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/astro",
+        "lang": "en-US"
       }
     ]
   },
@@ -419,8 +542,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/astro",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/astro",
+        "lang": "da-DK"
       }
     ]
   },
@@ -429,8 +555,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/bash",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/bash",
+        "lang": "en-US"
       }
     ]
   },
@@ -439,8 +568,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/bash",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/bash",
+        "lang": "da-DK"
       }
     ]
   },
@@ -449,8 +581,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/css",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/css",
+        "lang": "en-US"
       }
     ]
   },
@@ -459,8 +594,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/css",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/css",
+        "lang": "da-DK"
       }
     ]
   },
@@ -469,8 +607,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/docker",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/docker",
+        "lang": "en-US"
       }
     ]
   },
@@ -479,8 +620,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/docker",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/docker",
+        "lang": "da-DK"
       }
     ]
   },
@@ -489,8 +633,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/figma",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/figma",
+        "lang": "en-US"
       }
     ]
   },
@@ -499,8 +646,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/figma",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/figma",
+        "lang": "da-DK"
       }
     ]
   },
@@ -509,8 +659,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/gatsby",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/gatsby",
+        "lang": "en-US"
       }
     ]
   },
@@ -519,8 +672,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/gatsby",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/gatsby",
+        "lang": "da-DK"
       }
     ]
   },
@@ -529,8 +685,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/git",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/git",
+        "lang": "en-US"
       }
     ]
   },
@@ -539,8 +698,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/git",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/git",
+        "lang": "da-DK"
       }
     ]
   },
@@ -549,8 +711,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/github",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/github",
+        "lang": "en-US"
       }
     ]
   },
@@ -559,8 +724,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/github",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/github",
+        "lang": "da-DK"
       }
     ]
   },
@@ -569,8 +737,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/gitlab",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/gitlab",
+        "lang": "en-US"
       }
     ]
   },
@@ -579,8 +750,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/gitlab",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/gitlab",
+        "lang": "da-DK"
       }
     ]
   },
@@ -589,8 +763,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/graphql",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/graphql",
+        "lang": "en-US"
       }
     ]
   },
@@ -599,8 +776,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/graphql",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/graphql",
+        "lang": "da-DK"
       }
     ]
   },
@@ -609,8 +789,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/graphql-codegen",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/graphql-codegen",
+        "lang": "en-US"
       }
     ]
   },
@@ -619,8 +802,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/graphql-codegen",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/graphql-codegen",
+        "lang": "da-DK"
       }
     ]
   },
@@ -629,8 +815,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/html",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/html",
+        "lang": "en-US"
       }
     ]
   },
@@ -639,8 +828,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/html",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/html",
+        "lang": "da-DK"
       }
     ]
   },
@@ -649,8 +841,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/inkscape",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/inkscape",
+        "lang": "en-US"
       }
     ]
   },
@@ -659,8 +854,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/inkscape",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/inkscape",
+        "lang": "da-DK"
       }
     ]
   },
@@ -669,8 +867,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/javascript",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/javascript",
+        "lang": "en-US"
       }
     ]
   },
@@ -679,8 +880,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/javascript",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/javascript",
+        "lang": "da-DK"
       }
     ]
   },
@@ -689,8 +893,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/jest",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/jest",
+        "lang": "en-US"
       }
     ]
   },
@@ -699,8 +906,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/jest",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/jest",
+        "lang": "da-DK"
       }
     ]
   },
@@ -709,8 +919,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/mantine",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/mantine",
+        "lang": "en-US"
       }
     ]
   },
@@ -719,8 +932,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/mantine",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/mantine",
+        "lang": "da-DK"
       }
     ]
   },
@@ -729,8 +945,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/nextjs",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/nextjs",
+        "lang": "en-US"
       }
     ]
   },
@@ -739,8 +958,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/nextjs",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/nextjs",
+        "lang": "da-DK"
       }
     ]
   },
@@ -749,8 +971,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/playwright",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/playwright",
+        "lang": "en-US"
       }
     ]
   },
@@ -759,8 +984,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/playwright",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/playwright",
+        "lang": "da-DK"
       }
     ]
   },
@@ -769,8 +997,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/react",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/react",
+        "lang": "en-US"
       }
     ]
   },
@@ -779,8 +1010,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/react",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/react",
+        "lang": "da-DK"
       }
     ]
   },
@@ -789,8 +1023,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/react-native",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/react-native",
+        "lang": "en-US"
       }
     ]
   },
@@ -799,8 +1036,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/react-native",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/react-native",
+        "lang": "da-DK"
       }
     ]
   },
@@ -809,8 +1049,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/react-testing-library",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/react-testing-library",
+        "lang": "en-US"
       }
     ]
   },
@@ -819,8 +1062,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/react-testing-library",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/react-testing-library",
+        "lang": "da-DK"
       }
     ]
   },
@@ -829,8 +1075,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/redux",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/redux",
+        "lang": "en-US"
       }
     ]
   },
@@ -839,8 +1088,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/redux",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/redux",
+        "lang": "da-DK"
       }
     ]
   },
@@ -849,8 +1101,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/sass",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/sass",
+        "lang": "en-US"
       }
     ]
   },
@@ -859,8 +1114,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/sass",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/sass",
+        "lang": "da-DK"
       }
     ]
   },
@@ -869,8 +1127,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/storybook",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/storybook",
+        "lang": "en-US"
       }
     ]
   },
@@ -879,8 +1140,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/storybook",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/storybook",
+        "lang": "da-DK"
       }
     ]
   },
@@ -889,8 +1153,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/strapi",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/strapi",
+        "lang": "en-US"
       }
     ]
   },
@@ -899,8 +1166,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/strapi",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/strapi",
+        "lang": "da-DK"
       }
     ]
   },
@@ -909,8 +1179,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/styled-components",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/styled-components",
+        "lang": "en-US"
       }
     ]
   },
@@ -919,8 +1192,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/styled-components",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/styled-components",
+        "lang": "da-DK"
       }
     ]
   },
@@ -929,8 +1205,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/svg",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/svg",
+        "lang": "en-US"
       }
     ]
   },
@@ -939,8 +1218,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/svg",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/svg",
+        "lang": "da-DK"
       }
     ]
   },
@@ -949,8 +1231,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/tailwind",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/tailwind",
+        "lang": "en-US"
       }
     ]
   },
@@ -959,8 +1244,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/tailwind",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/tailwind",
+        "lang": "da-DK"
       }
     ]
   },
@@ -969,8 +1257,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/typescript",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/typescript",
+        "lang": "en-US"
       }
     ]
   },
@@ -979,8 +1270,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/typescript",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/typescript",
+        "lang": "da-DK"
       }
     ]
   },
@@ -989,8 +1283,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/vite",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/vite",
+        "lang": "en-US"
       }
     ]
   },
@@ -999,8 +1296,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/vite",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/vite",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1009,8 +1309,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/vscode",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/vscode",
+        "lang": "en-US"
       }
     ]
   },
@@ -1019,8 +1322,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/vscode",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/vscode",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1029,8 +1335,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/webpack",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/webpack",
+        "lang": "en-US"
       }
     ]
   },
@@ -1039,8 +1348,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/webpack",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/webpack",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1049,8 +1361,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/wordpress",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/wordpress",
+        "lang": "en-US"
       }
     ]
   },
@@ -1059,8 +1374,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/wordpress",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/wordpress",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1069,8 +1387,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/kompetencer/wp-graphql",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/wp-graphql",
+        "lang": "en-US"
       }
     ]
   },
@@ -1079,8 +1400,11 @@ export const routes = {
     "alternates": [
       {
         "url": "skills/wp-graphql",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/wp-graphql",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1089,8 +1413,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/cykling-hjorring-2011",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/cycling-hjorring-2011",
+        "lang": "en-US"
       }
     ]
   },
@@ -1099,8 +1426,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/cycling-hjorring-2011",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/cykling-hjorring-2011",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1109,8 +1439,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/cykelcross-2009",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/cyclocross-2009",
+        "lang": "en-US"
       }
     ]
   },
@@ -1119,8 +1452,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/cyclocross-2009",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/cykelcross-2009",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1129,8 +1465,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/cykellob-hammel-2007",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/cycling-hammel-2007",
+        "lang": "en-US"
       }
     ]
   },
@@ -1139,8 +1478,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/cycling-hammel-2007",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/cykellob-hammel-2007",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1149,8 +1491,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/sonderborg-2009",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/sonderborg-2009",
+        "lang": "en-US"
       }
     ]
   },
@@ -1159,8 +1504,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/sonderborg-2009",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/sonderborg-2009",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1169,8 +1517,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/nice-2009",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/nice-2009",
+        "lang": "en-US"
       }
     ]
   },
@@ -1179,8 +1530,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/nice-2009",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/nice-2009",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1189,8 +1543,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/esbjerg-2017",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/esbjerg-2017",
+        "lang": "en-US"
       }
     ]
   },
@@ -1199,8 +1556,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/esbjerg-2017",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/esbjerg-2017",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1209,8 +1569,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/half-marathon-aarhus-2015",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/half-marathon-aarhus-2015",
+        "lang": "en-US"
       }
     ]
   },
@@ -1219,8 +1582,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/half-marathon-aarhus-2015",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/half-marathon-aarhus-2015",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1229,8 +1595,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/marselislobet-aarhus-2015",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/marselislobet-aarhus-2015",
+        "lang": "en-US"
       }
     ]
   },
@@ -1239,8 +1608,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/marselislobet-aarhus-2015",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/marselislobet-aarhus-2015",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1249,8 +1621,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/aarhus-track-race-2017",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/aarhus-track-race-2017",
+        "lang": "en-US"
       }
     ]
   },
@@ -1259,8 +1634,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/aarhus-track-race-2017",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/aarhus-track-race-2017",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1269,8 +1647,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/hannover-marathon-2016-2",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/hannover-marathon-2016-2",
+        "lang": "en-US"
       }
     ]
   },
@@ -1279,8 +1660,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/hannover-marathon-2016-2",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/hannover-marathon-2016-2",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1289,8 +1673,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/hannover-marathon-2016-1",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/hannover-marathon-2016-1",
+        "lang": "en-US"
       }
     ]
   },
@@ -1299,8 +1686,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/hannover-marathon-2016-1",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/hannover-marathon-2016-1",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1309,8 +1699,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/kontakt",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/contact",
+        "lang": "en-US"
       }
     ]
   },
@@ -1319,8 +1712,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/contact",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/kontakt",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1329,8 +1725,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/besked-modtaget",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/message-received",
+        "lang": "en-US"
       }
     ]
   },
@@ -1339,8 +1738,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/message-received",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/besked-modtaget",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1349,8 +1751,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/besked-fejl",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/message-error",
+        "lang": "en-US"
       }
     ]
   },
@@ -1359,8 +1764,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/message-error",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/besked-fejl",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1369,8 +1777,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/om-mig/del",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "about/share",
+        "lang": "en-US"
       }
     ]
   },
@@ -1379,8 +1790,11 @@ export const routes = {
     "alternates": [
       {
         "url": "about/share",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/om-mig/del",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1389,8 +1803,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arkiv/kontakt",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "archive/contact",
+        "lang": "en-US"
       }
     ]
   },
@@ -1399,8 +1816,11 @@ export const routes = {
     "alternates": [
       {
         "url": "archive/contact",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arkiv/kontakt",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1409,8 +1829,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arkiv/besked-modtaget",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "archive/message-received",
+        "lang": "en-US"
       }
     ]
   },
@@ -1419,8 +1842,11 @@ export const routes = {
     "alternates": [
       {
         "url": "archive/message-received",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arkiv/besked-modtaget",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1429,8 +1855,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arkiv/besked-fejl",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "archive/message-error",
+        "lang": "en-US"
       }
     ]
   },
@@ -1439,8 +1868,11 @@ export const routes = {
     "alternates": [
       {
         "url": "archive/message-error",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arkiv/besked-fejl",
+        "lang": "da-DK"
       }
     ]
   },
@@ -1449,8 +1881,11 @@ export const routes = {
     "alternates": [
       {
         "url": "da/arkiv/del",
-        "lang": "da",
-        "hreflang": "da-DK"
+        "lang": "da-DK"
+      },
+      {
+        "url": "archive/share",
+        "lang": "en-US"
       }
     ]
   },
@@ -1459,8 +1894,11 @@ export const routes = {
     "alternates": [
       {
         "url": "archive/share",
-        "hreflang": "en-US",
-        "lang": "en"
+        "lang": "en-US"
+      },
+      {
+        "url": "da/arkiv/del",
+        "lang": "da-DK"
       }
     ]
   }
