@@ -15,7 +15,8 @@ export const routes = {
         "url": "contact",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 1
   },
   "da/kontakt": {
     "url": "da/kontakt",
@@ -28,7 +29,8 @@ export const routes = {
         "url": "da/kontakt",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 1
   },
   "message-received": {
     "url": "message-received",
@@ -41,7 +43,8 @@ export const routes = {
         "url": "message-received",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "da/besked-modtaget": {
     "url": "da/besked-modtaget",
@@ -54,7 +57,8 @@ export const routes = {
         "url": "da/besked-modtaget",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "message-error": {
     "url": "message-error",
@@ -67,7 +71,8 @@ export const routes = {
         "url": "message-error",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "da/besked-fejl": {
     "url": "da/besked-fejl",
@@ -80,7 +85,8 @@ export const routes = {
         "url": "da/besked-fejl",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "share": {
     "url": "share",
@@ -93,7 +99,8 @@ export const routes = {
         "url": "share",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "da/del": {
     "url": "da/del",
@@ -106,7 +113,8 @@ export const routes = {
         "url": "da/del",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "work": {
     "url": "work",
@@ -119,7 +127,8 @@ export const routes = {
         "url": "work",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "da/arbejde": {
     "url": "da/arbejde",
@@ -132,7 +141,8 @@ export const routes = {
         "url": "da/arbejde",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "skills": {
     "url": "skills",
@@ -145,7 +155,8 @@ export const routes = {
         "url": "skills",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "da/kompetencer": {
     "url": "da/kompetencer",
@@ -158,7 +169,8 @@ export const routes = {
         "url": "da/kompetencer",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "about": {
     "url": "about",
@@ -171,7 +183,8 @@ export const routes = {
         "url": "about",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "da/om-mig": {
     "url": "da/om-mig",
@@ -184,7 +197,8 @@ export const routes = {
         "url": "da/om-mig",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "archive": {
     "url": "archive",
@@ -197,7 +211,8 @@ export const routes = {
         "url": "archive",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "da/arkiv": {
     "url": "da/arkiv",
@@ -210,7 +225,8 @@ export const routes = {
         "url": "da/arkiv",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "email-reply": {
     "url": "email-reply",
@@ -223,7 +239,8 @@ export const routes = {
         "url": "email-reply",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "da/email-svar": {
     "url": "da/email-svar",
@@ -236,7 +253,8 @@ export const routes = {
         "url": "da/email-svar",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.7
   },
   "work/contact": {
     "url": "work/contact",
@@ -249,7 +267,8 @@ export const routes = {
         "url": "work/contact",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "da/arbejde/kontakt": {
     "url": "da/arbejde/kontakt",
@@ -262,7 +281,8 @@ export const routes = {
         "url": "da/arbejde/kontakt",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "work/message-received": {
     "url": "work/message-received",
@@ -275,7 +295,8 @@ export const routes = {
         "url": "work/message-received",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "da/arbejde/besked-modtaget": {
     "url": "da/arbejde/besked-modtaget",
@@ -288,7 +309,8 @@ export const routes = {
         "url": "da/arbejde/besked-modtaget",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "work/message-error": {
     "url": "work/message-error",
@@ -301,7 +323,8 @@ export const routes = {
         "url": "work/message-error",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "da/arbejde/besked-fejl": {
     "url": "da/arbejde/besked-fejl",
@@ -314,7 +337,8 @@ export const routes = {
         "url": "da/arbejde/besked-fejl",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "work/share": {
     "url": "work/share",
@@ -327,7 +351,8 @@ export const routes = {
         "url": "work/share",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "da/arbejde/del": {
     "url": "da/arbejde/del",
@@ -340,7 +365,8 @@ export const routes = {
         "url": "da/arbejde/del",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.9
   },
   "skills/contact": {
     "url": "skills/contact",
@@ -353,7 +379,8 @@ export const routes = {
         "url": "skills/contact",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/kontakt": {
     "url": "da/kompetencer/kontakt",
@@ -366,7 +393,8 @@ export const routes = {
         "url": "da/kompetencer/kontakt",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/message-received": {
     "url": "skills/message-received",
@@ -379,7 +407,8 @@ export const routes = {
         "url": "skills/message-received",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/besked-modtaget": {
     "url": "da/kompetencer/besked-modtaget",
@@ -392,7 +421,8 @@ export const routes = {
         "url": "da/kompetencer/besked-modtaget",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/message-error": {
     "url": "skills/message-error",
@@ -405,7 +435,8 @@ export const routes = {
         "url": "skills/message-error",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/besked-fejl": {
     "url": "da/kompetencer/besked-fejl",
@@ -418,7 +449,8 @@ export const routes = {
         "url": "da/kompetencer/besked-fejl",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/share": {
     "url": "skills/share",
@@ -431,7 +463,8 @@ export const routes = {
         "url": "skills/share",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/del": {
     "url": "da/kompetencer/del",
@@ -444,7 +477,8 @@ export const routes = {
         "url": "da/kompetencer/del",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/accessibility": {
     "url": "skills/accessibility",
@@ -457,7 +491,8 @@ export const routes = {
         "url": "skills/accessibility",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/accessibility": {
     "url": "da/kompetencer/accessibility",
@@ -470,7 +505,8 @@ export const routes = {
         "url": "da/kompetencer/accessibility",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/algolia": {
     "url": "skills/algolia",
@@ -483,7 +519,8 @@ export const routes = {
         "url": "skills/algolia",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/algolia": {
     "url": "da/kompetencer/algolia",
@@ -496,7 +533,8 @@ export const routes = {
         "url": "da/kompetencer/algolia",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/apollo-client": {
     "url": "skills/apollo-client",
@@ -509,7 +547,8 @@ export const routes = {
         "url": "skills/apollo-client",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/apollo-client": {
     "url": "da/kompetencer/apollo-client",
@@ -522,7 +561,8 @@ export const routes = {
         "url": "da/kompetencer/apollo-client",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/astro": {
     "url": "skills/astro",
@@ -535,7 +575,8 @@ export const routes = {
         "url": "skills/astro",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/astro": {
     "url": "da/kompetencer/astro",
@@ -548,7 +589,8 @@ export const routes = {
         "url": "da/kompetencer/astro",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/bash": {
     "url": "skills/bash",
@@ -561,7 +603,8 @@ export const routes = {
         "url": "skills/bash",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/bash": {
     "url": "da/kompetencer/bash",
@@ -574,7 +617,8 @@ export const routes = {
         "url": "da/kompetencer/bash",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/css": {
     "url": "skills/css",
@@ -587,7 +631,8 @@ export const routes = {
         "url": "skills/css",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/css": {
     "url": "da/kompetencer/css",
@@ -600,7 +645,8 @@ export const routes = {
         "url": "da/kompetencer/css",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/docker": {
     "url": "skills/docker",
@@ -613,7 +659,8 @@ export const routes = {
         "url": "skills/docker",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/docker": {
     "url": "da/kompetencer/docker",
@@ -626,7 +673,8 @@ export const routes = {
         "url": "da/kompetencer/docker",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/figma": {
     "url": "skills/figma",
@@ -639,7 +687,8 @@ export const routes = {
         "url": "skills/figma",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/figma": {
     "url": "da/kompetencer/figma",
@@ -652,7 +701,8 @@ export const routes = {
         "url": "da/kompetencer/figma",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/gatsby": {
     "url": "skills/gatsby",
@@ -665,7 +715,8 @@ export const routes = {
         "url": "skills/gatsby",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/gatsby": {
     "url": "da/kompetencer/gatsby",
@@ -678,7 +729,8 @@ export const routes = {
         "url": "da/kompetencer/gatsby",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/git": {
     "url": "skills/git",
@@ -691,7 +743,8 @@ export const routes = {
         "url": "skills/git",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/git": {
     "url": "da/kompetencer/git",
@@ -704,7 +757,8 @@ export const routes = {
         "url": "da/kompetencer/git",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/github": {
     "url": "skills/github",
@@ -717,7 +771,8 @@ export const routes = {
         "url": "skills/github",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/github": {
     "url": "da/kompetencer/github",
@@ -730,7 +785,8 @@ export const routes = {
         "url": "da/kompetencer/github",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/gitlab": {
     "url": "skills/gitlab",
@@ -743,7 +799,8 @@ export const routes = {
         "url": "skills/gitlab",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/gitlab": {
     "url": "da/kompetencer/gitlab",
@@ -756,7 +813,8 @@ export const routes = {
         "url": "da/kompetencer/gitlab",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/graphql": {
     "url": "skills/graphql",
@@ -769,7 +827,8 @@ export const routes = {
         "url": "skills/graphql",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/graphql": {
     "url": "da/kompetencer/graphql",
@@ -782,7 +841,8 @@ export const routes = {
         "url": "da/kompetencer/graphql",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/graphql-codegen": {
     "url": "skills/graphql-codegen",
@@ -795,7 +855,8 @@ export const routes = {
         "url": "skills/graphql-codegen",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/graphql-codegen": {
     "url": "da/kompetencer/graphql-codegen",
@@ -808,7 +869,8 @@ export const routes = {
         "url": "da/kompetencer/graphql-codegen",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/html": {
     "url": "skills/html",
@@ -821,7 +883,8 @@ export const routes = {
         "url": "skills/html",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/html": {
     "url": "da/kompetencer/html",
@@ -834,7 +897,8 @@ export const routes = {
         "url": "da/kompetencer/html",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/inkscape": {
     "url": "skills/inkscape",
@@ -847,7 +911,8 @@ export const routes = {
         "url": "skills/inkscape",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/inkscape": {
     "url": "da/kompetencer/inkscape",
@@ -860,7 +925,8 @@ export const routes = {
         "url": "da/kompetencer/inkscape",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/javascript": {
     "url": "skills/javascript",
@@ -873,7 +939,8 @@ export const routes = {
         "url": "skills/javascript",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/javascript": {
     "url": "da/kompetencer/javascript",
@@ -886,7 +953,8 @@ export const routes = {
         "url": "da/kompetencer/javascript",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/jest": {
     "url": "skills/jest",
@@ -899,7 +967,8 @@ export const routes = {
         "url": "skills/jest",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/jest": {
     "url": "da/kompetencer/jest",
@@ -912,7 +981,8 @@ export const routes = {
         "url": "da/kompetencer/jest",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/mantine": {
     "url": "skills/mantine",
@@ -925,7 +995,8 @@ export const routes = {
         "url": "skills/mantine",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/mantine": {
     "url": "da/kompetencer/mantine",
@@ -938,7 +1009,8 @@ export const routes = {
         "url": "da/kompetencer/mantine",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/nextjs": {
     "url": "skills/nextjs",
@@ -951,7 +1023,8 @@ export const routes = {
         "url": "skills/nextjs",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/nextjs": {
     "url": "da/kompetencer/nextjs",
@@ -964,7 +1037,8 @@ export const routes = {
         "url": "da/kompetencer/nextjs",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/playwright": {
     "url": "skills/playwright",
@@ -977,7 +1051,8 @@ export const routes = {
         "url": "skills/playwright",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/playwright": {
     "url": "da/kompetencer/playwright",
@@ -990,7 +1065,8 @@ export const routes = {
         "url": "da/kompetencer/playwright",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/react": {
     "url": "skills/react",
@@ -1003,7 +1079,8 @@ export const routes = {
         "url": "skills/react",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/react": {
     "url": "da/kompetencer/react",
@@ -1016,7 +1093,8 @@ export const routes = {
         "url": "da/kompetencer/react",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/react-native": {
     "url": "skills/react-native",
@@ -1029,7 +1107,8 @@ export const routes = {
         "url": "skills/react-native",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/react-native": {
     "url": "da/kompetencer/react-native",
@@ -1042,7 +1121,8 @@ export const routes = {
         "url": "da/kompetencer/react-native",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/react-testing-library": {
     "url": "skills/react-testing-library",
@@ -1055,7 +1135,8 @@ export const routes = {
         "url": "skills/react-testing-library",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/react-testing-library": {
     "url": "da/kompetencer/react-testing-library",
@@ -1068,7 +1149,8 @@ export const routes = {
         "url": "da/kompetencer/react-testing-library",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/redux": {
     "url": "skills/redux",
@@ -1081,7 +1163,8 @@ export const routes = {
         "url": "skills/redux",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/redux": {
     "url": "da/kompetencer/redux",
@@ -1094,7 +1177,8 @@ export const routes = {
         "url": "da/kompetencer/redux",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/sass": {
     "url": "skills/sass",
@@ -1107,7 +1191,8 @@ export const routes = {
         "url": "skills/sass",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/sass": {
     "url": "da/kompetencer/sass",
@@ -1120,7 +1205,8 @@ export const routes = {
         "url": "da/kompetencer/sass",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/storybook": {
     "url": "skills/storybook",
@@ -1133,7 +1219,8 @@ export const routes = {
         "url": "skills/storybook",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/storybook": {
     "url": "da/kompetencer/storybook",
@@ -1146,7 +1233,8 @@ export const routes = {
         "url": "da/kompetencer/storybook",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/strapi": {
     "url": "skills/strapi",
@@ -1159,7 +1247,8 @@ export const routes = {
         "url": "skills/strapi",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/strapi": {
     "url": "da/kompetencer/strapi",
@@ -1172,7 +1261,8 @@ export const routes = {
         "url": "da/kompetencer/strapi",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/styled-components": {
     "url": "skills/styled-components",
@@ -1185,7 +1275,8 @@ export const routes = {
         "url": "skills/styled-components",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/styled-components": {
     "url": "da/kompetencer/styled-components",
@@ -1198,7 +1289,8 @@ export const routes = {
         "url": "da/kompetencer/styled-components",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/svg": {
     "url": "skills/svg",
@@ -1211,7 +1303,8 @@ export const routes = {
         "url": "skills/svg",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/svg": {
     "url": "da/kompetencer/svg",
@@ -1224,7 +1317,8 @@ export const routes = {
         "url": "da/kompetencer/svg",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/tailwind": {
     "url": "skills/tailwind",
@@ -1237,7 +1331,8 @@ export const routes = {
         "url": "skills/tailwind",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/tailwind": {
     "url": "da/kompetencer/tailwind",
@@ -1250,7 +1345,8 @@ export const routes = {
         "url": "da/kompetencer/tailwind",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/typescript": {
     "url": "skills/typescript",
@@ -1263,7 +1359,8 @@ export const routes = {
         "url": "skills/typescript",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/typescript": {
     "url": "da/kompetencer/typescript",
@@ -1276,7 +1373,8 @@ export const routes = {
         "url": "da/kompetencer/typescript",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/vite": {
     "url": "skills/vite",
@@ -1289,7 +1387,8 @@ export const routes = {
         "url": "skills/vite",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/vite": {
     "url": "da/kompetencer/vite",
@@ -1302,7 +1401,8 @@ export const routes = {
         "url": "da/kompetencer/vite",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/vscode": {
     "url": "skills/vscode",
@@ -1315,7 +1415,8 @@ export const routes = {
         "url": "skills/vscode",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/vscode": {
     "url": "da/kompetencer/vscode",
@@ -1328,7 +1429,8 @@ export const routes = {
         "url": "da/kompetencer/vscode",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/webpack": {
     "url": "skills/webpack",
@@ -1341,7 +1443,8 @@ export const routes = {
         "url": "skills/webpack",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/webpack": {
     "url": "da/kompetencer/webpack",
@@ -1354,7 +1457,8 @@ export const routes = {
         "url": "da/kompetencer/webpack",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/wordpress": {
     "url": "skills/wordpress",
@@ -1367,7 +1471,8 @@ export const routes = {
         "url": "skills/wordpress",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/wordpress": {
     "url": "da/kompetencer/wordpress",
@@ -1380,7 +1485,8 @@ export const routes = {
         "url": "da/kompetencer/wordpress",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "skills/wp-graphql": {
     "url": "skills/wp-graphql",
@@ -1393,7 +1499,8 @@ export const routes = {
         "url": "skills/wp-graphql",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "da/kompetencer/wp-graphql": {
     "url": "da/kompetencer/wp-graphql",
@@ -1406,7 +1513,8 @@ export const routes = {
         "url": "da/kompetencer/wp-graphql",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.6
   },
   "about/cycling-hjorring-2011": {
     "url": "about/cycling-hjorring-2011",
@@ -1419,7 +1527,8 @@ export const routes = {
         "url": "about/cycling-hjorring-2011",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/cykling-hjorring-2011": {
     "url": "da/om-mig/cykling-hjorring-2011",
@@ -1432,7 +1541,8 @@ export const routes = {
         "url": "da/om-mig/cykling-hjorring-2011",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/cyclocross-2009": {
     "url": "about/cyclocross-2009",
@@ -1445,7 +1555,8 @@ export const routes = {
         "url": "about/cyclocross-2009",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/cykelcross-2009": {
     "url": "da/om-mig/cykelcross-2009",
@@ -1458,7 +1569,8 @@ export const routes = {
         "url": "da/om-mig/cykelcross-2009",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/cycling-hammel-2007": {
     "url": "about/cycling-hammel-2007",
@@ -1471,7 +1583,8 @@ export const routes = {
         "url": "about/cycling-hammel-2007",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/cykellob-hammel-2007": {
     "url": "da/om-mig/cykellob-hammel-2007",
@@ -1484,7 +1597,8 @@ export const routes = {
         "url": "da/om-mig/cykellob-hammel-2007",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/sonderborg-2009": {
     "url": "about/sonderborg-2009",
@@ -1497,7 +1611,8 @@ export const routes = {
         "url": "about/sonderborg-2009",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/sonderborg-2009": {
     "url": "da/om-mig/sonderborg-2009",
@@ -1510,7 +1625,8 @@ export const routes = {
         "url": "da/om-mig/sonderborg-2009",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/nice-2009": {
     "url": "about/nice-2009",
@@ -1523,7 +1639,8 @@ export const routes = {
         "url": "about/nice-2009",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/nice-2009": {
     "url": "da/om-mig/nice-2009",
@@ -1536,7 +1653,8 @@ export const routes = {
         "url": "da/om-mig/nice-2009",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/esbjerg-2017": {
     "url": "about/esbjerg-2017",
@@ -1549,7 +1667,8 @@ export const routes = {
         "url": "about/esbjerg-2017",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/esbjerg-2017": {
     "url": "da/om-mig/esbjerg-2017",
@@ -1562,7 +1681,8 @@ export const routes = {
         "url": "da/om-mig/esbjerg-2017",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/half-marathon-aarhus-2015": {
     "url": "about/half-marathon-aarhus-2015",
@@ -1575,7 +1695,8 @@ export const routes = {
         "url": "about/half-marathon-aarhus-2015",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/half-marathon-aarhus-2015": {
     "url": "da/om-mig/half-marathon-aarhus-2015",
@@ -1588,7 +1709,8 @@ export const routes = {
         "url": "da/om-mig/half-marathon-aarhus-2015",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/marselislobet-aarhus-2015": {
     "url": "about/marselislobet-aarhus-2015",
@@ -1601,7 +1723,8 @@ export const routes = {
         "url": "about/marselislobet-aarhus-2015",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/marselislobet-aarhus-2015": {
     "url": "da/om-mig/marselislobet-aarhus-2015",
@@ -1614,7 +1737,8 @@ export const routes = {
         "url": "da/om-mig/marselislobet-aarhus-2015",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/aarhus-track-race-2017": {
     "url": "about/aarhus-track-race-2017",
@@ -1627,7 +1751,8 @@ export const routes = {
         "url": "about/aarhus-track-race-2017",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/aarhus-track-race-2017": {
     "url": "da/om-mig/aarhus-track-race-2017",
@@ -1640,7 +1765,8 @@ export const routes = {
         "url": "da/om-mig/aarhus-track-race-2017",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/hannover-marathon-2016-2": {
     "url": "about/hannover-marathon-2016-2",
@@ -1653,7 +1779,8 @@ export const routes = {
         "url": "about/hannover-marathon-2016-2",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/hannover-marathon-2016-2": {
     "url": "da/om-mig/hannover-marathon-2016-2",
@@ -1666,7 +1793,8 @@ export const routes = {
         "url": "da/om-mig/hannover-marathon-2016-2",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/hannover-marathon-2016-1": {
     "url": "about/hannover-marathon-2016-1",
@@ -1679,7 +1807,8 @@ export const routes = {
         "url": "about/hannover-marathon-2016-1",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/hannover-marathon-2016-1": {
     "url": "da/om-mig/hannover-marathon-2016-1",
@@ -1692,7 +1821,8 @@ export const routes = {
         "url": "da/om-mig/hannover-marathon-2016-1",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/contact": {
     "url": "about/contact",
@@ -1705,7 +1835,8 @@ export const routes = {
         "url": "about/contact",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/kontakt": {
     "url": "da/om-mig/kontakt",
@@ -1718,7 +1849,8 @@ export const routes = {
         "url": "da/om-mig/kontakt",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/message-received": {
     "url": "about/message-received",
@@ -1731,7 +1863,8 @@ export const routes = {
         "url": "about/message-received",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/besked-modtaget": {
     "url": "da/om-mig/besked-modtaget",
@@ -1744,7 +1877,8 @@ export const routes = {
         "url": "da/om-mig/besked-modtaget",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/message-error": {
     "url": "about/message-error",
@@ -1757,7 +1891,8 @@ export const routes = {
         "url": "about/message-error",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/besked-fejl": {
     "url": "da/om-mig/besked-fejl",
@@ -1770,7 +1905,8 @@ export const routes = {
         "url": "da/om-mig/besked-fejl",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "about/share": {
     "url": "about/share",
@@ -1783,7 +1919,8 @@ export const routes = {
         "url": "about/share",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "da/om-mig/del": {
     "url": "da/om-mig/del",
@@ -1796,7 +1933,8 @@ export const routes = {
         "url": "da/om-mig/del",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.5
   },
   "archive/contact": {
     "url": "archive/contact",
@@ -1809,7 +1947,8 @@ export const routes = {
         "url": "archive/contact",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "da/arkiv/kontakt": {
     "url": "da/arkiv/kontakt",
@@ -1822,7 +1961,8 @@ export const routes = {
         "url": "da/arkiv/kontakt",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "archive/message-received": {
     "url": "archive/message-received",
@@ -1835,7 +1975,8 @@ export const routes = {
         "url": "archive/message-received",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "da/arkiv/besked-modtaget": {
     "url": "da/arkiv/besked-modtaget",
@@ -1848,7 +1989,8 @@ export const routes = {
         "url": "da/arkiv/besked-modtaget",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "archive/message-error": {
     "url": "archive/message-error",
@@ -1861,7 +2003,8 @@ export const routes = {
         "url": "archive/message-error",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "da/arkiv/besked-fejl": {
     "url": "da/arkiv/besked-fejl",
@@ -1874,7 +2017,8 @@ export const routes = {
         "url": "da/arkiv/besked-fejl",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "archive/share": {
     "url": "archive/share",
@@ -1887,7 +2031,8 @@ export const routes = {
         "url": "archive/share",
         "lang": "en-US"
       }
-    ]
+    ],
+    "priority": 0.3
   },
   "da/arkiv/del": {
     "url": "da/arkiv/del",
@@ -1900,6 +2045,7 @@ export const routes = {
         "url": "da/arkiv/del",
         "lang": "da-DK"
       }
-    ]
+    ],
+    "priority": 0.3
   }
 };

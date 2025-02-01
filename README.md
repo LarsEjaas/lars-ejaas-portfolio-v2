@@ -60,12 +60,12 @@ While I typically would choose to build a bage like with a React framework like 
 
 ## 🔌 Recommended VS Code Extensions
 
-- [x] **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
-- [x] **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
-- [x] **ESLint** - [vscode:extension/dbaeumer.vscode-eslint](vscode:extension/dbaeumer.vscode-eslint)
-- [x] **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
-- [x] **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
-- [x] **XML Tools** - [vscode:extension/DotJoshJohnson.xml](vscode:extension/DotJoshJohnson.xml)
+- **Astro** - [vscode:extension/astro-build.astro-vscode](vscode:extension/astro-build.astro-vscode)
+- **Prettier Code Formatter** - [vscode:extension/esbenp.prettier-vscode](vscode:extension/esbenp.prettier-vscode)
+- **ESLint** - [vscode:extension/dbaeumer.vscode-eslint](vscode:extension/dbaeumer.vscode-eslint)
+- **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
+- **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
+- **XML Tools** - [vscode:extension/DotJoshJohnson.xml](vscode:extension/DotJoshJohnson.xml)
 
 ## 💻 Getting started
 
@@ -127,8 +127,7 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 ## 😉 Gotchas, Caveats and tips
 
-- The `generate:routes script` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script (so you probably need NVM to go back and forth between Node versions for now).
-  However, Astro is not compatible with this Node version.
+- The `generate:routes script` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script. However, Astro is not compatible with this Node version (so you probably need NVM to go back and forth between Node versions for now).
 - All TypeScript files with the .mts extension are optimized for both the project itself and for use in npm scripts.
 - You can use the [XML Tools extension](vscode:extension/DotJoshJohnson.xml) to format sitemap files to be human readable in VSCode directly. Go to the command palette and select: `XML Tools: Format as XML`
 

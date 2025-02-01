@@ -139,22 +139,12 @@ export const createSitemapFilter = (url, additionalFilter = undefined) => {
  * ]
  */
 export const serializeSitemap = (item) => {
-  const getChangeFreq = (url) => {
+  const getChangeFreq = () => {
     return 'monthly';
   };
 
   const getLastMod = (url) => {
-    const currentUrl = new URL(url);
-    const pathname = currentUrl.pathname;
     return new Date().toISOString();
-  };
-
-  const getPriority = (url) => {
-    const currentUrl = new URL(url);
-    const pathname = currentUrl.pathname;
-    if (pathname === '/' || pathname === '/da') return 1.0;
-    if (url.includes('/blog/')) return 0.8;
-    return 0.5;
   };
 
   const addAlternates = (item) => {
@@ -167,8 +157,6 @@ export const serializeSitemap = (item) => {
       ? pathWithNoTrailingSlash.slice(1)
       : pathWithNoTrailingSlash;
     const origin = currentUrl.origin;
-
-    if (!pathName) return item;
 
     const routeMatch = Object.entries(routes).find(
       ([routePath, _route]) => routePath === pathName
@@ -186,12 +174,16 @@ export const serializeSitemap = (item) => {
         item.links = [...alternates];
       }
     }
+    item.priority = routeMatch?.[1]?.priority || 0.7;
+    // Set the priority for index pages
+    if (pathName === '' || pathName === 'da') {
+      item.priority = 1;
+    }
     return item;
   };
 
   item.changefreq = getChangeFreq(item.url);
   item.lastmod = getLastMod(item.url);
-  item.priority = getPriority(item.url);
 
   const itemWithAlternates = addAlternates(item);
 

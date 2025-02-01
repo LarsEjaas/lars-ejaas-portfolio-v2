@@ -9,12 +9,14 @@ export const danishSkillRoutes = getSkillSlugs('da');
 export const englishAboutImageRoutes = getAboutLightboxSlugs('en');
 export const danishAboutImageRoutes = getAboutLightboxSlugs('da');
 
-const englishModalKeys = [
+export const englishModalKeys = [
   'contact',
   'message-received',
   'message-error',
   'share',
 ] as const;
+
+export type SlugKeys = 'work' | 'skills' | 'about' | 'archive' | 'email-reply';
 
 /** Get all possible modal slugs in the different languages*/
 export const allModalKeys = Object.values(appRoutes).flatMap((lang) =>
@@ -37,28 +39,12 @@ export type LanguageKey = Exclude<Language, DefaultLang>;
 export type ModalTypes<Lang extends Language> =
   (typeof appRoutes)[Lang][ModalKeys];
 
-type SlugKeys = 'work' | 'skills' | 'about' | 'archive' | 'email-reply';
-
 export type SlugTypes<Lang extends Language> =
   (typeof appRoutes)[Lang][SlugKeys];
 
-type SlugWithModalKeys =
-  | 'work/contact'
-  | 'work/message-received'
-  | 'work/message-error'
-  | 'work/share'
-  | 'skills/contact'
-  | 'skills/message-received'
-  | 'skills/message-error'
-  | 'skills/share'
-  | 'about/contact'
-  | 'about/message-received'
-  | 'about/message-error'
-  | 'about/share'
-  | 'archive/contact'
-  | 'archive/message-received'
-  | 'archive/message-error'
-  | 'archive/share';
+type SlugSubkeys = (typeof englishModalKeys)[number];
+
+type SlugWithModalKeys = `${Exclude<SlugKeys, 'email-reply'>}/${SlugSubkeys}`;
 
 export type SlugWithModalTypes<Lang extends Language> =
   (typeof appRoutes)[Lang][SlugWithModalKeys];

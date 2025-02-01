@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { appRoutes } from '../i18n/appRoutes.mts';
+import { sitemapPriority } from '../i18n/sitemapPriority.mts';
 
 // Function to generate the routes dictionary
 async function generateRoutes() {
@@ -7,12 +8,28 @@ async function generateRoutes() {
 
   const routes = Object.entries(appRoutes.da).reduce(
     (acc, [page, alternate]) => {
+      const firstSlug = page.split('/')[0];
+      const slugLength = page.split('/').length;
+      let priority = 0.7;
+      const priorityObject = Object.entries(sitemapPriority).find(
+        ([key]) => key === firstSlug
+      );
+      if (slugLength === 1 && priorityObject) {
+        priority = priorityObject[1].priority;
+      }
+      if (slugLength > 1 && priorityObject) {
+        priority =
+          'subpagePriority' in priorityObject[1]
+            ? priorityObject[1].subpagePriority
+            : priorityObject[1].priority;
+      }
       acc[page] = {
         url: page,
         alternates: [
           { url: `da/${alternate}`, lang: 'da-DK' },
           { url: page, lang: 'en-US' },
         ],
+        priority,
       };
       acc[`da/${alternate}`] = {
         url: `da/${alternate}`,
@@ -20,6 +37,7 @@ async function generateRoutes() {
           { url: page, lang: 'en-US' },
           { url: `da/${alternate}`, lang: 'da-DK' },
         ],
+        priority,
       };
       return acc;
     },
@@ -28,6 +46,7 @@ async function generateRoutes() {
       {
         url: string;
         alternates: { url: string; lang: 'da-DK' | 'en-US' }[] | null;
+        priority: number;
       }
     >
   );
