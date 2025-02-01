@@ -31,7 +31,7 @@
   width: 100%;
   max-width: var(--break-point--2-xl);
   margin-inline: auto;
-  padding-block: 8px;
+  padding-block: 2px;
   padding-inline: 2rem;
   justify-content: space-between;
   & .actions,
@@ -49,6 +49,7 @@
     }
   }
   & .actions {
+    gap: 12px;
     & a {
       border-radius: 30%;
       outline-offset: var(--outline-offset);
@@ -68,18 +69,30 @@
     min-width: 0;
     & a {
       color: var(--system-dark-300);
-      border-radius: 30%;
       outline-offset: var(--outline-offset);
-      border-radius: var(--border-radius-sm);
+      border-radius: var(--border-radius-md);
       text-decoration: underline transparent;
-      transition: text-decoration-color 0.25s;
+      transition:
+        text-decoration-color 250ms,
+        background-color 300ms;
       display: flex;
       align-items: center;
       gap: 8px;
+      padding: 6px;
       &:hover,
       &:focus-visible {
         text-decoration-color: currentColor;
-        transition: text-decoration-color 0.4s;
+        transition:
+          text-decoration-color 400ms,
+          background-color 300ms;
+        background-color: var(--system-dark-200-16);
+      }
+      &[data-current] {
+        cursor: default;
+        pointer-events: none;
+        & p {
+          color: var(--system-dark-300-55);
+        }
       }
       & p {
         user-select: none;
@@ -127,7 +140,7 @@
 }
 
 .homeLink {
-  margin-right: 12px;
+  margin-right: 6px;
 }
 
 .skillsLink p {

@@ -129,6 +129,7 @@
   border-radius: var(--border-radius-sm);
   border: none;
   height: fit-content;
+  transition: background-color 300ms;
   line-height: 0;
   margin: 4px;
   padding: 8px;
@@ -137,6 +138,10 @@
   }
   &[data-verdigris] {
     color: var(--verdigris-600);
+  }
+  &:hover,
+  &:focus-visible {
+    background-color: var(--system-shadow-6);
   }
 }
 

@@ -68,6 +68,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         title={t('home')}
         role="option"
         href={translatePath('/')}
+        data-current={Astro.url.pathname === translatePath('/') || undefined}
         class={styles.homeLink}
       >
         <p id="lightboxTitle" class="sr-only">{t('home')}</p>
@@ -85,6 +86,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         data-arrow-nav="true"
         role="option"
         href={translatePath('/work/')}
+        data-current={Astro.url.pathname.startsWith(translatePath('/work/')) ||
+          undefined}
         class={styles.workLink}
         ><div class="squircle" data-with-shadow="true">
           {
@@ -111,6 +114,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         data-arrow-nav="true"
         role="option"
         href={translatePath('/skills/')}
+        data-current={Astro.url.pathname === translatePath('/skills/') ||
+          undefined}
         class={styles.skillsLink}
         ><div class="squircle" data-with-shadow="true">
           {
@@ -136,6 +141,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         data-arrow-nav="true"
         role="option"
         href={translatePath('/about/')}
+        data-current={Astro.url.pathname.startsWith(translatePath('/about/')) ||
+          undefined}
         class={styles.aboutLink}
         ><div class="squircle" data-with-shadow="true">
           {

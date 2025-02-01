@@ -41,6 +41,8 @@ const { withModalLinks = true } = Astro.props;
         data-arrow-nav="true"
         role="option"
         href={translatePath('/work/')}
+        data-current={Astro.url.pathname === translatePath('/work/') ||
+          undefined}
         title={t('work')}>{t('work')}</a
       >
     </li>
@@ -49,6 +51,8 @@ const { withModalLinks = true } = Astro.props;
         data-arrow-nav="true"
         role="option"
         href={translatePath('/skills/')}
+        data-current={Astro.url.pathname === translatePath('/skills/') ||
+          undefined}
         title={t('skills')}>{t('skills')}</a
       >
     </li>
@@ -57,6 +61,8 @@ const { withModalLinks = true } = Astro.props;
         data-arrow-nav="true"
         role="option"
         href={translatePath('/about/')}
+        data-current={Astro.url.pathname === translatePath('/about/') ||
+          undefined}
         title={t('about')}>{t('about')}</a
       >
     </li>
@@ -79,6 +85,8 @@ const { withModalLinks = true } = Astro.props;
         data-arrow-nav="true"
         role="option"
         href={translatePath('/archive/')}
+        data-current={Astro.url.pathname === translatePath('/archive/') ||
+          undefined}
         title={t('archive')}>{t('archive')}</a
       >
     </li>

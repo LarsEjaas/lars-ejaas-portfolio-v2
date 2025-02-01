@@ -27,6 +27,12 @@
   & a {
     border-radius: 30%;
     outline-offset: var(--outline-offset);
+    &[data-current] {
+      cursor: default;
+      pointer-events: none;
+      opacity: 0.8;
+      filter: grayscale(0.6) saturate(0.3);
+    }
   }
   & .placeholder,
   & picture,

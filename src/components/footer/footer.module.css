@@ -89,6 +89,7 @@
     & a {
       font-weight: 600;
       display: inline-flex;
+      user-select: none;
       height: auto;
       border-radius: var(--border-radius-sm);
       outline-offset: var(--outline-offset);
@@ -98,6 +99,10 @@
       &:focus-visible {
         text-decoration-color: currentColor;
         transition: text-decoration-color 0.4s;
+      }
+      &[data-current] {
+        cursor: default;
+        pointer-events: none;
       }
     }
   }

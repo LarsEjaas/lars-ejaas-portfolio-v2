@@ -17,13 +17,14 @@
   }
 
   picture img {
-    -webkit-user-drag: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
+  img,
   a {
-    -webkit-user-drag: none; /* Prevent links from being draggable */
+    -webkit-user-drag: none; /* Prevent links and images from being draggable */
   }
 }
 

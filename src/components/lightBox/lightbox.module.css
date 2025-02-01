@@ -181,11 +181,17 @@
   margin: 4px 12px;
   padding: 8px;
   color: var(--verdigris-600);
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 300ms;
   &:not([data-disabled]):hover,
   &:not([data-disabled]):focus-visible {
     color: var(--verdigris-500);
     transform: scale(1.2);
+  }
+  &:hover,
+  &:focus-visible {
+    background-color: var(--system-dark-200-16);
   }
 }
 

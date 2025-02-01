@@ -25,6 +25,10 @@
     up,
     calc(var(--number-of-items) / var(--items-in-row))
   );
+  &:hover .skill,
+  &:focus-within .skill {
+    animation-play-state: paused;
+  }
   height: var(--height);
   content-visibility: auto;
   contain-intrinsic-size: auto 100% auto var(--height);
@@ -43,6 +47,18 @@
       transparent
     );
   mask-composite: intersect;
+  @media (hover) and (prefers-reduced-motion: no-preference) {
+    &:hover .skill:not(:hover) > a,
+    &:has(:focus-within) a:not(:focus-visible) {
+      & .outline {
+        background: var(--gradient-tone-4);
+      }
+      & .skillImage {
+        opacity: 0.6;
+        transition: opacity 200ms 100ms ease-in-out;
+      }
+    }
+  }
 }
 
 .skillsGrid {
@@ -61,10 +77,6 @@
   transform: rotateX(48deg) rotateZ(-6deg) skewX(6deg);
   /* Add margin to make all items visible when navigating with keyboard */
   margin-block: calc((var(--items-in-row) - 1.5) * 1rem);
-  &:hover .skill,
-  &:focus-within .skill {
-    animation-play-state: paused;
-  }
 }
 
 .skill {
@@ -92,7 +104,7 @@
     inset: 4px 4px -2px -2px;
     border-radius: 40%;
     background: var(--system-shadow-1);
-    filter: blur(calc(var(--active, 0.15) * 8px));
+    filter: blur(calc(var(--active, 0.15) * 3px));
     z-index: -1;
     transition:
       scale var(--transition),
@@ -115,12 +127,8 @@
   & a {
     display: block;
     transition:
-      transform var(--transition),
-      scale var(--transition),
-      background-color 0.25s,
-      color 0.25s,
-      border 0.25s,
-      box-shadow 0.25s;
+      transform var(--transition) cubic-bezier(0, 0, 0, 1),
+      scale var(--transition) cubic-bezier(0, 0, 0, 1);
     scale: calc(1 + (var(--active, 0) * 0.1));
     transform: translateZ(calc(var(--active, 0) * 8px));
     &:focus-visible {
@@ -149,15 +157,15 @@
         var(--system-dark-100)
       );
       --gradient-tone-2: light-dark(
-        var(--system-light-300),
+        var(--system-light-100),
         var(--system-light-500)
       );
       --gradient-tone-3: light-dark(
-        var(--system-light-400),
+        var(--system-light-300),
         var(--system-light-400)
       );
       --gradient-tone-4: light-dark(
-        var(--system-light-500),
+        var(--system-light-400),
         var(--system-light-300)
       );
       background: radial-gradient(
