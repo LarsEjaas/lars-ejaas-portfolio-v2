@@ -113,7 +113,7 @@
                   </div>
                 </xsl:if>
               </td>
-              <td><xsl:value-of select="format-date(xs:date(sitemap:lastmod), '[MNn] [D], [Y]')"/></td>
+              <td><xsl:value-of select="sitemap:lastmod"/></td>
               <td><xsl:value-of select="sitemap:changefreq"/></td>
               <td><xsl:value-of select="sitemap:priority"/></td>
             </tr>
