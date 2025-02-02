@@ -51,11 +51,15 @@
     &:hover .skill:not(:hover) > a,
     &:has(:focus-within) a:not(:focus-visible) {
       & .outline {
-        background: var(--gradient-tone-4);
+        background-color: light-dark(
+          var(--system-light-300),
+          var(--system-light-400)
+        );
+        --gradient-tone-1: var(--gradient-tone-3);
+        --gradient-tone-2: var(--gradient-tone-4);
       }
       & .skillImage {
-        opacity: 0.6;
-        transition: opacity 200ms 100ms ease-in-out;
+        opacity: 0.5;
       }
     }
   }
@@ -152,6 +156,7 @@
     display: block;
 
     &.outline {
+      transition: background-color 0ms 200ms ease-in-out;
       --gradient-tone-1: light-dark(
         var(--system-light-100),
         var(--system-dark-100)
@@ -168,22 +173,24 @@
         var(--system-light-400),
         var(--system-light-300)
       );
-      background: radial-gradient(
+      background-image: radial-gradient(
           ellipse at 70% 10%,
           color-mix(in hsl, var(--gradient-tone-1), transparent 40%) 0%,
           color-mix(in hsl, var(--gradient-tone-2), transparent 50%) 60%,
-          color-mix(in hsl, var(--gradient-tone-3), transparent 60%) 100%
+          transparent 100%
         ),
         linear-gradient(
           to bottom,
-          var(--gradient-tone-2) 0%,
-          var(--gradient-tone-3) 25%,
-          var(--gradient-tone-4) 85%
+          transparent 0%,
+          color-mix(in hsl, var(--gradient-tone-3), transparent 80%) 25%,
+          color-mix(in hsl, var(--gradient-tone-4), transparent 60%) 85%
         );
+      background-color: var(--gradient-tone-3);
       line-height: 0;
     }
   }
   & .skillImage {
+    transition: opacity 200ms 0ms ease-in-out;
     width: 80px;
     height: 80px;
   }

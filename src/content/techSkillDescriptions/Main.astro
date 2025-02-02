@@ -1,20 +1,47 @@
 ---
 import Sparkle from '@components/sparkle/Sparkle.astro';
+import styles from './techSkillStyles.module.css';
 
 type Props = Record<string, never>;
 //Klik på kortene nedenfor for at lære mere om mine tekniske kompetencer.
 ---
 
-<p class="body-text">
-  <br />
-  <br />
-</p>
-<Sparkle>
-  <p class="body-text">
-    {'Click the cards to learn more about my tech skills.'}
-  </p>
-</Sparkle>
-<p class="body-text">
-  <br />
-  <br />
-</p>
+<div class={styles.flexCenter}>
+  <div>
+    <Sparkle>
+      <p class="body-text">
+        {'Click the cards to learn more about my tech skills.'}
+      </p>
+    </Sparkle>
+    <div class={styles.spacer}></div>
+    <div class={styles.flexCenter}>
+      <svg fill="none" viewBox="0 0 212 300" width="64px">
+        <path
+          opacity=".5"
+          style="color: light-dark(var(--system-light-500), var(--system-light-400));"
+          fill="currentColor"
+          d="M0 32C0 7.4 7.4 0 32 0s32 7.4 32 32-7.4 32-32 32S0 56.6 0 32Zm74 0c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm74 0c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm0 74c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm-74 0c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm-74 0c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm0 74c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm74 0c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Zm74 0c0-24.6 7.4-32 32-32s32 7.4 32 32-7.4 32-32 32-32-7.4-32-32Z"
+          opacity=".8"></path>
+        <g
+          style="color:light-dark(var(--system-dark-100), var(--system-dark-200));"
+          opacity=".5"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="9.6"
+            d="M162.4 179.2a56.6 56.6 0 1 0-109.4 20"></path>
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="9.6"
+            d="M142 177.8a36.2 36.2 0 1 0-70.9 12"></path>
+          <path
+            fill="currentColor"
+            d="M102.4 165.5c-5.3.7-10.2 5-9.4 12l7.5 60.9-11.8-9.3a13.5 13.5 0 0 0-16.6 0 10.8 10.8 0 0 0-2 15 1413.3 1413.3 0 0 0 30.2 40 43.2 43.2 0 0 0 38.2 15l12.8-1.6a43.2 43.2 0 0 0 37.7-48.2l-4-32.2a10.8 10.8 0 0 0-21.4 2.6l-1-7.1c-1.7-14.3-23.1-11.7-21.4 2.6l-.9-7.1c-1.7-14.3-23.2-11.7-21.4 2.6l-4.4-35.8c-.9-7.1-6.7-10-12-9.4Z"
+          ></path>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
