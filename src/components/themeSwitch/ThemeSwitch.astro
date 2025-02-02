@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl } from '@i18n/utils';
-import './themeSwitch.css';
+import styles from './themeSwitch.module.css';
 
 type Props = {
   withGlow: boolean;
@@ -18,6 +18,7 @@ const lang = getLangFromUrl(Astro.url);
 
 <div
   id={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
+  class={isMobile ? styles.themeSwitchMobile : styles.themeSwitch}
   aria-label="Switch to dark mode"
   title="Switch to dark mode"
   data-lang={lang}
@@ -26,6 +27,7 @@ const lang = getLangFromUrl(Astro.url);
     aria-labelledby={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
     type="checkbox"
     id={isMobile ? 'themeToggleMobile' : 'themeToggle'}
+    class={isMobile ? styles.themeToggleMobile : styles.themeToggle}
     data-animation-disabled="true"
   />
   <span data-with-glow={withGlow || undefined}></span>

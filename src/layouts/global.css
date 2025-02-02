@@ -184,38 +184,6 @@
     --default-font: 'Mona-Sans', 'Arial', 'sans-serif';
     --outline-offset: 5px;
     --scrollbar-width: 12px;
-    --background-pattern: linear-gradient(
-        30deg,
-        var(--system-dark-200) 12%,
-        transparent 12.5%,
-        transparent 87%,
-        var(--system-dark-200) 87.5%,
-        var(--system-dark-200)
-      ),
-      linear-gradient(
-        150deg,
-        var(--system-dark-200) 12%,
-        transparent 12.5%,
-        transparent 87%,
-        var(--system-dark-200) 87.5%,
-        var(--system-dark-200)
-      ),
-      linear-gradient(
-        30deg,
-        var(--system-dark-200) 12%,
-        transparent 12.5%,
-        transparent 87%,
-        var(--system-dark-200) 87.5%,
-        var(--system-dark-200)
-      ),
-      linear-gradient(
-        150deg,
-        var(--system-dark-200) 12%,
-        transparent 12.5%,
-        transparent 87%,
-        var(--system-dark-200) 87.5%,
-        var(--system-dark-200)
-      );
     background: light-dark(#aebabb, var(--system-LIGHT_100));
     min-height: 100vh;
     overflow-y: auto;
@@ -230,9 +198,6 @@
       color-scheme: dark;
       & body {
         background-blend-mode: difference;
-        &::before {
-          mix-blend-mode: soft-light;
-        }
       }
     }
     &[data-dark-mode='false'] {
@@ -289,24 +254,6 @@
       minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      inset: 0;
-      opacity: 0.04;
-      background-image: var(--background-pattern);
-      background-size: 20px 35px;
-      background-position:
-        0 0,
-        0 0,
-        10px 18px,
-        10px 18px,
-        0 0,
-        10px 18px;
-      filter: blur(2px);
-      mix-blend-mode: darken;
-    }
   }
 
   main {
@@ -398,6 +345,7 @@
     main {
       padding-inline: 1rem;
       column-gap: unset;
+      padding-top: 0;
     }
     .fullgrid {
       grid-column: 1 / 2;

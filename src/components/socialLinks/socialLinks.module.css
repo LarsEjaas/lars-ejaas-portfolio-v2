@@ -5,10 +5,12 @@
   &[data-alt-colors] {
     & svg {
       color: light-dark(var(--system-dark-100), var(--system-dark-200));
+      opacity: 1;
     }
   }
   & svg {
-    color: light-dark(var(--system-light-300-80), var(--system-dark-300-80));
+    color: light-dark(var(--system-dark-100), var(--system-dark-300-80));
+    opacity: 0.8;
   }
   & a {
     font-weight: 600;

@@ -1,13 +1,13 @@
 /* Hide interactive elements that require JS */
 :root[data-js-enabled='false'] {
-  & #themeSwitch,
-  & #themeSwitchMobile {
+  & .themeSwitch,
+  & .themeSwitchMobile {
     visibility: hidden;
   }
 }
 
-#themeSwitch,
-#themeSwitchMobile {
+.themeSwitch,
+.themeSwitchMobile {
   position: relative;
   width: 47px;
   height: 24px;
@@ -42,7 +42,6 @@
     }
     &::before {
       background-color: var(--verdigris-100);
-      /*transform: translate(-20px, 0px);*/
       left: -20px;
       z-index: 1;
     }
@@ -56,8 +55,8 @@
   }
 }
 
-#themeToggle,
-#themeToggleMobile {
+.themeToggle,
+.themeToggleMobile {
   position: absolute;
   inset: 0;
   cursor: pointer;

@@ -1,33 +1,20 @@
 .footer {
   view-transition-name: footer;
   grid-column: 1 / -1;
-  background-color: var(--verdigris-700);
-  background: linear-gradient(
-      transparent,
-      transparent 30%,
-      var(--verdigris-800)
-    ),
-    var(--verdigris-700);
+  --border-color: light-dark(
+    var(--verdigris-100-op),
+    var(--system-dark-200-16)
+  );
+  padding: 0;
+  background-color: color-mix(
+    in hsl,
+    var(--system-light-300-55),
+    transparent 85%
+  );
+  border-top: 1px solid var(--system-light-300-55);
+  box-shadow: var(--stacks-6-shadow);
   overflow: hidden;
   position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    pointer-events: none;
-    inset: 0;
-    opacity: 0.04;
-    background-image: var(--background-pattern);
-    background-size: 20px 35px;
-    background-position:
-      0 0,
-      0 0,
-      10px 18px,
-      10px 18px,
-      0 0,
-      10px 18px;
-    filter: blur(2px);
-    mix-blend-mode: multiply;
-  }
 }
 
 :global(html[data-dark-mode='true']) {
@@ -81,7 +68,7 @@
   & .copyright {
     & a,
     & p {
-      color: light-dark(var(--system-light-400), var(--system-dark-200));
+      color: light-dark(var(--system-dark-100), var(--system-dark-300-80));
     }
     & p {
       white-space: pre;
@@ -152,7 +139,11 @@
     width: fit-content;
     font-size: var(--font-size-1);
     & p:nth-child(1) {
-      background-color: var(--verdigris-800);
+      background-color: light-dark(
+        var(--system-dark-100),
+        var(--system-light-400)
+      );
+      color: light-dark(var(--system-light-100), var(--system-dark-300));
       border-top-left-radius: var(--border-radius-sm);
       border-top-right-radius: var(--border-radius-sm);
       margin-top: 4px;
@@ -161,10 +152,10 @@
     }
     & > p:nth-child(2) {
       background-color: light-dark(
-        var(--system-light-300-80),
+        var(--system-light-100),
         var(--system-dark-300-80)
       );
-      color: var(--verdigris-800);
+      color: light-dark(var(--system-dark-100), var(--system-light-400));
       font-weight: 700;
       padding: 2px 8px 4px;
       border-bottom-left-radius: var(--border-radius-sm);
