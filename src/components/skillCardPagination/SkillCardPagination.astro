@@ -128,6 +128,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
               title={`${t_skills('go_to')} ${techSkill.title}`}
               aria-current={index === skillIndex}
               data-disabled={isHidden || index === skillIndex || undefined}
+              aria-disabled={isHidden || index === skillIndex || undefined}
               data-index={index}
               data-main-index={techSkills.indexOf(techSkill)}
               {...(index === skillIndex ? {} : { ['data-arrow-nav']: 'true' })}

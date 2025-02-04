@@ -99,20 +99,6 @@ const timelineScope = timeLine
   next?.addEventListener('click', handleScroll, {
     passive: true,
   });
-
-  /**
-   * Updates the cursor position in the carousel wrapper element.
-   */
-  const updateCursor = (event: PointerEvent) => {
-    if (carouselList) {
-      carouselList.style.setProperty('--x', `${event.layerX}`);
-      carouselList.style.setProperty('--y', `${event.layerY}`);
-    }
-  };
-
-  carouselList?.addEventListener('pointermove', updateCursor, {
-    passive: true,
-  });
 </script>
 <section
   id="carousel"

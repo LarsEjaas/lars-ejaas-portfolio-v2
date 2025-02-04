@@ -21,7 +21,42 @@ const {
 } = Astro.props;
 ---
 
-<article class={`${styles[`outline${outline}`]} ${styles.article}`}>
+<script>
+  const { carouselList } = window;
+
+  const articleList: HTMLElement[] = Array.from(
+    document.querySelectorAll('article')
+  );
+  /**
+   * Updates the cursor position in the carousel wrapper element.
+   */
+  const updateCursor = (event: PointerEvent) => {
+    if (carouselList && event.target instanceof HTMLElement) {
+      const rect = event.target.getBoundingClientRect();
+      carouselList.style.setProperty('--x', `${event.clientX - rect.left}`);
+      carouselList.style.setProperty('--y', `${event.clientY - rect.top}`);
+    }
+  };
+
+  console.log(articleList);
+
+  articleList.map((article) => {
+    if (
+      article.dataset.withBorderGlow === 'false' ||
+      article.dataset.initialized === 'true'
+    ) {
+      return;
+    }
+    article.dataset.initialized = 'true';
+    article.addEventListener('pointermove', updateCursor, {
+      passive: true,
+    });
+  });
+</script>
+<article
+  class={`${styles[`outline${outline}`]} ${styles.article}`}
+  data-with-border-glow={withBorderGlow}
+>
   <PictureWithPlaceholder
     formats={['avif', 'webp']}
     quality="high"

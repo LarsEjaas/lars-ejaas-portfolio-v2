@@ -114,6 +114,7 @@
 
   & .footerIcon {
     mask-size: contain;
+    mask-repeat: no-repeat;
     width: auto;
     height: auto;
     background-color: currentColor;

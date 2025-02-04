@@ -127,7 +127,7 @@
 .outline {
   view-transition-name: outline;
   background-color: light-dark(
-    var(--system-light-100),
+    var(--system-light-200),
     var(--system-light-300)
   );
   padding: 4px;
