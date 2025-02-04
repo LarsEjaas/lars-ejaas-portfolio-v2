@@ -16,7 +16,6 @@ export const siteInfo = {
     skills: ['JavaScript', 'TypeScript', 'React'],
   },
   social: {
-    x: 'https://x.com/LarsEjaas',
     linkedin: 'https://www.linkedin.com/in/lars-ejaas/',
     github: 'https://github.com/larsejaas',
     bluesky: 'https://bsky.app/profile/larsejaas.bsky.social',

@@ -22,7 +22,6 @@ const newsFeed = [
   'twitter',
   'updatedSkills',
   'accuRanker',
-  'x',
   'v2',
   'friggTech',
   'bluesky',
@@ -131,16 +130,6 @@ const newsObject = {
       imageAlt: 'AccuRanker logo på turkis baggrund',
       href: '/da/arbejde/#accuRanker',
       outline: '3',
-    },
-    x: {
-      title: 'Følg mig på X',
-      description:
-        'Lad os oprette forbindelse på X for at dele tanker og støtte hinanden i vores udviklerrejser!',
-      date: '30. august 2024',
-      imageSrc: 'follow_me_on_x.png',
-      imageAlt: 'Stiliseret X logo i sølv på sort baggrund',
-      href: 'https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas',
-      outline: 'gold',
     },
     v2: {
       title: 'Redesignet hjemmeside',
@@ -262,16 +251,6 @@ const newsObject = {
       imageAlt: 'AccuRanker logo on top of a turquoise background',
       href: '/work#accuRanker/',
       outline: '3',
-    },
-    x: {
-      title: 'Follow me on X',
-      description:
-        'Let’s connect on X to share thoughts and support each other in our developer journeys!',
-      date: 'August 30th, 2024',
-      imageSrc: 'follow_me_on_x.png',
-      imageAlt: 'Stylized X silver logo on black background',
-      href: 'https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fpublish.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5ELarsEjaas&screen_name=LarsEjaas',
-      outline: 'gold',
     },
     v2: {
       title: 'Redesigned Website',

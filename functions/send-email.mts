@@ -18,7 +18,7 @@ const UNIQUE_IDENTIFIER = 'contact';
 
 const GITHUB_ICON = 'github_icon.png';
 const LINKEDIN_ICON = 'linkedin_icon.png';
-const X_ICON = 'x_icon.png';
+const BLUESKY_ICON = 'bluesky_icon.png';
 const LETTER_ICON = 'letter_icon.png';
 const WRITE_TO_ME = 'write_to_me.png';
 const SKRIV_TIL_MIG = 'skriv_til_mig.png';
@@ -219,7 +219,7 @@ type EmailTemplateContext = {
   logo2: `cid:logo2@${typeof UNIQUE_IDENTIFIER}`;
   linkedIn: `cid:linkedin@${typeof UNIQUE_IDENTIFIER}`;
   github: `cid:github@${typeof UNIQUE_IDENTIFIER}`;
-  x: `cid:x@${typeof UNIQUE_IDENTIFIER}`;
+  bluesky: `cid:bluesky@${typeof UNIQUE_IDENTIFIER}`;
   letter: `cid:letter@${typeof UNIQUE_IDENTIFIER}`;
   writeToMe: `cid:write@${typeof UNIQUE_IDENTIFIER}`;
   profilePic: `cid:profile@${typeof UNIQUE_IDENTIFIER}`;
@@ -232,7 +232,7 @@ type Identifier =
   | 'logo2'
   | 'linkedin'
   | 'github'
-  | 'x'
+  | 'bluesky'
   | 'letter'
   | 'write'
   | 'profile'
@@ -242,7 +242,7 @@ type MailAttachment = {
   filename:
     | typeof LINKEDIN_ICON
     | typeof GITHUB_ICON
-    | typeof X_ICON
+    | typeof BLUESKY_ICON
     | typeof LETTER_ICON
     | typeof WRITE_TO_ME
     | typeof SKRIV_TIL_MIG
@@ -271,9 +271,9 @@ const getMailAttachments = (
       cid: `github@${UNIQUE_IDENTIFIER}`,
     },
     {
-      filename: X_ICON,
-      path: path.resolve(__dirname, `./${X_ICON}`),
-      cid: `x@${UNIQUE_IDENTIFIER}`,
+      filename: BLUESKY_ICON,
+      path: path.resolve(__dirname, `./${BLUESKY_ICON}`),
+      cid: `bluesky@${UNIQUE_IDENTIFIER}`,
     },
     {
       filename: LETTER_ICON,
@@ -495,7 +495,7 @@ export default async (req: Request, context: Context) => {
         siteURL: site_url,
         linkedIn: `cid:linkedin@${UNIQUE_IDENTIFIER}`,
         github: `cid:github@${UNIQUE_IDENTIFIER}`,
-        x: `cid:x@${UNIQUE_IDENTIFIER}`,
+        bluesky: `cid:bluesky@${UNIQUE_IDENTIFIER}`,
         letter: `cid:letter@${UNIQUE_IDENTIFIER}`,
         writeToMe: `cid:write@${UNIQUE_IDENTIFIER}`,
         logo1: `cid:logo1@${UNIQUE_IDENTIFIER}`,
@@ -521,7 +521,7 @@ export default async (req: Request, context: Context) => {
         siteURL: site_url,
         linkedIn: `cid:linkedin@${UNIQUE_IDENTIFIER}`,
         github: `cid:github@${UNIQUE_IDENTIFIER}`,
-        x: `cid:x@${UNIQUE_IDENTIFIER}`,
+        bluesky: `cid:bluesky@${UNIQUE_IDENTIFIER}`,
         letter: `cid:letter@${UNIQUE_IDENTIFIER}`,
         writeToMe: `cid:write@${UNIQUE_IDENTIFIER}`,
         logo1: `cid:logo1@${UNIQUE_IDENTIFIER}`,
