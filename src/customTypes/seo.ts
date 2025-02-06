@@ -10,7 +10,7 @@ export type MetaData = {
   rights: string;
 };
 
-export type Image = {
+export type MetaImage = {
   name: string;
   alt: string;
 };
@@ -34,14 +34,13 @@ export type MetaTheme = {
   // }[];
 };
 
-export type OpenGraph =
+export type OpenGraph = {
+  type: string;
+  image: MetaImage;
+} & (
   | {
       type: string;
-      image: Image;
-    }
-  | {
-      type: string;
-      image: Image;
+      image: MetaImage;
       article: {
         publishedTime: string;
         modifiedTime: string;
@@ -50,7 +49,9 @@ export type OpenGraph =
         tags: string[];
         authors: string[];
       };
-    };
+    }
+  | {}
+);
 
 type HttpEquiv =
   | 'content-security-policy'

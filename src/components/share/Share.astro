@@ -1,5 +1,9 @@
 ---
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import {
+  getLangFromUrl,
+  removeTrailingSlash,
+  useTranslations,
+} from '@i18n/utils';
 import IconFacebook from '@assets/someIcons/facebook.png';
 import IconMessenger from '@assets/someIcons/messenger.png';
 import IconX from '@assets/someIcons/x.png';
@@ -9,8 +13,12 @@ import IconLinkedIn from '@assets/someIcons/linkedin.png';
 import IconReddit from '@assets/someIcons/reddit.png';
 import IconWhatsApp from '@assets/someIcons/whatsapp.png';
 import IconTelegram from '@assets/someIcons/telegram.png';
+import IconBluesky from '@assets/someIcons/bluesky.png';
 import styles from './share.module.css';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+import { getMetaForPage } from '@content/meta';
+import { validateAndGetPublicPath } from '@components/seo/Seo.astro';
+import { getDefaultSiteMetaData } from '@components/seo/siteMetaData';
 
 type Props = Record<string, never>;
 
@@ -21,54 +29,113 @@ type ShareAttributes = {
   hiddenOnDesktop?: boolean;
 };
 
+const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'share');
 
+const routeToShare = Astro.url.pathname.split('/')[0] || '/';
+
+const meta = getMetaForPage(routeToShare, lang);
+
+const { title, description: metaDesc, image: opengraphImage } = meta || {};
+const {
+  metaData: { description: defaultDescription },
+  openGraph: { image: defaultImage },
+} = await getDefaultSiteMetaData(lang);
+
+const imageSrc = (
+  await validateAndGetPublicPath(opengraphImage.name || defaultImage.name)
+).src;
+
+const path = removeTrailingSlash(Astro.url.pathname)
+  ?.split('/')
+  .slice(0, -1)
+  .join('/');
+
+//combine domain and location
+const location = SITE_URL + path + '/';
+const thisURL = encodeURIComponent(location);
+
+//Get the meta description for this page or use the translated default description as fallback
+const description = metaDesc ? metaDesc.trim() : defaultDescription.trim();
+
+const image = `${SITE_URL}${imageSrc}`;
+const descriptionURL = encodeURIComponent(description);
+const titleURL = encodeURIComponent(`Lars Ejaas | ${title.trim()}`);
+
+const facebookBaseURL = 'https://facebook.com/sharer/sharer.php?u=';
+const messengerBaseURL = 'fb-messenger://share/?link=';
+const messengerURL = `${messengerBaseURL}${thisURL}`;
+const xBaseURL1 = 'https://x.com/share?text=';
+const xBaseURL2 = `${descriptionURL}&url=${thisURL}&title=${titleURL}&media=${image}`;
+const blueskyBaseURL1 = 'https://bsky.app/intent/compose?text=';
+const blueskyBaseURL2 = `${titleURL} | ${descriptionURL}%0A${thisURL}`;
+const blueskyURL = `${blueskyBaseURL1}${blueskyBaseURL2}`;
+
+const facebookURL = `${facebookBaseURL}${thisURL}`;
+const xURL = `${xBaseURL1}${xBaseURL2}`;
+const mailURL = `mailto:?subject=${titleURL}&body=${thisURL}%0A${descriptionURL}`;
+const pinterestURL = `https://pinterest.com/pin/create/button/?url=${thisURL}&amp;media=${image}&description=${descriptionURL}`;
+const linkedInURL = `https://www.linkedin.com/sharing/share-offsite/?url=
+    ${thisURL}&text=${titleURL} | ${descriptionURL}`;
+const redditURL = `https://reddit.com/submit/?url=${thisURL}&title=${titleURL}&image=${image}`;
+const whatsAppURL = `whatsapp://send?text=${descriptionURL}%20${thisURL}`;
+const telegramURL = `https://t.me/share/url?url=${thisURL}&text=${descriptionURL}`;
+
+//===================================================================================
+
 const shareAttributes: ShareAttributes[] = [
   {
-    href: '',
+    href: facebookURL,
     title: t('facebook_title'),
     image: IconFacebook,
   },
   {
-    href: '',
+    href: messengerURL,
     title: t('messenger_title'),
     image: IconMessenger,
     hiddenOnDesktop: true,
   },
   {
-    href: '',
+    href: xURL,
     title: t('x_title'),
     image: IconX,
   },
   {
-    href: '',
+    href: mailURL,
     title: t('email_title'),
     image: IconEmail,
   },
   {
-    href: '',
+    href: pinterestURL,
     title: t('pinterest_title'),
     image: IconPinterest,
   },
   {
-    href: '',
+    href: linkedInURL,
     title: t('linkedin_title'),
     image: IconLinkedIn,
   },
   {
-    href: '',
+    href: redditURL,
     title: t('reddit_title'),
     image: IconReddit,
   },
   {
-    href: '',
+    href: whatsAppURL,
     title: t('whatsapp_title'),
     image: IconWhatsApp,
     hiddenOnDesktop: true,
   },
   {
-    href: '',
+    href: blueskyURL,
+    title: t('bluesky_title'),
+    image: IconBluesky,
+    hiddenOnDesktop: false,
+  },
+  {
+    href: telegramURL,
     title: t('telegram_title'),
     image: IconTelegram,
     hiddenOnDesktop: true,
@@ -84,6 +151,8 @@ const shareAttributes: ShareAttributes[] = [
         title={attr.title}
         aria-label={attr.title}
         class={`${attr.hiddenOnDesktop ? 'mobile-only' : ''}`}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <div class="squircle" data-with-shadow="true">
           <PictureWithPlaceholder
@@ -92,9 +161,8 @@ const shareAttributes: ShareAttributes[] = [
             quality="high"
             src={attr.image}
             alt=""
-            width="48"
-            height="48"
-            densities={[1, 2, 3]}
+            widths={[48, 96, 144, 72, 144, 216]}
+            sizes="(max-width: 640px) 48px, 72px"
             loading="eager"
             decoding="sync"
             classNames={{

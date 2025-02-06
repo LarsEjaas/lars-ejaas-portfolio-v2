@@ -135,6 +135,9 @@ const imageName =
   openGraph?.image?.name ?? defaultSiteMetaData.openGraph.image.name;
 
 const publicImage = await validateAndGetPublicPath(imageName);
+const ImageSrc = publicImage.src
+  ? `${SITE_URL}${publicImage.src}`
+  : `${SITE_URL}/`;
 
 // Construct canonical URL
 const baseUrl = Astro.site ?? Astro.url;
@@ -185,8 +188,8 @@ const metaTags: metaTag[] = [
     property: 'og:type',
     content: defaultSiteMetaData.openGraph.type,
   },
-  { property: 'og:image:url', content: publicImage.src },
-  { property: 'og:image:secure_url', content: publicImage.src },
+  { property: 'og:image:url', content: ImageSrc },
+  { property: 'og:image:secure_url', content: ImageSrc },
   { property: 'og:image:type', content: publicImage.mimeType },
   { property: 'og:image:width', content: `${publicImage.width}` },
   {
@@ -207,7 +210,7 @@ const metaTags: metaTag[] = [
     name: 'twitter:description',
     content: metaData?.description || defaultSiteMetaData.metaData.description,
   },
-  { name: 'twitter:image', content: publicImage.src },
+  { name: 'twitter:image', content: ImageSrc },
   ...(openGraph?.image?.alt
     ? [{ property: 'twitter:image:alt', content: openGraph.image.alt }]
     : []),
@@ -328,16 +331,16 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
     name: pageTitle,
     description:
       metaData?.description || defaultSiteMetaData.metaData.description,
-    image: publicImage.src,
+    image: ImageSrc,
     primaryImageOfPage: {
       '@type': 'ImageObject',
-      url: publicImage.src,
+      url: ImageSrc,
     },
     mainEntity: {
       '@type': 'Person',
       name: defaultSiteMetaData.metaData.author,
       url: canonicalUrl,
-      image: publicImage.src,
+      image: ImageSrc,
       sameAs: Object.values(siteInfo.social),
       jobTitle: siteInfo.author.jobTitle,
       worksFor: {

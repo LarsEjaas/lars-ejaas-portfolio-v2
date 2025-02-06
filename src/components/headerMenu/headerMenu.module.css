@@ -70,7 +70,7 @@
     & a {
       color: var(--system-dark-300);
       outline-offset: var(--outline-offset);
-      border-radius: var(--border-radius-md);
+      border-radius: var(--border-radius-lg);
       text-decoration: underline transparent;
       transition:
         text-decoration-color 250ms,

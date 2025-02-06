@@ -1,24 +1,26 @@
 ---
 import HomeLayout from '@layouts/Home.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl } from '@i18n/utils';
+import { getMetaForPage } from '@content/meta';
 
 type Props = Record<string, never>;
 
 const lang = getLangFromUrl(Astro.url);
-const t_home = useTranslations(lang, 'home');
+
+const meta = getMetaForPage('/', lang);
 ---
 
 <HomeLayout
-  title={t_home('home_title')}
+  title={meta.title}
   lang={lang}
   inert={false}
   seo={{
     openGraph: {
       image: {
-        name: `home_${lang}`,
-        alt: t_home('seo_image_alt'),
+        name: meta.image.name,
+        alt: meta.image.alt,
       },
     },
   }}
-  description={t_home('seo_description')}
+  description={meta.description}
 />

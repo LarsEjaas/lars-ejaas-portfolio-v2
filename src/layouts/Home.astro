@@ -65,7 +65,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
   <div class="presentation">
-    <PageLabel title={t_home('home_title')} iconImage="ejaas" />
+    <PageLabel title={title} iconImage="ejaas" />
     <PresentationCard
       gradientColor="verdigris"
       title="Lars Ejaas"

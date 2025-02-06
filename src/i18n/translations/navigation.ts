@@ -3,27 +3,37 @@ export const navigation = {
     section_with_arrow_nav:
       'This section supports arrow key navigation. Use left and right arrows to move between items.',
     home: 'Home',
+    home_seo_description:
+      '👨🏻‍💻 Frontend developer from Denmark. Passionate about web design and web development. Check out my portfolio and get an overview of my development skills.',
+    home_seo_image_alt:
+      'Screenshot of larsejaas.com homepage on a laptop, with Lars Ejaas’s profile picture and signature below alongside the text: "frontend developer", set against a turquoise background.',
     about: 'About',
     about_seo_description: '',
-    about_seo_image_alt: '',
+    about_seo_image_alt:
+      'Three photos of Lars Ejaas cycling and running on an orange background. In the lower left corner Lars Ejaas’s profile picture, his signature and the text "frontend developer".',
     work: 'Work',
     current_job: 'Current Job',
     work_seo_description: '',
-    work_seo_image_alt: '',
+    work_seo_image_alt:
+      'Illustration of a brown briefcase with metal clasps on a green background. In the lower left corner a profile picture and signature of "Lars Ejaas" with the label: "Frontend Developer".',
     skills: 'Skills',
     skills_seo_description: '',
-    skills_seo_image_alt: '',
+    skills_seo_image_alt:
+      'Various software- and programming icons placed in a grid on a turquoise background. In the lower left corner a profile picture and signature of "Lars Ejaas’s" with the label: "Frontend Developer".',
     contact: 'Contact',
     contact_seo_description: '',
-    contact_seo_image_alt: '',
+    contact_seo_image_alt:
+      'Illustration of an open envelope with a letter on a turquoise background. In the lower left corner Lars Ejaas’s profile picture, his signature and the label: "frontend developer".',
     thank_you: 'Thank you',
     whoops: 'Whoops!',
     archive: 'Archive',
     archive_seo_description: '',
-    archive_seo_image_alt: '',
+    archive_seo_image_alt:
+      'Illustration of a brown storage box on a blue background. In the lower left corner a profile picture and signature of "Lars Ejaas" with the label: "Frontend Developer".',
     share: 'Share this page',
     share_seo_description: '',
-    share_seo_image_alt: '',
+    share_seo_image_alt:
+      'Image of various social media icons including Facebook, Messenger, and LinkedIn on a blue and green gradient background. In the lower left corner Lars Ejaas’s profile picture, his signature and the label: "frontend developer".',
     contact_title: 'Write to me',
     close_modal_title: 'Close modal',
     nav_mobile: 'Main mobile navigation',
@@ -47,11 +57,17 @@ export const navigation = {
     previous: 'Scroll to previous news card',
     close_popover: 'Close popover',
     thank_you_for_your_email: 'Thank you for your email',
+    rights:
+      'All rights reserved Lars Ejaas. Please contact me directly to get my consent before using any content from this page.',
   },
   da: {
     section_with_arrow_nav:
       'Denne sektion understøtter navigation med piletasterne. Benyt venstre- og højre piletaster til at navigere mellem elementerne.',
     home: 'Hjem',
+    home_seo_description:
+      '👨🏻‍💻 Frontend-udvikler fra Aarhus. Brænder for hjemmesidedesign og webudvikling. Få et overblik over mine kompetencer og udviklingsmetoder jeg har erfaring med.',
+    home_seo_image_alt:
+      'Screenshot af larsejaas.com index-side afbilledet på en laptop, med Lars Ejaas’ profilbillede og signatur nedenunder sammen med teksten "frontend udvikler", på turkis baggrund',
     about: 'Om mig',
     about_seo_description: '',
     about_seo_image_alt: '',
@@ -96,5 +112,7 @@ export const navigation = {
     previous: 'Scroll til det forrige kort',
     close_popover: 'Luk popover',
     thank_you_for_your_email: 'Tak for din e-mail',
+    rights:
+      'Alle rettigheder forbeholdes Lars Ejaas. Kontakt mig direkte for at få mit samtykke, inden du bruger indhold fra denne side.',
   },
 } as const;
