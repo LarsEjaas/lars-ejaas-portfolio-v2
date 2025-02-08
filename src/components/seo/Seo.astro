@@ -17,14 +17,16 @@ import {
 import type { ImageInputFormat } from 'astro';
 import { appRoutes } from '../../i18n/routes';
 
-const SITE_URL = import.meta.env.SITE_URL;
+const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
 
 type Props = SeoComponentProps;
 
 export type SeoComponentProps = {
   metaData: PrettifyUnion<
     Pick<MetaData, 'title'> &
-      Partial<Pick<MetaData, 'description' | 'keywords'>>
+      Partial<
+        Pick<MetaData, 'description' | 'pinterestDescription' | 'keywords'>
+      >
   >;
   openGraph: DistributiveOmit<OpenGraph, 'type'> | undefined;
   noIndex?: true;
@@ -97,8 +99,8 @@ const getCannonicalUrl = (language: Language) => {
   // If this is the index page we cannot find a translation - so we create it manually
   if (pathNameWithoutLocale === '') {
     return language === defaultLang
-      ? `${removeTrailingSlash(SITE_URL)}/`
-      : `${removeTrailingSlash(SITE_URL)}/${language}/`;
+      ? `${SITE_URL}/`
+      : `${SITE_URL}/${language}/`;
   }
   const translation =
     language === defaultLang
@@ -113,9 +115,7 @@ const getCannonicalUrl = (language: Language) => {
           ]
         }/`;
 
-  return translation
-    ? `${removeTrailingSlash(SITE_URL)}${translation}`
-    : undefined;
+  return translation ? `${SITE_URL}${translation}` : undefined;
 };
 
 const defaultSiteMetaData = await getDefaultSiteMetaData(lang);
@@ -133,11 +133,27 @@ if (openGraph?.image?.name && !openGraph?.image?.alt) {
 // Determine image details
 const imageName =
   openGraph?.image?.name ?? defaultSiteMetaData.openGraph.image.name;
+const pinterestImageName = openGraph?.image?.name
+  ? openGraph?.image?.name.replace(`_${lang}`, '_pinterest')
+  : defaultSiteMetaData.openGraph.image.name.replace(`_${lang}`, '_pinterest');
 
 const publicImage = await validateAndGetPublicPath(imageName);
-const ImageSrc = publicImage.src
-  ? `${SITE_URL}${publicImage.src}`
-  : `${SITE_URL}/`;
+const ImageSrc = `${SITE_URL}${publicImage.src}`;
+
+if (!publicImage) {
+  throw new Error(
+    `Meta image not found for: ${imageName} in the SEO component`
+  );
+}
+
+const pinterestImage = await validateAndGetPublicPath(pinterestImageName);
+const pinterestImageSrc = `${SITE_URL}${pinterestImage.src}`;
+
+if (!pinterestImage) {
+  throw new Error(
+    `Meta Pinterest image not found for: ${imageName} in the SEO component`
+  );
+}
 
 // Construct canonical URL
 const baseUrl = Astro.site ?? Astro.url;
@@ -199,6 +215,15 @@ const metaTags: metaTag[] = [
   ...(openGraph?.image?.alt
     ? [{ property: 'og:image:alt', content: openGraph.image.alt }]
     : []),
+  // Pinterest
+  {
+    property: 'pinterest:description',
+    content:
+      metaData?.pinterestDescription ||
+      metaData?.description ||
+      defaultSiteMetaData.metaData.description,
+  },
+  { property: 'pinterest:image', content: pinterestImageSrc },
 
   // Twitter Card
   { name: 'twitter:card', content: 'summary_large_image' },
@@ -300,7 +325,7 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
         hreflang={language === 'en' ? 'en-US' : 'da-DK'}
         href={
           language === lang
-            ? `${removeTrailingSlash(SITE_URL)}${removeTrailingSlash(Astro.url.pathname)}/`
+            ? `${SITE_URL}${removeTrailingSlash(Astro.url.pathname)}/`
             : getCannonicalUrl(language)
         }
       />
@@ -309,7 +334,7 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
 <link
   rel="alternate"
   href={lang === defaultLang
-    ? `${removeTrailingSlash(SITE_URL)}${removeTrailingSlash(Astro.url.pathname)}/`
+    ? `${SITE_URL}${removeTrailingSlash(Astro.url.pathname)}/`
     : getCannonicalUrl(defaultLang)}
   hreflang="x-default"
 />
@@ -351,7 +376,7 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
     },
     isPartOf: {
       '@type': 'WebSite',
-      '@id': `${removeTrailingSlash(SITE_URL)}/#website`,
+      '@id': `${SITE_URL}/#website`,
       name: siteInfo.name,
     },
   })}

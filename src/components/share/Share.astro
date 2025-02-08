@@ -44,9 +44,16 @@ const {
   openGraph: { image: defaultImage },
 } = await getDefaultSiteMetaData(lang);
 
+const pinterestImageName = opengraphImage.name
+  ? opengraphImage.name.replace(`_${lang}`, '_pinterest')
+  : defaultImage.name.replace(`_${lang}`, '_pinterest');
+
 const imageSrc = (
   await validateAndGetPublicPath(opengraphImage.name || defaultImage.name)
 ).src;
+
+const pinterestImageSrc = (await validateAndGetPublicPath(pinterestImageName))
+  .src;
 
 const path = removeTrailingSlash(Astro.url.pathname)
   ?.split('/')
@@ -61,6 +68,7 @@ const thisURL = encodeURIComponent(location);
 const description = metaDesc ? metaDesc.trim() : defaultDescription.trim();
 
 const image = `${SITE_URL}${imageSrc}`;
+const pinterestImage = `${SITE_URL}${pinterestImageSrc}`;
 const descriptionURL = encodeURIComponent(description);
 const titleURL = encodeURIComponent(`Lars Ejaas | ${title.trim()}`);
 
@@ -76,7 +84,7 @@ const blueskyURL = `${blueskyBaseURL1}${blueskyBaseURL2}`;
 const facebookURL = `${facebookBaseURL}${thisURL}`;
 const xURL = `${xBaseURL1}${xBaseURL2}`;
 const mailURL = `mailto:?subject=${titleURL}&body=${thisURL}%0A${descriptionURL}`;
-const pinterestURL = `https://pinterest.com/pin/create/button/?url=${thisURL}&amp;media=${image}&description=${descriptionURL}`;
+const pinterestURL = `https://pinterest.com/pin/create/button/?url=${thisURL}&amp;media=${pinterestImage}&description=${descriptionURL}`;
 const linkedInURL = `https://www.linkedin.com/sharing/share-offsite/?url=
     ${thisURL}&text=${titleURL} | ${descriptionURL}`;
 const redditURL = `https://reddit.com/submit/?url=${thisURL}&title=${titleURL}&image=${image}`;
@@ -166,9 +174,7 @@ const shareAttributes: ShareAttributes[] = [
             loading="eager"
             decoding="sync"
             classNames={{
-              placeholder: ![IconMessenger, IconPinterest].includes(attr.image)
-                ? styles.placeholder
-                : styles.noPlaceholder,
+              placeholder: styles.placeholder,
             }}
           />
         </div>

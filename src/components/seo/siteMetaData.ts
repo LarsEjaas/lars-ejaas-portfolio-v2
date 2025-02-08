@@ -77,7 +77,7 @@ export const getDefaultSiteMetaData = async (
     },
     openGraph: {
       image: {
-        name: isDefaultlang ? 'home_en' : 'home_da',
+        name: isDefaultlang ? 'default_en' : 'default_da',
         alt: t('home_seo_image_alt'),
       },
       type: 'website',

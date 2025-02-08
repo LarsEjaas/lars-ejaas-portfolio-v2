@@ -3,6 +3,7 @@ import type { StringWithTrailingSlash } from './index';
 export type MetaData = {
   title: string;
   description: string;
+  pinterestDescription?: string;
   siteUrl: string;
   siteName: string;
   author: string;
