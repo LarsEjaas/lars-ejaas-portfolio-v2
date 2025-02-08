@@ -34,7 +34,12 @@ const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'share');
 
-const routeToShare = Astro.url.pathname.split('/')[0] || '/';
+// get the route to share, without modal- or language slug
+const routeToShare =
+  Astro.url.pathname
+    .split('/')
+    .filter(Boolean)
+    .filter((slug) => slug !== lang)[0] || '/';
 
 const meta = getMetaForPage(routeToShare, lang);
 
@@ -57,11 +62,13 @@ const pinterestImageSrc = (await validateAndGetPublicPath(pinterestImageName))
 
 const path = removeTrailingSlash(Astro.url.pathname)
   ?.split('/')
+  .filter(Boolean)
   .slice(0, -1)
   .join('/');
 
 //combine domain and location
-const location = SITE_URL + path + '/';
+const location = SITE_URL + '/' + path + '/';
+
 const thisURL = encodeURIComponent(location);
 
 //Get the meta description for this page or use the translated default description as fallback

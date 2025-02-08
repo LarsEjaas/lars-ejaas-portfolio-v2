@@ -48,6 +48,7 @@ export function useTranslations<
   };
 }
 
+/** Get the translated path for a given language when the path is provided in the default language. */
 export function useTranslatedPath(lang: keyof typeof languages) {
   return function translatePath(
     path: StringWithTrailingSlash,
@@ -80,7 +81,7 @@ export function useTranslatedPath(lang: keyof typeof languages) {
   };
 }
 
-/** Get the English appRoute when only the translated path is provided */
+/** Get the appRoute in the default language when only the translated path is provided */
 export const getEnglishTranslation = (
   language: LanguageKey,
   pathname: StringWithTrailingSlash,

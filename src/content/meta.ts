@@ -1,6 +1,11 @@
 import type { SlugKeys } from '@i18n/routes.ts';
-import { useTranslatedPath, useTranslations } from '../i18n/utils';
-import type { Language } from '@i18n/settings';
+import {
+  removeTrailingSlash,
+  removeLeadingSlash,
+  useTranslations,
+  getEnglishTranslation,
+} from '@i18n/utils';
+import { defaultLang, type Language } from '@i18n/settings';
 import type { MetaImage } from '@customTypes/seo';
 
 type MetaInfo = Record<
@@ -59,15 +64,23 @@ export const getMetaInfo = (lang: Language): MetaInfo => {
 };
 
 export const getMetaForPage = (path: string, lang: Language) => {
-  const translatePath = useTranslatedPath('en');
-  const cleanPath = path.replace(/\/$/, '');
+  const pathName = path === '/' ? '/' : path;
+
   // Convert a localized path to English
-  const pathName = cleanPath ? translatePath(`${cleanPath}/`) : '/';
+  const translatedPath =
+    lang !== defaultLang
+      ? getEnglishTranslation(lang, `${pathName}/`)
+      : pathName;
 
   const metaPaths = getMetaInfo(lang);
 
-  if (!metaPaths.hasOwnProperty(pathName)) {
-    throw new Error(`Path ${pathName} is not defined in metaPaths`);
+  const cleanPath =
+    translatedPath && translatedPath !== '/'
+      ? removeTrailingSlash(removeLeadingSlash(translatedPath))
+      : '/';
+
+  if (!metaPaths.hasOwnProperty(cleanPath)) {
+    throw new Error(`Path ${cleanPath} is not defined in metaPaths`);
   }
-  return metaPaths[pathName as keyof typeof metaPaths];
+  return metaPaths[cleanPath as keyof typeof metaPaths];
 };
