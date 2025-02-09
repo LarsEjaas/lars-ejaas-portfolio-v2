@@ -8,7 +8,7 @@ import PhotoCard from '@components/photoCards/PhotoCard.astro';
 import type { ImageModule } from '@customTypes/index';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
-const isDev = import.meta.env.DEV || false;
+const IS_DEV = import.meta.env.DEV || false;
 
 type Props = {
   labels: { title: string; close: string; previous: string; next: string };
@@ -35,7 +35,7 @@ const isLast = currentIndex === URLArray.length - 1;
 const nextUrl = `${aboutTranslatedPath}${URLArray[currentIndex + 1]}/`;
 const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
 
-if (!imageDescription && isDev) {
+if (!imageDescription && IS_DEV) {
   console.error(`⚠️ Image description not found for ${imageInfo.imageName}`);
 }
 ---

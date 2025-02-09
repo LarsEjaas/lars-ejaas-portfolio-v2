@@ -13,6 +13,7 @@ type MetaInfo = Record<
   {
     title: string;
     description: string;
+    pinterestDescription?: string;
     image: MetaImage;
   }
 >;
@@ -64,13 +65,18 @@ export const getMetaInfo = (lang: Language): MetaInfo => {
 };
 
 export const getMetaForPage = (path: string, lang: Language) => {
-  const pathName = path === '/' ? '/' : path;
+  // Get the parent slug in this route
+  const parentSlug =
+    path
+      .split('/')
+      .filter(Boolean)
+      .filter((slug) => slug !== lang)[0] || '/';
 
   // Convert a localized path to English
   const translatedPath =
-    lang !== defaultLang
-      ? getEnglishTranslation(lang, `${pathName}/`)
-      : pathName;
+    lang === defaultLang
+      ? parentSlug
+      : getEnglishTranslation(lang, `${parentSlug}/`);
 
   const metaPaths = getMetaInfo(lang);
 

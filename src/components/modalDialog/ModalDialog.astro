@@ -2,6 +2,7 @@
 import styles from './modalDialog.module.css';
 import type { ColorVariants } from '@customTypes/index';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+import ScrollFadeout from './ScrollFadeout.astro';
 
 type Props = {
   title: string;
@@ -85,6 +86,8 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
       </svg></a
     >
   </div>
-  <slot />
+  <ScrollFadeout>
+    <slot />
+  </ScrollFadeout>
   <div class={styles.modalFooter}></div>
 </dialog>

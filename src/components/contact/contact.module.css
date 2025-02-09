@@ -10,12 +10,11 @@
 
 .contactContainer {
   padding-inline: 32px;
-  padding-block: 48px 16px;
+  padding-block: 48px;
   background-color: light-dark(
     var(--system-light-100),
     var(--system-light-300)
   );
-  overflow-y: auto;
 }
 .form {
   display: flex;

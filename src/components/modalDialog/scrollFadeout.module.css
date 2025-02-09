@@ -1,0 +1,38 @@
+.scrollWrapper {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  --bg: light-dark(var(--system-light-100), var(--system-light-300));
+  --shadow-height: 24px;
+  --shadow-opacity: 75%;
+  --shadow-tone: light-dark(var(--system-dark-200), var(--system-light-200));
+  --shadow-color: color-mix(
+    in hsl,
+    var(--shadow-tone),
+    transparent var(--shadow-opacity, 100%)
+  );
+  background:
+      /** Masks for hiding the shadows*/
+    linear-gradient(var(--bg) 50%, transparent) center top,
+    linear-gradient(transparent, var(--bg) 50%) center bottom,
+    /** Scroll-shadows*/
+      linear-gradient(to bottom, var(--shadow-color), transparent) center top,
+    linear-gradient(to top, var(--shadow-color), transparent) center bottom;
+  background-repeat: no-repeat;
+  background-size:
+    100% calc(var(--shadow-height) * 2),
+    100% calc(var(--shadow-height) * 2),
+    100% var(--shadow-height),
+    100% var(--shadow-height);
+  background-attachment: local, local, scroll, scroll;
+  & > * {
+    position: relative;
+    z-index: -1;
+  }
+}
+
+:global(:root[data-dark-mode='true']) {
+  .scrollWrapper {
+    --shadow-opacity: 40%;
+  }
+}

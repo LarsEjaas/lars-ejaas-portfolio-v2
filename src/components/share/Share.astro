@@ -19,6 +19,7 @@ import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 import { getMetaForPage } from '@content/meta';
 import { validateAndGetPublicPath } from '@components/seo/Seo.astro';
 import { getDefaultSiteMetaData } from '@components/seo/siteMetaData';
+const IS_DEV = import.meta.env.DEV || false;
 
 type Props = Record<string, never>;
 
@@ -34,16 +35,14 @@ const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'share');
 
-// get the route to share, without modal- or language slug
-const routeToShare =
-  Astro.url.pathname
-    .split('/')
-    .filter(Boolean)
-    .filter((slug) => slug !== lang)[0] || '/';
+const meta = getMetaForPage(Astro.url.pathname, lang);
 
-const meta = getMetaForPage(routeToShare, lang);
-
-const { title, description: metaDesc, image: opengraphImage } = meta || {};
+const {
+  title,
+  description: metaDesc,
+  image: opengraphImage,
+  pinterestDescription,
+} = meta || {};
 const {
   metaData: { description: defaultDescription },
   openGraph: { image: defaultImage },
@@ -60,43 +59,61 @@ const imageSrc = (
 const pinterestImageSrc = (await validateAndGetPublicPath(pinterestImageName))
   .src;
 
-const path = removeTrailingSlash(Astro.url.pathname)
+// remove the modal-slug from the path
+const pathToShare = removeTrailingSlash(Astro.url.pathname)
   ?.split('/')
   .filter(Boolean)
   .slice(0, -1)
   .join('/');
 
 //combine domain and location
-const location = SITE_URL + '/' + path + '/';
+const locationToShare = SITE_URL + '/' + pathToShare + '/';
 
-const thisURL = encodeURIComponent(location);
+const shareURL = encodeURIComponent(locationToShare);
 
 //Get the meta description for this page or use the translated default description as fallback
 const description = metaDesc ? metaDesc.trim() : defaultDescription.trim();
+const pinterestDesc = pinterestDescription?.trim();
 
 const image = `${SITE_URL}${imageSrc}`;
 const pinterestImage = `${SITE_URL}${pinterestImageSrc}`;
 const descriptionURL = encodeURIComponent(description);
+const pinterestDescriptionURL = encodeURIComponent(
+  pinterestDesc || description
+);
 const titleURL = encodeURIComponent(`Lars Ejaas | ${title.trim()}`);
 
 const facebookBaseURL = 'https://facebook.com/sharer/sharer.php?u=';
 const messengerBaseURL = 'fb-messenger://share/?link=';
-const messengerURL = `${messengerBaseURL}${thisURL}`;
+const messengerURL = `${messengerBaseURL}${shareURL}`;
 const xBaseURL1 = 'https://x.com/share?text=';
-const xBaseURL2 = `${descriptionURL}&url=${thisURL}&title=${titleURL}&media=${image}`;
+const xBaseURL2 = `${descriptionURL}&url=${shareURL}&title=${titleURL}&media=${image}`;
 const blueskyBaseURL1 = 'https://bsky.app/intent/compose?text=';
-const blueskyBaseURL2 = `${titleURL} | ${descriptionURL}%0A${thisURL}`;
+const blueskyBaseURL2 = `${titleURL} | ${descriptionURL}%0A${shareURL}`;
 const blueskyURL = `${blueskyBaseURL1}${blueskyBaseURL2}`;
 
-const facebookURL = `${facebookBaseURL}${thisURL}`;
+const facebookURL = `${facebookBaseURL}${shareURL}`;
 const xURL = `${xBaseURL1}${xBaseURL2}`;
-const mailURL = `mailto:?subject=${titleURL}&body=${thisURL}%0A${descriptionURL}`;
-const pinterestURL = `https://pinterest.com/pin/create/button/?url=${thisURL}&amp;media=${pinterestImage}&description=${descriptionURL}`;
+const mailURL = `mailto:?subject=${titleURL}&body=${shareURL}%0A${descriptionURL}`;
+const pinterestURL = `https://pinterest.com/pin/create/button/?url=${shareURL}&amp;media=${pinterestImage}&description=${pinterestDescriptionURL}`;
 const linkedInURL = `https://www.linkedin.com/sharing/share-offsite/?url=
-    ${thisURL}&text=${titleURL} | ${descriptionURL}`;
-const redditURL = `https://reddit.com/submit/?url=${thisURL}&title=${titleURL}&image=${image}`;
-const whatsAppURL = `whatsapp://send?text=${descriptionURL}%20${thisURL}`;
-const telegramURL = `https://t.me/share/url?url=${thisURL}&text=${descriptionURL}`;
+    ${shareURL}&text=${titleURL} | ${descriptionURL}`;
+const redditURL = `https://reddit.com/submit/?url=${shareURL}&title=${titleURL}&image=${image}`;
+const whatsAppURL = `whatsapp://send?text=${descriptionURL}%20${shareURL}`;
+const telegramURL = `https://t.me/share/url?url=${shareURL}&text=${descriptionURL}`;
+
+if (IS_DEV) {
+  console.group('shareAttributes for this route:');
+  console.table({
+    'Image source': imageSrc,
+    'Pinterest image source': pinterestImageSrc,
+    Description: metaDesc,
+    'Default description (fallback)': defaultDescription,
+    Title: `Lars Ejaas | ${title.trim()}`,
+    'Pinterest Description': pinterestDesc,
+  });
+  console.groupEnd();
+}
 
 //===================================================================================
 
