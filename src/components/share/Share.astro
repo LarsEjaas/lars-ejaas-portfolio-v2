@@ -35,7 +35,14 @@ const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'share');
 
-const meta = getMetaForPage(Astro.url.pathname, lang);
+// remove the modal-slug from the path
+const pathToShare = removeTrailingSlash(Astro.url.pathname)
+  ?.split('/')
+  .filter(Boolean)
+  .slice(0, -1)
+  .join('/');
+
+const meta = getMetaForPage(pathToShare, lang);
 
 const {
   title,
@@ -58,13 +65,6 @@ const imageSrc = (
 
 const pinterestImageSrc = (await validateAndGetPublicPath(pinterestImageName))
   .src;
-
-// remove the modal-slug from the path
-const pathToShare = removeTrailingSlash(Astro.url.pathname)
-  ?.split('/')
-  .filter(Boolean)
-  .slice(0, -1)
-  .join('/');
 
 //combine domain and location
 const locationToShare = SITE_URL + '/' + pathToShare + '/';
