@@ -1,5 +1,5 @@
 .mobileMenu {
-  view-transition-name: mobileMenu;
+  view-transition-name: mobile-menu;
   z-index: 200;
   --border-color: light-dark(
     var(--verdigris-100-op),
@@ -30,8 +30,6 @@
     &[data-current] {
       cursor: default;
       pointer-events: none;
-      opacity: 0.8;
-      filter: grayscale(0.6) saturate(0.3);
     }
   }
   & .placeholder,
@@ -43,4 +41,10 @@
   & .placeholder {
     clip-path: url('#squircle');
   }
+}
+
+::view-transition-group(mobile-menu) {
+  z-index: 2;
+  border-radius: 16px;
+  overflow: hidden;
 }

@@ -156,8 +156,8 @@
         var(--system-light-100),
         var(--system-dark-300-80)
       );
-      color: light-dark(var(--system-dark-100), var(--system-light-400));
-      font-weight: 700;
+      color: light-dark(var(--system-dark-100), var(--system-light-300));
+      font-weight: 500;
       padding: 2px 8px 4px;
       border-bottom-left-radius: var(--border-radius-sm);
       border-bottom-right-radius: var(--border-radius-sm);
