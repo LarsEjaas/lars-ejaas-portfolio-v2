@@ -16,7 +16,7 @@
   height: 26px;
   padding: 4px;
   transition: transform 300ms ease-in-out;
-  &:not(:has(a[aria-current='true'])) {
+  &:not(:has(span[aria-current='true'])) {
     aspect-ratio: 1 / 1;
     &:hover,
     &:focus-within {
@@ -29,14 +29,15 @@
   &:last-child {
     padding: 6px;
   }
-  &:has(a[aria-current='true']) {
+  &:has(span[aria-current='true']) {
     padding: 2px;
     aspect-ratio: 2 / 1;
   }
   &[aria-hidden='true'] {
     opacity: 0;
   }
-  & a {
+  & a,
+  span {
     flex: 1;
     outline-offset: var(--outline-offset);
     box-shadow: var(--stacks-2-shadow);
@@ -45,10 +46,6 @@
       var(--system-light-400)
     );
     border-radius: var(--border-radius-lg);
-    &[data-disabled] {
-      pointer-events: none;
-      cursor: default;
-    }
   }
 }
 

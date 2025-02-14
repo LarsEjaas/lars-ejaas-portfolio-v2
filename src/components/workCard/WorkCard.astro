@@ -219,9 +219,17 @@ const t = useTranslations(lang, 'navigation');
             class={styles.controls}
           >
             {footerImages?.length > 1 &&
-              footerImages.map((image) => (
+              footerImages.map((image, index) => (
                 <li class={styles.control}>
-                  <a href={`#${image.id}`} data-arrow-nav="true" />
+                  <a
+                    href={`#${image.id}`}
+                    data-arrow-nav="true"
+                    title={`${t('scroll_to_image')} ${index + 1}`}
+                  >
+                    <p class="sr-only">
+                      {`${t('scroll_to_image')} ${index + 1}`}
+                    </p>
+                  </a>
                 </li>
               ))}
           </ul>

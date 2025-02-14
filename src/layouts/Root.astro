@@ -48,6 +48,7 @@ const {
       type="font/woff2"
       crossorigin
     />
+    <link rel="preconnect" href="https://larsejaas.piwik.pro" crossorigin />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -153,7 +154,7 @@ const {
         g.type = 'text/javascript';
         g.async = true;
         g.defer = true;
-        g.src = u + 'ppms.js';
+        g.src = u + 'ppms.js' + '?v=' + 'v1_0';
         s.parentNode.insertBefore(g, s);
       })();
     </script>

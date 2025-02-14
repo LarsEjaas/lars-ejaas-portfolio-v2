@@ -48,8 +48,8 @@
     );
   mask-composite: intersect;
   @media (hover) and (prefers-reduced-motion: no-preference) {
-    &:hover .skill:not(:hover) > a,
-    &:has(:focus-within) a:not(:focus-visible) {
+    &:hover .skill:not(:hover) > a:not([data-active='true']),
+    &:has(:focus-within) a:not(:focus-visible):not([data-active='true']) {
       & .outline {
         background-color: light-dark(
           var(--system-light-300),

@@ -81,6 +81,8 @@ const processedSkills = await Promise.all(
                       src={techSkill.svgFile.src}
                       width={techSkill.svgFile.width}
                       height={techSkill.svgFile.height}
+                      alt={`${techSkill.title} logo`}
+                      aria-hidden="true"
                     />
                   </div>
                 </a>

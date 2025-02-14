@@ -1,7 +1,7 @@
 ---
 import styles from './photoCard.module.css';
 import { aboutImagesInfo } from '@content/aboutImages/aboutImages.mts';
-import { getLangFromUrl } from '@i18n/utils';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import { useTranslatedPath } from '@i18n/utils';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
@@ -42,6 +42,7 @@ const imageAlt =
 const englishUrl = `/about/${imageInfo.hrefEN}/` as const;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
+const t = useTranslations(lang, 'navigation');
 ---
 
 <a
@@ -52,6 +53,9 @@ const translatePath = useTranslatedPath(lang);
   data-reverse-rotate={reverseRotation || undefined}
   style={`--index: ${index}; --rotation: ${CARD_ROTATIONS[index]}deg;`}
 >
+  <p class="sr-only">
+    {`${t('go_to_image')}: ${imageInfo[lang === 'en' ? 'titleEN' : 'titleDA']}`}
+  </p>
   <div
     class={styles.photocard}
     style={includeViewTransitionId

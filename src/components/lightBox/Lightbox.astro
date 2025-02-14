@@ -84,7 +84,11 @@ if (!imageDescription && IS_DEV) {
   }
   setLightboxTransitionType();
 </script>
-<a class={styles.backdrop} aria-hidden tabindex="-1" href="../"></a>
+<a class={styles.backdrop} aria-hidden tabindex="-1" href="../"
+  ><p class="sr-only">
+    {labels.close}
+  </p></a
+>
 <!-- remove tabindex in Firefox -->
 <dialog
   tabindex="-1"

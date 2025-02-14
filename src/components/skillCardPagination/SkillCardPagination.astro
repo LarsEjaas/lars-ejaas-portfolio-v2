@@ -118,23 +118,25 @@ const skillIndex = paginationItems.indexOf(currentSkill);
             }}
             aria-hidden={isHidden || undefined}
           >
-            <a
-              href={
-                index === skillIndex || isHidden
-                  ? undefined
-                  : translatePath(`skills/${techSkill.href}/`)
-              }
-              aria-label={`${t_skills('go_to')} ${techSkill.title}`}
-              title={`${t_skills('go_to')} ${techSkill.title}`}
-              aria-current={index === skillIndex}
-              data-disabled={isHidden || index === skillIndex || undefined}
-              aria-disabled={isHidden || index === skillIndex || undefined}
-              data-index={index}
-              data-main-index={techSkills.indexOf(techSkill)}
-              {...(index === skillIndex ? {} : { ['data-arrow-nav']: 'true' })}
-            >
-              <span class="sr-only">{`${t_skills('go_to')} ${techSkill.title}`}</span>
-            </a>
+            {index === skillIndex || isHidden ? (
+              <span aria-current={index === skillIndex} />
+            ) : (
+              <a
+                href={translatePath(`skills/${techSkill.href}/`)}
+                aria-label={`${t_skills('go_to')} ${techSkill.title}`}
+                title={`${t_skills('go_to')} ${techSkill.title}`}
+                aria-current={index === skillIndex}
+                data-disabled={isHidden || index === skillIndex || undefined}
+                aria-disabled={isHidden || index === skillIndex || undefined}
+                data-index={index}
+                data-main-index={techSkills.indexOf(techSkill)}
+                {...(index === skillIndex
+                  ? {}
+                  : { ['data-arrow-nav']: 'true' })}
+              >
+                <span class="sr-only">{`${t_skills('go_to')} ${techSkill.title}`}</span>
+              </a>
+            )}
           </li>
         );
       })

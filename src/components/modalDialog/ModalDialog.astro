@@ -27,7 +27,11 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
     window.addEventListener('keydown', handleKeydown, { passive: true });
   }
 </script>
-<a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="../"></a>
+<a class={styles.dialogBackdrop} aria-hidden tabindex="-1" href="../"
+  ><p class="sr-only">
+    {labels.close}
+  </p></a
+>
 <!-- remove tabindex in Firefox -->
 <dialog
   tabindex="-1"
