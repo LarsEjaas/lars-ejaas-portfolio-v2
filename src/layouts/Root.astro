@@ -139,10 +139,23 @@ const {
     <script is:inline type="text/javascript">
       var _paq = _paq || [];
 
-      _paq.push(['setSessionIdStrictPrivacyMode', false]);
+      let isTracked = false;
 
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
+      function trackPageView() {
+        if (isTracked) return;
+
+        _paq.push(['trackPageView']);
+        isTracked = true;
+
+        ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach(
+          (event) => document.removeEventListener(event, trackPageView)
+        );
+      }
+
+      ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach(
+        (event) =>
+          document.addEventListener(event, trackPageView, { once: true })
+      );
 
       (function () {
         var u = 'https://larsejaas.piwik.pro/';
