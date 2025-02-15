@@ -68,7 +68,7 @@
   & .copyright {
     & a,
     & p {
-      color: light-dark(var(--system-dark-100), var(--system-dark-300-80));
+      color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
     }
     & p {
       white-space: pre;
@@ -141,7 +141,7 @@
     font-size: var(--font-size-1);
     & p:nth-child(1) {
       background-color: light-dark(
-        var(--system-dark-100),
+        var(--system-dark-200),
         var(--system-light-400)
       );
       color: light-dark(var(--system-light-100), var(--system-dark-300));
@@ -156,7 +156,7 @@
         var(--system-light-100),
         var(--system-dark-300-80)
       );
-      color: light-dark(var(--system-dark-100), var(--system-light-300));
+      color: light-dark(var(--system-dark-200), var(--system-light-300));
       font-weight: 500;
       padding: 2px 8px 4px;
       border-bottom-left-radius: var(--border-radius-sm);

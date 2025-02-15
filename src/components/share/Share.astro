@@ -67,7 +67,7 @@ const pinterestImageSrc = (await validateAndGetPublicPath(pinterestImageName))
   .src;
 
 //combine domain and location
-const locationToShare = SITE_URL + '/' + pathToShare + '/';
+const locationToShare = `${SITE_URL}/${pathToShare ? `${pathToShare}/` : ''}`;
 
 const shareURL = encodeURIComponent(locationToShare);
 
@@ -98,7 +98,7 @@ const mailURL = `mailto:?subject=${titleURL}&body=${shareURL}%0A${descriptionURL
 const pinterestURL = `https://pinterest.com/pin/create/button/?url=${shareURL}&amp;media=${pinterestImage}&description=${pinterestDescriptionURL}`;
 const linkedInURL = `https://www.linkedin.com/sharing/share-offsite/?url=
     ${shareURL}&text=${titleURL} | ${descriptionURL}`;
-const redditURL = `https://reddit.com/submit/?url=${shareURL}&title=${titleURL}&image=${image}`;
+const redditURL = `https://reddit.com/web/submit/?url=${shareURL}&title=${titleURL}&text=${descriptionURL}`;
 const whatsAppURL = `whatsapp://send?text=${descriptionURL}%20${shareURL}`;
 const telegramURL = `https://t.me/share/url?url=${shareURL}&text=${descriptionURL}`;
 

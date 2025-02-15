@@ -9,7 +9,7 @@
     }
   }
   & svg {
-    color: light-dark(var(--system-dark-100), var(--system-dark-300-80));
+    color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
     opacity: 0.8;
   }
   & a {
