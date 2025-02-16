@@ -64,14 +64,11 @@ const {
     />
     <script is:inline>
       if ('onpagereveal' in window) {
-        window.onpagereveal = (event) => restoreModalScrollPosition(event);
+        window.onpagereveal = (e) => rmsp(e);
       } else {
-        document.addEventListener(
-          'DOMContentLoaded',
-          restoreModalScrollPosition
-        );
+        document.addEventListener('DOMContentLoaded', rmsp);
       }
-      const getStoredDarkmode = () => {
+      const gsdm = () => {
         if (
           typeof window.localStorage !== 'undefined' &&
           localStorage.getItem('ejaas_dark_mode')
@@ -80,33 +77,28 @@ const {
         }
         return false;
       };
-      // Detect dark mode before page load
+
       if (
-        getStoredDarkmode() === 'true' ||
-        (!getStoredDarkmode() &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
+        gsdm() === 'true' ||
+        (!gsdm() && window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         document.documentElement.dataset.darkMode = 'true';
       }
-      /* Show interactive elements that require JS to be enabled */
+
       document.documentElement.dataset.jsEnabled = 'true';
 
-      function restoreModalScrollPosition() {
-        const scrollPosition =
-          Number(sessionStorage.getItem('scrollPosition')) || 0;
+      function rmsp() {
+        const sp = Number(sessionStorage.getItem('scrollPosition')) || 0;
 
-        const referrerIsSameHost = document.referrer.startsWith(
-          window.location.origin
-        );
-        if (scrollPosition && referrerIsSameHost) {
+        const rish = document.referrer.startsWith(window.location.origin);
+        if (sp && rish) {
           window.scrollTo({
-            top: scrollPosition,
+            top: sp,
             behavior: 'instant',
           });
         }
-        //check if this route includes a modal or lightbox
-        const routeIncludesModal = window.modalDialog || window.lightbox;
-        if (!routeIncludesModal || !referrerIsSameHost) {
+        const rim = window.modalDialog || window.lightbox;
+        if (!rim || !rish) {
           sessionStorage.removeItem('scrollPosition');
         }
       }
@@ -138,23 +130,19 @@ const {
     <!--- PIWIK Pro -->
     <script is:inline type="text/javascript">
       var _paq = _paq || [];
+      let it = false;
 
-      let isTracked = false;
-
-      function trackPageView() {
-        if (isTracked) return;
-
+      function tpv() {
+        if (it) return;
         _paq.push(['trackPageView']);
-        isTracked = true;
-
-        ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach(
-          (event) => document.removeEventListener(event, trackPageView)
+        it = true;
+        ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
+          document.removeEventListener(e, tpv)
         );
       }
 
-      ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach(
-        (event) =>
-          document.addEventListener(event, trackPageView, { once: true })
+      ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
+        document.addEventListener(e, tpv, { once: true })
       );
 
       (function () {

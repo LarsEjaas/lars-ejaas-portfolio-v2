@@ -58,269 +58,279 @@ const t_work = useTranslations(lang, 'work');
     </h2>
     <p class="body-text">{t_work('from_code_to_career')}</p>
   </div>
-  <FloatingBalloons class={styles.floatingBalloons} balloonColor="aquamarine" />
-  <WorkCard
-    inert={inert}
-    currentEmployment
-    viewTransitionName="card"
-    id="friggTech"
-    headline={t_work('software_developer')}
-    subHeadline={'Frigg Tech A/S, Aarhus'}
-    headerImage={FriggTechHeaderImage}
-    headerImageAlt={t_work('friggtech_hero_image_alt')}
-    date={t_work('friggtech_employment_date')}
-    tags={[
-      { title: 'React', href: 'skills/react' },
-      { title: 'Typescript', href: 'skills/typescript' },
-      { title: 'GraphQL', href: 'skills/graphql' },
-      { title: 'Tailwind', href: 'skills/tailwind' },
-      { title: 'Storybook', href: 'skills/storybook' },
-      { title: 'GitLab', href: 'skills/gitlab' },
-      { title: 'Turborepo' },
-    ]}
-    footerImages={[
-      {
-        src: FriggTechHeaderImage,
-        alt: '-',
-        id: 'FriggTechFooterImage',
-      },
-    ]}
-  >
-    <p class="small-body-text">
-      {t_work('friggtech_employment_description')}
-    </p>
-    <Popover id="friggTech" buttonLabel={t_work('learn_more_about_friggtech')}>
-      <div class={styles.flexWrapper} slot="buttonContent">
-        <p class={`${styles.popoverDesc} body-text`}>
-          {t_work('about')}
-        </p>
-        <FriggTechLogo />
-        <InfoIcon />
-      </div>
-      <div class={styles.flexColumnWrapper}>
-        <FriggTechLogo width={160} />
-        <p class="small-body-text">{t_work('friggtech_is_a_danish')}</p>
-        <div class={styles.flexWrapper}>
-          <p class=`${styles.websiteVisit} small-body-text`>
-            {`${t_work('visit_website')}:`}
+  <div class={styles.animationTimeline}>
+    <FloatingBalloons
+      class={styles.floatingBalloons}
+      balloonColor="aquamarine"
+    />
+    <WorkCard
+      data-mobile-animation="false"
+      className={styles.animatedWorkCard}
+      inert={inert}
+      currentEmployment
+      viewTransitionName="card"
+      id="friggTech"
+      headline={t_work('software_developer')}
+      subHeadline={'Frigg Tech A/S, Aarhus'}
+      headerImage={FriggTechHeaderImage}
+      headerImageAlt={t_work('friggtech_hero_image_alt')}
+      date={t_work('friggtech_employment_date')}
+      tags={[
+        { title: 'React', href: 'skills/react' },
+        { title: 'Typescript', href: 'skills/typescript' },
+        { title: 'GraphQL', href: 'skills/graphql' },
+        { title: 'Tailwind', href: 'skills/tailwind' },
+        { title: 'Storybook', href: 'skills/storybook' },
+        { title: 'GitLab', href: 'skills/gitlab' },
+        { title: 'Turborepo' },
+      ]}
+      footerImages={[
+        {
+          src: FriggTechHeaderImage,
+          alt: '-',
+          id: 'FriggTechFooterImage',
+        },
+      ]}
+    >
+      <p class="small-body-text">
+        {t_work('friggtech_employment_description')}
+      </p>
+      <Popover
+        id="friggTech"
+        buttonLabel={t_work('learn_more_about_friggtech')}
+      >
+        <div class={styles.flexWrapper} slot="buttonContent">
+          <p class={`${styles.popoverDesc} body-text`}>
+            {t_work('about')}
           </p>
-          <a
-            class=`${styles.websiteVisit} small-body-text`
-            href={'https://www.friggtech.dk/'}
-            target="_blank"
-            rel="noopener noreferrer">friggtech.dk</a
-          >
+          <FriggTechLogo />
+          <InfoIcon />
         </div>
-      </div>
-    </Popover></WorkCard
-  >
-  <WorkCard
-    className={styles.workCardLazy}
-    inert={inert}
-    viewTransitionName="accuRankerCard"
-    id="accuRanker"
-    headline={t_work('frontend_developer')}
-    subHeadline={'Accuranker ApS, Aarhus'}
-    headerImage={AccuRankerHeaderImage}
-    headerImageAlt={t_work('accuranker_grump_image_alt')}
-    date={t_work('accuranker_employment_date')}
-    tags={[
-      { title: 'React', href: 'skills/react' },
-      { title: 'Typescript', href: 'skills/typescript' },
-      { title: 'Gatsby', href: 'skills/gatsby' },
-      { title: 'Strapi', href: 'skills/strapi' },
-      { title: 'GraphQL', href: 'skills/graphql' },
-      { title: 'Apollo Client', href: 'skills/apollo-client' },
-      { title: 'Docker', href: 'skills/docker' },
-      { title: 'Webpack', href: 'skills/webpack' },
-      { title: 'Vite', href: 'skills/vite' },
-      { title: 'Sass', href: 'skills/sass' },
-      { title: 'Tailwind', href: 'skills/tailwind' },
-      { title: 'Jest', href: 'skills/jest' },
-      { title: 'GitLab', href: 'skills/gitlab' },
-      {
-        title: 'React Testing Library',
-        href: 'skills/react-testing-library',
-      },
-      { title: 'Playwright', href: 'skills/playwright' },
-      { title: 'Mantine', href: 'skills/mantine' },
-      { title: 'Storybook', href: 'skills/storybook' },
-    ]}
-    footerImages={[
-      {
-        src: AccuRankerFooter1,
-        alt: '-',
-        id: 'AccuRankerAppScreenshot',
-      },
-      {
-        src: AccuRankerFooter2,
-        alt: '-',
-        id: 'AccuRankerHomePageScreenshot',
-      },
-    ]}
-  >
-    <p class="small-body-text">
-      {t_work('accuranker_employment_description')}
-    </p>
-    <Popover
+        <div class={styles.flexColumnWrapper}>
+          <FriggTechLogo width={160} />
+          <p class="small-body-text">{t_work('friggtech_is_a_danish')}</p>
+          <div class={styles.flexWrapper}>
+            <p class=`${styles.websiteVisit} small-body-text`>
+              {`${t_work('visit_website')}:`}
+            </p>
+            <a
+              class=`${styles.websiteVisit} small-body-text`
+              href={'https://www.friggtech.dk/'}
+              target="_blank"
+              rel="noopener noreferrer">friggtech.dk</a
+            >
+          </div>
+        </div>
+      </Popover></WorkCard
+    >
+    <WorkCard
+      className={`${styles.workCardLazy} ${styles.animatedWorkCard}`}
+      inert={inert}
+      viewTransitionName="accuRankerCard"
       id="accuRanker"
-      buttonLabel={t_work('learn_more_about_accuranker')}
+      headline={t_work('frontend_developer')}
+      subHeadline={'Accuranker ApS, Aarhus'}
+      headerImage={AccuRankerHeaderImage}
+      headerImageAlt={t_work('accuranker_grump_image_alt')}
+      date={t_work('accuranker_employment_date')}
+      tags={[
+        { title: 'React', href: 'skills/react' },
+        { title: 'Typescript', href: 'skills/typescript' },
+        { title: 'Gatsby', href: 'skills/gatsby' },
+        { title: 'Strapi', href: 'skills/strapi' },
+        { title: 'GraphQL', href: 'skills/graphql' },
+        { title: 'Apollo Client', href: 'skills/apollo-client' },
+        { title: 'Docker', href: 'skills/docker' },
+        { title: 'Webpack', href: 'skills/webpack' },
+        { title: 'Vite', href: 'skills/vite' },
+        { title: 'Sass', href: 'skills/sass' },
+        { title: 'Tailwind', href: 'skills/tailwind' },
+        { title: 'Jest', href: 'skills/jest' },
+        { title: 'GitLab', href: 'skills/gitlab' },
+        {
+          title: 'React Testing Library',
+          href: 'skills/react-testing-library',
+        },
+        { title: 'Playwright', href: 'skills/playwright' },
+        { title: 'Mantine', href: 'skills/mantine' },
+        { title: 'Storybook', href: 'skills/storybook' },
+      ]}
+      footerImages={[
+        {
+          src: AccuRankerFooter1,
+          alt: '-',
+          id: 'AccuRankerAppScreenshot',
+        },
+        {
+          src: AccuRankerFooter2,
+          alt: '-',
+          id: 'AccuRankerHomePageScreenshot',
+        },
+      ]}
     >
-      <div class={styles.flexWrapper} slot="buttonContent">
-        <p class={`${styles.popoverDesc} body-text`}>
-          {t_work('about')}
-        </p>
-        <AccuRankerLogoWithTitle />
-        <InfoIcon />
-      </div>
-      <div class={styles.flexColumnWrapper}>
-        <AccuRankerLogoWithTitle width={160} />
-        <p class="small-body-text">{t_work('accuranker_is_a_danish')}</p>
-        <div class={styles.flexWrapper}>
-          <p class=`${styles.websiteVisit} small-body-text`>
-            {`${t_work('visit_website')}:`}
+      <p class="small-body-text">
+        {t_work('accuranker_employment_description')}
+      </p>
+      <Popover
+        id="accuRanker"
+        buttonLabel={t_work('learn_more_about_accuranker')}
+      >
+        <div class={styles.flexWrapper} slot="buttonContent">
+          <p class={`${styles.popoverDesc} body-text`}>
+            {t_work('about')}
           </p>
-          <a
-            class=`${styles.websiteVisit} small-body-text`
-            href={'https://www.accuranker.com'}
-            target="_blank"
-            rel="noopener noreferrer">accuranker.com</a
-          >
+          <AccuRankerLogoWithTitle />
+          <InfoIcon />
         </div>
-      </div>
-    </Popover></WorkCard
-  >
-  <WorkCard
-    className={styles.workCardLazy}
-    inert={inert}
-    id="sallingGroup"
-    viewTransitionName="salling-group-card"
-    headline={t_work('frontend_developer')}
-    subHeadline={'Salling Group A/S, Aarhus'}
-    headerImage={SallingGroupHeaderImage}
-    headerImageAlt={t_work('salling_group_image_alt')}
-    date={t_work('salling_group_employment_date')}
-    tags={[
-      { title: 'React', href: 'skills/react' },
-      { title: 'React Native', href: 'skills/react-native' },
-      { title: 'Typescript', href: 'skills/typescript' },
-      { title: 'NextJS', href: 'skills/nextjs' },
-      { title: 'Storybook', href: 'skills/storybook' },
-      { title: 'Tailwind', href: 'skills/tailwind' },
-      { title: 'Styled Components', href: 'skills/styled-components' },
-      { title: 'GitHub', href: 'skills/github' },
-      { title: 'Jest', href: 'skills/jest' },
-      {
-        title: 'React Testing Library',
-        href: 'skills/react-testing-library',
-      },
-    ]}
-    footerImages={[
-      {
-        src: SallingGroupFooter1,
-        alt: '-',
-        id: 'SallingGroupAppImage',
-      },
-      {
-        src: SallingGroupFooter2,
-        alt: '-',
-        id: 'SallingGroupHomeDeliveryDriver',
-      },
-      {
-        src: SallingGroupFooter3,
-        alt: '-',
-        id: 'SallingGroupHomeDelivery',
-      },
-    ]}
-  >
-    <p class="small-body-text">
-      {t_work('salling_group_employment_description')}
-    </p>
-    <Popover
+        <div class={styles.flexColumnWrapper}>
+          <AccuRankerLogoWithTitle width={160} />
+          <p class="small-body-text">{t_work('accuranker_is_a_danish')}</p>
+          <div class={styles.flexWrapper}>
+            <p class=`${styles.websiteVisit} small-body-text`>
+              {`${t_work('visit_website')}:`}
+            </p>
+            <a
+              class=`${styles.websiteVisit} small-body-text`
+              href={'https://www.accuranker.com'}
+              target="_blank"
+              rel="noopener noreferrer">accuranker.com</a
+            >
+          </div>
+        </div>
+      </Popover></WorkCard
+    >
+    <WorkCard
+      className={`${styles.workCardLazy} ${styles.animatedWorkCard}`}
+      inert={inert}
       id="sallingGroup"
-      buttonLabel={t_work('learn_more_about_salling_group')}
+      viewTransitionName="salling-group-card"
+      headline={t_work('frontend_developer')}
+      subHeadline={'Salling Group A/S, Aarhus'}
+      headerImage={SallingGroupHeaderImage}
+      headerImageAlt={t_work('salling_group_image_alt')}
+      date={t_work('salling_group_employment_date')}
+      tags={[
+        { title: 'React', href: 'skills/react' },
+        { title: 'React Native', href: 'skills/react-native' },
+        { title: 'Typescript', href: 'skills/typescript' },
+        { title: 'NextJS', href: 'skills/nextjs' },
+        { title: 'Storybook', href: 'skills/storybook' },
+        { title: 'Tailwind', href: 'skills/tailwind' },
+        { title: 'Styled Components', href: 'skills/styled-components' },
+        { title: 'GitHub', href: 'skills/github' },
+        { title: 'Jest', href: 'skills/jest' },
+        {
+          title: 'React Testing Library',
+          href: 'skills/react-testing-library',
+        },
+      ]}
+      footerImages={[
+        {
+          src: SallingGroupFooter1,
+          alt: '-',
+          id: 'SallingGroupAppImage',
+        },
+        {
+          src: SallingGroupFooter2,
+          alt: '-',
+          id: 'SallingGroupHomeDeliveryDriver',
+        },
+        {
+          src: SallingGroupFooter3,
+          alt: '-',
+          id: 'SallingGroupHomeDelivery',
+        },
+      ]}
     >
-      <div class={styles.flexWrapper} slot="buttonContent">
-        <p class={`${styles.popoverDesc} body-text`}>
-          {t_work('about')}
-        </p>
-        <SallingGroupLogo />
-        <InfoIcon />
-      </div>
-      <div class={styles.flexColumnWrapper}>
-        <SallingGroupLogo width={160} />
-        <p class="small-body-text">{t_work('salling_group_is_denmarks')}</p>
-        <div class={styles.flexWrapper}>
-          <p class=`${styles.websiteVisit} small-body-text`>
-            {`${t_work('visit_website')}:`}
+      <p class="small-body-text">
+        {t_work('salling_group_employment_description')}
+      </p>
+      <Popover
+        id="sallingGroup"
+        buttonLabel={t_work('learn_more_about_salling_group')}
+      >
+        <div class={styles.flexWrapper} slot="buttonContent">
+          <p class={`${styles.popoverDesc} body-text`}>
+            {t_work('about')}
           </p>
-          <a
-            class=`${styles.websiteVisit} small-body-text`
-            href={lang === 'en'
-              ? 'https://www.sallinggroup.com/en'
-              : 'https://sallinggroup.com'}
-            target="_blank"
-            rel="noopener noreferrer">salling-group.com</a
-          >
+          <SallingGroupLogo />
+          <InfoIcon />
         </div>
-      </div>
-    </Popover></WorkCard
-  >
-  <div class="fullgrid">
-    <h2>
-      {t_work('passion_projects')}
-    </h2>
-    <p class="body-text">{t_work('where_curiosity_meets_code')}</p>
+        <div class={styles.flexColumnWrapper}>
+          <SallingGroupLogo width={160} />
+          <p class="small-body-text">{t_work('salling_group_is_denmarks')}</p>
+          <div class={styles.flexWrapper}>
+            <p class=`${styles.websiteVisit} small-body-text`>
+              {`${t_work('visit_website')}:`}
+            </p>
+            <a
+              class=`${styles.websiteVisit} small-body-text`
+              href={lang === 'en'
+                ? 'https://www.sallinggroup.com/en'
+                : 'https://sallinggroup.com'}
+              target="_blank"
+              rel="noopener noreferrer">salling-group.com</a
+            >
+          </div>
+        </div>
+      </Popover></WorkCard
+    >
+    <div class={`fullgrid ${styles.animatedText}`}>
+      <h2>
+        {t_work('passion_projects')}
+      </h2>
+      <p class="body-text">{t_work('where_curiosity_meets_code')}</p>
+    </div>
+    <WorkCard
+      className={`${styles.workCardLazy} ${styles.animatedWorkCard}`}
+      inert={inert}
+      id="bruceWillis"
+      href={lang === 'en'
+        ? 'https://bruce-willis.rocks/en'
+        : 'https://bruce-willis.rocks'}
+      animatedHeader
+      viewTransitionName="bruce-willis-card"
+      headline="Bruce Willis Rocks"
+      subHeadline={t_work('a_tributee_to_bruce_willis')}
+      headerImage={BruceWillisHeaderImage}
+      headerImageAlt={t_work('bruce_willis_image_alt')}
+      date={t_work('bruce_willis_date')}
+      tags={[
+        { title: 'React', href: 'skills/react' },
+        { title: 'TypeScript', href: 'skills/typescript' },
+        { title: 'Gatsby', href: 'skills/gatsby' },
+        { title: 'Styled Components', href: 'skills/styled-components' },
+      ]}
+    >
+      <p class="small-body-text">
+        {t_work('bruce_willis_description')}
+      </p></WorkCard
+    >
+    <WorkCard
+      className={`${styles.workCardLazy} ${styles.animatedWorkCard}`}
+      inert={inert}
+      id="larsEjaasComV1"
+      href={lang === 'en'
+        ? 'https://larsejaasv1.netlify.app/en'
+        : 'https://larsejaasv1.netlify.app'}
+      animatedHeader
+      animationDelay={2000}
+      viewTransitionName="lars-ejaas-card"
+      headline="larsejaas.com"
+      subHeadline={t_work('larsejaas_v1_subheadline')}
+      headerImage={LarsEjaasComV1HeaderImage}
+      headerImageAlt={t_work('lars_ejaas_v1_image_alt')}
+      date={t_work('lars_ejaas_v1_date')}
+      tags={[
+        { title: 'React', href: 'skills/react' },
+        { title: 'JavaScript', href: 'skills/javascript' },
+        { title: 'Gatsby', href: 'skills/gatsby' },
+        { title: 'CSS', href: 'skills/css' },
+      ]}
+    >
+      <p class="small-body-text">
+        {t_work('lars_ejaas_com_description')}
+      </p>
+    </WorkCard>
   </div>
-  <WorkCard
-    className={styles.workCardLazy}
-    inert={inert}
-    id="bruceWillis"
-    href={lang === 'en'
-      ? 'https://bruce-willis.rocks/en'
-      : 'https://bruce-willis.rocks'}
-    animatedHeader
-    viewTransitionName="bruce-willis-card"
-    headline="Bruce Willis Rocks"
-    subHeadline={t_work('a_tributee_to_bruce_willis')}
-    headerImage={BruceWillisHeaderImage}
-    headerImageAlt={t_work('bruce_willis_image_alt')}
-    date={t_work('bruce_willis_date')}
-    tags={[
-      { title: 'React', href: 'skills/react' },
-      { title: 'TypeScript', href: 'skills/typescript' },
-      { title: 'Gatsby', href: 'skills/gatsby' },
-      { title: 'Styled Components', href: 'skills/styled-components' },
-    ]}
-  >
-    <p class="small-body-text">
-      {t_work('bruce_willis_description')}
-    </p></WorkCard
-  >
-  <WorkCard
-    className={styles.workCardLazy}
-    inert={inert}
-    id="larsEjaasComV1"
-    href={lang === 'en'
-      ? 'https://larsejaasv1.netlify.app/en'
-      : 'https://larsejaasv1.netlify.app'}
-    animatedHeader
-    animationDelay={2000}
-    viewTransitionName="lars-ejaas-card"
-    headline="larsejaas.com"
-    subHeadline={t_work('larsejaas_v1_subheadline')}
-    headerImage={LarsEjaasComV1HeaderImage}
-    headerImageAlt={t_work('lars_ejaas_v1_image_alt')}
-    date={t_work('lars_ejaas_v1_date')}
-    tags={[
-      { title: 'React', href: 'skills/react' },
-      { title: 'JavaScript', href: 'skills/javascript' },
-      { title: 'Gatsby', href: 'skills/gatsby' },
-      { title: 'CSS', href: 'skills/css' },
-    ]}
-  >
-    <p class="small-body-text">
-      {t_work('lars_ejaas_com_description')}
-    </p>
-  </WorkCard>
 </Layout>

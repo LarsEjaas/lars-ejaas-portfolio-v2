@@ -12,8 +12,8 @@
   }
 
   picture {
-    display: block; /* Ensures picture takes up its own block space */
-    max-width: 100%; /* Ensures picture container doesn't exceed its parent's width */
+    display: block;
+    max-width: 100%;
   }
 
   picture img {
@@ -24,7 +24,7 @@
 
   img,
   a {
-    -webkit-user-drag: none; /* Prevent links and images from being draggable */
+    -webkit-user-drag: none;
   }
 }
 
@@ -61,6 +61,13 @@
       transform: scale(0.9) translateY(-30px);
       /* Avoid visual glitches from mix-blend-mode by animating opacity to 0.01 instead of 0 */
       opacity: 0.01;
+    }
+  }
+
+  @keyframes scale-up {
+    0% {
+      transform: scale(0.8) translateY(40px);
+      opacity: 0;
     }
   }
 
@@ -184,6 +191,7 @@
     --default-font: 'Mona-Sans', 'Arial', 'sans-serif';
     --outline-offset: 5px;
     --scrollbar-width: 12px;
+    --animation-scale-up: scale-up;
     background: light-dark(#aebabb, var(--system-LIGHT_100));
     min-height: 100vh;
     overflow-y: auto;

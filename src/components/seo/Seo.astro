@@ -19,6 +19,11 @@ import { appRoutes } from '../../i18n/routes';
 
 const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
 
+const BLOCK_ALL_INDEXING =
+  String(import.meta.env.BLOCK_ALL_INDEXING || 'false')
+    .trim()
+    .toLowerCase() === 'true';
+
 type Props = SeoComponentProps;
 
 export type SeoComponentProps = {
@@ -341,7 +346,7 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
 
 <meta
   name="robots"
-  content={`${noIndex ? 'noindex' : 'index'}, ${
+  content={`${BLOCK_ALL_INDEXING || noIndex ? 'noindex' : 'index'}, ${
     noFollow ? 'nofollow' : 'follow'
   }`}
 />

@@ -1,9 +1,3 @@
-@media (max-width: 768px) {
-  .floatingBalloons {
-    grid-row: 5;
-  }
-}
-
 .flexWrapper,
 .flexColumnWrapper {
   display: flex;
@@ -59,4 +53,33 @@
 
 .workCardLazy {
   content-visibility: auto;
+}
+
+.animationTimeline {
+  display: contents;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      & .animatedWorkCard,
+      & .animatedText:not([data-mobile-animation='false']) {
+        animation: var(--animation-scale-up) linear both;
+        animation-timeline: view();
+        animation-range: entry 10% entry-crossing 200px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    & .floatingBalloons {
+      grid-row: 5;
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          animation: var(--animation-scale-up) linear both;
+          animation-timeline: view();
+          animation-range: entry 10% entry-crossing 200px;
+        }
+      }
+    }
+    & .animatedWorkCard[data-mobile-animation='false'] {
+      animation: none;
+    }
+  }
 }

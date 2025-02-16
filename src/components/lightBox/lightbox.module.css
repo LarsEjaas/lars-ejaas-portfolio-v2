@@ -104,6 +104,8 @@
     --p-bottom: 60px;
     --p-inline: 8px;
     display: grid;
+    /** Firefox fix to prevent placeholder images placed behind the grid*/
+    transform-style: preserve-3d;
     padding: var(--p-top) var(--p-inline) var(--p-bottom);
     pointer-events: all;
     margin-inline: auto;
@@ -190,6 +192,7 @@
   margin: 4px 12px;
   padding: 8px;
   color: var(--verdigris-600);
+  background-color: var(--system-dark-200-16);
   transition:
     transform 0.3s ease,
     background-color 300ms;
@@ -200,7 +203,7 @@
   }
   &:hover,
   &:focus-visible {
-    background-color: var(--system-dark-200-16);
+    background-color: var(--system-dark-300-55);
   }
 }
 
@@ -305,8 +308,6 @@
   z-index: 30;
 }
 
-
-
 @container lightbox (width > 800px) {
   .footer {
     & a:hover,
@@ -317,17 +318,17 @@
   }
 }
 
-::view-transition-group(img1), 
-::view-transition-group(img2), 
-::view-transition-group(img3), 
-::view-transition-group(img4), 
-::view-transition-group(img5), 
-::view-transition-group(img6), 
-::view-transition-group(img7), 
-::view-transition-group(img8), 
-::view-transition-group(img9), 
-::view-transition-group(img10), 
-::view-transition-group(img11), 
+::view-transition-group(img1),
+::view-transition-group(img2),
+::view-transition-group(img3),
+::view-transition-group(img4),
+::view-transition-group(img5),
+::view-transition-group(img6),
+::view-transition-group(img7),
+::view-transition-group(img8),
+::view-transition-group(img9),
+::view-transition-group(img10),
+::view-transition-group(img11),
 ::view-transition-group(img12),
 ::view-transition-group(figure),
 ::view-transition-group(thumbnail-grid-container) {

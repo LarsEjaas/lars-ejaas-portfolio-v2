@@ -1,4 +1,5 @@
 svg:global(#currentJobBadge) {
+  z-index: 1;
   --gradient-tone-100: var(--flirt-100);
   --gradient-tone-400: var(--flirt-400);
   --gradient-tone-500: var(--flirt-500);
@@ -17,7 +18,7 @@ svg:global(#currentJobBadge) {
     font-size: 24px;
     font-weight: 600;
     font-family: var(--default-font);
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     text-transform: uppercase;
   }
 }

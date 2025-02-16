@@ -14,13 +14,20 @@ type Props = {
   className?: string | undefined;
 };
 
-const { inert, viewTransitionName = 'card', id } = Astro.props;
+const {
+  inert,
+  viewTransitionName = 'card',
+  id,
+  className,
+  ...rest
+} = Astro.props;
 ---
 
 <section
+  {...rest}
   id={id}
   inert={inert}
-  class={`${styles.card} ${Astro.props.className || ''}`}
+  class={`${styles.card} ${className || ''}`}
   style={`view-transition-name: ${viewTransitionName}`}
 >
   <slot />

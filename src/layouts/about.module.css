@@ -52,6 +52,18 @@
 .articleContent {
   display: flex;
   flex-direction: column;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      & .textContent,
+      & .drawingHouse {
+        animation-name: var(--animation-scale-up);
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: view();
+        animation-range: entry 10% entry-crossing 200px;
+      }
+    }
+  }
 }
 @media (min-width: 1280px) {
   .articleContent {
@@ -69,5 +81,14 @@
 @media (max-width: 768px) {
   .floatingBalloons {
     grid-row: 3;
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        animation-name: var(--animation-scale-up);
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: view();
+        animation-range: entry 10% entry-crossing 200px;
+      }
+    }
   }
 }
