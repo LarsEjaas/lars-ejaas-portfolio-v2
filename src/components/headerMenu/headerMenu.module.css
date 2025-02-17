@@ -31,7 +31,7 @@
   width: 100%;
   max-width: var(--break-point--2-xl);
   margin-inline: auto;
-  padding-block: 2px;
+  padding-block: 4px;
   padding-inline: 2rem;
   justify-content: space-between;
   & .actions,
@@ -69,7 +69,6 @@
     min-width: 0;
     & a {
       color: var(--system-dark-300);
-      outline-offset: var(--outline-offset);
       border-radius: var(--border-radius-lg);
       text-decoration: underline transparent;
       transition:
@@ -78,7 +77,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 6px;
       &:hover,
       &:focus-visible {
         text-decoration-color: currentColor;
@@ -87,6 +85,7 @@
           background-color 300ms;
         background-color: var(--system-dark-200-16);
       }
+
       &[data-current] {
         cursor: default;
         pointer-events: none;
@@ -100,6 +99,9 @@
         color: var(--system-dark-300);
         text-wrap: nowrap;
       }
+    }
+    & a:not(.homeLink) {
+      padding: 6px;
     }
   }
 }
@@ -142,6 +144,7 @@
 
 .homeLink {
   margin-right: 6px;
+  padding: 4px 6px;
 }
 
 .skillsLink p {

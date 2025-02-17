@@ -1,0 +1,50 @@
+---
+import Layout from '@layouts/Root.astro';
+import styles from './privacyPolicy.module.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import type { DistributiveOmit } from '@customTypes/index';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import type { OpenGraph } from '@customTypes/seo';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+
+type Props = {
+  title: string;
+  description: string;
+  inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
+};
+
+const { title, description, inert, seo } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'privacyPolicy');
+---
+
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
+  <div class="presentation">
+    <PageLabel title={t('privacy_policy_title')} iconImage="lock" />
+    <!-- <div>
+      <h2>
+        {t('looking_for_old_content')}
+      </h2>
+      <p class="body-text">{t('welcome_to_memory_lane')}</p>
+    </div>
+  </div> -->
+    <div class={styles.animationTimeline}>
+      <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
+    </div>
+  </div>
+</Layout>

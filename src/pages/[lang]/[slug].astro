@@ -9,6 +9,7 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
 import Description from '@content/techSkillDescriptions/Main.astro';
+import PrivacyPolicy from '@layouts/PrivacyPolicy.astro';
 
 type Props = Record<string, never>;
 
@@ -25,6 +26,7 @@ export function getStaticPaths() {
     ['om-mig']: { params: { lang: 'da', slug: 'om-mig' } },
     arkiv: { params: { lang: 'da', slug: 'arkiv' } },
     ['email-svar']: { params: { lang: 'da', slug: 'email-svar' } },
+    privatlivspolitik: { params: { lang: 'da', slug: 'privatlivspolitik' } },
   });
   return Object.values(paths);
 }
@@ -122,6 +124,19 @@ const danishSlugMap: Record<
       noIndex: true,
     },
     description: t('contact_seo_description'),
+  },
+  privatlivspolitik: {
+    component: PrivacyPolicy,
+    title: t('privacy_policy'),
+    description: t('privacy_policy_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'default_da',
+          alt: t('default_seo_image_alt'),
+        },
+      },
+    },
   },
 };
 

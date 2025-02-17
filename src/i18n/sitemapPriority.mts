@@ -16,4 +16,5 @@ export const sitemapPriority = {
   archive: { priority: 0.3 },
   contact: { priority: 1.0 },
   share: { priority: 0.3 },
+  'privacy-policy': { priority: 0.5 },
 } satisfies SiteMapPriority;

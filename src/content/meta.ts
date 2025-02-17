@@ -53,6 +53,14 @@ export const getMetaInfo = (lang: Language): MetaInfo => {
         alt: t('archive_seo_image_alt'),
       },
     },
+    ['privacy-policy']: {
+      title: t('privacy_policy'),
+      description: t('privacy_policy_seo_description'),
+      image: {
+        name: `default_${lang}`,
+        alt: t('default_seo_image_alt'),
+      },
+    },
     ['/']: {
       title: t('home'),
       description: t('home_seo_description'),

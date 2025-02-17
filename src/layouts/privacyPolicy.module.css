@@ -1,0 +1,26 @@
+.animationTimeline {
+  display: contents;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      & .animatedWorkCard,
+      & .animatedText:not([data-mobile-animation='false']),
+      & .articleCard {
+        animation: var(--animation-scale-up);
+        animation-timeline: view();
+        animation-range: var(--scale-up-animation-range);
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    & .baloons {
+      grid-row: 4;
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          animation: var(--animation-scale-up);
+          animation-timeline: view();
+          animation-range: var(--scale-up-animation-range);
+        }
+      }
+    }
+  }
+}

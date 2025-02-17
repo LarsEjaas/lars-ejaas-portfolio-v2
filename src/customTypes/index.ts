@@ -125,7 +125,8 @@ export type IconImage =
   | 'share'
   | 'skillset'
   | 'work'
-  | 'archive';
+  | 'archive'
+  | 'lock';
 
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;

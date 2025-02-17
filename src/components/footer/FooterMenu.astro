@@ -90,5 +90,15 @@ const { withModalLinks = true } = Astro.props;
         title={t('archive')}>{t('archive')}</a
       >
     </li>
+    <li role="none">
+      <a
+        data-arrow-nav="true"
+        role="option"
+        href={translatePath('/privacy-policy/')}
+        data-current={Astro.url.pathname ===
+          translatePath('/privacy-policy/') || undefined}
+        title={t('privacy_policy')}>{t('privacy_policy')}</a
+      >
+    </li>
   </ul>
 </nav>

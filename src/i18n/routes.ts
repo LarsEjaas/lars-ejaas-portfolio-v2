@@ -16,7 +16,13 @@ export const englishModalKeys = [
   'share',
 ] as const;
 
-export type SlugKeys = 'work' | 'skills' | 'about' | 'archive' | 'email-reply';
+export type SlugKeys =
+  | 'work'
+  | 'skills'
+  | 'about'
+  | 'archive'
+  | 'email-reply'
+  | 'privacy-policy';
 
 /** Get all possible modal slugs in the different languages*/
 export const allModalKeys = Object.values(appRoutes).flatMap((lang) =>

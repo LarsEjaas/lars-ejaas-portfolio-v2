@@ -15,6 +15,7 @@ import Skills, { type TechSkillProps } from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
 import Archive from '@layouts/Archive.astro';
 import Description from '@content/techSkillDescriptions/Main.astro';
+import PrivacyPolicy from '@layouts/PrivacyPolicy.astro';
 
 type Props = Record<string, never>;
 
@@ -72,6 +73,22 @@ export function getStaticPaths() {
     },
     ['arkiv/besked-fejl']: {
       params: { lang: 'da', slug: 'arkiv', modal: 'besked-fejl' },
+    },
+    ['privatlivspolitik/del']: {
+      params: { lang: 'da', slug: 'privatlivspolitik', modal: 'del' },
+    },
+    ['privatlivspolitik/kontakt']: {
+      params: { lang: 'da', slug: 'privatlivspolitik', modal: 'kontakt' },
+    },
+    ['privatlivspolitik/besked-modtaget']: {
+      params: {
+        lang: 'da',
+        slug: 'privatlivspolitik',
+        modal: 'besked-modtaget',
+      },
+    },
+    ['privatlivspolitik/besked-fejl']: {
+      params: { lang: 'da', slug: 'privatlivspolitik', modal: 'besked-fejl' },
     },
   });
   return Object.values(paths);
@@ -391,6 +408,78 @@ const danishModalSlugMap: Record<
     modalComponent: ContactError,
     modalIcon: IconContact,
     pageTitle: t('archive'),
+    modalTitle: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/del']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ShareContent,
+    modalIcon: IconShare,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/kontakt']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ContactContent,
+    modalIcon: IconContact,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('contact'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/besked-modtaget']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ContactConfirmation,
+    modalIcon: IconContact,
+    pageTitle: t('privacy_policy'),
+    modalTitle: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Only index modalpages on the main index page
+      noIndex: true,
+    },
+  },
+  ['privatlivspolitik/besked-fejl']: {
+    pageComponent: PrivacyPolicy,
+    modalComponent: ContactError,
+    modalIcon: IconContact,
+    pageTitle: t('privacy_policy'),
     modalTitle: t('whoops'),
     description: t('contact_seo_description'),
     seo: {

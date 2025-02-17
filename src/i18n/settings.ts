@@ -8,6 +8,7 @@ import { archive } from './translations/archive';
 import { contact } from './translations/contact';
 import { emailReply } from './translations/emailReply';
 import { languages } from './languageDefinition.mts';
+import { privacyPolicy } from './translations/privacyPolicy';
 
 export type Language = keyof typeof languages;
 
@@ -25,6 +26,7 @@ export const translations = {
   archive,
   contact,
   emailReply,
+  privacyPolicy,
 } as const;
 
 export const showDefaultLang = false;

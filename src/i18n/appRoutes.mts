@@ -58,6 +58,7 @@ export const appRoutes = {
     skills: 'kompetencer',
     about: 'om-mig',
     archive: 'arkiv',
+    ['privacy-policy']: 'privatlivspolitik',
     ['email-reply']: 'email-svar',
     //slugs with modals
     ['work/contact']: 'arbejde/kontakt',
@@ -78,6 +79,10 @@ export const appRoutes = {
     ['archive/message-received']: 'arkiv/besked-modtaget',
     ['archive/message-error']: 'arkiv/besked-fejl',
     ['archive/share']: 'arkiv/del',
+    ['privacy-policy/contact']: 'privatlivspolitik/kontakt',
+    ['privacy-policy/message-received']: 'privatlivspolitik/besked-modtaget',
+    ['privacy-policy/message-error']: 'privatlivspolitik/besked-fejl',
+    ['privacy-policy/share']: 'privatlivspolitik/del',
   },
   // keys are in danish (this does not scale - would have to be changed if more than 2 languages should be supported)
   en: {
@@ -92,6 +97,7 @@ export const appRoutes = {
     about: 'about',
     archive: 'archive',
     ['email-reply']: 'email-reply',
+    ['privacy-policy']: 'privacy-policy',
     //slugs with modals
     ['work/contact']: 'work/contact',
     ['work/message-received']: 'work/message-received',
@@ -111,5 +117,9 @@ export const appRoutes = {
     ['archive/message-received']: 'archive/message-received',
     ['archive/message-error']: 'archive/message-error',
     ['archive/share']: 'archive/share',
+    ['privacy-policy/contact']: 'privacy-policy/contact',
+    ['privacy-policy/message-received']: 'privacy-policy/message-received',
+    ['privacy-policy/message-error']: 'privacy-policy/message-error',
+    ['privacy-policy/share']: 'privacy-policy/share',
   },
 } as const;

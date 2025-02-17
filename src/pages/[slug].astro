@@ -8,6 +8,7 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import Description from '@content/techSkillDescriptions/Main.astro';
 import Archive from '@layouts/Archive.astro';
 import EmailReply from '@layouts/EmailReply.astro';
+import PrivacyPolicy from '@layouts/PrivacyPolicy.astro';
 
 type Props = Record<string, never>;
 
@@ -24,6 +25,7 @@ export function getStaticPaths() {
     about: { params: { slug: 'about' } },
     archive: { params: { slug: 'archive' } },
     'email-reply': { params: { slug: 'email-reply' } },
+    'privacy-policy': { params: { slug: 'privacy-policy' } },
   });
   return Object.values(paths);
 }
@@ -110,6 +112,7 @@ const englishSlugMap: Record<
   'email-reply': {
     component: EmailReply,
     title: t('thank_you_for_your_email'),
+    description: t('contact_seo_description'),
     seo: {
       openGraph: {
         image: {
@@ -120,7 +123,19 @@ const englishSlugMap: Record<
       //Do not index this reply-page
       noIndex: true,
     },
-    description: t('contact_seo_description'),
+  },
+  'privacy-policy': {
+    component: PrivacyPolicy,
+    title: t('privacy_policy'),
+    description: t('privacy_policy_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'default_en',
+          alt: t('default_seo_image_alt'),
+        },
+      },
+    },
   },
 };
 
