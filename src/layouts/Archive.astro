@@ -55,77 +55,80 @@ const newsGridItems =
       <p class="body-text">{t_arch('welcome_to_memory_lane')}</p>
     </div>
   </div>
-  <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
-  <div class="fullgrid">
-    <h2>
-      {t_arch('old_versions_of_my_website')}
-    </h2>
-    <p class="body-text">{t_arch('curious_how_my_website')}</p>
+  <div class={styles.animationTimeline}>
+    <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
+    <div class="fullgrid">
+      <h2>
+        {t_arch('old_versions_of_my_website')}
+      </h2>
+      <p class="body-text">{t_arch('curious_how_my_website')}</p>
+    </div>
+    <div class={styles.firstGridColumn}>
+      <WorkCard
+        className={styles.animatedWorkCard}
+        inert={inert}
+        id="larsEjaasComVersionOne"
+        animatedHeader
+        href={lang === 'en'
+          ? 'https://larsejaasv1.netlify.app/en'
+          : 'https://larsejaasv1.netlify.app'}
+        animationDelay={0}
+        viewTransitionName="lars-ejaas-card"
+        subHeadline={t_arch('larsejaas_v1_subheadline')}
+        headerImage={LarsEjaasComV1HeaderImage}
+        headerImageAlt={t_arch('lars_ejaas_v1_image_alt')}
+        date={t_arch('lars_ejaas_v1_date')}
+      >
+        <p class="small-body-text">
+          {t_arch('lars_ejaas_com_v1_description')}
+        </p>
+      </WorkCard>
+    </div>
+    {
+      newsGridItems && (
+        <>
+          <div class={`fullgrid ${styles.animatedText}`} id="oldNews">
+            <h2>{t_arch('old_news')}</h2>
+            <p class="body-text">{t_arch('welcome_to')}</p>
+          </div>
+          <div class={`fullgrid ${styles.newsGrid}`}>
+            {[...newsGridItems].reverse().map(async (item, index) => {
+              const imageName = item.imageSrc;
+              const imageImport = Object.entries(newsImages).find(([path]) =>
+                path.includes(imageName)
+              );
+
+              if (!imageImport) {
+                throw new Error(`News image not found for: ${imageName}`);
+              }
+              const ImageComponent = ((await imageImport[1]()) as ImageModule)
+                .default;
+
+              const isExtURL = isExternalLink(item.href);
+
+              return (
+                <a
+                  class={styles.articleCard}
+                  data-arrow-nav="true"
+                  id={`card${index}`}
+                  href={item.href}
+                  {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
+                >
+                  <ArticleCard
+                    title={item.title}
+                    description={item.description}
+                    date={item.date}
+                    imageAlt={item.imageAlt}
+                    outline={item.outline}
+                    index={0}
+                    image={ImageComponent}
+                  />
+                </a>
+              );
+            })}
+          </div>
+        </>
+      )
+    }
   </div>
-  <div class={styles.firstGridColumn}>
-    <WorkCard
-      inert={inert}
-      id="larsEjaasComVersionOne"
-      animatedHeader
-      href={lang === 'en'
-        ? 'https://larsejaasv1.netlify.app/en'
-        : 'https://larsejaasv1.netlify.app'}
-      animationDelay={0}
-      viewTransitionName="lars-ejaas-card"
-      subHeadline={t_arch('larsejaas_v1_subheadline')}
-      headerImage={LarsEjaasComV1HeaderImage}
-      headerImageAlt={t_arch('lars_ejaas_v1_image_alt')}
-      date={t_arch('lars_ejaas_v1_date')}
-    >
-      <p class="small-body-text">
-        {t_arch('lars_ejaas_com_v1_description')}
-      </p>
-    </WorkCard>
-  </div>
-  {
-    newsGridItems && (
-      <>
-        <div class="fullgrid" id="oldNews">
-          <h2>{t_arch('old_news')}</h2>
-          <p class="body-text">{t_arch('welcome_to')}</p>
-        </div>
-        <div class={`fullgrid ${styles.newsGrid}`}>
-          {[...newsGridItems].reverse().map(async (item, index) => {
-            const imageName = item.imageSrc;
-            const imageImport = Object.entries(newsImages).find(([path]) =>
-              path.includes(imageName)
-            );
-
-            if (!imageImport) {
-              throw new Error(`News image not found for: ${imageName}`);
-            }
-            const ImageComponent = ((await imageImport[1]()) as ImageModule)
-              .default;
-
-            const isExtURL = isExternalLink(item.href);
-
-            return (
-              <a
-                class={styles.articleCard}
-                data-arrow-nav="true"
-                id={`card${index}`}
-                href={item.href}
-                {...(isExtURL ? { target: '_blank', rel: 'noreferrer' } : {})}
-              >
-                <ArticleCard
-                  title={item.title}
-                  description={item.description}
-                  date={item.date}
-                  imageAlt={item.imageAlt}
-                  outline={item.outline}
-                  index={0}
-                  image={ImageComponent}
-                />
-              </a>
-            );
-          })}
-        </div>
-      </>
-    )
-  }
 </Layout>

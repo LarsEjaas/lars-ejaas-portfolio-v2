@@ -61,9 +61,9 @@
     @media (prefers-reduced-motion: no-preference) {
       & .animatedWorkCard,
       & .animatedText:not([data-mobile-animation='false']) {
-        animation: var(--animation-scale-up) linear both;
+        animation: var(--animation-scale-up);
         animation-timeline: view();
-        animation-range: entry 10% entry-crossing 200px;
+        animation-range: var(--scale-up-animation-range);
       }
     }
   }
@@ -72,9 +72,9 @@
       grid-row: 5;
       @supports (animation-timeline: view()) {
         @media (prefers-reduced-motion: no-preference) {
-          animation: var(--animation-scale-up) linear both;
+          animation: var(--animation-scale-up);
           animation-timeline: view();
-          animation-range: entry 10% entry-crossing 200px;
+          animation-range: var(--scale-up-animation-range);
         }
       }
     }

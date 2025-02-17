@@ -191,7 +191,8 @@
     --default-font: 'Mona-Sans', 'Arial', 'sans-serif';
     --outline-offset: 5px;
     --scrollbar-width: 12px;
-    --animation-scale-up: scale-up;
+    --animation-scale-up: scale-up linear both;
+    --scale-up-animation-range: entry 10% entry-crossing 240px;
     background: light-dark(#aebabb, var(--system-LIGHT_100));
     min-height: 100vh;
     overflow-y: auto;

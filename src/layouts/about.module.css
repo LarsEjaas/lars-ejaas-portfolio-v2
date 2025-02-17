@@ -56,11 +56,9 @@
     @media (prefers-reduced-motion: no-preference) {
       & .textContent,
       & .drawingHouse {
-        animation-name: var(--animation-scale-up);
-        animation-fill-mode: both;
-        animation-timing-function: linear;
+        animation: var(--animation-scale-up);
         animation-timeline: view();
-        animation-range: entry 10% entry-crossing 200px;
+        animation-range: var(--scale-up-animation-range);
       }
     }
   }
@@ -83,11 +81,9 @@
     grid-row: 3;
     @supports (animation-timeline: view()) {
       @media (prefers-reduced-motion: no-preference) {
-        animation-name: var(--animation-scale-up);
-        animation-fill-mode: both;
-        animation-timing-function: linear;
+        animation: var(--animation-scale-up);
         animation-timeline: view();
-        animation-range: entry 10% entry-crossing 200px;
+        animation-range: var(--scale-up-animation-range);
       }
     }
   }

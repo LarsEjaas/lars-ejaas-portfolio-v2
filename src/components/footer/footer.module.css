@@ -34,7 +34,7 @@
   margin-inline: auto;
   padding: 2rem;
   @media (max-width: 768px) {
-    grid-column: 1;
+    justify-content: center;
     padding-inline: 1rem;
     padding-bottom: 1rem;
     margin-bottom: 6rem;
@@ -43,11 +43,11 @@
   & .footerMenu {
     & ul {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
       gap: 16px;
-      & li {
-        display: flex;
+      flex-wrap: wrap;
+      & li a {
+        text-wrap: nowrap;
       }
     }
   }
@@ -55,7 +55,6 @@
   & nav {
     margin-inline: auto;
     grid-row: 1;
-    position: relative;
     & ul {
       list-style-type: none;
       padding: 0;
@@ -75,9 +74,7 @@
     }
     & a {
       font-weight: 600;
-      display: inline-flex;
       user-select: none;
-      height: auto;
       border-radius: var(--border-radius-sm);
       outline-offset: var(--outline-offset);
       text-decoration: underline transparent;
