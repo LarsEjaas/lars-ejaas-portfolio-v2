@@ -53,10 +53,12 @@ const t_work = useTranslations(lang, 'work');
   <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_work('work_title')} iconImage="work" />
-    <h2>
-      {t_work('professional_developer_journey')}
-    </h2>
-    <p class="body-text">{t_work('from_code_to_career')}</p>
+    <div>
+      <h2>
+        {t_work('professional_developer_journey')}
+      </h2>
+      <p class="body-text">{t_work('from_code_to_career')}</p>
+    </div>
   </div>
   <div class={styles.animationTimeline}>
     <FloatingBalloons

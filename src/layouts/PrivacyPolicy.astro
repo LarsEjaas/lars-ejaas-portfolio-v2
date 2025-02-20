@@ -36,15 +36,47 @@ const t = useTranslations(lang, 'privacyPolicy');
   <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t('privacy_policy_title')} iconImage="lock" />
-    <!-- <div>
+    <div>
       <h2>
-        {t('looking_for_old_content')}
+        {t('introduction')}
       </h2>
-      <p class="body-text">{t('welcome_to_memory_lane')}</p>
+      <p class="body-text" set:html={t('this_page_uses')} />
     </div>
-  </div> -->
-    <div class={styles.animationTimeline}>
-      <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
+  </div>
+  <div class={styles.animationTimeline}>
+    <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
+    <div>
+      <div class={styles.animatedText}>
+        <h3>
+          {t('data_collection_and_privacy')}
+        </h3>
+        <p class="body-text">{t('piwik_pro_stores_data')}</p>
+      </div>
+      <div class={styles.animatedText}>
+        <h3>
+          {t('analytics_usage')}
+        </h3>
+        <p class="body-text">{t('i_track_metrics_like')}</p>
+      </div>
+    </div>
+    <div>
+      <div class={styles.animatedText}>
+        <h3>
+          {t('data_storage')}
+        </h3>
+        <p class="body-text">{t('piwik_pro_host')}</p>
+      </div>
+      <div class={styles.animatedText}>
+        <h3>
+          {t('data_sharing_and_purpose')}
+        </h3>
+        <span class="body-text">{`${t('piwik_pro_does_not')} `}</span><a
+          href="https://piwik.pro/privacy-policy/#product"
+          target="_blank">{t('piwik_pros_privacy_policy')}</a
+        >
+        <span class="body-text">.</span><br /><br />
+        <p class="body-text">{t('it_is_important')}</p>
+      </div>
     </div>
   </div>
 </Layout>

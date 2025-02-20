@@ -79,10 +79,12 @@ const DescriptionComponent = skillDescription;
   <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
-    <h2>
-      {t_skills('browse_my_tech_skills')}
-    </h2>
-    <p class="body-text">{t_skills('although_i_have')}</p>
+    <div>
+      <h2>
+        {t_skills('browse_my_tech_skills')}
+      </h2>
+      <p class="body-text">{t_skills('although_i_have')}</p>
+    </div>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
   <div id="skillPresentation">

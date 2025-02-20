@@ -2,9 +2,7 @@
   display: contents;
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      & .animatedWorkCard,
-      & .animatedText:not([data-mobile-animation='false']),
-      & .articleCard {
+      & .animatedText:not([data-mobile-animation='false']) {
         animation: var(--animation-scale-up);
         animation-timeline: view();
         animation-range: var(--scale-up-animation-range);

@@ -72,17 +72,15 @@
       border-radius: var(--border-radius-lg);
       text-decoration: underline transparent;
       transition:
-        text-decoration-color 250ms,
+        text-decoration-color 300ms,
         background-color 300ms;
+      transition-timing-function: linear;
       display: flex;
       align-items: center;
       gap: 8px;
       &:hover,
       &:focus-visible {
         text-decoration-color: currentColor;
-        transition:
-          text-decoration-color 400ms,
-          background-color 300ms;
         background-color: var(--system-dark-200-16);
       }
 

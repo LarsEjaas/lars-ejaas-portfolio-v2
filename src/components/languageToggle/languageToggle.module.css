@@ -16,7 +16,10 @@
     border-radius: var(--border-radius-sm);
     outline-offset: var(--outline-offset);
     text-decoration: underline transparent;
-    transition: text-decoration-color 0.25s;
+    transition:
+      text-decoration-color 300ms,
+      color 300ms;
+    transition-timing-function: linear;
     &:not([aria-disabled]):hover,
     &:not([aria-disabled]):focus-visible {
       text-decoration-color: currentColor;

@@ -65,6 +65,7 @@ export const navigation = {
     thank_you_for_your_email: 'Thank you for your email',
     rights:
       'All rights reserved Lars Ejaas. Please contact me directly to get my consent before using any content from this page.',
+    sitemap_label: 'Sitemap',
   },
   da: {
     section_with_arrow_nav:
@@ -126,5 +127,6 @@ export const navigation = {
     thank_you_for_your_email: 'Tak for din e-mail',
     rights:
       'Alle rettigheder forbeholdes Lars Ejaas. Kontakt mig direkte for at få mit samtykke, inden du bruger indhold fra denne side.',
+    sitemap_label: 'Sitemap',
   },
 } as const;
