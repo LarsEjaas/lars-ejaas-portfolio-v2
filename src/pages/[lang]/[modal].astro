@@ -41,7 +41,7 @@ const danishModalMap: Record<
   ModalTypes<'da'>,
   {
     component: AstroComponentFactory;
-    icon: ImageMetadata;
+    modalIcon: ImageMetadata;
     title: string;
     description: string;
     seo: {
@@ -57,7 +57,7 @@ const danishModalMap: Record<
 > = {
   del: {
     component: ShareContent,
-    icon: IconShare,
+    modalIcon: IconShare,
     title: t('share'),
     description: t('share_seo_description'),
     seo: {
@@ -71,7 +71,7 @@ const danishModalMap: Record<
   },
   kontakt: {
     component: ContactContent,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('contact_title'),
     description: t('contact_seo_description'),
     seo: {
@@ -85,7 +85,7 @@ const danishModalMap: Record<
   },
   ['besked-modtaget']: {
     component: ContactConfirmation,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('thank_you'),
     description: t('contact_seo_description'),
     seo: {
@@ -101,7 +101,7 @@ const danishModalMap: Record<
   },
   ['besked-fejl']: {
     component: ContactError,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('whoops'),
     description: t('contact_seo_description'),
     seo: {
@@ -120,7 +120,7 @@ const danishModalMap: Record<
 const ModalContent: AstroComponentFactory | undefined =
   danishModalMap[modal]?.component;
 
-const iconImage = danishModalMap[modal]?.icon;
+const iconImage = danishModalMap[modal]?.modalIcon;
 
 const modalTitle = danishModalMap[modal]?.title;
 
@@ -151,7 +151,7 @@ if (!modalTitle) {
 ---
 
 <HomeLayout
-  title={modalTitle}
+  title={t('home')}
   lang={lang}
   inert
   seo={{

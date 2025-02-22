@@ -107,9 +107,10 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                     }}
                   />
                 </div>
-                <p class="small-body-text">
-                  {t_home('hi_there')}
-                </p>
+                <p
+                  class="small-body-text"
+                  set:html={t_home('got_something_on')}
+                />
               </div>
             </a>
           </Sparkle>

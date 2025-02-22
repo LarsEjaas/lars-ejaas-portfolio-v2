@@ -85,6 +85,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       <a
         data-arrow-nav="true"
         role="option"
+        title={t('work')}
         href={translatePath('/work/')}
         data-current={Astro.url.pathname.startsWith(translatePath('/work/')) ||
           undefined}
@@ -113,6 +114,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       <a
         data-arrow-nav="true"
         role="option"
+        title={t('skills')}
         href={translatePath('/skills/')}
         data-current={Astro.url.pathname === translatePath('/skills/') ||
           undefined}
@@ -140,6 +142,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       <a
         data-arrow-nav="true"
         role="option"
+        title={t('about')}
         href={translatePath('/about/')}
         data-current={Astro.url.pathname.startsWith(translatePath('/about/')) ||
           undefined}

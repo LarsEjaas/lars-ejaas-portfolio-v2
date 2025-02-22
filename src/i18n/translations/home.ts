@@ -12,7 +12,8 @@ export const home = {
     news_archive_title: 'Read older news',
     next: 'Scroll to next news card',
     previous: 'Scroll to previous news card',
-    hi_there: 'Hi there!\nFeel free to drop me a message anytime.',
+    got_something_on:
+      '<b>Got something on your mind?</b><br>Drop me a message here...',
     contact: 'Contact me directly via email',
   },
   da: {
@@ -28,7 +29,8 @@ export const home = {
     news_archive_title: 'Læs ældre nyheder',
     next: 'Scroll til det næste kort',
     previous: 'Scroll til det forrige kort',
-    hi_there: 'Hejsa!\nDu er altid velkommen til at sende mig en besked',
+    got_something_on:
+      '<b>Har du noget på hjertet?</b><br>Du kan skrive til mig lige her...',
     contact: 'Kontakt mig direkte via e-mail',
   },
 } as const;

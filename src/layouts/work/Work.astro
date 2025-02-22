@@ -6,10 +6,15 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './work.module.css';
 import WorkCard from '@components/workCard/WorkCard.astro';
 import FriggTechHeaderImage from '@assets/images/frigg_tech_hero.png';
+import FriggTechFooterImage from '@assets/images/frigg_tech_footer_image.png';
 import AccuRankerHeaderImage from '@assets/images/accuranker_grump_wall.jpg';
 import SallingGroupHeaderImage from '@assets/images/salling_group_digital.png';
 import BruceWillisHeaderImage from '@assets/images/bruce_willis_rocks.png';
+import BruceWillisFooterImage1 from '@assets/images/bruce_willis_footer_image_1.png';
+import BruceWillisFooterImage2 from '@assets/images/bruce_willis_footer_image_2.png';
 import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
+import LarsEjaasComV1FooterImage1 from '@assets/images/larsejaas_v1_footer_image_1.png';
+import LarsEjaasComV1FooterImage2 from '@assets/images/larsejaas_v1_footer_image_2.png';
 import SallingGroupFooter1 from '@assets/images/foetex_hjem_app.png';
 import SallingGroupFooter2 from '@assets/images/foetex_levering_servicebud.jpg';
 import SallingGroupFooter3 from '@assets/images/foetex_levering_til_doeren.png';
@@ -20,6 +25,7 @@ import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
 import InfoIcon from './infoIcon.astro';
+import gitHubLogo from '@components/footer/gitHubLogo.svg';
 import type { DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 
@@ -55,7 +61,7 @@ const t_work = useTranslations(lang, 'work');
     <PageLabel title={t_work('work_title')} iconImage="work" />
     <div>
       <h2>
-        {t_work('professional_developer_journey')}
+        {t_work('professional_developer_experience')}
       </h2>
       <p class="body-text">{t_work('from_code_to_career')}</p>
     </div>
@@ -64,6 +70,7 @@ const t_work = useTranslations(lang, 'work');
     <FloatingBalloons
       class={styles.floatingBalloons}
       balloonColor="aquamarine"
+      maxHeight={400}
     />
     <WorkCard
       data-mobile-animation="false"
@@ -88,21 +95,22 @@ const t_work = useTranslations(lang, 'work');
       ]}
       footerImages={[
         {
-          src: FriggTechHeaderImage,
-          alt: '-',
+          src: FriggTechFooterImage,
+          alt: '',
           id: 'FriggTechFooterImage',
         },
       ]}
     >
-      <p class="small-body-text">
-        {t_work('friggtech_employment_description')}
-      </p>
+      <p
+        class="small-body-text"
+        set:html={t_work('friggtech_employment_description')}
+      />
       <Popover
         id="friggTech"
         buttonLabel={t_work('learn_more_about_friggtech')}
       >
         <div class={styles.flexWrapper} slot="buttonContent">
-          <p class={`${styles.popoverDesc} body-text`}>
+          <p class={styles.popoverDesc}>
             {t_work('about')}
           </p>
           <FriggTechLogo />
@@ -110,7 +118,9 @@ const t_work = useTranslations(lang, 'work');
         </div>
         <div class={styles.flexColumnWrapper}>
           <FriggTechLogo width={160} />
-          <p class="small-body-text">{t_work('friggtech_is_a_danish')}</p>
+          <p class="small-body-text">
+            {t_work('friggtech_company_description')}
+          </p>
           <div class={styles.flexWrapper}>
             <p class=`${styles.websiteVisit} small-body-text`>
               {`${t_work('visit_website')}:`}
@@ -121,6 +131,11 @@ const t_work = useTranslations(lang, 'work');
               target="_blank"
               rel="noopener noreferrer">friggtech.dk</a
             >
+            {
+              lang === 'en' && (
+                <p class="small-body-text">(only available in Danish)</p>
+              )
+            }
           </div>
         </div>
       </Popover></WorkCard
@@ -170,15 +185,20 @@ const t_work = useTranslations(lang, 'work');
         },
       ]}
     >
-      <p class="small-body-text">
-        {t_work('accuranker_employment_description')}
-      </p>
+      <p
+        class="small-body-text"
+        set:html={t_work('accuranker_employment_description')}
+      />
       <Popover
         id="accuRanker"
         buttonLabel={t_work('learn_more_about_accuranker')}
       >
-        <div class={styles.flexWrapper} slot="buttonContent">
-          <p class={`${styles.popoverDesc} body-text`}>
+        <div
+          class={styles.flexWrapper}
+          data-accuranker="true"
+          slot="buttonContent"
+        >
+          <p class={styles.popoverDesc}>
             {t_work('about')}
           </p>
           <AccuRankerLogoWithTitle />
@@ -186,7 +206,9 @@ const t_work = useTranslations(lang, 'work');
         </div>
         <div class={styles.flexColumnWrapper}>
           <AccuRankerLogoWithTitle width={160} />
-          <p class="small-body-text">{t_work('accuranker_is_a_danish')}</p>
+          <p class="small-body-text">
+            {t_work('accuranker_company_description')}
+          </p>
           <div class={styles.flexWrapper}>
             <p class=`${styles.websiteVisit} small-body-text`>
               {`${t_work('visit_website')}:`}
@@ -244,15 +266,16 @@ const t_work = useTranslations(lang, 'work');
         },
       ]}
     >
-      <p class="small-body-text">
-        {t_work('salling_group_employment_description')}
-      </p>
+      <p
+        class="small-body-text"
+        set:html={t_work('salling_group_employment_description')}
+      />
       <Popover
         id="sallingGroup"
         buttonLabel={t_work('learn_more_about_salling_group')}
       >
         <div class={styles.flexWrapper} slot="buttonContent">
-          <p class={`${styles.popoverDesc} body-text`}>
+          <p class={styles.popoverDesc}>
             {t_work('about')}
           </p>
           <SallingGroupLogo />
@@ -260,7 +283,9 @@ const t_work = useTranslations(lang, 'work');
         </div>
         <div class={styles.flexColumnWrapper}>
           <SallingGroupLogo width={160} />
-          <p class="small-body-text">{t_work('salling_group_is_denmarks')}</p>
+          <p class="small-body-text">
+            {t_work('salling_group_company_description')}
+          </p>
           <div class={styles.flexWrapper}>
             <p class=`${styles.websiteVisit} small-body-text`>
               {`${t_work('visit_website')}:`}
@@ -303,11 +328,46 @@ const t_work = useTranslations(lang, 'work');
         { title: 'Gatsby', href: 'skills/gatsby' },
         { title: 'Styled Components', href: 'skills/styled-components' },
       ]}
+      footerImages={[
+        {
+          src: BruceWillisFooterImage1,
+          alt: '',
+          id: 'BruceWillisFooterImage1',
+        },
+        {
+          src: BruceWillisFooterImage2,
+          alt: '',
+          id: 'BruceWillisFooterImage2',
+        },
+      ]}
     >
-      <p class="small-body-text">
+      <p class={`${styles.textWithMargin} small-body-text`}>
         {t_work('bruce_willis_description')}
-      </p></WorkCard
-    >
+      </p>
+      <a
+        class={styles.buttonLink}
+        href="https://github.com/LarsEjaas/bruce-willis-app"
+        aria-label={t_work('view_code_on_github')}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class={styles.flexWrapper}>
+          <p class={styles.popoverDesc}>
+            {t_work('view_code_on')}
+          </p>
+          <div
+            class={styles.githubLogo}
+            aria-hidden="true"
+            style={{
+              maskImage: `url(${gitHubLogo.src})`,
+              width: `${gitHubLogo.width}px`,
+              height: `${gitHubLogo.height}px`,
+            }}
+          >
+          </div>
+        </div>
+      </a>
+    </WorkCard>
     <WorkCard
       className={`${styles.workCardLazy} ${styles.animatedWorkCard}`}
       inert={inert}
@@ -329,10 +389,23 @@ const t_work = useTranslations(lang, 'work');
         { title: 'Gatsby', href: 'skills/gatsby' },
         { title: 'CSS', href: 'skills/css' },
       ]}
+      footerImages={[
+        {
+          src: LarsEjaasComV1FooterImage1,
+          alt: '',
+          id: 'LarsEjaasComV1FooterImage1',
+        },
+        {
+          src: LarsEjaasComV1FooterImage2,
+          alt: '',
+          id: 'LarsEjaasComV1FooterImage2',
+        },
+      ]}
     >
-      <p class="small-body-text">
-        {t_work('lars_ejaas_com_description')}
-      </p>
+      <p
+        class={`${styles.textWithMargin} small-body-text`}
+        set:html={t_work('lars_ejaas_com_description')}
+      />
     </WorkCard>
   </div>
 </Layout>

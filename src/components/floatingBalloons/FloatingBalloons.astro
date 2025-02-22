@@ -6,6 +6,7 @@ import Balloon from './Balloon.astro';
 type Props = Pick<BalloonProps, 'balloonColor'> & {
   coverPhoto?: ImageMetadata;
   class?: string | undefined;
+  maxHeight?: number;
 };
 
 export type BalloonConfig = {
@@ -46,7 +47,7 @@ const BALLOON_ANIMATION_CONFIG: Record<BalloonProps['variant'], BalloonConfig> =
     },
   };
 
-const { balloonColor, coverPhoto } = Astro.props;
+const { balloonColor, coverPhoto, maxHeight } = Astro.props;
 ---
 
 <script>
@@ -142,7 +143,13 @@ const { balloonColor, coverPhoto } = Astro.props;
 </script>
 
 <div class={`${styles.balloonsWrapper} ${Astro.props.class ?? ''}`}>
-  <div id="floating" class={styles.floatingBalloons}>
+  <div
+    id="floating"
+    class={styles.floatingBalloons}
+    style={{
+      ...(maxHeight ? { 'max-height': `${maxHeight}px` } : []),
+    } as astroHTML.JSX.CSSProperties}
+  >
     <Balloon
       variant="two"
       balloonColor={balloonColor}

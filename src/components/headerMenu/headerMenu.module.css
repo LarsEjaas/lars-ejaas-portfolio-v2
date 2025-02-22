@@ -29,6 +29,7 @@
 .desktopMenu {
   gap: 16px;
   width: 100%;
+  min-height: 64px;
   max-width: var(--break-point--2-xl);
   margin-inline: auto;
   padding-block: 4px;
@@ -127,7 +128,7 @@
   min-width: 0;
   & :global(.squircle) {
     flex-shrink: 1;
-    min-width: 0;
+    min-width: 24px;
   }
   & picture {
     width: 40px;
@@ -137,6 +138,11 @@
     width: 100%;
     aspect-ratio: 1/1;
     clip-path: url('#squircle');
+  }
+  & p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

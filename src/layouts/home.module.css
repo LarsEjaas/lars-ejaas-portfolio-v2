@@ -122,6 +122,9 @@
   & p {
     z-index: 1;
     color: light-dark(var(--system-dark-400), var(--system-dark-100));
+    & b {
+      color: light-dark(var(--system-dark-200), var(--system-dark-300));
+    }
   }
 }
 

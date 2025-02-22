@@ -38,7 +38,7 @@ const modalMap: Record<
   ModalTypes<'en'>,
   {
     component: AstroComponentFactory;
-    icon: ImageMetadata;
+    modalIcon: ImageMetadata;
     title: string;
     description: string;
     seo: {
@@ -54,7 +54,7 @@ const modalMap: Record<
 > = {
   share: {
     component: ShareContent,
-    icon: IconShare,
+    modalIcon: IconShare,
     title: t('share'),
     description: t('share_seo_description'),
     seo: {
@@ -68,7 +68,7 @@ const modalMap: Record<
   },
   contact: {
     component: ContactContent,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('contact_title'),
     description: t('contact_seo_description'),
     seo: {
@@ -82,7 +82,7 @@ const modalMap: Record<
   },
   ['message-received']: {
     component: ContactConfirmation,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('thank_you'),
     description: t('contact_seo_description'),
     seo: {
@@ -98,7 +98,7 @@ const modalMap: Record<
   },
   ['message-error']: {
     component: ContactError,
-    icon: IconContact,
+    modalIcon: IconContact,
     title: t('whoops'),
     description: t('contact_seo_description'),
     seo: {
@@ -117,7 +117,7 @@ const modalMap: Record<
 const ModalContent: AstroComponentFactory | undefined =
   modalMap[modal]?.component;
 
-const iconImage = modalMap[modal]?.icon;
+const iconImage = modalMap[modal]?.modalIcon;
 
 const modalTitle = modalMap[modal]?.title;
 
@@ -148,7 +148,7 @@ if (!modalTitle) {
 ---
 
 <HomeLayout
-  title={modalTitle}
+  title={t('home')}
   lang={lang}
   inert
   seo={{

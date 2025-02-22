@@ -65,7 +65,7 @@
 .button {
   border: unset;
   background: unset;
-  padding: 4px 8px;
+  padding: 8px 12px;
   display: flex;
   cursor: pointer;
   outline-offset: var(--outline-offset);

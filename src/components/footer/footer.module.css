@@ -25,7 +25,6 @@
 
 .someLinks {
   margin-inline: auto;
-  padding-left: 40px;
   justify-self: center;
 }
 
@@ -184,26 +183,22 @@
     grid-row: 3;
     grid-column: 1/3;
   }
-  .flexWrapper {
-    grid-column: 1/3;
+  .sitemapIcon {
+    grid-column: 2/3;
   }
 }
 
-.flexWrapper {
-  display: flex;
+.sitemapIcon {
+  line-height: 0;
+  font-weight: 600;
+  margin-left: auto;
+  border-radius: var(--border-radius-sm);
+  outline-offset: var(--outline-offset);
   color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-  gap: 16px;
-  & .sitemapIcon {
-    margin-left: auto;
-    line-height: 0;
-    font-weight: 600;
-    border-radius: var(--border-radius-sm);
-    outline-offset: var(--outline-offset);
-    &:hover,
-    &:focus-visible,
-    &:active,
-    &:visited {
-      color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-    }
+  &:hover,
+  &:focus-visible,
+  &:active,
+  &:visited {
+    color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
   }
 }
