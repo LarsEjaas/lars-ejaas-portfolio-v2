@@ -115,6 +115,8 @@ declare global {
     contactTextArea: HTMLTextAreaElement | null;
     writeToMe: HTMLFormElement | null;
     firstName: HTMLTableCellElement | null;
+    //404 page
+    goBack: HTMLDivElement | null;
     navigation: Navigation;
     onpagereveal?: (event: PageRevealEvent) => void;
     onpageswap?: (event: PageSwapEvent) => void;

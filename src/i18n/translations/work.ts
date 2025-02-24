@@ -26,7 +26,7 @@ export const work = {
       'Salling Group Digital logo on a purple background',
     salling_group_employment_date: 'Oct 2021 - Apr 2022',
     salling_group_employment_description:
-      'Work in a dedicated frontend team to build and launch the føtex Home Delivery mobile app (Android/iOS) from ground up.\n\nHandling targeted development tasks for the føtex grocery home delivery website.\n\nWork in an Agile Scrum-inspired environment.',
+      'Work in a dedicated frontend team to build and launch the føtex Home Delivery mobile app (Android/iOS) from ground up.\n\nWork on targeted development tasks for the føtex grocery home delivery website.\n\nPart of an Agile Scrum-inspired environment.',
     visit_website: 'Visit website',
     learn_more_about_salling_group: 'Learn more about Salling Group',
     salling_group_company_description:
@@ -34,12 +34,12 @@ export const work = {
     about: 'About',
     passion_projects: 'Passion Projects',
     where_curiosity_meets_code:
-      'Where Curiosity Meets Code: Because being a developer is about more than work — sometimes it’s just about the joy of building, exploring new technologies, and experimenting with creative solutions.',
+      'Where curiosity meets code: Because being a developer is about more than work — sometimes it’s just about the joy of building, exploring new technologies, and experimenting with creative solutions.',
     a_tributee_to_bruce_willis: 'A Tribute to Bruce Willis',
     bruce_willis_image_alt: 'Screenshot from the Bruce Willis Rocks webapp',
     bruce_willis_date: 'May 2021',
     bruce_willis_description:
-      'This web application was created as a personal tribute to one of Hollywood’s most iconic movie stars: Bruce Willis.\n\n- Built using TypeScript, which provided valuable hands-on experience with the language.\n- Styled-components for styling\n- REST API for fetching data from The Movie Database (TMDB).',
+      'This web application was created as a personal tribute to one of Hollywood’s most iconic movie stars: Bruce Willis.\n\n- Built using TypeScript\n- Styled Components for styling\n- Data-fetching from The Movie Database (TMDB)’s REST API-endpoints',
     view_code_on_github: 'View code on GitHub',
     view_code_on: 'View code on',
     larsejaas_v1_subheadline: 'larsejaas.com version 1',
@@ -47,33 +47,34 @@ export const work = {
       'Various screenshots from the original version of the larsejaas.com website',
     lars_ejaas_v1_date: 'Feb 2021',
     lars_ejaas_com_description:
-      'The first version of my developer portfolio was created as a hands-on project to deepen my experience with React. I used Gatsby.js as the static site generator, taking advantage of its React Hydration capabilities to build a fast, SEO-optimized website.\n\nKey features included:\n- Internationalization\n- Progressive Web App (PWA)\n- Contact Form with Serverless Function: Implemented a serverless function to send an automated response to users and deliver a copy to my inbox.\n\nAt the time, Gatsby was a widely adopted framework backed by a robust community, making it the ideal choice for building and learning.',
+      'The first version of my developer portfolio was created as a hands-on project to deepen my experience with React. I used a static site generator, taking advantage of React’s Hydration capabilities to build a fast, SEO-optimized website.\n\nKey features included:\n- Internationalization\n- Progressive Web App (PWA)\n- Contact Form leveraging Serverless Functions to send an auto-response plus a copy to my inbox.',
   },
   da: {
     work_title: 'Arbejde',
     professional_developer_experience: 'Erhvervserfaring som udvikler',
     from_code_to_career:
-      'Fra kode til karriere: Min vej som professionel udvikler. Jeg skaber løsninger med fokus på at gøre en forskel.\n\nSe mine professionelle milepæle herunder:',
+      'Løsning af konkrete problemer med kode: Mit arbejde med at udvikle brugerfokuserede digitale produkter.\n\nGennemse mine nuværende og tidligere ansættelser nedenfor:',
     software_developer: 'Software udvikler',
     friggtech_hero_image_alt: 'Lysegrønt Frigg Tech logo på mørkeblå baggrund',
     friggtech_employment_date: 'Jan 2025 - nu',
-    friggtech_employment_description: 'Frontend Udvikler',
+    friggtech_employment_description:
+      'Bygge og vedligeholde komponenter til brug i brugergrænsefladen i Frigg Techs webapplikation.\n\nBidrage til udviklingen af nye funktioner og funktionaliteter i for webplatformen.\n\nSamarbejde med resten af teamet om at sikre en høj kvalitet i implementationer på tværs af produktet.',
     learn_more_about_friggtech: 'Få mere at vide om Frigg Tech',
     friggtech_company_description:
-      'Frigg Tech specialiserer sig i at skabe skræddersyede softwareløsninger til danske virksomheder. Den innovative platform sparer virksomheder tid ved at samle data fra flere kilder i én brugervenlig web-applikation, der sikrer, at alle de oplysninger, de har brug for, kun er få klik væk.\n\nVed at samle store mængder offentlige data om ejendomme, enkeltpersoner og virksomheder i en enkelt, intuitiv grænseflade eliminerer Frigg Tech besværet med at navigere i mange databaser.\n\nFrigg Techs løsning er designet til at opfylde de unikke behov for eksempelvis ejendomsmæglerkæder, bank- og realkreditinstitutter.\nDen skræddersyede platform integreres problemfrit i eksisterende arbejdsgange, hvilket forbedrer driftseffektiviteten og produktiviteten.',
+      'Frigg Tech specialiserer sig i at skabe skræddersyede softwareløsninger til danske virksomheder. Den innovative platform sparer tid for virksomheders medarbejdere ved at samle data fra flere kilder i én brugervenlig web-applikation. Det sikrer, at alle relevante oplysninger kun er få klik væk.\n\nVed at samle store mængder offentlige data om ejendomme, enkeltpersoner og virksomheder i en enkelt, intuitiv brugergrænseflade eliminerer Frigg Tech besværet med at navigere i mange databaser.\n\nFrigg Techs løsning er designet til at udfylde de unikke behov for eksempelvis ejendomsmæglerkæder, bank- og realkreditinstitutter.\nDen skræddersyede platform integreres problemfrit i eksisterende arbejdsgange, hvilket forbedrer driftseffektiviteten og produktiviteten.',
     frontend_developer: 'Frontend Udvikler',
     accuranker_grump_image_alt:
       'AccuRanker-maskotten Grump monteret på en stenmur',
     accuranker_employment_date: 'Maj 2022 - dec 2024',
     accuranker_employment_description:
-      'Udvikle brugerflade samt brugervendte funktioner og funktionalitet til AccuRankers SaaS-applikation i tæt samarbejde med resten af teamet.\n\nImplementere nye funktioner, rette fejl og modernisere og forbedre eksisterende kode i applikationen.\n\nDeltage i forskellige webudviklingsprojekter til virksomhedens hjemmeside på accuranker.com.',
+      'Udvikle brugervendte features og funktionalitet til brugerfladen i AccuRankers SaaS-applikation i tæt samarbejde med resten af teamet.\n\nImplementere nye funktioner, rette fejl samt modernisere og forbedre eksisterende kode i applikationen.\n\nDeltage i forskellige webudviklingsprojekter til virksomhedens hjemmeside på accuranker.com.',
     learn_more_about_accuranker: 'Få mere at vide om AccuRanker',
     accuranker_company_description:
       'AccuRanker er en dansk softwarevirksomhed med base i Aarhus, der hjælper virksomheder med at forstå og forbedre deres synlighed på søgemaskiner som Google.\n\nHovedproduktet er en web-applikation, der automatisk overvåger hvor godt hjemmesider rangerer for specifikke søgetermer, og leverer detaljerede analyser og indsigter.\n\nFirmaet opererer med et lille, dedikeret team af primært on-site medarbejdere på deres kontor i Aarhus, suppleret af flere eksterne teammedlemmer.\n\nPlatformen håndterer dataindsamling og analyse i stor skala og behandler millioner af søgeresultater dagligt for at levere nøjagtige SEO data i realtid til kunderne.',
     salling_group_image_alt: 'Salling Group Digital logo på en lilla baggrund',
     salling_group_employment_date: 'Okt 2021 - apr 2022',
     salling_group_employment_description:
-      'Del af et lille dedikeret frontend-team, der arbejdede i et Agilt Scrum-inspireret miljø.\n\nTeamet arbejdede primært på udviklingen af en mobilapp til føtex hjemmelevering (Android/iOS) og var samtidig med til at udvikle løsninger til føtex hjemmeleverings hjemmeside.\n\nEn moderne tech stack opbygget om et stort monorepo for bedre at kunne genbruge kode på tværs af platforme.',
+      'Del af et dedikeret frontend-team for at udvikle og lancere føtex hjemmelevering mobilappen (Android/iOS).\n\nArbejde med målrettede udviklingsopgaver på hjemmesiden for føtex hjemmelevering.\n\nDel af et Agile Scrum-inspireret miljø.',
     visit_website: 'Besøg hjemmeside',
     learn_more_about_salling_group: 'Få mere at vide om Salling Group',
     salling_group_company_description:
@@ -81,17 +82,19 @@ export const work = {
     about: 'Om',
     passion_projects: 'Projekter med passion',
     where_curiosity_meets_code:
-      'Hvor nysgerrighed møder kode: Selvom du arbejder som udvikler betyder det ikke, at du også kan kode bare for sjov! Udforsk nogle af mine personlige projekter nedenfor:',
+      'Hvor nysgerrighed møder kode: Fordi det at være udvikler handler om mere end arbejde - nogle gange handler det også om glæden ved at bygge, udforske nye teknologier og eksperimentere med kreative løsninger.',
     a_tributee_to_bruce_willis: 'En hyldest til Bruce Willis',
     bruce_willis_image_alt: 'Skærmbilleder fra Bruce Willis Rocks web-appen',
     bruce_willis_date: 'Maj 2021',
-    bruce_willis_description: '',
+    bruce_willis_description:
+      'Denne webapplikation blev skabt som en personlig hyldest til en af Hollywoods mest ikoniske filmstjerner: Bruce Willis.\n\n- Kodet i TypeScript\n- Stylet med Styled Components\n- Data leveret af The Movie Database (TMDB) via REST API endpoints',
     view_code_on_github: 'Se kode på GitHub',
     view_code_on: 'Se kode på',
     larsejaas_v1_subheadline: 'larsejaas.com version 1',
     lars_ejaas_v1_image_alt:
       'Forskellige skærmbilleder fra den oprindelige version af hjemmesiden larsejaas.com',
     lars_ejaas_v1_date: 'Feb 2021',
-    lars_ejaas_com_description: '',
+    lars_ejaas_com_description:
+      'Den første version af min udvikler portfolio blev skabt som et projekt for at øge min erfaring med React. Jeg brugte en statisk website-generator og udnyttede React’s hydration-funktionalitet til at bygge et hurtigt, SEO-optimeret websted.\n\nNøglefunktioner omfattede:\n- Internationalisering\n- Progressive Web App (PWA)\n- Kontaktformular, der udnytter Serverless Functions til at sende et autosvar til afsender samt en kopi til min indbakke',
   },
 } as const;

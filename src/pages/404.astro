@@ -1,5 +1,5 @@
 ---
-import type { Language } from '@i18n/settings';
+import { defaultLang, type Language } from '@i18n/settings';
 import Layout from '@layouts/Root.astro';
 import '@layouts/global.css';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
@@ -19,6 +19,26 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 ---
 
+<script>
+  const internalReferer = document.referrer.startsWith(window.location.origin);
+  const IS_DEV = import.meta.env.DEV || false;
+  if (IS_DEV) {
+    console.info('document.referrer:', document.referrer);
+  }
+  if (
+    internalReferer &&
+    window.navigation.canGoBack &&
+    window.goBack instanceof HTMLDivElement
+  ) {
+    window.goBack.dataset.active = 'true';
+    const backButton = window.goBack.querySelector('button');
+    if (backButton) {
+      backButton.addEventListener('click', () => {
+        window.history.back();
+      });
+    }
+  }
+</script>
 <Layout
   inert={false}
   seo={{
@@ -27,11 +47,15 @@ const t = useTranslations(lang, 'navigation');
     // Do not index 404 page
     noIndex: true,
   }}
-  withDarkkModeToggle={false}
+  withDarkkModeToggle={true}
   withModalLinks={false}
 >
   <PageLabel title={t('not_found')} iconImage="alert" />
-  <FloatingBalloons balloonColor="bluemunsell" />
+  <FloatingBalloons
+    class={styles.floatingBalloons}
+    maxHeight={300}
+    balloonColor="bluemunsell"
+  />
   <div class={styles.centerWrapper}>
     <Picture
       aria-hidden="true"
@@ -47,5 +71,15 @@ const t = useTranslations(lang, 'navigation');
         style: `width: 80%;max-width: 520px; aspect-ratio: ${notFound404.width}/${notFound404.height}`,
       }}
     />
+    <div class={styles.textWrapper}>
+      <p>{t('the_page_you_are_looking_for')}</p>
+    </div>
+    <div id="goBack" class={styles.goBack}>
+      <button>{t('go_back')}</button>
+      <p>{`────${'   '}${t('or') || ''}${'   '}────`}</p>
+    </div>
+    <a href={lang === defaultLang ? '/' : `/${lang}/`}>
+      {t('go_to_home')}
+    </a>
   </div>
 </Layout>
