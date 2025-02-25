@@ -128,7 +128,7 @@ export const navigation = {
     not_found_title: '404 - Siden blev ikke fundet',
     not_found: 'Siden blev ikke fundet',
     the_page_you_are_looking_for:
-      'Siden, du leder efter, er enten blevet flyttet, slettet, omdøbt eller har måske aldrig eksisteret.',
+      'Siden du leder efter, er enten blevet flyttet, slettet, omdøbt eller har måske aldrig eksisteret.',
     go_back: 'Gå tilbage',
     or: 'eller',
     go_to_home: 'Gå hjem',
