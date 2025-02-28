@@ -287,10 +287,18 @@
     transition: text-decoration-color 0.25s;
     font-size: var(--font-size-3);
   }
-  & p {
+  & .articleDescription {
     font-size: var(--font-size-2);
     color: light-dark(var(--system-dark-200), var(--system-dark-100));
     white-space: pre-line;
+    line-clamp: 7;
+    -webkit-line-clamp: 7;
+    overflow: hidden;
+    text-wrap: pretty;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
   }
 }
 

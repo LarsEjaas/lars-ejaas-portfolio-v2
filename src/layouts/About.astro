@@ -41,6 +41,12 @@ const t_about = useTranslations(lang, 'about');
   <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_about('about_title')} iconImage="about" />
+    <div>
+      <h2>
+        {t_about('my_developers_journey')}
+      </h2>
+      <p class="body-text">{t_about('so_this_is_where')}</p>
+    </div>
     <PresentationCard
       gradientColor="princeton"
       title={t_about('hello')}

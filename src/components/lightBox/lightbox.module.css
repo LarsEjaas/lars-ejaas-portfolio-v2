@@ -145,8 +145,8 @@
       font-style: italic;
       color: light-dark(var(--system-dark-300), var(--system-light-300));
       text-wrap: pretty;
+      word-wrap: break-word;
       text-overflow: ellipsis;
-      display: inline;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       line-clamp: 2;

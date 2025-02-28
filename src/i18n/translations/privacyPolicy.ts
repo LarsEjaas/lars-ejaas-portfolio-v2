@@ -39,6 +39,6 @@ export const privacyPolicy = {
       'Piwik PRO sender ikke oplysningerne om dig til andre underleverandører eller tredjeparter og bruger dem ikke til egne formål. For mere information, læs',
     piwik_pros_privacy_policy: 'Piwik PRO’ privatlivspolitik',
     it_is_important:
-      'Det er vigtigt for mig at understrege, at jeg udelukkende bruger de indsamlede data til aggregerede webanalyseformål. Jeg anvender ikke andre script-tags på siden til nogen form for dataindsamling.',
+      'De indsamlede data anvendedes udelukkende til aggregerede webanalyseformål og der anvendes ikke andre script-tags på siden til nogen form for dataindsamling.',
   },
 } as const;

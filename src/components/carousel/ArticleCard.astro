@@ -70,7 +70,9 @@ const {
   <div class={styles.newsContent}>
     <div>
       <h3>{title}</h3>
-      <p id={`articleDescription${index}`}>{description}</p>
+      <p class={styles.articleDescription} id={`articleDescription${index}`}>
+        {description}
+      </p>
     </div>
     <div class={styles.date}>
       <p>{date}</p>

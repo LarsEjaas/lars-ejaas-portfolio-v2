@@ -1,6 +1,9 @@
 export const about = {
   en: {
     about_title: 'About',
+    my_developers_journey: 'My Developer’s Journey',
+    so_this_is_where:
+      'So, this is where you get to know a bit more about me.\nMy code has a backstory — and it begins far from a computer screen.\nRead along to learn more about my journey and why I choose this profession - a bit later in life than most...',
     hello: 'Hello',
     profile_lars_alt: 'Profile picture of Lars Ejaas',
     i_am: 'I am',
@@ -45,6 +48,9 @@ export const about = {
   },
   da: {
     about_title: 'Om mig',
+    my_developers_journey: 'Min udviklingsrejse',
+    so_this_is_where:
+      'Det er her du kan lære lidt mere om mig.\nForhistorien om hvorfor jeg begyndte at programmere begynder langt fra en computerskærm.\nLæs med og få mere at vide om min vej, og hvorfor jeg valgte dette erhverv - lidt senere i livet end de fleste...',
     hello: 'Hej',
     profile_lars_alt: 'Profilbillede af Lars Ejaas',
     i_am: 'Jeg er',
