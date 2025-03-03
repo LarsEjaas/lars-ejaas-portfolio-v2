@@ -37,7 +37,10 @@
   max-height: calc(100vh - min(20vh, 160px) - 40px);
   @media (max-width: 768px) {
     margin-top: 1rem;
-    max-height: calc(100vb - 2rem);
+    max-height: calc(
+      100vb - env(safe-area-inset-top, 0) - env(safe-area-inset-bottom, 0) -
+        2rem
+    );
   }
   padding: 0;
   display: flex;
