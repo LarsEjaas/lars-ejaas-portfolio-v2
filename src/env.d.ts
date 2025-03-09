@@ -84,6 +84,8 @@ declare global {
   };
 
   interface Window {
+    contactButton: HTMLAnchorElement | null;
+    footerMenuContact: HTMLAnchorElement | null;
     mainContent: HTMLElement | null;
     themeToggle: HTMLInputElement | null;
     themeToggleMobile: HTMLInputElement | null;
