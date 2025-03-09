@@ -5,21 +5,20 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './work.module.css';
 import WorkCard from '@components/workCard/WorkCard.astro';
-import FriggTechHeaderImage from '@assets/images/frigg_tech_hero.png';
 import FriggTechFooterImage from '@assets/images/frigg_tech_footer_image.png';
-import AccuRankerHeaderImage from '@assets/images/accuranker_grump_wall.jpg';
-import SallingGroupHeaderImage from '@assets/images/salling_group_digital.png';
 import BruceWillisHeaderImage from '@assets/images/bruce_willis_rocks.png';
 import BruceWillisFooterImage1 from '@assets/images/bruce_willis_footer_image_1.png';
 import BruceWillisFooterImage2 from '@assets/images/bruce_willis_footer_image_2.png';
 import LarsEjaasComV1HeaderImage from '@assets/images/lars_ejaas_com_v1.png';
 import LarsEjaasComV1FooterImage1 from '@assets/images/larsejaas_v1_footer_image_1.png';
 import LarsEjaasComV1FooterImage2 from '@assets/images/larsejaas_v1_footer_image_2.png';
-import SallingGroupFooter1 from '@assets/images/foetex_hjem_app.png';
-import SallingGroupFooter2 from '@assets/images/foetex_levering_servicebud.jpg';
-import SallingGroupFooter3 from '@assets/images/foetex_levering_til_doeren.png';
-import AccuRankerFooter1 from '@assets/images/accuranker_footer_image_1.png';
+import SallingGroupFooter1 from '@assets/images/salling_group_digital.png';
+import SallingGroupFooter2 from '@assets/images/foetex_hjem_app.png';
+import SallingGroupFooter3 from '@assets/images/foetex_levering_servicebud.jpg';
+import SallingGroupFooter4 from '@assets/images/foetex_levering_til_doeren.png';
+import AccuRankerFooter1 from '@assets/images/accuranker_grump_wall.jpg';
 import AccuRankerFooter2 from '@assets/images/accuranker_footer_image_2.png';
+import AccuRankerFooter3 from '@assets/images/accuranker_footer_image_3.png';
 import Popover from '@components/popover/Popover.astro';
 import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
@@ -81,8 +80,6 @@ const t_work = useTranslations(lang, 'work');
       id="friggTech"
       headline={t_work('software_developer')}
       subHeadline={'Frigg Tech A/S, Aarhus'}
-      headerImage={FriggTechHeaderImage}
-      headerImageAlt={t_work('friggtech_hero_image_alt')}
       date={t_work('friggtech_employment_date')}
       tags={[
         { title: 'React', href: 'skills/react' },
@@ -96,7 +93,7 @@ const t_work = useTranslations(lang, 'work');
       footerImages={[
         {
           src: FriggTechFooterImage,
-          alt: '',
+          alt: t_work('friggtech_footer_image_alt'),
           id: 'FriggTechFooterImage',
         },
       ]}
@@ -133,7 +130,9 @@ const t_work = useTranslations(lang, 'work');
             >
             {
               lang === 'en' && (
-                <p class="small-body-text">(only available in Danish)</p>
+                <p class={`${styles.websiteVisit} small-body-text`}>
+                  (only available in Danish)
+                </p>
               )
             }
           </div>
@@ -147,8 +146,6 @@ const t_work = useTranslations(lang, 'work');
       id="accuRanker"
       headline={t_work('frontend_developer')}
       subHeadline={'Accuranker ApS, Aarhus'}
-      headerImage={AccuRankerHeaderImage}
-      headerImageAlt={t_work('accuranker_grump_image_alt')}
       date={t_work('accuranker_employment_date')}
       tags={[
         { title: 'React', href: 'skills/react' },
@@ -175,12 +172,17 @@ const t_work = useTranslations(lang, 'work');
       footerImages={[
         {
           src: AccuRankerFooter1,
-          alt: '-',
-          id: 'AccuRankerAppScreenshot',
+          alt: t_work('accuranker_grump_image_alt'),
+          id: 'AccuRankerGrumpScreenshot',
         },
         {
           src: AccuRankerFooter2,
-          alt: '-',
+          alt: '',
+          id: 'AccuRankerAppScreenshot',
+        },
+        {
+          src: AccuRankerFooter3,
+          alt: '',
           id: 'AccuRankerHomePageScreenshot',
         },
       ]}
@@ -230,8 +232,6 @@ const t_work = useTranslations(lang, 'work');
       viewTransitionName="salling-group-card"
       headline={t_work('frontend_developer')}
       subHeadline={'Salling Group A/S, Aarhus'}
-      headerImage={SallingGroupHeaderImage}
-      headerImageAlt={t_work('salling_group_image_alt')}
       date={t_work('salling_group_employment_date')}
       tags={[
         { title: 'React', href: 'skills/react' },
@@ -251,17 +251,22 @@ const t_work = useTranslations(lang, 'work');
       footerImages={[
         {
           src: SallingGroupFooter1,
-          alt: '-',
-          id: 'SallingGroupAppImage',
+          alt: t_work('salling_group_footer_image_alt_1'),
+          id: 'SallingGroupDigitalImage',
         },
         {
           src: SallingGroupFooter2,
-          alt: '-',
-          id: 'SallingGroupHomeDeliveryDriver',
+          alt: '',
+          id: 'SallingGroupAppImage',
         },
         {
           src: SallingGroupFooter3,
-          alt: '-',
+          alt: '',
+          id: 'SallingGroupHomeDeliveryDriver',
+        },
+        {
+          src: SallingGroupFooter4,
+          alt: '',
           id: 'SallingGroupHomeDelivery',
         },
       ]}

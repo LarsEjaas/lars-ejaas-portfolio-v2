@@ -6,8 +6,8 @@ svg:global(#currentJobBadge) {
   position: absolute;
   right: 0;
   top: 0;
-  width: 120px;
-  height: 100px;
+  width: 76px;
+  height: 76px;
   user-select: none;
   border-top-right-radius: var(--border-radius-md);
   filter: drop-shadow(

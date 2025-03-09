@@ -67,7 +67,7 @@
   display: flex;
   justify-content: space-between;
   height: var(--header-height);
-  background: radial-gradient(
+  background-image: radial-gradient(
       ellipse at 70% 10%,
       color-mix(in hsl, var(--gradient-tone-100), transparent 70%) 0%,
       color-mix(in hsl, var(--gradient-tone-400), transparent 70%) 30%,

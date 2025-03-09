@@ -5,7 +5,7 @@ export const work = {
     from_code_to_career:
       'Solving real problems with code: My journey developing user-focused digital products.\n\nBrowse through my current and past employment milestones below:',
     software_developer: 'Software Developer',
-    friggtech_hero_image_alt:
+    friggtech_footer_image_alt:
       'Light green Frigg Tech logo on dark blue background',
     friggtech_employment_date: 'Jan 2025 - Present',
     friggtech_employment_description:
@@ -22,7 +22,7 @@ export const work = {
     learn_more_about_accuranker: 'Learn more about AccuRanker',
     accuranker_company_description:
       'AccuRanker is a Danish software company based in Aarhus that helps businesses understand and improve their visibility in search engines like Google.\n\nTheir main product is a web application that automatically monitors how well websites rank for specific search terms, providing detailed analytics and insights.\n\nThe company operates with a small, dedicated team of primarily on-site employees at their Aarhus office, complemented by several remote team members.\n\nThe platform handles large-scale data collection and analysis, processing millions of search results daily to deliver accurate, real-time tracking information to clients.',
-    salling_group_image_alt:
+    salling_group_footer_image_alt_1:
       'Salling Group Digital logo on a purple background',
     salling_group_employment_date: 'Oct 2021 - Apr 2022',
     salling_group_employment_description:
@@ -55,7 +55,8 @@ export const work = {
     from_code_to_career:
       'Løsning af konkrete problemer med kode: Mit arbejde med at udvikle brugerfokuserede digitale produkter.\n\nGennemse mine nuværende og tidligere ansættelser nedenfor:',
     software_developer: 'Software udvikler',
-    friggtech_hero_image_alt: 'Lysegrønt Frigg Tech logo på mørkeblå baggrund',
+    friggtech_footer_image_alt:
+      'Lysegrønt Frigg Tech logo på mørkeblå baggrund',
     friggtech_employment_date: 'Jan 2025 - nu',
     friggtech_employment_description:
       'Bygge og vedligeholde komponenter til brug i brugergrænsefladen i Frigg Techs webapplikation.\n\nBidrage til udviklingen af nye funktioner og funktionaliteter i for webplatformen.\n\nSamarbejde med resten af teamet om at sikre en høj kvalitet i implementationer på tværs af produktet.',
@@ -71,7 +72,8 @@ export const work = {
     learn_more_about_accuranker: 'Få mere at vide om AccuRanker',
     accuranker_company_description:
       'AccuRanker er en dansk softwarevirksomhed med base i Aarhus, der hjælper virksomheder med at forstå og forbedre deres synlighed på søgemaskiner som Google.\n\nHovedproduktet er en web-applikation, der automatisk overvåger hvor godt hjemmesider rangerer for specifikke søgetermer, og leverer detaljerede analyser og indsigter.\n\nFirmaet opererer med et lille, dedikeret team af primært on-site medarbejdere på deres kontor i Aarhus, suppleret af flere eksterne teammedlemmer.\n\nPlatformen håndterer dataindsamling og analyse i stor skala og behandler millioner af søgeresultater dagligt for at levere nøjagtige SEO data i realtid til kunderne.',
-    salling_group_image_alt: 'Salling Group Digital logo på en lilla baggrund',
+    salling_group_footer_image_alt_1:
+      'Salling Group Digital logo på en lilla baggrund',
     salling_group_employment_date: 'Okt 2021 - apr 2022',
     salling_group_employment_description:
       'Del af et dedikeret frontend-team for at udvikle og lancere føtex hjemmelevering mobilappen (Android/iOS).\n\nArbejde med målrettede udviklingsopgaver på hjemmesiden for føtex hjemmelevering.\n\nDel af et Agile Scrum-inspireret miljø.',

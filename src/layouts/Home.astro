@@ -36,8 +36,9 @@ const resumeFiles = getPublicFiles('resume');
 
 // Get the correct  resume PDF file
 const latestResumeURL = resumeFiles
-  ? Object.values(resumeFiles).find((filePath) =>
-      filePath.includes(LATEST_RESUME_KEY)
+  ? Object.values(resumeFiles).find(
+      (filePath) =>
+        filePath.includes(LATEST_RESUME_KEY) && filePath.endsWith('.pdf')
     )
   : undefined;
 
@@ -50,6 +51,13 @@ const t_home = useTranslations(lang, 'home');
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
 
+<script>
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
+
+  if (window.contactButton) {
+    storeScrollPositionOnClick(window.contactButton);
+  }
+</script>
 <Layout
   inert={inert}
   seo={{

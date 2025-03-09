@@ -1,9 +1,9 @@
 export const about = {
   en: {
     about_title: 'About',
-    my_developers_journey: 'My Developer’s Journey',
+    life_outside_the_codebase: 'Life Outside the Codebase',
     so_this_is_where:
-      'So, this is where you get to know a bit more about me.\nMy code has a backstory — and it begins far from a computer screen.\nRead along to learn more about my journey and why I choose this profession - a bit later in life than most...',
+      'So, this is where you get to know a bit more about me.\n\nI didn’t start with a computer science degree or coding bootcamps - Instead, I arrived at development with a backpack full of life experiences that eventually led me to pursuing a different direction in my career.',
     hello: 'Hello',
     profile_lars_alt: 'Profile picture of Lars Ejaas',
     i_am: 'I am',
@@ -19,7 +19,12 @@ export const about = {
       'A cheerful individual with a positive outlook on life.',
     living_in_aarhus: 'Living in Aarhus (the second largest city in Denmark).',
     the_proud_father: 'The proud father of two children.',
-    a_winding_road: 'A Winding Road to Web Development',
+    when_i_do_not_code: 'When I do not code',
+    i_enjoy_spending_time:
+      'I enjoy spending time with my kids and girlfriend, exploring the outdoors, and the occasional run to keep my body in shape.',
+    my_developers_journey: 'My Developer’s Journey',
+    my_code_has_a_backstory:
+      'My code has a backstory — and it begins far from a computer screen.\nRead along to learn more about my journey and why I choose this profession - a bit later in life than most...',
     from_racetracks_to_code_tracks:
       'From Racetracks to Code Tracks: My Unexpected Journey',
     life_rarely_follows:
@@ -48,9 +53,9 @@ export const about = {
   },
   da: {
     about_title: 'Om mig',
-    my_developers_journey: 'Min udviklingsrejse',
+    life_outside_the_codebase: 'Livet væk fra tastaturet',
     so_this_is_where:
-      'Det er her du kan lære lidt mere om mig.\nForhistorien om hvorfor jeg begyndte at programmere begynder langt fra en computerskærm.\nLæs med og få mere at vide om min vej, og hvorfor jeg valgte dette erhverv - lidt senere i livet end de fleste...',
+      'Det er her du kan lære lidt mere om mig.\n\nJeg startede ikke med en uddannelse i datalogi eller vha. programmering på bootcamps - i stedet ankom jeg med en rygsæk fuld af livserfaringer, som med tiden ledte mig til at vælge en ny retning i min karriere.',
     hello: 'Hej',
     profile_lars_alt: 'Profilbillede af Lars Ejaas',
     i_am: 'Jeg er',
@@ -65,7 +70,12 @@ export const about = {
     a_cheerful_individual: 'En glad person med et positivt syn på livet.',
     living_in_aarhus: 'Bor i Aarhus.',
     the_proud_father: 'Den stolte far til to børn.',
-    a_winding_road: 'Den kringlede vej til webudvikling',
+    when_i_do_not_code: 'Når jeg ikke programmerer',
+    i_enjoy_spending_time:
+      'Jeg nyder at tilbringe tid med mine børn og min kæreste, at udforske naturen samt en løbetur i ny og næ for at holde mig i form.',
+    my_developers_journey: 'Min udviklingsrejse',
+    my_code_has_a_backstory:
+      'Forhistorien om hvorfor jeg begyndte at programmere begynder langt fra en computerskærm.\nLæs med og få mere at vide om min vej, og hvorfor jeg valgte dette erhverv - lidt senere i livet end de fleste...',
     from_racetracks_to_code_tracks:
       'Fra løbebane til programmering: Min uventede rejse',
     life_rarely_follows:

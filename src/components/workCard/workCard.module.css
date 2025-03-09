@@ -14,12 +14,46 @@
   }
 }
 
+.header {
+  height: 72px;
+  --gradient-tone-100: light-dark(
+    var(--system-light-500),
+    var(--system-dark-300-55)
+  );
+  --gradient-tone-400: light-dark(
+    var(--system-dark-100),
+    var(--system-light-500)
+  );
+  --gradient-tone-500: light-dark(
+    var(--system-dark-200),
+    var(--system-light-400)
+  );
+  background-image: radial-gradient(
+      ellipse at 70% 10%,
+      color-mix(in hsl, var(--gradient-tone-100), transparent 70%) 0%,
+      color-mix(in hsl, var(--gradient-tone-400), transparent 70%) 30%,
+      color-mix(in hsl, var(--gradient-tone-500), transparent 70%) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      var(--gradient-tone-100) 0%,
+      var(--gradient-tone-400) 20%,
+      var(--gradient-tone-500) 40%
+    );
+  background-size: 100% 400%;
+  border-top-left-radius: var(--border-radius-md);
+  border-top-right-radius: var(--border-radius-md);
+  &[data-with-image] {
+    height: 220px;
+  }
+}
+
 .headerContent {
   /** Avoid headerImage being layered behind the header in Firefox */
   transform-style: preserve-3d;
   display: flex;
   justify-content: space-between;
-  height: 220px;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   border-top-left-radius: var(--border-radius-md);
@@ -211,7 +245,12 @@
   display: flex;
   justify-content: center;
   padding: 0;
-  height: 26px;
+  --control-padding: 5px;
+  --control-height: 26px;
+  @media (max-width: 769px) {
+    --control-height: 36px;
+  }
+  height: var(--control-height);
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -228,7 +267,7 @@
   display: block;
   height: fit-content;
   flex: 1;
-  border: 5px solid transparent;
+  border: var(--control-padding) solid transparent;
   transition: width 0.3s ease-in-out;
   @supports (animation-timeline: view()) {
     &:nth-of-type(1) {
@@ -252,8 +291,8 @@
     animation-timing-function: linear;
   }
   & a {
-    height: 1rem;
-    min-width: 1rem;
+    height: calc(var(--control-height) - 2 * var(--control-padding));
+    min-width: calc(var(--control-height) - 2 * var(--control-padding));
     display: block;
     outline-offset: var(--outline-offset);
     background-color: light-dark(

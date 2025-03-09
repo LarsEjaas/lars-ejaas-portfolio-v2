@@ -43,7 +43,7 @@ const t_about = useTranslations(lang, 'about');
     <PageLabel title={t_about('about_title')} iconImage="about" />
     <div>
       <h2>
-        {t_about('my_developers_journey')}
+        {t_about('life_outside_the_codebase')}
       </h2>
       <p class="body-text">{t_about('so_this_is_where')}</p>
     </div>
@@ -57,7 +57,9 @@ const t_about = useTranslations(lang, 'about');
     >
       <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">{t_about('i_am')}</h3>
-        <p class="small-body-text">{t_about('a_positive_and')}</p>
+        <p data-with-cutout="true" class="small-body-text">
+          {t_about('a_positive_and')}
+        </p>
         <h3 class="stylized-capitalized-text">{t_about('background')}</h3>
         <ul>
           <li class="small-body-text">{t_about('bachelors_degree')}</li>
@@ -71,6 +73,10 @@ const t_about = useTranslations(lang, 'about');
           <li class="small-body-text">{t_about('living_in_aarhus')}</li>
           <li class="small-body-text">{t_about('the_proud_father')}</li>
         </ul>
+        <h3 class="stylized-capitalized-text">
+          {t_about('when_i_do_not_code')}
+        </h3>
+        <p class="small-body-text">{t_about('i_enjoy_spending_time')}</p>
       </div>
     </PresentationCard>
   </div>
@@ -78,7 +84,10 @@ const t_about = useTranslations(lang, 'about');
   <article class={styles.article} id="aboutArticle">
     <div class={styles.articleContent}>
       <div class={styles.textContent}>
-        <h2>{t_about('a_winding_road')}</h2>
+        <h2>
+          {t_about('my_developers_journey')}
+        </h2>
+        <p class="body-text">{t_about('my_code_has_a_backstory')}</p>
         <h3>{t_about('from_racetracks_to_code_tracks')}</h3>
         <p class="body-text">{t_about('life_rarely_follows')}</p>
         <h3>{t_about('chasing_dreams')}</h3>

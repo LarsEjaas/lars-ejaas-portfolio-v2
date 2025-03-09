@@ -43,7 +43,7 @@
       --gradient-tone-1: var(--verdigris-100);
       --gradient-tone-2: var(--verdigris-400);
       --gradient-tone-3: var(--verdigris-500);
-      background: radial-gradient(
+      background-image: radial-gradient(
           ellipse at 70% 10%,
           color-mix(in hsl, var(--gradient-tone-1), transparent 70%) 0%,
           color-mix(in hsl, var(--gradient-tone-2), transparent 70%) 30%,

@@ -102,7 +102,7 @@
   flex-wrap: nowrap;
   align-items: center;
   &::before {
-    background: radial-gradient(
+    background-image: radial-gradient(
       75% 63.6% at 50% 2.5%,
       var(--verdigris-100) 0%,
       transparent 100%

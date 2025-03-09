@@ -22,9 +22,13 @@ const { withModalLinks = true } = Astro.props;
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { storeScrollPositionOnClick } from '@utils/scrollPosition';
 
   if (window.footerMenuNavigation) {
     initializeKeyboardArrowNavigation(window.footerMenuNavigation);
+  }
+  if (window.footerMenuContact) {
+    storeScrollPositionOnClick(window.footerMenuContact);
   }
 </script>
 <nav id="footerMenuNavigation" role="listbox" class={styles.footerMenu}>
@@ -70,6 +74,7 @@ const { withModalLinks = true } = Astro.props;
       withModalLinks && (
         <li role="none">
           <a
+            id="footerMenuContact"
             data-arrow-nav="true"
             role="option"
             href={contactUrl}
