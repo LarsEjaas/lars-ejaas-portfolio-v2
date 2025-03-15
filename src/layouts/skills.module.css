@@ -29,3 +29,8 @@
     grid-row: 4;
   }
 }
+
+.quote {
+  composes: quote from '@layouts/home.module.css';
+  --quote: var(--flirt-400);
+}

@@ -11,7 +11,7 @@ svg:global(#currentJobBadge) {
   user-select: none;
   border-top-right-radius: var(--border-radius-md);
   filter: drop-shadow(
-    -1px 1px 3px light-dark(var(--system-dark-400), var(--system-light-200))
+    0 3px 6px light-dark(var(--system-dark-200), var(--system-light-200))
   );
 
   & .badgeText {

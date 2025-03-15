@@ -17,15 +17,15 @@
 .header {
   height: 72px;
   --gradient-tone-100: light-dark(
-    var(--system-light-500),
+    var(--system-light-200),
     var(--system-dark-300-55)
   );
   --gradient-tone-400: light-dark(
-    var(--system-dark-100),
+    color-mix(in hsl, var(--system-dark-100), transparent 70%),
     var(--system-light-500)
   );
   --gradient-tone-500: light-dark(
-    var(--system-dark-200),
+    color-mix(in hsl, var(--system-dark-200), transparent 70%),
     var(--system-light-400)
   );
   background-image: radial-gradient(

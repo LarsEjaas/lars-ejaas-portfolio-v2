@@ -187,26 +187,29 @@
   view-transition-name: close-link;
   display: block;
   pointer-events: all;
-  border-radius: var(--border-radius-sm);
+  border-radius: 50%;
   border: none;
   height: fit-content;
   z-index: 1;
   line-height: 0;
   margin: 4px 12px;
-  padding: 8px;
-  color: var(--verdigris-600);
-  background-color: var(--system-dark-200-16);
+  padding: 6px;
+  box-shadow:
+      var(--verdigris-100-op) 0px 0px 0px 5px,
+      var(--stacks-6-Shadow);
   transition:
-    transform 0.3s ease,
-    background-color 300ms;
-  &:not([data-disabled]):hover,
-  &:not([data-disabled]):focus-visible {
-    color: var(--verdigris-500);
-    transform: scale(1.2);
-  }
+      transform 0.4s ease,
+      background-color 0.3s ease-in-out;
+  outline-offset: var(--outline-offset);
+      cursor: pointer;
+      color: var(--verdigris-100);
+      border: 2px solid var(--verdigris-300);
+      background-color: var(--verdigris-500);
   &:hover,
   &:focus-visible {
-    background-color: var(--system-dark-300-55);
+    background-color: var(--system-light-300);
+    color: light-dark(var(--verdigris-500), var(--verdigris-100));
+    transform: scale(1.2);
   }
 }
 

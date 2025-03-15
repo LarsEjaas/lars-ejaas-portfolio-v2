@@ -88,3 +88,9 @@
     }
   }
 }
+
+
+.quote {
+  composes: quote from '@layouts/home.module.css';
+  --quote: light-dark(var(--princeton-400), var(--princeton-500));
+}

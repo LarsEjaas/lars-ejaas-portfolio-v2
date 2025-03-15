@@ -180,6 +180,7 @@
         text-decoration: underline transparent;
         transition: text-decoration-color 0.25s;
         font-size: var(--font-size-3);
+        pointer-events: none;
       }
     }
   }
