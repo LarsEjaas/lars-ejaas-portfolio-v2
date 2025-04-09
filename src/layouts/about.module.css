@@ -12,37 +12,20 @@
   grid-column: 1/-1;
 }
 
-.drawingHouse {
-  position: relative;
-  width: 100%;
-  & .placeholder {
-    inset: 0;
-  }
-  & picture {
-    overflow: hidden;
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      border-radius: 4px;
-      box-shadow: inset 0 0 10px 3px #00000066;
-    }
-  }
-  & .placeholder,
-  & picture {
-    border-radius: 4px;
-    filter: sepia(60%);
-    margin-block: 2rem;
-    max-width: 400px;
-    margin-left: 2rem;
-  }
-}
-
 .textContent {
   max-width: 68ch;
+}
+
+.endquote {
+  max-width: 68ch;
+  margin-block-start: 2rem;
+  margin-left: 2rem;
+}
+
+.signature {
+  margin-block-start: 1rem;
+  margin-block-end: 2rem;
+  margin-left: 3rem;
 }
 
 .imageContent {
@@ -54,8 +37,7 @@
   flex-direction: column;
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      & .textContent,
-      & .drawingHouse {
+      & .textContent {
         animation: var(--animation-scale-up);
         animation-timeline: view();
         animation-range: var(--scale-up-animation-range);
@@ -64,16 +46,9 @@
   }
 }
 @media (min-width: 1280px) {
-  .articleContent {
-    flex-direction: row;
-    gap: 3rem;
-  }
   .imageContent {
     flex: 1 0 auto;
     max-width: 500px;
-  }
-  .article {
-    margin-top: 4rem;
   }
 }
 @media (max-width: 768px) {
@@ -88,7 +63,6 @@
     }
   }
 }
-
 
 .quote {
   composes: quote from '@layouts/home.module.css';

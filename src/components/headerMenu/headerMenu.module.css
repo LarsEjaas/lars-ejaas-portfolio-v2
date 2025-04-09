@@ -57,7 +57,7 @@
     }
   }
   & .divider {
-    height: calc(100% - 8px);
+    height: calc(100% - 16px);
     --border-color: light-dark(
       var(--system-dark-300-55),
       var(--system-light-500)

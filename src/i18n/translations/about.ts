@@ -23,32 +23,43 @@ export const about = {
     when_i_do_not_code: 'When I do not code',
     i_enjoy_spending_time:
       'I enjoy spending time with my kids, exploring the outdoors, and the occasional run to keep my body in shape.',
-    my_developers_journey: 'My Developer’s Journey',
+    an_unexpected_path_to_code: 'An Unexpected Path to Code',
     my_code_has_a_backstory:
       'My code has a backstory — and it begins far from a computer screen.\nRead along to learn more about my journey and why I choose this profession - a bit later in life than most...',
-    from_racetracks_to_code_tracks:
-      'From Racetracks to Code Tracks: My Unexpected Journey',
-    life_rarely_follows:
-      'Life rarely follows a straight path, and my journey to becoming a developer at 40 is a testament to that.\nHere are a few pit stops along the way that shaped who I am today.',
-    chasing_dreams: '',
-    for_13_seasons:
-      'For 13 seasons, I lived and breathed amateur road cycling. The dream of going pro pushed me to compete in elite national races and even a few international events. While I realized my physical talents weren’t quite cut out for the professional peloton, those years were an incredible adventure.\nThe thrill of competition and the personal growth I experienced along the way were invaluable. If given the chance, I’d do it all over again in a heartbeat. These adventurous years taught me the value of perseverance and the joy of pushing my limits.',
-    finding_my_stride: 'Finding My Stride in Endurance Running',
-    my_thirties_saw:
-      'My thirties saw me trading bike pedals for running shoes. I tackled everything from 5K races to grueling marathons, even testing my mettle on the track.',
-    the_pinnacle:
-      'The pinnacle? Completing the Hannover Marathon in 2:33 hours and winning my age group. That journey - from the intense training to crossing the finish line - showed me the power of disciplined preparation and the sweet taste of hard-earned success.',
-    an_architectural_detour: 'An Architectural Detour',
-    as_a_teenager:
-      'As a teenager, my love for drawing led me to pursue architecture. I even spent a year at Aarhus School of Architecture. While I discovered the artistic environment wasn’t my perfect fit, this experience taught me the importance of exploring different paths and having the courage to change course.',
-    a_lateblooming_passion: 'A Late-Blooming Passion for Programming',
-    it_wasnt_until:
-      'It wasn’t until my late thirties that I discovered programming as a hobby. Suddenly, everything clicked. Frontend development offered the perfect blend of problem-solving, structure, and creativity I had been searching for all along. It was like finding the missing piece of a puzzle I didn’t even know I was solving.\nThis newfound passion quickly evolved into a career change. At 40, I took the leap and landed my first developer job, embarking on an exciting new career path.\n\nWhile not every job task is ground-breaking, the overall satisfaction I derive from my work is unparalleled. I’ve even found myself anticipating Monday mornings – a novel experience that speaks volumes about how much I enjoy what I do.',
-    the_lesson: 'The Lesson? It’s Never Too Late to Pivot',
-    if_theres_one:
-      'If there’s one thing I’ve learned, it’s this: Follow your dreams but don’t be afraid to change course along the way.\nWho knows? Like me, you might even end up doing something more exciting than what you initially dreamed about.',
-    drawing_house_alt:
-      'Closeup of a hand holding a pencil while drawing a sketch of a house on a piece of paper',
+    the_architectural_beginning: 'The Architectural Beginning',
+    pencil_met_paper:
+      'Pencil met paper long before code met screen in my life. Drawing was my constant companion throughout school — I’ve always processed the world visually. This natural inclination drew me toward a dream of becoming an architect. At 19, this passion earned me a spot at Aarhus School of Architecture.\n\nReality, however, proved different from the dream. The creative and artistic environment of the school didn’t provide the balance of structure and creativity I needed to thrive.\n\nBefore the second semester concluded, I made a decision that seemed momentous at the time — I walked out of the architecture school and never looked back.',
+    chasing_dreams: 'Chasing Dreams',
+    a_few_years_before_my:
+      'A few years before my architectural detour, cycling had begun consuming my attention and energy. After dropping out, I spent the next 13 years living and breathing amateur road cycling.\n\nThis wasn’t just a hobby - it was an identity that defined me through countless hours of training, rainy days, and the emotional rollercoaster of competition.\n\nI competed in countless elite national races and even international events. While I eventually accepted my physical talents weren’t cut out for the professional peloton, those years were an incredible adventure filled with the pure thrill of competition.',
+    if_given_the_chance:
+      'If given the chance, I’d do it all over again. The feeling of pushing through pain barriers, the dedication to work towards goals, and the rush of crossing a finish line shaped me profoundly.\n\nBut everything has an end. This chapter in my life closed a year after the birth of my first child. The demanding schedule of training simply couldn’t align with fatherhood. I raced for a single season after my sons birth, but my priorities had shifted.\n\nFinish lines that once meant everything gradually gave way to first steps and bedtime stories.',
+    trading_wheels_for_running_shoes: 'Trading Wheels for Running Shoes',
+    after_cycling:
+      'After cycling, running became my anchor while my professional life drifted. I joined the local athletics club and tackled everything from 5Ks to marathons. The discipline cycling taught me transferred perfectly to distance running.\n\nRunning was great for maintaining work-life balance. I could incorporate training into my daily commute by running to and from work, leaving the rest of my time free for family.',
+    my_proudest_moment:
+      'My proudest moment as a runner came at the 2016 Hannover Marathon. Even though it was only my second marathon, I crossed the finish line in 2:33 hours and won my age group.',
+    that_taught_me:
+      'That taught me something crucial: the persistence I’d cultivated as an athlete could be used in a lot of different contexts. I just had to put my mind to it and keep going!',
+    the_winding_career_path: 'The Winding Career Path',
+    despite_completing_a_bachelors:
+      'Despite completing a bachelor’s in Human Nutrition (spending more time training than studying), I found myself with a degree I had no passion to pursue. The following years became a patchwork of work-roles that paid bills but drained my spirit',
+    customer_support_positions:
+      "Customer support positions and a stint at a large bike shop left me feeling trapped. Even a brief leadership role couldn't mask the Sunday evening dread that came before each workweek.\n\nI was skilled enough to perform and met a lot of great people along the way, but I was also disconnected enough to feel hollow at the end of each day",
+    the_unexpected_discovery: 'The Unexpected Discovery',
+    years_of_unfulfilling_jobs:
+      'Years of unfulfilling jobs and that persistent Sunday evening dread eventually took their toll. During a challenging period of burnout and recovery, I began experimenting with programming as a way to engage my mind differently.\n\nWhat started as a recovery activity revealed something unexpected: frontend development offered exactly what I’d been searching for —structured problem-solving with creative elements that matched my thinking style.\n\nAs my health improved, so did my coding skills. Programming rewarded pattern recognition, systematic thinking, and focused problem solving in ways that made me feel truly engaged.',
+    starting_fresh_at_40: 'Starting Fresh at 40',
+    taking_the_leap:
+      'Taking the leap into development as a career wasn’t easy. The biggest hurdle was convincing someone to take a chance on a 40-year-old with no formal programming background.\n\nBut the persistency I’d developed over thousands of miles of training served me well. I approached learning to code with the same dedication I’d applied to my athletic pursuits: consistent daily practice, measurable goals, and patience with the process.',
+    where_i_am_today: 'Where I Am Today',
+    today_ive_found_my_place:
+      'Today, I’ve found my place in small, focused development teams and I really enjoy it a lot!\n\nI’ve even caught myself looking forward to Monday mornings — perhaps the most surprising development of all.',
+    the_lesson: 'The Lesson',
+    life_rarely_follows_a_linear_path:
+      'Life rarely follows a linear path. Sometimes what appears to be a detour is actually the necessary journey to discover where you truly belong.\n\nAnd sometimes the perfect career is out there, patiently waiting for you to find it!',
+    keep_chasing_your_dreams: 'Keep chasing your dreams ❤️',
+    signature_of: 'Signature of Lars Ejaas',
     seo_description: '',
     seo_image_alt: '',
   },
@@ -75,32 +86,43 @@ export const about = {
     when_i_do_not_code: 'Når jeg ikke programmerer',
     i_enjoy_spending_time:
       'Jeg nyder at tilbringe tid med mine børn, at udforske naturen samt en løbetur i ny og næ for at holde mig i form.',
-    my_developers_journey: 'Min udviklingsrejse',
+    an_unexpected_path_to_code: 'En uventet vej til programmering',
     my_code_has_a_backstory:
       'Forhistorien om hvorfor jeg begyndte at programmere begynder langt fra en computerskærm.\nLæs med og få mere at vide om min vej, og hvorfor jeg valgte dette erhverv - lidt senere i livet end de fleste...',
-    from_racetracks_to_code_tracks:
-      'Fra løbebane til programmering: Min uventede rejse',
-    life_rarely_follows:
-      'Livet følger sjældent en lige vej, og min rejse til at blive udvikler som 40-årig er i den grad et bevis på det.\nHer er et par stop undervejs, som har formet den, jeg er i dag.',
+    the_architectural_beginning: 'Med start i arkitekturen',
+    pencil_met_paper:
+      'Blyanten var mit foretrukne værktøj længe før tastaturet. Gennem hele skoletiden var tegning min konstante følgesvend - jeg har altid bearbejdet verden visuelt, hvilket fik mig til at drømme om at blive arkitekt. Som 19-årig skaffede denne passion mig en plads på Arkitektskolen Aarhus.\n\n Virkeligheden viste sig dog at være anderledes end drømmen. Det kreative og kunstneriske miljø på skolen gav ikke den balance mellem struktur og kreativitet, som jeg havde brug for til at trives.\n\nFør andet semester var slut, traf jeg en beslutning, der virkede skelsættende på det tidspunkt - jeg forlod arkitektskolen og så mig aldrig tilbage.',
     chasing_dreams: 'Drømmen om et liv på 2 hjul',
-    for_13_seasons: '',
-    finding_my_stride: 'At finde mit ståsted i udholdenhedsløb',
-    my_thirties_saw:
-      'I trediverne skiftede jeg cykelpedalerne ud med løbesko. Jeg kastede mig ud i alt fra 5 km-løb til udmarvende maratonløb og prøvede endda kort kræfter med løbebanen.',
-    the_pinnacle:
-      'Højdepunktet? At gennemføre Hannover Marathon på 2:33 timer og vinde min aldersgruppe. Den rejse - fra den intense træning til at krydse målstregen - har virkelig vist mig styrken ved disciplineret forberedelse og den søde smag af hårdt optjent succes',
-    an_architectural_detour: 'En arkitektonisk omvej',
-    as_a_teenager:
-      'Som teenager fik min kærlighed til at tegne mig til at gå i gang med at studere arkitektur. Jeg tilbragte endda et år på Arkitektskolen Aarhus. Det kunstneriske miljø var virkelig ikke noget for mig, men det var en erfaring som viste mig vigtigheden af at udforske forskellige veje og have modet til at ændre kurs.',
-    a_lateblooming_passion: 'En sent opstået passion for programmering',
-    it_wasnt_until:
-      'Det var først, da jeg var sidst i trediverne, at jeg opdagede programmering som en hobby. Pludselig faldt brikkerne på plads. Frontend-udvikling tilbød den perfekte blanding af problemløsning, struktur og kreativitet, som jeg hele tiden havde ledt efter. Det var som at finde den manglende brik i et puslespil, jeg ikke engang vidste, jeg var i gang med at løse.\nDenne nyfundne passion udviklede sig hurtigt til et karriereskift. Som 40-årig tog jeg springet og fik mit første udviklerjob og begyndte på en spændende ny karrierevej.\n\nSelvom ikke alle arbejdsopgaver er banebrydende, er den overordnede tilfredsstillelse, jeg får ud af mit arbejde, uden sidestykke. Jeg har endda taget mig selv i at glæde mig til mandag morgen - en ny oplevelse, der siger meget om, hvor meget jeg nyder det, jeg laver',
-    the_lesson:
-      'Hvad kan man lære af det? Det er aldrig for sent at skifte retning',
-    if_theres_one:
-      'Hvis der er én ting, jeg har lært, så er det dette: Følg dine drømme, men vær ikke bange for at ændre kurs undervejs.« Hvem ved? Ligesom mig ender du måske med at gøre noget, der er mere spændende end det, du oprindeligt drømte om.',
-    drawing_house_alt:
-      'Nærbillede af en hånd, der holder en blyant, mens den tegner en skitse af et hus på et stykke papir',
+    a_few_years_before_my:
+      'Allerede et par år før jeg startede på arkitektskolen var cykling begyndt at fylde rigtigt meget i min hverdag. Så efter at være droppet ud af skolen var mit primære fokus de næste 13 år på amatørcykling på landevejen.\n\nDet var ikke bare en hobby - det var en identitet, der definerede mig gennem utallige timers træning, solskins- og regnvejrsdage samt konkurrencernes følelsesmæssige rutsjeture.\n\nJeg deltog i utallige nationale eliteløb og endda internationale cykelløb. Selv om jeg til sidst accepterede, at mit fysiske talent ikke rakte til det professionelle felt, var disse år et utroligt eventyr fyldt med spænding og oplevelser.',
+    if_given_the_chance:
+      'Hvis jeg fik chancen, gjorde jeg gerne det hele igen. Følelsen af at presse sig igennem smertebarrierer, dedikationen til at arbejde hen imod mål og suset ved at krydse en målstreg formede mig dybt.\n\nMen alt har en afslutning, og dette kapitel i mit liv blev afsluttet kort efter fødslen af mit første barn. Den krævende træning ved siden af et arbejde var svært at forene med rollen som far. Jeg kørte en enkelt sæson efter min søns fødsel, men mine prioriteter havde ændret sig.\n\nMålstreger, der engang betød alt, blev afløst af de første skridt og godnathistorier.',
+    trading_wheels_for_running_shoes: 'Byttede hjul ud med løbesko',
+    after_cycling:
+      'Efter cykling blev løb mit holdepunkt, mens mit professionelle liv flød. Jeg meldte mig ind i den lokale atletikklub og kastede mig ud i alt fra 5 km til maraton. Den disciplin, som cykling lærte mig, blev overført perfekt til langdistanceløb.\n\nLøb var fantastisk til at opretholde balancen mellem arbejde og privatliv. Jeg kunne indarbejde træning i min daglige pendling ved at løbe til og fra arbejde og lade resten af min tid være fri til familien.',
+    my_proudest_moment:
+      'Mit stolteste øjeblik som løber kom ved Hannover Marathon i 2016. Selv om det kun var mit andet maraton, krydsede jeg målstregen på 2:33 timer og vandt min aldersgruppe.',
+    that_taught_me:
+      'Det lærte mig noget afgørende: Den vedholdenhed, jeg havde opdyrket som atlet, kunne bruges i mange forskellige sammenhænge. Jeg skulle bare sætte mig for det og blive ved!',
+    the_winding_career_path: 'Den snoede karrierevej',
+    despite_completing_a_bachelors:
+      'Jeg fuldførte en professionsbachelor i ernæring og sundhed (hvor jeg dog brugte mere tid på at træne end på at studere), men stod efterfølgende med en uddannelse som jeg ikke havde lyst til at forfølge. De følgende år blev derfor et kludetæppe af arbejdsroller, der betalte regninger, men drænede mit overskud.',
+    customer_support_positions:
+      'Kundesupportstillinger og en periode i en stor cykelforretning fik mig til at føle mig fanget. Selv en kortvarig lederrolle kunne ikke skjule den frygt, der kom søndag aften før hver arbejdsuge\n\nJeg var dygtig nok til at præstere og mødte en masse gode mennesker undervejs, men jeg var også så afkoblet, at jeg følte mig tom, når dagen var omme.',
+    the_unexpected_discovery: 'Den uventede opdagelse',
+    years_of_unfulfilling_jobs:
+      'År med ufyldestgørende jobs og den vedvarende frygt for søndag aften resulterede til sidst i en udfordrende periode med udbrændthed. I forbindelse med restitution begyndte jeg at programmere som en måde at koble af og fordybe mig i noget meningsfyldt.\n\nDet, der startede som en restitutionsaktivitet, afslørede noget uventet: Frontend-udvikling tilbød præcis det, jeg havde ledt efter - struktureret problemløsning med kreative elementer.\n\nEfterhånden som mit helbred igen blev bedre, blev mine færdigheder det også. Programmering belønnede mønstergenkendelse, systematisk tænkning og fokuseret problemløsning på måder, der fik mig til at føle mig virkelig engageret.',
+    starting_fresh_at_40: 'En frisk start som 40-årig',
+    taking_the_leap:
+      'Det var ikke let at tage springet og gøre software-udvikling til en levevej. Den største forhindring var at overbevise nogen om, at de skulle give en 40-årig uden formel programmeringsbaggrund en chance.\n\nMen den vedholdenhed, jeg havde oparbejdet gennem tusindvis af træningstimer, kom mig til gode her. Min tilgang til at lære at programmere var med den samme dedikation som jeg havde brugt indenfor sport: Daglig træning, målbare mål og tålmodighed med processen.',
+    where_i_am_today: 'Hvor jeg er i dag',
+    today_ive_found_my_place:
+      'I dag har jeg fundet min plads i små fokuserede udviklingsteams, og jeg nyder det virkelig meget!\n\nJeg har endda taget mig selv i at glæde mig til mandag morgen - måske den mest overraskende udvikling af alle.',
+    the_lesson: 'Lektien er:',
+    life_rarely_follows_a_linear_path:
+      'Livet følger sjældent en lineær sti. Nogle gange er det, der ser ud til at være en omvej, faktisk den nødvendige rejse for at finde ud af, hvor du virkelig hører til.\n\nOg nogle gange ligger den perfekte karriere derude et sted og venter tålmodigt på at du finder den!',
+    keep_chasing_your_dreams: 'Bliv ved med at jagte dine drømme ❤️',
+    signature_of: 'Lars Ejaas’ signatur',
     seo_description: '',
     seo_image_alt: '',
   },
