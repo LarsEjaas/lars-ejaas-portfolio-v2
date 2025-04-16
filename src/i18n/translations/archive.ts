@@ -14,8 +14,8 @@ export const archive = {
     lars_ejaas_com_v1_description:
       'Initial version of larsejaas.com built with React in Gatsby.js.\n',
     old_news: 'Old News',
-    welcome_to:
-      'Welcome to the legacy lounge, where archived updates swap stories about that time they broke the production build (and lived to tell)...',
+    browse_through:
+      'Browse through past updates and announcements in this archive section.\n\nHere you’ll find previous news items, site updates, and noteworthy developments from throughout my portfolio’s history.',
   },
   da: {
     archive_title: 'Arkiv',
@@ -33,7 +33,7 @@ export const archive = {
     lars_ejaas_com_v1_description:
       'Første version of larsejaas.com bygget med React i Gatsby.js.\n',
     old_news: 'Ældre nyheder',
-    welcome_to:
-      'Velkommen til arkivets hyggekrog, hvor gamle opdateringer udveksler historier om dengang de crashede produktionen (men overlevede til at fortælle historien videre)...',
+    browse_through:
+      'Gennemse tidligere opdateringer og meddelelser i denne arkivsektion.\n\nHer finder du tidligere nyheder, sideopdateringer og væsentlige begivenheder fra hele min sides historie.',
   },
 } as const;

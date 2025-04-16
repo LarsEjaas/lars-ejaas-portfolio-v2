@@ -45,7 +45,7 @@ export const about = {
     despite_completing_a_bachelors:
       'Despite completing a bachelor’s in Human Nutrition (spending more time training than studying), I found myself with a degree I had no passion to pursue. The following years became a patchwork of work-roles that paid bills but drained my spirit',
     customer_support_positions:
-      "Customer support positions and a stint at a large bike shop left me feeling trapped. Even a brief leadership role couldn't mask the Sunday evening dread that came before each workweek.\n\nI was skilled enough to perform and met a lot of great people along the way, but I was also disconnected enough to feel hollow at the end of each day",
+      'Customer support positions and a stint at a large bike shop left me feeling trapped. Even a brief leadership role couldn’t mask the Sunday evening dread that came before each workweek.\n\nI was skilled enough to perform and met a lot of great people along the way, but I was also disconnected enough to feel hollow at the end of each day',
     the_unexpected_discovery: 'The Unexpected Discovery',
     years_of_unfulfilling_jobs:
       'Years of unfulfilling jobs and that persistent Sunday evening dread eventually took their toll. During a challenging period of burnout and recovery, I began experimenting with programming as a way to engage my mind differently.\n\nWhat started as a recovery activity revealed something unexpected: frontend development offered exactly what I’d been searching for —structured problem-solving with creative elements that matched my thinking style.\n\nAs my health improved, so did my coding skills. Programming rewarded pattern recognition, systematic thinking, and focused problem solving in ways that made me feel truly engaged.',
@@ -60,8 +60,6 @@ export const about = {
       'Life rarely follows a linear path. Sometimes what appears to be a detour is actually the necessary journey to discover where you truly belong.\n\nAnd sometimes the perfect career is out there, patiently waiting for you to find it!',
     keep_chasing_your_dreams: 'Keep chasing your dreams ❤️',
     signature_of: 'Signature of Lars Ejaas',
-    seo_description: '',
-    seo_image_alt: '',
   },
   da: {
     about_title: 'Om mig',
@@ -118,12 +116,10 @@ export const about = {
     where_i_am_today: 'Hvor jeg er i dag',
     today_ive_found_my_place:
       'I dag har jeg fundet min plads i små fokuserede udviklingsteams, og jeg nyder det virkelig meget!\n\nJeg har endda taget mig selv i at glæde mig til mandag morgen - måske den mest overraskende udvikling af alle.',
-    the_lesson: 'Lektien er:',
+    the_lesson: 'Det jeg har lært',
     life_rarely_follows_a_linear_path:
       'Livet følger sjældent en lineær sti. Nogle gange er det, der ser ud til at være en omvej, faktisk den nødvendige rejse for at finde ud af, hvor du virkelig hører til.\n\nOg nogle gange ligger den perfekte karriere derude et sted og venter tålmodigt på at du finder den!',
     keep_chasing_your_dreams: 'Bliv ved med at jagte dine drømme ❤️',
     signature_of: 'Lars Ejaas’ signatur',
-    seo_description: '',
-    seo_image_alt: '',
   },
 } as const;

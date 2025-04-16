@@ -16,6 +16,10 @@ export const work = {
     frontend_developer: 'Frontend Developer',
     accuranker_grump_image_alt:
       'AccuRankers mascot Grump mounted on a stone wall',
+    accuranker_screenshot_1_alt:
+      'A laptop displaying a detailed dashboard on its screen, showcasing analytical data and visual elements',
+    accuranker_screenshot_2_alt:
+      'A laptop with a graph on the screen, showcasing statistical data and visual trends',
     accuranker_employment_date: 'May 2022 - Dec 2024',
     accuranker_employment_description:
       'Develop frontend features for AccuRanker’s SaaS application, working closely with the rest of the team on user-facing features and functionality.\n\nImplement new features, fix bugs, and modernize and enhance existing code within the application.\n\nParticipate in various web development projects for the company’s website at accuranker.com.',
@@ -24,6 +28,12 @@ export const work = {
       'AccuRanker is a Danish software company based in Aarhus that helps businesses understand and improve their visibility in search engines like Google.\n\nTheir main product is a web application that automatically monitors how well websites rank for specific search terms, providing detailed analytics and insights.\n\nThe company operates with a small, dedicated team of primarily on-site employees at their Aarhus office, complemented by several remote team members.\n\nThe platform handles large-scale data collection and analysis, processing millions of search results daily to deliver accurate, real-time tracking information to clients.',
     salling_group_footer_image_alt_1:
       'Salling Group Digital logo on a purple background',
+    salling_group_footer_image_alt_2:
+      'A smartphone displaying a screenshot from the føtex home-delivery app on its screen',
+    salling_group_footer_image_alt_3:
+      'A smiling woman hands a box of groceries to a man through a doorway. Behind her you sense the home delivery truck parked outside the house',
+    salling_group_footer_image_alt_4:
+      'En række føtex-lastbiler til hjemmelevering parkeret pænt på en parkeringsplads, omgivet af grønt græs og træer',
     salling_group_employment_date: 'Oct 2021 - Apr 2022',
     salling_group_employment_description:
       'Work in a dedicated frontend team to build and launch the føtex Home Delivery mobile app (Android/iOS) from ground up.\n\nWork on targeted development tasks for the føtex grocery home delivery website.\n\nPart of an Agile Scrum-inspired environment.',
@@ -40,6 +50,10 @@ export const work = {
     bruce_willis_date: 'May 2021',
     bruce_willis_description:
       'This web application was created as a personal tribute to one of Hollywood’s most iconic movie stars: Bruce Willis.\n\n- Built using TypeScript\n- Styled Components for styling\n- Data-fetching from The Movie Database (TMDB)’s REST API-endpoints',
+    bruce_willis_footer_image_alt_1:
+      'App Screenshot featuring a Movie poster with the title "Glass" prominently displayed in bold letters against a dramatic background',
+    bruce_willis_footer_image_alt_2:
+      'Eye-catching screenshot from a webapp’s attribution page, showcasing appealing visuals and a headline stating: "I am a fan"',
     view_code_on_github: 'View code on GitHub',
     view_code_on: 'View code on',
     larsejaas_v1_subheadline: 'larsejaas.com version 1',
@@ -48,6 +62,10 @@ export const work = {
     lars_ejaas_v1_date: 'Feb 2021',
     lars_ejaas_com_description:
       'The first version of my developer portfolio was created as a hands-on project to deepen my experience with React. I used a static site generator, taking advantage of React’s Hydration capabilities to build a fast, SEO-optimized website.\n\nKey features included:\n- Internationalization\n- Progressive Web App (PWA)\n- Contact Form leveraging Serverless Functions to send an auto-response plus a copy to my inbox.',
+    lars_ejaas_v1_footer_image_alt_1:
+      'A laptop on a turquoise background with a screenshot from a webpage highlighting graphic design elements and the title: "Functional Solutions with a Spark of Creativity"',
+    lars_ejaas_v1_footer_image_alt_2:
+      'Screenshot of a vibrant color palette with various shades and hues for design selection presented on a turquise background',
   },
   da: {
     work_title: 'Arbejde',
@@ -66,6 +84,10 @@ export const work = {
     frontend_developer: 'Frontend Udvikler',
     accuranker_grump_image_alt:
       'AccuRanker-maskotten Grump monteret på en stenmur',
+    accuranker_screenshot_1_alt:
+      'En bærbar computer, der viser et detaljeret dashboard på sin skærm med analytiske data og visuelle elementer',
+    accuranker_screenshot_2_alt:
+      'En bærbar computer med en graf på skærmen, der viser statistiske data og visuelle tendenser',
     accuranker_employment_date: 'Maj 2022 - dec 2024',
     accuranker_employment_description:
       'Udvikle brugervendte features og funktionalitet til brugerfladen i AccuRankers SaaS-applikation i tæt samarbejde med resten af teamet.\n\nImplementere nye funktioner, rette fejl samt modernisere og forbedre eksisterende kode i applikationen.\n\nDeltage i forskellige webudviklingsprojekter til virksomhedens hjemmeside på accuranker.com.',
@@ -74,6 +96,12 @@ export const work = {
       'AccuRanker er en dansk softwarevirksomhed med base i Aarhus, der hjælper virksomheder med at forstå og forbedre deres synlighed på søgemaskiner som Google.\n\nHovedproduktet er en web-applikation, der automatisk overvåger hvor godt hjemmesider rangerer for specifikke søgetermer, og leverer detaljerede analyser og indsigter.\n\nFirmaet opererer med et lille, dedikeret team af primært on-site medarbejdere på deres kontor i Aarhus, suppleret af flere eksterne teammedlemmer.\n\nPlatformen håndterer dataindsamling og analyse i stor skala og behandler millioner af søgeresultater dagligt for at levere nøjagtige SEO data i realtid til kunderne.',
     salling_group_footer_image_alt_1:
       'Salling Group Digital logo på en lilla baggrund',
+    salling_group_footer_image_alt_2:
+      'En smartphone, der viser et skærmbillede fra føtex’ app til hjemmelevering på sin skærm',
+    salling_group_footer_image_alt_3:
+      'En smilende kvinde rækker en kasse med dagligvarer til en mand gennem en døråbning. Bag hende aner man budbilen, der holder parkeret uden for huset',
+    salling_group_footer_image_alt_4:
+      'A lineup of føtex home-delivery trucks parked neatly in a parking lot, surrounded by green grass and trees',
     salling_group_employment_date: 'Okt 2021 - apr 2022',
     salling_group_employment_description:
       'Del af et dedikeret frontend-team for at udvikle og lancere føtex hjemmelevering mobilappen (Android/iOS).\n\nArbejde med målrettede udviklingsopgaver på hjemmesiden for føtex hjemmelevering.\n\nDel af et Agile Scrum-inspireret miljø.',
@@ -90,6 +118,10 @@ export const work = {
     bruce_willis_date: 'Maj 2021',
     bruce_willis_description:
       'Denne webapplikation blev skabt som en personlig hyldest til en af Hollywoods mest ikoniske filmstjerner: Bruce Willis.\n\n- Kodet i TypeScript\n- Stylet med Styled Components\n- Data leveret af The Movie Database (TMDB) via REST API endpoints',
+    bruce_willis_footer_image_alt_1:
+      'App-screenshot med en filmplakat med titlen "Glass" vist med store bogstaver mod en dramatisk baggrund.',
+    bruce_willis_footer_image_alt_2:
+      'Iøjnefaldende screenshot fra en webapps attribution-side, der viser tiltalende grafik og en overskrift, der siger: "Jeg er fan"',
     view_code_on_github: 'Se kode på GitHub',
     view_code_on: 'Se kode på',
     larsejaas_v1_subheadline: 'larsejaas.com version 1',
@@ -98,5 +130,9 @@ export const work = {
     lars_ejaas_v1_date: 'Feb 2021',
     lars_ejaas_com_description:
       'Den første version af min udvikler portfolio blev skabt som et projekt for at øge min erfaring med React. Jeg brugte en statisk website-generator og udnyttede React’s hydration-funktionalitet til at bygge et hurtigt, SEO-optimeret websted.\n\nNøglefunktioner omfattede:\n- Internationalisering\n- Progressive Web App (PWA)\n- Kontaktformular, der udnytter Serverless Functions til at sende et autosvar til afsender samt en kopi til min indbakke',
+    lars_ejaas_v1_footer_image_alt_1:
+      'En bærbar computer på en turkis baggrund med et skærmbillede fra en webside, der fremhæver grafiske designelementer og titlen: "Funktionelle løsninger med en gnist af kreativitet"',
+    lars_ejaas_v1_footer_image_alt_2:
+      'Skærmbillede af en farvestrålende farvepalette med forskellige nuancer til designvalg præsenteret på en turkis baggrund',
   },
 } as const;

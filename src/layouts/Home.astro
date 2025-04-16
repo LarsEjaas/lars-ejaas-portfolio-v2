@@ -35,12 +35,14 @@ type Props = {
 const resumeFiles = getPublicFiles('resume');
 
 // Get the correct  resume PDF file
-const latestResumeURL = resumeFiles
-  ? Object.values(resumeFiles).find(
-      (filePath) =>
-        filePath.includes(LATEST_RESUME_KEY) && filePath.endsWith('.pdf')
-    )
-  : undefined;
+const latestResumeURL = `/${
+  resumeFiles
+    ? Object.values(resumeFiles).find(
+        (filePath) =>
+          filePath.includes(LATEST_RESUME_KEY) && filePath.endsWith('.pdf')
+      )
+    : undefined
+}`;
 
 if (!latestResumeURL) {
   throw new Error(`No resume file found for ${latestResumeURL}`);

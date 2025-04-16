@@ -10,34 +10,41 @@ export const navigation = {
     home_seo_image_alt:
       'Screenshot of larsejaas.com homepage on a laptop, with Lars Ejaas’s profile picture and signature below alongside the text: "frontend developer", set against a turquoise background.',
     about: 'About',
-    about_seo_description: '',
+    about_seo_description:
+      '🚴 Frontend developer with a background as an elite athlete in road cycling and distance running. Learn how my athletic discipline shapes my development approach.',
     about_seo_image_alt:
       'Three photos of Lars Ejaas cycling and running on an orange background. In the lower left corner Lars Ejaas’s profile picture, his signature and the text "frontend developer".',
     work: 'Work',
     current_job: 'Current Job',
-    work_seo_description: '',
+    work_seo_description:
+      '💼 Explore my professional journey and personal projects as a frontend developer. See how I’ve applied my skills to create impactful web solutions',
     work_seo_image_alt:
       'Illustration of a brown briefcase with metal clasps on a green background. In the lower left corner a profile picture and signature of "Lars Ejaas" with the label: "Frontend Developer".',
     skills: 'Skills',
-    skills_seo_description: '',
+    skills_seo_description:
+      '⚡ JavaScript enthusiast specializing in React and TypeScript. Discover my technical toolkit and how I leverage modern frameworks to build exceptional web experiences.',
     skills_seo_image_alt:
       'Various software- and programming icons placed in a grid on a turquoise background. In the lower left corner a profile picture and signature of "Lars Ejaas’s" with the label: "Frontend Developer".',
     contact: 'Contact',
-    contact_seo_description: '',
+    contact_seo_description:
+      '📬 Have a project in mind? Get in touch with me through this simple contact form. I’m always open to discussing new opportunities and collaborations.',
     contact_seo_image_alt:
       'Illustration of an open envelope with a letter on a turquoise background. In the lower left corner Lars Ejaas’s profile picture, his signature and the label: "frontend developer".',
     thank_you: 'Thank you',
     whoops: 'Whoops!',
     archive: 'Archive',
-    archive_seo_description: '',
+    archive_seo_description:
+      '🗄️ Browse through previous versions and archived content from my portfolio. A look back at my development journey and past projects.',
     archive_seo_image_alt:
       'Illustration of a brown storage box on a blue background. In the lower left corner a profile picture and signature of "Lars Ejaas" with the label: "Frontend Developer".',
     share: 'Share this page',
-    share_seo_description: '',
+    share_seo_description:
+      '🔗 Share my portfolio or specific projects with your network. Easy social media sharing options to spread the word about my work.',
     share_seo_image_alt:
       'Image of various social media icons including Facebook, Messenger, and LinkedIn on a blue and green gradient background. In the lower left corner Lars Ejaas’s profile picture, his signature and the label: "frontend developer".',
     privacy_policy: 'Privacy Policy',
-    privacy_policy_seo_description: '',
+    privacy_policy_seo_description:
+      '🔒 Read about how I handle data on my portfolio site. Transparent information about analytics, and your privacy while browsing my work.',
     contact_title: 'Write to me',
     close_modal_title: 'Close modal',
     nav_mobile: 'Main mobile navigation',
@@ -84,28 +91,41 @@ export const navigation = {
     home_seo_image_alt:
       'Screenshot af larsejaas.com index-side afbilledet på en laptop, med Lars Ejaas’ profilbillede og signatur nedenunder sammen med teksten "frontend udvikler", på en turkis baggrund',
     about: 'Om mig',
-    about_seo_description: '',
-    about_seo_image_alt: '',
+    about_seo_description:
+      '🚴 Frontend-udvikler med en baggrund som eliteatlet inden for landevejscykling og langdistanceløb. Lær, hvordan min atletiske disciplin former min tilgang til udvikling.',
+    about_seo_image_alt:
+      'Tre fotos af Lars Ejaas på cykel og i løb på en orange baggrund. I nederste venstre hjørne Lars Ejaas’ profilbillede, hans signatur og teksten "frontend udvikler"',
     work: 'Arbejde',
     current_job: 'Nuværende job',
-    work_seo_description: '',
-    work_seo_image_alt: '',
+    work_seo_description:
+      '💼 Udforsk min professionelle rejse og mine personlige projekter som frontend-udvikler. Se, hvordan jeg har anvendt mine færdigheder til at skabe effektive webløsninger.',
+    work_seo_image_alt:
+      'Illustration af en brun dokumentmappe med metalspænder på en grøn baggrund. I nederste venstre hjørne et profilbillede og en underskrift af "Lars Ejaas" med etiketten: "Frontend-udvikler"',
     skills: 'Kompetencer',
-    skills_seo_description: '',
-    skills_seo_image_alt: '',
+    skills_seo_description:
+      '⚡ JavaScript-entusiast med speciale i React og TypeScript. Oplev min tekniske værktøjskasse, og hvordan jeg udnytter moderne frameworks til at bygge enestående weboplevelser.',
+    skills_seo_image_alt:
+      'Forskellige software- og programmeringsikoner placeret i et gitter på en turkis baggrund. I nederste venstre hjørne et profilbillede og en signatur af "Lars Ejaas" med etiketten: "Frontend-udvikler".',
     contact: 'Kontakt',
-    contact_seo_description: '',
-    contact_seo_image_alt: '',
+    contact_seo_description:
+      '📬 Har du et projekt i tankerne? Kontakt mig via denne enkle kontaktformular. Jeg er altid åben for at diskutere nye muligheder og samarbejder.',
+    contact_seo_image_alt:
+      'Illustration af en åben kuvert med et brev på en turkis baggrund. I nederste venstre hjørne Lars Ejaas’ profilbillede, hans underskrift og etiketten: "frontend-udvikler".',
     thank_you: 'Tak',
     whoops: 'Ups!',
     archive: 'Arkiv',
-    archive_seo_description: '',
-    archive_seo_image_alt: '',
+    archive_seo_description:
+      '🗄️ Gennemse tidligere versioner og arkiveret indhold fra min portefølje. Et tilbageblik på min udviklingsrejse og tidligere projekter.',
+    archive_seo_image_alt:
+      'Illustration af en brun papkasse på blå baggrund. I nederste venstre hjørne et profilbillede og en signatur af "Lars Ejaas" med etiketten: "Frontend-udvikler".',
     share: 'Del denne side',
-    share_seo_description: '',
-    share_seo_image_alt: '',
+    share_seo_description:
+      '🔗 Del min portefølje eller specifikke projekter med dit netværk. Nemme muligheder for deling på sociale medier for at sprede budskabet om mit arbejde.',
+    share_seo_image_alt:
+      'Billede af forskellige ikoner for sociale medier, herunder Facebook, Messenger og LinkedIn, på en blå og grøn baggrund med gradient. I nederste venstre hjørne Lars Ejaas’ profilbillede, hans signatur og etiketten: "frontend-udvikler".',
     privacy_policy: 'Privatlivspolitik',
-    privacy_policy_seo_description: '',
+    privacy_policy_seo_description:
+      '🔒 Læs om, hvordan jeg håndterer data på min side. Gennemsigtig information om analytics og dit privatliv, mens du gennemser mit arbejde.',
     contact_title: 'Skriv til mig',
     close_modal_title: 'Luk modal',
     nav_mobile: 'Overordnet navigation mobil',

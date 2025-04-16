@@ -26,6 +26,7 @@ type ClassNames = {
 const {
   placeholderSettings,
   'aria-disabled': disabled,
+  classNames,
   ...props
 } = Astro.props;
 const placeholder = await (placeholderSettings?.height
@@ -44,7 +45,7 @@ const placeholder = await (placeholderSettings?.height
 ---
 
 <div
-  class={`${styles.placeholder} ${props.classNames?.placeholder}`}
+  class={`${styles.placeholder} ${classNames?.placeholder}`}
   data-disabled={disabled || undefined}
   style={{
     'background-image': `url('${placeholder}')`,
@@ -57,7 +58,7 @@ const placeholder = await (placeholderSettings?.height
 <Picture
   {...props as Parameters<typeof Picture>[0]}
   data-disabled={disabled || undefined}
-  class={props.classNames?.image}
+  class={classNames?.image}
   pictureAttributes={{
     ...props.pictureAttributes,
     ['data-disabled']: disabled || undefined,
