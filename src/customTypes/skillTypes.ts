@@ -14,9 +14,4 @@ export type SkillInfo = {
 
 export type TechSkillItems = Record<TechSkill, SkillInfo>;
 
-export type SkillDescriptions = Record<
-  TechSkill,
-  (_props: Record<string, never>) => any
->;
-
 export type SkillRatings = Record<TechSkill, { rating: SkillRating }>;

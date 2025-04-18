@@ -1,7 +1,7 @@
 ---
 import SkillsLayout from '@layouts/Skills.astro';
 import type { SlugWithSkillTypes, SkillSlugPath } from '@i18n/routes';
-import { skillsObject, type TechSkill } from '@content/techSkills';
+import { getTechSkills, type TechSkill } from '@content/techSkills';
 import { techSkillEntries } from '@content/techSkillTypes.mts';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
@@ -36,6 +36,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
 const { skill } = Astro.params;
+
+const skillsObject = getTechSkills(lang);
 
 const skillData = skillsObject[skill];
 

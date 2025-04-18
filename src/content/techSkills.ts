@@ -1,12 +1,11 @@
 import type {
-  SkillDescriptions,
   SkillInfo,
   SkillRatings,
   TechSkillItems,
 } from '@customTypes/skillTypes';
-import { skillDescriptions } from './skillDescriptions';
 
 import type { techSkillEntries } from './techSkillTypes.mts';
+import { useTranslations } from '@i18n/utils';
 
 export type TechSkill = (typeof techSkillEntries)[number];
 
@@ -330,16 +329,22 @@ const techSkillTiles: Record<
     href: 'wp-graphql',
   },
 };
-
-const getTechSkills = (): TechSkillItems => {
+/**
+ * Returns a collection of tech skills with localized descriptions for the specified language.
+ * Takes the base tech skill data and enhances it with translated descriptions and skill ratings.
+ *
+ * @returns An object mapping tech skill identifiers to their complete information
+ */
+export const getTechSkills = (language: 'da' | 'en'): TechSkillItems => {
+  const t = useTranslations(language, 'skillCards');
   // Helper function to create skills for a specific language
-  const createLanguageSkills = (descriptions: SkillDescriptions) => {
+  const createLanguageSkills = () => {
     return Object.entries(techSkillTiles).reduce(
       (acc, [key, value]) => ({
         ...acc,
         [key]: {
           ...value,
-          description: descriptions[key as TechSkill],
+          description: t(key as TechSkill),
           rating: skillRatings[key as TechSkill].rating,
         },
       }),
@@ -347,11 +352,9 @@ const getTechSkills = (): TechSkillItems => {
     );
   };
 
-  return createLanguageSkills(skillDescriptions);
+  return createLanguageSkills();
 };
 
-export const skillsObject = getTechSkills();
-
-export const techSkills = Object.entries(skillsObject).map(
-  ([_key, value]) => value
-);
+/** Returns an array of entries for the tech skills in the given language */
+export const getTechSkillEntries = (lang: 'en' | 'da') =>
+  Object.entries(getTechSkills(lang)).map(([_key, value]) => value);

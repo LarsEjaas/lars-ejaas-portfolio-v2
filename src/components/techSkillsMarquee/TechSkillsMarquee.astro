@@ -1,6 +1,6 @@
 ---
 import styles from './techSkillsMarquee.module.css';
-import { techSkills } from '@content/techSkills';
+import { getTechSkillEntries } from '@content/techSkills';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 
 type Props = Record<string, never>;
@@ -12,6 +12,8 @@ const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 const { skill } = Astro.params;
+
+const techSkills = getTechSkillEntries(lang);
 
 // Process SVGs
 const processedSkills = await Promise.all(

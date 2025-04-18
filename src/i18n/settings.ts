@@ -9,6 +9,7 @@ import { contact } from './translations/contact';
 import { emailReply } from './translations/emailReply';
 import { languages } from './languageDefinition.mts';
 import { privacyPolicy } from './translations/privacyPolicy';
+import { skillCards } from './translations/skillCards';
 
 export type Language = keyof typeof languages;
 
@@ -22,6 +23,7 @@ export const translations = {
   home,
   about,
   skills,
+  skillCards,
   work,
   archive,
   contact,

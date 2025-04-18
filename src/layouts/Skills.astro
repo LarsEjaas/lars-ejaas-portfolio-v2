@@ -22,7 +22,7 @@ type Props = {
 
 export type TechSkillProps = {
   title: string;
-  description: (_props: Record<string, never>) => any;
+  description: string | ((_props: Record<string, never>) => any);
   imageSrc?: SVGFileType;
   imageAlt?: string;
   href?: string;
@@ -35,14 +35,12 @@ const { title, description, inert, techSkill, seo } = Astro.props;
 
 const {
   title: skillTitle,
-  description: skillDescription,
+  description: SkillDescription,
   iconImage,
   imageAlt: skillImageAlt,
   rating: skillRating,
 } = techSkill;
 const t_skills = useTranslations(lang, 'skills');
-
-const DescriptionComponent = skillDescription;
 ---
 
 <script>
@@ -102,17 +100,24 @@ const DescriptionComponent = skillDescription;
       iconImageViewTransitionName="icon-image"
     >
       <div class={styles.presentationCardContent}>
-        {DescriptionComponent && <DescriptionComponent />}
-        <div class={styles.proficiencyRating}>
-          {
-            !!skillRating && [
-              <p class="stylized-lead-text">
-                {t_skills('proficiency_rating')}
-              </p>,
-              <StarRating rating={skillRating} />,
-            ]
-          }
-        </div>
+        {
+          typeof SkillDescription === 'string' ? (
+            <div set:html={SkillDescription} />
+          ) : (
+            <SkillDescription />
+          )
+        }
+        {
+          !!skillRating && (
+            <>
+              <div class={styles.divider} />
+              <div class={styles.proficiencyRating}>
+                <p>{t_skills('hands_on_experience_rating')}</p>
+                <StarRating rating={skillRating} />
+              </div>
+            </>
+          )
+        }
       </div>
     </PresentationCard>
     <SkillCardPagination title={skillTitle} />

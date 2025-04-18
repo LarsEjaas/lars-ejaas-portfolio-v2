@@ -5,7 +5,7 @@ import {
   useTranslations,
 } from '@i18n/utils';
 import styles from './skillCardPagination.module.css';
-import { techSkills } from '@content/techSkills';
+import { getTechSkillEntries } from '@content/techSkills';
 import type { SkillInfo } from '@customTypes/skillTypes';
 import { notEmpty } from '@customTypes/index';
 
@@ -51,6 +51,8 @@ const translatePath = useTranslatedPath(lang);
 const t_skills = useTranslations(lang, 'skills');
 
 const { title } = Astro.props;
+
+const techSkills = getTechSkillEntries(lang);
 
 const currentSkill =
   techSkills.find((skill) => skill.title === title) ||

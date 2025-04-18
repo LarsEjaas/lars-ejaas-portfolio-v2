@@ -1,7 +1,7 @@
 export const skills = {
   en: {
     skills_title: 'Skills',
-    proficiency_rating: 'Proficiency rating',
+    hands_on_experience_rating: 'Hands-on Experience Rating',
     browse_my_tech_skills: 'Browse my tech skills',
     along_the_way:
       'Along the way I’ve touched on quite a few tools!\nThis section covers some of the software, programming languages, web development tools and frameworks I’ve used most in my work.',
@@ -13,7 +13,7 @@ export const skills = {
   },
   da: {
     skills_title: 'Kompetencer',
-    proficiency_rating: 'Færdighedsniveau',
+    hands_on_experience_rating: 'Praktisk Erfaring',
     browse_my_tech_skills: 'Gennemse mine tekniske kompetencer',
     along_the_way:
       'Undervejs som udvikler har jeg berørt en hel del forskellige værktøjer!\nDette afsnit dækker noget af den software, de programmeringssprog, webudviklingsværktøjer og frameworks, jeg har brugt mest i mit arbejde.',

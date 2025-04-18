@@ -22,9 +22,9 @@ const newsFeed = [
   'twitter',
   'updatedSkills',
   'accuRanker',
-  'v2',
   'friggTech',
   'bluesky',
+  'v2',
 ] as const;
 
 /**
@@ -139,17 +139,6 @@ const newsObject = {
       href: '/da/arbejde/#accuRanker',
       outline: '3',
     },
-    v2: {
-      title: 'Redesignet hjemmeside',
-      description:
-        'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nJeg håber du kan lide den!',
-      date: '15. november 2024',
-      imageSrc: 'new_website.png',
-      imageAlt:
-        'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
-      href: '/',
-      outline: '3',
-    },
     friggTech: {
       title: 'Nyt job hos Frigg Tech',
       description:
@@ -171,6 +160,17 @@ const newsObject = {
         'Nærbillede af en smartphone med et sommerfuglelogo på en blå skærm mod en lys, delvis overskyet himmel. Scenen formidler en frisk, håbefuld stemning.',
       href: 'https://bsky.app/profile/larsejaas.bsky.social',
       outline: 'gold',
+    },
+    v2: {
+      title: 'Redesignet hjemmeside',
+      description:
+        'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nJeg håber du kan lide den!',
+      date: '17. april 2025',
+      imageSrc: 'new_website.png',
+      imageAlt:
+        'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
+      href: '/',
+      outline: '3',
     },
   },
   en: {
@@ -270,17 +270,6 @@ const newsObject = {
       href: '/work#accuRanker/',
       outline: '3',
     },
-    v2: {
-      title: 'Redesigned Website',
-      description:
-        'I’ve completely redesigned my website with a fresh new look and updated content.\n\nI hope you like it!',
-      date: 'November 15th, 2024',
-      imageSrc: 'new_website.png',
-      imageAlt:
-        'A laptop displays a turquoise-themed website for a frontend developer. Features include a profile picture, navigation icons, and a "Latest News" section.',
-      href: '/',
-      outline: '3',
-    },
     friggTech: {
       title: 'New job at Frigg Tech',
       description:
@@ -302,6 +291,17 @@ const newsObject = {
         'Close-up of a smartphone with a butterfly logo on a blue screen, set against a bright, partly cloudy sky. The scene conveys a fresh, hopeful mood.',
       href: 'https://bsky.app/profile/larsejaas.bsky.social',
       outline: '2',
+    },
+    v2: {
+      title: 'Redesigned Website',
+      description:
+        'I’ve completely redesigned my website with a fresh new look and updated content.\n\nI hope you like it!',
+      date: 'April 17th, 2025',
+      imageSrc: 'new_website.png',
+      imageAlt:
+        'A laptop displays a turquoise-themed website for a frontend developer. Features include a profile picture, navigation icons, and a "Latest News" section.',
+      href: '/',
+      outline: '3',
     },
   },
 } as const satisfies NewsItems;
