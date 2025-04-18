@@ -29,6 +29,10 @@
   &:focus-within .skill {
     animation-play-state: paused;
   }
+  &:focus-within {
+    --inset: -2;
+    mask: unset;
+  }
   height: var(--height);
   content-visibility: auto;
   contain-intrinsic-size: auto 100% auto var(--height);
@@ -79,8 +83,16 @@
   column-gap: 1rem;
   /* 3D translation */
   transform: rotateX(48deg) rotateZ(-6deg) skewX(6deg);
+  transition: transform 400ms ease-in-out;
   /* Add margin to make all items visible when navigating with keyboard */
   margin-block: calc((var(--items-in-row) - 1.5) * 1rem);
+  &:has(a:focus-visible) {
+    transform: unset;
+    margin-block: calc() unset;
+    transform: translateY(calc(var(--outset, 0) * 96px));
+    height: calc((var(--grid-row-count)) * 96px);
+    justify-items: flex-end;
+  }
 }
 
 .skill {
@@ -142,14 +154,14 @@
   }
   a[data-active] {
     pointer-events: none;
-    &::after {
+    /* &::after {
       content: '';
       position: absolute;
       z-index: -1;
       inset: -4px;
       clip-path: url('#squircle');
       background-color: var(--system-dark-100);
-    }
+    } */
   }
   & :global(.squircle) {
     clip-path: url(#squircle);
@@ -211,10 +223,13 @@
   }
 }
 
-@container marquee (width >= 600px) {
+@container marquee (width >= 640px) {
   .scene {
     --items-in-row: 6;
     --speed: 7s;
+  }
+  .skillsGrid:focus-within {
+    padding-left: 0;
   }
   .skill .skillImage {
     width: 96px;
