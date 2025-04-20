@@ -38,6 +38,8 @@ const imageDescription = imageInfo[`imageDescription${lang?.toUpperCase()}`];
 if (!imageDescription && IS_DEV) {
   console.error(`⚠️ Image description not found for ${imageInfo.imageName}`);
 }
+
+/** Achors have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
 <script is:inline>
@@ -169,6 +171,7 @@ if (!imageDescription && IS_DEV) {
           data-disabled={isFirst || undefined}
           href={isFirst ? undefined : previousUrl}
           aria-label={labels.previous}
+          tabindex={isFirst ? -1 : 0}
         >
           <svg
             width="16"
@@ -186,6 +189,7 @@ if (!imageDescription && IS_DEV) {
           data-disabled={isLast || undefined}
           href={isLast ? undefined : nextUrl}
           aria-label={labels.next}
+          tabindex={isLast ? -1 : 0}
         >
           <svg
             width="16"

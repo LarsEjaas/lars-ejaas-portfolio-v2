@@ -18,6 +18,8 @@ const { inert, withModalLinks = true } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const currentYear = new Date().getFullYear();
+
+/** Achors have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
 <footer class={styles.footer} inert={inert}>
@@ -48,6 +50,7 @@ const currentYear = new Date().getFullYear();
           <a
             href="https://www.figma.com/community/file/1468706599072128229/larsejaas-com-v2"
             target="_blank"
+            tabindex="0"
             rel="noopener noreferrer"
           >
             <p id="lightboxTitle" class="sr-only">Figma</p>
@@ -67,6 +70,7 @@ const currentYear = new Date().getFullYear();
           <a
             href="https://astro.build"
             target="_blank"
+            tabindex="0"
             rel="noopener noreferrer"
           >
             <p id="lightboxTitle" class="sr-only">Astro</p>
@@ -86,6 +90,7 @@ const currentYear = new Date().getFullYear();
           <a
             href="https://netlify.com"
             target="_blank"
+            tabindex="0"
             rel="noopener noreferrer"
           >
             <p id="lightboxTitle" class="sr-only">Netlify</p>
@@ -105,6 +110,7 @@ const currentYear = new Date().getFullYear();
           <a
             href="https://github.com/LarsEjaas/lars-ejaas-portfolio-v2"
             target="_blank"
+            tabindex="0"
             rel="noopener noreferrer"
           >
             <p id="lightboxTitle" class="sr-only">GitHub</p>
@@ -125,6 +131,7 @@ const currentYear = new Date().getFullYear();
     <a
       href="/sitemap-0.xml"
       target="_blank"
+      tabindex="0"
       rel="noopener"
       aria-label={t('sitemap_label')}
       class={styles.sitemapIcon}

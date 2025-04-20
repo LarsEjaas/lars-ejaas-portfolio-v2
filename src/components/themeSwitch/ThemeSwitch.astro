@@ -9,6 +9,8 @@ type Props = {
 
 const { withGlow, isMobile } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+
+/** input field have tabindex=0 as this is needed in Safari to set focus on the field */
 ---
 
 <script>
@@ -26,6 +28,7 @@ const lang = getLangFromUrl(Astro.url);
   <input
     aria-labelledby={isMobile ? 'themeSwitchMobile' : 'themeSwitch'}
     type="checkbox"
+    tabindex="0"
     id={isMobile ? 'themeToggleMobile' : 'themeToggle'}
     class={isMobile ? styles.themeToggleMobile : styles.themeToggle}
     data-animation-disabled="true"

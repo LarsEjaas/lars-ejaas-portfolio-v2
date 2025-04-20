@@ -66,6 +66,8 @@ const paginationItems = getPaginationItems(
 ).filter(notEmpty);
 
 const skillIndex = paginationItems.indexOf(currentSkill);
+
+/** backButton have tabindex=0 as this is needed in Safari to set focus on the button */
 ---
 
 <script>
@@ -89,7 +91,7 @@ const skillIndex = paginationItems.indexOf(currentSkill);
   }
 </script>
 <div class={styles.paginationWrapper}>
-  <button class={styles.backButton} id="skillBackButton">
+  <button class={styles.backButton} id="skillBackButton" tabindex="0">
     <svg width="7" viewBox="0 0 10 17" aria-hidden="true" fill="none">
       <path
         d="M8.66675 15.333L2.00008 8.66634L8.66675 1.99967"

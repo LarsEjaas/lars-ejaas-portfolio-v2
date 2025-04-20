@@ -51,6 +51,8 @@ if (!latestResumeURL) {
 const { title, description, lang, inert, seo } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
+
+/** Achors have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
 <script>
@@ -106,6 +108,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             <a
               id="contactButton"
               data-arrow-nav="true"
+              tabindex="0"
               href={contactUrl}
               title={t_home('contact')}
               aria-label={t_home('contact')}
@@ -139,7 +142,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         </div>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
-            <a href="/about" title={t_home('about_me_title')}>
+            <a href="/about" title={t_home('about_me_title')} tabindex="0">
               <AboutIcon />
               <p>{t_home('about_me')}</p>
             </a>
@@ -147,6 +150,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
               href={latestResumeURL}
               download
               title={t_home('download_resume_title')}
+              tabindex="0"
             >
               <DownloadIcon className={styles.downloadIcon} />
               <p>{t_home('download_resume')}</p>

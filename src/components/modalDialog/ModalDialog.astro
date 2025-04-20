@@ -11,6 +11,8 @@ type Props = {
 };
 
 const { title, labels, iconImage, gradientColor } = Astro.props;
+
+/** closeLink have tabindex=0 as this is needed in Safari to set focus on the links */
 ---
 
 <script>
@@ -76,6 +78,7 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
       href="../"
       title={labels.close}
       aria-label={labels.close}
+      tabindex="0"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

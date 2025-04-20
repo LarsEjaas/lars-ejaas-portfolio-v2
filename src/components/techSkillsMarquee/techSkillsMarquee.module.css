@@ -29,7 +29,7 @@
   &:focus-within .skill {
     animation-play-state: paused;
   }
-  &:focus-within {
+  &:has(a:focus-visible) {
     --inset: -2;
     mask: unset;
   }
