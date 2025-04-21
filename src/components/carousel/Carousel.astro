@@ -64,6 +64,8 @@ const timeLine = [
 const timelineScope = timeLine
   .map((_, i) => `--card-${timeLine.length - 1 - i}`)
   .join(', ');
+
+/** Previous and Next Buttons have tabindex=0 as this is needed in Safari to set focus on the buttons */
 ---
 
 <script>
@@ -181,7 +183,7 @@ const timelineScope = timeLine
   </ul>
   <ul class={styles.controls}>
     <li>
-      <button id="previous" aria-label={labels.previous}>
+      <button id="previous" aria-label={labels.previous} tabindex="0">
         <svg
           width="16"
           fill="currentColor"
@@ -193,7 +195,7 @@ const timelineScope = timeLine
         </svg>
       </button>
       <li>
-        <button id="next" aria-label={labels.next}>
+        <button id="next" aria-label={labels.next} tabindex="0">
           <svg
             width="16"
             fill="currentColor"

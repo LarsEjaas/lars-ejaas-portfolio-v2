@@ -191,8 +191,7 @@ export const initializeTileArrowNavigation = (hostElement: HTMLElement) => {
     );
     if (index !== 0) {
       element.tabIndex = -1;
-    }
-    else {
+    } else {
       // This is needed in Safari to make the first element focusable
       element.tabIndex = 0;
     }
