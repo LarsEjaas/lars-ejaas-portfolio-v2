@@ -87,9 +87,6 @@ const skillRatings: SkillRatings = {
   storybook: {
     rating: 2.5,
   },
-  strapi: {
-    rating: 3,
-  },
   ['styled-components']: {
     rating: 4,
   },
@@ -272,12 +269,6 @@ const techSkillTiles: Record<
     imageSrc: 'storybook.svg',
     imageAlt: 'Storybook logo',
     href: 'storybook',
-  },
-  strapi: {
-    title: 'Strapi',
-    imageSrc: 'strapi.svg',
-    imageAlt: 'Strapi logo',
-    href: 'strapi',
   },
   ['styled-components']: {
     title: 'Styled Components',

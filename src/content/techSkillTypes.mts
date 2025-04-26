@@ -29,7 +29,6 @@ export const techSkillEntries = [
   'redux',
   'sass',
   'storybook',
-  'strapi',
   'styled-components',
   'svg',
   'tailwind',
