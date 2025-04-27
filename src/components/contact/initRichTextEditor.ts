@@ -124,19 +124,53 @@ class PellRichTextEditor {
 
   private removeColorStyling = (
     node: Node,
-    exec: (command: string, value?: string) => void
+    exec: (command: string, value?: string) => void,
+    type: 'color' | 'bgcolor' | 'all'
   ) => {
     if (node.nodeType === 1 && node instanceof HTMLElement) {
-      if (node.tagName === 'FONT' && node.hasAttribute('color')) {
-        node.removeAttribute('color');
+      if (node.hasAttribute(type)) {
+        node.removeAttribute(type);
+      }
+      if (type === 'all') {
+        if (node.hasAttribute('bgcolor')) {
+          node.removeAttribute('bgcolor');
+        }
+        if (node.hasAttribute('color')) {
+          node.removeAttribute('color');
+        }
+        if (node.hasAttribute('style')) {
+          node.removeAttribute('style');
+        }
       }
 
       Array.from(node.childNodes).forEach((childNode) => {
         if (childNode) {
-          this.removeColorStyling(childNode, exec);
+          this.removeColorStyling(childNode, exec, type);
         }
       });
     }
+  };
+
+  private removeFormating = (
+    node: Node,
+    selection: Selection,
+    exec: (command: string, value?: string) => void
+  ) => {
+    if (node.nodeType !== 1) return;
+    const element = node as HTMLElement;
+
+    if (element.style && element.style.color) {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      exec('removeFormat');
+    }
+
+    Array.from(element.children).forEach((element) =>
+      this.removeFormating(element, selection, exec)
+    );
   };
 
   public initialize() {
@@ -288,7 +322,7 @@ class PellRichTextEditor {
           icon: `<svg width="18"height="18" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 14H3m18-8H3m10 12H3m18-8H3m13 8 5-5m0 5-5-5"/>
             </svg>`,
-          title: this.lang === 'en' ? 'Clear All' : 'Vælg alt',
+          title: this.lang === 'en' ? 'Clear All' : 'Ryd alt',
           result: () => {
             if (this.editor) {
               this.handleChange('');
@@ -309,7 +343,26 @@ class PellRichTextEditor {
             this.lang === 'en'
               ? 'Remove Background Color'
               : 'Fjern baggrundsfarve',
-          result: () => exec('backColor', 'unset'),
+          result: () => {
+            const selection = window.getSelection();
+            if (!selection || selection.rangeCount === 0) return;
+
+            const range = selection.getRangeAt(0);
+            const commonAncestor = range.commonAncestorContainer;
+            exec('backColor', 'unset');
+
+            if (commonAncestor.nodeType === 1) {
+              this.removeColorStyling(commonAncestor, exec, 'bgcolor');
+              return;
+            }
+            if (commonAncestor.parentNode) {
+              this.removeColorStyling(
+                commonAncestor.parentNode,
+                exec,
+                'bgcolor'
+              );
+            }
+          },
         },
         {
           name: 'removeTextColor',
@@ -327,11 +380,11 @@ class PellRichTextEditor {
             exec('foreColor', 'unset');
 
             if (commonAncestor.nodeType === 1) {
-              this.removeColorStyling(commonAncestor, exec);
+              this.removeColorStyling(commonAncestor, exec, 'color');
               return;
             }
             if (commonAncestor.parentNode) {
-              this.removeColorStyling(commonAncestor.parentNode, exec);
+              this.removeColorStyling(commonAncestor.parentNode, exec, 'color');
             }
           },
         },
@@ -342,7 +395,22 @@ class PellRichTextEditor {
             </svg>
             `,
           title: this.lang === 'en' ? 'Remove Formating' : 'Fjern formatering',
-          result: () => exec('removeFormat'),
+          result: () => {
+            const selection = window.getSelection();
+            if (!selection || selection.rangeCount === 0) return;
+
+            const range = selection.getRangeAt(0);
+            const commonAncestor = range.commonAncestorContainer;
+            exec('removeFormat');
+
+            if (commonAncestor.nodeType === 1) {
+              this.removeColorStyling(commonAncestor, exec, 'all');
+              return;
+            }
+            if (commonAncestor.parentNode) {
+              this.removeColorStyling(commonAncestor.parentNode, exec, 'all');
+            }
+          },
         },
         {
           name: 'paste',
