@@ -65,6 +65,28 @@ class PellRichTextEditor {
       }
 
       if ('clipboard' in navigator) {
+        await navigator.clipboard
+          .read()
+          .then(async (items) => {
+            for (const item of items) {
+              for (const type of item.types) {
+                if (type === 'text/html') {
+                  const blob = await item.getType(type);
+                  const html = await blob.text();
+
+                  // Now you have the HTML from the clipboard
+                  console.info('Clipboard HTML:', html);
+
+                  // Insert HTML into the editor
+                  this.pasteHtmlIntoEditor(html);
+                  return;
+                }
+              }
+            }
+          })
+          .catch((error) => {
+            console.error('Clipboard read failed', error);
+          });
         const text = await navigator.clipboard.readText();
         return exec('insertText', text);
       }
@@ -122,7 +144,7 @@ class PellRichTextEditor {
     this.textArea.tabIndex = -1;
   }
 
-  private removeColorStyling = (
+  private removeStyling = (
     node: Node,
     exec: (command: string, value?: string) => void,
     type: 'color' | 'bgcolor' | 'all'
@@ -145,7 +167,7 @@ class PellRichTextEditor {
 
       Array.from(node.childNodes).forEach((childNode) => {
         if (childNode) {
-          this.removeColorStyling(childNode, exec, type);
+          this.removeStyling(childNode, exec, type);
         }
       });
     }
@@ -171,6 +193,22 @@ class PellRichTextEditor {
     Array.from(element.children).forEach((element) =>
       this.removeFormating(element, selection, exec)
     );
+  };
+
+  private pasteHtmlIntoEditor = (html: string) => {
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+
+    const fragment = range.createContextualFragment(html);
+    range.insertNode(fragment);
+
+    // Move cursor after inserted content
+    range.collapse(false);
+    selection.removeAllRanges();
+    selection.addRange(range);
   };
 
   public initialize() {
@@ -352,15 +390,11 @@ class PellRichTextEditor {
             exec('backColor', 'unset');
 
             if (commonAncestor.nodeType === 1) {
-              this.removeColorStyling(commonAncestor, exec, 'bgcolor');
+              this.removeStyling(commonAncestor, exec, 'bgcolor');
               return;
             }
             if (commonAncestor.parentNode) {
-              this.removeColorStyling(
-                commonAncestor.parentNode,
-                exec,
-                'bgcolor'
-              );
+              this.removeStyling(commonAncestor.parentNode, exec, 'bgcolor');
             }
           },
         },
@@ -380,11 +414,11 @@ class PellRichTextEditor {
             exec('foreColor', 'unset');
 
             if (commonAncestor.nodeType === 1) {
-              this.removeColorStyling(commonAncestor, exec, 'color');
+              this.removeStyling(commonAncestor, exec, 'color');
               return;
             }
             if (commonAncestor.parentNode) {
-              this.removeColorStyling(commonAncestor.parentNode, exec, 'color');
+              this.removeStyling(commonAncestor.parentNode, exec, 'color');
             }
           },
         },
@@ -404,11 +438,11 @@ class PellRichTextEditor {
             exec('removeFormat');
 
             if (commonAncestor.nodeType === 1) {
-              this.removeColorStyling(commonAncestor, exec, 'all');
+              this.removeStyling(commonAncestor, exec, 'all');
               return;
             }
             if (commonAncestor.parentNode) {
-              this.removeColorStyling(commonAncestor.parentNode, exec, 'all');
+              this.removeStyling(commonAncestor.parentNode, exec, 'all');
             }
           },
         },
