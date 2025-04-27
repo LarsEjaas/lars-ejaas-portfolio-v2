@@ -73,8 +73,6 @@ class PellRichTextEditor {
                 const blob = await item.getType(type);
                 const html = await blob.text();
 
-                console.info('Clipboard HTML:', html);
-
                 this.pasteHtmlIntoEditor(html);
                 return;
               }
