@@ -16,11 +16,13 @@ import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import ejaasLogo from './ejaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+import type { Language } from '@i18n/settings';
 
 type Props = {
   inert: boolean;
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
+  translationUrls?: Record<Language, string>;
 };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
@@ -29,6 +31,7 @@ const {
   inert,
   withDarkkModeToggle = true,
   withModalLinks = true,
+  translationUrls,
 } = Astro.props;
 const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}/`;
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
@@ -228,12 +231,12 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     </nav>
     <div class={styles.actions}>
       <div class={styles.divider}></div>
-      <LanguageToggle />
+      <LanguageToggle translationUrls={translationUrls} />
       {withDarkkModeToggle && <ThemeSwitch withGlow={false} isMobile={false} />}
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
-    <LanguageToggle withBackground={true} />
+    <LanguageToggle withBackground={true} translationUrls={translationUrls} />
     {withDarkkModeToggle && <ThemeSwitch withGlow={true} isMobile={true} />}
   </div>
 </header>

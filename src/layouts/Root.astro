@@ -5,13 +5,15 @@ import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
 import './global.css';
 import Seo from '@components/seo/Seo.astro';
 import type { SeoComponentProps } from '@components/seo/Seo.astro';
+import type { Language } from '@i18n/settings';
 
 type Props = {
   inert: boolean;
+  seo: SeoComponentProps;
   gridColumns?: 2 | 3;
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
-  seo: SeoComponentProps;
+  translationUrls?: Record<Language, string>;
 };
 
 const {
@@ -20,6 +22,7 @@ const {
   withDarkkModeToggle = true,
   withModalLinks = true,
   seo,
+  translationUrls,
 } = Astro.props;
 
 /** Root layout should only be used directly in the index page file
@@ -121,6 +124,7 @@ const {
       inert={inert}
       withDarkkModeToggle={withDarkkModeToggle}
       withModalLinks={withModalLinks}
+      translationUrls={translationUrls}
     />
     <main id="mainContent" class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
       <slot />
