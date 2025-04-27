@@ -64,35 +64,35 @@ class PellRichTextEditor {
         };
       }
 
-      if ('clipboard' in navigator) {
-        await navigator.clipboard
-          .read()
-          .then(async (items) => {
-            for (const item of items) {
-              for (const type of item.types) {
-                if (type === 'text/html') {
-                  const blob = await item.getType(type);
-                  const html = await blob.text();
+      if ('read' in navigator.clipboard || {}) {
+        try {
+          const items = await navigator.clipboard.read();
+          for (const item of items) {
+            for (const type of item.types) {
+              if (type === 'text/html') {
+                const blob = await item.getType(type);
+                const html = await blob.text();
 
-                  // Now you have the HTML from the clipboard
-                  console.info('Clipboard HTML:', html);
+                console.info('Clipboard HTML:', html);
 
-                  // Insert HTML into the editor
-                  this.pasteHtmlIntoEditor(html);
-                  return;
-                }
+                this.pasteHtmlIntoEditor(html);
+                return;
               }
             }
-          })
-          .catch((error) => {
-            console.error('Clipboard read failed', error);
-          });
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error('Clipboard read failed', error.message);
+            return false;
+          }
+        }
         const text = await navigator.clipboard.readText();
         return exec('insertText', text);
       }
-    } catch (err) {
-      console.error('Paste failed:', err);
-      return false;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Paste failed:', error.message);
+      }
     }
   }
 
