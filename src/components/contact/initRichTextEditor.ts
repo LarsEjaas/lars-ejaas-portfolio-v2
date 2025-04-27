@@ -122,6 +122,23 @@ class PellRichTextEditor {
     this.textArea.tabIndex = -1;
   }
 
+  private removeColorStyling = (
+    node: Node,
+    exec: (command: string, value?: string) => void
+  ) => {
+    if (node.nodeType === 1 && node instanceof HTMLElement) {
+      if (node.tagName === 'FONT' && node.hasAttribute('color')) {
+        node.removeAttribute('color');
+      }
+
+      Array.from(node.childNodes).forEach((childNode) => {
+        if (childNode) {
+          this.removeColorStyling(childNode, exec);
+        }
+      });
+    }
+  };
+
   public initialize() {
     this.richTextElement.onclick = (e) => {
       e.stopPropagation();
@@ -300,7 +317,23 @@ class PellRichTextEditor {
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 10V8.4M12 2H7.6l-1 .1a1 1 0 0 0-.5.4L6 3.6V10m12 0H6m12 0v.2c0 1.7 0 2.5-.3 3.2a3 3 0 0 1-1.3 1.3c-.7.3-1.5.3-3.2.3h-2.4c-1.7 0-2.5 0-3.2-.3a3 3 0 0 1-1.3-1.3c-.3-.7-.3-1.5-.3-3.2V10m8.5 5v4.5c0 3.3-5 3.3-5 0V15M15 2l5 5m0-5-5 5"/>
             </svg>`,
           title: this.lang === 'en' ? 'Remove Text Color' : 'Fjern textfarve',
-          result: () => exec('foreColor', 'unset'),
+          result: () => {
+            const selection = window.getSelection();
+            if (!selection || selection.rangeCount === 0) {
+              return;
+            }
+            const range = selection?.getRangeAt(0);
+            const commonAncestor = range.commonAncestorContainer;
+            exec('foreColor', 'unset');
+
+            if (commonAncestor.nodeType === 1) {
+              this.removeColorStyling(commonAncestor, exec);
+              return;
+            }
+            if (commonAncestor.parentNode) {
+              this.removeColorStyling(commonAncestor.parentNode, exec);
+            }
+          },
         },
         {
           name: 'removeFormating',

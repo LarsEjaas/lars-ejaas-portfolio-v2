@@ -298,6 +298,24 @@
       color: inherit;
     }
   }
+  & blockquote {
+    --quote: var(--flirt-400);
+    display: block;
+    margin-block-start: 0.4rem;
+    margin-block-end: 0.4rem;
+    padding-inline: 1rem;
+    padding-block: 0.5rem 0;
+    border-left: .3rem solid var(--quote);
+    quotes: "\275D" "";
+    &:before {
+      color: var(--quote);
+      content: open-quote;
+      font-size: 3em;
+      line-height: 0.3em;
+      margin-right: 0.1em;
+      vertical-align: -0.3em;
+  }
+  }
 }
 .pellActionbar {
   display: flex;
