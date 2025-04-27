@@ -2,6 +2,10 @@
 import NotFoundLayout from '@layouts/404.astro';
 
 type Props = Record<string, never>;
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'da' } }];
+}
 ---
 
 <NotFoundLayout />
