@@ -198,7 +198,7 @@
     overflow-y: auto;
     scrollbar-gutter: stable;
     color-scheme: light dark;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     /* Add a bit of padding to allow room for the sticky header. 
      This is important for progressive enhancement. As clicking anchor links
      when JS is disabled will scroll anchor elements to the top of the viewport. */
