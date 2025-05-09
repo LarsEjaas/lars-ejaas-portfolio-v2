@@ -6,6 +6,7 @@ import './global.css';
 import Seo from '@components/seo/Seo.astro';
 import type { SeoComponentProps } from '@components/seo/Seo.astro';
 import type { Language } from '@i18n/settings';
+import PiwikProScript from '@scripts/PiwikPro.astro';
 
 type Props = {
   inert: boolean;
@@ -131,37 +132,6 @@ const {
     </main>
     <Footer inert={inert} withModalLinks={withModalLinks} />
     <MobileMenu inert={inert} withModalLinks={withModalLinks} />
-    <!--- PIWIK Pro -->
-    <script is:inline type="text/javascript">
-      var _paq = _paq || [];
-      let it = false;
-
-      function tpv() {
-        if (it) return;
-        _paq.push(['trackPageView']);
-        it = true;
-        ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
-          document.removeEventListener(e, tpv)
-        );
-      }
-
-      ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
-        document.addEventListener(e, tpv, { once: true })
-      );
-
-      (function () {
-        var u = 'https://larsejaas.piwik.pro/';
-        _paq.push(['setTrackerUrl', u + 'ppms.php']);
-        _paq.push(['setSiteId', 'a362aca7-8ed5-41bd-b6fe-ec4219544f06']);
-        var d = document,
-          g = d.createElement('script'),
-          s = d.getElementsByTagName('script')[0];
-        g.type = 'text/javascript';
-        g.async = true;
-        g.defer = true;
-        g.src = u + 'ppms.js' + '?v=' + 'v1_0';
-        s.parentNode.insertBefore(g, s);
-      })();
-    </script>
+    <PiwikProScript />
   </body>
 </html>

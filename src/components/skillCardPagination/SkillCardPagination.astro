@@ -126,7 +126,9 @@ const skillIndex = paginationItems.indexOf(currentSkill);
               <span aria-current={index === skillIndex} />
             ) : (
               <a
-                href={translatePath(`skills/${techSkill.href}/`)}
+                href={`${translatePath(
+                  `skills/${techSkill.href}/`
+                )}#skillPresentation`}
                 aria-label={`${t_skills('go_to')} ${techSkill.title}`}
                 title={`${t_skills('go_to')} ${techSkill.title}`}
                 aria-current={index === skillIndex}

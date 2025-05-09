@@ -19,7 +19,8 @@
       "@pages/*": ["src/pages/*"],
       //@types is reserved for type declaration packages installed from npm - so I use a different alias
       "@customTypes/*": ["src/customTypes/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@scripts/*": ["src/scripts/*"]
     },
     "lib": ["dom", "es2015", "es2017", "es2021.String"],
     "removeComments": false,
