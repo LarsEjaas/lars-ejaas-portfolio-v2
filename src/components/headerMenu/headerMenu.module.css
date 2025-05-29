@@ -39,7 +39,7 @@
   & nav,
   & .navSection {
     display: flex;
-    gap: 12px;
+    gap: 6px;
     align-items: center;
   }
   & .navSection {
@@ -64,6 +64,7 @@
     );
     margin-inline: 8px;
     border-right: 1px solid var(--border-color);
+    opacity: 0.5;
   }
   & nav {
     flex: 1 1 auto;

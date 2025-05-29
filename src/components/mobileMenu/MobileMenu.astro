@@ -39,17 +39,17 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     storeScrollPositionOnClick(window.mobileContactLink);
   }
 </script>
+<h2 class="sr-only" id="mobileMenuTitle">
+  {t('nav_mobile')}
+</h2>
 <nav
   class={`${styles.mobileMenu} mobile-only`}
   aria-labelledby="mobileMenuTitle"
   inert={inert}
-  role="group"
+  role="listbox"
   aria-keyshortcuts="ArrowLeft ArrowRight"
   id="mobileMenuNavigation"
 >
-  <h2 class="sr-only" id="mobileMenuTitle">
-    {t('nav_mobile')}
-  </h2>
   <a
     data-arrow-nav="true"
     role="option"

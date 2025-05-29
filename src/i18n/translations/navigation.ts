@@ -1,7 +1,5 @@
 export const navigation = {
   en: {
-    section_with_arrow_nav:
-      'This section supports arrow key navigation. Use left and right arrows to move between items.',
     default_seo_image_alt:
       'Screenshot of larsejaas.com homepage on a laptop, with Lars Ejaas’s profile picture and signature below alongside the text: "frontend developer", set against a gray background.',
     home: 'Home',
@@ -81,8 +79,6 @@ export const navigation = {
     sitemap_label: 'Sitemap',
   },
   da: {
-    section_with_arrow_nav:
-      'Denne sektion understøtter navigation med piletasterne. Benyt venstre- og højre piletaster til at navigere mellem elementerne.',
     default_seo_image_alt:
       'Screenshot af larsejaas.com index-side afbilledet på en laptop, med Lars Ejaas’ profilbillede og signatur nedenunder sammen med teksten "frontend udvikler", på en grå baggrund',
     home: 'Hjem',

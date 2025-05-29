@@ -58,18 +58,18 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     aria-keyshortcuts="ArrowLeft ArrowRight"
     class={`${styles.desktopMenu} desktop-only`}
   >
+    <h2 class="sr-only" id="desktopMenuTitle">
+      {t('nav_desktop')}
+    </h2>
     <nav
       aria-labelledby="desktopMenuTitle"
-      role="listbox"
+      role="menubar"
       aria-label={t('nav_desktop')}
     >
-      <h2 class="sr-only" id="desktopMenuTitle">
-        {t('nav_desktop')}
-      </h2>
       <a
         data-arrow-nav="true"
         title={t('home')}
-        role="option"
+        role="menuitem"
         href={translatePath('/')}
         data-current={Astro.url.pathname === translatePath('/') || undefined}
         class={styles.homeLink}
@@ -87,7 +87,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </a>
       <a
         data-arrow-nav="true"
-        role="option"
+        role="menuitem"
         title={t('work')}
         href={translatePath('/work/')}
         data-current={Astro.url.pathname.startsWith(translatePath('/work/')) ||
@@ -116,7 +116,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </a>
       <a
         data-arrow-nav="true"
-        role="option"
+        role="menuitem"
         title={t('skills')}
         href={translatePath('/skills/')}
         data-current={Astro.url.pathname === translatePath('/skills/') ||
@@ -144,7 +144,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       >
       <a
         data-arrow-nav="true"
-        role="option"
+        role="menuitem"
         title={t('about')}
         href={translatePath('/about/')}
         data-current={Astro.url.pathname.startsWith(translatePath('/about/')) ||
@@ -175,7 +175,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           <div class={styles.navSection}>
             <a
               data-arrow-nav="true"
-              role="option"
+              role="menuitem"
               href={contactUrl}
               title={t('contact')}
               aria-label={t('contact')}
@@ -201,7 +201,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             </a>
             <a
               data-arrow-nav="true"
-              role="option"
+              role="menuitem"
               href={shareUrl}
               title={t('share')}
               aria-label={t('share')}

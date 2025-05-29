@@ -109,6 +109,7 @@ const newsGridItems =
               return (
                 <a
                   class={styles.articleCard}
+                  aria-describedby={`articleDescription${index}`}
                   data-arrow-nav="true"
                   id={`card${index}`}
                   href={item.href}
@@ -120,7 +121,7 @@ const newsGridItems =
                     date={item.date}
                     imageAlt={item.imageAlt}
                     outline={item.outline}
-                    index={0}
+                    index={index}
                     image={ImageComponent}
                   />
                 </a>

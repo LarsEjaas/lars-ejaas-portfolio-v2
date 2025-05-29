@@ -1,4 +1,5 @@
 ---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './starRating.module.css';
 
 type Props = {
@@ -22,9 +23,15 @@ const { rating, starSize = 24 } = Astro.props;
 const roundedRating = Math.round(rating * 2) / 2;
 const fullStars = Math.floor(roundedRating);
 const hasHalfStar = roundedRating % 1 !== 0;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'skills');
+const plural = ![0.5, 1, 1.5].includes(rating);
+const starTranslation = `${rating} ${plural ? t('stars') : t('star')} ${t('out_of')} ${MAX_RATING}`;
 ---
 
 <div class={styles.starGrid}>
+  <p class="sr-only">{starTranslation}</p>
   {
     [...Array(MAX_RATING)].map((_, index) => (
       <svg

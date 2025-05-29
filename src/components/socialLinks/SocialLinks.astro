@@ -29,18 +29,18 @@ const t = useTranslations(lang, 'navigation');
     initializeKeyboardArrowNavigation(element);
   });
 </script>
+<h2 id=`socialLinksTitle${onCard ? 1 : 2}` class="sr-only">
+  {t('follow_me')}
+</h2>
 <nav
   class={styles.socialLinks}
   data-alt-colors={alternativeColors || undefined}
   aria-labelledby=`socialLinksTitle${onCard ? 1 : 2}`
-  role="listbox"
+  role="menubar"
 >
-  <h2 id=`socialLinksTitle${onCard ? 1 : 2}` class="sr-only">
-    {t('follow_me')}
-  </h2>
   <a
-    role="option"
     href="https://linkedin.com/in/lars-ejaas"
+    role="menuitem"
     target="_blank"
     rel="noopener noreferrer"
     aria-label={t('linkedin_label')}
@@ -49,8 +49,8 @@ const t = useTranslations(lang, 'navigation');
     <LinkedInIcon title={t('linkedin_label')} />
   </a>
   <a
-    role="option"
     href="https://bsky.app/profile/larsejaas.bsky.social"
+    role="menuitem"
     target="_blank"
     rel="noopener noreferrer"
     aria-label={t('bluesky_label')}
@@ -59,8 +59,8 @@ const t = useTranslations(lang, 'navigation');
     <BlueSkyIcon title={t('bluesky_label')} />
   </a>
   <a
-    role="option"
     href="https://github.com/LarsEjaas"
+    role="menuitem"
     target="_blank"
     rel="noopener noreferrer"
     aria-label={t('github_label')}

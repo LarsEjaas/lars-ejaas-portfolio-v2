@@ -49,11 +49,35 @@ export const initializeKeyboardArrowNavigation = (
       if (newIndex >= 0 && newIndex < focusableElements.length) {
         focusableElements[newIndex]?.focus();
       }
+      return;
+    }
+    /** Do not got to the last tab element if in reverse (visually the last element is the first element) */
+    if (
+      event.target instanceof HTMLElement &&
+      event.key === 'Tab' &&
+      !event.shiftKey &&
+      reverse &&
+      event.target?.tabIndex !== 0
+    ) {
+      event.preventDefault();
+      const allTabElements =
+        Array.from(
+          document.querySelectorAll(
+            'a, button, input, select, textarea, [tabindex]:not([tabindex^="-"])'
+          ) as NodeListOf<HTMLElement>
+        ).filter((el) => el.tabIndex !== -1) ?? [];
+
+      const newIndex = allTabElements.indexOf(
+        focusableElements[0] as HTMLElement
+      );
+      allTabElements[newIndex + 1]?.focus();
     }
   };
 
   focusableElements.forEach((element, index) => {
-    element.addEventListener('keydown', handleKeyDown, { passive: true });
+    element.addEventListener('keydown', handleKeyDown, {
+      passive: reverse ? false : true,
+    });
     if (index !== 0) {
       element.tabIndex = -1;
     } else {

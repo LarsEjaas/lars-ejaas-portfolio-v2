@@ -10,6 +10,9 @@ export const skills = {
     read_on_to: 'Read on to learn more about the tools behind my work.',
     go_to: 'Go to',
     go_back: 'Back',
+    star: 'stars',
+    stars: 'stars',
+    out_of: 'out of',
   },
   da: {
     skills_title: 'Kompetencer',
@@ -22,5 +25,8 @@ export const skills = {
     read_on_to: 'Læs videre for at lære mere om værktøjerne bag mit arbejde.',
     go_to: 'Gå til',
     go_back: 'Tilbage',
+    star: 'stjerne',
+    stars: 'stjerner',
+    out_of: 'ud af',
   },
 } as const;

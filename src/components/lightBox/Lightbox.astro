@@ -62,6 +62,7 @@ if (!imageDescription && IS_DEV) {
 </script>
 <script>
   import { setLightboxTransitionType } from './setTransitionType';
+  setLightboxTransitionType();
 
   /** Scroll to the current photo in the thumbnail grid. */
   if (window.thumbnailGridContainer) {
@@ -84,7 +85,6 @@ if (!imageDescription && IS_DEV) {
   if (window.lightbox) {
     window.addEventListener('keydown', handleKeydown, { passive: true });
   }
-  setLightboxTransitionType();
 </script>
 <a class={styles.backdrop} aria-hidden tabindex="-1" href="../"
   ><p class="sr-only">

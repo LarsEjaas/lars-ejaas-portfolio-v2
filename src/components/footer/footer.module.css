@@ -42,12 +42,12 @@
   }
 
   & .footerMenu {
-    & ul {
+    & div {
       display: flex;
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-      & li a {
+      & a {
         text-wrap: nowrap;
       }
     }

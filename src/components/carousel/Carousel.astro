@@ -102,27 +102,33 @@ const timelineScope = timeLine
     passive: true,
   });
 </script>
+
+<h2 id="carouselHeading">{labels.title}</h2>
 <section
   id="carousel"
+  role="region"
+  aria-roledescription="carousel"
   class="fullgrid"
   style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}; timeline-scope: ${timelineScope}`}
   inert={inert}
 >
-  <h2 id="carouselHeading">{labels.title}</h2>
   <!-- remove tabindex in Firefox -->
   <ul
     tabindex="-1"
     id="carouselList"
-    role="listbox"
+    role="menubar"
+    aria-orientation="horizontal"
     aria-keyshortcuts="ArrowLeft ArrowRight"
     aria-labelledby="carouselHeading"
   >
     {
       showArchiveCard && (
-        <li style={`--index: ${0}; view-timeline: --card-${0} inline`}>
+        <li
+          role="menuitem"
+          style={`--index: ${0}; view-timeline: --card-${0} inline`}
+        >
           <a
             data-arrow-nav="true"
-            role="option"
             aria-label={labels.archiveTitle}
             id={ARCHIVE_ID}
             href={`${ARCHIVE_HREF}#oldNews`}
@@ -151,11 +157,11 @@ const timelineScope = timeLine
 
         return (
           <li
+            role="menuitem"
             style={`--index: ${index + 1}; view-timeline: --card-${showArchiveCard ? index + 1 : index} inline`}
           >
             <a
               data-arrow-nav="true"
-              role="option"
               id={`card${index}`}
               href={item.href}
               aria-labelledby={`articleTitle${index}`}

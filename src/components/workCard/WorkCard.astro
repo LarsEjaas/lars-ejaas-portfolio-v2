@@ -168,25 +168,25 @@ footerImages?.forEach((footerImage) => {
     <slot />
     {
       tags && (
-        <div
-          id={`${id}WorkCardTags`}
-          class={styles.tagsWrapper}
-          role="group"
-          aria-keyshortcuts="ArrowLeft ArrowRight"
-          aria-describedby={`${id}tagsArrowNavDescription`}
-        >
+        <div id={`${id}WorkCardTags`} class={styles.tagsWrapper}>
           <div class={styles.textWithIcon}>
             <CodeIcon />
-            <p class="small-body-text">{t('tech_stack')}</p>
+            <p id={`${id}tagsArrowNavDescription`} class="small-body-text">
+              {t('tech_stack')}
+            </p>
           </div>
-          <span id={`${id}tagsArrowNavDescription`} class="sr-only">
-            {t('section_with_arrow_nav')}
-          </span>
-          <ul class={styles.tags}>
+          <nav
+            class={styles.tags}
+            role="menubar"
+            aria-orientation="horizontal"
+            aria-keyshortcuts="ArrowLeft ArrowRight"
+            aria-describedby={`${id}tagsArrowNavDescription`}
+          >
             {tags.map((tag) => (
-              <li>
+              <>
                 {tag.href ? (
                   <a
+                    role="menuitem"
                     data-arrow-nav="true"
                     href={`${translatePath(`${tag.href}/`)}#skillPresentation`}
                     class={styles.tag}
@@ -194,11 +194,13 @@ footerImages?.forEach((footerImage) => {
                     {tag.title}
                   </a>
                 ) : (
-                  <span class={styles.tag}>{tag.title}</span>
+                  <span role="menuitem" class={styles.tag}>
+                    {tag.title}
+                  </span>
                 )}
-              </li>
+              </>
             ))}
-          </ul>
+          </nav>
         </div>
       )
     }
@@ -223,14 +225,8 @@ footerImages?.forEach((footerImage) => {
           id={`${id}footerNavigation`}
           role="group"
           aria-describedby={`${id}ArrowNav`}
+          aria-keyshortcuts="ArrowLeft ArrowRight"
         >
-          <span
-            id={`${id}ArrowNav`}
-            aria-keyshortcuts="ArrowLeft ArrowRight"
-            class="sr-only"
-          >
-            {t('section_with_arrow_nav')}
-          </span>
           <ul
             style={{
               '--slide-length': footerImages?.length,

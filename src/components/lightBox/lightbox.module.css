@@ -60,29 +60,30 @@
   z-index: 4;
 }
 
-:global(html) {
-  :active-view-transition-type(keep-in-place) {
-    &::view-transition-group(lightbox-backdrop),
-    &::view-transition-new(lightbox-backdrop),
-    &::view-transition-old(lightbox-backdrop) {
-      animation: none !important;
-      animation-duration: 0s !important;
-      mix-blend-mode: normal;
-      animation-fill-mode: both !important;
-    }
-    /* Prevent a flash of the new and old backdrops being layered on top of each other */
-    &::view-transition-new(lightbox-backdrop) {
-      opacity: 0 !important;
-    }
-    ::view-transition-old(thumbnail-grid-container) {
-      animation: fadeOut 250ms ease-in both;
-    }
-    ::view-transition-new(thumbnail-grid-container) {
-      animation: fadeIn 250ms 200ms ease-out both;
-    }
+:global(html):active-view-transition-type(keep-in-place) {
+  &::view-transition-group(lightbox-backdrop),
+  &::view-transition-new(lightbox-backdrop),
+  &::view-transition-old(lightbox-backdrop) {
+    animation: none !important;
+    animation-duration: 0s !important;
+    mix-blend-mode: normal;
+    animation-fill-mode: both !important;
   }
-  /* The corresponding fade-out animation is placed in the global stylesheet 
+  /* Prevent a flash of the new and old backdrops being layered on top of each other */
+  &::view-transition-new(lightbox-backdrop) {
+    opacity: 0 !important;
+  }
+  &::view-transition-old(thumbnail-grid-container) {
+    animation: fadeOut 250ms ease-in both;
+  }
+
+  &::view-transition-new(thumbnail-grid-container) {
+    animation: fadeIn 250ms 200ms ease-out both;
+  }
+}
+/* The corresponding fade-out animation is placed in the global stylesheet 
     as this stylesheet is removed from the DOM before the transition fires */
+:global(html):active-view-transition-type(fade) {
   &::view-transition-new(lightbox-backdrop) {
     animation: fadeIn 400ms 100ms ease-out both;
   }
@@ -195,16 +196,16 @@
   margin: 4px 12px;
   padding: 6px;
   box-shadow:
-      var(--verdigris-100-op) 0px 0px 0px 5px,
-      var(--stacks-6-Shadow);
+    var(--verdigris-100-op) 0px 0px 0px 5px,
+    var(--stacks-6-Shadow);
   transition:
-      transform 0.4s ease,
-      background-color 0.3s ease-in-out;
+    transform 0.4s ease,
+    background-color 0.3s ease-in-out;
   outline-offset: var(--outline-offset);
-      cursor: pointer;
-      color: var(--verdigris-100);
-      border: 2px solid var(--verdigris-300);
-      background-color: var(--verdigris-500);
+  cursor: pointer;
+  color: var(--verdigris-100);
+  border: 2px solid var(--verdigris-300);
+  background-color: var(--verdigris-500);
   &:hover,
   &:focus-visible {
     background-color: var(--system-light-300);

@@ -165,7 +165,7 @@ const newsObject = {
       title: 'Redesignet hjemmeside',
       description:
         'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nJeg håber du kan lide den!',
-      date: '17. april 2025',
+      date: '5. maj 2025',
       imageSrc: 'new_website.png',
       imageAlt:
         'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
@@ -296,7 +296,7 @@ const newsObject = {
       title: 'Redesigned Website',
       description:
         'I’ve completely redesigned my website with a fresh new look and updated content.\n\nI hope you like it!',
-      date: 'April 17th, 2025',
+      date: 'May 5th, 2025',
       imageSrc: 'new_website.png',
       imageAlt:
         'A laptop displays a turquoise-themed website for a frontend developer. Features include a profile picture, navigation icons, and a "Latest News" section.',
