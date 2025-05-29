@@ -13,6 +13,10 @@
   height: 24px;
   border-radius: 40px;
   flex-shrink: 0;
+  & input {
+    width: inherit;
+    height: inherit;
+  }
 
   & span {
     position: absolute;

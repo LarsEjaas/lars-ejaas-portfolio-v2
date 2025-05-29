@@ -87,7 +87,7 @@ const t = useTranslations(lang, 'navigation');
       <button>{t('go_back')}</button>
       <p>{`────${'   '}${t('or') || ''}${'   '}────`}</p>
     </div>
-    <a href={lang === defaultLang ? '/' : `/${lang}/`}>
+    <a tabindex="0" href={lang === defaultLang ? '/' : `/${lang}/`}>
       {t('go_to_home')}
     </a>
   </div>
