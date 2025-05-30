@@ -18,15 +18,6 @@ declare global {
     }
   }
 
-  class PageSwapEvent extends Event {
-    constructor(
-      public readonly viewTransition: ViewTransition | null,
-      public readonly activation: NavigationActivation
-    ) {
-      super('pageswap');
-    }
-  }
-
   interface String {
     /** Converts all the alphabetic characters in a string to uppercase. */
     toUpperCase<T extends string>(this: T): Uppercase<T>;

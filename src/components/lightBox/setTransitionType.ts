@@ -5,10 +5,10 @@ export const setLightboxTransitionType = () => {
   if ('CSSViewTransitionRule' in window) {
     window.addEventListener('pageswap', async (e: PageSwapEvent) => {
       if (e.viewTransition) {
-        const currentURL = e.activation.from?.url
+        const currentURL = e.activation?.from?.url
           ? new URL(e.activation.from?.url)
           : null;
-        const targetURL = new URL(e.activation.entry.url);
+        const targetURL = new URL(e.activation?.entry.url ?? '');
 
         let transitionType: 'keep-in-place' | 'fade';
 
