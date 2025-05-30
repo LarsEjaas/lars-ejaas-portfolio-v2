@@ -223,11 +223,11 @@ footerImages?.forEach((footerImage) => {
         </ul>
         <div
           id={`${id}footerNavigation`}
-          role="group"
+          role="menubar"
           aria-describedby={`${id}ArrowNav`}
           aria-keyshortcuts="ArrowLeft ArrowRight"
         >
-          <ul
+          <div
             style={{
               '--slide-length': footerImages?.length,
             }}
@@ -235,9 +235,10 @@ footerImages?.forEach((footerImage) => {
           >
             {footerImages?.length > 1 &&
               footerImages.map((image, index) => (
-                <li class={styles.control}>
+                <div class={styles.control}>
                   <a
                     href={`#${image.id}`}
+                    role="menuitem"
                     data-arrow-nav="true"
                     title={`${t('scroll_to_image')} ${index + 1}`}
                   >
@@ -245,9 +246,9 @@ footerImages?.forEach((footerImage) => {
                       {`${t('scroll_to_image')} ${index + 1}`}
                     </p>
                   </a>
-                </li>
+                </div>
               ))}
-          </ul>
+          </div>
         </div>
       </div>
     )

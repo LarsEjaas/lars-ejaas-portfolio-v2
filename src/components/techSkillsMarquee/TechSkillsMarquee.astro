@@ -58,17 +58,23 @@ const processedSkills = await Promise.all(
   }
 </script>
 <div class={styles.marquee} style={`--number-of-items: ${techSkills.length}`}>
-  <div class={styles.scene} id="skillTileScene">
-    <ul class={styles.skillsGrid}>
+  <nav
+    class={styles.scene}
+    id="skillTileScene"
+    role="menubar"
+    aria-keyshortcuts="ArrowLeft ArrowRight"
+  >
+    <div class={styles.skillsGrid}>
       {
         processedSkills.map(async (techSkill) => {
           if (techSkill)
             return (
-              <li class={styles.skill} style={`--index: ${techSkill.index};`}>
+              <div class={styles.skill} style={`--index: ${techSkill.index};`}>
                 <a
                   href={`${translatePath(`skills/${techSkill.href}/`)}#skillPresentation`}
                   title={techSkill.title}
                   data-arrow-nav="true"
+                  role="menuitem"
                   data-active={
                     skill && skill === techSkill.href ? 'true' : undefined
                   }
@@ -88,20 +94,20 @@ const processedSkills = await Promise.all(
                     />
                   </div>
                 </a>
-              </li>
+              </div>
             );
         })
       }
       <!-- Extra items to fill empty slots in the marquee grid. Excess items will automatically be layered below other skill cards. -->
       {
         [1, 2, 3, 4, 5].map((_placeholder, index) => (
-          <li
+          <div
             class={styles.skill}
             data-placeholder={true}
             style={`--index: ${index + techSkills.length};`}
           />
         ))
       }
-    </ul>
-  </div>
+    </div>
+  </nav>
 </div>
