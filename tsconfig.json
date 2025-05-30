@@ -15,7 +15,7 @@
       "@components/*": ["src/components/*"],
       "@i18n/*": ["src/i18n/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@content/*": ["src/content/*"],
+      "@collections/*": ["src/collections/*"],
       "@pages/*": ["src/pages/*"],
       //@types is reserved for type declaration packages installed from npm - so I use a different alias
       "@customTypes/*": ["src/customTypes/*"],

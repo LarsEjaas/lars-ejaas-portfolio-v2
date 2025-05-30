@@ -1,5 +1,5 @@
-import { techSkillEntries } from '../content/techSkillTypes.mts';
-import { aboutImagesInfo } from '../content/aboutImages/aboutImages.mts';
+import { techSkillEntries } from '../collections/techSkillTypes.mts';
+import { aboutImagesInfo } from '../collections/aboutImages/aboutImages.mts';
 import { languages } from './languageDefinition.mts';
 
 type LanguageKey = keyof typeof languages;

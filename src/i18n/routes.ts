@@ -1,7 +1,7 @@
 import { getSkillSlugs, getAboutLightboxSlugs } from './appRoutes.mts';
 import type { Language } from './settings';
 import type { defaultLang } from './settings';
-import { aboutImagesInfo } from '@content/aboutImages/aboutImages.mts';
+import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
 import { appRoutes } from './appRoutes.mts';
 
 export const englishSkillRoutes = getSkillSlugs('en');

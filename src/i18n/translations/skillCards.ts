@@ -1,4 +1,4 @@
-import type { TechSkill } from '@content/techSkills';
+import type { TechSkill } from '@collections/techSkills';
 
 export const skillCards = {
   en: {
