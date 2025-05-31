@@ -153,7 +153,7 @@ const newsObject = {
     bluesky: {
       title: 'Nu kan du finde mig på Bluesky',
       description:
-        'Mange techies er for nylig skiftet til Bluesky, så jeg tænkte, at jeg ville se, hvad al den begejstring handler om.\n\nJeg ville elske, hvis du ville komme og være med!',
+        'Alle de udviklere, jeg følger, er skiftet til Bluesky, så jeg tænkte, det var tid til at prøve noget nyt!\n\nKom og find mig her!',
       date: '20. januar 2025',
       imageSrc: 'bluesky.png',
       imageAlt:
@@ -165,7 +165,7 @@ const newsObject = {
       title: 'Redesignet hjemmeside',
       description:
         'Jeg har redesignet min hjemmeside fra bunden med et friskt nyt look og opdateret indhold.\n\nJeg håber du kan lide den!',
-      date: '5. maj 2025',
+      date: '1. juni 2025',
       imageSrc: 'new_website.png',
       imageAlt:
         'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
@@ -284,7 +284,7 @@ const newsObject = {
     bluesky: {
       title: 'I am now on Bluesky',
       description:
-        'Lots of techies have recently switched to Bluesky, so I thought I’d see what all the fuss is about.\n\nI’d love it if you’d come and join me!',
+        'All the developers I follow have moved to Bluesky, so I thought it was time to try something new!\n\nCome find me here!',
       date: 'January 20th, 2025',
       imageSrc: 'bluesky.png',
       imageAlt:
@@ -296,7 +296,7 @@ const newsObject = {
       title: 'Redesigned Website',
       description:
         'I’ve completely redesigned my website with a fresh new look and updated content.\n\nI hope you like it!',
-      date: 'May 5th, 2025',
+      date: 'June 1st, 2025',
       imageSrc: 'new_website.png',
       imageAlt:
         'A laptop displays a turquoise-themed website for a frontend developer. Features include a profile picture, navigation icons, and a "Latest News" section.',
