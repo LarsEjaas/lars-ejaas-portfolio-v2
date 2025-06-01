@@ -75,11 +75,10 @@ const t_work = useTranslations(lang, 'work');
       data-mobile-animation="false"
       className={styles.animatedWorkCard}
       inert={inert}
-      currentEmployment
       viewTransitionName="card"
       id="friggTech"
       headline={t_work('software_developer')}
-      subHeadline={'Frigg Tech A/S, Aarhus'}
+      subHeadline={`Frigg Tech A/S, ${lang === 'da' ? 'Stilling' : 'Skanderborg'}`}
       date={t_work('friggtech_employment_date')}
       tags={[
         { title: 'React', href: 'skills/react' },
@@ -89,6 +88,8 @@ const t_work = useTranslations(lang, 'work');
         { title: 'Storybook', href: 'skills/storybook' },
         { title: 'GitLab', href: 'skills/gitlab' },
         { title: 'Turborepo' },
+        { title: 'Shadcn/ui' },
+        { title: 'TanStack' },
       ]}
       footerImages={[
         {

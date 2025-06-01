@@ -7,7 +7,7 @@ export const work = {
     software_developer: 'Software Developer',
     friggtech_footer_image_alt:
       'Light green Frigg Tech logo on dark blue background',
-    friggtech_employment_date: 'Jan 2025 - Present',
+    friggtech_employment_date: 'Jan 2025 - May 2025',
     friggtech_employment_description:
       'Build and maintain components used to create the user interface of Frigg Tech’s web application.\n\nContribute to the development of new features and functionality within the web platform.\n\nCollaborate with the rest of the team to ensure high-quality implementation across the product.',
     learn_more_about_friggtech: 'Learn more about Frigg Tech',
@@ -75,7 +75,7 @@ export const work = {
     software_developer: 'Software udvikler',
     friggtech_footer_image_alt:
       'Lysegrønt Frigg Tech logo på mørkeblå baggrund',
-    friggtech_employment_date: 'Jan 2025 - nu',
+    friggtech_employment_date: 'Jan 2025 - Maj 2025',
     friggtech_employment_description:
       'Bygge og vedligeholde komponenter til brug i brugergrænsefladen i Frigg Techs webapplikation.\n\nBidrage til udviklingen af nye funktioner og funktionaliteter i for webplatformen.\n\nSamarbejde med resten af teamet om at sikre en høj kvalitet i implementationer på tværs af produktet.',
     learn_more_about_friggtech: 'Få mere at vide om Frigg Tech',

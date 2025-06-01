@@ -103,7 +103,6 @@ const timelineScope = timeLine
   });
 </script>
 
-<h2 id="carouselHeading">{labels.title}</h2>
 <section
   id="carousel"
   aria-roledescription="carousel"
@@ -111,6 +110,7 @@ const timelineScope = timeLine
   style={`--card-length: ${showArchiveCard ? itemList.length + 1 : itemList.length}; timeline-scope: ${timelineScope}`}
   inert={inert}
 >
+  <h2 id="carouselHeading">{labels.title}</h2>
   <!-- remove tabindex in Firefox -->
   <ul
     tabindex="-1"

@@ -25,6 +25,7 @@ const newsFeed = [
   'friggTech',
   'bluesky',
   'v2',
+  'jobseeking',
 ] as const;
 
 /**
@@ -172,6 +173,17 @@ const newsObject = {
       href: '/',
       outline: '3',
     },
+    jobseeking: {
+      title: 'På udkig efter mit næste eventyr',
+      description:
+        'Ansætter du, kender du nogen, der gør, eller vil du bare gerne netværke?\n\nSend mig en besked!',
+      date: '1. juni 2025',
+      imageSrc: 'looking_for_work.jpg',
+      imageAlt:
+        'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
+      href: '/da/kontakt/',
+      outline: '2',
+    },
   },
   en: {
     welcome: {
@@ -290,7 +302,7 @@ const newsObject = {
       imageAlt:
         'Close-up of a smartphone with a butterfly logo on a blue screen, set against a bright, partly cloudy sky. The scene conveys a fresh, hopeful mood.',
       href: 'https://bsky.app/profile/larsejaas.bsky.social',
-      outline: '2',
+      outline: 'gold',
     },
     v2: {
       title: 'Redesigned Website',
@@ -302,6 +314,16 @@ const newsObject = {
         'A laptop displays a turquoise-themed website for a frontend developer. Features include a profile picture, navigation icons, and a "Latest News" section.',
       href: '/',
       outline: '3',
+    },
+    jobseeking: {
+      title: 'Looking for my next adventure',
+      description:
+        'Are you hiring, know someone who is, or do you just want to network?\n\nDrop me a message!',
+      date: 'June 1st, 2025',
+      imageSrc: 'looking_for_work.jpg',
+      imageAlt: '',
+      href: '/contact/',
+      outline: '2',
     },
   },
 } as const satisfies NewsItems;
