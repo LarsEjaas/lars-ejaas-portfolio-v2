@@ -55,6 +55,8 @@ export default defineConfig({
     '/en/kompetencer': '/skills',
     '/en/portfolio': '/work',
     '/en/webudvikling': '/',
+    '/resume/Public_Resume_Lars_Ejaas_july_2024.pdf':
+      '/resume/Public_Resume_Lars_Ejaas_june_2025.pdf',
   },
   base: '/',
   output: 'static',
