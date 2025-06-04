@@ -23,17 +23,20 @@ if (
   );
 }
 
+//TODO: FIX setDomains method - for now I am setting this manually from the PiwikPro Analytics dashboard
+
 const trackingScript = `
 <script type="text/javascript">
   var _paq = _paq || [];
+  _paq.push(['disableCookies']);
+  //_paq.push(['setDomains', config.domains]);
+  _paq.push(['enableLinkTracking']);
   var config = ${JSON.stringify(PIWIK_CONFIG)};
   let it = false;
 
   function tpv() {
     if (it) return;
-    _paq.push(['disableCookies']);
-    _paq.push(['setDomains', config.domains]);
-    _paq.push(['enableLinkTracking']);
+
     _paq.push(['trackPageView']);
     it = true;
     ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
