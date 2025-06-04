@@ -1,10 +1,13 @@
 ---
+import { removeTrailingSlash } from '@i18n/utils';
+
 const PIWIK_CONFIG = {
   siteId: import.meta.env.PUBLIC_PIWIK_SITE_ID,
-  trackerUrl: import.meta.env.PUBLIC_PIWIK_TRACKER_URL,
+  trackerUrl: removeTrailingSlash(import.meta.env.PUBLIC_PIWIK_TRACKER_URL),
   domains: import.meta.env.PUBLIC_PIWIK_DOMAINS
     ? import.meta.env.PUBLIC_PIWIK_DOMAINS.split(',').map(
-        (domain: string | undefined) => domain?.trim().toLowerCase()
+        (domain: string | undefined) =>
+          removeTrailingSlash(domain?.trim().toLowerCase() || '')
       )
     : [],
 };
@@ -23,15 +26,17 @@ if (
 
 <!--- PIWIK Pro -->
 <script is:inline type="text/javascript" define:vars={{ config: PIWIK_CONFIG }}>
+  console.info('PIWIK_CONFIG', config);
   var _paq = _paq || [];
   _paq.push(['disableCookies']);
-  _paq.push(['setDomains', [config.domains]]);
+  _paq.push(['setDomains', config.domains]);
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   let it = false;
 
   function tpv() {
     if (it) return;
+    console.info('trackPageView', _paq);
     _paq.push(['trackPageView']);
     it = true;
     ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
@@ -53,7 +58,7 @@ if (
     g.type = 'text/javascript';
     g.async = true;
     g.defer = true;
-    g.src = u + 'ppms.js' + '?v=' + 'v1_0';
+    g.src = u + '/ppms.js' + '?v=' + 'v1_0';
     s.parentNode.insertBefore(g, s);
   })();
 </script>
