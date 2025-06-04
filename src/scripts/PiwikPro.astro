@@ -22,21 +22,18 @@ if (
     'PIWIK_CONFIG is not set. Please set the PIWIK_SITE_ID, PIWIK_TRACKER_URL, and PIWIK_DOMAINS environment variables.'
   );
 }
----
 
-<!--- PIWIK Pro -->
-<script is:inline type="text/javascript" define:vars={{ config: PIWIK_CONFIG }}>
-  console.info('PIWIK_CONFIG', config);
+const trackingScript = `
+<script type="text/javascript">
   var _paq = _paq || [];
-  _paq.push(['disableCookies']);
-  _paq.push(['setDomains', config.domains]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
+  var config = ${JSON.stringify(PIWIK_CONFIG)};
   let it = false;
 
   function tpv() {
     if (it) return;
-    console.info('trackPageView', _paq);
+    _paq.push(['disableCookies']);
+    _paq.push(['setDomains', config.domains]);
+    _paq.push(['enableLinkTracking']);
     _paq.push(['trackPageView']);
     it = true;
     ['mousemove', 'scroll', 'click', 'keydown', 'touchstart'].forEach((e) =>
@@ -49,7 +46,7 @@ if (
   );
 
   (function () {
-    var u = config.trackerUrl;
+    var u = config.trackerUrl + '/';
     _paq.push(['setTrackerUrl', u + 'ppms.php']);
     _paq.push(['setSiteId', config.siteId]);
     var d = document,
@@ -58,7 +55,11 @@ if (
     g.type = 'text/javascript';
     g.async = true;
     g.defer = true;
-    g.src = u + '/ppms.js' + '?v=' + 'v1_0';
+    g.src = u + 'ppms.js' + '?v=' + 'v1_0';
     s.parentNode.insertBefore(g, s);
   })();
-</script>
+</script>`;
+---
+
+<!--- PIWIK Pro -->
+<Fragment set:html={trackingScript} />
