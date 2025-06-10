@@ -154,7 +154,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         <a
           data-arrow-nav="true"
           role="option"
-          href={contactUrl}
+          href={inert ? undefined : contactUrl}
+          aria-disabled={inert ? true : undefined}
           title={t('contact')}
           aria-label={t('contact')}
           id="mobileContactLink"
@@ -179,7 +180,8 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         <a
           data-arrow-nav="true"
           role="option"
-          href={shareUrl}
+          href={inert ? undefined : shareUrl}
+          aria-disabled={inert ? true : undefined}
           title={t('share')}
           aria-label={t('share')}
           id="mobileShareLink"

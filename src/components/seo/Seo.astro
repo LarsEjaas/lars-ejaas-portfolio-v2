@@ -346,7 +346,7 @@ if (openGraph && 'article' in openGraph && openGraph.article) {
 
 <meta
   name="robots"
-  content={`${BLOCK_ALL_INDEXING || noIndex ? 'noindex' : 'index'}, ${
+  content={`${(BLOCK_ALL_INDEXING ?? noIndex) ? 'noIndex' : 'index'}, ${
     noFollow ? 'nofollow' : 'follow'
   }`}
 />

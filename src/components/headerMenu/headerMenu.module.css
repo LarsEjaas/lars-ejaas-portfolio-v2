@@ -86,7 +86,8 @@
         background-color: var(--system-dark-200-16);
       }
 
-      &[data-current] {
+      &[data-current],
+      &[aria-disabled] {
         cursor: default;
         pointer-events: none;
         & p {

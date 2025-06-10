@@ -52,8 +52,8 @@ const t_skills = useTranslations(lang, 'skills');
         name: seo.openGraph.image.name,
         alt: seo.openGraph.image.alt,
       },
-      ...(seo.noIndex && { noIndex: seo.noIndex }),
     },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
   }}
 >
   <!-- Modals can be inserted as a child here in the slot -->

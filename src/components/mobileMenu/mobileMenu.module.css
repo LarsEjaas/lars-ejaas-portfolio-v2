@@ -27,7 +27,8 @@
   & a {
     border-radius: 30%;
     outline-offset: var(--outline-offset);
-    &[data-current] {
+    &[data-current],
+    &[aria-disabled] {
       cursor: default;
       pointer-events: none;
     }
