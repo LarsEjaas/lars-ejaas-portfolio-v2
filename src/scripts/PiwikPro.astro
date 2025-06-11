@@ -1,13 +1,17 @@
 ---
 import { removeTrailingSlash } from '@i18n/utils';
+import {
+  PUBLIC_PIWIK_DOMAINS,
+  PUBLIC_PIWIK_SITE_ID,
+  PUBLIC_PIWIK_TRACKER_URL,
+} from 'astro:env/client';
 
 const PIWIK_CONFIG = {
-  siteId: import.meta.env.PUBLIC_PIWIK_SITE_ID,
-  trackerUrl: removeTrailingSlash(import.meta.env.PUBLIC_PIWIK_TRACKER_URL),
-  domains: import.meta.env.PUBLIC_PIWIK_DOMAINS
-    ? import.meta.env.PUBLIC_PIWIK_DOMAINS.split(',').map(
-        (domain: string | undefined) =>
-          removeTrailingSlash(domain?.trim().toLowerCase() || '')
+  siteId: PUBLIC_PIWIK_SITE_ID,
+  trackerUrl: removeTrailingSlash(PUBLIC_PIWIK_TRACKER_URL),
+  domains: PUBLIC_PIWIK_DOMAINS
+    ? PUBLIC_PIWIK_DOMAINS.split(',').map((domain: string | undefined) =>
+        removeTrailingSlash(domain?.trim().toLowerCase() || '')
       )
     : [],
 };

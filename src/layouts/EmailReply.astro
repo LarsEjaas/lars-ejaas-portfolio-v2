@@ -13,6 +13,7 @@ import GitHubIcon from '@assets/emailReplyImages/github_icon.png';
 import BlueskyIcon from '@assets/emailReplyImages/bluesky_icon.png';
 import LinkedInIcon from '@assets/emailReplyImages/linkedin_icon.png';
 import LetterIcon from '@assets/emailReplyImages/letter_icon.png';
+import { SITE_URL } from 'astro:env/client';
 
 type Props = {
   title: string;
@@ -23,9 +24,7 @@ const { title, inert } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'emailReply');
 
-const siteUrl = removeTrailingSlash(
-  import.meta.env.SITE_URL || 'https://example.com'
-);
+const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
 ---
 
 <script>

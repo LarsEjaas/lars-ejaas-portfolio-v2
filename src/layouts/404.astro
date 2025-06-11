@@ -28,8 +28,10 @@ const t = useTranslations(lang, 'navigation');
 ---
 
 <script>
+  import { NODE_ENV } from 'astro:env/client';
   const internalReferer = document.referrer.startsWith(window.location.origin);
-  const IS_DEV = import.meta.env.DEV || false;
+  const IS_DEV = NODE_ENV === 'development' || false;
+
   if (IS_DEV) {
     console.info('document.referrer:', document.referrer);
   }

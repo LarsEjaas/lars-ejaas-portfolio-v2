@@ -19,7 +19,10 @@ import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 import { getMetaForPage } from '@collections/meta';
 import { validateAndGetPublicPath } from '@components/seo/Seo.astro';
 import { getDefaultSiteMetaData } from '@components/seo/siteMetaData';
-const IS_DEV = import.meta.env.DEV || false;
+import { NODE_ENV } from 'astro:env/client';
+import { SITE_URL as siteUrl } from 'astro:env/client';
+
+const IS_DEV = NODE_ENV === 'development' || false;
 
 type Props = Record<string, never>;
 
@@ -30,7 +33,7 @@ type ShareAttributes = {
   hiddenOnDesktop?: boolean;
 };
 
-const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
+const SITE_URL = removeTrailingSlash(siteUrl);
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'share');

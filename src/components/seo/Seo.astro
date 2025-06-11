@@ -15,14 +15,10 @@ import {
   removeTrailingSlash,
 } from '@i18n/utils';
 import type { ImageInputFormat } from 'astro';
-import { appRoutes } from '../../i18n/routes';
+import { appRoutes } from '@i18n/routes';
+import { BLOCK_ALL_INDEXING, SITE_URL as siteUrl } from 'astro:env/client';
 
-const SITE_URL = removeTrailingSlash(import.meta.env.SITE_URL);
-
-const BLOCK_ALL_INDEXING =
-  String(import.meta.env.BLOCK_ALL_INDEXING || 'false')
-    .trim()
-    .toLowerCase() === 'true';
+const SITE_URL = removeTrailingSlash(siteUrl);
 
 type Props = SeoComponentProps;
 

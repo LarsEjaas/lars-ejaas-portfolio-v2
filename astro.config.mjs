@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 import { loadEnv } from 'vite';
@@ -25,6 +25,66 @@ export default defineConfig({
     edgeMiddleware: false,
     functionPerRoute: false,
   }),
+  env: {
+    schema: {
+      FACEBOOK_APP_ID: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+      MAIL_USER: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: false,
+      }),
+      MAIL_PASSWORD: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: false,
+      }),
+      NOREPLY_PRIVATE_EMAIL_USER: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: false,
+      }),
+      PRIVATE_EMAIL_USER: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: false,
+      }),
+      NODE_ENV: envField.enum({
+        values: ['development', 'production'],
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+      SITE_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+      BLOCK_ALL_INDEXING: envField.boolean({
+        context: 'client',
+        access: 'public',
+        optional: true,
+      }),
+      PUBLIC_PIWIK_SITE_ID: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+      PUBLIC_PIWIK_TRACKER_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+      PUBLIC_PIWIK_DOMAINS: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+    },
+  },
   integrations: [
     sitemap({
       xslURL: '/sitemap.xsl',

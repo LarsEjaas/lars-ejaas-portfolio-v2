@@ -1,8 +1,8 @@
 import type { SeoProps } from '@customTypes/seo';
 import { validateAndGetPublicPath } from './Seo.astro';
 import { useTranslations } from '@i18n/utils';
+import { FACEBOOK_APP_ID } from 'astro:env/client';
 
-const FACEBOOK_APP_ID = import.meta.env.FACEBOOK_APP_ID;
 /** List of favicon file names */
 const FAVICON_FILE_NAMES = ['favicon_32', 'favicon_64'];
 

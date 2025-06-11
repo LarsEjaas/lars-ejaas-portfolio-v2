@@ -1,5 +1,6 @@
 import { getFocusableElements } from './keyboardArrowNavigation';
-const IS_DEV = import.meta.env.DEV || false;
+import { NODE_ENV } from 'astro:env/client';
+const IS_DEV = NODE_ENV === 'development' || false;
 
 type Position = {
   rowIndex: number;

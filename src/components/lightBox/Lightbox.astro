@@ -7,8 +7,10 @@ import { useTranslatedPath } from '@i18n/utils';
 import PhotoCard from '@components/photoCards/PhotoCard.astro';
 import type { ImageModule } from '@customTypes/index';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
+import { NODE_ENV } from 'astro:env/client';
+
 const aboutImageGlob = import.meta.glob('@assets/aboutImages/*.{jpg,png}');
-const IS_DEV = import.meta.env.DEV || false;
+const IS_DEV = NODE_ENV === 'development' || false;
 
 type Props = {
   labels: { title: string; close: string; previous: string; next: string };
