@@ -512,393 +512,57 @@ export const routes = {
     ],
     "priority": 0.6
   },
-  "skills/accessibility": {
-    "url": "skills/accessibility",
+  "skills/javascript": {
+    "url": "skills/javascript",
     "alternates": [
       {
-        "url": "da/kompetencer/accessibility",
+        "url": "da/kompetencer/javascript",
         "lang": "da-DK"
       },
       {
-        "url": "skills/accessibility",
+        "url": "skills/javascript",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/accessibility": {
-    "url": "da/kompetencer/accessibility",
+  "da/kompetencer/javascript": {
+    "url": "da/kompetencer/javascript",
     "alternates": [
       {
-        "url": "skills/accessibility",
+        "url": "skills/javascript",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/accessibility",
+        "url": "da/kompetencer/javascript",
         "lang": "da-DK"
       }
     ],
     "priority": 0.6
   },
-  "skills/algolia": {
-    "url": "skills/algolia",
+  "skills/typescript": {
+    "url": "skills/typescript",
     "alternates": [
       {
-        "url": "da/kompetencer/algolia",
+        "url": "da/kompetencer/typescript",
         "lang": "da-DK"
       },
       {
-        "url": "skills/algolia",
+        "url": "skills/typescript",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/algolia": {
-    "url": "da/kompetencer/algolia",
+  "da/kompetencer/typescript": {
+    "url": "da/kompetencer/typescript",
     "alternates": [
       {
-        "url": "skills/algolia",
+        "url": "skills/typescript",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/algolia",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/apollo-client": {
-    "url": "skills/apollo-client",
-    "alternates": [
-      {
-        "url": "da/kompetencer/apollo-client",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/apollo-client",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/apollo-client": {
-    "url": "da/kompetencer/apollo-client",
-    "alternates": [
-      {
-        "url": "skills/apollo-client",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/apollo-client",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/astro": {
-    "url": "skills/astro",
-    "alternates": [
-      {
-        "url": "da/kompetencer/astro",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/astro",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/astro": {
-    "url": "da/kompetencer/astro",
-    "alternates": [
-      {
-        "url": "skills/astro",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/astro",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/bash": {
-    "url": "skills/bash",
-    "alternates": [
-      {
-        "url": "da/kompetencer/bash",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/bash",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/bash": {
-    "url": "da/kompetencer/bash",
-    "alternates": [
-      {
-        "url": "skills/bash",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/bash",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/css": {
-    "url": "skills/css",
-    "alternates": [
-      {
-        "url": "da/kompetencer/css",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/css",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/css": {
-    "url": "da/kompetencer/css",
-    "alternates": [
-      {
-        "url": "skills/css",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/css",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/docker": {
-    "url": "skills/docker",
-    "alternates": [
-      {
-        "url": "da/kompetencer/docker",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/docker",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/docker": {
-    "url": "da/kompetencer/docker",
-    "alternates": [
-      {
-        "url": "skills/docker",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/docker",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/figma": {
-    "url": "skills/figma",
-    "alternates": [
-      {
-        "url": "da/kompetencer/figma",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/figma",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/figma": {
-    "url": "da/kompetencer/figma",
-    "alternates": [
-      {
-        "url": "skills/figma",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/figma",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/gatsby": {
-    "url": "skills/gatsby",
-    "alternates": [
-      {
-        "url": "da/kompetencer/gatsby",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/gatsby",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/gatsby": {
-    "url": "da/kompetencer/gatsby",
-    "alternates": [
-      {
-        "url": "skills/gatsby",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/gatsby",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/git": {
-    "url": "skills/git",
-    "alternates": [
-      {
-        "url": "da/kompetencer/git",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/git",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/git": {
-    "url": "da/kompetencer/git",
-    "alternates": [
-      {
-        "url": "skills/git",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/git",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/github": {
-    "url": "skills/github",
-    "alternates": [
-      {
-        "url": "da/kompetencer/github",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/github",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/github": {
-    "url": "da/kompetencer/github",
-    "alternates": [
-      {
-        "url": "skills/github",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/github",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/gitlab": {
-    "url": "skills/gitlab",
-    "alternates": [
-      {
-        "url": "da/kompetencer/gitlab",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/gitlab",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/gitlab": {
-    "url": "da/kompetencer/gitlab",
-    "alternates": [
-      {
-        "url": "skills/gitlab",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/gitlab",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/graphql": {
-    "url": "skills/graphql",
-    "alternates": [
-      {
-        "url": "da/kompetencer/graphql",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/graphql",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/graphql": {
-    "url": "da/kompetencer/graphql",
-    "alternates": [
-      {
-        "url": "skills/graphql",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/graphql",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/graphql-codegen": {
-    "url": "skills/graphql-codegen",
-    "alternates": [
-      {
-        "url": "da/kompetencer/graphql-codegen",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/graphql-codegen",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/graphql-codegen": {
-    "url": "da/kompetencer/graphql-codegen",
-    "alternates": [
-      {
-        "url": "skills/graphql-codegen",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/graphql-codegen",
+        "url": "da/kompetencer/typescript",
         "lang": "da-DK"
       }
     ],
@@ -932,169 +596,29 @@ export const routes = {
     ],
     "priority": 0.6
   },
-  "skills/inkscape": {
-    "url": "skills/inkscape",
+  "skills/css": {
+    "url": "skills/css",
     "alternates": [
       {
-        "url": "da/kompetencer/inkscape",
+        "url": "da/kompetencer/css",
         "lang": "da-DK"
       },
       {
-        "url": "skills/inkscape",
+        "url": "skills/css",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/inkscape": {
-    "url": "da/kompetencer/inkscape",
+  "da/kompetencer/css": {
+    "url": "da/kompetencer/css",
     "alternates": [
       {
-        "url": "skills/inkscape",
+        "url": "skills/css",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/inkscape",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/javascript": {
-    "url": "skills/javascript",
-    "alternates": [
-      {
-        "url": "da/kompetencer/javascript",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/javascript",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/javascript": {
-    "url": "da/kompetencer/javascript",
-    "alternates": [
-      {
-        "url": "skills/javascript",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/javascript",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/jest": {
-    "url": "skills/jest",
-    "alternates": [
-      {
-        "url": "da/kompetencer/jest",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/jest",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/jest": {
-    "url": "da/kompetencer/jest",
-    "alternates": [
-      {
-        "url": "skills/jest",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/jest",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/mantine": {
-    "url": "skills/mantine",
-    "alternates": [
-      {
-        "url": "da/kompetencer/mantine",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/mantine",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/mantine": {
-    "url": "da/kompetencer/mantine",
-    "alternates": [
-      {
-        "url": "skills/mantine",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/mantine",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/nextjs": {
-    "url": "skills/nextjs",
-    "alternates": [
-      {
-        "url": "da/kompetencer/nextjs",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/nextjs",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/nextjs": {
-    "url": "da/kompetencer/nextjs",
-    "alternates": [
-      {
-        "url": "skills/nextjs",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/nextjs",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/playwright": {
-    "url": "skills/playwright",
-    "alternates": [
-      {
-        "url": "da/kompetencer/playwright",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/playwright",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/playwright": {
-    "url": "da/kompetencer/playwright",
-    "alternates": [
-      {
-        "url": "skills/playwright",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/playwright",
+        "url": "da/kompetencer/css",
         "lang": "da-DK"
       }
     ],
@@ -1156,6 +680,454 @@ export const routes = {
     ],
     "priority": 0.6
   },
+  "skills/nextjs": {
+    "url": "skills/nextjs",
+    "alternates": [
+      {
+        "url": "da/kompetencer/nextjs",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/nextjs",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/nextjs": {
+    "url": "da/kompetencer/nextjs",
+    "alternates": [
+      {
+        "url": "skills/nextjs",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/nextjs",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/astro": {
+    "url": "skills/astro",
+    "alternates": [
+      {
+        "url": "da/kompetencer/astro",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/astro",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/astro": {
+    "url": "da/kompetencer/astro",
+    "alternates": [
+      {
+        "url": "skills/astro",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/astro",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/gatsby": {
+    "url": "skills/gatsby",
+    "alternates": [
+      {
+        "url": "da/kompetencer/gatsby",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/gatsby",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/gatsby": {
+    "url": "da/kompetencer/gatsby",
+    "alternates": [
+      {
+        "url": "skills/gatsby",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/gatsby",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/git": {
+    "url": "skills/git",
+    "alternates": [
+      {
+        "url": "da/kompetencer/git",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/git",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/git": {
+    "url": "da/kompetencer/git",
+    "alternates": [
+      {
+        "url": "skills/git",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/git",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/vscode": {
+    "url": "skills/vscode",
+    "alternates": [
+      {
+        "url": "da/kompetencer/vscode",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/vscode",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/vscode": {
+    "url": "da/kompetencer/vscode",
+    "alternates": [
+      {
+        "url": "skills/vscode",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/vscode",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/github": {
+    "url": "skills/github",
+    "alternates": [
+      {
+        "url": "da/kompetencer/github",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/github",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/github": {
+    "url": "da/kompetencer/github",
+    "alternates": [
+      {
+        "url": "skills/github",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/github",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/gitlab": {
+    "url": "skills/gitlab",
+    "alternates": [
+      {
+        "url": "da/kompetencer/gitlab",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/gitlab",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/gitlab": {
+    "url": "da/kompetencer/gitlab",
+    "alternates": [
+      {
+        "url": "skills/gitlab",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/gitlab",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/tailwind": {
+    "url": "skills/tailwind",
+    "alternates": [
+      {
+        "url": "da/kompetencer/tailwind",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/tailwind",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/tailwind": {
+    "url": "da/kompetencer/tailwind",
+    "alternates": [
+      {
+        "url": "skills/tailwind",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/tailwind",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/sass": {
+    "url": "skills/sass",
+    "alternates": [
+      {
+        "url": "da/kompetencer/sass",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/sass",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/sass": {
+    "url": "da/kompetencer/sass",
+    "alternates": [
+      {
+        "url": "skills/sass",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/sass",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/styled-components": {
+    "url": "skills/styled-components",
+    "alternates": [
+      {
+        "url": "da/kompetencer/styled-components",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/styled-components",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/styled-components": {
+    "url": "da/kompetencer/styled-components",
+    "alternates": [
+      {
+        "url": "skills/styled-components",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/styled-components",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/mantine": {
+    "url": "skills/mantine",
+    "alternates": [
+      {
+        "url": "da/kompetencer/mantine",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/mantine",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/mantine": {
+    "url": "da/kompetencer/mantine",
+    "alternates": [
+      {
+        "url": "skills/mantine",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/mantine",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/vite": {
+    "url": "skills/vite",
+    "alternates": [
+      {
+        "url": "da/kompetencer/vite",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/vite",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/vite": {
+    "url": "da/kompetencer/vite",
+    "alternates": [
+      {
+        "url": "skills/vite",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/vite",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/webpack": {
+    "url": "skills/webpack",
+    "alternates": [
+      {
+        "url": "da/kompetencer/webpack",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/webpack",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/webpack": {
+    "url": "da/kompetencer/webpack",
+    "alternates": [
+      {
+        "url": "skills/webpack",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/webpack",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/turborepo": {
+    "url": "skills/turborepo",
+    "alternates": [
+      {
+        "url": "da/kompetencer/turborepo",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/turborepo",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/turborepo": {
+    "url": "da/kompetencer/turborepo",
+    "alternates": [
+      {
+        "url": "skills/turborepo",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/turborepo",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/jest": {
+    "url": "skills/jest",
+    "alternates": [
+      {
+        "url": "da/kompetencer/jest",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/jest",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/jest": {
+    "url": "da/kompetencer/jest",
+    "alternates": [
+      {
+        "url": "skills/jest",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/jest",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/playwright": {
+    "url": "skills/playwright",
+    "alternates": [
+      {
+        "url": "da/kompetencer/playwright",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/playwright",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/playwright": {
+    "url": "da/kompetencer/playwright",
+    "alternates": [
+      {
+        "url": "skills/playwright",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/playwright",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
   "skills/react-testing-library": {
     "url": "skills/react-testing-library",
     "alternates": [
@@ -1212,281 +1184,113 @@ export const routes = {
     ],
     "priority": 0.6
   },
-  "skills/sass": {
-    "url": "skills/sass",
+  "skills/tanstack": {
+    "url": "skills/tanstack",
     "alternates": [
       {
-        "url": "da/kompetencer/sass",
+        "url": "da/kompetencer/tanstack",
         "lang": "da-DK"
       },
       {
-        "url": "skills/sass",
+        "url": "skills/tanstack",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/sass": {
-    "url": "da/kompetencer/sass",
+  "da/kompetencer/tanstack": {
+    "url": "da/kompetencer/tanstack",
     "alternates": [
       {
-        "url": "skills/sass",
+        "url": "skills/tanstack",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/sass",
+        "url": "da/kompetencer/tanstack",
         "lang": "da-DK"
       }
     ],
     "priority": 0.6
   },
-  "skills/storybook": {
-    "url": "skills/storybook",
+  "skills/apollo-client": {
+    "url": "skills/apollo-client",
     "alternates": [
       {
-        "url": "da/kompetencer/storybook",
+        "url": "da/kompetencer/apollo-client",
         "lang": "da-DK"
       },
       {
-        "url": "skills/storybook",
+        "url": "skills/apollo-client",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/storybook": {
-    "url": "da/kompetencer/storybook",
+  "da/kompetencer/apollo-client": {
+    "url": "da/kompetencer/apollo-client",
     "alternates": [
       {
-        "url": "skills/storybook",
+        "url": "skills/apollo-client",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/storybook",
+        "url": "da/kompetencer/apollo-client",
         "lang": "da-DK"
       }
     ],
     "priority": 0.6
   },
-  "skills/strapi": {
-    "url": "skills/strapi",
+  "skills/graphql": {
+    "url": "skills/graphql",
     "alternates": [
       {
-        "url": "da/kompetencer/strapi",
+        "url": "da/kompetencer/graphql",
         "lang": "da-DK"
       },
       {
-        "url": "skills/strapi",
+        "url": "skills/graphql",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/strapi": {
-    "url": "da/kompetencer/strapi",
+  "da/kompetencer/graphql": {
+    "url": "da/kompetencer/graphql",
     "alternates": [
       {
-        "url": "skills/strapi",
+        "url": "skills/graphql",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/strapi",
+        "url": "da/kompetencer/graphql",
         "lang": "da-DK"
       }
     ],
     "priority": 0.6
   },
-  "skills/styled-components": {
-    "url": "skills/styled-components",
+  "skills/graphql-codegen": {
+    "url": "skills/graphql-codegen",
     "alternates": [
       {
-        "url": "da/kompetencer/styled-components",
+        "url": "da/kompetencer/graphql-codegen",
         "lang": "da-DK"
       },
       {
-        "url": "skills/styled-components",
+        "url": "skills/graphql-codegen",
         "lang": "en-US"
       }
     ],
     "priority": 0.6
   },
-  "da/kompetencer/styled-components": {
-    "url": "da/kompetencer/styled-components",
+  "da/kompetencer/graphql-codegen": {
+    "url": "da/kompetencer/graphql-codegen",
     "alternates": [
       {
-        "url": "skills/styled-components",
+        "url": "skills/graphql-codegen",
         "lang": "en-US"
       },
       {
-        "url": "da/kompetencer/styled-components",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/svg": {
-    "url": "skills/svg",
-    "alternates": [
-      {
-        "url": "da/kompetencer/svg",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/svg",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/svg": {
-    "url": "da/kompetencer/svg",
-    "alternates": [
-      {
-        "url": "skills/svg",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/svg",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/tailwind": {
-    "url": "skills/tailwind",
-    "alternates": [
-      {
-        "url": "da/kompetencer/tailwind",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/tailwind",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/tailwind": {
-    "url": "da/kompetencer/tailwind",
-    "alternates": [
-      {
-        "url": "skills/tailwind",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/tailwind",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/typescript": {
-    "url": "skills/typescript",
-    "alternates": [
-      {
-        "url": "da/kompetencer/typescript",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/typescript",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/typescript": {
-    "url": "da/kompetencer/typescript",
-    "alternates": [
-      {
-        "url": "skills/typescript",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/typescript",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/vite": {
-    "url": "skills/vite",
-    "alternates": [
-      {
-        "url": "da/kompetencer/vite",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/vite",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/vite": {
-    "url": "da/kompetencer/vite",
-    "alternates": [
-      {
-        "url": "skills/vite",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/vite",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/vscode": {
-    "url": "skills/vscode",
-    "alternates": [
-      {
-        "url": "da/kompetencer/vscode",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/vscode",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/vscode": {
-    "url": "da/kompetencer/vscode",
-    "alternates": [
-      {
-        "url": "skills/vscode",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/vscode",
-        "lang": "da-DK"
-      }
-    ],
-    "priority": 0.6
-  },
-  "skills/webpack": {
-    "url": "skills/webpack",
-    "alternates": [
-      {
-        "url": "da/kompetencer/webpack",
-        "lang": "da-DK"
-      },
-      {
-        "url": "skills/webpack",
-        "lang": "en-US"
-      }
-    ],
-    "priority": 0.6
-  },
-  "da/kompetencer/webpack": {
-    "url": "da/kompetencer/webpack",
-    "alternates": [
-      {
-        "url": "skills/webpack",
-        "lang": "en-US"
-      },
-      {
-        "url": "da/kompetencer/webpack",
+        "url": "da/kompetencer/graphql-codegen",
         "lang": "da-DK"
       }
     ],
@@ -1543,6 +1347,230 @@ export const routes = {
       },
       {
         "url": "da/kompetencer/wp-graphql",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/docker": {
+    "url": "skills/docker",
+    "alternates": [
+      {
+        "url": "da/kompetencer/docker",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/docker",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/docker": {
+    "url": "da/kompetencer/docker",
+    "alternates": [
+      {
+        "url": "skills/docker",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/docker",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/bash": {
+    "url": "skills/bash",
+    "alternates": [
+      {
+        "url": "da/kompetencer/bash",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/bash",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/bash": {
+    "url": "da/kompetencer/bash",
+    "alternates": [
+      {
+        "url": "skills/bash",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/bash",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/figma": {
+    "url": "skills/figma",
+    "alternates": [
+      {
+        "url": "da/kompetencer/figma",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/figma",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/figma": {
+    "url": "da/kompetencer/figma",
+    "alternates": [
+      {
+        "url": "skills/figma",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/figma",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/svg": {
+    "url": "skills/svg",
+    "alternates": [
+      {
+        "url": "da/kompetencer/svg",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/svg",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/svg": {
+    "url": "da/kompetencer/svg",
+    "alternates": [
+      {
+        "url": "skills/svg",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/svg",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/inkscape": {
+    "url": "skills/inkscape",
+    "alternates": [
+      {
+        "url": "da/kompetencer/inkscape",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/inkscape",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/inkscape": {
+    "url": "da/kompetencer/inkscape",
+    "alternates": [
+      {
+        "url": "skills/inkscape",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/inkscape",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/storybook": {
+    "url": "skills/storybook",
+    "alternates": [
+      {
+        "url": "da/kompetencer/storybook",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/storybook",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/storybook": {
+    "url": "da/kompetencer/storybook",
+    "alternates": [
+      {
+        "url": "skills/storybook",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/storybook",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/accessibility": {
+    "url": "skills/accessibility",
+    "alternates": [
+      {
+        "url": "da/kompetencer/accessibility",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/accessibility",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/accessibility": {
+    "url": "da/kompetencer/accessibility",
+    "alternates": [
+      {
+        "url": "skills/accessibility",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/accessibility",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
+  "skills/algolia": {
+    "url": "skills/algolia",
+    "alternates": [
+      {
+        "url": "da/kompetencer/algolia",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/algolia",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/algolia": {
+    "url": "da/kompetencer/algolia",
+    "alternates": [
+      {
+        "url": "skills/algolia",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/algolia",
         "lang": "da-DK"
       }
     ],
