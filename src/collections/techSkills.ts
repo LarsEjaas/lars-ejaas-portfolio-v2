@@ -4,7 +4,7 @@ import type {
   TechSkillItems,
 } from '@customTypes/skillTypes';
 
-import type { techSkillEntries } from './techSkillTypes.mts';
+import { techSkillEntries } from './techSkillTypes.mts';
 import { useTranslations } from '@i18n/utils';
 
 export type TechSkill = (typeof techSkillEntries)[number];
@@ -93,6 +93,12 @@ const skillRatings: SkillRatings = {
   svg: { rating: 4 },
   tailwind: {
     rating: 3,
+  },
+  tanstack: {
+    rating: 3,
+  },
+  turborepo: {
+    rating: 2,
   },
   typescript: {
     rating: 4,
@@ -283,6 +289,18 @@ const techSkillTiles: Record<
     imageAlt: 'Tailwind logo',
     href: 'tailwind',
   },
+  tanstack: {
+    title: 'TanStack',
+    imageSrc: 'tanstack.svg',
+    imageAlt: 'TanStack logo',
+    href: 'tanstack',
+  },
+  turborepo: {
+    title: 'Turborepo',
+    imageSrc: 'turborepo.svg',
+    imageAlt: 'Turborepo logo',
+    href: 'turborepo',
+  },
   typescript: {
     title: 'TypeScript',
     imageSrc: 'typescript.svg',
@@ -325,12 +343,13 @@ const techSkillTiles: Record<
  * Takes the base tech skill data and enhances it with translated descriptions and skill ratings.
  *
  * @returns An object mapping tech skill identifiers to their complete information
+ * ordered according to the techSkillEntries array.
  */
 export const getTechSkills = (language: 'da' | 'en'): TechSkillItems => {
   const t = useTranslations(language, 'skillCards');
   // Helper function to create skills for a specific language
   const createLanguageSkills = () => {
-    return Object.entries(techSkillTiles).reduce(
+    const skillsObject = Object.entries(techSkillTiles).reduce(
       (acc, [key, value]) => ({
         ...acc,
         [key]: {
@@ -338,6 +357,15 @@ export const getTechSkills = (language: 'da' | 'en'): TechSkillItems => {
           description: t(key as TechSkill),
           rating: skillRatings[key as TechSkill].rating,
         },
+      }),
+      {} as Record<TechSkill, SkillInfo>
+    );
+
+    // Sort according to techSkillEntries order
+    return techSkillEntries.reduce(
+      (acc, skill) => ({
+        ...acc,
+        [skill]: skillsObject[skill],
       }),
       {} as Record<TechSkill, SkillInfo>
     );

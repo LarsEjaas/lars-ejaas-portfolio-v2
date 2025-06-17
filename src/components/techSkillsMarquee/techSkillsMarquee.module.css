@@ -19,13 +19,17 @@
   /* Inset and outset controls the grid animation offset on entry/exit */
   --inset: -0.5;
   --outset: 3.5;
-  --speed: 10s;
+  --speed: 9s;
   --items-in-row: 3;
   --grid-row-count: round(
     up,
     calc(var(--number-of-items) / var(--items-in-row))
   );
-  &:hover .skill,
+  @media (min-width: 640px) {
+    &:hover .skill {
+      animation-play-state: paused;
+    }
+  }
   &:focus-within .skill {
     animation-play-state: paused;
   }
@@ -39,7 +43,8 @@
   scroll-behavior: smooth;
   overflow: hidden;
   width: 100%;
-  mask: linear-gradient(
+  mask:
+    linear-gradient(
       transparent,
       white var(--mask-width) calc(100% - var(--mask-width)),
       transparent
@@ -185,7 +190,8 @@
         var(--system-light-400),
         var(--system-light-300)
       );
-      background-image: radial-gradient(
+      background-image:
+        radial-gradient(
           ellipse at 70% 10%,
           color-mix(in hsl, var(--gradient-tone-1), transparent 40%) 0%,
           color-mix(in hsl, var(--gradient-tone-2), transparent 50%) 60%,
@@ -211,7 +217,7 @@
 @container marquee (width >= 400px) {
   .scene {
     --items-in-row: 4;
-    --speed: 9s;
+    --speed: 8s;
     --height: calc((var(--grid-row-count) - 1) * 54px);
   }
 }
@@ -219,14 +225,14 @@
 @container marquee (width >= 500px) {
   .scene {
     --items-in-row: 5;
-    --speed: 8s;
+    --speed: 7s;
   }
 }
 
 @container marquee (width >= 640px) {
   .scene {
     --items-in-row: 6;
-    --speed: 7s;
+    --speed: 5s;
   }
   .skillsGrid:focus-within {
     padding-left: 0;
