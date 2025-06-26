@@ -1,0 +1,38 @@
+---
+import { useTranslations, type Language } from '@i18n/utils';
+import styles from './home.module.css';
+import AboutTip from './AboutTip.astro';
+
+type Props = {
+  lang: Language;
+  inert: boolean;
+};
+
+const { lang, inert } = Astro.props;
+const t_home = useTranslations(lang, 'home');
+---
+
+<div class={`fullgrid ${styles.fullgrid}`} id="aboutTips">
+  <AboutTip
+    id="progressive"
+    buttonLabel={t_home('learn_how_the_page')}
+    title={t_home('progressive_enhancement')}
+    variant="flirt"
+    inert={inert}
+    lang={lang}
+  >
+    <div set:html={t_home('this_site_follows')} />
+    <div slot="popoverContent" set:html={t_home('disable_javascript')} />
+  </AboutTip>
+  <AboutTip
+    id="accessibility"
+    buttonLabel={t_home('accessibility_was_a_major')}
+    title={t_home('accessibility')}
+    variant="princeton"
+    inert={inert}
+    lang={lang}
+  >
+    <div set:html={t_home('accessibility_was_a_major')} />
+    <div slot="popoverContent" set:html={''} />
+  </AboutTip>
+</div>
