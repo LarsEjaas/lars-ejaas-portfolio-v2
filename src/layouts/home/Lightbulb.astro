@@ -1,0 +1,178 @@
+---
+type Props = {
+  variant: 'flirt' | 'princeton';
+  className?: string;
+};
+
+const { className, variant } = Astro.props;
+---
+
+<svg
+  width="65.4"
+  height="100"
+  viewBox="0 0 99 150"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+>
+  <g clip-path="url(#lightb_clip1)">
+    <path
+      d="M36.6621 139.465C36.8393 141.108 40.0234 150.048 45.1565 150C50.6548 149.946 45.1404 149.957 52.4589 149.892C57.8498 149.839 59.96 143.148 61.2111 139.927L36.6621 139.465Z"
+      fill="currentColor"></path>
+    <path
+      d="M66.2049 112.672C71.2092 112.688 73.6684 108.226 73.6684 103.673C73.6684 95.2217 78.2216 85.1809 84.4287 77.7604C92.1607 68.5089 96.9555 57.6895 96.5099 47.0151C95.0601 12.7314 65.2706 1.61133 50.0644 1.61133C34.8529 1.61133 3.08741 12.726 1.64304 47.0151C1.19201 57.6895 5.9869 68.5089 13.7189 77.7604C19.9259 85.1809 24.4792 95.2217 24.4792 103.673C24.4792 108.226 26.9384 112.688 31.9427 112.672C42.4023 112.645 43.3634 112.672 49.0711 112.672C54.7841 112.672 55.9654 112.645 66.1995 112.672H66.2049Z"
+      fill=`url(#lightb_paint0_${variant})`
+      stroke="currentColor"
+      stroke-width="3.22"
+      stroke-linecap="round"></path>
+    <path
+      d="M43.519 109.682L43.229 105.569L44.5714 91.4369C47.9111 90.7496 50.0106 90.7121 53.4631 91.4906L54.7303 105.768L54.3437 109.94"
+      stroke="var(--verdigris-300)"
+      stroke-width="2.14777"
+      stroke-linecap="round"></path>
+    <path
+      d="M31.6152 112.892C31.6152 112.892 53.7587 112.688 67.4078 112.838C67.4078 112.838 68.1756 115.545 67.848 116.844C67.5903 117.88 67.5742 119.33 66.0493 119.48C55.9655 120.554 35.3684 121.231 33.0435 121.183C30.8581 121.059 30.3803 119.352 30.2782 117.998C29.8809 112.736 31.6206 112.898 31.6206 112.898L31.6152 112.892Z"
+      fill="url(#lightb_paint1)"
+      stroke="currentColor"
+      stroke-width="2.68"
+      stroke-linecap="round"></path>
+    <path
+      d="M64.9107 118.486C68.7015 118.669 68.6693 123.909 65.3295 124.226C56.4162 124.634 37.6931 126.589 33.36 127.018C29.741 127.394 29.0967 121.724 32.9143 121.268C44.9203 119.716 51.7234 119.152 64.916 118.486H64.9107Z"
+      fill="url(#lightb_paint2)"
+      stroke="currentColor"
+      stroke-width="2.68"
+      stroke-linecap="round"></path>
+    <path
+      d="M64.9862 124.389C68.7824 124.571 68.7448 129.812 65.4104 130.129C56.4972 130.537 37.774 132.491 33.4409 132.921C29.8219 133.297 29.1776 127.626 32.9898 127.17C45.0012 125.618 51.7989 125.054 64.9916 124.389H64.9862Z"
+      fill="url(#lightb_paint3)"
+      stroke="currentColor"
+      stroke-width="2.68"
+      stroke-linecap="round"></path>
+    <path
+      d="M33.9722 138.203C34.1494 139.846 36.8394 143.314 41.9726 143.261C47.4709 143.207 48.7595 143.234 56.0834 143.245C61.0877 143.255 65.7806 137.875 66.4249 135.094L33.9722 138.203Z"
+      fill="url(#lightb_paint4)"
+      stroke="currentColor"
+      stroke-width="2.6847"
+      stroke-linecap="round"></path>
+    <path
+      d="M64.7015 130.025C68.4923 130.208 68.4601 135.448 65.1203 135.76C56.2071 136.168 38.3055 137.773 33.9723 138.203C30.3534 138.579 29.215 133.371 33.0327 132.914C45.0387 131.362 51.8418 131.459 64.7015 130.025Z"
+      fill="url(#lightb_paint5)"
+      stroke="currentColor"
+      stroke-width="2.68"
+      stroke-linecap="round"></path>
+    <path
+      d="M44.5715 91.4355C44.5715 91.4355 38.8746 62.9346 37.7738 55.4497C37.645 54.5852 36.2382 56.6793 36.6892 56.6524C41.1136 56.4001 36.8825 53.0549 35.5992 53.2751C32.6675 53.7798 32.5494 55.396 32.4152 56.9638C32.2111 59.4338 36.2382 62.0218 38.9175 61.7587C43.6265 61.297 45.0763 60.5077 49.0335 59.4499M49.0335 59.4499C44.8454 59.0901 42.3593 53.5596 49.1731 53.7368C55.9386 53.914 52.529 59.5787 49.0335 59.4499ZM49.0335 59.4499C47.9113 59.4069 56.7547 61.6191 60.0408 61.5976C66.4304 61.5708 66.3767 58.3599 66.2479 56.4806C66.1781 55.4604 65.6841 52.3461 63.2947 53.216C56.9266 55.5463 62.3711 57.1625 62.0812 56.6256C60.2287 53.1301 61.4047 54.2093 61.163 55.4282C59.724 62.6984 53.4633 91.4946 53.4633 91.4946"
+      stroke=`url(#lightb_paint6_${variant})`
+      stroke-width="2.14777"
+      stroke-linecap="round"></path>
+    <path
+      opacity="0.8"
+      d="M76.0469 19.0195C81.9532 23.9003 86.2649 31.89 87.7254 41.018"
+      stroke="var(--verdigris-300)"
+      stroke-width="2.14777"
+      stroke-linecap="round"></path>
+    <path
+      opacity="0.9"
+      d="M13.0103 34.4769C17.236 23.2924 24.8552 15.9739 35.5242 12.1133"
+      stroke="white"
+      stroke-width="2.68"
+      stroke-linecap="round"></path>
+    <path
+      opacity="0.65"
+      d="M11.2222 42.0111L11.4155 40.1426"
+      stroke="white"
+      stroke-width="3.38"
+      stroke-linecap="round"></path>
+  </g>
+  <defs>
+    <radialGradient
+      id=`lightb_paint0_${variant}`
+      cx="0"
+      cy="0"
+      r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(11.6847 20.8153) rotate(44.9731) scale(196.929 233.071)"
+    >
+      <stop
+        offset="0.115385"
+        stop-color={variant === 'princeton'
+          ? 'var(--princeton-500)'
+          : 'var(--flirt-400)'}></stop>
+      <stop offset="0.614173" stop-color="var(--verdigris-500)"></stop>
+      <stop offset="1" stop-color="var(--verdigris-400)"></stop>
+    </radialGradient>
+    <linearGradient
+      id="lightb_paint1"
+      x1="28.8715"
+      y1="116.984"
+      x2="79.3547"
+      y2="115.614"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop offset="1" stop-color="var(--verdigris-500)"></stop>
+    </linearGradient>
+    <linearGradient
+      id="lightb_paint2"
+      x1="28.9946"
+      y1="122.76"
+      x2="69.1418"
+      y2="122.76"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop offset="1" stop-color="var(--verdigris-500)"></stop>
+    </linearGradient>
+    <linearGradient
+      id="lightb_paint3"
+      x1="29.0702"
+      y1="128.663"
+      x2="69.2173"
+      y2="128.663"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop offset="1" stop-color="var(--verdigris-500)"></stop>
+    </linearGradient>
+    <linearGradient
+      id="lightb_paint4"
+      x1="32.4848"
+      y1="139.094"
+      x2="68.1485"
+      y2="139.094"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop offset="1" stop-color="var(--verdigris-500)"></stop>
+    </linearGradient>
+    <linearGradient
+      id="lightb_paint5"
+      x1="29.3171"
+      y1="134.117"
+      x2="68.9272"
+      y2="134.117"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop offset="1" stop-color="var(--verdigris-500)"></stop>
+    </linearGradient>
+    <linearGradient
+      id=`lightb_paint6_${variant}`
+      x1="59.2837"
+      y1="86.4151"
+      x2="33.1937"
+      y2="48.6788"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--verdigris-300)"></stop>
+      <stop
+        offset="1"
+        stop-color={variant === 'flirt'
+          ? 'var(--princeton-500)'
+          : 'var(--princeton-200)'}></stop>
+    </linearGradient>
+    <clipPath id="lightb_clip1">
+      <rect width="98.1476" height="150" fill="white"></rect>
+    </clipPath>
+  </defs>
+</svg>

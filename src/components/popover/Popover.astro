@@ -8,9 +8,11 @@ type Props = {
   id: string;
   /** Accessibility label for the popover button */
   buttonLabel: string;
+  /** Placement of the popover relative to the target-button */
+  position?: 'top' | 'bottom';
 };
 
-const { id, buttonLabel } = Astro.props;
+const { id, buttonLabel, position = 'bottom' } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
@@ -56,6 +58,7 @@ const t = useTranslations(lang, 'navigation');
   <div
     id=`popover${capitalize(id)}`
     class={styles.popover}
+    data-position={position}
     style={{ '--anchor-id': `--${id};` }}
     popover
   >

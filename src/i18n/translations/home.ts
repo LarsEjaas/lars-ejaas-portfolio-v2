@@ -2,7 +2,7 @@ export const home = {
   en: {
     hi_my_name_is: 'Hi, my name is Lars 👋',
     a_developer_driven:
-      '- a developer passionate about creating user interfaces that captivate and inspire.\nI am seeking my next chapter as a developer and would love to connect about potential opportunities.',
+      '- a developer passionate about creating user interfaces that captivate and inspire.\n\nI am seeking my next chapter as a developer and would love to connect about potential opportunities.',
     this_little_corner:
       'This little corner of the web is a glimpse into my world - a space where creativity meets code.\nBrowse around to learn more about me and what I do - and if something catches your eye, don’t hesitate to reach out.\n\nI’d love to connect!',
     frontend_developer: 'Frontend Developer',
@@ -20,11 +20,23 @@ export const home = {
     got_something_on:
       '<b>Got something on your mind?</b><br>Drop me a message here...',
     contact: 'Contact me directly via email',
+    check_it_out: 'Check it out',
+    progressive_enhancement: 'Progressive Enhancement',
+    learn_more_about_progressive_enh:
+      'Learn more about Progressive Enhancement',
+    learn_how_the_page: 'Learn how the page works without JavaScript',
+    this_site_follows:
+      '<p class="small-body-text">This site follows the principle of progressive enhancement. \nCore functionality like navigation, animations, and form submission work independently of JavaScript.\n\nJavaScript then layers on enhanced interactions and polish. \nThis approach minimizes the JavaScript payload, resulting in faster load times and better performance.</p>',
+    disable_javascript:
+      '<h3>Disable JavaScript</h3><p class="small-body-text">You can follow these steps in the <b>Chrome</b> browser to disable JavaScript on this page:</p><ul class="small-body-text"><li>Press <b>F12</b> to open dev tools.</li><li>Press <b>CTRL</b> + <b>Shift</b> + <b>P</b> to open the Command Palette (<b>⌘</b> + <b>Shift</b> + <b>P</b> on Mac).</li><li>Start typing <b>“disable”</b> in the search field and select <b>Disable JavaScript</b>.</li></ul><p class="small-body-text"><br><b>Reload the page</b> and notice how everything still works - eg. navigation and animations.<br><br><b>Re-enable JavaScript</b> by opening the Command Palette again and selecting <b>"Enable JavaScript"</b> to see the enhanced interactions.</p>',
+    accessibility: 'Accessibility',
+    accessibility_was_a_major:
+      '<p class="small-body-text">Accessibility is built into this site’s foundation.\n\nSemantic HTML was used throughout, with properly structured headings, keyboard navigation support, and screen reader compatibility.\n\nThese practices don’t just make the site more inclusive — they also improve SEO and overall code quality.</p>',
   },
   da: {
     hi_my_name_is: 'Hej, mit navn er Lars 👋',
     a_developer_driven:
-      '- en udvikler, der er drevet af passionen for at skabe brugergrænseflader der fascinerer og inspirerer.\nJeg søger mit næste job som udvikler og er meget åben for at høre nærmere om spændende muligheder.',
+      '- en udvikler, der er drevet af passionen for at skabe brugergrænseflader der fascinerer og inspirerer.\n\nJeg søger mit næste job som udvikler og er meget åben for at høre nærmere om spændende muligheder.',
     this_little_corner:
       'Dette lille hjørne af internettet er et indblik i min verden - et sted, hvor kreativitet møder kode. Se dig omkring for at lære mere om mig, og hvad jeg laver - og hvis noget fanger dit blik, så tøv ikke med at kontakte mig.\n\nJeg hører meget gerne fra dig!',
     frontend_developer: 'Frontend Udvikler',
@@ -42,5 +54,16 @@ export const home = {
     got_something_on:
       '<b>Har du noget på hjertet?</b><br>Du kan skrive til mig lige her...',
     contact: 'Kontakt mig direkte via e-mail',
+    check_it_out: 'Check det ud',
+    progressive_enhancement: 'Progressiv forbedring',
+    learn_more_about_progressive_enh: 'Lær mere om progressiv forbedring',
+    learn_how_the_page: 'Lær hvordan denne side virker uden JavaScript',
+    this_site_follows:
+      '<p class="small-body-text">Dette websted følger princippet om progressiv forbedring.\nKernefunktionalitet som navigation, animationer og indsendelse af formularer fungerer uden brug af JavaScript.\n\nJavaScript tilføjer derefter forbedrede interaktioner og finpudsning. \Denne tilgang minimerer brugen af JavaScript, hvilket resulterer i hurtigere indlæsningstider og bedre ydeevne.</p>',
+    disable_javascript:
+      '<h3>Deaktiver JavaScript</h3><p class="small-body-text">Du kan følge disse trin i <b>Chrome</b>-browseren for at deaktivere JavaScript på denne side:</p><ul class="small-body-text"><li>Tryk <b>F12</b> for at åbne udviklingsværktøjer.</li><li>Tryk <b>CTRL</b> + <b>Shift</b> + <b>P</b> for at åbne Command Paletten (<b>⌘</b> + <b>Shift</b> + <b>P</b> på Mac).</li><li>Begynd at skrive <b>"disable"</b> i søgefeltet og vælg <b>Disable JavaScript</b>.</li></ul><p class="small-body-text"><br><b>Genindlæs siden</b> og læg mærke til hvordan alt stadig virker - f.eks. navigation og animationer.<br><br><b>Genaktiver JavaScript</b> ved at åbne Command Paletten igen og vælge <b>"Enable JavaScript"</b> for at se de forbedrede interaktioner.</p>',
+    accessibility: 'Tilgængelighed',
+    accessibility_was_a_major:
+      '<p class="small-body-text">Tilgængelighed er indbygget i dette websteds fundament.\n\nSemantisk HTML er anvendt overalt med korrekt strukturerede overskrifter, understøttelse af tastaturnavigation og skærmlæser-kompatibilitet.\n\nDisse principper gør ikke bare webstedet mere inkluderende - de forbedrer også SEO og den overordnede kodekvalitet.</p>',
   },
 } as const;
