@@ -15,14 +15,16 @@ type Props = {
   /** Accessibility label for the popover button */
   buttonLabel: string;
   variant: 'flirt' | 'princeton';
+  /** Index of the tip in the list of tips */
+  index: number;
 };
 
-const { lang, inert, id, buttonLabel, title, variant } = Astro.props;
+const { lang, inert, id, buttonLabel, title, variant, index } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 ---
 
 <Card inert={inert} className={styles.aboutCard}>
-  <div class={styles.flex}>
+  <div class={styles.flex} style={`--delay: calc(1.4s + ${index}s * 5)`}>
     <div class={`gradient ${styles.title}`} data-variant={variant}>{title}</div>
     <Lightbulb className={styles.lightbulb} variant={variant} />
   </div>

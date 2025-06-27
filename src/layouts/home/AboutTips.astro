@@ -15,6 +15,7 @@ const t_home = useTranslations(lang, 'home');
 <div class={`fullgrid ${styles.fullgrid}`} id="aboutTips">
   <AboutTip
     id="progressive"
+    index={0}
     buttonLabel={t_home('learn_how_the_page')}
     title={t_home('progressive_enhancement')}
     variant="flirt"
@@ -26,6 +27,7 @@ const t_home = useTranslations(lang, 'home');
   </AboutTip>
   <AboutTip
     id="accessibility"
+    index={1}
     buttonLabel={t_home('accessibility_was_a_major')}
     title={t_home('accessibility')}
     variant="princeton"
