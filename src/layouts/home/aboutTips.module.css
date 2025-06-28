@@ -76,24 +76,6 @@
   }
 }
 
-/* @keyframes flash {
-  0%,
-  100%,
-  1%,
-  11.001%,
-  12%,
-  39.999%,
-  41% {
-    opacity: 1;
-  }
-  1.001%,
-  10%,
-  11.002%,
-  40% {
-    opacity: 0;
-  }
-} */
-
 @keyframes flash {
   0%,
   0.5%,
@@ -138,10 +120,12 @@
       animation-play-state: paused;
     }
     & :global(#lightb_glow) {
-      opacity: 0;
+      opacity: 0 !important;
     }
     & :global(#lightb_glow_yellow),
-    & :global(.lightb_shine) {
+    & :global(.lightb_shine),
+    & :global(.lightb_thread),
+    & :global(.lightb_wire) {
       opacity: 1 !important;
     }
     & :global(#lightb_shine_1) {
@@ -150,10 +134,8 @@
     }
     & :global(.lightb_wire) {
       stroke: #fff;
-      opacity: 1 !important;
     }
     & :global(.lightb_thread) {
-      fill: light-dark(var(--system-dark-400), var(--system-light-400));
       fill: url(#lightb_paint7);
     }
   }

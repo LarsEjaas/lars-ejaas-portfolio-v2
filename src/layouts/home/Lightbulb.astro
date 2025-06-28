@@ -8,6 +8,7 @@ const { className, variant } = Astro.props;
 ---
 
 <svg
+  aria-hidden="true"
   width="114.8"
   height="130"
   viewBox="-30 -30 159 180"
@@ -24,6 +25,71 @@ const { className, variant } = Astro.props;
     stroke-width="3.22"
     stroke-linecap="round"
     fill="var(--system-shadow-5)"></use>
+  <use
+    href="#lightb_thread_1"
+    fill="var(--system-shadow-7)"
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    href="#lightb_thread_2"
+    fill="var(--system-shadow-7)"
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    href="#lightb_thread_3"
+    fill="var(--system-shadow-7)"
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    href="#lightb_thread_4"
+    fill="var(--system-shadow-7)"
+    stroke="currentColor"
+    stroke-width="2.6847"
+    stroke-linecap="round"></use>
+  <use
+    href="#lightb_thread_5"
+    fill="var(--system-shadow-7)"
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    class="lightb_thread"
+    href="#lightb_thread_1"
+    fill=`url(#lightb_paint1_${variant})`
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    class="lightb_thread"
+    href="#lightb_thread_2"
+    fill=`url(#lightb_paint2_${variant})`
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    class="lightb_thread"
+    href="#lightb_thread_3"
+    fill=`url(#lightb_paint3_${variant})`
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
+  <use
+    class="lightb_thread"
+    href="#lightb_thread_4"
+    fill=`url(#lightb_paint4_${variant})`
+    stroke="currentColor"
+    stroke-width="2.6847"
+    stroke-linecap="round"></use>
+  <use
+    class="lightb_thread"
+    href="#lightb_thread_5"
+    fill=`url(#lightb_paint5_${variant})`
+    stroke="currentColor"
+    stroke-width="2.68"
+    stroke-linecap="round"></use>
   <use
     id="lightb_glow"
     href="#lightb_bulb"
@@ -58,71 +124,6 @@ const { className, variant } = Astro.props;
     href="#lightb_wire_2"
     stroke=`url(#lightb_paint6_${variant})`
     stroke-width="2.14777"
-    stroke-linecap="round"></use>
-  <use
-    href="#lightb_thread_1"
-    fill="var(--system-light-300)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    href="#lightb_thread_2"
-    fill="var(--system-light-300)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    href="#lightb_thread_3"
-    fill="var(--system-light-300)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    href="#lightb_thread_4"
-    fill="var(--system-light-300)"
-    stroke="currentColor"
-    stroke-width="2.6847"
-    stroke-linecap="round"></use>
-  <use
-    href="#lightb_thread_5"
-    fill="var(--system-light-300)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    class="lightb_thread"
-    href="#lightb_thread_1"
-    fill="url(#lightb_paint1)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    class="lightb_thread"
-    href="#lightb_thread_2"
-    fill="url(#lightb_paint2)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    class="lightb_thread"
-    href="#lightb_thread_3"
-    fill="url(#lightb_paint3)"
-    stroke="currentColor"
-    stroke-width="2.68"
-    stroke-linecap="round"></use>
-  <use
-    class="lightb_thread"
-    href="#lightb_thread_4"
-    fill="url(#lightb_paint4)"
-    stroke="currentColor"
-    stroke-width="2.6847"
-    stroke-linecap="round"></use>
-  <use
-    class="lightb_thread"
-    href="#lightb_thread_5"
-    fill="url(#lightb_paint5)"
-    stroke="currentColor"
-    stroke-width="2.68"
     stroke-linecap="round"></use>
   <path
     class="lightb_shine"
@@ -204,58 +205,78 @@ const { className, variant } = Astro.props;
       <stop offset="1" stop-color="var(--verdigris-400)"></stop>
     </radialGradient>
     <linearGradient
-      id="lightb_paint1"
+      id=`lightb_paint1_${variant}`
       x1="28.8715"
       y1="116.984"
       x2="79.3547"
       y2="115.614"
       gradientUnits="userSpaceOnUse"
     >
-      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop
+        stop-color={variant === 'flirt'
+          ? 'var(--flirt-400)'
+          : 'var(--princeton-600)'}
+        stop-opacity="0.94902"></stop>
       <stop offset="1" stop-color="var(--verdigris-500)"></stop>
     </linearGradient>
     <linearGradient
-      id="lightb_paint2"
+      id=`lightb_paint2_${variant}`
       x1="28.9946"
       y1="122.76"
       x2="69.1418"
       y2="122.76"
       gradientUnits="userSpaceOnUse"
     >
-      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop
+        stop-color={variant === 'flirt'
+          ? 'var(--flirt-400)'
+          : 'var(--princeton-600)'}
+        stop-opacity="0.94902"></stop>
       <stop offset="1" stop-color="var(--verdigris-500)"></stop>
     </linearGradient>
     <linearGradient
-      id="lightb_paint3"
+      id=`lightb_paint3_${variant}`
       x1="29.0702"
       y1="128.663"
       x2="69.2173"
       y2="128.663"
       gradientUnits="userSpaceOnUse"
     >
-      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop
+        stop-color={variant === 'flirt'
+          ? 'var(--flirt-400)'
+          : 'var(--princeton-600)'}
+        stop-opacity="0.94902"></stop>
       <stop offset="1" stop-color="var(--verdigris-500)"></stop>
     </linearGradient>
     <linearGradient
-      id="lightb_paint4"
+      id=`lightb_paint4_${variant}`
       x1="32.4848"
       y1="139.094"
       x2="68.1485"
       y2="139.094"
       gradientUnits="userSpaceOnUse"
     >
-      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop
+        stop-color={variant === 'flirt'
+          ? 'var(--flirt-400)'
+          : 'var(--princeton-600)'}
+        stop-opacity="0.94902"></stop>
       <stop offset="1" stop-color="var(--verdigris-500)"></stop>
     </linearGradient>
     <linearGradient
-      id="lightb_paint5"
+      id=`lightb_paint5_${variant}`
       x1="29.3171"
       y1="134.117"
       x2="68.9272"
       y2="134.117"
       gradientUnits="userSpaceOnUse"
     >
-      <stop stop-color="var(--flirt-400)" stop-opacity="0.94902"></stop>
+      <stop
+        stop-color={variant === 'flirt'
+          ? 'var(--flirt-400)'
+          : 'var(--princeton-600)'}
+        stop-opacity="0.94902"></stop>
       <stop offset="1" stop-color="var(--verdigris-500)"></stop>
     </linearGradient>
     <linearGradient
