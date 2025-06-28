@@ -2,6 +2,7 @@
 import { useTranslations, type Language } from '@i18n/utils';
 import styles from './home.module.css';
 import AboutTip from './AboutTip.astro';
+import Video from '@components/video/Video.astro';
 
 type Props = {
   lang: Language;
@@ -35,6 +36,9 @@ const t_home = useTranslations(lang, 'home');
     lang={lang}
   >
     <div set:html={t_home('accessibility_was_a_major')} />
-    <div slot="popoverContent" set:html={''} />
+    <div slot="popoverContent">
+      <div set:html={''} />
+      <Video src={[{ src: 'video_example', type: 'mp4' }]} />
+    </div>
   </AboutTip>
 </div>

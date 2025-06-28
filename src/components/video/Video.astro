@@ -1,0 +1,198 @@
+---
+import { getPublicFiles } from '@utils/publicFileValidator';
+import styles from './video.module.css';
+
+type Props = FileSrc & {
+  // Boolean attributes
+  autoplay?: boolean;
+  controls?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  playsinline?: boolean;
+  disablepictureinpicture?: boolean;
+  disableRemotePlayback?: boolean;
+
+  // Enum-constrained attributes
+  preload?: 'none' | 'metadata' | 'auto' | '';
+  crossorigin?: 'anonymous' | 'use-credentials';
+  controlslist?: ControlsList | ControlsList[];
+
+  // Dimension attributes (CSS pixels - absolute values only, no percentages per spec)
+  width?: number;
+  height?: number;
+
+  // Media-specific attributes
+  poster?: string;
+
+  // Safari-specific fallback
+  'x-webkit-airplay'?: 'allow' | 'deny';
+
+  // Styling
+  className?: string;
+  style?: string | Record<string, string | number>;
+
+  // Accessibility
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  title?: string;
+
+  // Event handlers (optional)
+  onLoadStart?: string;
+  onCanPlay?: string;
+  onEnded?: string;
+  onError?: string;
+};
+
+type FileSrc =
+  | {
+      /**
+       * Video file name (without extension) or array of video sources.
+       * Files are automatically resolved from public/videos/ folder.
+       * @example "my-video" → resolves to /videos/my-video.mp4
+       * @example [{ src: "my-video", type: "webm" }, { src: "my-video", type: "mp4" }]
+       */
+      src: string;
+
+      // Video format types with proper MIME validation
+      type: VideoType;
+    }
+  | {
+      /**
+       * Video file name (without extension) or array of video sources.
+       * Files are automatically resolved from public/videos/ folder.
+       * @example "my-video" → resolves to /videos/my-video.mp4
+       * @example [{ src: "my-video", type: "webm" }, { src: "my-video", type: "mp4" }]
+       */
+      src: VideoSource[];
+      type?: never;
+    };
+
+type VideoType = 'mp4' | 'webm' | 'ogg' | 'mov' | 'avi';
+
+type VideoSource = { src: string; type: VideoType };
+
+// Controls list options
+type ControlsList = 'nodownload' | 'nofullscreen' | 'noremoteplayback';
+
+const {
+  src,
+  type = 'mp4',
+  autoplay = false,
+  controls = true,
+  loop = false,
+  muted = false,
+  playsinline = false,
+  disablepictureinpicture = false,
+  disableRemotePlayback = false,
+  preload = 'metadata',
+  crossorigin,
+  controlslist,
+  width,
+  height,
+  poster,
+  'x-webkit-airplay': webkitAirplay,
+  className,
+  style,
+  'aria-label': ariaLabel,
+  'aria-describedby': ariaDescribedby,
+  title,
+  onLoadStart,
+  onCanPlay,
+  onEnded,
+  onError,
+} = Astro.props;
+
+// Helper function to format controlslist
+const getControlsList = (
+  controlslist: Props['controlslist']
+): string | undefined => {
+  if (!controlslist) return undefined;
+  if (Array.isArray(controlslist)) return controlslist.join(' ');
+  return controlslist;
+};
+
+// Helper function to normalize style prop
+const getStyleString = (style: Props['style']): string | undefined => {
+  if (typeof style === 'string') return style;
+  if (typeof style === 'object' && style !== null) {
+    return Object.entries(style)
+      .map(
+        ([key, value]) =>
+          `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value}`
+      )
+      .join('; ');
+  }
+  return undefined;
+};
+
+// Normalize sources - handle case where src might be undefined
+const sources = src ? (Array.isArray(src) ? src : [{ src, type }]) : [];
+
+const videos = getPublicFiles('videos');
+
+// Get the correct video file paths
+const videoSources = sources.map((source) => {
+  const video_src = `/${
+    videos
+      ? Object.values(videos).find(
+          (filePath) =>
+            filePath.includes(source.src) &&
+            filePath.endsWith(`.${source.type}`)
+        )
+      : undefined
+  }`;
+
+  if (!video_src) {
+    console.warn(`Video file not found: ${source.src}.${source.type}`);
+  }
+
+  return {
+    src: video_src,
+    type: source.type,
+  };
+});
+---
+
+<video
+  class={`${styles.video} ${className || ''}`}
+  autoplay={autoplay}
+  controls={controls}
+  loop={loop}
+  muted={muted}
+  playsinline={playsinline}
+  disablepictureinpicture={disablepictureinpicture}
+  disableRemotePlayback={disableRemotePlayback}
+  preload={preload}
+  crossorigin={crossorigin}
+  controlslist={getControlsList(controlslist)}
+  width={width}
+  height={height}
+  poster={poster}
+  x-webkit-airplay={webkitAirplay}
+  style={getStyleString(style)}
+  aria-label={ariaLabel}
+  aria-describedby={ariaDescribedby}
+  title={title}
+  onloadstart={onLoadStart}
+  oncanplay={onCanPlay}
+  onended={onEnded}
+  onerror={onError}
+>
+  {
+    videoSources.map(({ src: sourceSrc, type: sourceType }) => (
+      <source src={sourceSrc} type={`video/${sourceType}`} />
+    ))
+  }
+
+  <!-- Fallback content -->
+  {
+    videoSources.length === 0 ? (
+      <p>No video sources provided.</p>
+    ) : (
+      <p>
+        Your browser doesn't support HTML5 video.
+        <a href={videoSources?.[0]?.src}>Download the video</a> instead.
+      </p>
+    )
+  }
+</video>
