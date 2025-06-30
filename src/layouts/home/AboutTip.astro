@@ -17,9 +17,12 @@ type Props = {
   variant: 'flirt' | 'princeton';
   /** Index of the tip in the list of tips */
   index: number;
+  /** width of the popover */
+  width?: number;
 };
 
-const { lang, inert, id, buttonLabel, title, variant, index } = Astro.props;
+const { lang, inert, id, buttonLabel, title, variant, index, width } =
+  Astro.props;
 const t_home = useTranslations(lang, 'home');
 ---
 
@@ -30,7 +33,7 @@ const t_home = useTranslations(lang, 'home');
   </div>
   <div class={styles.content}>
     <slot />
-    <Popover id={id} position="top" buttonLabel={buttonLabel}>
+    <Popover id={id} position="top" buttonLabel={buttonLabel} width={width}>
       <div class={styles.buttonContent} slot="buttonContent">
         <p class={styles.popoverDesc}>
           {t_home('check_it_out')}

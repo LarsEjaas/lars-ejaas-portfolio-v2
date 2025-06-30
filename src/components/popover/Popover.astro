@@ -10,9 +10,11 @@ type Props = {
   buttonLabel: string;
   /** Placement of the popover relative to the target-button */
   position?: 'top' | 'bottom';
+  /** Width of the popover - defaults to 300px */
+  width?: number;
 };
 
-const { id, buttonLabel, position = 'bottom' } = Astro.props;
+const { id, buttonLabel, position = 'bottom', width = 300 } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
@@ -59,7 +61,8 @@ const t = useTranslations(lang, 'navigation');
     id=`popover${capitalize(id)}`
     class={styles.popover}
     data-position={position}
-    style={{ '--anchor-id': `--${id};` }}
+    data-width={width}
+    style={{ '--anchor-id': `--${id}`, '--width': `${width}px` }}
     popover
   >
     <button

@@ -181,6 +181,7 @@
 
 .fullgrid {
   padding-top: 48px;
+  padding-inline: 1rem;
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -192,7 +193,7 @@
   &::before {
     content: '';
     position: absolute;
-    top: -9px;
+    top: 0;
     left: 0;
     background-color: light-dark(
       var(--system-shadow-7),
@@ -208,9 +209,15 @@
     content: '';
     position: absolute;
     inset: 0;
+    top: 8px;
     left: 18px;
     height: 2px;
     border-top: dashed 2px
       light-dark(var(--system-shadow-7), var(--system-light-400));
   }
+}
+
+.video {
+  margin-block: 1rem;
+  aspect-ratio: 1.3;
 }
