@@ -60,6 +60,12 @@ export const about = {
       'Life rarely follows a linear path. Sometimes what appears to be a detour is actually the necessary journey to discover where you truly belong.\n\nAnd sometimes the perfect career is out there, patiently waiting for you to find it!',
     keep_chasing_your_dreams: 'Keep chasing your dreams ❤️',
     signature_of: 'Signature of Lars Ejaas',
+    short_on_time: 'Short on time?',
+    jump_to_the_summary: 'Jump to the summary',
+    tldr: 'TL;DR',
+    in_short: 'In short',
+    left_architecture_school_early:
+      'I quit architecture school early and spent years as a competitive cyclist and long-distance runner.\n\nAfter burnout from unfulfilling jobs, discovered programming as a recovery activity. The blend of structured problem-solving and creativity was exactly what I’d been searching for.\n\nTurns out the perfect career was worth the winding path to find it!',
   },
   da: {
     about_title: 'Om mig',
@@ -121,5 +127,11 @@ export const about = {
       'Livet følger sjældent en lineær sti. Nogle gange er det, der ser ud til at være en omvej, faktisk den nødvendige rejse for at finde ud af, hvor du virkelig hører til.\n\nOg nogle gange ligger den perfekte karriere derude et sted og venter tålmodigt på at du finder den!',
     keep_chasing_your_dreams: 'Bliv ved med at jagte dine drømme ❤️',
     signature_of: 'Lars Ejaas’ signatur',
+    short_on_time: 'Tidspresset?',
+    jump_to_the_summary: 'Gå til resumé',
+    tldr: 'Resumé',
+    in_short: 'Kort sagt',
+    left_architecture_school_early:
+      'Jeg sprang fra arkitektskolen tidligt og tilbragte mange år som cykelrytter og langdistanceløber.\n\nEfter udbrændthed fra utilfredsstillende jobs opdagede jeg programmering som en spændende hobby. Blandingen af struktureret problemløsning og kreativitet var præcis, hvad jeg havde ledt efter.\n\nDet viste sig, at den perfekte karriere for mig krævede nogle omveje for at finde den!',
   },
 } as const;

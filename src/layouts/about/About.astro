@@ -10,6 +10,8 @@ import PhotoCards from '@components/photoCards/PhotoCards.astro';
 import type { DistributiveOmit } from '@customTypes/index';
 import Signature from '@assets/emailReplyImages/signature.png';
 import type { OpenGraph } from '@customTypes/seo';
+import GoToTLDR from './GoToTLDR.astro';
+import TLDRSection from './TLDRSection.astro';
 
 type Props = {
   title: string;
@@ -40,6 +42,7 @@ const t_about = useTranslations(lang, 'about');
   <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_about('about_title')} iconImage="about" />
+    <GoToTLDR />
     <div>
       <h2>
         {t_about('life_outside_the_codebase')}
@@ -179,4 +182,5 @@ const t_about = useTranslations(lang, 'about');
       </div>
     </div>
   </article>
+  <TLDRSection inert={inert} />
 </Layout>

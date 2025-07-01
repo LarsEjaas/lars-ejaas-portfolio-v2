@@ -1,0 +1,89 @@
+:import('@layouts/home/aboutTips.module.css') {
+  flash: flash;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  color: var(--system-dark-300-55);
+  align-items: center;
+  width: fit-content;
+  padding-inline: 2px;
+  padding-bottom: 2px;
+  background-color: var(--system-light-300-55);
+  border-radius: var(--border-radius-sm);
+  & a,
+  p {
+    color: light-dark(var(--system-dark-300), var(--system-dark-300));
+    text-wrap: nowrap;
+  }
+  a {
+    outline-offset: 4px;
+    text-underline-offset: 4px;
+    font-weight: 600;
+    text-decoration: underline transparent;
+    transition:
+      text-decoration-color 300ms,
+      color 300ms linear;
+    transition-timing-function: linear;
+    & :active,
+    &:focus-visible,
+    &:hover {
+      color: light-dark(var(--flirt-400), var(--flirt-200));
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+.card {
+  composes: aboutCard from '@layouts/home/aboutTips.module.css';
+}
+
+.divider {
+  height: 12px;
+  border-left: 2px solid currentColor;
+  margin-inline: 4px;
+}
+
+.cardWrapper {
+  composes: fullgrid from '@layouts/home/home.module.css';
+}
+
+.titleWrapper {
+  composes: flex from '@layouts/home/aboutTips.module.css';
+}
+.title {
+  composes: title from '@layouts/home/aboutTips.module.css';
+  min-width: 120px;
+}
+
+.content {
+  composes: content from '@layouts/home/aboutTips.module.css';
+}
+
+.lightning {
+  composes: lightbulb from '@layouts/home/aboutTips.module.css';
+  @media (prefers-reduced-motion: no-preference) {
+    :global(#lightning_gradient) {
+      animation: flash 20s var(--delay) linear infinite;
+    }
+  }
+  :global(#lightning_gradient),
+  :global(#lightning_yellow),
+  :global(#lightning_glow_yellow) {
+    transition: opacity 0.3s ease-in-out;
+  }
+  &:hover {
+    :global(#lightning_gradient) {
+      animation-play-state: paused;
+    }
+    & :global(#lightning_gradient) {
+      opacity: 0 !important;
+    }
+    & :global(#lightning_glow_yellow),
+    & :global(#lightning_yellow) {
+      opacity: 1 !important;
+    }
+  }
+}
