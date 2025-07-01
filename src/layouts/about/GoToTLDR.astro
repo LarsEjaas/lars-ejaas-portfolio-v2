@@ -1,0 +1,19 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './tldr.module.css';
+import Bolt from './Bolt.astro';
+import CornerRightDown from './CornerRightDown.astro';
+
+type Props = Record<string, never>;
+
+const lang = getLangFromUrl(Astro.url);
+const t_about = useTranslations(lang, 'about');
+---
+
+<div class={styles.flex}>
+  <Bolt />
+  <p class="small-body-text">{t_about('short_on_time')}</p>
+  <div class={styles.divider}></div>
+  <a class="small-body-text" href="#tldr">{t_about('jump_to_the_summary')}</a>
+  <CornerRightDown />
+</div>

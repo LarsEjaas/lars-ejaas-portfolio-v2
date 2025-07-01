@@ -45,7 +45,7 @@ const { title, labels, iconImage, gradientColor } = Astro.props;
   class={styles.dialog}
 >
   <div
-    class={styles.modalHeader}
+    class={`gradient ${styles.modalHeader}`}
     data-flirt={gradientColor === 'flirt' ? 'true' : undefined}
     data-verdigris={gradientColor === 'verdigris' ? 'true' : undefined}
   >
