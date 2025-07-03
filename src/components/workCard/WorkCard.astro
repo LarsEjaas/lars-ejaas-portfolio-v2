@@ -134,7 +134,10 @@ footerImages?.forEach((footerImage) => {
   {...rest}
 >
   {currentEmployment && <CurrentEmploymentBadge lang={lang} />}
-  <div data-with-image={!!headerImage || undefined} class={styles.header}>
+  <div
+    data-with-image={!!headerImage || undefined}
+    class={`gradient ${styles.header}`}
+  >
     <div class={styles.headerContent}>
       <ConditionalLink href={href}>
         {

@@ -13,18 +13,26 @@
   box-shadow: var(--stacks-6-shadow);
   opacity: 0;
   display: none;
+  z-index: 1;
   transform: translateY(-10px);
-  width: 90cqi;
-  max-width: 400px;
+  min-width: 300px;
+  max-width: var(--width);
   margin-right: 1.5rem;
   transition:
     opacity 250ms ease-in-out,
     transform 250ms ease-in-out,
-    display 250ms ease-in-out;
+    display 250ms allow-discrete;
   transition-behavior: allow-discrete;
   @supports (anchor-name: --anchor) {
-    top: calc(anchor(var(--anchor-id) bottom) + 0.5rem);
-    left: anchor(var(--anchor-id) left);
+    &[data-position='top'] {
+      bottom: calc(anchor(var(--anchor-id) top) + 0.5rem);
+      top: unset;
+      left: anchor(var(--anchor-id) left);
+    }
+    &[data-position='bottom'] {
+      top: calc(anchor(var(--anchor-id) bottom) + 0.5rem);
+      left: anchor(var(--anchor-id) left);
+    }
   }
   &:popover-open {
     opacity: 1;

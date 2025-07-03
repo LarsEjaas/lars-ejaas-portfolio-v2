@@ -1,0 +1,33 @@
+---
+import styles from './tldr.module.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import Card from '@components/card/Card.astro';
+import LightningBolt from './LightningBolt.astro';
+
+type Props = { inert: boolean };
+
+const { inert } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t_about = useTranslations(lang, 'about');
+---
+
+<div class={styles.cardWrapper} id="tldr">
+  <Card inert={inert} className={styles.card}>
+    <div
+      class={styles.titleWrapper}
+      title={lang === 'en' ? "Too Long; Didn't Read" : undefined}
+      style={`--delay: 0s`}
+    >
+      <div class={`gradient ${styles.title}`} data-variant="princeton">
+        {t_about('tldr')}
+      </div>
+      <LightningBolt className={styles.lightning} />
+    </div>
+    <div class={styles.content}>
+      <h3>{t_about('in_short')}</h3>
+      <p class="small-body-text">
+        {t_about('left_architecture_school_early')}
+      </p>
+    </div>
+  </Card>
+</div>
