@@ -13,6 +13,7 @@
   padding-bottom: 2px;
   background-color: var(--system-light-300-55);
   border-radius: var(--border-radius-sm);
+  max-width: 100%;
   & a,
   p {
     color: light-dark(var(--system-dark-300), var(--system-dark-300));
@@ -22,6 +23,8 @@
     outline-offset: 4px;
     text-underline-offset: 4px;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: underline transparent;
     transition:
       text-decoration-color 300ms,

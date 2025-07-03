@@ -78,6 +78,9 @@ declare global {
     contactButton: HTMLAnchorElement | null;
     footerMenuContact: HTMLAnchorElement | null;
     mainContent: HTMLElement | null;
+    tldr: HTMLDivElement | null;
+    gotoDldr: HTMLAnchorElement | null;
+    scrollToTop: HTMLAnchorElement | null;
     themeToggle: HTMLInputElement | null;
     themeToggleMobile: HTMLInputElement | null;
     carouselList: HTMLDivElement | null;

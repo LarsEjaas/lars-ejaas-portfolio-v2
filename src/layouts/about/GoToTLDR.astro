@@ -10,10 +10,23 @@ const lang = getLangFromUrl(Astro.url);
 const t_about = useTranslations(lang, 'about');
 ---
 
+<script>
+  if (window.gotoDldr && window.tldr) {
+    const scrollToTldr = (e: MouseEvent) => {
+      e.preventDefault();
+      window.tldr?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    };
+    window.gotoDldr.addEventListener('click', scrollToTldr);
+  }
+</script>
 <div class={styles.flex}>
   <Bolt />
   <p class="small-body-text">{t_about('short_on_time')}</p>
   <div class={styles.divider}></div>
-  <a class="small-body-text" href="#tldr">{t_about('jump_to_the_summary')}</a>
+  <a id="gotoDldr" class="small-body-text" href="#tldr"
+    >{t_about('jump_to_the_summary')}</a
+  >
   <CornerRightDown />
 </div>
