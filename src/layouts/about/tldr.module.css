@@ -9,7 +9,7 @@
   color: var(--system-dark-300-55);
   align-items: center;
   width: fit-content;
-  padding-inline: 2px;
+  padding-inline: 6px;
   padding-bottom: 2px;
   background-color: var(--system-light-300-55);
   border-radius: var(--border-radius-sm);

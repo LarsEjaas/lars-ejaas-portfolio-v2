@@ -43,9 +43,9 @@ export const about = {
       'That taught me something crucial: the persistence I’d cultivated as an athlete could be used in a lot of different contexts. I just had to put my mind to it and keep going!',
     the_winding_career_path: 'The Winding Career Path',
     despite_completing_a_bachelors:
-      'Despite completing a bachelor’s in Human Nutrition (spending more time training than studying), I found myself with a degree I had no passion to pursue. The following years became a patchwork of work-roles that paid bills but drained my spirit',
+      'Despite completing a bachelor’s in Human Nutrition (spending more time training than studying), I found myself with a degree I had no passion to pursue. The following years became a patchwork of work-roles that paid bills but drained my spirit.',
     customer_support_positions:
-      'Customer support positions and a stint at a large bike shop left me feeling trapped. Even a brief leadership role couldn’t mask the Sunday evening dread that came before each workweek.\n\nI was skilled enough to perform and met a lot of great people along the way, but I was also disconnected enough to feel hollow at the end of each day',
+      'Customer support positions and a stint at a large bike shop left me feeling trapped. Even a brief leadership role couldn’t mask the Sunday evening dread that came before each workweek.\n\nI was skilled enough to perform and met a lot of great people along the way, but I was also disconnected enough to feel hollow at the end of each day.',
     the_unexpected_discovery: 'The Unexpected Discovery',
     years_of_unfulfilling_jobs:
       'Years of unfulfilling jobs and that persistent Sunday evening dread eventually took their toll. During a challenging period of burnout and recovery, I began experimenting with programming as a way to engage my mind differently.\n\nWhat started as a recovery activity revealed something unexpected: frontend development offered exactly what I’d been searching for —structured problem-solving with creative elements that matched my thinking style.\n\nAs my health improved, so did my coding skills. Programming rewarded pattern recognition, systematic thinking, and focused problem solving in ways that made me feel truly engaged.',
@@ -65,7 +65,7 @@ export const about = {
     tldr: 'TL;DR',
     in_short: 'In short',
     left_architecture_school_early:
-      'I quit architecture school early and spent years as a competitive cyclist and long-distance runner.\n\nAfter burnout from unfulfilling jobs, discovered programming as a recovery activity. The blend of structured problem-solving and creativity was exactly what I’d been searching for.\n\nTurns out the perfect career was worth the winding path to find it!',
+      'I quit architecture school early and spent years as a competitive cyclist and long-distance runner.\n\nAfter burnout from unfulfilling jobs, I discovered programming as a recovery activity. The blend of structured problem-solving and creativity was exactly what I’d been searching for.\n\nTurns out the perfect career was worth the winding path to find it!',
   },
   da: {
     about_title: 'Om mig',
@@ -112,7 +112,7 @@ export const about = {
     despite_completing_a_bachelors:
       'Jeg fuldførte en professionsbachelor i ernæring og sundhed (hvor jeg dog brugte mere tid på at træne end på at studere), men stod efterfølgende med en uddannelse som jeg ikke havde lyst til at forfølge. De følgende år blev derfor et kludetæppe af arbejdsroller, der betalte regninger, men drænede mit overskud.',
     customer_support_positions:
-      'Kundesupportstillinger og en periode i en stor cykelforretning fik mig til at føle mig fanget. Selv en kortvarig lederrolle kunne ikke skjule den frygt, der kom søndag aften før hver arbejdsuge\n\nJeg var dygtig nok til at præstere og mødte en masse gode mennesker undervejs, men jeg var også så afkoblet, at jeg følte mig tom, når dagen var omme.',
+      'Kundesupportstillinger og en periode i en stor cykelforretning fik mig til at føle mig fanget. Selv en kortvarig lederrolle kunne ikke skjule den frygt, der kom søndag aften før hver arbejdsuge.\n\nJeg var dygtig nok til at præstere og mødte en masse gode mennesker undervejs, men jeg var også så afkoblet, at jeg følte mig tom, når dagen var omme.',
     the_unexpected_discovery: 'Den uventede opdagelse',
     years_of_unfulfilling_jobs:
       'År med ufyldestgørende jobs og den vedvarende frygt for søndag aften resulterede til sidst i en udfordrende periode med udbrændthed. I forbindelse med restitution begyndte jeg at programmere som en måde at koble af og fordybe mig i noget meningsfyldt.\n\nDet, der startede som en restitutionsaktivitet, afslørede noget uventet: Frontend-udvikling tilbød præcis det, jeg havde ledt efter - struktureret problemløsning med kreative elementer.\n\nEfterhånden som mit helbred igen blev bedre, blev mine færdigheder det også. Programmering belønnede mønstergenkendelse, systematisk tænkning og fokuseret problemløsning på måder, der fik mig til at føle mig virkelig engageret.',
