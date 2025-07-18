@@ -180,15 +180,11 @@
 }
 
 .fullgrid {
-  padding-top: 64px;
-  padding-inline: 1rem;
+  padding-top: 2rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   position: relative;
-  gap: 40px;
-  @media (max-width: 768px) {
-    justify-content: center;
-  }
+  gap: 2rem;
   /* scissors */
   &::before {
     content: '';
@@ -214,6 +210,19 @@
     height: 2px;
     border-top: dashed 2px
       light-dark(var(--system-shadow-7), var(--system-light-400));
+  }
+  & h2 {
+    margin-bottom: 0;
+  }
+}
+
+.tips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-inline: 1rem;
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 }
 

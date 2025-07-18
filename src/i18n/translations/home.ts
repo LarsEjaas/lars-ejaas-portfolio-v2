@@ -37,6 +37,7 @@ export const home = {
       'Accessibility is not just for a selected few with disabilities. It’s worth remembering that many of us will face vision challenges during our lifetime, whether temporary or permanent.\n\nBet you’ve never used a screen reader before. The video below shows what it’s like browsing this page using the JAWS Professional screen reader — prepare to be surprised!\n\nRemember to unmute the video for the full experience!',
     the_web_should_be:
       'The web should be for everyone. Creating accessible web solutions is a core part of my development practice.',
+    quality_in_the_details: 'Quality in the Details',
   },
   da: {
     hi_my_name_is: 'Hej, mit navn er Lars 👋',
@@ -75,5 +76,6 @@ export const home = {
       'Tilgængelighed er ikke kun for nogle få udvalgte med handicap. Det er værd at huske på, at mange af os vil møde synsudfordringer i løbet af vores liv, uanset om de er midlertidige eller permanente.\n\nJeg vil vædde på, at du aldrig har brugt en skærmlæser før. Videoen nedenfor viser, hvordan det er at besøge denne side ved hjælp af JAWS Professional skærmlæseren - forbered dig på at blive overrasket!\n\nHusk at slå lyden fra i videoen for at få den fulde oplevelse!',
     the_web_should_be:
       'Internettet bør være for alle. At skabe tilgængelige webløsninger er en central del af mit fokus som udvikler.',
+    quality_in_the_details: 'Kvalitet i detaljen',
   },
 } as const;
