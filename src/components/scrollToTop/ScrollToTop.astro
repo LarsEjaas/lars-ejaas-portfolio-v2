@@ -29,22 +29,12 @@ const { withScrollTop } = Astro.props;
 
     if (!supportsScrollTimeline) {
       const scrollToTopButton = window.scrollToTop;
-      console.log(
-        'Scroll to Top button is available, setting up Intersection Observer',
-        scrollToTopButton
-      );
 
       if (scrollToTopButton) {
         const SCROLL_THRESHOLD = 200;
         let ticking = false;
 
         const handleScroll = () => {
-          console.log(
-            ticking,
-            'Scroll event detected',
-            window.pageYOffset,
-            document.body.scrollTop
-          );
           if (!ticking) {
             requestAnimationFrame(() => {
               const scrollTop = window.pageYOffset;

@@ -37,8 +37,18 @@ const t = useTranslations(lang, 'navigation');
         wrapper
       ) {
         const calculatePosition = () => {
+          const position = popover.dataset.position || 'bottom';
           const rect = wrapper.getBoundingClientRect();
-          popover.style.top = `calc(${rect.top + rect.height + window.scrollY}px + 0.5rem)`;
+          if (position === 'top') {
+            // wait for the popover to be rendered
+            requestAnimationFrame(() => {
+              const popoverHeight = popover.offsetHeight;
+              popover.style.top = `${rect.top + window.scrollY - popoverHeight - 8}px`;
+              popover.style.bottom = 'auto';
+            });
+          } else {
+            popover.style.top = `calc(${rect.top + rect.height + window.scrollY}px + 0.5rem)`;
+          }
           popover.style.left = `${rect.left}px`;
         };
         popoverButton.addEventListener('click', calculatePosition);
