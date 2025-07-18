@@ -85,6 +85,7 @@
     var(--system-light-300),
     color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
   );
+  box-shadow: var(--stacks-4-shadow);
   &:active,
   &:focus-visible,
   &:hover {

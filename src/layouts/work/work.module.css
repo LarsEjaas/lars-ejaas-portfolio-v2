@@ -10,7 +10,7 @@
   }
   & :global(#sallingGroupLogo) {
     color: #004a62;
-    margin-top: 1px;
+    margin-bottom: 1px;
   }
   & :global(#accuRankerLogo) {
     color: var(--system-dark-400);
@@ -113,6 +113,7 @@
     var(--system-light-300),
     color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
   );
+  box-shadow: var(--stacks-4-shadow);
   text-decoration: unset;
   width: fit-content;
   padding: 8px 12px;

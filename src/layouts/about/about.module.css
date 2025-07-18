@@ -17,6 +17,8 @@
 }
 
 .endquote {
+  color: var(--system-dark-300);
+  font-weight: 600;
   max-width: 68ch;
   margin-block-start: 2rem;
   margin-left: 2rem;
