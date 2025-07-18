@@ -51,6 +51,14 @@
 
 .cardWrapper {
   composes: fullgrid from '@layouts/home/home.module.css';
+  &:global(#tldr) {
+    padding-top: 4rem;
+    flex-direction: row;
+    padding-inline: 1rem;
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
+  }
 }
 
 .titleWrapper {
