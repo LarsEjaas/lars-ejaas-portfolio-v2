@@ -84,6 +84,21 @@
   }
 }
 
+/* JS Fallback for browsers that do not support animation-timeline */
+:global(:root[data-js-enabled='true']) .button {
+  @supports not (animation-timeline: scroll()) {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    &:global(.visible) {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+}
+
 .button:is(:link, :visited) {
   /* Instead of the link color, use the text color */
   color: currentColor;
