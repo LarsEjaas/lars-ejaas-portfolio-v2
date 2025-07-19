@@ -15,6 +15,7 @@
 .aboutCard {
   width: 288px;
   & button:has(p) {
+    width: -moz-available;
     width: -webkit-fill-available;
   }
 }
