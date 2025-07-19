@@ -8,9 +8,13 @@ type Props = {
   id: string;
   /** Accessibility label for the popover button */
   buttonLabel: string;
+  /** Placement of the popover relative to the target-button */
+  position?: 'top' | 'bottom';
+  /** Width of the popover - defaults to 300px */
+  width?: number;
 };
 
-const { id, buttonLabel } = Astro.props;
+const { id, buttonLabel, position = 'bottom', width = 300 } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
@@ -33,8 +37,18 @@ const t = useTranslations(lang, 'navigation');
         wrapper
       ) {
         const calculatePosition = () => {
+          const position = popover.dataset.position || 'bottom';
           const rect = wrapper.getBoundingClientRect();
-          popover.style.top = `calc(${rect.top + rect.height + window.scrollY}px + 0.5rem)`;
+          if (position === 'top') {
+            // wait for the popover to be rendered
+            requestAnimationFrame(() => {
+              const popoverHeight = popover.offsetHeight;
+              popover.style.top = `${rect.top + window.scrollY - popoverHeight - 8}px`;
+              popover.style.bottom = 'auto';
+            });
+          } else {
+            popover.style.top = `calc(${rect.top + rect.height + window.scrollY}px + 0.5rem)`;
+          }
           popover.style.left = `${rect.left}px`;
         };
         popoverButton.addEventListener('click', calculatePosition);
@@ -56,7 +70,9 @@ const t = useTranslations(lang, 'navigation');
   <div
     id=`popover${capitalize(id)}`
     class={styles.popover}
-    style={{ '--anchor-id': `--${id};` }}
+    data-position={position}
+    data-width={width}
+    style={{ '--anchor-id': `--${id}`, '--width': `${width}px` }}
     popover
   >
     <button

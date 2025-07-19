@@ -17,6 +17,8 @@
 }
 
 .endquote {
+  color: var(--system-dark-300);
+  font-weight: 600;
   max-width: 68ch;
   margin-block-start: 2rem;
   margin-left: 2rem;
@@ -65,6 +67,6 @@
 }
 
 .quote {
-  composes: quote from '@layouts/home.module.css';
+  composes: quote from '@layouts/home/home.module.css';
   --quote: light-dark(var(--princeton-400), var(--princeton-500));
 }
