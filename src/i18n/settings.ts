@@ -10,6 +10,7 @@ import { emailReply } from './translations/emailReply';
 import { languages } from './languageDefinition.mts';
 import { privacyPolicy } from './translations/privacyPolicy';
 import { skillCards } from './translations/skillCards';
+import { global } from './translations/global';
 
 export type Language = keyof typeof languages;
 
@@ -18,17 +19,18 @@ export type DanishLanguageSlug = Exclude<Language, typeof defaultLang>;
 export const defaultLang: Extract<Language, 'en'> = 'en';
 
 export const translations = {
-  navigation,
-  share,
-  home,
   about,
-  skills,
-  skillCards,
-  work,
   archive,
   contact,
   emailReply,
+  global,
+  home,
+  navigation,
   privacyPolicy,
+  share,
+  skillCards,
+  skills,
+  work,
 } as const;
 
 export const showDefaultLang = false;

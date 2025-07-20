@@ -1,5 +1,85 @@
+/* Define position-try fallbacks at root level */
+@position-try --bottom-left {
+  position-area: bottom span-left;
+  margin-left: 1rem;
+  margin-right: auto;
+}
+
+@position-try --bottom-right {
+  position-area: bottom span-right;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+@position-try --bottom-center-left {
+  position-area: bottom;
+  justify-self: start;
+}
+
+@position-try --bottom-center-right {
+  position-area: bottom;
+  justify-self: end;
+}
+
+@position-try --top-left {
+  position-area: top span-left;
+  margin-left: 1rem;
+  margin-right: auto;
+}
+
+@position-try --top-right {
+  position-area: top span-right;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+@position-try --top-center-left {
+  position-area: top;
+  justify-self: start;
+}
+
+@position-try --top-center-right {
+  position-area: top;
+  justify-self: end;
+}
+
 .popover[popover] {
   position: absolute;
+  @supports (position-area: bottom) {
+    &[data-position='bottom'] {
+      position-area: bottom;
+      position-area: end span-end;
+      position-try-fallbacks:
+        bottom,
+        --bottom-center-left,
+        /* Try centering left-aligned first */ --bottom-center-right,
+        /* Then centering right-aligned */ --bottom-left,
+        /* Then left edge aligned */ --bottom-right,
+        flip-block,
+        /* Then right edge aligned */ --top-center-left,
+        /* Fall back to top if needed */ --top-center-right,
+        --top-left,
+        --top-right;
+    }
+    &[data-position='top'] {
+      position-area: top;
+      position-area: start span-end;
+      position-try-fallbacks:
+        top,
+        --top-center-left,
+        /* Try centering left-aligned first */ --top-center-right,
+        /* Then centering right-aligned */ --top-left,
+        /* Then left edge aligned */ --top-right,
+        flip-block,
+        /* Then right edge aligned */ --bottom-center-left,
+        /* Fall back to bottom if needed */ --bottom-center-right,
+        --bottom-left,
+        --bottom-right;
+    }
+    position-try-order: most-width;
+    position-visibility: anchors-visible;
+  }
+  margin: 0.5rem;
   padding-inline: 1rem;
   padding-block: 1.5rem;
   background-color: light-dark(
@@ -13,23 +93,21 @@
   box-shadow: var(--stacks-6-shadow);
   opacity: 0;
   display: none;
+  z-index: 1;
   transform: translateY(-10px);
-  width: 90cqi;
-  max-width: 400px;
-  margin-right: 1.5rem;
-  transition:
-    opacity 250ms ease-in-out,
-    transform 250ms ease-in-out,
-    display 250ms ease-in-out;
+  min-width: 300px;
+  max-width: var(--width);
+  /* Disable fade-out animations for now - to solve weird "jumping" bug of the popover*/
+  transition: 0s;
   transition-behavior: allow-discrete;
-  @supports (anchor-name: --anchor) {
-    top: calc(anchor(var(--anchor-id) bottom) + 0.5rem);
-    left: anchor(var(--anchor-id) left);
-  }
   &:popover-open {
     opacity: 1;
     transform: translateY(0);
     display: block;
+    transition:
+      opacity 250ms ease-in-out,
+      transform 250ms ease-in-out,
+      display 250ms allow-discrete;
   }
 }
 
@@ -77,6 +155,7 @@
     var(--system-light-300),
     color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
   );
+  box-shadow: var(--stacks-4-shadow);
   &:active,
   &:focus-visible,
   &:hover {

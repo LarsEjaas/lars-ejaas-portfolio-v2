@@ -1,0 +1,46 @@
+---
+import Popover from '@components/popover/Popover.astro';
+import styles from './aboutTips.module.css';
+import { useTranslations, type Language } from '@i18n/utils';
+import TargetArrowIcon from './TargetArrowIcon.astro';
+import Lightbulb from './Lightbulb.astro';
+import Card from '@components/card/Card.astro';
+
+type Props = {
+  lang: Language;
+  inert: boolean;
+  title: string;
+  /** Unique identifier for this popver. Should be written in camelCase */
+  id: string;
+  /** Accessibility label for the popover button */
+  buttonLabel: string;
+  variant: 'flirt' | 'princeton';
+  /** Index of the tip in the list of tips */
+  index: number;
+  /** width of the popover */
+  width?: number;
+};
+
+const { lang, inert, id, buttonLabel, title, variant, index, width } =
+  Astro.props;
+const t_home = useTranslations(lang, 'home');
+---
+
+<Card inert={inert} className={styles.aboutCard}>
+  <div class={styles.flex} style={`--delay: calc(1.4s + ${index}s * 5)`}>
+    <div class={`gradient ${styles.title}`} data-variant={variant}>{title}</div>
+    <Lightbulb className={styles.lightbulb} variant={variant} />
+  </div>
+  <div class={styles.content}>
+    <slot />
+    <Popover id={id} position="top" buttonLabel={buttonLabel} width={width}>
+      <div class={styles.buttonContent} slot="buttonContent">
+        <p class={styles.popoverDesc}>
+          {t_home('check_it_out')}
+        </p>
+        <TargetArrowIcon />
+      </div>
+      <slot name="popoverContent" />
+    </Popover>
+  </div>
+</Card>

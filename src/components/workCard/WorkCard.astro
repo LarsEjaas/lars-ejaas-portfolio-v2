@@ -134,7 +134,10 @@ footerImages?.forEach((footerImage) => {
   {...rest}
 >
   {currentEmployment && <CurrentEmploymentBadge lang={lang} />}
-  <div data-with-image={!!headerImage || undefined} class={styles.header}>
+  <div
+    data-with-image={!!headerImage || undefined}
+    class={`gradient ${styles.header}`}
+  >
     <div class={styles.headerContent}>
       <ConditionalLink href={href}>
         {
@@ -221,20 +224,20 @@ footerImages?.forEach((footerImage) => {
             </li>
           ))}
         </ul>
-        <div
-          id={`${id}footerNavigation`}
-          role="menubar"
-          aria-describedby={`${id}ArrowNav`}
-          aria-keyshortcuts="ArrowLeft ArrowRight"
-        >
+        {footerImages?.length > 1 && (
           <div
-            style={{
-              '--slide-length': footerImages?.length,
-            }}
-            class={styles.controls}
+            id={`${id}footerNavigation`}
+            role="menubar"
+            aria-describedby={`${id}ArrowNav`}
+            aria-keyshortcuts="ArrowLeft ArrowRight"
           >
-            {footerImages?.length > 1 &&
-              footerImages.map((image, index) => (
+            <div
+              style={{
+                '--slide-length': footerImages?.length,
+              }}
+              class={styles.controls}
+            >
+              {footerImages.map((image, index) => (
                 <div class={styles.control}>
                   <a
                     href={`#${image.id}`}
@@ -248,8 +251,9 @@ footerImages?.forEach((footerImage) => {
                   </a>
                 </div>
               ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }

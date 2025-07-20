@@ -1,0 +1,61 @@
+---
+import { useTranslations, type Language } from '@i18n/utils';
+import styles from './home.module.css';
+import AboutTip from './AboutTip.astro';
+import Video from '@components/video/Video.astro';
+
+type Props = {
+  lang: Language;
+  inert: boolean;
+};
+
+const { lang, inert } = Astro.props;
+const t_home = useTranslations(lang, 'home');
+---
+
+<div class={`fullgrid ${styles.fullgrid}`} id="aboutTips">
+  <h2>{t_home('quality_in_the_details')}</h2>
+  <div class={styles.tips}>
+    <AboutTip
+      id="progressive"
+      index={0}
+      width={400}
+      buttonLabel={t_home('learn_how_the_page')}
+      title={t_home('progressive_enhancement')}
+      variant="flirt"
+      inert={inert}
+      lang={lang}
+    >
+      <div set:html={t_home('this_site_follows')} />
+      <div slot="popoverContent" set:html={t_home('disable_javascript')} />
+    </AboutTip>
+    <AboutTip
+      id="accessibility"
+      index={1}
+      width={500}
+      buttonLabel={t_home('accessibility_was_a_major')}
+      title={t_home('accessibility')}
+      variant="princeton"
+      inert={inert}
+      lang={lang}
+    >
+      <div set:html={t_home('accessibility_was_a_major')} />
+      <div class={styles.accessibilityPopover} slot="popoverContent">
+        <h3>{t_home('why_web_accessibility_matters')}</h3>
+        <p class="small-body-text">
+          {t_home('accessibility_is_not_just')}
+        </p>
+        <Video
+          className={styles.video}
+          controlslist={['nodownload']}
+          autoplay={false}
+          showCaptionsOnPlay
+          src={[{ src: 'screenreader_example', type: 'mp4' }]}
+          subtitles="screenreader_example_sub"
+          poster="screenreader_example_poster"
+        />
+        <p class="small-body-text">{t_home('the_web_should_be')}</p>
+      </div>
+    </AboutTip>
+  </div>
+</div>

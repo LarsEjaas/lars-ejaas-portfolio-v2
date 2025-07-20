@@ -1,0 +1,83 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import styles from './scrollToTop.module.css';
+
+type Props = { children: any; withScrollTop: boolean };
+
+const lang = getLangFromUrl(Astro.url);
+const t_global = useTranslations(lang, 'global');
+
+const { withScrollTop } = Astro.props;
+---
+
+<script>
+  if (window.scrollToTop) {
+    const scrollToTop = (e: MouseEvent) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+    window.scrollToTop.addEventListener('click', scrollToTop);
+
+    // Check if browser supports scroll-timeline
+    const supportsScrollTimeline = CSS.supports(
+      'animation-timeline',
+      'scroll()'
+    );
+
+    if (!supportsScrollTimeline) {
+      const scrollToTopButton = window.scrollToTop;
+
+      if (scrollToTopButton) {
+        const SCROLL_THRESHOLD = 200;
+        let ticking = false;
+
+        const handleScroll = () => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const scrollTop = window.pageYOffset;
+
+              if (scrollTop > SCROLL_THRESHOLD) {
+                scrollToTopButton.classList.add('visible');
+              } else {
+                scrollToTopButton.classList.remove('visible');
+              }
+
+              ticking = false;
+            });
+            ticking = true;
+          }
+        };
+
+        handleScroll();
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+    }
+  }
+</script>
+<div id="top">
+  <slot />
+  {
+    withScrollTop && (
+      <a
+        id="scrollToTop"
+        href="#top"
+        class={styles.button}
+        title={t_global('back_to_top')}
+      >
+        <span class="sr-only">{t_global('back_to_top')}</span>
+        <svg
+          width="16"
+          fill="currentColor"
+          aria-hidden="true"
+          viewBox="4.5 7 15 15"
+        >
+          <path d="m8.3 9.9 4.6 4.6-4.6 4.6 1.4 1.4 6-6-6-6z" />
+        </svg>
+      </a>
+    )
+  }
+</div>

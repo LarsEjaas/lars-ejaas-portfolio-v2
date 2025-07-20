@@ -7,6 +7,7 @@ import Seo from '@components/seo/Seo.astro';
 import type { SeoComponentProps } from '@components/seo/Seo.astro';
 import type { Language } from '@i18n/settings';
 import PiwikProScript from '@scripts/PiwikPro.astro';
+import ScrollToTop from '@components/scrollToTop/ScrollToTop.astro';
 
 type Props = {
   inert: boolean;
@@ -15,6 +16,7 @@ type Props = {
   withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
   translationUrls?: Record<Language, string>;
+  withScrollTop?: boolean;
 };
 
 const {
@@ -24,6 +26,7 @@ const {
   withModalLinks = true,
   seo,
   translationUrls,
+  withScrollTop = true,
 } = Astro.props;
 
 /** Root layout should only be used directly in the index page file
@@ -131,9 +134,11 @@ const {
       withModalLinks={withModalLinks}
       translationUrls={translationUrls}
     />
-    <main id="mainContent" class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
-      <slot />
-    </main>
+    <ScrollToTop withScrollTop={withScrollTop}>
+      <main id="mainContent" class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
+        <slot />
+      </main>
+    </ScrollToTop>
     <Footer inert={inert} withModalLinks={withModalLinks} />
     <MobileMenu inert={inert} withModalLinks={withModalLinks} />
     <PiwikProScript />

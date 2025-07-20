@@ -26,6 +26,7 @@ const newsFeed = [
   'bluesky',
   'v2',
   'jobseeking',
+  'viewCodeOnGitHub',
 ] as const;
 
 /**
@@ -180,9 +181,20 @@ const newsObject = {
       date: '1. juni 2025',
       imageSrc: 'looking_for_work.jpg',
       imageAlt:
-        'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
+        'En mand holder et skilt med teksten »Looking for work«, hvilket indikerer, at han søger arbejde.',
       href: '/da/kontakt/',
       outline: '2',
+    },
+    viewCodeOnGitHub: {
+      title: 'Se kildekoden på GitHub',
+      description:
+        'Denne side er fuldt ud open source - du er velkommen til at udforske kildekoden i mit offentlige repository.\n\nFå inspiration til at bygge noget fantastisk selv!',
+      date: '20. juli 2025',
+      imageSrc: 'view_code_on_github.png',
+      imageAlt:
+        'GitHubs maskot Mona i en rumsetting iført rumdragt står foran en planet og kigger på Ejaas-logoet.',
+      href: 'https://github.com/LarsEjaas/lars-ejaas-portfolio-v2',
+      outline: '1',
     },
   },
   en: {
@@ -321,9 +333,21 @@ const newsObject = {
         'Are you hiring, know someone who is, or do you just want to network?\n\nDrop me a message!',
       date: 'June 1st, 2025',
       imageSrc: 'looking_for_work.jpg',
-      imageAlt: '',
+      imageAlt:
+        'A man holding a sign stating "Looking for work," indicating he is seeking employment opportunities.',
       href: '/contact/',
       outline: '2',
+    },
+    viewCodeOnGitHub: {
+      title: 'View Code on GitHub',
+      description:
+        'This site is fully open source — feel free to explore the code in my public repository.\n\nGet inspired and start building something awesome of your own!',
+      date: 'July 20th, 2025',
+      imageSrc: 'view_code_on_github.png',
+      imageAlt:
+        'GitHub’s mascot Mona in a space-setting wearing a space suit stands before a globe looking at the Ejaas logo.',
+      href: 'https://github.com/LarsEjaas/lars-ejaas-portfolio-v2',
+      outline: '1',
     },
   },
 } as const satisfies NewsItems;
