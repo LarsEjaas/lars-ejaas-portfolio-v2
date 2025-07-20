@@ -48,7 +48,9 @@
   @supports (position-area: bottom) {
     &[data-position='bottom'] {
       position-area: bottom;
+      position-area: end span-end;
       position-try-fallbacks:
+        bottom,
         --bottom-center-left,
         /* Try centering left-aligned first */ --bottom-center-right,
         /* Then centering right-aligned */ --bottom-left,
@@ -61,7 +63,9 @@
     }
     &[data-position='top'] {
       position-area: top;
+      position-area: start span-end;
       position-try-fallbacks:
+        top,
         --top-center-left,
         /* Try centering left-aligned first */ --top-center-right,
         /* Then centering right-aligned */ --top-left,

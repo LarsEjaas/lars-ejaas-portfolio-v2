@@ -43,13 +43,13 @@ const t = useTranslations(lang, 'navigation');
             // wait for the popover to be rendered
             requestAnimationFrame(() => {
               const popoverHeight = popover.offsetHeight;
-              popover.style.top = `${rect.top + window.scrollY - popoverHeight - 8}px`;
+              popover.style.top = `calc(${rect.top + window.scrollY - popoverHeight}px - 0.5rem)`;
               popover.style.bottom = 'auto';
             });
           } else {
             popover.style.top = `calc(${rect.top + rect.height + window.scrollY}px + 0.5rem)`;
           }
-          popover.style.left = `${rect.left}px`;
+          popover.style.left = `calc(${rect.left}px - 0.5rem)`;
         };
         popoverButton.addEventListener('click', calculatePosition);
         window.addEventListener('resize', calculatePosition);
@@ -72,7 +72,7 @@ const t = useTranslations(lang, 'navigation');
     class={styles.popover}
     data-position={position}
     data-width={width}
-    style={{ '--anchor-id': `--${id}`, '--width': `${width}px` }}
+    style={{ '--width': `${width}px` }}
     popover
   >
     <button

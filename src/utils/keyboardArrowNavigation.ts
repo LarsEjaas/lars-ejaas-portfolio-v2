@@ -29,7 +29,8 @@ export const initializeKeyboardArrowNavigation = (
   const focusableElements = getFocusableElements(hostElement);
   if (!focusableElements.length) {
     console.warn(
-      'No focusable elements found. Arrow navigation not initialized.'
+      `Arrow navigation not initialized. No focusable elements found inside:`,
+      hostElement
     );
     return;
   }

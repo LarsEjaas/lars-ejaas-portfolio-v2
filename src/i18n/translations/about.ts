@@ -130,7 +130,7 @@ export const about = {
     short_on_time: 'Tidspresset?',
     jump_to_the_summary: 'Gå til resumé',
     tldr: 'Resumé',
-    in_short: 'Kort sagt',
+    in_short: 'Kort fortalt',
     left_architecture_school_early:
       'Jeg sprang fra arkitektskolen tidligt og tilbragte mange år som cykelrytter og langdistanceløber.\n\nEfter udbrændthed fra utilfredsstillende jobs opdagede jeg programmering som en spændende hobby. Blandingen af struktureret problemløsning og kreativitet var præcis, hvad jeg havde ledt efter.\n\nDet viste sig, at den perfekte karriere for mig krævede nogle omveje for at finde den!',
   },
