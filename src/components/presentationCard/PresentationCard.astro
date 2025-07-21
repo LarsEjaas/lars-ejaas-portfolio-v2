@@ -8,14 +8,23 @@ type Props = {
   title: string;
   gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
   inert: boolean;
-  iconImage?: ImageMetadata | undefined;
-  iconImageAlt?: string | undefined;
-  iconImageViewTransitionName?: string;
+  cardViewTransitionName: string;
   overlayImage?: ImageMetadata;
   overlayImageAlt?: string;
   /** Make the squircle and overlay image size responsive */
   responsiveSquircleSize?: boolean;
-};
+} & (
+  | {
+      iconImage?: never;
+      iconImageAlt?: never;
+      iconImageViewTransitionName?: never;
+    }
+  | {
+      iconImage: ImageMetadata | undefined;
+      iconImageAlt: string | undefined;
+      iconImageViewTransitionName: string;
+    }
+);
 
 const {
   iconImage,
@@ -25,12 +34,13 @@ const {
   responsiveSquircleSize,
   iconImageAlt,
   iconImageViewTransitionName,
+  cardViewTransitionName,
   overlayImageAlt,
   inert,
 } = Astro.props;
 ---
 
-<Card inert={inert}>
+<Card inert={inert} viewTransitionName={cardViewTransitionName}>
   <div
     class={`gradient ${styles.header}`}
     data-princeton={gradientColor === 'princeton' ? 'true' : undefined}

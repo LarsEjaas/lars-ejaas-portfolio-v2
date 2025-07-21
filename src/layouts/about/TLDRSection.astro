@@ -12,7 +12,7 @@ const t_about = useTranslations(lang, 'about');
 ---
 
 <div class={styles.cardWrapper} id="tldr">
-  <Card inert={inert} className={styles.card}>
+  <Card inert={inert} className={styles.card} viewTransitionName="tldr-about">
     <div
       class={styles.titleWrapper}
       title={lang === 'en' ? "Too Long; Didn't Read" : undefined}

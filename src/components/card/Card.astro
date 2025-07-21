@@ -6,7 +6,7 @@ type Props = {
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName?: string;
+  viewTransitionName: string;
   /** Unique identifier for this card. Should be written in camelCase
    * This can also be used as an anchor to go directly to this card.
    */
@@ -14,13 +14,7 @@ type Props = {
   className?: string | undefined;
 };
 
-const {
-  inert,
-  viewTransitionName = 'card',
-  id,
-  className,
-  ...rest
-} = Astro.props;
+const { inert, viewTransitionName, id, className, ...rest } = Astro.props;
 ---
 
 <section

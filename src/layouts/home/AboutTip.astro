@@ -18,15 +18,32 @@ type Props = {
   /** Index of the tip in the list of tips */
   index: number;
   /** width of the popover */
+  /**  distinct identifying name used for view transitions. Should be in kebab-case.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
+   */
+  viewTransitionName: string;
   width?: number;
 };
 
-const { lang, inert, id, buttonLabel, title, variant, index, width } =
-  Astro.props;
+const {
+  lang,
+  inert,
+  id,
+  buttonLabel,
+  title,
+  variant,
+  index,
+  viewTransitionName,
+  width,
+} = Astro.props;
 const t_home = useTranslations(lang, 'home');
 ---
 
-<Card inert={inert} className={styles.aboutCard}>
+<Card
+  inert={inert}
+  className={styles.aboutCard}
+  viewTransitionName={viewTransitionName}
+>
   <div class={styles.flex} style={`--delay: calc(1.4s + ${index}s * 5)`}>
     <div class={`gradient ${styles.title}`} data-variant={variant}>{title}</div>
     <Lightbulb className={styles.lightbulb} variant={variant} />

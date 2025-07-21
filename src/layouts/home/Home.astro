@@ -95,6 +95,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       overlayImage={ProfileImage}
       overlayImageAlt={t_home('profile_lars_alt')}
       inert={inert}
+      cardViewTransitionName="home-card"
     >
       <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">

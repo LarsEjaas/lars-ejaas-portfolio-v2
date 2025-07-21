@@ -17,6 +17,7 @@ const t_home = useTranslations(lang, 'home');
   <h2>{t_home('quality_in_the_details')}</h2>
   <div class={styles.tips}>
     <AboutTip
+      viewTransitionName="progressive-enhancement"
       id="progressive"
       index={0}
       width={400}
@@ -30,6 +31,7 @@ const t_home = useTranslations(lang, 'home');
       <div slot="popoverContent" set:html={t_home('disable_javascript')} />
     </AboutTip>
     <AboutTip
+      viewTransitionName="accessibility"
       id="accessibility"
       index={1}
       width={500}
