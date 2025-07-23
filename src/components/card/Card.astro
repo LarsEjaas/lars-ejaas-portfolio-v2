@@ -1,12 +1,13 @@
 ---
+import type { KebabCaseString } from '@customTypes/index';
 import styles from './card.module.css';
 
-type Props = {
+type Props<T extends string = string> = {
   inert: boolean;
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName: string;
+  viewTransitionName: KebabCaseString<T>;
   /** Unique identifier for this card. Should be written in camelCase
    * This can also be used as an anchor to go directly to this card.
    */

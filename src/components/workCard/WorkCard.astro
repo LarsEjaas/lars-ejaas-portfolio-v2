@@ -12,8 +12,9 @@ import WorkCardImage from './WorkCardImage.astro';
 import CurrentEmploymentBadge from './CurrentEmploymentBadge.astro';
 import CalendarIcon from './CalendarIcon.astro';
 import CodeIcon from './CodeIcon.astro';
+import type { KebabCaseString } from '@customTypes/index';
 
-type Props = {
+type Props<T extends string = string> = {
   inert: boolean;
   headline?: string;
   subHeadline: string;
@@ -29,7 +30,7 @@ type Props = {
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName: string;
+  viewTransitionName: KebabCaseString<T>;
   footerImages?: {
     src: ImageMetadata;
     alt: string;

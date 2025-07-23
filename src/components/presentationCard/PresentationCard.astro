@@ -1,14 +1,14 @@
 ---
 import { Picture } from 'astro:assets';
 import styles from './presentationCard.module.css';
-import type { ColorVariants } from '@customTypes/index';
+import type { ColorVariants, KebabCaseString } from '@customTypes/index';
 import Card from '@components/card/Card.astro';
 
-type Props = {
+type Props<T extends string = string> = {
   title: string;
   gradientColor: Exclude<ColorVariants, 'bluemunsell'>;
   inert: boolean;
-  cardViewTransitionName: string;
+  cardViewTransitionName: KebabCaseString<T>;
   overlayImage?: ImageMetadata;
   overlayImageAlt?: string;
   /** Make the squircle and overlay image size responsive */
@@ -22,7 +22,7 @@ type Props = {
   | {
       iconImage: ImageMetadata | undefined;
       iconImageAlt: string | undefined;
-      iconImageViewTransitionName: string;
+      iconImageViewTransitionName: KebabCaseString<T>;
     }
 );
 

@@ -12,6 +12,34 @@ type ImageExtension = 'jpg' | 'png';
 
 type Year = 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28;
 
+type UppercaseLetter =
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'Q'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z';
+
 type Month =
   | 'January'
   | 'February'
@@ -145,6 +173,19 @@ export type BlueskyProfile = {
   displayName: string | undefined;
   avatar: string | null;
 };
+
+/** String literal in kebab-case
+ * eg. 'foo-bar', 'this-is-a-test'
+ * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case MDN Web Docs}
+ */
+export type KebabCaseString<T extends string> =
+  T extends `${string}${UppercaseLetter}${string}`
+    ? never
+    : T extends `${string}_${string}`
+      ? never
+      : T extends `${string} ${string}`
+        ? never
+        : T;
 
 /**
  * Type predicate to filter out empty instances of an array

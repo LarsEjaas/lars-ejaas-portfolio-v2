@@ -1,0 +1,23 @@
+---
+import type { Language } from '@i18n/settings';
+import type { BlueskyData } from '@scripts/utils';
+import Card from '@components/card/Card.astro';
+import type { KebabCaseString } from '@customTypes/index';
+
+type Props<T extends string = string> = {
+  lang: Language;
+  inert: boolean;
+  feed: BlueskyData['threads'];
+  profile: BlueskyData['profile'];
+  viewTransitionName: KebabCaseString<T>;
+};
+
+const {
+  //lang,
+  inert,
+  //feed, profile,
+  viewTransitionName,
+} = Astro.props;
+---
+
+<Card viewTransitionName={viewTransitionName} inert={inert}> fisk </Card>

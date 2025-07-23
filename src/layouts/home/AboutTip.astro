@@ -5,8 +5,9 @@ import { useTranslations, type Language } from '@i18n/utils';
 import TargetArrowIcon from './TargetArrowIcon.astro';
 import Lightbulb from './Lightbulb.astro';
 import Card from '@components/card/Card.astro';
+import type { KebabCaseString } from '../../customTypes';
 
-type Props = {
+type Props<T extends string = string> = {
   lang: Language;
   inert: boolean;
   title: string;
@@ -21,7 +22,7 @@ type Props = {
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName: string;
+  viewTransitionName: KebabCaseString<T>;
   width?: number;
 };
 

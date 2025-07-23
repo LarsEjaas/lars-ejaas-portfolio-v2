@@ -4,20 +4,19 @@ import styles from './developerTips.module.css';
 import Popover from '@components/popover/Popover.astro';
 import Gif from '@components/gif/Gif.astro';
 import ExternalLink from '@components/externalLink/ExternalLink.astro';
+import BlueskyData from '@collections/bluesky/bluesky_data.json';
+import BlueskyFeedCard from '@components/bluesky/BlueskyFeedCard.astro';
 
 type Props = {
   lang: Language;
   inert: boolean;
 };
 
-const {
-  lang,
-  // inert
-} = Astro.props;
+const { lang, inert } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 ---
 
-<div class="fullgrid" id="developerTips">
+<div id="developerTips">
   <h2>{t_home('developer_tips')}</h2>
   <p class="body-text">{t_home('tips_from_the_trenches')}</p>
   <div class={styles.followMe}>
@@ -49,5 +48,12 @@ const t_home = useTranslations(lang, 'home');
     </Popover>
     <p class="body-text">{'.'}</p>
   </div>
+  <BlueskyFeedCard
+    viewTransitionName="home-bluesky-feed-card"
+    lang={lang}
+    inert={inert}
+    feed={BlueskyData.threads}
+    profile={BlueskyData.profile}
+  />
 </div>
 <div class={styles.tips}></div>

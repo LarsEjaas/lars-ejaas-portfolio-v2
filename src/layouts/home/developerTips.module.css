@@ -1,4 +1,5 @@
 .followMe {
+  margin-block-end: 1rem;
   & > a,
   & > div,
   & > p {
