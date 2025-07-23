@@ -1,3 +1,5 @@
+import type { AppBskyFeedDefs } from '@atproto/api';
+
 export enum ValidationPattern {
   email = '[a-zA-Z0-9._\\-]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_\\-]+',
 }
@@ -131,6 +133,18 @@ export type IconImage =
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
 export type ExternalLink = `https://${string}`;
+
+export type BlueskyPostThread = {
+  rootUri: string;
+  posts: AppBskyFeedDefs.PostView[];
+  viewOnBluesky: string;
+};
+
+export type BlueskyProfile = {
+  handle: string;
+  displayName: string | undefined;
+  avatar: string | null;
+};
 
 /**
  * Type predicate to filter out empty instances of an array

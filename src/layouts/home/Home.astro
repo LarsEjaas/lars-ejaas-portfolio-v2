@@ -21,6 +21,7 @@ import type { DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 import { getPublicFiles } from '@utils/publicFileValidator';
 import AboutTips from './AboutTips.astro';
+import DeveloperTips from './DeveloperTips.astro';
 
 /** Add a key that easily identifies the latest resume - located in public/resume */
 const LATEST_RESUME_KEY = 'june_2025';
@@ -174,5 +175,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     items={newsItems[lang]}
     inert={inert}
   />
+  <DeveloperTips lang={lang} inert={inert} />
   <AboutTips lang={lang} inert={inert} />
 </Layout>

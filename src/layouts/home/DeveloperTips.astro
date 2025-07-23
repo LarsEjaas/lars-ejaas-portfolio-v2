@@ -1,0 +1,53 @@
+---
+import { useTranslations, type Language } from '@i18n/utils';
+import styles from './developerTips.module.css';
+import Popover from '@components/popover/Popover.astro';
+import Gif from '@components/gif/Gif.astro';
+import ExternalLink from '@components/externalLink/ExternalLink.astro';
+
+type Props = {
+  lang: Language;
+  inert: boolean;
+};
+
+const {
+  lang,
+  // inert
+} = Astro.props;
+const t_home = useTranslations(lang, 'home');
+---
+
+<div class="fullgrid" id="developerTips">
+  <h2>{t_home('developer_tips')}</h2>
+  <p class="body-text">{t_home('tips_from_the_trenches')}</p>
+  <div class={styles.followMe}>
+    <ExternalLink href="https://bsky.app/profile/larsejaas.bsky.social"
+      >{t_home('follow_me_on_bluesky')}</ExternalLink
+    >
+    <p class="body-text">{t_home('to')}</p>
+    <Popover
+      id="blueskyNotificationPopover"
+      width={300}
+      buttonLabel={t_home('get_notified')}
+      position="top"
+      classNames={{
+        button: styles.getNotifiedButton,
+        wrapper: styles.popoverWrapper,
+      }}
+      ><div class={styles.flexWrapper} slot="buttonContent">
+        {t_home('get_notified')}
+      </div>
+      <div class={`${styles.flexWrapper} ${styles.contentWrapper}`}>
+        <p class="small-body-text">
+          {t_home('turn_on_postnotifications')}
+        </p>
+        <Gif
+          src="get_notifications_on_bluesky"
+          alt={t_home('get_notifications_alt')}
+        />
+      </div>
+    </Popover>
+    <p class="body-text">{'.'}</p>
+  </div>
+</div>
+<div class={styles.tips}></div>

@@ -16,6 +16,7 @@ import { pipeline } from 'stream/promises';
 import { Readable } from 'stream';
 import crypto from 'crypto';
 import 'dotenv/config';
+import type { BlueskyPostThread, BlueskyProfile } from '@customTypes/index';
 
 interface ImageMeta {
   hash: string;
@@ -27,19 +28,9 @@ interface ImageMeta {
   mimeType?: string;
 }
 
-type PostThread = {
-  rootUri: string;
-  posts: AppBskyFeedDefs.PostView[];
-  viewOnBluesky: string;
-};
-
 export type BlueskyData = {
-  profile: {
-    handle: string;
-    displayName: string | undefined;
-    avatar: string | null;
-  };
-  threads: PostThread[];
+  profile: BlueskyProfile;
+  threads: BlueskyPostThread[];
 };
 
 const HANDLE = process.env.BLUESKY_HANDLE;
@@ -149,6 +140,11 @@ async function searchPosts(
   return response.data;
 }
 
+/** Filter the thread to only include own posts authored by the user
+ * AND ensure that replies are part of the thread starting from the root post.
+ *
+ * This means that replies that are not part of the root thread will be excluded.
+ */
 async function getOwnThreadOnly(
   thread: AppBskyFeedDefs.ThreadViewPost,
   selfDid: string
@@ -186,8 +182,8 @@ export async function getPostThreads(
   agent: AtpAgent,
   profile: AppBskyActorDefs.ProfileViewDetailed,
   imageMeta: Record<string, ImageMeta>
-): Promise<PostThread[]> {
-  const threads: PostThread[] = [];
+): Promise<BlueskyPostThread[]> {
+  const threads: BlueskyPostThread[] = [];
 
   const searchResults = await searchPosts(agent, {
     q: '#DeveloperTips',
@@ -200,6 +196,8 @@ export async function getPostThreads(
   for (const post of searchResults.posts) {
     const { data } = await agent.app.bsky.feed.getPostThread({
       uri: post.uri,
+      depth: 10,
+      parentHeight: 0,
     });
     if ('post' in data.thread && data.thread.post.author.did === profile.did) {
       const filtered = await getOwnThreadOnly(data.thread, profile.did);

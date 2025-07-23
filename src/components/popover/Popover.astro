@@ -12,9 +12,21 @@ type Props = {
   position?: 'top' | 'bottom';
   /** Width of the popover - defaults to 300px */
   width?: number;
+  classNames?: Partial<ClassNames>;
 };
 
-const { id, buttonLabel, position = 'bottom', width = 300 } = Astro.props;
+type ClassNames = {
+  button: string;
+  wrapper: string;
+};
+
+const {
+  id,
+  buttonLabel,
+  position = 'bottom',
+  width = 300,
+  classNames,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
@@ -57,9 +69,12 @@ const t = useTranslations(lang, 'navigation');
     });
   }
 </script>
-<div class={styles.popoverWrapper} style={{ 'anchor-name': `--${id};` }}>
+<div
+  class={classNames?.wrapper || styles.popoverWrapper}
+  style={{ 'anchor-name': `--${id};` }}
+>
   <button
-    class={styles.button}
+    class={classNames?.button || styles.button}
     popovertarget=`popover${capitalize(id)}`
     id=`popover${capitalize(id)}Button`
     aria-label={buttonLabel}

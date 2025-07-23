@@ -48,14 +48,10 @@
   margin-block-end: 0;
   white-space: normal;
   &:is(a) {
-    --color: light-dark(var(--verdigris-700), var(--primary-lighter));
-    color: var(--color);
-    text-decoration: underline transparent;
-    transition: text-decoration-color 0.25s;
-    &:hover,
-    &:focus-visible {
-      text-decoration-color: var(--color);
-      transition: text-decoration-color 0.4s;
+    font-size: var(--font-size-2);
+    line-height: 1.5;
+    &::after {
+      margin-left: -14px;
     }
   }
 }

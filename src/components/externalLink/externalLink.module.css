@@ -1,0 +1,31 @@
+.link {
+  font-weight: 600;
+  color: light-dark(var(--system-dark-400), var(--system-dark-100));
+  text-decoration-color: transparent;
+  font-size: var(--font-size-3);
+  outline-offset: var(--outline-offset);
+  transition:
+    text-decoration-color 0.4s,
+    color 0.4s;
+  &:active,
+  &:focus-visible,
+  &:hover {
+    color: light-dark(var(--flirt-400), var(--flirt-200));
+    text-decoration-color: currentColor;
+    transition:
+      text-decoration-color 0.4s,
+      color 0.4s;
+  }
+  &::after {
+    content: '';
+    display: inline-block;
+    background-color: currentColor;
+    mask: url('data:image/svg+xml;utf8,<svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2.5"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg>');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-left: -16px;
+    margin-bottom: -2px;
+  }
+}

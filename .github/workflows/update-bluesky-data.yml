@@ -1,0 +1,40 @@
+name: Update Bluesky Data
+
+on:
+  schedule:
+    - cron: '0 11 * * *' # ✅ Runs every day at 12:00 noon CET
+  workflow_dispatch: # Allows you to run it manually from the GitHub UI
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.7.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Bluesky fetch script with flags
+        run: node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+
+      - name: Check for changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet ./bluesky_data.json; then
+            echo "No changes to commit"
+          else
+            git add ./bluesky_data.json
+            git commit -m "Update bluesky_data.json on $(date '+%B %d %Y')"
+            git push
+          fi
