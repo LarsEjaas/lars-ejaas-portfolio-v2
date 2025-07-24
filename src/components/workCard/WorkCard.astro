@@ -12,16 +12,16 @@ import WorkCardImage from './WorkCardImage.astro';
 import CurrentEmploymentBadge from './CurrentEmploymentBadge.astro';
 import CalendarIcon from './CalendarIcon.astro';
 import CodeIcon from './CodeIcon.astro';
-import type { KebabCaseString } from '@customTypes/index';
+import type { CamelCaseString, KebabCaseString } from '@customTypes/index';
 
-type Props<T extends string = string> = {
+type Props<T extends string = string, U extends string = string> = {
   inert: boolean;
   headline?: string;
   subHeadline: string;
   /** Unique identifier for this card. Should be written in camelCase
    * This can also be used as an anchor to go directly to this card.
    */
-  id: string;
+  id: CamelCaseString<U>;
   date: string;
   headerImage?: ImageMetadata;
   headerImageAlt?: string;
@@ -84,6 +84,7 @@ footerImages?.forEach((footerImage) => {
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { setupPaginationScroll } from './utils';
   const tagsWrappers = document.querySelectorAll('[id$="WorkCardTags"]');
 
   const isHTMLElementList = (
@@ -98,34 +99,7 @@ footerImages?.forEach((footerImage) => {
     );
   }
 
-  const footerImageControls = document.querySelectorAll(
-    '[id$="footerNavigation"]'
-  );
-  const footerImageControlsArray = Array.from(footerImageControls);
-  footerImageControlsArray.forEach((control) => {
-    if (control instanceof HTMLElement) {
-      initializeKeyboardArrowNavigation(control);
-      const buttons = control.querySelectorAll('a');
-      const controlButtonsArray = Array.from(buttons);
-      controlButtonsArray.forEach((controlButton) => {
-        if (controlButton instanceof HTMLElement) {
-          controlButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const scrollTarget = document.querySelector(
-              `#${(e.currentTarget as HTMLAnchorElement).href.split('#')[1]}`
-            );
-            if (scrollTarget instanceof HTMLElement) {
-              scrollTarget.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'start',
-              });
-            }
-          });
-        }
-      });
-    }
-  });
+  setupPaginationScroll();
 </script>
 <Card
   inert={inert}

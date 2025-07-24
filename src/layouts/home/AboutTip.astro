@@ -5,14 +5,14 @@ import { useTranslations, type Language } from '@i18n/utils';
 import TargetArrowIcon from './TargetArrowIcon.astro';
 import Lightbulb from './Lightbulb.astro';
 import Card from '@components/card/Card.astro';
-import type { KebabCaseString } from '../../customTypes';
+import type { CamelCaseString, KebabCaseString } from '../../customTypes';
 
-type Props<T extends string = string> = {
+type Props<T extends string = string, U extends string = string> = {
   lang: Language;
   inert: boolean;
   title: string;
   /** Unique identifier for this popver. Should be written in camelCase */
-  id: string;
+  id: CamelCaseString<U>;
   /** Accessibility label for the popover button */
   buttonLabel: string;
   variant: 'flirt' | 'princeton';

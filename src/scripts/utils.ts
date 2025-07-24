@@ -81,7 +81,8 @@ export async function downloadImageIfChanged(
   meta: Record<string, ImageMeta> = {}
 ): Promise<string> {
   const ext = getImageExtension(url);
-  const localPath = `${META_FOLDER}/${localName}${ext}`;
+  const fileName = `${localName}${ext}`;
+  const localPath = `${META_FOLDER}/${fileName}`;
   mkdirSync(META_FOLDER, { recursive: true });
 
   const res = await fetch(url);
@@ -93,14 +94,14 @@ export async function downloadImageIfChanged(
   const hash = hashBuffer(Buffer.from(buffer));
 
   if (url in meta && meta[url]?.hash === hash) {
-    return meta[url].localPath;
+    return fileName;
   }
 
   const fileStream = createWriteStream(localPath);
   await pipeline(Readable.from([Buffer.from(buffer)]), fileStream);
 
   meta[url] = { hash, localPath };
-  return localPath;
+  return fileName;
 }
 
 export async function getAuthenticateBlueskyAgent(): Promise<AtpAgent> {
@@ -214,10 +215,13 @@ export async function getPostThreads(
           }
         }
       }
+      const recordKey = data.thread.post.uri.split('/').pop() || '';
       threads.push({
         rootUri: data.thread.post.uri,
         posts: filtered,
-        viewOnBluesky: `https://bsky.app/profile/${profile.handle}/post/${data.thread.post.uri.split('/').pop()}`,
+        viewOnBluesky: `https://bsky.app/profile/${profile.handle}/post/${recordKey}`,
+        // add prefix to recordKey to be able to use it as a HTML element ID (recordKey cannot start with a number)
+        recordKey: `bsky${recordKey}`,
       });
     }
 

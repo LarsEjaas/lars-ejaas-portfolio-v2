@@ -1,0 +1,79 @@
+---
+import type { Language } from '@i18n/settings';
+import type { BlueskyData } from '@scripts/utils';
+import type { BlueskyPostThread, ImageModule } from '@customTypes/index';
+import styles from './bluesky.module.css';
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import { formatDate } from '../../utils/misc';
+
+const blueskyImages = import.meta.glob('@assets/bluesky/*.{jpg,jpeg,png}');
+
+type Props = {
+  lang: Language;
+  thread: BlueskyPostThread;
+  profile: BlueskyData['profile'];
+};
+
+const { lang, thread, profile } = Astro.props;
+
+if (!profile?.avatar) {
+  throw new Error(`No Bluesky profile avatar found for: ${profile.avatar}`);
+}
+
+const avatar = profile.avatar;
+
+const imageImport = Object.entries(blueskyImages).find(([path]) =>
+  path.includes(avatar)
+);
+
+if (!imageImport) {
+  throw new Error(`No Bluesky profile avatar found for: ${avatar}`);
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+
+const formattedTimestamp = formatDate(thread.posts[0]?.indexedAt, lang);
+---
+
+<li id={thread.recordKey} class={styles.threadWrapper}>
+  <div class={styles.profileTimeline}>
+    <div class={styles.profileImage} data-with-shadow="true">
+      <PictureWithPlaceholder
+        alt="Profile picture of the author"
+        formats={['avif', 'webp']}
+        quality="high"
+        src={ImageComponent}
+        widths={[48, 96, 144]}
+        sizes="48px"
+        loading="eager"
+        decoding="sync"
+        placeholderSettings={{ width: 8, blurSigma: 0.5 }}
+        classNames={{
+          placeholder: styles.profilePlaceholder,
+        }}
+      />
+    </div>
+    <div class={styles.timelineDivider}></div>
+    <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+      <path
+        d="M1 1.5L6 6.5L11 1.5"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+      <path
+        d="M1 7.5L6 12.5L11 7.5"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </div>
+  <div class={styles.postWrapper}>
+    <div class={styles.profileInfo}>
+      <h3 class={styles.displayName}>
+        {profile.displayName}
+      </h3>
+      <p class={styles.profileHandle}>{formattedTimestamp}</p>
+    </div>
+  </div>
+</li>

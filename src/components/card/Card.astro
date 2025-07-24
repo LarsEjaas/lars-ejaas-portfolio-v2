@@ -1,8 +1,8 @@
 ---
-import type { KebabCaseString } from '@customTypes/index';
+import type { CamelCaseString, KebabCaseString } from '@customTypes/index';
 import styles from './card.module.css';
 
-type Props<T extends string = string> = {
+type Props<T extends string = string, U extends string = string> = {
   inert: boolean;
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
@@ -11,7 +11,7 @@ type Props<T extends string = string> = {
   /** Unique identifier for this card. Should be written in camelCase
    * This can also be used as an anchor to go directly to this card.
    */
-  id?: string;
+  id?: CamelCaseString<U>;
   className?: string | undefined;
 };
 

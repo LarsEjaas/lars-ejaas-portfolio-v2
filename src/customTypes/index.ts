@@ -166,6 +166,7 @@ export type BlueskyPostThread = {
   rootUri: string;
   posts: AppBskyFeedDefs.PostView[];
   viewOnBluesky: string;
+  recordKey: string;
 };
 
 export type BlueskyProfile = {
@@ -186,6 +187,23 @@ export type KebabCaseString<T extends string> =
       : T extends `${string} ${string}`
         ? never
         : T;
+
+/** String literal in camelCase
+ * eg. 'fooBar', 'thisIsCamelCase'
+ * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Camel_case MDN Web Docs}
+ */
+export type CamelCaseString<T extends string> =
+  // Reject separators
+  T extends
+    | `${string}_${string}`
+    | `${string} ${string}`
+    | `${string}-${string}`
+    ? never
+    : // Reject PascalCase (starts with uppercase)
+      T extends `${UppercaseLetter}${string}`
+      ? never
+      : // Accept if it passes both checks
+        T;
 
 /**
  * Type predicate to filter out empty instances of an array

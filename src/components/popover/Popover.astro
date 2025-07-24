@@ -2,10 +2,11 @@
 import { capitalize } from '@utils/misc';
 import styles from './popover.module.css';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import type { CamelCaseString } from '../../customTypes';
 
-type Props = {
+type Props<U extends string = string> = {
   /** Unique identifier for this popver. Should be written in camelCase */
-  id: string;
+  id: CamelCaseString<U>;
   /** Accessibility label for the popover button */
   buttonLabel: string;
   /** Placement of the popover relative to the target-button */
