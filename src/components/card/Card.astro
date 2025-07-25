@@ -13,12 +13,20 @@ type Props<T extends string = string, U extends string = string> = {
    */
   id?: CamelCaseString<U>;
   className?: string | undefined;
+  as?: keyof astroHTML.JSX.DefinedIntrinsicElements;
 };
 
-const { inert, viewTransitionName, id, className, ...rest } = Astro.props;
+const {
+  as: Element = 'section',
+  inert,
+  viewTransitionName,
+  id,
+  className,
+  ...rest
+} = Astro.props;
 ---
 
-<section
+<Element
   {...rest}
   id={id}
   inert={inert}
@@ -26,4 +34,4 @@ const { inert, viewTransitionName, id, className, ...rest } = Astro.props;
   style={`view-transition-name: ${viewTransitionName}`}
 >
   <slot />
-</section>
+</Element>

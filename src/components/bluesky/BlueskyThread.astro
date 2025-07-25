@@ -1,16 +1,21 @@
 ---
 import type { Language } from '@i18n/settings';
 import type { BlueskyData } from '@scripts/utils';
-import type { BlueskyPostThread, ImageModule } from '@customTypes/index';
+import type { ImageModule } from '@customTypes/index';
 import styles from './bluesky.module.css';
 import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
-import { formatDate } from '../../utils/misc';
+import { formatDate } from '@utils/misc';
+import {
+  renderPostContentAsHTML,
+  type RichTextRenderConfig,
+} from './richTextRenderUtils';
+import type { ProcessedBlueskyThread } from './utils';
 
 const blueskyImages = import.meta.glob('@assets/bluesky/*.{jpg,jpeg,png}');
 
 type Props = {
   lang: Language;
-  thread: BlueskyPostThread;
+  thread: ProcessedBlueskyThread;
   profile: BlueskyData['profile'];
 };
 
@@ -31,49 +36,91 @@ if (!imageImport) {
 }
 const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 
-const formattedTimestamp = formatDate(thread.posts[0]?.indexedAt, lang);
+const indexedAt = thread.createdAt;
+const formattedTimestamp = formatDate(indexedAt, lang);
+
+const threadConfig: RichTextRenderConfig = {
+  classNames: {
+    container: `body-text ${styles.postContent}`,
+    link: styles.postLink,
+    hashtag: styles.postHashtag,
+  },
+  attributes: {
+    link: { 'data-type': 'external-link' },
+    hashtag: (segment) => ({ 'data-tag': segment.content.replace('#', '') }),
+  },
+};
 ---
 
-<li id={thread.recordKey} class={styles.threadWrapper}>
-  <div class={styles.profileTimeline}>
-    <div class={styles.profileImage} data-with-shadow="true">
-      <PictureWithPlaceholder
-        alt="Profile picture of the author"
-        formats={['avif', 'webp']}
-        quality="high"
-        src={ImageComponent}
-        widths={[48, 96, 144]}
-        sizes="48px"
-        loading="eager"
-        decoding="sync"
-        placeholderSettings={{ width: 8, blurSigma: 0.5 }}
-        classNames={{
-          placeholder: styles.profilePlaceholder,
-        }}
-      />
+<li id={thread.recordKey} class={styles.thread}>
+  <article class={styles.article}>
+    <div class={styles.threadWrapper}>
+      <aside class={styles.profileTimeline}>
+        <div class={styles.profileImage} data-with-shadow="true">
+          <PictureWithPlaceholder
+            alt="Profile picture of the author"
+            formats={['avif', 'webp']}
+            quality="high"
+            src={ImageComponent}
+            widths={[48, 96, 144]}
+            sizes="48px"
+            loading="eager"
+            decoding="sync"
+            placeholderSettings={{ width: 8, blurSigma: 0.5 }}
+            classNames={{
+              placeholder: styles.profilePlaceholder,
+            }}
+          />
+        </div>
+        <div class={styles.timelineDivider}></div>
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+          <path
+            d="M1 1.5L6 6.5L11 1.5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path
+            d="M1 7.5L6 12.5L11 7.5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </aside>
+      <div class={styles.postWrapper}>
+        <header class={styles.profileInfo}>
+          <h3 class={styles.displayName}>
+            {profile.displayName}
+          </h3>
+          {
+            formattedTimestamp && indexedAt && (
+              <time datetime={indexedAt} class={styles.postDate}>
+                {formattedTimestamp}
+              </time>
+            )
+          }
+        </header>
+        <section class={styles.threadContent}>
+          <Fragment
+            set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
+          />
+          {
+            thread.replies.map((reply) => {
+              const content = renderPostContentAsHTML(reply, threadConfig);
+              return (
+                <>
+                  <div class={styles.divider} />
+                  <Fragment class={styles.reply} set:html={content} />
+                </>
+              );
+            })
+          }
+        </section>
+      </div>
     </div>
-    <div class={styles.timelineDivider}></div>
-    <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
-      <path
-        d="M1 1.5L6 6.5L11 1.5"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-      <path
-        d="M1 7.5L6 12.5L11 7.5"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-    </svg>
-  </div>
-  <div class={styles.postWrapper}>
-    <div class={styles.profileInfo}>
-      <h3 class={styles.displayName}>
-        {profile.displayName}
-      </h3>
-      <p class={styles.profileHandle}>{formattedTimestamp}</p>
-    </div>
-  </div>
+    <footer class={styles.threadFooter}>
+      <!-- Thread footer content -->
+    </footer>
+  </article>
 </li>
