@@ -118,6 +118,7 @@
   outline-offset: var(--outline-offset);
   color: var(--system-dark-100);
   border-radius: var(--border-radius-md);
+  transition: background-color 300ms;
   &:active,
   &:focus-visible,
   &:hover {

@@ -37,7 +37,8 @@ export type BlueskyData = {
 const HANDLE = process.env.BLUESKY_HANDLE;
 const META_FOLDER = './src/assets/bluesky';
 const IMAGE_META_PATH = `${META_FOLDER}/image-meta.json`;
-const BLUESKY_DATA_PATH = './src/collections/bluesky/bluesky_data.json';
+export const BLUESKY_DATA_PATH = './src/collections/bluesky/bluesky_data.json';
+export const PUBLIC_DATA_PATH = './public/bluesky.json';
 
 function hashBuffer(buffer: Buffer<ArrayBuffer>) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
@@ -63,6 +64,19 @@ export function saveBlueskyData(data: BlueskyData) {
   );
   mkdirSync(dir, { recursive: true });
   writeFileSync(BLUESKY_DATA_PATH, JSON.stringify(data, null, 2), 'utf8');
+
+  const publicData = {
+    threads: data.threads.map((thread) => ({
+      atUri: thread.rootUri,
+    })),
+  };
+
+  const publicDir = PUBLIC_DATA_PATH.substring(
+    0,
+    PUBLIC_DATA_PATH.lastIndexOf('/')
+  );
+  mkdirSync(publicDir, { recursive: true });
+  writeFileSync(PUBLIC_DATA_PATH, JSON.stringify(publicData, null, 2), 'utf8');
 }
 
 function getImageExtension(url: string): string {
@@ -102,6 +116,7 @@ export async function downloadImageIfChanged(
   await pipeline(Readable.from([Buffer.from(buffer)]), fileStream);
 
   meta[url] = { hash, localPath, fileName };
+  console.info(`✅ bluesky image saved at: ${localPath}`);
   return fileName;
 }
 
@@ -201,6 +216,7 @@ export async function getPostThreads(
       depth: 10,
       parentHeight: 0,
     });
+
     if ('post' in data.thread && data.thread.post.author.did === profile.did) {
       const filtered = await getOwnThreadOnly(data.thread, profile.did);
 
@@ -237,9 +253,21 @@ export async function getPostThreads(
         recordKey: `bsky${recordKey}`,
       });
     }
-
-    console.info('✅ bluesky_data.json saved.');
   }
 
   return threads;
+}
+
+export async function getLikes(agent: AtpAgent, threads: BlueskyPostThread[]) {
+  await Promise.all(
+    threads.map(async (thread) => {
+      const { data: likesData } = await agent.app.bsky.feed.getLikes({
+        uri: thread.rootUri,
+        limit: 100,
+      });
+      if (thread.posts[0]) {
+        thread.posts[0].likes = likesData.likes;
+      }
+    })
+  );
 }

@@ -387,7 +387,11 @@ export default async (req: Request, context: Context) => {
   };
 
   const site_url = removeTrailingSlash(context.url.origin);
-  if (req.headers.get('origin') !== site_url) {
+
+  if (
+    process.env.NODE_ENV !== 'development' &&
+    req.headers.get('origin') !== site_url
+  ) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
       headers:
@@ -550,7 +554,7 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...devHeaders,
+          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }

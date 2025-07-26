@@ -78,6 +78,7 @@ export const navigation = {
       'All rights reserved Lars Ejaas. Please contact me directly to get my consent before using any content from this page.',
     sitemap_label: 'Sitemap',
     scroll_to_tip: 'Scroll to tip',
+    view_on_bluesky: 'View on Bluesky',
   },
   da: {
     default_seo_image_alt:
@@ -158,5 +159,6 @@ export const navigation = {
       'Alle rettigheder forbeholdes Lars Ejaas. Kontakt mig direkte for at få mit samtykke, inden du bruger indhold fra denne side.',
     sitemap_label: 'Sitemap',
     scroll_to_tip: 'Scroll til tip',
+    view_on_bluesky: 'Se på Bluesky',
   },
 } as const;

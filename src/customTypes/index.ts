@@ -1,4 +1,4 @@
-import type { AppBskyFeedDefs } from '@atproto/api';
+import type { AppBskyFeedDefs, AppBskyFeedGetLikes } from '@atproto/api';
 
 export enum ValidationPattern {
   email = '[a-zA-Z0-9._\\-]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_\\-]+',
@@ -164,7 +164,7 @@ export type ExternalLink = `https://${string}`;
 
 export type BlueskyPostThread = {
   rootUri: string;
-  posts: AppBskyFeedDefs.PostView[];
+  posts: (AppBskyFeedDefs.PostView & { likes?: AppBskyFeedGetLikes.Like[] })[];
   viewOnBluesky: string;
   recordKey: string;
 };
@@ -173,6 +173,7 @@ export type BlueskyProfile = {
   handle: string;
   displayName: string | undefined;
   avatar: string | null;
+  indexedAt: string | undefined;
 };
 
 /** String literal in kebab-case

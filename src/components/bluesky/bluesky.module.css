@@ -1,3 +1,11 @@
+:import('@components/modalDialog/modalDialog.module.css') {
+  scrollfade: scrollfade;
+}
+
+.card {
+  max-width: 672px;
+}
+
 .cardContent {
   overflow-y: hidden;
   position: relative;
@@ -8,6 +16,9 @@
   border-radius: var(--border-radius-md);
   container-type: inline-size;
   container-name: blueskyFeedCard;
+  @supports (animation-timeline: scroll()) {
+    timeline-scope: --one, --two, --three, --four, --five, --six;
+  }
 }
 
 .feedList {
@@ -40,20 +51,39 @@
   display: block;
   position: relative;
   z-index: -1;
+  @supports (animation-timeline: view()) {
+    &:nth-of-type(1) {
+      view-timeline: --one inline;
+    }
+    &:nth-of-type(2) {
+      view-timeline: --two inline;
+    }
+    &:nth-of-type(3) {
+      view-timeline: --three inline;
+    }
+    &:nth-of-type(4) {
+      view-timeline: --four inline;
+    }
+    &:nth-of-type(5) {
+      view-timeline: --five inline;
+    }
+    &:nth-of-type(6) {
+      view-timeline: --six inline;
+    }
+  }
 }
 .article {
   padding-inline: 16px;
   width: 100cqi;
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .threadWrapper {
   display: flex;
   flex-direction: row;
   height: 436px;
-  /* max-height: 436px;
-  flex: 0 1 0%; */
 }
 
 .profileTimeline {
@@ -69,18 +99,28 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* flex: 1 1 100%;
-  max-height: 100%; */
 }
 
 .threadContent {
   flex: 1 0 auto;
   height: calc(100% - 46px);
   overflow-y: auto;
-  padding-inline: 8px 2px;
+  padding-inline: 8px;
   padding-bottom: 4px;
   @container blueskyFeedCard (width >= 430px) {
     height: calc(100% - 29px);
+  }
+  /** Scroll-shadows */
+  @supports (animation-timeline: view()) {
+    mask: linear-gradient(
+      to bottom,
+      #0000,
+      #ffff var(--top-fade) calc(100% - var(--bottom-fade)),
+      #0000
+    );
+    animation: scrollfade;
+    animation-timeline: --scrollfade;
+    scroll-timeline: --scrollfade y;
   }
 }
 
@@ -117,6 +157,47 @@
 .threadFooter {
   display: flex;
   flex-direction: row;
+  padding-inline: 64px 20px;
+  align-items: center;
+  justify-content: space-between;
+  height: 42px;
+}
+
+.viewOnBluesky {
+  border: unset;
+  background-color: light-dark(
+    var(--system-light-400),
+    color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
+  );
+  width: fit-content;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  outline-offset: var(--outline-offset);
+  color: light-dark(var(--system-dark-200), var(--system-dark-100));
+  font-size: var(--font-size-2);
+  font-weight: 500;
+  border-radius: var(--border-radius-md);
+  text-decoration-color: transparent;
+  transition:
+    text-decoration-color 300ms,
+    background-color 300ms;
+  &:hover,
+  &:focus-visible {
+    background-color: light-dark(
+      var(--system-light-500),
+      color-mix(in hsl, var(--system-dark-200-16), transparent 25%)
+    );
+    text-decoration-color: currentColor;
+    transition:
+      text-decoration-color 300ms,
+      background-color 300ms;
+  }
+  & p {
+    margin-top: 2px;
+  }
 }
 
 .profileInfo {
@@ -193,10 +274,17 @@
   @media (max-width: 769px) {
     --control-height: 36px;
   }
+  height: var(--control-height);
   list-style-type: none;
   aspect-ratio: calc(var(--slide-length) / 1);
   @supports (animation-timeline: view()) {
-    aspect-ratio: calc(var(--slide-length) + 1 / 1);
+    aspect-ratio: calc(var(--slide-length) + 0.6 / 1);
+  }
+}
+
+@keyframes expandControls {
+  50% {
+    flex: 3;
   }
 }
 
@@ -221,6 +309,9 @@
     }
     &:nth-of-type(5) {
       animation-timeline: --five;
+    }
+    &:nth-of-type(6) {
+      animation-timeline: --six;
     }
     scroll-timeline-axis: inline;
     animation: expandControls;

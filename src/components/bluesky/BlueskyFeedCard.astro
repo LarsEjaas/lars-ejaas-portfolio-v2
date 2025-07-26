@@ -32,7 +32,12 @@ const processedThreads = constructBlueskyThreads(feed);
   import { setupPaginationScroll } from '@components/workCard/utils';
   setupPaginationScroll();
 </script>
-<Card as="aside" viewTransitionName={viewTransitionName} inert={inert}>
+<Card
+  as="aside"
+  viewTransitionName={viewTransitionName}
+  inert={inert}
+  className={styles.card}
+>
   <div class={`${styles.blueSkyIcon} squircle`} data-with-shadow="true">
     <PictureWithPlaceholder
       aria-hidden="true"

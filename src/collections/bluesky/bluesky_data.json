@@ -2,7 +2,8 @@
   "profile": {
     "handle": "larsejaas.bsky.social",
     "displayName": "Lars Ejaas 🦋",
-    "avatar": "profileAvatar.jpeg"
+    "avatar": "profileAvatar.jpeg",
+    "indexedAt": "2025-06-06T11:25:43.440Z"
   },
   "threads": [
     {
@@ -99,7 +100,78 @@
             "embeddingDisabled": false,
             "pinned": false
           },
-          "labels": []
+          "labels": [],
+          "likes": [
+            {
+              "actor": {
+                "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
+                "handle": "rickywatson.bsky.social",
+                "displayName": "Rick Warsons",
+                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:kwzq4ouefalk5ldnwniuh6v7/bafkreigx4sjmwoznwwrkj6v7tywdoop6radl36d34rpl54btpn5dbdj54i@jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2024-12-02T20:34:10.045Z",
+                "description": "🎵 RollTheRecord.com: Your go-to music hub with interactive charts\n📇 CopyMarkdown.com: The easy way to turn webpages into Markdown\n🧳 GentleMiles.com: Discover green hotels and one-of-a-kind stays",
+                "indexedAt": "2025-06-02T15:57:25.940Z"
+              },
+              "createdAt": "2025-06-17T15:37:50.129Z",
+              "indexedAt": "2025-06-17T15:37:50.129Z"
+            },
+            {
+              "actor": {
+                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
+                "handle": "bytevagabond.com",
+                "displayName": "ByteVagabond",
+                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:anpxoyqkormchuw5wdtyi7tb/bafkreicmphzk7aeohlgagojbj5ain7wk4hrp3cndyluwnm4ibvnqkkolii@jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2023-11-28T11:36:50.520Z",
+                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
+                "indexedAt": "2025-03-07T15:35:58.242Z"
+              },
+              "createdAt": "2025-06-17T10:57:49.795Z",
+              "indexedAt": "2025-06-17T10:57:49.795Z"
+            },
+            {
+              "actor": {
+                "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
+                "handle": "karma-domains.bsky.social",
+                "displayName": "Karma.Domains",
+                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:7hbumvg2w6mbv3ga3wcsfwp6/bafkreidnq52m4rkco24kvmg2l4d4xaw6a4lwrakorv74wcu7342rqwjpdy@jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2025-01-08T02:57:50.444Z",
+                "description": "https://Karma.Domains — Domain Auction Aggregator & Expired Domains History Analyzer via Wayback Machine for SEO experts, investors, PBN builders & linkbuilders seeking quality assets",
+                "indexedAt": "2025-04-05T01:33:33.894Z"
+              },
+              "createdAt": "2025-06-17T10:10:24.475Z",
+              "indexedAt": "2025-06-17T10:10:24.475Z"
+            }
+          ]
         },
         {
           "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsawbmbjc22",

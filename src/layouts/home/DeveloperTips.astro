@@ -16,7 +16,7 @@ const { lang, inert } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 ---
 
-<div id="developerTips">
+<section class="fullgrid" id="developerTips">
   <h2>{t_home('developer_tips')}</h2>
   <p class="body-text">{t_home('tips_from_the_trenches')}</p>
   <div class={styles.followMe}>
@@ -56,5 +56,4 @@ const t_home = useTranslations(lang, 'home');
     feed={BlueskyData.threads}
     profile={BlueskyData.profile}
   />
-</div>
-<div class={styles.tips}></div>
+</section>
