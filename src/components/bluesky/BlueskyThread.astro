@@ -5,11 +5,8 @@ import type { ImageModule } from '@customTypes/index';
 import styles from './bluesky.module.css';
 import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
 import { formatDate } from '@utils/misc';
-import {
-  renderPostContentAsHTML,
-  type RichTextRenderConfig,
-} from './richTextRenderUtils';
 import type { ProcessedBlueskyThread } from './utils';
+import BlueskyThreadRenderer from './BlueskyThreadRenderer.astro';
 
 const blueskyImages = import.meta.glob('@assets/bluesky/*.{jpg,jpeg,png}');
 
@@ -38,18 +35,6 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 
 const indexedAt = thread.createdAt;
 const formattedTimestamp = formatDate(indexedAt, lang);
-
-const threadConfig: RichTextRenderConfig = {
-  classNames: {
-    container: `body-text ${styles.postContent}`,
-    link: styles.postLink,
-    hashtag: styles.postHashtag,
-  },
-  attributes: {
-    link: { 'data-type': 'external-link' },
-    hashtag: (segment) => ({ 'data-tag': segment.content.replace('#', '') }),
-  },
-};
 ---
 
 <li id={thread.recordKey} class={styles.thread}>
@@ -101,22 +86,7 @@ const threadConfig: RichTextRenderConfig = {
             )
           }
         </header>
-        <section class={styles.threadContent}>
-          <Fragment
-            set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
-          />
-          {
-            thread.replies.map((reply) => {
-              const content = renderPostContentAsHTML(reply, threadConfig);
-              return (
-                <>
-                  <div class={styles.divider} />
-                  <Fragment class={styles.reply} set:html={content} />
-                </>
-              );
-            })
-          }
-        </section>
+        <BlueskyThreadRenderer thread={thread} />
       </div>
     </div>
     <footer class={styles.threadFooter}>

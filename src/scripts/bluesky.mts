@@ -39,7 +39,7 @@ async function main() {
 
   saveBlueskyData(data);
   saveImageMeta(imageMeta);
-  console.log('✅ bluesky_data.json saved.');
+  console.info('✅ bluesky_data.json saved.');
 }
 
 main().catch((err) => {

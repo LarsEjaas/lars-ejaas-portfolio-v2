@@ -1,6 +1,12 @@
 {
   "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg": {
     "hash": "3f33fa8d3bc7b719e60d09e4c9a1227879cca1eaaaa16427159d7c769899619a",
-    "localPath": "./src/assets/bluesky/profileAvatar.jpeg"
+    "localPath": "./src/assets/bluesky/profileAvatar.jpeg",
+    "fileName": "profileAvatar.jpeg"
+  },
+  "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva@jpeg": {
+    "hash": "b5df068dfe85e1b852393d9fedbab5bbba774c3e7f75db312510090a9ed7076f",
+    "localPath": "./src/assets/bluesky/post-3lrsawbmbjc22-embed.jpeg",
+    "fileName": "post-3lrsawbmbjc22-embed.jpeg"
   }
 }

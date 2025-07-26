@@ -31,6 +31,7 @@ export interface ProcessedTextSegment {
   uri?: string;
   startIndex?: number;
   endIndex?: number;
+  embed?: ProcessedEmbed;
 }
 
 export interface ProcessedEmbed {

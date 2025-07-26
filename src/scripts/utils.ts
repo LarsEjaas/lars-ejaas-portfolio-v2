@@ -21,6 +21,7 @@ import type { BlueskyPostThread, BlueskyProfile } from '@customTypes/index';
 interface ImageMeta {
   hash: string;
   localPath: string;
+  fileName: string;
   uri?: string;
   originalUrl?: string;
   alt?: string;
@@ -100,7 +101,7 @@ export async function downloadImageIfChanged(
   const fileStream = createWriteStream(localPath);
   await pipeline(Readable.from([Buffer.from(buffer)]), fileStream);
 
-  meta[url] = { hash, localPath };
+  meta[url] = { hash, localPath, fileName };
   return fileName;
 }
 
@@ -213,6 +214,18 @@ export async function getPostThreads(
               imageMeta
             );
           }
+        }
+        if (
+          post.embed &&
+          'external' in post.embed &&
+          'thumb' in post.embed.external &&
+          typeof post.embed.external.thumb === 'string'
+        ) {
+          await downloadImageIfChanged(
+            post.embed.external.thumb,
+            `post-${post.uri.split('/').pop()}-embed`,
+            imageMeta
+          );
         }
       }
       const recordKey = data.thread.post.uri.split('/').pop() || '';

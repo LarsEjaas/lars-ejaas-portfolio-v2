@@ -1,4 +1,8 @@
-import type { ProcessedPost, ProcessedTextSegment } from './utils';
+import type {
+  ProcessedPost,
+  ProcessedEmbed,
+  ProcessedTextSegment,
+} from './utils';
 
 /**
  * Render configuration for customizing how different content types are rendered
@@ -10,6 +14,7 @@ export interface RichTextRenderConfig {
     link?: string;
     hashtag?: string;
     container?: string;
+    embed?: string;
   };
   // Custom attributes for each component type
   attributes?: {
@@ -21,13 +26,16 @@ export interface RichTextRenderConfig {
       | Record<string, any>
       | ((segment: ProcessedTextSegment) => Record<string, any>);
     container?: Record<string, any>;
+    embed?:
+      | Record<string, any>
+      | ((embed: ProcessedEmbed) => Record<string, any>);
   };
-  // Custom class names
   classNames?: {
     text?: string;
     link?: string;
     hashtag?: string;
     container?: string;
+    embed?: string;
   };
 }
 
@@ -63,7 +71,6 @@ export function renderRichTextAsHTML(
   config: RichTextRenderConfig = {}
 ): string {
   const segments = post.content.segments;
-  let renderedEmbed: string = '';
 
   const finalConfig = {
     components: { ...defaultRenderConfig.components, ...config.components },
@@ -109,7 +116,6 @@ export function renderRichTextAsHTML(
         const className = finalConfig.classNames.hashtag;
         const classAttr = className ? ` class="${className}"` : '';
 
-        // Add custom attributes
         const customAttrs = Object.entries(attrs)
           .map(([key, value]) => ` ${key}="${value}"`)
           .join('');
@@ -127,7 +133,6 @@ export function renderRichTextAsHTML(
         const className = finalConfig.classNames.text;
         const classAttr = className ? ` class="${className}"` : '';
 
-        // Add custom attributes
         const customAttrs = Object.entries(attrs)
           .map(([key, value]) => ` ${key}="${value}"`)
           .join('');
@@ -140,16 +145,6 @@ export function renderRichTextAsHTML(
       }
     }
   });
-
-  if (post.embed) {
-    switch (post.embed.type) {
-      case 'external':
-        renderedEmbed = ``;
-        break;
-      default:
-        break;
-    }
-  }
 
   const containerClassName = finalConfig.classNames.container;
   const containerClassAttr = containerClassName
@@ -165,7 +160,7 @@ export function renderRichTextAsHTML(
     .map(([key, value]) => ` ${key}="${value}"`)
     .join('');
 
-  return `<${finalConfig.components.container}${containerClassAttr}${customContainerAttrs}>${renderedSegments.join('')}${renderedEmbed}</${finalConfig.components.container}>`;
+  return `<${finalConfig.components.container}${containerClassAttr}${customContainerAttrs}>${renderedSegments.join('')}</${finalConfig.components.container}>`;
 }
 
 /**
