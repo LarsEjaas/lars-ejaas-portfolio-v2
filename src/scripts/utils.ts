@@ -37,8 +37,11 @@ export type BlueskyData = {
 const HANDLE = process.env.BLUESKY_HANDLE;
 const META_FOLDER = './src/assets/bluesky';
 const IMAGE_META_PATH = `${META_FOLDER}/image-meta.json`;
-export const BLUESKY_DATA_PATH = './src/collections/bluesky/bluesky_data.json';
-export const PUBLIC_DATA_PATH = './public/bluesky.json';
+const PUBLIC_FILENAME = 'devtips-threads.json';
+const SEARCH_TAG = 'DeveloperTips';
+export const FILE_NAME = 'devtips_data.json';
+export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${FILE_NAME}`;
+export const PUBLIC_DATA_PATH = `./public/${PUBLIC_FILENAME}`;
 
 function hashBuffer(buffer: Buffer<ArrayBuffer>) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
@@ -203,11 +206,11 @@ export async function getPostThreads(
   const threads: BlueskyPostThread[] = [];
 
   const searchResults = await searchPosts(agent, {
-    q: '#DeveloperTips',
+    q: `#${SEARCH_TAG}`,
     author: HANDLE,
     limit: 100,
     sort: 'latest',
-    tag: ['DeveloperTips'],
+    tag: [SEARCH_TAG],
   });
 
   for (const post of searchResults.posts) {
@@ -265,6 +268,7 @@ export async function getLikes(agent: AtpAgent, threads: BlueskyPostThread[]) {
         uri: thread.rootUri,
         limit: 100,
       });
+      console.info('✅ likes returned from Bluesky API');
       if (thread.posts[0]) {
         thread.posts[0].likes = likesData.likes;
       }

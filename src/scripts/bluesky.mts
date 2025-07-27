@@ -4,6 +4,7 @@ import 'dotenv/config';
 import {
   BLUESKY_DATA_PATH,
   downloadImageIfChanged,
+  FILE_NAME,
   getAuthenticateBlueskyAgent,
   getLikes,
   getPostThreads,
@@ -49,7 +50,7 @@ async function main() {
 
   if (updateProfile || updatePosts) {
     //get likes if there are new threads or profile changes(used as fallback)
-    getLikes(agent, postThreads);
+    await getLikes(agent, postThreads);
 
     const data: BlueskyData = {
       profile: {
@@ -63,9 +64,11 @@ async function main() {
 
     saveBlueskyData(data);
     saveImageMeta(imageMeta);
-    console.info('✅ bluesky_data.json saved.');
+    console.info(`✅ ${FILE_NAME} saved.`);
   } else {
-    console.info('✅ No changes detected on Bluesky – JSON file not updated.');
+    console.info(
+      `✅ No changes detected on Bluesky – ${FILE_NAME} not updated.`
+    );
   }
 }
 

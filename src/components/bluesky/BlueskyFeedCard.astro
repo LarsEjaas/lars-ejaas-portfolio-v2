@@ -78,18 +78,19 @@ const processedThreads = constructBlueskyThreads(feed);
             }}
             class={styles.controls}
           >
-            {feed.map((thread, index) => (
-              <div class={styles.control}>
-                <a
-                  href={`#${thread.recordKey}`}
-                  role="menuitem"
-                  data-arrow-nav="true"
-                  title={`${t('scroll_to_tip')} ${index + 1}`}
-                >
-                  <p class="sr-only">{`${t('scroll_to_tip')} ${index + 1}`}</p>
-                </a>
-              </div>
-            ))}
+            {feed.length > 1 &&
+              feed.map((thread, index) => (
+                <div class={styles.control}>
+                  <a
+                    href={`#${thread.recordKey}`}
+                    role="menuitem"
+                    data-arrow-nav="true"
+                    title={`${t('scroll_to_tip')} ${index + 1}`}
+                  >
+                    <p class="sr-only">{`${t('scroll_to_tip')} ${index + 1}`}</p>
+                  </a>
+                </div>
+              ))}
           </div>
         </div>
       )

@@ -94,7 +94,7 @@ const formattedTimestamp = formatDate(indexedAt, lang);
       </div>
     </div>
     <footer class={styles.threadFooter}>
-      <BlueskyLikes likes={thread.mainPost.engagement.likes} />
+      <BlueskyLikes thread={thread} />
       <a
         class={styles.viewOnBluesky}
         href={thread.viewOnBluesky}

@@ -23,7 +23,7 @@ export default defineConfig({
   site: SITE_URL,
   adapter: netlify({
     edgeMiddleware: false,
-    functionPerRoute: false,
+    functionPerRoute: true,
   }),
   env: {
     schema: {
@@ -81,6 +81,11 @@ export default defineConfig({
       PUBLIC_PIWIK_DOMAINS: envField.string({
         context: 'client',
         access: 'public',
+        optional: false,
+      }),
+      SERVERLESS_AUTH_TOKEN: envField.string({
+        context: 'server',
+        access: 'secret',
         optional: false,
       }),
     },

@@ -5,9 +5,18 @@ import type {
   AppBskyEmbedRecordWithMedia,
   AppBskyEmbedVideo,
   AppBskyFeedDefs,
+  AppBskyFeedGetLikes,
 } from '@atproto/api';
 import type { AppBskyRichtextFacet } from '@atproto/api';
 import type { BlueskyPostThread } from '@customTypes/index';
+import { SERVERLESS_AUTH_TOKEN } from 'astro:env/server';
+import { SITE_URL } from 'astro:env/client';
+
+type LikesResult = {
+  uri: string;
+  likes: AppBskyFeedGetLikes.Like[];
+  likeCount: number;
+}[];
 
 interface RichTextFacet {
   features: (
@@ -56,6 +65,7 @@ export interface ProcessedPost {
     likes: number;
     quotes: number;
   };
+  likes?: AppBskyFeedGetLikes.Like[];
   createdAt: string;
   isMainPost: boolean;
   postNumber: number; // 1 for main post, 2, 3, etc. for replies
@@ -199,7 +209,9 @@ function processEmbed(embed?: Embed): ProcessedEmbed | undefined {
  * Processes a single Bluesky post into a more usable format
  */
 function processPost(
-  post: AppBskyFeedDefs.PostView | undefined,
+  post:
+    | ({ likes?: AppBskyFeedGetLikes.Like[] } & AppBskyFeedDefs.PostView)
+    | undefined,
   isMainPost: boolean,
   postNumber: number
 ): ProcessedPost {
@@ -227,6 +239,7 @@ function processPost(
       likes: post.likeCount || 0,
       quotes: post.quoteCount || 0,
     },
+    likes: post.likes,
     createdAt:
       'createdAt' in post.record && typeof post.record.createdAt === 'string'
         ? post.record.createdAt
@@ -340,4 +353,23 @@ export function extractExternalLinks(
   });
 
   return links;
+}
+
+export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
+  const res = await fetch(`${SITE_URL}/.netlify/functions/get-dev-tips-likes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${SERVERLESS_AUTH_TOKEN}`,
+    },
+    body: JSON.stringify({
+      atUris: atUris ?? [], // pass empty array or undefined if no filter
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch likes: ${res.status}`);
+  }
+
+  return res.json();
 }
