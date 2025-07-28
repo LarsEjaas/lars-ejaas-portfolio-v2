@@ -11,13 +11,31 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
   padding-block: 68px 20px;
   border-radius: var(--border-radius-md);
   container-type: inline-size;
   container-name: blueskyFeedCard;
   @supports (animation-timeline: scroll()) {
     timeline-scope: --one, --two, --three, --four, --five, --six;
+  }
+}
+
+.skipLink {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: light-dark(var(--system-shadow-7), var(--system-light-400));
+  color: var(--system-dark-200);
+  padding: 0.5rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+  outline-offset: var(--outline-offset);
+  &:focus-visible {
+    transform: unset;
+  }
+  &:visited {
+    color: var(--system-dark-200);
   }
 }
 
@@ -77,7 +95,6 @@
   width: 100cqi;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .threadWrapper {
@@ -157,10 +174,12 @@
 .threadFooter {
   display: flex;
   flex-direction: row;
-  padding-inline: 64px 20px;
+  padding-inline: 1rem;
   align-items: center;
   justify-content: space-between;
-  height: 42px;
+  column-gap: 8px;
+  flex-wrap: wrap;
+  padding-block: 8px;
 }
 
 .viewOnBluesky {
@@ -180,6 +199,8 @@
   font-size: var(--font-size-2);
   font-weight: 500;
   border-radius: var(--border-radius-md);
+  margin-left: auto;
+  margin-block: 4px;
   text-decoration-color: transparent;
   transition:
     text-decoration-color 300ms,
@@ -197,6 +218,10 @@
   }
   & p {
     margin-top: 2px;
+    text-wrap: nowrap;
+  }
+  & svg {
+    flex-shrink: 0;
   }
 }
 

@@ -72,14 +72,14 @@ export default async (req: Request) => {
 
     const likesResults: LikesResult = await Promise.all(
       blueskyData.threads.map(async (thread) => {
-        const { data: likesData } = await agent.app.bsky.feed.getLikes({
-          uri: thread.atUri,
-          limit: 100,
-        });
+        const [{ data: likesData }, { data: postData }] = await Promise.all([
+          agent.app.bsky.feed.getLikes({ uri: thread.atUri, limit: 100 }),
+          agent.app.bsky.feed.getPosts({ uris: [thread.atUri] }),
+        ]);
         return {
           uri: thread.atUri,
           likes: likesData.likes,
-          likeCount: likesData.likes.length,
+          likeCount: postData.posts[0]?.likeCount || 0,
         };
       })
     );

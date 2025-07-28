@@ -79,6 +79,10 @@ export const navigation = {
     sitemap_label: 'Sitemap',
     scroll_to_tip: 'Scroll to tip',
     view_on_bluesky: 'View on Bluesky',
+    view_profile_on_bluesky: 'View Profile on Bluesky',
+    followers: 'followers',
+    following: 'following',
+    skip_to_developer_tips_pagination: 'Skip to Developer Tips Pagination',
   },
   da: {
     default_seo_image_alt:
@@ -160,5 +164,10 @@ export const navigation = {
     sitemap_label: 'Sitemap',
     scroll_to_tip: 'Scroll til tip',
     view_on_bluesky: 'Se på Bluesky',
+    view_profile_on_bluesky: 'Vis profil på Bluesky',
+    followers: 'følgere',
+    following: 'følger',
+    skip_to_developer_tips_pagination:
+      'Gå til paginering for tips til udviklere',
   },
 } as const;

@@ -1,6 +1,9 @@
 ---
 import styles from './blueskyLikes.module.css';
+import LikeProfile from './LikeProfile.astro';
 import { getDevTipsLikes, type ProcessedBlueskyThread } from './utils';
+
+const MAXIMUM_NUMBER_OF_AVATARS = 55;
 
 type Props = {
   thread: ProcessedBlueskyThread;
@@ -12,14 +15,32 @@ const atUri = thread.mainPost.id;
 
 const devTipsLikes = await getDevTipsLikes([atUri]);
 
-let likes = devTipsLikes[0]?.likes ?? [];
+const totalNumberOfLikes =
+  devTipsLikes[0]?.likeCount ?? thread.mainPost.engagement.likes;
+
+let likes = devTipsLikes[0]?.likes.slice(0, MAXIMUM_NUMBER_OF_AVATARS) ?? [];
 
 if (devTipsLikes[0]?.uri !== thread.mainPost.id) {
-  likes = thread.mainPost.likes || [];
+  likes = (thread.mainPost.likes || []).slice(0, MAXIMUM_NUMBER_OF_AVATARS);
 }
 ---
 
-<div class={styles.likesWrapper}>
+<script>
+  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+
+  const likesWrappers = document.querySelectorAll('[id^="threadLikes"]');
+
+  const wrapperList = Array.from(likesWrappers).filter(
+    (item) => item instanceof HTMLElement
+  );
+
+  if (wrapperList.length) {
+    wrapperList.forEach((wrapper) => {
+      initializeKeyboardArrowNavigation(wrapper);
+    });
+  }
+</script>
+<div class={styles.likesWrapper} id={`threadLikes${atUri.split('/').pop()}`}>
   {
     likes.length > 0 && (
       <>
@@ -29,6 +50,16 @@ if (devTipsLikes[0]?.uri !== thread.mainPost.id) {
             fill="currentColor"
           />
         </svg>
+        <div class={styles.avatarStack} role="menubar">
+          {likes.map((like) => (
+            <LikeProfile like={like} />
+          ))}
+          {totalNumberOfLikes > likes.length && (
+            <div
+              class={styles.additionalLikes}
+            >{`+${Math.abs(totalNumberOfLikes - likes.length)}`}</div>
+          )}
+        </div>
       </>
     )
   }

@@ -85,9 +85,7 @@
                 }
               }
             ],
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "text": "🔧 Dev tip: You can make your webpages XML sitemap human-readable by adding a sitemap.xsl file! Instead of showing raw XML, visitors get a clean nice-looking page.\nCheck out this example:\nlarsejaas.com/sitemap-0.xml\nMuch better than staring at angle brackets, right? 😄\n#WebDev #SEO #DeveloperTips"
           },
           "replyCount": 1,
@@ -241,9 +239,7 @@
                 }
               }
             ],
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "reply": {
               "parent": {
                 "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",

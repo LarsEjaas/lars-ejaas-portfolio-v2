@@ -13,6 +13,7 @@ type Props<U extends string = string> = {
   position?: 'top' | 'bottom';
   /** Width of the popover - defaults to 300px */
   width?: number;
+  buttonAttributes?: astroHTML.JSX.DefinedIntrinsicElements['button'];
   classNames?: Partial<ClassNames>;
 };
 
@@ -26,6 +27,7 @@ const {
   buttonLabel,
   position = 'bottom',
   width = 300,
+  buttonAttributes = {},
   classNames,
 } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
@@ -80,6 +82,7 @@ const t = useTranslations(lang, 'navigation');
     id=`popover${capitalize(id)}Button`
     aria-label={buttonLabel}
     tabindex="0"
+    {...buttonAttributes}
   >
     <slot name="buttonContent" />
   </button>

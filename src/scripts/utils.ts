@@ -264,13 +264,18 @@ export async function getPostThreads(
 export async function getLikes(agent: AtpAgent, threads: BlueskyPostThread[]) {
   await Promise.all(
     threads.map(async (thread) => {
-      const { data: likesData } = await agent.app.bsky.feed.getLikes({
-        uri: thread.rootUri,
-        limit: 100,
-      });
-      console.info('✅ likes returned from Bluesky API');
-      if (thread.posts[0]) {
+      const [{ data: likesData }, { data: postData }] = await Promise.all([
+        agent.app.bsky.feed.getLikes({ uri: thread.rootUri, limit: 100 }),
+        agent.app.bsky.feed.getPosts({ uris: [thread.rootUri] }),
+      ]);
+      console.info('✅ likes returned from Bluesky API:');
+      if (
+        thread.posts[0] &&
+        postData.posts.length > 0 &&
+        postData.posts[0]?.likeCount
+      ) {
         thread.posts[0].likes = likesData.likes;
+        thread.posts[0].likeCount = postData.posts[0].likeCount;
       }
     })
   );

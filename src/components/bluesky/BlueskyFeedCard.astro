@@ -55,6 +55,16 @@ const processedThreads = constructBlueskyThreads(feed);
     />
   </div>
   <div class={styles.cardContent}>
+    {
+      processedThreads.length > 1 && (
+        <a
+          class={styles.skipLink}
+          href={`#pagination${processedThreads[0]?.recordKey}`}
+        >
+          {t('skip_to_developer_tips_pagination')}
+        </a>
+      )
+    }
     <div class={styles.butterfly} aria-hidden="true"></div>
     <ul tabindex={-1} class={styles.feedList}>
       {
@@ -63,37 +73,37 @@ const processedThreads = constructBlueskyThreads(feed);
         ))
       }
     </ul>
-    {
-      feed?.length > 0 && (
-        <div
-          id={`${id}footerNavigation`}
-          role="menubar"
-          aria-describedby={`${id}ArrowNav`}
-          aria-keyshortcuts="ArrowLeft ArrowRight"
-          class={styles.pagination}
-        >
-          <div
-            style={{
-              '--slide-length': feed?.length,
-            }}
-            class={styles.controls}
-          >
-            {feed.length > 1 &&
-              feed.map((thread, index) => (
-                <div class={styles.control}>
-                  <a
-                    href={`#${thread.recordKey}`}
-                    role="menuitem"
-                    data-arrow-nav="true"
-                    title={`${t('scroll_to_tip')} ${index + 1}`}
-                  >
-                    <p class="sr-only">{`${t('scroll_to_tip')} ${index + 1}`}</p>
-                  </a>
-                </div>
-              ))}
-          </div>
-        </div>
-      )
-    }
+    <div
+      id={`${id}footerNavigation`}
+      role={processedThreads.length > 1 ? 'menubar' : undefined}
+      aria-keyshortcuts="ArrowLeft ArrowRight"
+      class={styles.pagination}
+    >
+      <div
+        style={{
+          '--slide-length': feed?.length,
+        }}
+        class={styles.controls}
+      >
+        {
+          processedThreads.length > 1 &&
+            processedThreads.map((thread, index) => (
+              <div class={styles.control}>
+                <a
+                  href={`#${thread.recordKey}`}
+                  role="menuitem"
+                  data-arrow-nav={
+                    processedThreads.length > 1 ? 'true' : undefined
+                  }
+                  id={index === 0 ? `pagination${thread.recordKey}` : undefined}
+                  title={`${t('scroll_to_tip')} ${index + 1}`}
+                >
+                  <p class="sr-only">{`${t('scroll_to_tip')} ${index + 1}`}</p>
+                </a>
+              </div>
+            ))
+        }
+      </div>
+    </div>
   </div>
 </Card>
