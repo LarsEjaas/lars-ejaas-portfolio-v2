@@ -16,7 +16,7 @@ import { pipeline } from 'stream/promises';
 import { Readable } from 'stream';
 import crypto from 'crypto';
 import 'dotenv/config';
-import type { BlueskyPostThread, BlueskyProfile } from '@customTypes/index';
+import type { BlueskyPostThread } from '@customTypes/index';
 
 interface ImageMeta {
   hash: string;
@@ -30,7 +30,7 @@ interface ImageMeta {
 }
 
 export type BlueskyData = {
-  profile: BlueskyProfile;
+  profile: AppBskyActorDefs.ProfileViewDetailed;
   threads: BlueskyPostThread[];
 };
 

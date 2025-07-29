@@ -25,6 +25,7 @@
     "zod",
     "dompurify",
     "jsdom",
+    "@atproto",
   ]
 
 [[headers]]

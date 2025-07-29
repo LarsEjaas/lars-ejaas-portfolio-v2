@@ -11,6 +11,7 @@ import type { AppBskyRichtextFacet } from '@atproto/api';
 import type { BlueskyPostThread } from '@customTypes/index';
 import { SERVERLESS_AUTH_TOKEN } from 'astro:env/server';
 import { SITE_URL } from 'astro:env/client';
+import { removeTrailingSlash } from '../../i18n/utils';
 
 type LikesResult = {
   uri: string;
@@ -372,4 +373,28 @@ export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
   }
 
   return res.json();
+}
+
+export function linkifyDomains(
+  text: string,
+  classNames?: { link?: string }
+): string {
+  return text.replace(
+    /\b((https?:\/\/[^\s]+)|((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}))(?![^<]*>|[^<>]*<\/)/g,
+    (match) => {
+      try {
+        let domainMatch = match;
+
+        if (!match.startsWith('http')) {
+          domainMatch = `https://${match}`;
+        }
+        const { pathname, href, hostname } = new URL(domainMatch);
+        const path = removeTrailingSlash(pathname);
+
+        return `<a href="${href}" class="${classNames?.link || undefined}" target="_blank" rel="noopener noreferrer">${hostname}${path}</a>`;
+      } catch {
+        return match;
+      }
+    }
+  );
 }

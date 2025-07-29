@@ -5,6 +5,7 @@
   gap: 16px;
   align-items: flex-start;
   margin-right: auto;
+  padding-left: 13.5px;
   & > svg {
     flex-shrink: 0;
     margin-block: 8px;
@@ -83,15 +84,26 @@
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.viewOnBluesky {
+.avatarPlaceholder {
+  width: 100%;
+  aspect-ratio: 1/1;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.avatarWrapper {
+  composes: profileWrapper from '@components/bluesky/bluesky.module.css';
+}
+
+.viewProfileOnBluesky {
   composes: viewOnBluesky from '@components/bluesky/bluesky.module.css';
 }
 
@@ -107,6 +119,21 @@
   color: light-dark(var(--system-dark-100), var(--system-dark-300-55));
 }
 
+.followersWrapper {
+  display: flex;
+  font-size: var(--font-size-1);
+  color: light-dark(var(--system-dark-300), var(--system-dark-300-80));
+  margin-top: -6px;
+  & b {
+    color: light-dark(var(--system-dark-400), var(--system-dark-100));
+  }
+}
+
 .description {
   color: light-dark(var(--system-dark-400), var(--system-dark-100));
+  white-space: pre-line;
+}
+
+.descriptionLink {
+  composes: postLink from '@components/bluesky/bluesky.module.css';
 }

@@ -2,17 +2,13 @@
 import styles from './blueskyLikes.module.css';
 import Popover from '@components/popover/Popover.astro';
 import type { AppBskyFeedGetLikes } from '@atproto/api';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import AvatarProfile from './AvatarProfile.astro';
 
 type Props = {
   like: AppBskyFeedGetLikes.Like;
 };
 
 const { like } = Astro.props;
-
-const lang = getLangFromUrl(Astro.url);
-
-const t = useTranslations(lang, 'navigation');
 ---
 
 <Popover
@@ -36,38 +32,10 @@ const t = useTranslations(lang, 'navigation');
     }}
   >
   </div>
-  <div class={styles.popoverContent}>
-    <div class={styles.popoverTop}>
-      <div
-        class={styles.avatar}
-        style={{
-          backgroundImage: like.actor.avatar
-            ? `url(${like.actor.avatar.replace('avatar', 'avatar_thumbnail')})`
-            : '',
-        }}
-      >
-      </div>
-      <a
-        class={styles.viewOnBluesky}
-        href={`https://bsky.app/profile/${like.actor.handle}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <p>
-          {t('view_profile_on_bluesky')}
-        </p>
-        <svg aria-hidden="true" width="16" height="18" viewBox="0 0 122 107">
-          <path
-            d="M60.9002 50.0081C66.209 38.6319 81.3772 17.3965 95.4078 7.15799C105.267 -0.42609 121.573 -6.11415 121.573 12.4669C121.573 16.2589 119.298 43.5616 118.16 48.112C113.989 63.6594 98.0622 67.4515 84.0316 65.1762C108.68 69.3475 114.747 83.378 101.475 97.0294C75.6891 123.194 64.6922 90.5829 61.6586 81.8612L61.5448 81.5199C61.2036 80.3823 61.1656 80.0031 60.7864 80.0031C60.4072 80.0031 60.4451 80.7615 60.028 81.5199L59.9142 81.8612C56.8806 90.2037 45.8837 123.194 20.0978 97.0294C6.44647 83.378 12.8929 69.3475 37.5412 65.1762C23.5107 67.4515 7.58408 63.6594 3.41284 48.112C2.27523 43.5616 0 16.2589 0 12.4669C0 -6.11415 16.3058 -0.42609 26.1651 7.15799C40.1956 17.7757 54.9846 38.6319 60.6727 50.0081H60.9002Z"
-            fill="currentColor"
-            opacity="0.8"></path>
-        </svg>
-      </a>
-    </div>
-    <h3 class={styles.displayName}>{like.actor.displayName}</h3>
-    <p class={`small-body-text ${styles.handle}`}>{`@${like.actor.handle}`}</p>
-    <p class={`small-body-text ${styles.description}`}>
-      {like.actor.description}
-    </p>
-  </div>
+  <AvatarProfile
+    description={like.actor.description}
+    handle={like.actor.handle}
+    displayName={like.actor.displayName}
+    avatar={like.actor.avatar}
+  />
 </Popover>

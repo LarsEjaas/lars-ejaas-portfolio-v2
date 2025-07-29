@@ -169,13 +169,6 @@ export type BlueskyPostThread = {
   recordKey: string;
 };
 
-export type BlueskyProfile = {
-  handle: string;
-  displayName: string | undefined;
-  avatar: string | null;
-  indexedAt: string | undefined;
-};
-
 /** String literal in kebab-case
  * eg. 'foo-bar', 'this-is-a-test'
  * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case MDN Web Docs}

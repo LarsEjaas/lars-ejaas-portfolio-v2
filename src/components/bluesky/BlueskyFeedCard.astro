@@ -9,6 +9,7 @@ import styles from './bluesky.module.css';
 import BlueskyThread from './BlueskyThread.astro';
 import { useTranslations } from '@i18n/utils';
 import { constructBlueskyThreads } from './utils';
+import ProfileTimeline from './ProfileTimeline.astro';
 
 type Props<T extends string = string, U extends string = string> = {
   lang: Language;
@@ -66,10 +67,15 @@ const processedThreads = constructBlueskyThreads(feed);
       )
     }
     <div class={styles.butterfly} aria-hidden="true"></div>
+    <ProfileTimeline profile={profile} />
     <ul tabindex={-1} class={styles.feedList}>
       {
         processedThreads.map((thread) => (
-          <BlueskyThread thread={thread} profile={profile} lang={lang} />
+          <BlueskyThread
+            thread={thread}
+            lang={lang}
+            displayName={profile.displayName}
+          />
         ))
       }
     </ul>

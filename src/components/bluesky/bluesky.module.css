@@ -7,6 +7,7 @@
 }
 
 .cardContent {
+  --article-height: 436px;
   overflow-y: hidden;
   position: relative;
   display: flex;
@@ -52,15 +53,32 @@
   scroll-snap-align: start;
   border-bottom-left-radius: var(--border-radius-md);
   border-bottom-right-radius: var(--border-radius-md);
-  --mask-padding: 2rem;
-  mask: linear-gradient(
-    90deg,
-    transparent,
-    white var(--mask-padding),
-    white calc(100% - var(--mask-padding)),
-    transparent
-  );
-  mask-composite: intersect;
+  --mask-margin-left: 2.75rem;
+  --mask-padding-left: 2rem;
+  --mask-padding-right: 2rem;
+  --bottom-mask-height: calc(100% - var(--article-height));
+  mask:
+    linear-gradient(
+      90deg,
+      transparent,
+      transparent var(--mask-margin-left),
+      white calc(var(--mask-margin-left) + var(--mask-padding-left)),
+      white calc(100% - var(--mask-padding-right)),
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent,
+      white var(--mask-padding-left),
+      white calc(100% - var(--mask-padding-right)),
+      transparent
+    );
+  mask-size:
+    100% var(--article-height),
+    100% var(--bottom-mask-height);
+  mask-position: top, bottom;
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: add;
 }
 
 .thread {
@@ -91,20 +109,24 @@
   }
 }
 .article {
-  padding-inline: 16px;
+  padding-inline: 1rem;
   width: 100cqi;
   display: flex;
   flex-direction: column;
 }
 
 .threadWrapper {
-  display: flex;
-  flex-direction: row;
-  height: 436px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  height: var(--article-height);
 }
 
 .profileTimeline {
-  padding-left: 8px;
+  position: absolute;
+  top: auto;
+  left: 1rem;
+  z-index: 10;
+  height: var(--article-height);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -113,9 +135,11 @@
 }
 
 .postWrapper {
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  height: var(--article-height);
 }
 
 .threadContent {
@@ -174,7 +198,7 @@
 .threadFooter {
   display: flex;
   flex-direction: row;
-  padding-inline: 1rem;
+  padding-right: 1rem;
   align-items: center;
   justify-content: space-between;
   column-gap: 8px;
@@ -356,16 +380,32 @@
   }
 }
 
-.profileImage {
+.profileWrapper {
+  line-height: 0;
+  position: relative;
+}
+
+.profileButton {
+  cursor: pointer;
+  border: unset;
+  background: unset;
+  border-radius: 50%;
+  padding: 0;
+  overflow: hidden;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
+  outline-offset: var(--outline-offset);
 }
 
 .profilePlaceholder {
   width: 100%;
   aspect-ratio: 1/1;
   z-index: -1;
+}
+
+.profileImage {
+  border-radius: 50%;
 }

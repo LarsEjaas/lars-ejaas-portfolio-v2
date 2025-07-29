@@ -36,7 +36,7 @@ async function main() {
 
   const avatarPath = profile.avatar
     ? await downloadImageIfChanged(profile.avatar, 'profileAvatar', imageMeta)
-    : null;
+    : undefined;
 
   const postThreads = await getPostThreads(agent, profile, imageMeta);
 
@@ -52,13 +52,10 @@ async function main() {
     //get likes if there are new threads or profile changes(used as fallback)
     await getLikes(agent, postThreads);
 
+    const { avatar, ...rest } = profile;
+
     const data: BlueskyData = {
-      profile: {
-        handle: profile.handle,
-        displayName: profile.displayName,
-        avatar: avatarPath,
-        indexedAt: profile.indexedAt,
-      },
+      profile: { ...rest, avatar: avatarPath },
       threads: postThreads,
     };
 
