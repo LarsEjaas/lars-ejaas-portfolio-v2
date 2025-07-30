@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Run Bluesky fetch script with flags
-        run: node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts
+        run: node --experimental-transform-types --env-file=.env ./src/scripts/bluesky.mts
 
       - name: Check for changes
         run: |
