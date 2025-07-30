@@ -11,16 +11,19 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     env:
-      NODE_ENV: ${{ secrets.NODE_ENV }}
+      FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
       MAIL_USER: ${{ secrets.MAIL_USER }}
       MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-      PRIVATE_EMAIL_USER: ${{ secrets.PRIVATE_EMAIL_USER }}
       NOREPLY_PRIVATE_EMAIL_USER: ${{ secrets.NOREPLY_PRIVATE_EMAIL_USER }}
+      PRIVATE_EMAIL_USER: ${{ secrets.PRIVATE_EMAIL_USER }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
       SITE_URL: ${{ secrets.SITE_URL }}
-      FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
       PUBLIC_PIWIK_SITE_ID: ${{ secrets.PUBLIC_PIWIK_SITE_ID }}
       PUBLIC_PIWIK_TRACKER_URL: ${{ secrets.PUBLIC_PIWIK_TRACKER_URL }}
       PUBLIC_PIWIK_DOMAINS: ${{ secrets.PUBLIC_PIWIK_DOMAINS }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      SERVERLESS_AUTH_TOKEN: ${{ secrets.SERVERLESS_AUTH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4

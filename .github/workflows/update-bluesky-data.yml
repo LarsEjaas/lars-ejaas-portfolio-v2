@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: ${{ secrets.NODE_ENV }}
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+      SITE_URL: ${{ secrets.SITE_URL }}
 
     steps:
       - name: Checkout repository
@@ -26,9 +29,6 @@ jobs:
 
       - name: Run Bluesky fetch script with flags
         run: node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts
-        env:
-          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
-          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
 
       - name: Check for changes
         run: |
