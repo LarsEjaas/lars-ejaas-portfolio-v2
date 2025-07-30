@@ -356,7 +356,7 @@ export function extractExternalLinks(
   return links;
 }
 
-const GET_DEV_TIPS_LIKES_ENDPOINT = `${removeTrailingSlash(SITE_URL)}/functions/get-dev-tips-likes`;
+const GET_DEV_TIPS_LIKES_ENDPOINT = `${removeTrailingSlash(SITE_URL)}/.netlify/functions/get-dev-tips-likes`;
 
 export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
   try {
