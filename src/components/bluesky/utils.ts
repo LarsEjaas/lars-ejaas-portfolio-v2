@@ -357,22 +357,30 @@ export function extractExternalLinks(
 }
 
 export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
-  const res = await fetch(`${SITE_URL}/.netlify/functions/get-dev-tips-likes`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${SERVERLESS_AUTH_TOKEN}`,
-    },
-    body: JSON.stringify({
-      atUris: atUris ?? [], // pass empty array or undefined if no filter
-    }),
-  });
+  try {
+    const res = await fetch(
+      `${SITE_URL}/.netlify/functions/get-dev-tips-likes`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${SERVERLESS_AUTH_TOKEN}`,
+        },
+        body: JSON.stringify({
+          atUris: atUris ?? [], // pass empty array or undefined if no filter
+        }),
+      }
+    );
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch likes: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch likes: ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('❌ Error fetching likes:', error);
+    return [];
   }
-
-  return res.json();
 }
 
 export function linkifyDomains(

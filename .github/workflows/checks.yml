@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: ${{ secrets.NODE_ENV }}
+      MAIL_USER: ${{ secrets.MAIL_USER }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      PRIVATE_EMAIL_USER: ${{ secrets.PRIVATE_EMAIL_USER }}
+      NOREPLY_PRIVATE_EMAIL_USER: ${{ secrets.NOREPLY_PRIVATE_EMAIL_USER }}
       SITE_URL: ${{ secrets.SITE_URL }}
       FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
       PUBLIC_PIWIK_SITE_ID: ${{ secrets.PUBLIC_PIWIK_SITE_ID }}

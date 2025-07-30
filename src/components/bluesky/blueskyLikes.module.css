@@ -17,7 +17,7 @@
   isolation: isolate;
   flex-wrap: wrap;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: 10.5px;
   --border-color: light-dark(#f6f8f8, #2d3637);
   & > * {
     margin-left: -0.5rem;
