@@ -49,7 +49,8 @@ export async function getAuthenticateBlueskyAgent(): Promise<AtpAgent> {
 export default async (req: Request) => {
   const { next_run } = await req.json();
 
-  console.info(
+  console.log(
+    '[INFO]',
     'Running update-dev-tips-likes in development! Next invocation at:',
     next_run
   );
@@ -61,7 +62,6 @@ export default async (req: Request) => {
     }
     const siteUrl = removeTrailingSlash(process.env.SITE_URL || '');
     const publicFilePath = `${siteUrl}/${PUBLIC_FILENAME}`;
-    console.log();
     const res = await fetch(publicFilePath);
     if (!res.ok) {
       throw new Error(`Failed to fetch ${PUBLIC_FILENAME}`);
@@ -105,15 +105,24 @@ export default async (req: Request) => {
 
     if (shouldUpdate) {
       await likesStore.setJSON('dev-tips', likesResults);
-      console.info('✅ dev-tips entry stored in blob (likes count changed)');
+      console.log(
+        '[INFO]',
+        '✅ dev-tips entry stored in blob (likes count changed)'
+      );
       // Invalidate the cache tag for the home page
       await purgeCache({ tags: ['home'] });
-      console.info('♻️  Cache for home page invalidated via cache tag: "home"');
+      console.log(
+        '[INFO]',
+        '♻️  Cache for home page invalidated via cache tag: "home"'
+      );
     } else {
-      console.info('⏩ No changes in likes count – skipping blob update');
+      console.log(
+        '[INFO]',
+        '⏩ No changes in likes count – skipping blob update'
+      );
     }
   } catch (error) {
-    console.error(error);
+    console.log('[ERROR]', error);
   }
 };
 

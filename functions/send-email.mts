@@ -373,7 +373,11 @@ const mockTransporter = {
   verify: async () => true,
   use: () => {},
   sendMail: async (options: MailWithTemplateOptions) => {
-    console.info('Development mode: Email would be sent with:', options);
+    console.log(
+      '[INFO]',
+      'Development mode: Email would be sent with:',
+      options
+    );
     return { messageId: 'mock-id' };
   },
 };
@@ -470,9 +474,13 @@ export default async (req: Request, context: Context) => {
     if (process.env.NODE_ENV === 'production') {
       transporter.verify(function (error, success) {
         if (error) {
-          console.error(error);
+          console.log('[ERROR]', error);
         } else {
-          console.info('Server is ready to take our messages:', success);
+          console.log(
+            '[INFO]',
+            'Server is ready to take our messages:',
+            success
+          );
         }
       });
     }
@@ -560,7 +568,7 @@ export default async (req: Request, context: Context) => {
       }
     );
   } catch (error) {
-    console.error(error);
+    console.log('[ERROR]', error);
     // Handle errors and redirect to error page
     const clientsideError = getErrorMessage(error, language);
     const refererUrl = req.headers.get('referer') || req.headers.get('origin');

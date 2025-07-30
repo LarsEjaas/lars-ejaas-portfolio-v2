@@ -62,11 +62,17 @@ export default async (req: Request) => {
     try {
       likesResult = likesBlob ? JSON.parse(likesBlob) : [];
     } catch {
-      console.warn('⚠️ Failed to parse likes blob — using empty array');
+      console.log(
+        '[WARN]',
+        '⚠️ Failed to parse likes blob — using empty array'
+      );
     }
 
     if (likesBlob === null && likesResult?.length) {
-      console.info('✅Successfully retrieved dev-tips likes from blob');
+      console.log(
+        '[INFO]',
+        '✅Successfully retrieved dev-tips likes from blob'
+      );
     }
 
     if (requestedUris?.length) {
@@ -82,7 +88,7 @@ export default async (req: Request) => {
       },
     });
   } catch (error) {
-    console.error('Error fetching likes:', error);
+    console.log('[ERROR]', 'Error fetching likes:', error);
     return new Response(
       JSON.stringify({
         error: error instanceof Error ? error.message : String(error),
