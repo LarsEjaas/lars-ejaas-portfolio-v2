@@ -42,28 +42,40 @@ export default async (req: Request) => {
   }
 
   try {
-    const body = await req.json();
-    const requestedUris: string[] | undefined = body.atUris;
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      body = {};
+    }
+
+    const requestedUris: string[] | undefined = Array.isArray(body.atUris)
+      ? body.atUris
+      : undefined;
 
     const likesStore = getStore('bluesky-likes');
 
     const likesBlob = await likesStore.get('dev-tips');
 
-    const likesResult: LikesResult = JSON.parse(likesBlob);
+    let likesResult: LikesResult = [];
 
-    if (likesBlob === null && likesResult.length) {
+    try {
+      likesResult = likesBlob ? JSON.parse(likesBlob) : [];
+    } catch {
+      console.warn('⚠️ Failed to parse likes blob — using empty array');
+    }
+
+    if (likesBlob === null && likesResult?.length) {
       console.info('✅Successfully retrieved dev-tips likes from blob');
     }
 
-    let likesData = likesResult;
-
     if (requestedUris?.length) {
-      likesData = likesResult.filter((threadLikes) =>
+      likesResult = likesResult.filter((threadLikes) =>
         requestedUris.includes(threadLikes.uri)
       );
     }
 
-    return new Response(JSON.stringify(likesData, null, 2), {
+    return new Response(JSON.stringify(likesResult, null, 2), {
       status: 200,
       headers: {
         ...(process.env.NODE_ENV === 'development' ? DEV_HEADERS : {}),
