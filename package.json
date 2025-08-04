@@ -10,10 +10,13 @@
     "preview": "netlify serve",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "typecheck": "astro check",
-    "typecheck:watch": "astro check --watch",
+    "type-check": "astro check",
+    "type-check:watch": "astro check --watch",
     "prepare": "test \"$NODE_ENV\" = production || husky install",
-    "generate:routes": "node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts"
+    "generate:routes": "node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts",
+    "get-dev-tips-data": "node --experimental-transform-types --env-file=.env ./src/scripts/bluesky.mts",
+    "get-likes": "netlify functions:invoke get-dev-tips-likes --port 5432",
+    "update-likes": "netlify functions:invoke update-dev-tips-likes --port 5432"
   },
   "engines": {
     "node": ">=21.0.0",

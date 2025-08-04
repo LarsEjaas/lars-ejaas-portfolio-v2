@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-echo "🔍 Running lint & typecheck..."
-npm run lint && npm run typecheck
+echo "🔍 Running lint & type-check..."
+npm run lint && npm run type-check

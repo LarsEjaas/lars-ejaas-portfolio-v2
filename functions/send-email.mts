@@ -375,7 +375,7 @@ const mockTransporter = {
   sendMail: async (options: MailWithTemplateOptions) => {
     console.log(
       '[INFO]',
-      'Development mode: Email would be sent with:',
+      '👨‍💻Development mode: Email would be sent with:',
       options
     );
     return { messageId: 'mock-id' };
@@ -474,11 +474,11 @@ export default async (req: Request, context: Context) => {
     if (process.env.NODE_ENV === 'production') {
       transporter.verify(function (error, success) {
         if (error) {
-          console.log('[ERROR]', error);
+          console.log('[ERROR]', '❗Email transporter failed:', error);
         } else {
           console.log(
             '[INFO]',
-            'Server is ready to take our messages:',
+            '✅ Server is ready to take our messages:',
             success
           );
         }
@@ -552,6 +552,11 @@ export default async (req: Request, context: Context) => {
       transporter.sendMail(mailNotificationOptions),
     ]);
 
+    console.log(
+      '[INFO]',
+      '✉️ Email was sent successfully. Confirmation sent to senders inbox'
+    );
+
     // Redirect to confirmation page
     return new Response(
       JSON.stringify({
@@ -568,7 +573,7 @@ export default async (req: Request, context: Context) => {
       }
     );
   } catch (error) {
-    console.log('[ERROR]', error);
+    console.log('[ERROR]', '❗Error sending email:', error);
     // Handle errors and redirect to error page
     const clientsideError = getErrorMessage(error, language);
     const refererUrl = req.headers.get('referer') || req.headers.get('origin');

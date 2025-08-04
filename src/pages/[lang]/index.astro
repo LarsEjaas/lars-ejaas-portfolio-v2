@@ -1,20 +1,40 @@
 ---
 import HomeLayout from '@layouts/home/Home.astro';
 import { getLangFromUrl } from '@i18n/utils';
-import type { DanishLanguageSlug } from '@i18n/settings';
+import {
+  type DanishLanguageSlug,
+  type Language,
+  defaultLang,
+} from '@i18n/settings';
+import { languages } from '@i18n/languageDefinition.mts';
 import { getMetaForPage } from '@collections/meta';
 
 type Props = Record<string, never>;
 
+const SUPPORTED_LANGS = (Object.keys(languages) as Language[]).filter(
+  (language) => language !== defaultLang
+);
+
 const lang = getLangFromUrl(Astro.url);
+
+if (!SUPPORTED_LANGS.includes(lang as DanishLanguageSlug)) {
+  return Astro.redirect('/404/'); // or Astro.redirect('/da/') if you prefer fallback
+}
 const meta = getMetaForPage('/', lang);
 
-type TranslatedHomePath = { params: { lang: DanishLanguageSlug } };
+export const prerender = false;
 
-export function getStaticPaths() {
-  const paths: TranslatedHomePath[] = [{ params: { lang: 'da' } }];
-  return paths;
-}
+// Use ISR instead instead of a static page
+// https://developers.netlify.com/guides/how-to-do-advanced-caching-and-isr-with-astro
+
+// Browser: Cache for 5 minutes, then revalidate
+Astro.response.headers.set(
+  'cache-control',
+  'public, max-age=300, must-revalidate'
+);
+// CDN: Cache for 1 year, purge with tag for updates
+Astro.response.headers.set('netlify-cdn-cache-control', 's-maxage=31536000');
+Astro.response.headers.set('netlify-cache-tag', 'home');
 ---
 
 <HomeLayout

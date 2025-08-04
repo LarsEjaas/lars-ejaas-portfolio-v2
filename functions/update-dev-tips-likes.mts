@@ -51,7 +51,7 @@ export default async (req: Request) => {
 
   console.log(
     '[INFO]',
-    'Running update-dev-tips-likes in development! Next invocation at:',
+    'ℹ️ Running update-dev-tips-likes in development! Next invocation at:',
     next_run
   );
 
@@ -122,7 +122,7 @@ export default async (req: Request) => {
       );
     }
   } catch (error) {
-    console.log('[ERROR]', error);
+    console.log('[ERROR]', '❗Error updating Developer Tips likes:', error);
   }
 };
 

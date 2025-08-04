@@ -68,10 +68,15 @@ export default async (req: Request) => {
       );
     }
 
-    if (likesBlob === null && likesResult?.length) {
+    if (likesResult?.length) {
       console.log(
         '[INFO]',
         '✅Successfully retrieved dev-tips likes from blob'
+      );
+    } else {
+      console.log(
+        '[WARN]',
+        '⚠️ Failed to get likes from blob — using empty array'
       );
     }
 
@@ -88,7 +93,7 @@ export default async (req: Request) => {
       },
     });
   } catch (error) {
-    console.log('[ERROR]', 'Error fetching likes:', error);
+    console.log('[ERROR]', '❗Error fetching likes:', error);
     return new Response(
       JSON.stringify({
         error: error instanceof Error ? error.message : String(error),
