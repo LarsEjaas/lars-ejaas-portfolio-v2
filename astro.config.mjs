@@ -25,6 +25,7 @@ export default defineConfig({
     edgeMiddleware: false,
     functionPerRoute: true,
   }),
+  cacheDir: './.cache',
   env: {
     schema: {
       FACEBOOK_APP_ID: envField.string({

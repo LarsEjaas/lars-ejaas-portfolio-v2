@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache@v4
         id: cache-images
         with:
-          path: .cache/images
+          path: .cache/assets
           key: ${{ runner.os }}-astro-images-shared-v1
           restore-keys: |
             ${{ runner.os }}-astro-images-shared-v1
@@ -60,5 +60,5 @@ jobs:
       - name: Save updated image cache
         uses: actions/cache@v4
         with:
-          path: .cache/images
+          path: .cache/assets
           key: ${{ runner.os }}-astro-images-shared-v1
