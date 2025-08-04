@@ -39,9 +39,9 @@ jobs:
         id: cache-images
         with:
           path: .cache/images
-          key: ${{ runner.os }}-astro-images-${{ github.ref }}
+          key: ${{ runner.os }}-astro-images-shared-v1
           restore-keys: |
-            ${{ runner.os }}-astro-images-
+            ${{ runner.os }}-astro-images-shared-v1
 
       - name: Install dependencies
         run: npm clean-install --include=dev
@@ -58,8 +58,7 @@ jobs:
         run: npm run build
 
       - name: Save updated image cache
-        if: steps.cache-images.outputs.cache-hit != 'true'
         uses: actions/cache@v4
         with:
           path: .cache/images
-          key: ${{ runner.os }}-astro-images-${{ github.ref }}
+          key: ${{ runner.os }}-astro-images-shared-v1
