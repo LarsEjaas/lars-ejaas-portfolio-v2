@@ -37,6 +37,25 @@ jobs:
       - name: Install dependencies
         run: npm clean-install --include=dev
 
+      - name: Restore image cache
+        id: cache-images
+        uses: actions/cache@v4
+        with:
+          path: .cache/images
+          key: image-cache-${{ hashFiles('src/assets/**/*') }}
+          restore-keys: |
+            image-cache-
+
+      - name: Optimize images
+        if: steps.cache-images.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p .cache/images
+          npx imagemin src/assets/* --out-dir=.cache/images
+
+      - name: Sync optimized images to project
+        run: |
+          cp -r .cache/images/* src/assets/
+
       - name: Run ESLint
         run: npm run lint
 
