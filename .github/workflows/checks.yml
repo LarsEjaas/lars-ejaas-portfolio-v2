@@ -58,6 +58,7 @@ jobs:
         run: npm run build
 
       - name: Save updated image cache
+        if: github.ref != 'refs/heads/main'
         uses: actions/cache@v4
         with:
           path: .cache/assets

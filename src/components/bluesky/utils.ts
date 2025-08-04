@@ -356,10 +356,17 @@ export function extractExternalLinks(
   return links;
 }
 
-const GET_DEV_TIPS_LIKES_ENDPOINT = `${removeTrailingSlash(SITE_URL)}/.netlify/functions/get-dev-tips-likes`;
+const GET_DEV_TIPS_LIKES_ENDPOINT =
+  `${removeTrailingSlash(SITE_URL)}/.netlify/functions/get-dev-tips-likes` as const;
+
+/** Timeout in ms */
+const FETCH_TIMEOUT = 1000;
 
 export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
   try {
+    const startTime = performance.now();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
     const res = await fetch(GET_DEV_TIPS_LIKES_ENDPOINT, {
       method: 'POST',
       headers: {
@@ -369,13 +376,18 @@ export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
       body: JSON.stringify({
         atUris: atUris ?? [], // pass empty array or undefined if no filter
       }),
+      signal: controller.signal,
     });
 
+    const elapsed = performance.now() - startTime;
+
+    clearTimeout(timeout);
+
     if (!res.ok) {
-      throw new Error(`Failed to fetch likes: ${res.status}`);
+      throw new Error(`Failed to fetch likes in ${elapsed}ms: ${res.status}`);
     }
     console.info(
-      '✅Successfully fetched dev-tips likes from get-dev-tips-likes'
+      `✅Successfully fetched dev-tips likes from get-dev-tips-likes in ${elapsed}ms`
     );
     return res.json();
   } catch (error) {
