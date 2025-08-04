@@ -34,27 +34,17 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm clean-install --include=dev
-
       - name: Restore image cache
-        id: cache-images
         uses: actions/cache@v4
+        id: cache-images
         with:
           path: .cache/images
-          key: image-cache-${{ hashFiles('src/assets/**/*') }}
+          key: ${{ runner.os }}-astro-images-${{ github.ref }}
           restore-keys: |
-            image-cache-
+            ${{ runner.os }}-astro-images-
 
-      - name: Optimize images
-        if: steps.cache-images.outputs.cache-hit != 'true'
-        run: |
-          mkdir -p .cache/images
-          npx imagemin src/assets/* --out-dir=.cache/images
-
-      - name: Sync optimized images to project
-        run: |
-          cp -r .cache/images/* src/assets/
+      - name: Install dependencies
+        run: npm clean-install --include=dev
 
       - name: Run ESLint
         run: npm run lint
@@ -66,3 +56,10 @@ jobs:
         # Skip build on main branch
         if: github.ref != 'refs/heads/main'
         run: npm run build
+
+      - name: Save updated image cache
+        if: steps.cache-images.outputs.cache-hit != 'true'
+        uses: actions/cache@v4
+        with:
+          path: .cache/images
+          key: ${{ runner.os }}-astro-images-${{ github.ref }}
