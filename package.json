@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "netlify dev",
     "start": "astro dev",
-    "build": "npm ci --include=dev && astro check && astro build",
+    "build": "npm ci --include=dev && astro check && node --experimental-transform-types --env-file=.env ./src/scripts/bluesky.mts && astro build",
     "build:fast": "astro build",
     "preview": "netlify serve",
     "astro": "astro",

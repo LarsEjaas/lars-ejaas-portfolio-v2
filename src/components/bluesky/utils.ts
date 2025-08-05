@@ -9,11 +9,13 @@ import type {
 } from '@atproto/api';
 import type { AppBskyRichtextFacet } from '@atproto/api';
 import type { BlueskyPostThread } from '@customTypes/index';
-import { SERVERLESS_AUTH_TOKEN } from 'astro:env/server';
-import { SITE_URL } from 'astro:env/client';
+import { SITE_URL, SERVERLESS_AUTH_TOKEN } from 'astro:env/client';
 import { removeTrailingSlash } from '../../i18n/utils';
+import { capitalize } from '@utils/misc';
 
-type LikesResult = {
+export const MAXIMUM_NUMBER_OF_LIKE_AVATARS = 55;
+
+export type LikesResult = {
   uri: string;
   likes: AppBskyFeedGetLikes.Like[];
   likeCount: number;
@@ -374,7 +376,7 @@ export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
         Authorization: `Bearer ${SERVERLESS_AUTH_TOKEN}`,
       },
       body: JSON.stringify({
-        atUris: atUris ?? [], // pass empty array or undefined if no filter
+        atUris: atUris ?? [],
       }),
       signal: controller.signal,
     });
@@ -398,7 +400,7 @@ export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
 
 export function linkifyDomains(
   text: string,
-  classNames?: { link?: string }
+  classNames?: { link?: string; button?: string }
 ): string {
   return text.replace(
     /\b((https?:\/\/[^\s]+)|((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}))(?![^<]*>|[^<>]*<\/)/g,
@@ -418,4 +420,95 @@ export function linkifyDomains(
       }
     }
   );
+}
+
+export function createLikeProfileHTML(
+  like: AppBskyFeedGetLikes.Like,
+  lang: 'da' | 'en',
+  styles: CSSModuleClasses
+) {
+  const avatarThumb = like.actor.avatar;
+  const profileUrl = `https://bsky.app/profile/${like.actor.handle}`;
+  const didId = like.actor.did.split(':').pop() || like.actor.did;
+  const displayName = like.actor.displayName;
+  const handle = like.actor.handle;
+  const description = like.actor.description;
+  const buttonLabel = `${lang === 'da' ? 'Se profile info for' : 'View profile info for'} ${like.actor.displayName}`;
+  const popoverWidth = 320;
+  const closeButtonTitle = lang === 'da' ? 'Luk popover' : 'Close popover';
+
+  return `
+  <div
+  class="${styles.popoverWrapper}"
+  style="anchor-name: --${didId};"
+  >
+    <button
+      class="${styles.likeProfileButton}"
+      popovertarget="popover${capitalize(didId)}"
+      id="popover${capitalize(didId)}Button"
+      aria-label="${buttonLabel}"
+      tabindex="0"
+      data-arrow-nav="true"
+      role="menuitem"
+    > 
+      <div class="${styles.likeButtonContent}"
+        style="background-image: ${avatarThumb ? `url(${avatarThumb})` : 'none'}"
+      />
+    </button> 
+    <div
+    id="popover${capitalize(didId)}"
+    class="${styles.popover}"
+    data-position="top"
+    data-width="${popoverWidth}"
+    style="--width: ${popoverWidth}px;"
+    popover
+    >
+      <button
+        class="${styles.closeButton}"
+        popovertarget="popover${capitalize(didId)}"
+        title="${closeButtonTitle}"
+        aria-label="${closeButtonTitle}"
+      >
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="12"
+        viewBox="0 0 16 16"
+        aria-hidden="true"
+        >
+          <path
+            d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 0.418636C14.0123 -0.139545 13.1073 -0.139545 12.5486 0.418636L8 4.96727L3.45136 0.418636C2.89318 -0.139545 1.98818 -0.139545 1.42955 0.418636L0.418636 1.42955C-0.139545 1.98773 -0.139545 2.89273 0.418636 3.45136L4.96727 8L0.418636 12.5486C-0.139545 13.1068 -0.139545 14.0118 0.418636 14.5705L1.42955 15.5814C1.98773 16.1395 2.89318 16.1395 3.45136 15.5814L8 11.0327L12.5486 15.5814C13.1068 16.1395 14.0123 16.1395 14.5705 15.5814L15.5814 14.5705C16.1395 14.0123 16.1395 13.1073 15.5814 12.5486L11.0327 8Z"
+            fill="currentColor"
+            opacity="0.8" />
+        </svg>
+      </button>  
+      <div class="${styles.popoverContent}">
+        <div class="${styles.popoverTop}">
+          <div class="${styles.avatar}"
+            style="background-image: ${
+              avatarThumb
+                ? `url(${avatarThumb})`
+                : 'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))'
+            };">
+          </div>
+          <a class="${styles.viewProfileOnBluesky}"
+            href="${profileUrl}"
+            target="_blank"
+            rel="noopener noreferrer">
+            <p>${lang === 'da' ? 'Vis profil på Bluesky' : 'View Profile on Bluesky'}</p>
+            <svg aria-hidden="true" width="16" height="18" viewBox="0 0 122 107">
+              <path d="M60.9002 50.0081C66.209 38.6319 ..." fill="currentColor" opacity="0.8"></path>
+            </svg>
+          </a>
+        </div>
+        ${displayName ? `<h3 class="${styles.displayName}">${displayName}</h3>` : ''}
+        <p class="small-body-text ${styles.handle}">@${handle}</p>
+        ${
+          description &&
+          `<span class="small-body-text ${styles.description}">${description}</span>`
+        }
+      </div>
+    </div>
+  </div>
+  `;
 }

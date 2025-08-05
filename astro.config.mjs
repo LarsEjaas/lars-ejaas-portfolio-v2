@@ -23,7 +23,7 @@ export default defineConfig({
   site: SITE_URL,
   adapter: netlify({
     edgeMiddleware: false,
-    functionPerRoute: true,
+    functionPerRoute: false,
   }),
   cacheDir: './.cache',
   env: {
@@ -85,8 +85,8 @@ export default defineConfig({
         optional: false,
       }),
       SERVERLESS_AUTH_TOKEN: envField.string({
-        context: 'server',
-        access: 'secret',
+        context: 'client',
+        access: 'public',
         optional: false,
       }),
     },

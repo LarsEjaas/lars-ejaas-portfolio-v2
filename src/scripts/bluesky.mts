@@ -50,7 +50,7 @@ async function main() {
 
   if (updateProfile || updatePosts) {
     //get likes if there are new threads or profile changes(used as fallback)
-    await getLikes(agent, postThreads);
+    await getLikes(agent, postThreads, imageMeta);
 
     const { avatar, ...rest } = profile;
 

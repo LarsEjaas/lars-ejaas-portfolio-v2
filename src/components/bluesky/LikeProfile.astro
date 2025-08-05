@@ -26,9 +26,7 @@ const { like } = Astro.props;
     slot="buttonContent"
     class={styles.likeButtonContent}
     style={{
-      backgroundImage: like.actor.avatar
-        ? `url(${like.actor.avatar.replace('avatar', 'avatar_thumbnail')})`
-        : '',
+      backgroundImage: like.actor.avatar ? `url(${like.actor.avatar})` : '',
     }}
   >
   </div>

@@ -64,7 +64,7 @@ const numberFormatter = new Intl.NumberFormat('en', {
             avatar
               ? {
                   backgroundImage: avatar
-                    ? `url(${avatar.replace('avatar', 'avatar_thumbnail')})`
+                    ? `url(${avatar})`
                     : 'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))',
                 }
               : undefined

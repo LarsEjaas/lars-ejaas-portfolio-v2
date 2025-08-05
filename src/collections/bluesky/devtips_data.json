@@ -222,7 +222,9 @@
                 }
               }
             ],
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "text": "🔧 Dev tip: You can make your webpages XML sitemap human-readable by adding a sitemap.xsl file! Instead of showing raw XML, visitors get a clean nice-looking page.\nCheck out this example:\nlarsejaas.com/sitemap-0.xml\nMuch better than staring at angle brackets, right? 😄\n#WebDev #SEO #DeveloperTips"
           },
           "replyCount": 1,
@@ -242,7 +244,7 @@
                 "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
                 "handle": "rickywatson.bsky.social",
                 "displayName": "Rick Warsons",
-                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:kwzq4ouefalk5ldnwniuh6v7/bafkreigx4sjmwoznwwrkj6v7tywdoop6radl36d34rpl54btpn5dbdj54i@jpeg",
+                "avatar": "http://localhost:5432/public/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -265,7 +267,7 @@
                 "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
                 "handle": "bytevagabond.com",
                 "displayName": "ByteVagabond",
-                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:anpxoyqkormchuw5wdtyi7tb/bafkreicmphzk7aeohlgagojbj5ain7wk4hrp3cndyluwnm4ibvnqkkolii@jpeg",
+                "avatar": "http://localhost:5432/public/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -288,7 +290,7 @@
                 "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
                 "handle": "karma-domains.bsky.social",
                 "displayName": "Karma.Domains",
-                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:7hbumvg2w6mbv3ga3wcsfwp6/bafkreidnq52m4rkco24kvmg2l4d4xaw6a4lwrakorv74wcu7342rqwjpdy@jpeg",
+                "avatar": "http://localhost:5432/public/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -376,7 +378,9 @@
                 }
               }
             ],
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "reply": {
               "parent": {
                 "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",
@@ -413,277 +417,6 @@
       ],
       "viewOnBluesky": "https://bsky.app/profile/larsejaas.bsky.social/post/3lrsav6ulcc22",
       "recordKey": "bsky3lrsav6ulcc22"
-    },
-    {
-      "rootUri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsav6ulcc22",
-      "posts": [
-        {
-          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsav6ulcc22",
-          "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",
-          "author": {
-            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
-            "handle": "larsejaas.bsky.social",
-            "displayName": "Lars Ejaas 🦋",
-            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
-            "associated": {
-              "chat": {
-                "allowIncoming": "all"
-              },
-              "activitySubscription": {
-                "allowSubscriptions": "followers"
-              }
-            },
-            "viewer": {
-              "muted": false,
-              "blockedBy": false
-            },
-            "labels": [],
-            "createdAt": "2025-01-05T21:21:02.746Z"
-          },
-          "record": {
-            "$type": "app.bsky.feed.post",
-            "createdAt": "2025-06-17T10:09:46.997Z",
-            "facets": [
-              {
-                "features": [
-                  {
-                    "$type": "app.bsky.richtext.facet#link",
-                    "uri": "https://larsejaas.com/sitemap-0.xml"
-                  }
-                ],
-                "index": {
-                  "byteEnd": 217,
-                  "byteStart": 190
-                }
-              },
-              {
-                "features": [
-                  {
-                    "$type": "app.bsky.richtext.facet#tag",
-                    "tag": "WebDev"
-                  }
-                ],
-                "index": {
-                  "byteEnd": 281,
-                  "byteStart": 274
-                }
-              },
-              {
-                "features": [
-                  {
-                    "$type": "app.bsky.richtext.facet#tag",
-                    "tag": "SEO"
-                  }
-                ],
-                "index": {
-                  "byteEnd": 286,
-                  "byteStart": 282
-                }
-              },
-              {
-                "features": [
-                  {
-                    "$type": "app.bsky.richtext.facet#tag",
-                    "tag": "DeveloperTips"
-                  }
-                ],
-                "index": {
-                  "byteEnd": 301,
-                  "byteStart": 287
-                }
-              }
-            ],
-            "langs": ["en"],
-            "text": "🔧 Dev tip: You can make your webpages XML sitemap human-readable by adding a sitemap.xsl file! Instead of showing raw XML, visitors get a clean nice-looking page.\nCheck out this example:\nlarsejaas.com/sitemap-0.xml\nMuch better than staring at angle brackets, right? 😄\n#WebDev #SEO #DeveloperTips"
-          },
-          "replyCount": 1,
-          "repostCount": 0,
-          "likeCount": 3,
-          "quoteCount": 0,
-          "indexedAt": "2025-06-17T10:09:45.752Z",
-          "viewer": {
-            "threadMuted": false,
-            "embeddingDisabled": false,
-            "pinned": false
-          },
-          "labels": [],
-          "likes": [
-            {
-              "actor": {
-                "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
-                "handle": "rickywatson.bsky.social",
-                "displayName": "Rick Warsons",
-                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:kwzq4ouefalk5ldnwniuh6v7/bafkreigx4sjmwoznwwrkj6v7tywdoop6radl36d34rpl54btpn5dbdj54i@jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2024-12-02T20:34:10.045Z",
-                "description": "🎵 RollTheRecord.com: Your go-to music hub with interactive charts\n📇 CopyMarkdown.com: The easy way to turn webpages into Markdown\n🧳 GentleMiles.com: Discover green hotels and one-of-a-kind stays",
-                "indexedAt": "2025-06-02T15:57:25.940Z"
-              },
-              "createdAt": "2025-06-17T15:37:50.129Z",
-              "indexedAt": "2025-06-17T15:37:50.129Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
-                "handle": "bytevagabond.com",
-                "displayName": "ByteVagabond",
-                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:anpxoyqkormchuw5wdtyi7tb/bafkreicmphzk7aeohlgagojbj5ain7wk4hrp3cndyluwnm4ibvnqkkolii@jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2023-11-28T11:36:50.520Z",
-                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
-                "indexedAt": "2025-03-07T15:35:58.242Z"
-              },
-              "createdAt": "2025-06-17T10:57:49.795Z",
-              "indexedAt": "2025-06-17T10:57:49.795Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
-                "handle": "karma-domains.bsky.social",
-                "displayName": "Karma.Domains",
-                "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:7hbumvg2w6mbv3ga3wcsfwp6/bafkreidnq52m4rkco24kvmg2l4d4xaw6a4lwrakorv74wcu7342rqwjpdy@jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2025-01-08T02:57:50.444Z",
-                "description": "https://Karma.Domains — Domain Auction Aggregator & Expired Domains History Analyzer via Wayback Machine for SEO experts, investors, PBN builders & linkbuilders seeking quality assets",
-                "indexedAt": "2025-04-05T01:33:33.894Z"
-              },
-              "createdAt": "2025-06-17T10:10:24.475Z",
-              "indexedAt": "2025-06-17T10:10:24.475Z"
-            }
-          ]
-        },
-        {
-          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsawbmbjc22",
-          "cid": "bafyreih6iw2vhfh7h5jlhuleillanlqj2ev765xhfrkmnpw5ddmgdpmkpu",
-          "author": {
-            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
-            "handle": "larsejaas.bsky.social",
-            "displayName": "Lars Ejaas 🦋",
-            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
-            "associated": {
-              "chat": {
-                "allowIncoming": "all"
-              },
-              "activitySubscription": {
-                "allowSubscriptions": "followers"
-              }
-            },
-            "viewer": {
-              "muted": false,
-              "blockedBy": false
-            },
-            "labels": [],
-            "createdAt": "2025-01-05T21:21:02.746Z"
-          },
-          "record": {
-            "$type": "app.bsky.feed.post",
-            "createdAt": "2025-06-17T10:10:23.426Z",
-            "embed": {
-              "$type": "app.bsky.embed.external",
-              "external": {
-                "description": "Personal portfolio webpage of Lars Ejaas - Build with Astro - LarsEjaas/lars-ejaas-portfolio-v2",
-                "thumb": {
-                  "$type": "blob",
-                  "ref": {
-                    "$link": "bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva"
-                  },
-                  "mimeType": "image/jpeg",
-                  "size": 286430
-                },
-                "title": "GitHub - LarsEjaas/lars-ejaas-portfolio-v2: Personal portfolio webpage of Lars Ejaas - Build with Astro",
-                "uri": "https://github.com/LarsEjaas/lars-ejaas-portfolio-v2"
-              }
-            },
-            "facets": [
-              {
-                "features": [
-                  {
-                    "$type": "app.bsky.richtext.facet#link",
-                    "uri": "https://github.com/LarsEjaas/lars-ejaas-portfolio-v2"
-                  }
-                ],
-                "index": {
-                  "byteEnd": 127,
-                  "byteStart": 101
-                }
-              },
-              {
-                "features": [
-                  {
-                    "$type": "app.bsky.richtext.facet#link",
-                    "uri": "https://github.com/LarsEjaas/lars-ejaas-portfolio-v2/blob/main/public/sitemap.xsl"
-                  }
-                ],
-                "index": {
-                  "byteEnd": 206,
-                  "byteStart": 180
-                }
-              }
-            ],
-            "langs": ["en"],
-            "reply": {
-              "parent": {
-                "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",
-                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsav6ulcc22"
-              },
-              "root": {
-                "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",
-                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsav6ulcc22"
-              }
-            },
-            "text": "Want to see how to implement that sitemap styling?\nHere's the GitHub repo with the complete example:\ngithub.com/LarsEjaas/la...\nAnd here's the actual XSL file that does the magic:\ngithub.com/LarsEjaas/la...\nCopy, modify, and make your sitemaps shine! ✨"
-          },
-          "embed": {
-            "$type": "app.bsky.embed.external#view",
-            "external": {
-              "uri": "https://github.com/LarsEjaas/lars-ejaas-portfolio-v2",
-              "title": "GitHub - LarsEjaas/lars-ejaas-portfolio-v2: Personal portfolio webpage of Lars Ejaas - Build with Astro",
-              "description": "Personal portfolio webpage of Lars Ejaas - Build with Astro - LarsEjaas/lars-ejaas-portfolio-v2",
-              "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva@jpeg"
-            }
-          },
-          "replyCount": 0,
-          "repostCount": 0,
-          "likeCount": 0,
-          "quoteCount": 0,
-          "indexedAt": "2025-06-17T10:10:24.045Z",
-          "viewer": {
-            "threadMuted": false,
-            "embeddingDisabled": false,
-            "pinned": false
-          },
-          "labels": []
-        }
-      ],
-      "viewOnBluesky": "https://bsky.app/profile/larsejaas.bsky.social/post/3lrsav6ulcc22",
-      "recordKey": "bsky3lrsav6ulcc33"
     }
   ]
 }

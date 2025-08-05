@@ -18,6 +18,10 @@ import crypto from 'crypto';
 import 'dotenv/config';
 import type { BlueskyPostThread } from '@customTypes/index';
 
+const SITE_URL = process.env.SITE_URL
+  ? removeTrailingSlash(process.env.SITE_URL)
+  : '';
+
 interface ImageMeta {
   hash: string;
   localPath: string;
@@ -36,12 +40,24 @@ export type BlueskyData = {
 
 const HANDLE = process.env.BLUESKY_HANDLE;
 const META_FOLDER = './src/assets/bluesky';
+const PUBLIC_FOLDER = './public/bluesky';
 const IMAGE_META_PATH = `${META_FOLDER}/image-meta.json`;
 const PUBLIC_FILENAME = 'devtips-threads.json';
 const SEARCH_TAG = 'DeveloperTips';
 export const FILE_NAME = 'devtips_data.json';
 export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${FILE_NAME}`;
 export const PUBLIC_DATA_PATH = `./public/${PUBLIC_FILENAME}`;
+
+/**
+ * Remove trailing slash from a slug or url, preserving literal type
+ */
+function removeTrailingSlash<T extends string>(
+  url: T
+): T extends `${infer Rest}/` ? Rest : T {
+  return (
+    url.endsWith('/') ? url.slice(0, -1) : url
+  ) as T extends `${infer Rest}/` ? Rest : T;
+}
 
 function hashBuffer(buffer: Buffer<ArrayBuffer>) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
@@ -82,7 +98,7 @@ export function saveBlueskyData(data: BlueskyData) {
   writeFileSync(PUBLIC_DATA_PATH, JSON.stringify(publicData, null, 2), 'utf8');
 }
 
-function getImageExtension(url: string): string {
+export function getImageExtension(url: string): string {
   const parsed = new URL(url);
   const ext = extname(parsed.pathname);
   if (ext) return ext;
@@ -96,11 +112,18 @@ function getImageExtension(url: string): string {
 export async function downloadImageIfChanged(
   url: string,
   localName: string,
-  meta: Record<string, ImageMeta> = {}
+  meta: Record<string, ImageMeta> = {},
+  /** Place the image in the public folder */
+  publicAsset?: boolean
 ): Promise<string> {
   const ext = getImageExtension(url);
   const fileName = `${localName}${ext}`;
-  const localPath = `${META_FOLDER}/${fileName}`;
+  let localPath = `${META_FOLDER}/${fileName}`;
+  if (publicAsset) {
+    localPath = `${PUBLIC_FOLDER}/${fileName}`;
+    mkdirSync(PUBLIC_FOLDER, { recursive: true });
+  }
+
   mkdirSync(META_FOLDER, { recursive: true });
 
   const res = await fetch(url);
@@ -261,7 +284,11 @@ export async function getPostThreads(
   return threads;
 }
 
-export async function getLikes(agent: AtpAgent, threads: BlueskyPostThread[]) {
+export async function getLikes(
+  agent: AtpAgent,
+  threads: BlueskyPostThread[],
+  imageMeta: Record<string, ImageMeta>
+) {
   await Promise.all(
     threads.map(async (thread) => {
       const [{ data: likesData }, { data: postData }] = await Promise.all([
@@ -276,6 +303,24 @@ export async function getLikes(agent: AtpAgent, threads: BlueskyPostThread[]) {
       ) {
         thread.posts[0].likes = likesData.likes;
         thread.posts[0].likeCount = postData.posts[0].likeCount;
+
+        thread.posts[0].likes.map((like) => {
+          const did = like.actor.did.split(':').pop();
+          if (like.actor.avatar && did) {
+            const thumnail = like.actor.avatar.replace(
+              'avatar',
+              'avatar_thumbnail'
+            );
+            downloadImageIfChanged(
+              thumnail,
+              `avatar-thumbnail-${did}`,
+              imageMeta,
+              true
+            );
+            const ext = getImageExtension(thumnail);
+            like.actor.avatar = `${SITE_URL}${PUBLIC_FOLDER.replace('.', '')}/avatar-thumbnail-${did}${ext}`;
+          }
+        });
       }
     })
   );
