@@ -36,6 +36,7 @@ interface ImageMeta {
 export type BlueskyData = {
   profile: AppBskyActorDefs.ProfileViewDetailed;
   threads: BlueskyPostThread[];
+  host: string;
 };
 
 const HANDLE = process.env.BLUESKY_HANDLE;

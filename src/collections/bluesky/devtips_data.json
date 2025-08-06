@@ -418,5 +418,6 @@
       "viewOnBluesky": "https://bsky.app/profile/larsejaas.bsky.social/post/3lrsav6ulcc22",
       "recordKey": "bsky3lrsav6ulcc22"
     }
-  ]
+  ],
+  "host": "http://localhost:5432"
 }

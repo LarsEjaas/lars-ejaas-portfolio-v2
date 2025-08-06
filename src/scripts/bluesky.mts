@@ -55,7 +55,9 @@ async function main() {
     new Date(postThreads?.[0]?.posts?.[0]?.indexedAt ?? Date.now()) >
     new Date(postThreadsLatestTimestamp ?? '1970-01-01T00:00:00Z');
 
-  if (updateProfile || updatePosts) {
+  const newSiteHost = SITE_URL !== oldBlueskyData?.host;
+
+  if (updateProfile || updatePosts || newSiteHost) {
     //get likes if there are new threads or profile changes(used as fallback)
     await getLikes(agent, postThreads, imageMeta);
 
@@ -67,6 +69,7 @@ async function main() {
         avatar: `${SITE_URL}${PUBLIC_FOLDER.replace('.', '')}/${avatarPath}`,
       },
       threads: postThreads,
+      host: SITE_URL,
     };
 
     saveBlueskyData(data);
