@@ -18,7 +18,7 @@ import crypto from 'crypto';
 import 'dotenv/config';
 import type { BlueskyPostThread } from '@customTypes/index';
 
-const SITE_URL = process.env.SITE_URL
+export const SITE_URL = process.env.SITE_URL
   ? removeTrailingSlash(process.env.SITE_URL)
   : '';
 
@@ -40,7 +40,7 @@ export type BlueskyData = {
 
 const HANDLE = process.env.BLUESKY_HANDLE;
 const META_FOLDER = './src/assets/bluesky';
-const PUBLIC_FOLDER = './public/bluesky';
+export const PUBLIC_FOLDER = './public/bluesky';
 const IMAGE_META_PATH = `${META_FOLDER}/image-meta.json`;
 const PUBLIC_FILENAME = 'devtips-threads.json';
 const SEARCH_TAG = 'DeveloperTips';

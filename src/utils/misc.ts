@@ -1,3 +1,5 @@
+import type { Language } from '@i18n/utils';
+
 const validUrL =
   /https?:\/\/(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gm;
 
@@ -17,7 +19,7 @@ export const capitalize = (s: string | undefined) =>
  */
 export function formatDate(
   timestamp: string | undefined,
-  lang: 'en' | 'da' | string
+  lang: Language | (string & {})
 ): string | undefined {
   if (!timestamp) return undefined;
 

@@ -47,7 +47,7 @@
   }
   &:not([inert='true']) {
     & a {
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: auto) {
         @media (prefers-reduced-motion: no-preference) {
           animation-timeline: view();
           animation-name: unwrapImage;

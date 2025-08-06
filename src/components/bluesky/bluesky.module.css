@@ -400,6 +400,14 @@
   outline-offset: var(--outline-offset);
 }
 
+.image {
+  width: 48px;
+  height: 48px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .profilePlaceholder {
   width: 100%;
   aspect-ratio: 1/1;

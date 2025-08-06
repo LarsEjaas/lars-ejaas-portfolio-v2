@@ -1,6 +1,6 @@
 .animationTimeline {
   display: contents;
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (animation-range: auto) {
     @media (prefers-reduced-motion: no-preference) {
       & .animatedText:not([data-mobile-animation='false']) {
         animation: var(--animation-scale-up);
@@ -12,7 +12,7 @@
   @media (max-width: 768px) {
     & .baloons {
       grid-row: 4;
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: auto) {
         @media (prefers-reduced-motion: no-preference) {
           animation: var(--animation-scale-up);
           animation-timeline: view();

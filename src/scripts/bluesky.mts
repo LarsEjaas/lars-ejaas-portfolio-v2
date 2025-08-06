@@ -3,6 +3,7 @@
 import 'dotenv/config';
 import {
   BLUESKY_DATA_PATH,
+  SITE_URL,
   downloadImageIfChanged,
   FILE_NAME,
   getAuthenticateBlueskyAgent,
@@ -10,6 +11,7 @@ import {
   getPostThreads,
   getProfile,
   loadImageMeta,
+  PUBLIC_FOLDER,
   saveBlueskyData,
   saveImageMeta,
   type BlueskyData,
@@ -35,7 +37,12 @@ async function main() {
   const imageMeta = loadImageMeta();
 
   const avatarPath = profile.avatar
-    ? await downloadImageIfChanged(profile.avatar, 'profileAvatar', imageMeta)
+    ? await downloadImageIfChanged(
+        profile.avatar.replace('avatar', 'avatar_thumbnail'),
+        'profileAvatar',
+        imageMeta,
+        true
+      )
     : undefined;
 
   const postThreads = await getPostThreads(agent, profile, imageMeta);
@@ -55,7 +62,10 @@ async function main() {
     const { avatar, ...rest } = profile;
 
     const data: BlueskyData = {
-      profile: { ...rest, avatar: avatarPath },
+      profile: {
+        ...rest,
+        avatar: `${SITE_URL}${PUBLIC_FOLDER.replace('.', '')}/${avatarPath}`,
+      },
       threads: postThreads,
     };
 
@@ -75,4 +85,4 @@ main().catch((err) => {
 });
 // To run this script, set the environment variables BLUESKY_HANDLE and BLUESKY_APP_PASSWORD
 // and execute it with Node.js:
-// node --experimental-transform-types --env-file=.env ./src/scripts/bluesky.mts
+// node --experimental-transform-types ./src/scripts/bluesky.mts

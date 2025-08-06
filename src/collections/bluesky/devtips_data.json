@@ -140,7 +140,7 @@
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
     },
-    "avatar": "profileAvatar.jpeg"
+    "avatar": "http://localhost:5432/public/bluesky/profileAvatar.jpeg"
   },
   "threads": [
     {

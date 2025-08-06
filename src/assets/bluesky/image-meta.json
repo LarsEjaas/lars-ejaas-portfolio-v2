@@ -8,5 +8,10 @@
     "hash": "b5df068dfe85e1b852393d9fedbab5bbba774c3e7f75db312510090a9ed7076f",
     "localPath": "./src/assets/bluesky/post-3lrsawbmbjc22-embed.jpeg",
     "fileName": "post-3lrsawbmbjc22-embed.jpeg"
+  },
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg": {
+    "hash": "1798536b64f8e6d628ce0927ecb6c309e912911ecc431b80f200c306e9c49643",
+    "localPath": "./public/bluesky/profileAvatar.jpeg",
+    "fileName": "profileAvatar.jpeg"
   }
 }

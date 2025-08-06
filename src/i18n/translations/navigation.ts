@@ -80,6 +80,7 @@ export const navigation = {
     scroll_to_tip: 'Scroll to tip',
     view_on_bluesky: 'View on Bluesky',
     view_profile_on_bluesky: 'View Profile on Bluesky',
+    view_profile_of: 'View profile of',
     followers: 'followers',
     following: 'following',
     skip_to_developer_tips_pagination: 'Skip to Developer Tips Pagination',
@@ -165,6 +166,7 @@ export const navigation = {
     scroll_to_tip: 'Scroll til tip',
     view_on_bluesky: 'Se på Bluesky',
     view_profile_on_bluesky: 'Vis profil på Bluesky',
+    view_profile_of: 'Vis profil for',
     followers: 'følgere',
     following: 'følger',
     skip_to_developer_tips_pagination:

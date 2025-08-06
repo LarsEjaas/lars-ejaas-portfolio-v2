@@ -1,4 +1,5 @@
 ---
+import { getLangFromUrl } from '@i18n/utils';
 import styles from './blueskyLikes.module.css';
 import LikeProfile from './LikeProfile.astro';
 import {
@@ -9,6 +10,8 @@ import {
 type Props = {
   thread: ProcessedBlueskyThread;
 };
+
+const lang = getLangFromUrl(Astro.url);
 
 const { thread } = Astro.props;
 
@@ -48,19 +51,12 @@ const likes = (thread.mainPost.likes || []).slice(
 
   const lang = document.documentElement.dataset.lang;
 
-  wrapperList.forEach((likesWrapper) => {
-    if (likesWrapper.innerHTML) {
-      likesWrapper.innerHTML = '';
-    }
-  });
-
   const devTipsLikes = await fetchLikesOnce();
 
   wrapperList.forEach((likesWrapper) => {
     if (likesWrapper instanceof HTMLDivElement) {
-      likesWrapper;
       const atUri = likesWrapper.dataset.uri;
-      if (atUri) {
+      if (atUri && devTipsLikes.length) {
         const threadLikes = devTipsLikes.find(
           (likesTread) => likesTread.uri === atUri
         );
@@ -87,9 +83,22 @@ const likes = (thread.mainPost.likes || []).slice(
               class="${styles.additionalLikes}"
             >+${Math.abs(totalNumberOfLikes - freshLikes.length)}</div>`
               : ''
-          } 
+          }
         </div>`
             : '';
+        const script = document.createElement('script');
+        script.src = '/popover.js';
+        script.type = 'text/javascript';
+        likesWrapper.appendChild(script);
+      } else {
+        const loaderElements =
+          likesWrapper.querySelectorAll('[data-with-loader]');
+        console.log('loaderElements:', loaderElements);
+        Array.from(loaderElements).forEach((element) => {
+          if (element instanceof HTMLElement && element.dataset.withLoader) {
+            delete element.dataset.withLoader;
+          }
+        });
       }
 
       initializeKeyboardArrowNavigation(likesWrapper);
@@ -112,7 +121,7 @@ const likes = (thread.mainPost.likes || []).slice(
         </svg>
         <div class={styles.avatarStack} role="menubar">
           {likes.map((like) => (
-            <LikeProfile like={like} />
+            <LikeProfile like={like} lang={lang} />
           ))}
           {totalNumberOfLikes > likes.length && (
             <div

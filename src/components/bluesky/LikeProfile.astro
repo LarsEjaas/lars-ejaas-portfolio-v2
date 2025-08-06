@@ -3,27 +3,35 @@ import styles from './blueskyLikes.module.css';
 import Popover from '@components/popover/Popover.astro';
 import type { AppBskyFeedGetLikes } from '@atproto/api';
 import AvatarProfile from './AvatarProfile.astro';
+import { useTranslations, type Language } from '@i18n/utils';
 
 type Props = {
   like: AppBskyFeedGetLikes.Like;
+  lang: Language;
 };
 
-const { like } = Astro.props;
+const { like, lang } = Astro.props;
+const t = useTranslations(lang, 'navigation');
 ---
 
 <Popover
   width={320}
   position="top"
   id={like.actor.did.split(':').pop() || like.actor.did}
-  buttonLabel={''}
+  buttonLabel={`${t('view_profile_of')} ${like.actor.displayName || like.actor.handle}`}
   classNames={{
     button: styles.likeProfileButton,
     wrapper: styles.popoverWrapper,
   }}
-  buttonAttributes={{ ['data-arrow-nav']: 'true', role: 'menuitem' }}
+  buttonAttributes={{
+    ['data-arrow-nav']: 'true',
+    ['data-with-loader']: 'true',
+    role: 'menuitem',
+  }}
 >
   <div
     slot="buttonContent"
+    data-with-loader="true"
     class={styles.likeButtonContent}
     style={{
       backgroundImage: like.actor.avatar ? `url(${like.actor.avatar})` : '',

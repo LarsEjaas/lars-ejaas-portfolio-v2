@@ -67,7 +67,7 @@ const processedThreads = constructBlueskyThreads(feed);
       )
     }
     <div class={styles.butterfly} aria-hidden="true"></div>
-    <ProfileTimeline profile={profile} />
+    <ProfileTimeline profile={profile} lang={lang} />
     <ul tabindex={-1} class={styles.feedList}>
       {
         processedThreads.map((thread) => (
