@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "netlify dev",
     "start": "astro dev",
-    "build": "npm ci --include=dev && astro check && astro build",
+    "build": "npm ci --include=dev && astro check && node --experimental-transform-types ./src/scripts/bluesky.mts && astro build",
     "build:fast": "astro build",
     "preview": "netlify serve",
     "astro": "astro",
@@ -13,7 +13,10 @@
     "typecheck": "astro check",
     "typecheck:watch": "astro check --watch",
     "prepare": "test \"$NODE_ENV\" = production || husky install",
-    "generate:routes": "node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts"
+    "generate:routes": "node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts",
+    "get-dev-tips-data": "node --experimental-transform-types ./src/scripts/bluesky.mts",
+    "get-likes": "netlify functions:invoke get-dev-tips-likes --port 5432",
+    "update-likes": "netlify functions:invoke update-dev-tips-likes --port 5432"
   },
   "engines": {
     "node": ">=21.0.0",
@@ -24,12 +27,14 @@
     "@astrojs/netlify": "^6.3.4",
     "@astrojs/sitemap": "^3.4.0",
     "@astrojs/ts-plugin": "^1.10.4",
+    "@atproto/api": "^0.16.2",
     "astro": "^5.8.1",
     "dompurify": "^3.2.6",
     "dotenv": "^16.5.0",
     "jsdom": "^26.1.0",
     "nodemailer": "^7.0.3",
     "nodemailer-express-handlebars": "^7.0.0",
+    "p-limit": "^6.2.0",
     "pell": "^1.0.6",
     "sharp": "^0.34.2",
     "zod": "^3.25.42"

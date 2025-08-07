@@ -22,7 +22,7 @@
       "@utils/*": ["src/utils/*"],
       "@scripts/*": ["src/scripts/*"]
     },
-    "lib": ["dom", "es2015", "es2017", "es2021.String"],
+    "lib": ["dom", "es2015", "es2017", "es2021.String", "es2022"],
     "removeComments": false,
     "preserveConstEnums": true,
     "strictNullChecks": true,
