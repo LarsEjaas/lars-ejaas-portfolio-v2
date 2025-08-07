@@ -12,6 +12,8 @@ import type { BlueskyPostThread } from '@customTypes/index';
 import { SITE_URL, SERVERLESS_AUTH_TOKEN } from 'astro:env/client';
 import { removeTrailingSlash, type Language } from '@i18n/utils';
 import { capitalize } from '@utils/misc';
+import styles from './blueskyLikes.module.css';
+import popoverStyles from '@components/popover/popover.module.css';
 
 export const MAXIMUM_NUMBER_OF_LIKE_AVATARS = 55;
 
@@ -398,9 +400,17 @@ export async function getDevTipsLikes(atUris?: string[]): Promise<LikesResult> {
   }
 }
 
+/**
+ * Converts plain domain names and URLs in a text string into clickable anchor (`<a>`) tags.
+ *
+ * - Detects full URLs (e.g., `https://example.com/path`) and bare domains (e.g., `example.com`).
+ * - Automatically adds `https://` to domains that don't include a scheme.
+ * - Strips trailing slashes from the URL path.
+ * - Adds `target="_blank"` and `rel="noopener noreferrer"` for security.
+ */
 export function linkifyDomains(
   text: string,
-  classNames?: { link?: string; button?: string }
+  classNames?: { link?: string }
 ): string {
   return text.replace(
     /\b((https?:\/\/[^\s]+)|((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}))(?![^<]*>|[^<>]*<\/)/g,
@@ -422,6 +432,17 @@ export function linkifyDomains(
   );
 }
 
+/** Helper method to make long template litteral strings easier to read */
+function html(strings: TemplateStringsArray, ...values: unknown[]) {
+  return String.raw({ raw: strings }, ...values)
+    .replace(/^\s*\n/, '') // Remove leading newline
+    .replace(/\n\s+$/, '') // Remove trailing newline
+    .trim();
+}
+
+/**
+ * Generates the full HTML string for a like profile with popover
+ */
 export function createLikeProfileHTML(
   like: AppBskyFeedGetLikes.Like,
   lang: Language,
@@ -432,85 +453,221 @@ export function createLikeProfileHTML(
   const didId = like.actor.did.split(':').pop() || like.actor.did;
   const displayName = like.actor.displayName;
   const handle = like.actor.handle;
-  const htmlDescription = linkifyDomains(like.actor.description || '', {
-    link: styles.descriptionLink,
-  });
+
   const buttonLabel = `${lang === 'da' ? 'Se profile info for' : 'View profile info for'} ${like.actor.displayName}`;
   const popoverWidth = 320;
   const closeButtonTitle = lang === 'da' ? 'Luk popover' : 'Close popover';
 
-  return `
-  <div
-  class="${styles.popoverWrapper}"
-  style="anchor-name: --${didId};"
-  >
-    <button
-      class="${styles.likeProfileButton}"
-      popovertarget="popover${capitalize(didId)}"
-      id="popover${capitalize(didId)}Button"
-      aria-label="${buttonLabel}"
-      tabindex="0"
-      data-arrow-nav="true"
-      role="menuitem"
-    > 
-      <div class="${styles.likeButtonContent}"
-        style="background-image: ${avatarThumb ? `url(${avatarThumb})` : 'none'}"
-      />
-    </button> 
-    <div
-    id="popover${capitalize(didId)}"
-    class="${styles.popover}"
-    data-position="top"
-    data-width="${popoverWidth}"
-    style="--width: ${popoverWidth}px;"
-    popover
-    >
+  function renderPopoverButton({
+    id,
+    styles,
+    avatarThumb,
+    buttonLabel,
+  }: {
+    id: string;
+    styles: CSSModuleClasses;
+    avatarThumb: string | undefined;
+    buttonLabel: string;
+  }) {
+    return `
+      <button
+        class="${styles.likeProfileButton}"
+        popovertarget="popover${capitalize(id)}"
+        id="popover${capitalize(id)}Button"
+        aria-label="${buttonLabel}"
+        tabindex="0"
+        data-arrow-nav="true"
+        role="menuitem"
+      > 
+        <div class="${styles.likeButtonContent}"
+          style="background-image: ${avatarThumb ? `url(${avatarThumb})` : 'none'}"
+        />
+      </button>`;
+  }
+
+  function renderPopoverTop({
+    styles,
+    avatarThumb,
+    profileUrl,
+    lang,
+  }: {
+    styles: CSSModuleClasses;
+    avatarThumb: string | undefined;
+    profileUrl: string;
+    lang: Language;
+  }) {
+    const fallbackBg =
+      'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))';
+    const avatarStyle = avatarThumb ? `url(${avatarThumb})` : fallbackBg;
+    const viewLabel =
+      lang === 'da' ? 'Vis profil på Bluesky' : 'View Profile on Bluesky';
+
+    return `
+      <div class="${styles.popoverTop}">
+        <div class="${styles.avatar}" style="background-image: ${avatarStyle};"></div>
+        <a class="${styles.viewProfileOnBluesky}"
+          href="${profileUrl}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <p>${viewLabel}</p>
+          <svg aria-hidden="true" width="16" height="18" viewBox="0 0 122 107">
+            <path d="M60.9002 50.0081C66.209 38.6319 81.3772 17.3965 95.4078 7.15799C105.267 
+            -0.42609 121.573 -6.11415 121.573 12.4669C121.573 16.2589 119.298 43.5616 118.16 
+            48.112C113.989 63.6594 98.0622 67.4515 84.0316 65.1762C108.68 69.3475 114.747 
+            83.378 101.475 97.0294C75.6891 123.194 64.6922 90.5829 61.6586 81.8612L61.5448 
+            81.5199C61.2036 80.3823 61.1656 80.0031 60.7864 80.0031C60.4072 80.0031 60.4451 
+            80.7615 60.028 81.5199L59.9142 81.8612C56.8806 90.2037 45.8837 123.194 20.0978 
+            97.0294C6.44647 83.378 12.8929 69.3475 37.5412 65.1762C23.5107 67.4515 7.58408 
+            63.6594 3.41284 48.112C2.27523 43.5616 0 16.2589 0 12.4669C0 -6.11415 16.3058 
+            -0.42609 26.1651 7.15799C40.1956 17.7757 54.9846 38.6319 60.6727 50.0081H60.9002Z" 
+            fill="currentColor" opacity="0.8">
+            </path>
+          </svg>
+        </a>
+      </div>`;
+  }
+
+  function renderDescription(
+    description: string | undefined,
+    styles: CSSModuleClasses
+  ) {
+    if (!description) return '';
+    const htmlDesc = linkifyDomains(description, {
+      link: styles.descriptionLink,
+    });
+    return `<span class="small-body-text ${styles.description}">${htmlDesc}</span>`;
+  }
+
+  function renderCloseButton(
+    id: string,
+    styles: CSSModuleClasses,
+    title: string
+  ) {
+    return html`
       <button
         class="${styles.closeButton}"
-        popovertarget="popover${capitalize(didId)}"
-        title="${closeButtonTitle}"
-        aria-label="${closeButtonTitle}"
+        popovertarget="popover${capitalize(id)}"
+        title="${title}"
+        aria-label="${title}"
       >
-        <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="12"
-        height="12"
-        viewBox="0 0 16 16"
-        aria-hidden="true"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
           <path
-            d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 0.418636C14.0123 -0.139545 13.1073 -0.139545 12.5486 0.418636L8 4.96727L3.45136 0.418636C2.89318 -0.139545 1.98818 -0.139545 1.42955 0.418636L0.418636 1.42955C-0.139545 1.98773 -0.139545 2.89273 0.418636 3.45136L4.96727 8L0.418636 12.5486C-0.139545 13.1068 -0.139545 14.0118 0.418636 14.5705L1.42955 15.5814C1.98773 16.1395 2.89318 16.1395 3.45136 15.5814L8 11.0327L12.5486 15.5814C13.1068 16.1395 14.0123 16.1395 14.5705 15.5814L15.5814 14.5705C16.1395 14.0123 16.1395 13.1073 15.5814 12.5486L11.0327 8Z"
+            d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 
+            0.418636C14.0123 -0.139545 13.1073 -0.139545 12.5486 0.418636L8 4.96727L3.45136 0.418636C2.89318 
+            -0.139545 1.98818 -0.139545 1.42955 0.418636L0.418636 1.42955C-0.139545 1.98773 -0.139545 2.89273 
+            0.418636 3.45136L4.96727 8L0.418636 12.5486C-0.139545 13.1068 -0.139545 14.0118 0.418636 
+            14.5705L1.42955 15.5814C1.98773 16.1395 2.89318 16.1395 3.45136 15.5814L8 11.0327L12.5486 
+            15.5814C13.1068 16.1395 14.0123 16.1395 14.5705 15.5814L15.5814 14.5705C16.1395 14.0123 16.1395 
+            13.1073 15.5814 12.5486L11.0327 8Z"
             fill="currentColor"
-            opacity="0.8" />
+            opacity="0.8" 
+          />
         </svg>
-      </button>  
-      <div class="${styles.popoverContent}">
-        <div class="${styles.popoverTop}">
-          <div class="${styles.avatar}"
-            style="background-image: ${
-              avatarThumb
-                ? `url(${avatarThumb})`
-                : 'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))'
-            };">
-          </div>
-          <a class="${styles.viewProfileOnBluesky}"
-            href="${profileUrl}"
-            target="_blank"
-            rel="noopener noreferrer">
-            <p>${lang === 'da' ? 'Vis profil på Bluesky' : 'View Profile on Bluesky'}</p>
-            <svg aria-hidden="true" width="16" height="18" viewBox="0 0 122 107">
-              <path d="M60.9002 50.0081C66.209 38.6319 81.3772 17.3965 95.4078 7.15799C105.267 -0.42609 121.573 -6.11415 121.573 12.4669C121.573 16.2589 119.298 43.5616 118.16 48.112C113.989 63.6594 98.0622 67.4515 84.0316 65.1762C108.68 69.3475 114.747 83.378 101.475 97.0294C75.6891 123.194 64.6922 90.5829 61.6586 81.8612L61.5448 81.5199C61.2036 80.3823 61.1656 80.0031 60.7864 80.0031C60.4072 80.0031 60.4451 80.7615 60.028 81.5199L59.9142 81.8612C56.8806 90.2037 45.8837 123.194 20.0978 97.0294C6.44647 83.378 12.8929 69.3475 37.5412 65.1762C23.5107 67.4515 7.58408 63.6594 3.41284 48.112C2.27523 43.5616 0 16.2589 0 12.4669C0 -6.11415 16.3058 -0.42609 26.1651 7.15799C40.1956 17.7757 54.9846 38.6319 60.6727 50.0081H60.9002Z" fill="currentColor" opacity="0.8"></path>
-            </svg>
-          </a>
+      </button>
+    `;
+  }
+
+  const markup = html`
+    <div class="${styles.popoverWrapper}" style="anchor-name: --${didId};">
+      ${renderPopoverButton({
+        id: didId,
+        styles,
+        avatarThumb,
+        buttonLabel,
+      })}
+      <div
+        id="popover${capitalize(didId)}"
+        class="${styles.popover}"
+        data-position="top"
+        data-width="${popoverWidth}"
+        style="--width: ${popoverWidth}px;"
+        popover
+      >
+        ${renderCloseButton(didId, styles, closeButtonTitle)}
+        <div class="${styles.popoverContent}">
+          ${renderPopoverTop({ styles, avatarThumb, profileUrl, lang })}
+          ${displayName
+            ? `<h3 class="${styles.displayName}">${displayName}</h3>`
+            : ''}
+          <p class="small-body-text ${styles.handle}">@${handle}</p>
+          ${renderDescription(like.actor.description, styles)}
         </div>
-        ${displayName ? `<h3 class="${styles.displayName}">${displayName}</h3>` : ''}
-        <p class="small-body-text ${styles.handle}">@${handle}</p>
-        ${
-          htmlDescription &&
-          `<span class="small-body-text ${styles.description}">${htmlDescription}</span>`
-        }
       </div>
     </div>
-  </div>
   `;
+  return markup;
+}
+
+/**
+ * Generates the full HTML string for the likes section, including avatars and count.
+ */
+export function createLikesHTML(
+  /**  The likes data for a specific thread.*/
+  likesResult: LikesResult,
+  atUri: string,
+  lang: Language
+): string {
+  const threadLikes = likesResult.find((item) => item.uri === atUri);
+  const totalLikes = threadLikes?.likeCount ?? 0;
+  const freshLikes =
+    threadLikes?.likes.slice(0, MAXIMUM_NUMBER_OF_LIKE_AVATARS) ?? [];
+
+  if (!freshLikes.length) return '';
+
+  const avatarsHTML = freshLikes
+    .map((like) =>
+      createLikeProfileHTML(like, lang, { ...popoverStyles, ...styles })
+    )
+    .join('');
+
+  const extraLikesHTML =
+    totalLikes > freshLikes.length
+      ? `<div class="${styles.additionalLikes}">+${totalLikes - freshLikes.length}</div>`
+      : '';
+
+  return `
+    <svg width="20" height="19" viewBox="0 0 20 19" fill="none">
+      <path d="M4.99182 0.835242C5.87688 0.684441 6.78451 0.734186 7.64779 0.980813C8.51107 1.22744 9.30799 1.66466 9.97982 2.26024L10.0168 2.29324L10.0508 2.26324C10.692 1.70054 11.4458 1.28104 12.262 1.03273C13.0782 0.784412 13.9379 0.712997 14.7838 0.823243L15.0298 0.859243C16.0961 1.04335 17.0928 1.5124 17.9143 2.21671C18.7358 2.92103 19.3515 3.83439 19.6963 4.86008C20.041 5.88577 20.102 6.9856 19.8727 8.04311C19.6434 9.10062 19.1324 10.0764 18.3938 10.8672L18.2138 11.0522L18.1658 11.0932L10.7158 18.4722C10.5439 18.6424 10.3161 18.7445 10.0747 18.7596C9.83328 18.7746 9.59458 18.7017 9.40282 18.5542L9.30882 18.4722L1.81582 11.0502C1.02204 10.2779 0.457522 9.30092 0.184781 8.22751C-0.0879596 7.1541 -0.058277 6.02614 0.270541 4.96856C0.59936 3.91098 1.21448 2.96504 2.04778 2.23551C2.88109 1.50599 3.90005 1.02134 4.99182 0.835242Z" fill="currentColor" />
+    </svg>
+    <div class="${styles.avatarStack}" role="menubar">
+      ${avatarsHTML}
+      ${extraLikesHTML}
+    </div>
+  `;
+}
+
+let devTipsLikesPromise: Promise<LikesResult> | undefined = undefined;
+/**
+ * Lazily fetches likes data, caching the result for future calls.
+ * @returns A promise that resolves with the likes data.
+ */
+export async function fetchLikesOnce(): Promise<LikesResult> {
+  if (!devTipsLikesPromise) {
+    devTipsLikesPromise = getDevTipsLikes();
+  }
+  return devTipsLikesPromise;
+}
+
+/**
+ * Removes data-with-loader attribute from all matching elements inside the container.
+ * @param {HTMLElement} wrapper - The wrapper element containing loader elements.
+ */
+export function cleanupSkeletonLoaders(wrapper: HTMLDivElement) {
+  const loaderElements = wrapper.querySelectorAll('[data-with-loader]');
+  loaderElements.forEach((el) => {
+    if (el instanceof HTMLElement) {
+      delete el.dataset.withLoader;
+    }
+  });
+}
+
+/**
+ * Injects the popover script into a given container element.
+ */
+export function injectPopoverScript(wrapper: HTMLElement) {
+  const script = document.createElement('script');
+  script.src = '/popover.js';
+  script.type = 'text/javascript';
+  wrapper.appendChild(script);
 }

@@ -243,6 +243,7 @@
   & p {
     margin-top: 2px;
     text-wrap: nowrap;
+    white-space-collapse: collapse;
   }
   & svg {
     flex-shrink: 0;

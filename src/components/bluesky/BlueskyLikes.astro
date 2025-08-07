@@ -27,82 +27,38 @@ const likes = (thread.mainPost.likes || []).slice(
 
 <script>
   import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
-  import styles from './blueskyLikes.module.css';
   import {
-    createLikeProfileHTML,
-    getDevTipsLikes,
-    MAXIMUM_NUMBER_OF_LIKE_AVATARS,
-    type LikesResult,
+    fetchLikesOnce,
+    cleanupSkeletonLoaders,
+    injectPopoverScript,
+    createLikesHTML,
   } from './utils';
-  import popoverStyles from '@components/popover/popover.module.css';
+  import type { Language } from '../../i18n/utils';
 
-  let devTipsLikesPromise: Promise<LikesResult>; // shared promise
-
-  async function fetchLikesOnce() {
-    if (!devTipsLikesPromise) {
-      devTipsLikesPromise = getDevTipsLikes();
-    }
-    return devTipsLikesPromise;
-  }
-
-  const likesWrappers = document.querySelectorAll('[id^="threadLikes"]');
-
-  const wrapperList = Array.from(likesWrappers);
-
-  const lang = document.documentElement.dataset.lang;
-
+  const lang = document.documentElement.dataset.lang as Language;
+  const likesWrappers = Array.from(
+    document.querySelectorAll('[id^="threadLikes"]')
+  );
   const devTipsLikes = await fetchLikesOnce();
 
-  wrapperList.forEach((likesWrapper) => {
-    if (likesWrapper instanceof HTMLDivElement) {
-      const atUri = likesWrapper.dataset.uri;
-      if (atUri && devTipsLikes.length) {
-        const threadLikes = devTipsLikes.find(
-          (likesTread) => likesTread.uri === atUri
-        );
-        const totalNumberOfLikes = threadLikes?.likeCount || 0;
-        const freshLikes =
-          threadLikes?.likes.slice(0, MAXIMUM_NUMBER_OF_LIKE_AVATARS) ?? [];
+  likesWrappers.forEach((wrapper) => {
+    if (!(wrapper instanceof HTMLDivElement)) return;
 
-        likesWrapper.innerHTML =
-          freshLikes.length > 0
-            ? `<svg width="20" height="19" viewBox="0 0 20 19" fill="none">
-          <path d="M4.99182 0.835242C5.87688 0.684441 6.78451 0.734186 7.64779 0.980813C8.51107 1.22744 9.30799 1.66466 9.97982 2.26024L10.0168 2.29324L10.0508 2.26324C10.692 1.70054 11.4458 1.28104 12.262 1.03273C13.0782 0.784412 13.9379 0.712997 14.7838 0.823243L15.0298 0.859243C16.0961 1.04335 17.0928 1.5124 17.9143 2.21671C18.7358 2.92103 19.3515 3.83439 19.6963 4.86008C20.041 5.88577 20.102 6.9856 19.8727 8.04311C19.6434 9.10062 19.1324 10.0764 18.3938 10.8672L18.2138 11.0522L18.1658 11.0932L10.7158 18.4722C10.5439 18.6424 10.3161 18.7445 10.0747 18.7596C9.83328 18.7746 9.59458 18.7017 9.40282 18.5542L9.30882 18.4722L1.81582 11.0502C1.02204 10.2779 0.457522 9.30092 0.184781 8.22751C-0.0879596 7.1541 -0.058277 6.02614 0.270541 4.96856C0.59936 3.91098 1.21448 2.96504 2.04778 2.23551C2.88109 1.50599 3.90005 1.02134 4.99182 0.835242Z" fill="currentColor"
-          />
-        </svg>
-        <div class="${styles.avatarStack}" role="menubar">
-          ${freshLikes.map((like) =>
-            createLikeProfileHTML(like, lang as 'en' | 'da', {
-              ...popoverStyles,
-              ...styles,
-            })
-          )}
-          ${
-            totalNumberOfLikes > freshLikes.length
-              ? `<div
-              class="${styles.additionalLikes}"
-            >+${Math.abs(totalNumberOfLikes - freshLikes.length)}</div>`
-              : ''
-          }
-        </div>`
-            : '';
-        const script = document.createElement('script');
-        script.src = '/popover.js';
-        script.type = 'text/javascript';
-        likesWrapper.appendChild(script);
-      } else {
-        const loaderElements =
-          likesWrapper.querySelectorAll('[data-with-loader]');
-        console.log('loaderElements:', loaderElements);
-        Array.from(loaderElements).forEach((element) => {
-          if (element instanceof HTMLElement && element.dataset.withLoader) {
-            delete element.dataset.withLoader;
-          }
-        });
-      }
-
-      initializeKeyboardArrowNavigation(likesWrapper);
+    const atUri = wrapper.dataset.uri;
+    if (!atUri || !devTipsLikes.length) {
+      cleanupSkeletonLoaders(wrapper);
+      return;
     }
+
+    const likesHTML = createLikesHTML(devTipsLikes, atUri, lang);
+    if (likesHTML) {
+      wrapper.innerHTML = likesHTML;
+      injectPopoverScript(wrapper);
+    } else {
+      cleanupSkeletonLoaders(wrapper);
+    }
+
+    initializeKeyboardArrowNavigation(wrapper);
   });
 </script>
 <div
