@@ -1,7 +1,7 @@
 {
-  "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg": {
-    "hash": "3f33fa8d3bc7b719e60d09e4c9a1227879cca1eaaaa16427159d7c769899619a",
-    "localPath": "./src/assets/bluesky/profileAvatar.jpeg",
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg": {
+    "hash": "1798536b64f8e6d628ce0927ecb6c309e912911ecc431b80f200c306e9c49643",
+    "localPath": "/bluesky/profileAvatar.jpeg",
     "fileName": "profileAvatar.jpeg"
   },
   "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva@jpeg": {
@@ -9,9 +9,22 @@
     "localPath": "./src/assets/bluesky/post-3lrsawbmbjc22-embed.jpeg",
     "fileName": "post-3lrsawbmbjc22-embed.jpeg"
   },
-  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg": {
-    "hash": "1798536b64f8e6d628ce0927ecb6c309e912911ecc431b80f200c306e9c49643",
-    "localPath": "./public/bluesky/profileAvatar.jpeg",
-    "fileName": "profileAvatar.jpeg"
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:kwzq4ouefalk5ldnwniuh6v7/bafkreigx4sjmwoznwwrkj6v7tywdoop6radl36d34rpl54btpn5dbdj54i@jpeg": {
+    "hash": "74b7e388ab30538aae9f0d4126e58b0fc4d68801c4272d0d43341b0996e52112",
+    "localPath": "/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
+    "fileName": "avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
+    "updatedAt": "2025-06-02T15:57:25.940Z"
+  },
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:anpxoyqkormchuw5wdtyi7tb/bafkreicmphzk7aeohlgagojbj5ain7wk4hrp3cndyluwnm4ibvnqkkolii@jpeg": {
+    "hash": "47ffe656314b5d1316ae27c3721b5ac1dba3ffb601d9d2a4badda94ad4b437e3",
+    "localPath": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+    "fileName": "avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+    "updatedAt": "2025-03-07T15:35:58.242Z"
+  },
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:7hbumvg2w6mbv3ga3wcsfwp6/bafkreidnq52m4rkco24kvmg2l4d4xaw6a4lwrakorv74wcu7342rqwjpdy@jpeg": {
+    "hash": "9bc2f402021e152e8e032e8366fc2339478ae69a6f4861c627d32f765b8b1cd4",
+    "localPath": "/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
+    "fileName": "avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
+    "updatedAt": "2025-04-05T01:33:33.894Z"
   }
 }

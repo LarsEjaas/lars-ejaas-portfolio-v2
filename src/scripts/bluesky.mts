@@ -37,12 +37,12 @@ async function main() {
   const imageMeta = loadImageMeta();
 
   const avatarPath = profile.avatar
-    ? await downloadImageIfChanged(
-        profile.avatar.replace('avatar', 'avatar_thumbnail'),
-        'profileAvatar',
-        imageMeta,
-        true
-      )
+    ? await downloadImageIfChanged({
+        url: profile.avatar.replace('avatar/plain', 'avatar_thumbnail/plain'),
+        localName: 'profileAvatar',
+        meta: imageMeta,
+        publicAsset: true,
+      })
     : undefined;
 
   const postThreads = await getPostThreads(agent, profile, imageMeta);
@@ -66,13 +66,13 @@ async function main() {
     const data: BlueskyData = {
       profile: {
         ...rest,
-        avatar: `${SITE_URL}${PUBLIC_FOLDER.replace('.', '')}/${avatarPath}`,
+        avatar: `${SITE_URL}${PUBLIC_FOLDER.replace('./public', '')}/${avatarPath}`,
       },
       threads: postThreads,
       host: SITE_URL,
     };
 
-    saveBlueskyData(data);
+    saveBlueskyData({ data, imageMeta });
     saveImageMeta(imageMeta);
     console.info(`✅ ${FILE_NAME} saved.`);
   } else {

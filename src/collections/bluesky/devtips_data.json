@@ -140,7 +140,7 @@
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
     },
-    "avatar": "http://localhost:5432/public/bluesky/profileAvatar.jpeg"
+    "avatar": "http://localhost:5432/bluesky/profileAvatar.jpeg"
   },
   "threads": [
     {
@@ -244,7 +244,7 @@
                 "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
                 "handle": "rickywatson.bsky.social",
                 "displayName": "Rick Warsons",
-                "avatar": "http://localhost:5432/public/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -267,7 +267,7 @@
                 "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
                 "handle": "bytevagabond.com",
                 "displayName": "ByteVagabond",
-                "avatar": "http://localhost:5432/public/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -290,7 +290,7 @@
                 "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
                 "handle": "karma-domains.bsky.social",
                 "displayName": "Karma.Domains",
-                "avatar": "http://localhost:5432/public/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"

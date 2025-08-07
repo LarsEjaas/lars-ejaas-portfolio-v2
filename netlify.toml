@@ -33,7 +33,7 @@
     ]
   
   [functions.update-dev-tips-likes]
-    external_node_modules = ["@atproto"]
+    external_node_modules = ["@atproto", "p-limit"]
 
 [[headers]]
   for = "/*"

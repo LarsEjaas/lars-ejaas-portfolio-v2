@@ -31,6 +31,7 @@ interface ImageMeta {
   alt?: string;
   ext?: string;
   mimeType?: string;
+  updatedAt?: string;
 }
 
 export type BlueskyData = {
@@ -77,7 +78,17 @@ export function saveImageMeta(meta: Record<string, ImageMeta>) {
   writeFileSync(IMAGE_META_PATH, JSON.stringify(meta, null, 2), 'utf8');
 }
 
-export function saveBlueskyData(data: BlueskyData) {
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function saveBlueskyData({
+  data,
+  imageMeta,
+}: {
+  data: BlueskyData;
+  imageMeta: Record<string, ImageMeta>;
+}) {
   const dir = BLUESKY_DATA_PATH.substring(
     0,
     BLUESKY_DATA_PATH.lastIndexOf('/')
@@ -89,6 +100,18 @@ export function saveBlueskyData(data: BlueskyData) {
     threads: data.threads.map((thread) => ({
       atUri: thread.rootUri,
     })),
+    // Include only the images with updatedAt timestamp
+    images: Object.fromEntries(
+      Object.entries(imageMeta)
+        .filter(([_url, meta]) => meta.updatedAt)
+        .map(([url, meta]) => [
+          url,
+          {
+            updatedAt: meta.updatedAt,
+            localPath: meta.localPath,
+          },
+        ])
+    ),
   };
 
   const publicDir = PUBLIC_DATA_PATH.substring(
@@ -110,13 +133,20 @@ export function getImageExtension(url: string): string {
   return match ? `.${match[1]}` : '';
 }
 
-export async function downloadImageIfChanged(
-  url: string,
-  localName: string,
-  meta: Record<string, ImageMeta> = {},
+export async function downloadImageIfChanged({
+  url,
+  localName,
+  meta = {},
+  publicAsset,
+  updatedAt,
+}: {
+  url: string;
+  localName: string;
+  meta: Record<string, ImageMeta>;
   /** Place the image in the public folder */
-  publicAsset?: boolean
-): Promise<string> {
+  publicAsset?: boolean;
+  updatedAt?: string;
+}): Promise<string> {
   const ext = getImageExtension(url);
   const fileName = `${localName}${ext}`;
   let localPath = `${META_FOLDER}/${fileName}`;
@@ -128,6 +158,7 @@ export async function downloadImageIfChanged(
   mkdirSync(META_FOLDER, { recursive: true });
 
   const res = await fetch(url);
+  await delay(20);
   if (!res.ok) {
     throw new Error(`Failed to download image: ${res.statusText}`);
   }
@@ -142,7 +173,14 @@ export async function downloadImageIfChanged(
   const fileStream = createWriteStream(localPath);
   await pipeline(Readable.from([Buffer.from(buffer)]), fileStream);
 
-  meta[url] = { hash, localPath, fileName };
+  meta[url] = {
+    hash,
+    localPath: localPath.startsWith('./public')
+      ? localPath.replace('./public', '')
+      : localPath,
+    fileName,
+    updatedAt,
+  };
   console.info(`✅ bluesky image saved at: ${localPath}`);
   return fileName;
 }
@@ -251,11 +289,11 @@ export async function getPostThreads(
       for (const post of filtered) {
         if (post.embed && 'images' in post.embed) {
           for (const image of post.embed.images) {
-            await downloadImageIfChanged(
-              image.fullsize,
-              `post-${post.uri.split('/').pop()}`,
-              imageMeta
-            );
+            await downloadImageIfChanged({
+              url: image.fullsize,
+              localName: `post-${post.uri.split('/').pop()}`,
+              meta: imageMeta,
+            });
           }
         }
         if (
@@ -264,11 +302,11 @@ export async function getPostThreads(
           'thumb' in post.embed.external &&
           typeof post.embed.external.thumb === 'string'
         ) {
-          await downloadImageIfChanged(
-            post.embed.external.thumb,
-            `post-${post.uri.split('/').pop()}-embed`,
-            imageMeta
-          );
+          await downloadImageIfChanged({
+            url: post.embed.external.thumb,
+            localName: `post-${post.uri.split('/').pop()}-embed`,
+            meta: imageMeta,
+          });
         }
       }
       const recordKey = data.thread.post.uri.split('/').pop() || '';
@@ -305,23 +343,24 @@ export async function getLikes(
         thread.posts[0].likes = likesData.likes;
         thread.posts[0].likeCount = postData.posts[0].likeCount;
 
-        thread.posts[0].likes.map((like) => {
+        for (const like of thread.posts[0].likes) {
           const did = like.actor.did.split(':').pop();
           if (like.actor.avatar && did) {
             const thumnail = like.actor.avatar.replace(
               'avatar',
               'avatar_thumbnail'
             );
-            downloadImageIfChanged(
-              thumnail,
-              `avatar-thumbnail-${did}`,
-              imageMeta,
-              true
-            );
+            await downloadImageIfChanged({
+              url: thumnail,
+              localName: `avatar-thumbnail-${did}`,
+              meta: imageMeta,
+              publicAsset: true,
+              updatedAt: like.actor.indexedAt,
+            });
             const ext = getImageExtension(thumnail);
-            like.actor.avatar = `${SITE_URL}${PUBLIC_FOLDER.replace('.', '')}/avatar-thumbnail-${did}${ext}`;
+            like.actor.avatar = `${SITE_URL}${PUBLIC_FOLDER.replace('./public', '')}/avatar-thumbnail-${did}${ext}`;
           }
-        });
+        }
       }
     })
   );
