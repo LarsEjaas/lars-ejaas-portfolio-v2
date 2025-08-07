@@ -1,5 +1,5 @@
 import { techSkillEntries } from '../collections/techSkillTypes.mts';
-import { aboutImagesInfo } from '../collections/aboutImages/aboutImages.mts';
+import { getLightboxSlugs } from '../collections/aboutImages/aboutImages.mts';
 import { languages } from './languageDefinition.mts';
 
 type LanguageKey = keyof typeof languages;
@@ -18,19 +18,17 @@ export const getSkillSlugs = <T extends LanguageKey>(lang: T) => {
 };
 
 export const getAboutLightboxSlugs = <T extends LanguageKey>(lang: T) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const englishaboutImageKeys = aboutImagesInfo.map((image) => image.hrefEN);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const danishAboutImageKeys = aboutImagesInfo.map((image) => image.hrefDA);
+  const englishaboutImageKeys = getLightboxSlugs('en');
+  const danishAboutImageKeys = getLightboxSlugs('da');
   type key = (typeof englishaboutImageKeys)[number];
   type danishKey = (typeof danishAboutImageKeys)[number];
   type SlugAboutImageValue = T extends 'da'
     ? `om-mig/${danishKey}`
     : `about/${key}`;
-  return aboutImagesInfo.reduce(
-    (acc, { hrefDA, hrefEN }) => ({
+  return englishaboutImageKeys.reduce(
+    (acc, hrefEN, index) => ({
       ...acc,
-      [`about/${hrefEN}`]: `${lang === 'da' ? 'om-mig' : 'about'}/${lang === 'da' ? hrefDA : hrefEN}`,
+      [`about/${hrefEN}`]: `${lang === 'da' ? 'om-mig' : 'about'}/${lang === 'da' ? danishAboutImageKeys[index] : hrefEN}`,
     }),
     {} as Record<`about/${key}`, SlugAboutImageValue>
   );
