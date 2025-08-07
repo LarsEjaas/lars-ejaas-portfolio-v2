@@ -19,10 +19,8 @@
   node_bundler = "esbuild"
   directory = "functions"
   included_files = ["functions/*.handlebars", "functions/*.png"]
-
   [functions.get-dev-tips-likes]
     external_node_modules = ["@atproto"]
-
   [functions.send-email]
     external_node_modules = [
       "nodemailer",
@@ -31,7 +29,6 @@
       "dompurify",
       "jsdom"
     ]
-  
   [functions.update-dev-tips-likes]
     external_node_modules = ["@atproto", "p-limit"]
 
