@@ -1,3 +1,5 @@
+import type { AppBskyFeedDefs, AppBskyFeedGetLikes } from '@atproto/api';
+
 export enum ValidationPattern {
   email = '[a-zA-Z0-9._\\-]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_\\-]+',
 }
@@ -9,6 +11,34 @@ export type ImageModule = {
 type ImageExtension = 'jpg' | 'png';
 
 type Year = 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28;
+
+type UppercaseLetter =
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'Q'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z';
 
 type Month =
   | 'January'
@@ -131,6 +161,43 @@ export type IconImage =
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
 export type ExternalLink = `https://${string}`;
+
+export type BlueskyPostThread = {
+  rootUri: string;
+  posts: (AppBskyFeedDefs.PostView & { likes?: AppBskyFeedGetLikes.Like[] })[];
+  viewOnBluesky: string;
+  recordKey: string;
+};
+
+/** String literal in kebab-case
+ * eg. 'foo-bar', 'this-is-a-test'
+ * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case MDN Web Docs}
+ */
+export type KebabCaseString<T extends string> =
+  T extends `${string}${UppercaseLetter}${string}`
+    ? never
+    : T extends `${string}_${string}`
+      ? never
+      : T extends `${string} ${string}`
+        ? never
+        : T;
+
+/** String literal in camelCase
+ * eg. 'fooBar', 'thisIsCamelCase'
+ * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Camel_case MDN Web Docs}
+ */
+export type CamelCaseString<T extends string> =
+  // Reject separators
+  T extends
+    | `${string}_${string}`
+    | `${string} ${string}`
+    | `${string}-${string}`
+    ? never
+    : // Reject PascalCase (starts with uppercase)
+      T extends `${UppercaseLetter}${string}`
+      ? never
+      : // Accept if it passes both checks
+        T;
 
 /**
  * Type predicate to filter out empty instances of an array

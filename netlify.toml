@@ -19,13 +19,21 @@
   node_bundler = "esbuild"
   directory = "functions"
   included_files = ["functions/*.handlebars", "functions/*.png"]
-  external_node_modules = [
-    "nodemailer",
-    "nodemailer-express-handlebars",
-    "zod",
-    "dompurify",
-    "jsdom",
-  ]
+  
+  [functions.get-dev-tips-likes]
+    external_node_modules = ["@atproto"]
+
+  [functions.send-email]
+    external_node_modules = [
+      "nodemailer",
+      "nodemailer-express-handlebars",
+      "zod",
+      "dompurify",
+      "jsdom"
+    ]
+
+  [functions.update-dev-tips-likes]
+    external_node_modules = ["@atproto", "p-limit"]
 
 [[headers]]
   for = "/*"
@@ -35,7 +43,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Content-Type-Options = "nosniff"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self' https://*.piwik.pro; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'self';"
+    Content-Security-Policy = "default-src 'self' https://*.piwik.pro; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.bsky.app; object-src 'self';"
 
 [[headers]]
   for = "/assets/*"
@@ -51,7 +59,7 @@
       Referrer-Policy = "strict-origin-when-cross-origin"
       X-Content-Type-Options = "nosniff"
       Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-      Content-Security-Policy = "default-src 'self' https://*.piwik.pro https://app.netlify.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro https://app.netlify.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'self';"
+      Content-Security-Policy = "default-src 'self' https://*.piwik.pro https://app.netlify.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro https://app.netlify.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.bsky.app; object-src 'self';"
 
 [[redirects]]
   from = "/resume/Public_Resume_Lars_Ejaas_july_2024.pdf"
