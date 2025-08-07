@@ -84,32 +84,9 @@ jobs:
       # Optional: Auto-merge the PR (can be commented out if manual merge is preferred)
       - name: Auto-merge PR
         if: steps.create_pull_request.outputs.pull_request_number != ''
-        uses: actions-ecosystem/action-auto-merge@v0.11.0
-        with:
-          github_token: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
-          pull_request_number: ${{ steps.create_pull_request.outputs.pull_request_number }}
-          merge_method: squash
-
-      - name: Create or update PR
-        if: steps.create_branch.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7.0.8
-        with:
-          token: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
-          commit-message: 'Update devtips_data.json on $(date "+%B %d %Y")'
-          title: 'Update Bluesky data'
-          body: 'Automated update of Bluesky data by workflow.'
-          branch: bluesky-auto
-          base: main
-          delete-branch: true
-
-      # Optional: Auto-merge the PR (can be commented out if manual merge is preferred)
-      - name: Auto-merge PR
-        if: steps.create_pull_request.outputs.pull_request_number != ''
         run: gh pr merge --merge --auto "${{ steps.create_pull_request.outputs.pull_request_number }}"
         env:
           GH_TOKEN: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
-# Generate a PAT (if you haven’t already):
-
 # Go to: https://github.com/settings/personal-access-tokens
 # Create a new fine-grained token with the following scopes:
 # ✅ Commit statuses (read and write)
