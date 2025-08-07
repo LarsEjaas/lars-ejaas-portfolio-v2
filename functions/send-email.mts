@@ -373,7 +373,11 @@ const mockTransporter = {
   verify: async () => true,
   use: () => {},
   sendMail: async (options: MailWithTemplateOptions) => {
-    console.info('Development mode: Email would be sent with:', options);
+    console.log(
+      '[INFO]',
+      '👨‍💻Development mode: Email would be sent with:',
+      options
+    );
     return { messageId: 'mock-id' };
   },
 };
@@ -387,7 +391,11 @@ export default async (req: Request, context: Context) => {
   };
 
   const site_url = removeTrailingSlash(context.url.origin);
-  if (req.headers.get('origin') !== site_url) {
+
+  if (
+    process.env.NODE_ENV !== 'development' &&
+    req.headers.get('origin') !== site_url
+  ) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
       headers:
@@ -466,9 +474,13 @@ export default async (req: Request, context: Context) => {
     if (process.env.NODE_ENV === 'production') {
       transporter.verify(function (error, success) {
         if (error) {
-          console.error(error);
+          console.log('[ERROR]', '❗Email transporter failed:', error);
         } else {
-          console.info('Server is ready to take our messages:', success);
+          console.log(
+            '[INFO]',
+            '✅ Server is ready to take our messages:',
+            success
+          );
         }
       });
     }
@@ -540,6 +552,11 @@ export default async (req: Request, context: Context) => {
       transporter.sendMail(mailNotificationOptions),
     ]);
 
+    console.log(
+      '[INFO]',
+      '✉️ Email was sent successfully. Confirmation sent to senders inbox'
+    );
+
     // Redirect to confirmation page
     return new Response(
       JSON.stringify({
@@ -550,13 +567,13 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...devHeaders,
+          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }
     );
   } catch (error) {
-    console.error(error);
+    console.log('[ERROR]', '❗Error sending email:', error);
     // Handle errors and redirect to error page
     const clientsideError = getErrorMessage(error, language);
     const refererUrl = req.headers.get('referer') || req.headers.get('origin');

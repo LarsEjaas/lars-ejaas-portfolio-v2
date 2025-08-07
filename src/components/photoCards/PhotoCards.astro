@@ -58,9 +58,11 @@ const gridTemplateColumns = await calculateGridTemplateColumns(imageImports);
 
 <script>
   import { storeScrollPositionOnClick } from '@utils/scrollPosition';
-  import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
+  import { lightboxRoutes } from '@collections/aboutImages/aboutImages.mts';
 
-  const imageIds = aboutImagesInfo.map((imageName) => imageName.id);
+  const imageIds = Object.keys(
+    lightboxRoutes
+  ) as (keyof typeof lightboxRoutes)[];
 
   if (
     imageIds.every((id) => id in window) &&

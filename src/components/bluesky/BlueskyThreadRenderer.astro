@@ -1,0 +1,69 @@
+---
+import {
+  renderPostContentAsHTML,
+  type RichTextRenderConfig,
+} from './richTextRenderUtils';
+import type { ProcessedBlueskyThread } from './utils';
+import styles from './bluesky.module.css';
+import PostEmbed from './PostEmbed.astro';
+
+type Props = {
+  thread: ProcessedBlueskyThread;
+};
+
+const { thread } = Astro.props;
+
+const threadConfig: RichTextRenderConfig = {
+  classNames: {
+    container: `body-text ${styles.postContent}`,
+    link: styles.postLink,
+    hashtag: styles.postHashtag,
+    embed: '',
+  },
+  attributes: {
+    link: { 'data-type': 'external-link' },
+    hashtag: (segment) => ({ 'data-tag': segment.content.replace('#', '') }),
+  },
+};
+---
+
+<section class={styles.threadContent}>
+  <Fragment
+    set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
+  />
+  {
+    thread?.mainPost.embed && thread?.mainPost.embed.type === 'external' && (
+      <PostEmbed
+        embedType={thread?.mainPost.embed.type}
+        uri={thread?.mainPost.embed.uri}
+        title={thread?.mainPost.embed.title}
+        description={thread?.mainPost.embed.description}
+        thumbnail={thread?.mainPost.embed.thumbnail}
+        alt={thread?.mainPost.embed.alt}
+        className={threadConfig.classNames?.embed}
+      />
+    )
+  }
+  {
+    thread.replies.map((reply) => {
+      const content = renderPostContentAsHTML(reply, threadConfig);
+      return (
+        <>
+          <div class={styles.divider} />
+          <Fragment class={styles.reply} set:html={content} />
+          {reply.embed && reply.embed.type === 'external' && (
+            <PostEmbed
+              embedType={reply.embed.type}
+              uri={reply.embed.uri}
+              title={reply.embed.title}
+              description={reply.embed.description}
+              thumbnail={reply.embed.thumbnail}
+              alt={reply.embed.alt}
+              className={threadConfig.classNames?.embed}
+            />
+          )}
+        </>
+      );
+    })
+  }
+</section>

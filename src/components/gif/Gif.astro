@@ -1,0 +1,29 @@
+---
+import styles from './gif.module.css';
+import { getPublicFiles } from '@utils/publicFileValidator';
+
+type Props = {
+  /**
+   * Filename of the gif file, without the .gif extension
+   * The file should be located in the public/gifs directory
+   */
+  src: string;
+  alt: string;
+  disabled?: boolean;
+  className?: string;
+};
+
+const { className, src, alt } = Astro.props;
+
+const gifs = getPublicFiles('gifs');
+
+const gif_src = `/${Object.values(gifs).find(
+  (filePath) => filePath.includes(src) && filePath.endsWith('.gif')
+)}`;
+
+if (!gif_src) {
+  throw new Error(`gif file not found: ${src}.gif`);
+}
+---
+
+<img class={`${styles.gif} ${className || ''}`} src={gif_src || ''} alt={alt} />

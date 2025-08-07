@@ -1,0 +1,100 @@
+---
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import imageMeta from '@assets/bluesky/image-meta.json';
+import type { ImageModule } from '@customTypes/index';
+import styles from './postEmbed.module.css';
+const blueskyImages = import.meta.glob('@assets/bluesky/*.{jpg,jpeg,png}');
+
+export interface Props {
+  embedType: 'external' | 'image' | 'video';
+  uri?: string;
+  title?: string;
+  description?: string;
+  thumbnail?: string;
+  alt?: string;
+  className?: string;
+}
+
+const { embedType, uri, title, description, thumbnail, alt, className } =
+  Astro.props;
+
+const embedHost = uri ? new URL(uri).hostname : undefined;
+
+const imageName =
+  thumbnail && thumbnail in imageMeta
+    ? imageMeta[thumbnail as keyof typeof imageMeta].fileName
+    : undefined;
+
+if (!imageName || typeof imageName !== 'string') {
+  throw new Error('');
+}
+
+const imageImport = Object.entries(blueskyImages).find(([path]) =>
+  path.includes(imageName)
+);
+
+if (!imageImport) {
+  throw new Error(
+    `Bluesky embed image not found for: ${imageMeta[thumbnail as keyof typeof imageMeta]?.localPath}`
+  );
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+---
+
+{
+  embedType === 'external' && (
+    <a
+      href={uri}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={`${styles.postEmbed} ${className || ''}`}
+    >
+      <div class={styles.embedPreview}>
+        {thumbnail && (
+          <div
+            class={styles.embedWrapper}
+            style={{
+              aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+            }}
+          >
+            <PictureWithPlaceholder
+              aria-hidden="true"
+              formats={['avif', 'webp']}
+              quality="high"
+              src={ImageComponent}
+              aria-hidden="true"
+              alt={alt || ''}
+              width={ImageComponent.width}
+              height={ImageComponent.height}
+              widths={[264, 320, 440, 564]}
+              sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
+              loading="lazy"
+              decoding="async"
+              placeholderSettings={{
+                width: 40,
+              }}
+              classNames={{
+                placeholder: styles.embedPlaceholder,
+              }}
+            />
+          </div>
+        )}
+        <div class={styles.embedInfo}>
+          <h3 class={styles.embedTitle}>{title}</h3>
+          <p class={`small-body-text ${styles.embedDesc}`}>{description}</p>
+          <div class={styles.embedUrl}>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M1.2 3.7465C1.07 4.14 1 4.562 1 5C1.00025 5.72801 1.19918 6.44215 1.57534 7.06544C1.95151 7.68874 2.49065 8.19756 3.13465 8.53706C3.77865 8.87656 4.5031 9.03386 5.22991 8.99202C5.95671 8.95017 6.65832 8.71077 7.2591 8.29961C7.85989 7.88844 8.33707 7.32111 8.63922 6.65877C8.94137 5.99642 9.05703 5.26417 8.97373 4.54094C8.89043 3.81771 8.61133 3.13093 8.16651 2.55462C7.72169 1.9783 7.12803 1.53431 6.4495 1.2705L5.973 3.1755C5.95104 3.26326 5.90568 3.34342 5.84175 3.40743C5.77783 3.47145 5.69773 3.51692 5.61 3.539L3.888 3.972L3.502 4.7385C3.4691 4.80378 3.42229 4.86106 3.36486 4.90629C3.30743 4.95152 3.24078 4.98361 3.16961 5.00029C3.09844 5.01698 3.02447 5.01786 2.95292 5.00286C2.88137 4.98786 2.81398 4.95736 2.7555 4.9135L1.2 3.7465ZM1.6415 2.8265L2.878 3.755L3.098 3.318C3.13027 3.25392 3.17595 3.19753 3.23194 3.15267C3.28793 3.10781 3.35292 3.07552 3.4225 3.058L5.0755 2.642L5.479 1.0285C4.73499 0.938252 3.98059 1.05903 3.30194 1.37705C2.62329 1.69507 2.04774 2.1975 1.641 2.827L1.6415 2.8265ZM0 5C0 2.2385 2.2385 0 5 0C7.7615 0 10 2.2385 10 5C10 7.7615 7.7615 10 5 10C2.2385 10 0 7.7615 0 5ZM4.215 5.081C4.26522 5.03091 4.32552 4.99207 4.3919 4.96707C4.45827 4.94207 4.52921 4.93148 4.6 4.936L5.545 4.9965C5.63332 5.00215 5.71855 5.03114 5.792 5.0805L7.2265 6.0445C7.3273 6.11234 7.39995 6.21457 7.43087 6.33208C7.46179 6.44959 7.44886 6.57433 7.3945 6.683L6.908 7.656C6.8665 7.73904 6.80271 7.80889 6.72376 7.85772C6.64481 7.90656 6.55383 7.93245 6.461 7.9325H5.001C4.91879 7.93243 4.83786 7.91209 4.76539 7.87328C4.69291 7.83447 4.63113 7.77839 4.5855 7.71L3.6125 6.25C3.54843 6.15376 3.51968 6.03828 3.53117 5.92323C3.54266 5.80819 3.59366 5.70067 3.6755 5.619L4.215 5.081ZM4.6725 6.0375L4.761 5.949L5.3465 5.986L6.3035 6.629L6.152 6.9325H5.269L4.672 6.0375H4.6725Z"
+                fill="currentColor"
+              />
+            </svg>
+            {embedHost}
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}

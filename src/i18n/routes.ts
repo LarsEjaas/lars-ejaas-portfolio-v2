@@ -1,7 +1,7 @@
 import { getSkillSlugs, getAboutLightboxSlugs } from './appRoutes.mts';
 import type { Language } from './settings';
 import type { defaultLang } from './settings';
-import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
+
 import { appRoutes } from './appRoutes.mts';
 
 export const englishSkillRoutes = getSkillSlugs('en');
@@ -23,19 +23,6 @@ export type SlugKeys =
   | 'archive'
   | 'email-reply'
   | 'privacy-policy';
-
-/** Get all possible modal slugs in the different languages*/
-export const allModalKeys = Object.values(appRoutes).flatMap((lang) =>
-  Object.entries(lang)
-    .filter(([key]) =>
-      englishModalKeys.includes(key as (typeof englishModalKeys)[number])
-    )
-    .map(([, value]) => value)
-);
-
-export const allLightboxKeys = Object.values(aboutImagesInfo).flatMap(
-  (info) => [info.hrefEN, info.hrefDA]
-);
 
 type ModalKeys = (typeof englishModalKeys)[number];
 type DefaultLang = typeof defaultLang;

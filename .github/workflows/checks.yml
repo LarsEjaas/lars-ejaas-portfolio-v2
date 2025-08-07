@@ -11,12 +11,19 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     env:
+      FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
+      MAIL_USER: ${{ secrets.MAIL_USER }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      NOREPLY_PRIVATE_EMAIL_USER: ${{ secrets.NOREPLY_PRIVATE_EMAIL_USER }}
+      PRIVATE_EMAIL_USER: ${{ secrets.PRIVATE_EMAIL_USER }}
       NODE_ENV: ${{ secrets.NODE_ENV }}
       SITE_URL: ${{ secrets.SITE_URL }}
-      FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
       PUBLIC_PIWIK_SITE_ID: ${{ secrets.PUBLIC_PIWIK_SITE_ID }}
       PUBLIC_PIWIK_TRACKER_URL: ${{ secrets.PUBLIC_PIWIK_TRACKER_URL }}
       PUBLIC_PIWIK_DOMAINS: ${{ secrets.PUBLIC_PIWIK_DOMAINS }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      SERVERLESS_AUTH_TOKEN: ${{ secrets.SERVERLESS_AUTH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +31,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 22.7.0
           cache: 'npm'
+
+      - name: Restore image cache
+        uses: actions/cache@v4
+        id: cache-images
+        with:
+          path: .cache/assets
+          key: ${{ runner.os }}-astro-images-shared-v1
+          restore-keys: |
+            ${{ runner.os }}-astro-images-shared-v1
 
       - name: Install dependencies
         run: npm clean-install --include=dev
@@ -34,9 +50,16 @@ jobs:
         run: npm run lint
 
       - name: Type check
-        run: npm run typecheck
+        run: npm run type-check
 
       - name: Build Project
         # Skip build on main branch
         if: github.ref != 'refs/heads/main'
         run: npm run build
+
+      - name: Save updated image cache
+        if: github.ref != 'refs/heads/main'
+        uses: actions/cache@v4
+        with:
+          path: .cache/assets
+          key: ${{ runner.os }}-astro-images-shared-v1

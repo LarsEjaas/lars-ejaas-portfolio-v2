@@ -29,7 +29,7 @@
 
 .animationTimeline {
   display: contents;
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (animation-range: normal) {
     @media (prefers-reduced-motion: no-preference) {
       & .animatedWorkCard,
       & .animatedText:not([data-mobile-animation='false']),
@@ -44,7 +44,7 @@
     & .baloons {
       grid-row: 4;
       @supports (animation-timeline: view()) {
-        @media (prefers-reduced-motion: no-preference) {
+        @supports (animation-timeline: view()) and (animation-range: normal) {
           animation: var(--animation-scale-up);
           animation-timeline: view();
           animation-range: var(--scale-up-animation-range);

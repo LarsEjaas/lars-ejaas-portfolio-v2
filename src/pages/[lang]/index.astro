@@ -1,7 +1,12 @@
 ---
 import HomeLayout from '@layouts/home/Home.astro';
 import { getLangFromUrl } from '@i18n/utils';
-import type { DanishLanguageSlug } from '@i18n/settings';
+import { languages } from '@i18n/languageDefinition.mts';
+import {
+  defaultLang,
+  type DanishLanguageSlug,
+  type Language,
+} from '@i18n/settings';
 import { getMetaForPage } from '@collections/meta';
 
 type Props = Record<string, never>;
@@ -12,7 +17,16 @@ const meta = getMetaForPage('/', lang);
 type TranslatedHomePath = { params: { lang: DanishLanguageSlug } };
 
 export function getStaticPaths() {
-  const paths: TranslatedHomePath[] = [{ params: { lang: 'da' } }];
+  const SUPPORTED_LANGS = (Object.keys(languages) as Language[]).filter(
+    (language) => language !== defaultLang
+  );
+  const paths = SUPPORTED_LANGS.reduce<TranslatedHomePath[]>((acc, lang) => {
+    acc.push({
+      params: { lang },
+    });
+    return acc;
+  }, []);
+
   return paths;
 }
 ---
