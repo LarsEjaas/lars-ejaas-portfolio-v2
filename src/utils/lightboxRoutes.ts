@@ -15,7 +15,7 @@ function extractAllLightboxKeys<
 }[keyof T][] {
   return Object.values(input).flatMap((route) =>
     Array.isArray(route) ? route : [route]
-  ) as any;
+  );
 }
 
 const allLightboxKeys = extractAllLightboxKeys(lightboxRoutes);

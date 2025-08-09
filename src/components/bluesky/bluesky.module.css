@@ -3,7 +3,7 @@
 }
 
 .card {
-  max-width: 672px;
+  max-width: 778px;
 }
 
 .cardContent {
@@ -179,9 +179,13 @@
 }
 
 .postLink {
+  composes: link from '@components/externalLink/externalLink.module.css';
   color: light-dark(var(--system-dark-200), var(--system-dark-100));
   font-size: var(--font-size-2);
-  composes: link from '@components/externalLink/externalLink.module.css';
+  max-width: 28ch;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .postHashtag {

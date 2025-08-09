@@ -56,11 +56,98 @@
 .embedUrl {
   font-size: var(--font-size-1);
   display: flex;
-  gap: 2px;
+  gap: 4px;
   align-items: center;
   padding-top: 4px;
   color: light-dark(var(--system-dark-300), var(--system-dark-300-55));
   & svg {
     color: light-dark(var(--system-dark-200), var(--system-dark-300-55));
   }
+}
+
+.embedDialogButton {
+  position: relative;
+  background: transparent;
+  border: unset;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  padding: 0;
+  cursor: default;
+  width: 100%;
+}
+
+.imageDialog {
+  position: fixed;
+  overflow: visible;
+  padding: 0;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: scale(0.9) translateX(-50%) translateY(calc(-50% + 30px));
+  width: 100vw;
+  border: unset;
+  background: transparent;
+  transition: 400ms all ease-in-out allow-discrete;
+  transform-origin: -25% -25%;
+  &::backdrop {
+    opacity: 0;
+    background-color: light-dark(
+      var(--system-light-300-55),
+      var(--system-dark-200-16)
+    );
+    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+    transition: 400ms 100ms all ease-out allow-discrete;
+  }
+  &[open] {
+    opacity: 1;
+    display: block;
+    transform: scale(1) translate(-50%, -50%);
+    &::backdrop {
+      opacity: 1;
+    }
+  }
+  & figure {
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    background-color: var(--system-light-200);
+  }
+  & figcaption {
+    padding: 16px;
+    margin-block-end: unset;
+  }
+  & .embedPlaceholder {
+    z-index: unset;
+  }
+  & picture {
+    position: absolute;
+  }
+}
+
+@starting-style {
+  .imageDialog:open::backdrop {
+    opacity: 0;
+  }
+}
+
+@starting-style {
+  .imageDialog:open {
+    transform: scale(0.9) translateX(-50%) translateY(calc(-50% + 30px));
+    opacity: 0;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.closeButton {
+  composes: closeLink from '@components/lightBox/lightbox.module.css';
+  margin: 0;
+  position: fixed;
+  top: calc(-1rem - 40px);
+  right: max(
+    calc(-1rem - 40px),
+    calc(min(calc(100vw - 4rem), var(--dialog-width)) - (100vw - 4rem))
+  );
 }

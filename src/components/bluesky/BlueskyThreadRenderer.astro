@@ -13,6 +13,8 @@ type Props = {
 
 const { thread } = Astro.props;
 
+const postEmbed = thread?.mainPost.embed;
+
 const threadConfig: RichTextRenderConfig = {
   classNames: {
     container: `body-text ${styles.postContent}`,
@@ -32,36 +34,59 @@ const threadConfig: RichTextRenderConfig = {
     set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
   />
   {
-    thread?.mainPost.embed && thread?.mainPost.embed.type === 'external' && (
-      <PostEmbed
-        embedType={thread?.mainPost.embed.type}
-        uri={thread?.mainPost.embed.uri}
-        title={thread?.mainPost.embed.title}
-        description={thread?.mainPost.embed.description}
-        thumbnail={thread?.mainPost.embed.thumbnail}
-        alt={thread?.mainPost.embed.alt}
-        className={threadConfig.classNames?.embed}
-      />
-    )
+    postEmbed?.type &&
+      (postEmbed?.type === 'images' ? (
+        postEmbed.images.map((image) => (
+          <PostEmbed
+            embedType={postEmbed.type}
+            uri={image.uri}
+            alt={image.alt}
+            className={threadConfig.classNames?.embed}
+            id={image.id}
+          />
+        ))
+      ) : (
+        <PostEmbed
+          embedType={postEmbed.type}
+          uri={postEmbed.uri}
+          title={postEmbed.title}
+          description={postEmbed.description}
+          thumbnail={postEmbed.thumbnail}
+          alt={postEmbed.alt}
+          className={threadConfig.classNames?.embed}
+        />
+      ))
   }
   {
     thread.replies.map((reply) => {
       const content = renderPostContentAsHTML(reply, threadConfig);
+      const replyEmbed = reply.embed;
       return (
         <>
           <div class={styles.divider} />
           <Fragment class={styles.reply} set:html={content} />
-          {reply.embed && reply.embed.type === 'external' && (
-            <PostEmbed
-              embedType={reply.embed.type}
-              uri={reply.embed.uri}
-              title={reply.embed.title}
-              description={reply.embed.description}
-              thumbnail={reply.embed.thumbnail}
-              alt={reply.embed.alt}
-              className={threadConfig.classNames?.embed}
-            />
-          )}
+          {replyEmbed &&
+            (replyEmbed.type === 'images' ? (
+              replyEmbed.images.map((image) => (
+                <PostEmbed
+                  embedType={replyEmbed.type}
+                  uri={image.uri}
+                  alt={image.alt}
+                  className={threadConfig.classNames?.embed}
+                  id={image.id}
+                />
+              ))
+            ) : (
+              <PostEmbed
+                embedType={replyEmbed.type}
+                uri={replyEmbed.uri}
+                title={replyEmbed.title}
+                description={replyEmbed.description}
+                thumbnail={replyEmbed.thumbnail}
+                alt={replyEmbed.alt}
+                className={threadConfig.classNames?.embed}
+              />
+            ))}
         </>
       );
     })

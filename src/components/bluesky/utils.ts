@@ -8,7 +8,7 @@ import type {
   AppBskyFeedGetLikes,
 } from '@atproto/api';
 import type { AppBskyRichtextFacet } from '@atproto/api';
-import type { BlueskyPostThread } from '@customTypes/index';
+import { notEmpty, type BlueskyPostThread } from '@customTypes/index';
 import { SITE_URL, SERVERLESS_AUTH_TOKEN } from 'astro:env/client';
 import { removeTrailingSlash, type Language } from '@i18n/utils';
 import { capitalize } from '@utils/misc';
@@ -48,14 +48,24 @@ export interface ProcessedTextSegment {
   embed?: ProcessedEmbed;
 }
 
-export interface ProcessedEmbed {
-  type: 'external' | 'image' | 'video';
-  uri?: string;
-  title?: string;
-  description?: string;
-  thumbnail?: string;
-  alt?: string;
-}
+export type ProcessedEmbed =
+  | {
+      type: 'external' | 'video';
+      uri?: string;
+      title?: string;
+      description?: string;
+      thumbnail?: string;
+      alt?: string;
+    }
+  | {
+      type: 'images';
+      images: {
+        id: string;
+        uri: string;
+        alt?: string;
+        aspectRatio?: { height: number; width: number };
+      }[];
+    };
 
 export interface ProcessedPost {
   id: string;
@@ -182,6 +192,19 @@ function processRichText(
   return segments;
 }
 
+function extractDidPlcId(input: string) {
+  let s = input;
+  try {
+    s = decodeURIComponent(input);
+  } catch (error) {
+    throw new Error(
+      `Failed to decode input at extractDidPlcId:${input} ${error}`
+    );
+  }
+  const m = s.match(/did:plc:([^/]+)/);
+  return m ? m[1] : null;
+}
+
 /**
  * Processes embed data into a standardized format
  */
@@ -201,9 +224,26 @@ function processEmbed(embed?: Embed): ProcessedEmbed | undefined {
   // Handle other embed types (images, videos) as needed
   if (embed.$type === 'app.bsky.embed.images#view' && embed.images) {
     return {
-      type: 'image',
-      thumbnail: embed.images[0]?.fullsize,
-      alt: embed.images[0]?.alt,
+      type: 'images',
+      images: embed.images
+        .map((image) => {
+          const extractedId = extractDidPlcId(image.fullsize);
+          if (!extractedId) {
+            return undefined;
+          }
+          return {
+            id: extractedId,
+            uri: image.fullsize,
+            alt: image.alt,
+            aspectRatio: image.aspectRatio
+              ? {
+                  height: image.aspectRatio?.height,
+                  width: image.aspectRatio.width,
+                }
+              : undefined,
+          };
+        })
+        .filter(notEmpty),
     };
   }
 
@@ -502,16 +542,7 @@ export function createLikeProfileHTML(
     const viewLabel =
       lang === 'da' ? 'Vis profil på Bluesky' : 'View Profile on Bluesky';
 
-    return `
-      <div class="${styles.popoverTop}">
-        <div class="${styles.avatar}" style="background-image: ${avatarStyle};"></div>
-        <a class="${styles.viewProfileOnBluesky}"
-          href="${profileUrl}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <p>${viewLabel}</p>
-          <svg aria-hidden="true" width="16" height="18" viewBox="0 0 122 107">
+    const butterflyIcon = `<svg aria-hidden="true" width="16" height="18" viewBox="0 0 122 107">
             <path d="M60.9002 50.0081C66.209 38.6319 81.3772 17.3965 95.4078 7.15799C105.267 
             -0.42609 121.573 -6.11415 121.573 12.4669C121.573 16.2589 119.298 43.5616 118.16 
             48.112C113.989 63.6594 98.0622 67.4515 84.0316 65.1762C108.68 69.3475 114.747 
@@ -523,7 +554,18 @@ export function createLikeProfileHTML(
             -0.42609 26.1651 7.15799C40.1956 17.7757 54.9846 38.6319 60.6727 50.0081H60.9002Z" 
             fill="currentColor" opacity="0.8">
             </path>
-          </svg>
+          </svg> `;
+
+    return `
+      <div class="${styles.popoverTop}">
+        <div class="${styles.avatar}" style="background-image: ${avatarStyle};"></div>
+        <a class="${styles.viewProfileOnBluesky}"
+          href="${profileUrl}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <p>${viewLabel}</p>
+          ${butterflyIcon}
         </a>
       </div>`;
   }
@@ -544,14 +586,7 @@ export function createLikeProfileHTML(
     styles: CSSModuleClasses,
     title: string
   ) {
-    return html`
-      <button
-        class="${styles.closeButton}"
-        popovertarget="popover${capitalize(id)}"
-        title="${title}"
-        aria-label="${title}"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
+    const crossIcon = `<svg xmlns="http://www.w3.org/2000/svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
           <path
             d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 
             0.418636C14.0123 -0.139545 13.1073 -0.139545 12.5486 0.418636L8 4.96727L3.45136 0.418636C2.89318 
@@ -563,7 +598,16 @@ export function createLikeProfileHTML(
             fill="currentColor"
             opacity="0.8" 
           />
-        </svg>
+        </svg>`;
+
+    return html`
+      <button
+        class="${styles.closeButton}"
+        popovertarget="popover${capitalize(id)}"
+        title="${title}"
+        aria-label="${title}"
+      >
+        ${crossIcon}
       </button>
     `;
   }

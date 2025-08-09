@@ -84,6 +84,7 @@ export const navigation = {
     followers: 'followers',
     following: 'following',
     skip_to_developer_tips_pagination: 'Skip to Developer Tips Pagination',
+    view_image_in_full_size: 'View image in full size',
   },
   da: {
     default_seo_image_alt:
@@ -171,5 +172,6 @@ export const navigation = {
     following: 'følger',
     skip_to_developer_tips_pagination:
       'Gå til paginering for tips til udviklere',
+    view_image_in_full_size: 'Vis billedet i fuld størrelse',
   },
 } as const;

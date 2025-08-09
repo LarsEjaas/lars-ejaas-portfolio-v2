@@ -1,6 +1,6 @@
 import { AppBskyFeedGetLikes, AtpAgent } from '@atproto/api';
 import dotenv from 'dotenv';
-import { type Config, purgeCache } from '@netlify/functions';
+import type { Config } from '@netlify/functions';
 import { getStore } from '@netlify/blobs';
 import pLimit from 'p-limit';
 
@@ -214,12 +214,6 @@ export default async (req: Request) => {
       console.log(
         '[INFO]',
         `✅ ${BLOB_KEY} entry stored in blob (likes count changed)`
-      );
-      // Invalidate the cache tag for the home page
-      await purgeCache({ tags: ['home'] });
-      console.log(
-        '[INFO]',
-        '♻️  Cache for home page invalidated via cache tag: "home"'
       );
     } else {
       console.log(
