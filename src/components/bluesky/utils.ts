@@ -721,3 +721,57 @@ export function injectPopoverScript(wrapper: HTMLElement) {
   script.type = 'text/javascript';
   wrapper.appendChild(script);
 }
+
+export function animateDialogClose(
+  dialogElement: HTMLDialogElement,
+  button: HTMLButtonElement,
+  viewTransitionName: string
+) {
+  button.style.viewTransitionName = '';
+  dialogElement.style.viewTransitionName = viewTransitionName;
+
+  const closeDialog = () => {
+    button.style.viewTransitionName = viewTransitionName;
+    dialogElement.style.viewTransitionName = '';
+    delete button.dataset.hidden;
+    dialogElement.close();
+  };
+
+  requestAnimationFrame(async () => {
+    if (!document.startViewTransition) {
+      closeDialog();
+      return;
+    }
+    const transition = document.startViewTransition(() => closeDialog());
+    await transition.finished;
+    if (button instanceof HTMLButtonElement) {
+      button.style.viewTransitionName = '';
+    }
+  });
+}
+
+export function animateDialogOpen(
+  dialogElement: HTMLDialogElement,
+  button: HTMLButtonElement,
+  viewTransitionName: string
+) {
+  button.style.viewTransitionName = viewTransitionName;
+  dialogElement.style.viewTransitionName = '';
+
+  const openDialog = () => {
+    button.style.viewTransitionName = '';
+    dialogElement.style.viewTransitionName = viewTransitionName;
+    button.dataset.hidden = 'true';
+    dialogElement.showModal();
+  };
+
+  requestAnimationFrame(async () => {
+    if (!document.startViewTransition) {
+      openDialog();
+      return;
+    }
+    const transition = document.startViewTransition(() => openDialog());
+    await transition.finished;
+    dialogElement.style.viewTransitionName = '';
+  });
+}

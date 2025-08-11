@@ -135,14 +135,431 @@
     "banner": "https://cdn.bsky.app/img/banner/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreib5veo5awyyd5cnmu6msw3bthx7vryypjyvtea5idmhv64xstlmk4@jpeg",
     "followersCount": 52,
     "followsCount": 125,
-    "postsCount": 97,
+    "postsCount": 102,
     "pinnedPost": {
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
     },
-    "avatar": "https://larsejaas.com/bluesky/profileAvatar.jpeg"
+    "avatar": "http://localhost:5432/bluesky/profileAvatar.jpeg"
   },
   "threads": [
+    {
+      "rootUri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x",
+      "posts": [
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x",
+          "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-08-08T10:20:08.648Z",
+            "facets": [
+              {
+                "features": [
+                  {
+                    "$type": "app.bsky.richtext.facet#tag",
+                    "tag": "WebDev"
+                  }
+                ],
+                "index": {
+                  "byteEnd": 269,
+                  "byteStart": 262
+                }
+              },
+              {
+                "features": [
+                  {
+                    "$type": "app.bsky.richtext.facet#tag",
+                    "tag": "TypeScript"
+                  }
+                ],
+                "index": {
+                  "byteEnd": 281,
+                  "byteStart": 270
+                }
+              },
+              {
+                "features": [
+                  {
+                    "$type": "app.bsky.richtext.facet#tag",
+                    "tag": "DeveloperTips"
+                  }
+                ],
+                "index": {
+                  "byteEnd": 297,
+                  "byteStart": 283
+                }
+              }
+            ],
+            "langs": [
+              "en"
+            ],
+            "text": "💡 TypeScript tip: Want autocomplete for common values BUT still allow any string? Here's a clever trick most devs don't know about!\n\nString literal union types like `\"apple\" | \"banana\"` give great IDE autocomplete, but what if you need flexibility too? 🤔\n\n#WebDev #TypeScript  #DeveloperTips"
+          },
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 2,
+          "quoteCount": 0,
+          "indexedAt": "2025-08-08T10:20:17.007Z",
+          "viewer": {
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": [],
+          "likes": [
+            {
+              "actor": {
+                "did": "did:plc:qhwoulqirsnljogsqwpzhntl",
+                "handle": "chloe.pfr.wtf",
+                "displayName": "Chloe @ PFR",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-qhwoulqirsnljogsqwpzhntl.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2024-11-14T04:53:58.690Z",
+                "description": "Managing Editor, Digital @ Pork Fried Rice Collective. I make squiggles and gradients, sometimes take pictures.",
+                "indexedAt": "2025-04-23T21:25:10.175Z"
+              },
+              "createdAt": "2025-08-08T13:24:21.586Z",
+              "indexedAt": "2025-08-08T13:24:21.586Z"
+            },
+            {
+              "actor": {
+                "did": "did:plc:5uxshbngxf5zlpxpikeosvbp",
+                "handle": "samthoyre.bsky.social",
+                "displayName": "Sam Thoyre",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-5uxshbngxf5zlpxpikeosvbp.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false,
+                  "followedBy": "at://did:plc:5uxshbngxf5zlpxpikeosvbp/app.bsky.graph.follow/3lfdhrc3qwy2x"
+                },
+                "labels": [],
+                "createdAt": "2024-11-18T17:29:54.248Z",
+                "description": "🌐 Tech Enthusiast | AI & Dev Tools 🛠️\n🎥 Sharing insights on Next.js, Payload, Supabase, Tailwind, AI, and serverless architecture.\n📺 Watch my tutorials & build with me: https://www.youtube.com/channel/UClxm1AYVvel_7Lhft3FPdhg",
+                "indexedAt": "2024-12-16T16:07:27.641Z"
+              },
+              "createdAt": "2025-08-08T12:00:34.256Z",
+              "indexedAt": "2025-08-08T12:00:34.256Z"
+            }
+          ]
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplp36s2x",
+          "cid": "bafyreidfdhew2xx6fa6aax5mcbr2zoksipqtjsdbrleqyotqrektng2jmy",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-08-08T10:20:08.649Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "TypeScript code showing: \n\ntype Fruit = \"apple\" | \"banana\" | string;\n\nTypeScript widens this to just `string`\n\nNo more autocomplete! 😢",
+                  "aspectRatio": {
+                    "height": 932,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreiawggh6jnfgmpgiel7jjei5m4s7xuvk64dt2x43o4ru5js6hdajuy"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 577471
+                  }
+                }
+              ]
+            },
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x"
+              },
+              "root": {
+                "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x"
+              }
+            },
+            "text": "❌ The problem: Adding `string` to your union kills autocomplete\n\nThis happens because TypeScript widens to the most general type."
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiawggh6jnfgmpgiel7jjei5m4s7xuvk64dt2x43o4ru5js6hdajuy@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiawggh6jnfgmpgiel7jjei5m4s7xuvk64dt2x43o4ru5js6hdajuy@jpeg",
+                "alt": "TypeScript code showing: \n\ntype Fruit = \"apple\" | \"banana\" | string;\n\nTypeScript widens this to just `string`\n\nNo more autocomplete! 😢",
+                "aspectRatio": {
+                  "height": 932,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 1,
+          "quoteCount": 0,
+          "indexedAt": "2025-08-08T10:20:17.025Z",
+          "viewer": {
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzpphmmc2x",
+          "cid": "bafyreihk2fhznudxbz6v24sgoykkrhghoy5xhttt54jlqr3oaj55hay5oe",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-08-08T10:20:08.650Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "TypeScript code showing:\ntype Fruit = \"apple\" | \"banana\" | (string & {});",
+                  "aspectRatio": {
+                    "height": 836,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreiakrlxcqkvjte3kdoiwvwnt2at4bnzumenb3jj2iulfeayth55kqq"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 489574
+                  }
+                }
+              ]
+            },
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreidfdhew2xx6fa6aax5mcbr2zoksipqtjsdbrleqyotqrektng2jmy",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplp36s2x"
+              },
+              "root": {
+                "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x"
+              }
+            },
+            "text": "✅ The solution: Use intersection with {}!\n\nThis magical syntax gives you BOTH:\n\nAutocomplete for \"apple\" and \"banana\"\nAbility to pass any string value\n\nHow does it work? 🪄"
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiakrlxcqkvjte3kdoiwvwnt2at4bnzumenb3jj2iulfeayth55kqq@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiakrlxcqkvjte3kdoiwvwnt2at4bnzumenb3jj2iulfeayth55kqq@jpeg",
+                "alt": "TypeScript code showing:\ntype Fruit = \"apple\" | \"banana\" | (string & {});",
+                "aspectRatio": {
+                  "height": 836,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 1,
+          "quoteCount": 0,
+          "indexedAt": "2025-08-08T10:20:17.042Z",
+          "viewer": {
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzpsf3t22x",
+          "cid": "bafyreieqhpa567j7wske6r4ko7j3zebm7663emibkiivgijmmge2xmg4cm",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-08-08T10:20:08.651Z",
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreihk2fhznudxbz6v24sgoykkrhghoy5xhttt54jlqr3oaj55hay5oe",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzpphmmc2x"
+              },
+              "root": {
+                "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x"
+              }
+            },
+            "text": "🔍 Why string & {} works:\n\n- string & {} is still assignable from any string\n\n- But it's a different type than plain string\n- So TypeScript doesn't widen the union!\n- Your IDE keeps the literal suggestions ✨\n\nThe intersection doesn't change runtime behavior at all."
+          },
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 1,
+          "quoteCount": 0,
+          "indexedAt": "2025-08-08T10:20:17.062Z",
+          "viewer": {
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzpsf4sc2x",
+          "cid": "bafyreid76bdep5uuhxvc73lvhoj3mr552fgf3kqk7r7ngqgrqnvtab53cq",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-08-08T10:20:08.652Z",
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreieqhpa567j7wske6r4ko7j3zebm7663emibkiivgijmmge2xmg4cm",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzpsf3t22x"
+              },
+              "root": {
+                "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x"
+              }
+            },
+            "text": "🚀 Use cases:\n\n- CSS properties with common values + custom\n- API endpoints with known routes + dynamic\n- Theme colors with presets + hex codes\n- Any enum-like type that needs escape hatches\n\nTry it in your next TypeScript project! Your future self (and teammates) will thank you."
+          },
+          "replyCount": 0,
+          "repostCount": 0,
+          "likeCount": 2,
+          "quoteCount": 0,
+          "indexedAt": "2025-08-08T10:20:17.085Z",
+          "viewer": {
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        }
+      ],
+      "viewOnBluesky": "https://bsky.app/profile/larsejaas.bsky.social/post/3lvuzplotes2x",
+      "recordKey": "bsky3lvuzplotes2x"
+    },
     {
       "rootUri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsav6ulcc22",
       "posts": [
@@ -244,7 +661,7 @@
                 "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
                 "handle": "rickywatson.bsky.social",
                 "displayName": "Rick Warsons",
-                "avatar": "https://larsejaas.com/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -267,7 +684,7 @@
                 "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
                 "handle": "bytevagabond.com",
                 "displayName": "ByteVagabond",
-                "avatar": "https://larsejaas.com/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -290,7 +707,7 @@
                 "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
                 "handle": "karma-domains.bsky.social",
                 "displayName": "Karma.Domains",
-                "avatar": "https://larsejaas.com/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
+                "avatar": "http://localhost:5432/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -419,5 +836,5 @@
       "recordKey": "bsky3lrsav6ulcc22"
     }
   ],
-  "host": "https://larsejaas.com"
+  "host": "http://localhost:5432"
 }

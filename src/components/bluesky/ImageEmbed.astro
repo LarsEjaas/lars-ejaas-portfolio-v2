@@ -43,6 +43,8 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
 
 <Fragment>
   <script>
+    import { animateDialogClose, animateDialogOpen } from './utils';
+
     const embedDialogAnchors = Array.from(
       document.querySelectorAll('a[id^="embedDialogButton"]')
     );
@@ -51,6 +53,7 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
       if (!(anchor instanceof HTMLAnchorElement)) {
         return;
       }
+      // Create a button to replace the anchor for dialog functionality
       const embedDialogButton = document.createElement('button');
       embedDialogButton.innerHTML = anchor.innerHTML;
       embedDialogButton.className = anchor.className;
@@ -73,33 +76,6 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
         return;
       }
 
-      function animateClose(
-        dialogElement: HTMLDialogElement,
-        button: HTMLButtonElement
-      ) {
-        button.style.viewTransitionName = '';
-        dialogElement.style.viewTransitionName = vtName;
-
-        const closeDialog = () => {
-          button.style.viewTransitionName = vtName;
-          dialogElement.style.viewTransitionName = '';
-          delete button.dataset.hidden;
-          dialogElement.close();
-        };
-
-        requestAnimationFrame(async () => {
-          if (!document.startViewTransition) {
-            closeDialog();
-            return;
-          }
-          const transition = document.startViewTransition(() => closeDialog());
-          await transition.finished;
-          if (embedDialogButton instanceof HTMLButtonElement) {
-            embedDialogButton.style.viewTransitionName = '';
-          }
-        });
-      }
-
       // Click outside to close
       dialog.addEventListener('click', (event) => {
         const rect = dialog.getBoundingClientRect();
@@ -108,36 +84,18 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
           event.clientX <= rect.right &&
           event.clientY >= rect.top &&
           event.clientY <= rect.bottom;
-        if (!isInDialog) animateClose(dialog, embedDialogButton);
+        if (!isInDialog) animateDialogClose(dialog, embedDialogButton, vtName);
       });
 
       // Escape key (built-in close)
       dialog.addEventListener('close', () => {
         if (!embedDialogButton.dataset.hidden) return;
-        animateClose(dialog, embedDialogButton);
+        animateDialogClose(dialog, embedDialogButton, vtName);
       });
 
       // Open on button click / keydown
       embedDialogButton.addEventListener('click', () => {
-        embedDialogButton.style.viewTransitionName = vtName;
-        dialog.style.viewTransitionName = '';
-
-        const openDialog = () => {
-          embedDialogButton.style.viewTransitionName = '';
-          dialog.style.viewTransitionName = vtName;
-          embedDialogButton.dataset.hidden = 'true';
-          dialog.showModal();
-        };
-
-        requestAnimationFrame(async () => {
-          if (!document.startViewTransition) {
-            openDialog();
-            return;
-          }
-          const transition = document.startViewTransition(() => openDialog());
-          await transition.finished;
-          dialog.style.viewTransitionName = '';
-        });
+        animateDialogOpen(dialog, embedDialogButton, vtName);
       });
     });
   </script>

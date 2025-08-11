@@ -4,10 +4,32 @@
     "localPath": "/bluesky/profileAvatar.jpeg",
     "fileName": "profileAvatar.jpeg"
   },
+  "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiawggh6jnfgmpgiel7jjei5m4s7xuvk64dt2x43o4ru5js6hdajuy@jpeg": {
+    "hash": "69728ccbe99e5bb2dee84c90db4c5d74c0c8ce113801e42b2cd8d18cb82f0f77",
+    "localPath": "/bluesky/post-3lvuzplp36s2x.jpeg",
+    "fileName": "post-3lvuzplp36s2x.jpeg"
+  },
+  "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiakrlxcqkvjte3kdoiwvwnt2at4bnzumenb3jj2iulfeayth55kqq@jpeg": {
+    "hash": "dc628e407736e9ee0a3da0a7c648660726663ef6aa35f43e8b063a1faa4294e1",
+    "localPath": "/bluesky/post-3lvuzpphmmc2x.jpeg",
+    "fileName": "post-3lvuzpphmmc2x.jpeg"
+  },
   "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva@jpeg": {
     "hash": "b5df068dfe85e1b852393d9fedbab5bbba774c3e7f75db312510090a9ed7076f",
     "localPath": "./src/assets/bluesky/post-3lrsawbmbjc22-embed.jpeg",
     "fileName": "post-3lrsawbmbjc22-embed.jpeg"
+  },
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:qhwoulqirsnljogsqwpzhntl/bafkreigwk6lfkm4o2wfqywvjll6rudcoynkf67d2bmodqvba3fmcnrkrii@jpeg": {
+    "hash": "d60f2082b2674404c7c9ea38c9ab261e8522271b7e6dc399f7d1ab161cb16bc2",
+    "localPath": "/bluesky/avatar-thumbnail-qhwoulqirsnljogsqwpzhntl.jpeg",
+    "fileName": "avatar-thumbnail-qhwoulqirsnljogsqwpzhntl.jpeg",
+    "updatedAt": "2025-04-23T21:25:10.175Z"
+  },
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:5uxshbngxf5zlpxpikeosvbp/bafkreibgocczh3q72zgradwt55jfnhz4educpir4dmy3rajeqgizfk5lau@jpeg": {
+    "hash": "69473f0dbac6e65b5b5285103b12cb517865a41ee1b231599d05299cd06591e9",
+    "localPath": "/bluesky/avatar-thumbnail-5uxshbngxf5zlpxpikeosvbp.jpeg",
+    "fileName": "avatar-thumbnail-5uxshbngxf5zlpxpikeosvbp.jpeg",
+    "updatedAt": "2024-12-16T16:07:27.641Z"
   },
   "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:kwzq4ouefalk5ldnwniuh6v7/bafkreigx4sjmwoznwwrkj6v7tywdoop6radl36d34rpl54btpn5dbdj54i@jpeg": {
     "hash": "74b7e388ab30538aae9f0d4126e58b0fc4d68801c4272d0d43341b0996e52112",
