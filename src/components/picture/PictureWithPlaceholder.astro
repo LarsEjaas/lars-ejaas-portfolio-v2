@@ -7,6 +7,7 @@ type Props = Omit<Parameters<typeof Picture>[0], 'src'> & {
   src: ImageMetadata;
   placeholderSettings?: PlaceholderSettings;
   classNames?: Partial<ClassNames>;
+  publicAsset?: boolean;
 };
 
 type PlaceholderSettings = { style?: string | astroHTML.JSX.CSSProperties } & (
@@ -27,6 +28,7 @@ const {
   placeholderSettings,
   'aria-disabled': disabled,
   classNames,
+  publicAsset,
   ...props
 } = Astro.props;
 const placeholder = await (placeholderSettings?.height
@@ -34,13 +36,15 @@ const placeholder = await (placeholderSettings?.height
       props.src.src,
       null,
       placeholderSettings.height,
-      placeholderSettings?.blurSigma
+      placeholderSettings?.blurSigma,
+      publicAsset
     )
   : generateBlurPlaceholder(
       props.src.src,
       placeholderSettings?.width || 16,
       undefined,
-      placeholderSettings?.blurSigma
+      placeholderSettings?.blurSigma,
+      publicAsset
     ));
 ---
 

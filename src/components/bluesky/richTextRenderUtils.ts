@@ -14,7 +14,6 @@ export interface RichTextRenderConfig {
     link?: string;
     hashtag?: string;
     container?: string;
-    embed?: string;
   };
   // Custom attributes for each component type
   attributes?: {

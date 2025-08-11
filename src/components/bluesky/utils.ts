@@ -226,23 +226,29 @@ function processEmbed(embed?: Embed): ProcessedEmbed | undefined {
     return {
       type: 'images',
       images: embed.images
-        .map((image) => {
-          const extractedId = extractDidPlcId(image.fullsize);
-          if (!extractedId) {
-            return undefined;
+        .map(
+          (
+            image: AppBskyEmbedImages.ViewImage & {
+              localPath?: string;
+            }
+          ) => {
+            const extractedId = extractDidPlcId(image.fullsize);
+            if (!extractedId) {
+              return undefined;
+            }
+            return {
+              id: extractedId,
+              uri: image.localPath || image.fullsize,
+              alt: image.alt,
+              aspectRatio: image.aspectRatio
+                ? {
+                    height: image.aspectRatio?.height,
+                    width: image.aspectRatio.width,
+                  }
+                : undefined,
+            };
           }
-          return {
-            id: extractedId,
-            uri: image.fullsize,
-            alt: image.alt,
-            aspectRatio: image.aspectRatio
-              ? {
-                  height: image.aspectRatio?.height,
-                  width: image.aspectRatio.width,
-                }
-              : undefined,
-          };
-        })
+        )
         .filter(notEmpty),
     };
   }

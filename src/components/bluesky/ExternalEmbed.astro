@@ -1,0 +1,91 @@
+---
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import imageMeta from '@assets/bluesky/image-meta.json';
+import type { ImageModule } from '@customTypes/index';
+import styles from './postEmbed.module.css';
+import GlobeIcon from './GlobeIcon.astro';
+
+const blueskyImages = import.meta.glob('@assets/bluesky/*.{jpg,jpeg,png}');
+
+export type Props = {
+  uri?: string;
+  title?: string;
+  description?: string;
+  thumbnail?: string;
+  alt?: string;
+  className?: string;
+};
+
+const { uri, title, description, thumbnail, alt, className } = Astro.props;
+
+const embedHost = uri ? new URL(uri).hostname : undefined;
+
+const imageName =
+  thumbnail && thumbnail in imageMeta
+    ? imageMeta[thumbnail as keyof typeof imageMeta].fileName
+    : undefined;
+
+if (!imageName || typeof imageName !== 'string') {
+  throw new Error(
+    'No image name found for the provided thumbnail in PostEmbed'
+  );
+}
+
+const imageImport = Object.entries(blueskyImages).find(([path]) =>
+  path.includes(imageName)
+);
+
+if (!imageImport) {
+  throw new Error(`Bluesky embed image not found for imageName: ${imageName}`);
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+---
+
+<a
+  href={uri}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={`${styles.postEmbed} ${className || ''}`}
+>
+  <div class={styles.embedPreview}>
+    {
+      thumbnail && (
+        <div
+          class={styles.embedWrapper}
+          style={{
+            aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+          }}
+        >
+          <PictureWithPlaceholder
+            aria-hidden="true"
+            formats={['avif', 'webp']}
+            quality="high"
+            src={ImageComponent}
+            aria-hidden="true"
+            alt={alt || ''}
+            width={ImageComponent.width}
+            height={ImageComponent.height}
+            widths={[328, 500, 670, 1000, 1340]}
+            sizes="(max-width: 480px) 328px, (max-width: 652px) 500px, 670px"
+            loading="lazy"
+            decoding="async"
+            placeholderSettings={{
+              width: 40,
+            }}
+            classNames={{
+              placeholder: styles.embedPlaceholder,
+            }}
+          />
+        </div>
+      )
+    }
+    <div class={styles.embedInfo}>
+      <h3 class={styles.embedTitle}>{title}</h3>
+      <p class={`small-body-text ${styles.embedDesc}`}>{description}</p>
+      <div class={styles.embedUrl}>
+        <GlobeIcon />
+        {embedHost}
+      </div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,238 @@
+---
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import imageMeta from '@assets/bluesky/image-meta.json';
+import type { ImageModule } from '@customTypes/index';
+import { capitalize } from '@utils/misc';
+import styles from './postEmbed.module.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const blueskyPublicImages = import.meta.glob(
+  '@public/bluesky/*.{jpg,jpeg,png}'
+);
+
+export type Props = {
+  uri?: string;
+  alt?: string;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+const { uri, alt } = Astro.props;
+
+const id = crypto.randomUUID();
+
+const imageName =
+  uri && uri in imageMeta
+    ? imageMeta[uri as keyof typeof imageMeta].fileName
+    : undefined;
+
+if (!imageName || typeof imageName !== 'string') {
+  throw new Error('No image name found for the provided uri in PostEmbed');
+}
+
+const imageImport = Object.entries(blueskyPublicImages).find(([path]) =>
+  path.includes(imageName)
+);
+
+if (!imageImport) {
+  throw new Error(`Bluesky embed image not found for imageName: ${imageName}`);
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+---
+
+<Fragment>
+  <script>
+    const embedDialogAnchors = Array.from(
+      document.querySelectorAll('a[id^="embedDialogButton"]')
+    );
+
+    embedDialogAnchors.forEach((anchor) => {
+      if (!(anchor instanceof HTMLAnchorElement)) {
+        return;
+      }
+      const embedDialogButton = document.createElement('button');
+      embedDialogButton.innerHTML = anchor.innerHTML;
+      embedDialogButton.className = anchor.className;
+      embedDialogButton.dataset.dialogId = anchor.dataset.dialogId;
+      embedDialogButton.ariaLabel = anchor.ariaLabel;
+      embedDialogButton.style = anchor.style as unknown as string;
+      anchor.replaceWith(embedDialogButton);
+
+      if (!(embedDialogButton instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const dialogId = embedDialogButton.dataset.dialogId;
+      const vtName = 'morph';
+      const dialog = dialogId
+        ? document.getElementById(`dialog${dialogId}`)
+        : null;
+
+      if (!dialog || !(dialog instanceof HTMLDialogElement)) {
+        return;
+      }
+
+      function animateClose(
+        dialogElement: HTMLDialogElement,
+        button: HTMLButtonElement
+      ) {
+        button.style.viewTransitionName = '';
+        dialogElement.style.viewTransitionName = vtName;
+
+        const closeDialog = () => {
+          button.style.viewTransitionName = vtName;
+          dialogElement.style.viewTransitionName = '';
+          delete button.dataset.hidden;
+          dialogElement.close();
+        };
+
+        requestAnimationFrame(async () => {
+          if (!document.startViewTransition) {
+            closeDialog();
+            return;
+          }
+          const transition = document.startViewTransition(() => closeDialog());
+          await transition.finished;
+          if (embedDialogButton instanceof HTMLButtonElement) {
+            embedDialogButton.style.viewTransitionName = '';
+          }
+        });
+      }
+
+      // Click outside to close
+      dialog.addEventListener('click', (event) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+        if (!isInDialog) animateClose(dialog, embedDialogButton);
+      });
+
+      // Escape key (built-in close)
+      dialog.addEventListener('close', () => {
+        if (!embedDialogButton.dataset.hidden) return;
+        animateClose(dialog, embedDialogButton);
+      });
+
+      // Open on button click / keydown
+      embedDialogButton.addEventListener('click', () => {
+        embedDialogButton.style.viewTransitionName = vtName;
+        dialog.style.viewTransitionName = '';
+
+        const openDialog = () => {
+          embedDialogButton.style.viewTransitionName = '';
+          dialog.style.viewTransitionName = vtName;
+          embedDialogButton.dataset.hidden = 'true';
+          dialog.showModal();
+        };
+
+        requestAnimationFrame(async () => {
+          if (!document.startViewTransition) {
+            openDialog();
+            return;
+          }
+          const transition = document.startViewTransition(() => openDialog());
+          await transition.finished;
+          dialog.style.viewTransitionName = '';
+        });
+      });
+    });
+  </script>
+  <a
+    id={`embedDialogButton${capitalize(id)}`}
+    href={uri}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={styles.embedDialogButton}
+    data-dialog-id={capitalize(id)}
+    aria-label={t('view_image_in_full_size')}
+    style={{
+      aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+    }}
+  >
+    <PictureWithPlaceholder
+      formats={['avif', 'webp']}
+      quality="high"
+      src={ImageComponent}
+      alt={alt || ''}
+      width={ImageComponent.width}
+      height={ImageComponent.height}
+      widths={[328, 500, 670, 1000, 1340]}
+      sizes="(max-width: 480px) 328px, (max-width: 652px) 500px, 670px"
+      loading="lazy"
+      decoding="async"
+      publicAsset={true}
+      placeholderSettings={{
+        width: 40,
+      }}
+      classNames={{
+        placeholder: styles.embedPlaceholder,
+      }}
+    />
+  </a>
+  <dialog
+    id={`dialog${capitalize(id)}`}
+    class={styles.imageDialog}
+    style={{
+      '--dialog-width': `${Math.min(ImageComponent.width, 2000)}px`,
+      maxWidth: `min(calc(100vw - 4rem), var(--dialog-width))`,
+      maxHeight: `min(calc(100vh - 4rem), ${ImageComponent.height}px)`,
+    }}
+  >
+    <button
+      type="button"
+      class={styles.closeButton}
+      aria-label={t('close_popover')}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <path
+          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+          fill="currentColor"></path>
+      </svg>
+    </button>
+    <figure>
+      <div
+        class={styles.imageWrapper}
+        style={{
+          aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+        }}
+      >
+        <PictureWithPlaceholder
+          formats={['avif', 'webp']}
+          quality="high"
+          src={ImageComponent}
+          alt={alt || ''}
+          width={ImageComponent.width}
+          height={ImageComponent.height}
+          widths={[
+            328,
+            704,
+            960,
+            Math.min(1376, ImageComponent.width),
+            Math.min(2000, ImageComponent.width),
+          ]}
+          sizes={`(max-width: 480px) 328px, (max-width: 768px) 704px,(max-width: 1024px) 960px, (max-width: 1440px) 1376px, ${Math.min(ImageComponent.width, 2000)}px`}
+          loading="lazy"
+          decoding="async"
+          publicAsset={true}
+          placeholderSettings={{
+            width: 40,
+          }}
+          classNames={{
+            placeholder: styles.embedPlaceholder,
+          }}
+        />
+      </div>
+      {alt && <figcaption class="body-text">{alt}</figcaption>}
+    </figure>
+  </dialog>
+</Fragment>

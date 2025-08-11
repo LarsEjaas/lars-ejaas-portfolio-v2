@@ -13,14 +13,13 @@ type Props = {
 
 const { thread } = Astro.props;
 
-const postEmbed = thread?.mainPost.embed;
+const embed = thread?.mainPost.embed;
 
-const threadConfig: RichTextRenderConfig = {
+export const threadConfig: RichTextRenderConfig = {
   classNames: {
     container: `body-text ${styles.postContent}`,
     link: styles.postLink,
     hashtag: styles.postHashtag,
-    embed: '',
   },
   attributes: {
     link: { 'data-type': 'external-link' },
@@ -33,30 +32,7 @@ const threadConfig: RichTextRenderConfig = {
   <Fragment
     set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
   />
-  {
-    postEmbed?.type &&
-      (postEmbed?.type === 'images' ? (
-        postEmbed.images.map((image) => (
-          <PostEmbed
-            embedType={postEmbed.type}
-            uri={image.uri}
-            alt={image.alt}
-            className={threadConfig.classNames?.embed}
-            id={image.id}
-          />
-        ))
-      ) : (
-        <PostEmbed
-          embedType={postEmbed.type}
-          uri={postEmbed.uri}
-          title={postEmbed.title}
-          description={postEmbed.description}
-          thumbnail={postEmbed.thumbnail}
-          alt={postEmbed.alt}
-          className={threadConfig.classNames?.embed}
-        />
-      ))
-  }
+  <PostEmbed embed={embed} />
   {
     thread.replies.map((reply) => {
       const content = renderPostContentAsHTML(reply, threadConfig);
@@ -65,28 +41,7 @@ const threadConfig: RichTextRenderConfig = {
         <>
           <div class={styles.divider} />
           <Fragment class={styles.reply} set:html={content} />
-          {replyEmbed &&
-            (replyEmbed.type === 'images' ? (
-              replyEmbed.images.map((image) => (
-                <PostEmbed
-                  embedType={replyEmbed.type}
-                  uri={image.uri}
-                  alt={image.alt}
-                  className={threadConfig.classNames?.embed}
-                  id={image.id}
-                />
-              ))
-            ) : (
-              <PostEmbed
-                embedType={replyEmbed.type}
-                uri={replyEmbed.uri}
-                title={replyEmbed.title}
-                description={replyEmbed.description}
-                thumbnail={replyEmbed.thumbnail}
-                alt={replyEmbed.alt}
-                className={threadConfig.classNames?.embed}
-              />
-            ))}
+          <PostEmbed embed={replyEmbed} />
         </>
       );
     })

@@ -72,23 +72,27 @@
   overflow: hidden;
   border-radius: var(--border-radius-md);
   padding: 0;
-  cursor: default;
+  cursor: pointer;
   width: 100%;
+  display: block;
+  margin-top: 8px;
+  &[data-hidden='true'] {
+    visibility: hidden;
+  }
 }
 
 .imageDialog {
   position: fixed;
   overflow: visible;
+  display: block;
+  visibility: hidden;
   padding: 0;
-  opacity: 0;
   top: 50%;
   left: 50%;
-  transform: scale(0.9) translateX(-50%) translateY(calc(-50% + 30px));
+  transform: translate(-50%, -50%);
   width: 100vw;
   border: unset;
   background: transparent;
-  transition: 400ms all ease-in-out allow-discrete;
-  transform-origin: -25% -25%;
   &::backdrop {
     opacity: 0;
     background-color: light-dark(
@@ -99,9 +103,7 @@
     transition: 400ms 100ms all ease-out allow-discrete;
   }
   &[open] {
-    opacity: 1;
-    display: block;
-    transform: scale(1) translate(-50%, -50%);
+    visibility: visible;
     &::backdrop {
       opacity: 1;
     }
@@ -129,13 +131,6 @@
   }
 }
 
-@starting-style {
-  .imageDialog:open {
-    transform: scale(0.9) translateX(-50%) translateY(calc(-50% + 30px));
-    opacity: 0;
-  }
-}
-
 .imageWrapper {
   position: relative;
   width: 100%;
@@ -150,4 +145,8 @@
     calc(-1rem - 40px),
     calc(min(calc(100vw - 4rem), var(--dialog-width)) - (100vw - 4rem))
   );
+}
+
+::view-transition-group(morph) {
+  z-index: 100;
 }
