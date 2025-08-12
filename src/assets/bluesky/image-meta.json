@@ -6,13 +6,23 @@
   },
   "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiawggh6jnfgmpgiel7jjei5m4s7xuvk64dt2x43o4ru5js6hdajuy@jpeg": {
     "hash": "69728ccbe99e5bb2dee84c90db4c5d74c0c8ce113801e42b2cd8d18cb82f0f77",
-    "localPath": "/bluesky/post-3lvuzplp36s2x.jpeg",
-    "fileName": "post-3lvuzplp36s2x.jpeg"
+    "localPath": "/bluesky/post-3lvuzplp36s2x-embed.jpeg",
+    "fileName": "post-3lvuzplp36s2x-embed.jpeg"
+  },
+  "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiawggh6jnfgmpgiel7jjei5m4s7xuvk64dt2x43o4ru5js6hdajuy@jpeg": {
+    "hash": "99d8817b68f73fca6db95727515d93923a1adafecabd60f4a4da6178253bef87",
+    "localPath": "./src/assets/bluesky/post-3lvuzplp36s2x-embed-thumbnail.jpeg",
+    "fileName": "post-3lvuzplp36s2x-embed-thumbnail.jpeg"
   },
   "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiakrlxcqkvjte3kdoiwvwnt2at4bnzumenb3jj2iulfeayth55kqq@jpeg": {
     "hash": "dc628e407736e9ee0a3da0a7c648660726663ef6aa35f43e8b063a1faa4294e1",
-    "localPath": "/bluesky/post-3lvuzpphmmc2x.jpeg",
-    "fileName": "post-3lvuzpphmmc2x.jpeg"
+    "localPath": "/bluesky/post-3lvuzpphmmc2x-embed.jpeg",
+    "fileName": "post-3lvuzpphmmc2x-embed.jpeg"
+  },
+  "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiakrlxcqkvjte3kdoiwvwnt2at4bnzumenb3jj2iulfeayth55kqq@jpeg": {
+    "hash": "1c031446b76e7fb4eae544f154c3f01234b6d1aac956477cdff3ab01c6dda787",
+    "localPath": "./src/assets/bluesky/post-3lvuzpphmmc2x-embed-thumbnail.jpeg",
+    "fileName": "post-3lvuzpphmmc2x-embed-thumbnail.jpeg"
   },
   "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva@jpeg": {
     "hash": "b5df068dfe85e1b852393d9fedbab5bbba774c3e7f75db312510090a9ed7076f",

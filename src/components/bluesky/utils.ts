@@ -62,6 +62,7 @@ export type ProcessedEmbed =
       images: {
         id: string;
         uri: string;
+        thumbnail: string;
         alt?: string;
         aspectRatio?: { height: number; width: number };
       }[];
@@ -239,6 +240,7 @@ function processEmbed(embed?: Embed): ProcessedEmbed | undefined {
             return {
               id: extractedId,
               uri: image.localPath || image.fullsize,
+              thumbnail: image.thumb,
               alt: image.alt,
               aspectRatio: image.aspectRatio
                 ? {
@@ -742,7 +744,7 @@ export function animateDialogClose(
       closeDialog();
       return;
     }
-    const transition = document.startViewTransition(() => closeDialog());
+    const transition = document.startViewTransition(closeDialog);
     await transition.finished;
     if (button instanceof HTMLButtonElement) {
       button.style.viewTransitionName = '';
@@ -770,7 +772,7 @@ export function animateDialogOpen(
       openDialog();
       return;
     }
-    const transition = document.startViewTransition(() => openDialog());
+    const transition = document.startViewTransition(openDialog);
     await transition.finished;
     dialogElement.style.viewTransitionName = '';
   });

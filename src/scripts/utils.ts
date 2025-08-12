@@ -3,7 +3,6 @@ import type {
   AppBskyFeedSearchPosts,
   AppBskyActorDefs,
   AppBskyFeedDefs,
-  AppBskyEmbedImages,
 } from '@atproto/api';
 import {
   mkdirSync,
@@ -289,17 +288,20 @@ export async function getPostThreads(
       // Download any images from these posts
       for (const post of filtered) {
         if (post.embed && 'images' in post.embed) {
-          for (const image of post.embed
-            .images as (AppBskyEmbedImages.ViewImage & {
-            localPath?: string;
-          })[]) {
+          for (const image of post.embed.images) {
+            // place fullsize image in public folder
             await downloadImageIfChanged({
               url: image.fullsize,
-              localName: `post-${post.uri.split('/').pop()}`,
+              localName: `post-${post.uri.split('/').pop()}-embed`,
               meta: imageMeta,
               publicAsset: true,
             });
-            image.localPath = `${PUBLIC_FOLDER.replace('./public', '')}post-${post.uri.split('/').pop()}`;
+            // place thumbnail image in src folder
+            await downloadImageIfChanged({
+              url: image.thumb,
+              localName: `post-${post.uri.split('/').pop()}-embed-thumbnail`,
+              meta: imageMeta,
+            });
           }
         }
         if (

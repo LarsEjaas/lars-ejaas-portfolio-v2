@@ -2,6 +2,7 @@
 import ImageEmbed from './ImageEmbed.astro';
 import type { ProcessedEmbed } from './utils';
 import ExternalEmbed from './ExternalEmbed.astro';
+import styles from './postEmbed.module.css';
 
 export type Props = {
   embed: ProcessedEmbed | undefined;
@@ -12,10 +13,21 @@ const { embed } = Astro.props;
 
 <>
   {
-    embed?.type === 'images' &&
-      embed.images.map((image) => (
-        <ImageEmbed uri={image.uri} alt={image.alt} />
-      ))
+    embed?.type === 'images' && (
+      <div
+        class={styles.imagesEmbedWrapper}
+        data-image-length={embed.images.length}
+      >
+        {embed.images.map((image, index) => (
+          <ImageEmbed
+            uri={image.uri}
+            thumbnail={image.thumbnail}
+            alt={image.alt}
+            index={index}
+          />
+        ))}
+      </div>
+    )
   }
   {
     embed?.type === 'external' && (
