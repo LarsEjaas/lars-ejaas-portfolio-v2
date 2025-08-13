@@ -69,11 +69,11 @@ const timelineScope = timeLine
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
 
   const { carouselList, previous, next } = window;
   if (carouselList) {
-    initializeKeyboardArrowNavigation(carouselList, true);
+    initHorizontalKeyboardArrowNav(carouselList, true);
   }
 
   /**

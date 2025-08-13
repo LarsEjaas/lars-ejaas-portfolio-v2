@@ -17,7 +17,7 @@ const t = useTranslations(lang, 'navigation');
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   import styles from './socialLinks.module.css';
 
   //there may be more than one element with this class on the page - we needd to initialize the keyboard navigation for each of them
@@ -26,7 +26,7 @@ const t = useTranslations(lang, 'navigation');
   );
 
   elements.forEach((element) => {
-    initializeKeyboardArrowNavigation(element);
+    initHorizontalKeyboardArrowNav(element);
   });
 </script>
 <h2 id=`socialLinksTitle${onCard ? 1 : 2}` class="sr-only">

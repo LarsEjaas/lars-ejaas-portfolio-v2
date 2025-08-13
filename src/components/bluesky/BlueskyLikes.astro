@@ -26,7 +26,7 @@ const likes = (thread.mainPost.likes || []).slice(
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   import {
     fetchLikesOnce,
     cleanupSkeletonLoaders,
@@ -39,27 +39,32 @@ const likes = (thread.mainPost.likes || []).slice(
   const likesWrappers = Array.from(
     document.querySelectorAll('[id^="threadLikes"]')
   );
-  const devTipsLikes = await fetchLikesOnce();
 
-  likesWrappers.forEach((wrapper) => {
-    if (!(wrapper instanceof HTMLDivElement)) return;
+  async function updateLikes() {
+    const devTipsLikes = await fetchLikesOnce();
 
-    const atUri = wrapper.dataset.uri;
-    if (!atUri || !devTipsLikes.length) {
-      cleanupSkeletonLoaders(wrapper);
-      return;
-    }
+    likesWrappers.forEach((wrapper) => {
+      if (!(wrapper instanceof HTMLDivElement)) return;
 
-    const likesHTML = createLikesHTML(devTipsLikes, atUri, lang);
-    if (likesHTML) {
-      wrapper.innerHTML = likesHTML;
-      injectPopoverScript(wrapper);
-    } else {
-      cleanupSkeletonLoaders(wrapper);
-    }
+      const atUri = wrapper.dataset.uri;
+      if (!atUri || !devTipsLikes.length) {
+        cleanupSkeletonLoaders(wrapper);
+        initHorizontalKeyboardArrowNav(wrapper);
+        return;
+      }
 
-    initializeKeyboardArrowNavigation(wrapper);
-  });
+      const likesHTML = createLikesHTML(devTipsLikes, atUri, lang);
+      if (likesHTML) {
+        wrapper.innerHTML = likesHTML;
+        injectPopoverScript(wrapper);
+      } else {
+        cleanupSkeletonLoaders(wrapper);
+      }
+
+      initHorizontalKeyboardArrowNav(wrapper);
+    });
+  }
+  updateLikes();
 </script>
 <div
   class={styles.likesWrapper}

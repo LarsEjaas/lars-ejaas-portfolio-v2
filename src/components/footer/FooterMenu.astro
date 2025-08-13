@@ -21,11 +21,11 @@ const { withModalLinks = true } = Astro.props;
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   import { storeScrollPositionOnClick } from '@utils/scrollPosition';
 
   if (window.footerMenuNavigation) {
-    initializeKeyboardArrowNavigation(window.footerMenuNavigation);
+    initHorizontalKeyboardArrowNav(window.footerMenuNavigation);
   }
   if (window.footerMenuContact) {
     storeScrollPositionOnClick(window.footerMenuContact);

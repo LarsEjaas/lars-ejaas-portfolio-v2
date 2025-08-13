@@ -53,6 +53,14 @@
   padding-bottom: 4px;
 }
 
+.embedTitle,
+.embedDesc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 .embedUrl {
   font-size: var(--font-size-1);
   display: flex;

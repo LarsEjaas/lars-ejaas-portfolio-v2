@@ -184,6 +184,7 @@
   font-size: var(--font-size-2);
   max-width: 28ch;
   display: inline-block;
+  vertical-align: bottom;
   overflow: hidden;
   text-overflow: ellipsis;
 }

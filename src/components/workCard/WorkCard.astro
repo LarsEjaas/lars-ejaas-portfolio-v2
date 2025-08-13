@@ -83,7 +83,7 @@ footerImages?.forEach((footerImage) => {
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   import { setupPaginationScroll } from './utils';
   const tagsWrappers = document.querySelectorAll('[id$="WorkCardTags"]');
 
@@ -95,7 +95,7 @@ footerImages?.forEach((footerImage) => {
 
   if (tagsWrappers.length && isHTMLElementList(tagsWrappers)) {
     tagsWrappers.forEach((tagsWrapper) =>
-      initializeKeyboardArrowNavigation(tagsWrapper)
+      initHorizontalKeyboardArrowNav(tagsWrapper)
     );
   }
 

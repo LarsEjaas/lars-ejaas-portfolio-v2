@@ -10,6 +10,7 @@ import BlueskyThread from './BlueskyThread.astro';
 import { useTranslations } from '@i18n/utils';
 import { constructBlueskyThreads } from './utils';
 import ProfileTimeline from './ProfileTimeline.astro';
+import { capitalize } from '@utils/misc';
 
 type Props<T extends string = string, U extends string = string> = {
   lang: Language;
@@ -32,6 +33,19 @@ const processedThreads = constructBlueskyThreads(feed);
 <script>
   import { setupPaginationScroll } from '@components/workCard/utils';
   setupPaginationScroll();
+  // prevent scrolling sideways when using arrow keys on likes
+  const feedlists = Array.from(document.querySelectorAll('[id^="feedlist"]'));
+  feedlists.forEach((feedlist) => {
+    feedlist.removeAttribute('id');
+    feedlist.addEventListener('keydown', (event) => {
+      if (
+        event instanceof KeyboardEvent &&
+        (event.key === 'ArrowLeft' || event.key !== 'ArrowRight')
+      ) {
+        event.stopPropagation();
+      }
+    });
+  });
 </script>
 <Card
   as="aside"
@@ -68,7 +82,7 @@ const processedThreads = constructBlueskyThreads(feed);
     }
     <div class={styles.butterfly} aria-hidden="true"></div>
     <ProfileTimeline profile={profile} lang={lang} />
-    <ul tabindex={-1} class={styles.feedList}>
+    <ul id={`feedlist${capitalize(id)}`} tabindex={-1} class={styles.feedList}>
       {
         processedThreads.map((thread) => (
           <BlueskyThread

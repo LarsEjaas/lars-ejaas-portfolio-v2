@@ -1,4 +1,4 @@
-import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
 
 export function setupPaginationScroll() {
   const footerImageControls = document.querySelectorAll(
@@ -7,7 +7,7 @@ export function setupPaginationScroll() {
   const footerImageControlsArray = Array.from(footerImageControls);
   footerImageControlsArray.forEach((control) => {
     if (control instanceof HTMLElement) {
-      initializeKeyboardArrowNavigation(control);
+      initHorizontalKeyboardArrowNav(control);
       const buttons = control.querySelectorAll('a');
       const controlButtonsArray = Array.from(buttons);
       controlButtonsArray.forEach((controlButton) => {

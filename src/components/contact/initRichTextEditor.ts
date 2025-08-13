@@ -1,5 +1,5 @@
 import { exec, init, type PellElement } from 'pell';
-import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
 import styles from './contact.module.css';
 
 class PellRichTextEditor {
@@ -481,7 +481,7 @@ class PellRichTextEditor {
     });
 
     this.setupEditorUI();
-    initializeKeyboardArrowNavigation(this.richTextElement);
+    initHorizontalKeyboardArrowNav(this.richTextElement);
     this.richTextElement.ariaKeyShortcuts = 'ArrowLeft ArrowRight';
 
     // Set initial content
