@@ -2,16 +2,19 @@ name: Update Bluesky Data
 
 permissions:
   contents: write
+  pull-requests: write
 
 on:
   schedule:
-    - cron: '0 17 * * *' # ✅ Runs every day at 17:00 UTC
-  workflow_dispatch: # Allows you to run it manually from the GitHub UI
+    - cron: '0 17 * * *' # Runs every day at 17:00 UTC
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   update:
     name: Update Bluesky Developer Tips Data
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.create_branch.outputs.changed }}
     env:
       NODE_ENV: ${{ secrets.NODE_ENV }}
       BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
@@ -30,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Bluesky fetch script with flags
+      - name: Run Bluesky fetch script
         run: node --experimental-transform-types ./src/scripts/bluesky.mts
 
       - name: Configure Git
@@ -38,7 +41,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create or update branch
+      - name: Get current date
+        id: date
+        run: echo "TODAY=$(TZ=Europe/Copenhagen date '+%B %d %Y')" >> $GITHUB_OUTPUT
+
+      - name: Create or update bot branch
         id: create_branch
         run: |
           BRANCH="bluesky-auto"
@@ -48,13 +55,14 @@ jobs:
           else
             git checkout -b $BRANCH
           fi
-          git add ./src/collections/bluesky/devtips_data.json
+
+          git add -A
+
           if git diff --cached --quiet; then
             echo "No changes to commit"
             echo "changed=false" >> $GITHUB_OUTPUT
-            exit 0
           else
-            git commit -m "Update devtips_data.json on $(date '+%B %d %Y')"
+            git commit -m "Update Bluesky data and metadata on ${{ steps.date.outputs.TODAY }}"
             git push --set-upstream origin $BRANCH --force
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
@@ -64,19 +72,28 @@ jobs:
         uses: peter-evans/create-pull-request@v7.0.8
         with:
           token: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
-          commit-message: 'Update devtips_data.json on $(date "+%B %d %Y")'
+          commit-message: 'Update devtips_data.json on ${{ steps.date.outputs.TODAY }}'
           title: 'Update Bluesky data'
           body: 'Automated update of Bluesky data by workflow.'
           branch: bluesky-auto
           base: main
           delete-branch: true
 
-      # Optional: Auto-merge the PR (can be commented out if manual merge is preferred)
-      - name: Auto-merge PR
-        if: steps.create_pull_request.outputs.pull_request_number != ''
-        run: gh pr merge --merge --auto "${{ steps.create_pull_request.outputs.pull_request_number }}"
-        env:
-          GH_TOKEN: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
+  auto_merge:
+    name: Auto-merge bot PR
+    needs: update
+    runs-on: ubuntu-latest
+    if: needs.update.outputs.changed == 'true'
+    steps:
+      - name: Merge bot PR if checks pass
+        uses: peter-evans/merge-pull-request@v3
+        with:
+          token: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
+          merge-method: merge
+          pull-request: 'head:bluesky-auto'
+          author: 'github-actions[bot]'
+          require-status-checks: true
+          bypass-branch-protection: true
 # Go to: https://github.com/settings/personal-access-tokens
 # Create a new fine-grained token with the following scopes:
 # ✅ Commit statuses (read and write)
