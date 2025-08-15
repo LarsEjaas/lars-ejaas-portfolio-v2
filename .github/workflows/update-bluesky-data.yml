@@ -2,16 +2,19 @@ name: Update Bluesky Data
 
 permissions:
   contents: write
+  pull-requests: write
 
 on:
   schedule:
-    - cron: '0 17 * * *' # ✅ Runs every day at 17:00 UTC
-  workflow_dispatch: # Allows you to run it manually from the GitHub UI
+    - cron: '0 17 * * *' # Runs every day at 17:00 UTC
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   update:
     name: Update Bluesky Developer Tips Data
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.create_branch.outputs.changed }}
     env:
       NODE_ENV: ${{ secrets.NODE_ENV }}
       BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
@@ -28,9 +31,9 @@ jobs:
           node-version: 22.7.0
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install jsonwebtoken && npm ci
 
-      - name: Run Bluesky fetch script with flags
+      - name: Run Bluesky fetch script
         run: node --experimental-transform-types ./src/scripts/bluesky.mts
 
       - name: Configure Git
@@ -38,7 +41,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create or update branch
+      - name: Get current date
+        id: date
+        run: echo "TODAY=$(TZ=Europe/Copenhagen date '+%B %d %Y')" >> $GITHUB_OUTPUT
+
+      - name: Create or update bot branch
         id: create_branch
         run: |
           BRANCH="bluesky-auto"
@@ -48,45 +55,99 @@ jobs:
           else
             git checkout -b $BRANCH
           fi
-          git add ./src/collections/bluesky/devtips_data.json
+
+          git add -A
+
           if git diff --cached --quiet; then
             echo "No changes to commit"
             echo "changed=false" >> $GITHUB_OUTPUT
-            exit 0
           else
-            git commit -m "Update devtips_data.json on $(date '+%B %d %Y')"
+            git commit -m "Update Bluesky data and metadata on ${{ steps.date.outputs.TODAY }}"
             git push --set-upstream origin $BRANCH --force
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Generate GitHub App installation token
+        id: app_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.BSKY_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BSKY_GITHUB_APP_PRIVATE_KEY }}
+
       - name: Create or update PR
         if: steps.create_branch.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7.0.8
+        uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
-          commit-message: 'Update devtips_data.json on $(date "+%B %d %Y")'
+          token: ${{ steps.app_token.outputs.token }}
+          commit-message: 'Update devtips_data.json on ${{ steps.date.outputs.TODAY }}'
           title: 'Update Bluesky data'
           body: 'Automated update of Bluesky data by workflow.'
           branch: bluesky-auto
           base: main
           delete-branch: true
 
-      # Optional: Auto-merge the PR (can be commented out if manual merge is preferred)
-      - name: Auto-merge PR
-        if: steps.create_pull_request.outputs.pull_request_number != ''
-        run: gh pr merge --merge --auto "${{ steps.create_pull_request.outputs.pull_request_number }}"
+  auto_merge:
+    name: Auto-merge bot PR
+    needs: update
+    runs-on: ubuntu-latest
+    if: needs.update.outputs.changed == 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate GitHub App installation token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.BSKY_GITHUB_APP_ID }}
+          private-key: ${{ secrets.BSKY_GITHUB_APP_PRIVATE_KEY }}
+
+      - name: Merge pull request via GitHub API (App token)
         env:
-          GH_TOKEN: ${{ secrets.UPDATE_BSKY_WORKFLOW_TOKEN }}
-# Go to: https://github.com/settings/personal-access-tokens
-# Create a new fine-grained token with the following scopes:
-# ✅ Commit statuses (read and write)
-# ✅ Contents (read and write)
-# ✅ Pull requests (read and write)
-# (Optional: give it a name like GitHub Actions push token)
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          APP_INSTALLATION_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          PR_NUMBER=$(curl -s \
+            -H "Authorization: Bearer $APP_INSTALLATION_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/pulls?head=$REPO_OWNER:bluesky-auto&state=open" \
+            | jq -r '.[0].number')
 
-# Add the token as a GitHub Secret:
-# Go to your repository → Settings → Secrets and variables → Actions → New repository secret
+          if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
+            echo "Merging PR #$PR_NUMBER..."
+            curl -s -X PUT \
+              -H "Authorization: Bearer $APP_INSTALLATION_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/pulls/$PR_NUMBER/merge" \
+              -d '{"merge_method":"merge"}'
+            echo "PR #$PR_NUMBER merge request sent."
+          else
+            echo "No open pull request found to merge."
+          fi
 
-# Name it: UPDATE_BSKY_WORKFLOW_TOKEN
-# Description: Token for Update Bluesky Developer Tips Data action via GitHub Actions
-# Paste the token.
+# 1) Install the GitHub "Bluesky Auto Merge" App:
+# - Go to https://github.com/settings/apps and locate the "Bluesky Auto Merge" app.
+# - Click "Edit" next to the app.
+# - Click on the "Install" button.
+# - Choose the repository or repositories where you want the app to have access.
+# - Complete the installation process.
+# -----
+# 2) Generate a Private App Key:
+# - In the app settings, go to the "General" section in the left sidebar.
+# - Click "Generate a private key" and download the .pem file.
+# - Store the contents of this file (including -----BEGIN PRIVATE KEY----- and -----END PRIVATE KEY-----)
+#   as a GitHub Secret named BSKY_GITHUB_APP_PRIVATE_KEY.
+#   (see official documentation at: https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/making-authenticated-api-requests-with-a-github-app-in-a-github-actions-workflow?utm_source=chatgpt.com)
+# -----
+# 3) Obtain the App Installation ID:
+# - For a user installation: https://github.com/apps/{app_name}/installations/{installation_id}
+# - For a repository installation: https://github.com/repos/{owner}/{repo}/installations/{installation_id}
+# - Extract the installation_id from the URL.
+# -----
+# 4) Store Required Secrets in GitHub:
+# - In your repository's settings, navigate to "Secrets and variables" → "Actions" and add the following secrets:
+#   - BSKY_GITHUB_APP_ID: Your GitHub App's ID (found in the "About" section of your GitHub App's settings).
+#   - BSKY_GITHUB_APP_INSTALLATION_ID: The installation ID obtained in Step 3.
+#   - BSKY_GITHUB_APP_PRIVATE_KEY: The private key from Step 2.
+
