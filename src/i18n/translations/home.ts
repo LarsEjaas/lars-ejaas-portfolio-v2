@@ -39,8 +39,8 @@ export const home = {
       'The web should be for everyone. Because accessibility isn’t always prioritised in frontend work, I try to make it a focus whenever I can.',
     quality_in_the_details: 'Quality in the Details',
     developer_tips: 'Developer Tips',
-    tips_from_the_trenches:
-      'Tips from the Trenches.\nReal-world coding insights and quick fixes I share with the developer community.\nFresh wisdom from the frontlines of software development.',
+    hard_earned_dev_wisdom:
+      'Hard-earned dev wisdom — deep dives into the bugs, tricks, and gotchas I’ve faced, and the solutions that actually work...',
     follow_me_on_bluesky: 'Follow me on Bluesky',
     to: 'to',
     get_notified: 'get notified on new tips',
@@ -88,8 +88,8 @@ export const home = {
       'Internettet bør være for alle. Da tilgængelighed ikke altid prioriteres i frontend-arbejde, forsøger jeg at gøre det til et fokusområde, når jeg har muligheden.',
     quality_in_the_details: 'Kvalitet i detaljen',
     developer_tips: 'Tips til udviklere',
-    tips_from_the_trenches:
-      'Tips fra frontlinien.\nIndblik i kodning fra den virkelige verden og hurtige løsninger, som jeg deler med udviklerfællesskabet.\nFrisk visdom fra softwareudviklingens frontlinjer.',
+    hard_earned_dev_wisdom:
+      'Hårdt tilkæmpet udviklerviden — dybdegående analyser af de fejl, tricks og vanskeligheder, jeg er stødt på, samt de løsninger, der faktisk virker...',
     follow_me_on_bluesky: 'Følg mig på Bluesky',
     to: 'for at',
     get_notified: 'få besked om nye tips',

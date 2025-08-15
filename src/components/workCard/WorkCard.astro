@@ -99,7 +99,11 @@ footerImages?.forEach((footerImage) => {
     );
   }
 
-  setupPaginationScroll();
+  const footerImageControls = Array.from(
+    document.querySelectorAll('[id$="footerNavigation"]')
+  );
+
+  setupPaginationScroll(footerImageControls);
 </script>
 <Card
   inert={inert}
