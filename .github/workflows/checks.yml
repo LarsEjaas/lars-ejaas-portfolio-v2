@@ -57,6 +57,13 @@ jobs:
         if: github.ref != 'refs/heads/main'
         run: npm run build
 
+      - name: Ensure image cache folder exists
+        if: github.ref != 'refs/heads/main'
+        run: |
+          if [ ! -d ".cache/assets" ]; then
+          mkdir -p .cache/assets
+          fi
+
       - name: Save updated image cache
         if: github.ref != 'refs/heads/main'
         uses: actions/cache@v4
