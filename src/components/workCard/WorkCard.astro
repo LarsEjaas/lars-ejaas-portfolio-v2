@@ -13,6 +13,7 @@ import CurrentEmploymentBadge from './CurrentEmploymentBadge.astro';
 import CalendarIcon from './CalendarIcon.astro';
 import CodeIcon from './CodeIcon.astro';
 import type { CamelCaseString, KebabCaseString } from '@customTypes/index';
+import TagIcon from './TagIcon.astro';
 
 type Props<T extends string = string, U extends string = string> = {
   inert: boolean;
@@ -173,10 +174,12 @@ footerImages?.forEach((footerImage) => {
                     href={`${translatePath(`${tag.href}/`)}#skillPresentation`}
                     class={styles.tag}
                   >
+                    <TagIcon />
                     {tag.title}
                   </a>
                 ) : (
                   <span role="menuitem" class={styles.tag}>
+                    <TagIcon />
                     {tag.title}
                   </span>
                 )}

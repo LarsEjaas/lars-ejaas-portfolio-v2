@@ -156,7 +156,8 @@ export type IconImage =
   | 'skillset'
   | 'work'
   | 'archive'
-  | 'lock';
+  | 'lock'
+  | 'devTips';
 
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;

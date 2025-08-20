@@ -10,6 +10,25 @@ export const getFocusableElements = (
   return elements;
 };
 
+/** Reset focus to first element when tabbing back into the section */
+function resetTabindex(
+  rootElement: HTMLElement,
+  navigationElements: HTMLElement[]
+) {
+  rootElement.addEventListener('focusin', (e) => {
+    // Reset tabindex to only make first element focusable every time we tab into the section
+    if (
+      e.relatedTarget instanceof Node &&
+      !rootElement.contains(e.relatedTarget)
+    ) {
+      navigationElements.forEach((item, index) => {
+        item.setAttribute('tabindex', index === 0 ? '0' : '-1');
+      });
+      navigationElements[0]?.focus();
+    }
+  });
+}
+
 /**
  * Create keyboard navigation within this element. Replaces the
  * existing tab navigation with horizontal arrow keys navigation left/right.
@@ -18,10 +37,11 @@ export const getFocusableElements = (
  *
  * Each focusable element must manually be marked with the `data-arrow-nav="true"` attribute
  */
-export const initHorizontalKeyboardArrowNav = (
+export function initHorizontalKeyboardArrowNav(
   hostElement: HTMLElement,
-  reverse?: boolean
-) => {
+  reverse?: boolean,
+  preventDefault: boolean = true
+) {
   if (hostElement.dataset.arrowNavInitialized) {
     return;
   }
@@ -38,77 +58,89 @@ export const initHorizontalKeyboardArrowNav = (
     focusableElements.reverse();
   }
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (
-      (event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
-      event.target instanceof HTMLElement
-    ) {
-      // Do not scroll horizontally
-      event.preventDefault();
+  focusableElements.forEach((el, i) => {
+    el.dataset.index = String(i);
+    el.tabIndex = i === 0 ? 0 : -1;
+  });
+
+  hostElement.addEventListener('keydown', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      preventDefault && event.preventDefault();
+
+      const current = Number(event.target.dataset.index ?? -1);
+      if (current === -1) return;
+
       const direction = event.key === 'ArrowLeft' ? -1 : 1;
-      const currentIndex = focusableElements.indexOf(event.target);
-      const newIndex = currentIndex + direction;
+      const next = current + direction;
 
-      if (newIndex >= 0 && newIndex < focusableElements.length) {
-        focusableElements[newIndex]?.focus();
+      if (
+        next >= 0 &&
+        next < focusableElements.length &&
+        focusableElements[next]
+      ) {
+        focusableElements[next].tabIndex = 0; //make the new element focusable
+        focusableElements[next].focus();
+        event.target.tabIndex = -1; // remove from tab order
       }
-      return;
-    }
-
-    const allTabElements =
-      Array.from(
-        document.querySelectorAll(
-          'a, button, input, select, textarea, [tabindex]:not([tabindex^="-"])'
-        ) as NodeListOf<HTMLElement>
-      ).filter((el) => el.tabIndex !== -1) ?? [];
-
-    if (
-      event.target instanceof HTMLElement &&
-      event.key === 'Tab' &&
-      event.shiftKey &&
-      !reverse &&
-      event.target?.tabIndex !== 0
-    ) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      const newIndex = allTabElements.indexOf(
-        focusableElements[0] as HTMLElement
-      );
-      newIndex > 0
-        ? allTabElements[newIndex]?.focus()
-        : focusableElements[0]?.focus();
-      return;
-    }
-
-    /** Do not got to the last tab element if in reverse (visually the last element is the first element) */
-    if (
-      event.target instanceof HTMLElement &&
-      event.key === 'Tab' &&
-      !event.shiftKey &&
-      reverse &&
-      event.target?.tabIndex !== 0
-    ) {
-      event.preventDefault();
-
-      const newIndex = allTabElements.indexOf(
-        focusableElements[0] as HTMLElement
-      );
-      allTabElements[newIndex + 1]?.focus();
-      return;
-    }
-  };
-
-  focusableElements.forEach((element, index) => {
-    element.addEventListener('keydown', handleKeyDown, {
-      passive: false,
-    });
-    if (index !== 0) {
-      element.tabIndex = -1;
-    } else {
-      // This is needed in Safari to make the first element focusable
-      element.tabIndex = 0;
     }
   });
+
+  resetTabindex(hostElement, focusableElements);
+
   hostElement.dataset.arrowNavInitialized = 'true';
-};
+}
+
+/**
+ * Create keyboard navigation within this element. Replaces the
+ * existing tab navigation with vertical arrow keys navigation up/down.
+ * @param {HTMLElement} hostElement - The element to initialize navigation within
+ *
+ * Each focusable element must manually be marked with the `data-arrow-nav="true"` attribute
+ */
+export function initVerticalKeyboardArrowNav(hostElement: HTMLElement) {
+  if (hostElement.dataset.arrowNavInitialized) return;
+
+  const focusableElements = getFocusableElements(hostElement);
+  if (!focusableElements.length) {
+    console.warn(
+      'Arrow navigation not initialized, no focusable elements:',
+      hostElement
+    );
+    return;
+  }
+
+  focusableElements.forEach((el, i) => {
+    el.dataset.index = String(i);
+    el.tabIndex = i === 0 ? 0 : -1;
+  });
+
+  hostElement.addEventListener('keydown', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      event.preventDefault();
+
+      const current = Number(event.target.dataset.index ?? -1);
+      if (current === -1) return;
+
+      const direction = event.key === 'ArrowUp' ? -1 : 1;
+      const next = current + direction;
+
+      if (
+        next >= 0 &&
+        next < focusableElements.length &&
+        focusableElements[next]
+      ) {
+        focusableElements[next].tabIndex = 0; //make the new element focusable
+        focusableElements[next].focus();
+        event.target.tabIndex = -1; // remove from tab order
+      }
+    }
+  });
+
+  resetTabindex(hostElement, focusableElements);
+
+  hostElement.dataset.arrowNavInitialized = 'true';
+}

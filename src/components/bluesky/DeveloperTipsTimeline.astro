@@ -1,0 +1,37 @@
+---
+import AuthorAvatar from './AuthorAvatar.astro';
+import styles from './timeline.module.css';
+import type { Language } from '@i18n/utils';
+import type { ProcessedBlueskyThread } from './utils';
+import type { BlueskyData } from '@scripts/utils';
+import TableOfContents from './TableOfContents.astro';
+import CollapsibleThread from './CollapsibleThread.astro';
+
+type Props = {
+  threads: ProcessedBlueskyThread[];
+  profile: BlueskyData['profile'];
+  lang: Language;
+};
+
+const { threads, profile, lang } = Astro.props;
+---
+
+<div class={styles.timelineWrapper}>
+  <TableOfContents threads={threads} lang={lang} />
+  <div class={styles.tipsWrapper}>
+    <div class={styles.profileInfo}>
+      <AuthorAvatar profile={profile} lang={lang} popoverPosition="bottom" />
+      {profile.displayName ?? profile.handle}
+    </div>
+    {
+      threads.map((thread, index) => (
+        <CollapsibleThread
+          index={index}
+          thread={thread}
+          isLastThread={threads.length === index + 1}
+          lang={lang}
+        />
+      ))
+    }
+  </div>
+</div>

@@ -327,6 +327,19 @@ export function constructBlueskyThreads(
   });
 }
 
+const EXCLUDED_LABELS = ['WebDev', 'DeveloperTips'];
+
+export function getThreadLabels(thread: ProcessedBlueskyThread) {
+  const lowerExcluded = EXCLUDED_LABELS.map((label) => label.toLowerCase());
+  return thread.mainPost.content.segments
+    .filter(
+      (segment) =>
+        segment.type === 'hashtag' &&
+        !lowerExcluded.includes(segment.content.replace('#', '').toLowerCase())
+    )
+    .map((segment) => segment.content.replace('#', ''));
+}
+
 /**
  * Utility function to get a thread summary for display
  */

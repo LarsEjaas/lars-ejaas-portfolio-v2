@@ -153,6 +153,7 @@ const { balloonColor, coverPhoto, maxHeight } = Astro.props;
     <Balloon
       variant="two"
       balloonColor={balloonColor}
+      hasCoverPhoto={!!coverPhoto}
       config={BALLOON_ANIMATION_CONFIG.two}
     />
     <Balloon

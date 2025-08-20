@@ -1,9 +1,8 @@
 ---
 import type { BlueskyData } from '@scripts/utils';
-import Popover from '../popover/Popover.astro';
 import styles from './bluesky.module.css';
-import AvatarProfile from './AvatarProfile.astro';
-import { useTranslations, type Language } from '@i18n/utils';
+import { type Language } from '@i18n/utils';
+import AuthorAvatar from './AuthorAvatar.astro';
 
 type Props = {
   profile: BlueskyData['profile'];
@@ -12,53 +11,13 @@ type Props = {
 
 const { profile, lang } = Astro.props;
 
-const t = useTranslations(lang, 'navigation');
-
 if (!profile?.avatar) {
   throw new Error(`No Bluesky profile avatar found for: ${profile.avatar}`);
 }
-
-const avatar = profile.avatar;
 ---
 
 <aside class={styles.profileTimeline}>
-  <Popover
-    width={320}
-    position="top"
-    id={'1234'}
-    buttonLabel={`${t('view_profile_of')} ${profile.displayName || profile.handle}`}
-    classNames={{
-      button: styles.profileButton,
-      wrapper: styles.profileWrapper,
-    }}
-    buttonAttributes={{
-      ['data-arrow-nav']: 'true',
-      role: 'menuitem',
-      slot: 'buttonContent',
-    }}
-  >
-    <Fragment slot="buttonContent">
-      <div
-        class={styles.image}
-        style={avatar
-          ? {
-              backgroundImage: avatar
-                ? `url(${avatar})`
-                : 'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))',
-            }
-          : undefined}
-      >
-      </div>
-    </Fragment>
-    <AvatarProfile
-      description={profile.description}
-      handle={profile.handle}
-      displayName={profile.displayName}
-      avatar={avatar}
-      followersCount={profile.followersCount}
-      followsCount={profile.followsCount}
-    />
-  </Popover>
+  <AuthorAvatar profile={profile} lang={lang} />
   <div class={styles.timelineDivider}></div>
   <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
     <path

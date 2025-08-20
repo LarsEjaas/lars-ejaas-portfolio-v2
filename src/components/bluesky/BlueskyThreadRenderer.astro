@@ -9,17 +9,26 @@ import PostEmbed from './PostEmbed.astro';
 
 type Props = {
   thread: ProcessedBlueskyThread;
+  scrollable?: boolean;
+  className?: string;
+  classNames?: RichTextRenderConfig['classNames'];
 };
 
-const { thread } = Astro.props;
+const {
+  thread,
+  scrollable = true,
+  className = '',
+  classNames = {},
+} = Astro.props;
 
 const embed = thread?.mainPost.embed;
 
-export const threadConfig: RichTextRenderConfig = {
+const threadConfig: RichTextRenderConfig = {
   classNames: {
     container: `body-text ${styles.postContent}`,
     link: styles.postLink,
     hashtag: styles.postHashtag,
+    ...classNames,
   },
   attributes: {
     link: { 'data-type': 'external-link' },
@@ -28,7 +37,10 @@ export const threadConfig: RichTextRenderConfig = {
 };
 ---
 
-<section class={styles.threadContent}>
+<section
+  class={`${styles.threadContent} ${className}`}
+  data-no-scroll={!scrollable || undefined}
+>
   <Fragment
     set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
   />

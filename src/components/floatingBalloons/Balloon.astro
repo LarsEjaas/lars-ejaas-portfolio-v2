@@ -9,12 +9,14 @@ type Props =
       variant: Exclude<BalloonProps['variant'], 'three'>;
       balloonColor: BalloonProps['balloonColor'];
       coverPhoto?: never;
+      hasCoverPhoto?: boolean;
       config: BalloonConfig;
     }
   | {
       variant: Extract<BalloonProps['variant'], 'three'>;
       balloonColor: BalloonProps['balloonColor'];
       coverPhoto: ImageMetadata | undefined;
+      hasCoverPhoto?: never;
       config: BalloonConfig;
     };
 
@@ -23,7 +25,8 @@ export type BalloonProps = {
   balloonColor: ColorVariants;
 };
 
-const { variant, coverPhoto, balloonColor, config } = Astro.props;
+const { variant, coverPhoto, balloonColor, hasCoverPhoto, config } =
+  Astro.props;
 ---
 
 <div
@@ -36,6 +39,7 @@ const { variant, coverPhoto, balloonColor, config } = Astro.props;
   data-aquamarine={balloonColor === 'aquamarine' ? 'true' : undefined}
   data-bluemunsell={balloonColor === 'bluemunsell' ? 'true' : undefined}
   data-variant={variant}
+  data-with-coverphoto={hasCoverPhoto ? 'true' : undefined}
 >
   {
     coverPhoto && (

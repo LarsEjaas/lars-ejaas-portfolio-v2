@@ -69,6 +69,14 @@ export const getMetaInfo = (lang: Language): MetaInfo => {
         alt: t('home_seo_image_alt'),
       },
     },
+    ['developer-tips']: {
+      title: t('developer_tips'),
+      description: t('developer_tips_seo_description'),
+      image: {
+        name: `developer_tips_${lang}`,
+        alt: t('developer_tips_seo_image_alt'),
+      },
+    },
   };
 };
 

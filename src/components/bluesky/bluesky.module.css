@@ -146,6 +146,9 @@
   flex: 1 0 auto;
   height: calc(100% - 46px);
   overflow-y: auto;
+  &[data-no-scroll] {
+    overflow-y: hidden;
+  }
   padding-inline: 8px;
   padding-bottom: 4px;
   @container blueskyFeedCard (width >= 430px) {

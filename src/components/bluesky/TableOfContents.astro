@@ -1,0 +1,102 @@
+---
+import type { Language } from '@i18n/settings';
+import { useTranslations } from '@i18n/utils';
+import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
+import styles from './timeline.module.css';
+import TagIcon from '../workCard/TagIcon.astro';
+
+type Props = {
+  threads: ProcessedBlueskyThread[];
+  lang: Language;
+};
+
+const { threads, lang } = Astro.props;
+const t = useTranslations(lang, 'navigation');
+---
+
+<table-of-contents>
+  <nav
+    id="tableOfContents"
+    class={styles.toc}
+    aria-label={t('nav_dev_tips')}
+    role="menubar"
+    aria-keyshortcuts="ArrowUp ArrowDown"
+  >
+    <ul
+      class={styles.tocList}
+      role="list"
+      aria-describedby="tocHelp"
+      data-roving="true"
+    >
+      {
+        threads.map((thread) => {
+          const labels = getThreadLabels(thread);
+          const title = thread.mainPost.content.raw.slice(0, 28) + '…';
+          return (
+            <li class={styles.tocItem}>
+              <a
+                href={`#${thread.recordKey}`}
+                data-arrow-nav="true"
+                data-href={thread.recordKey}
+              >
+                {title}
+                {labels.length && (
+                  <div class={styles.labelWrapper} aria-hidden="true">
+                    {labels.map((label) => (
+                      <span class={styles.label} data-size="small">
+                        <TagIcon />
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+    <p id="tocHelp" class="sr-only">Use the arrow keys to move between items</p>
+  </nav>
+</table-of-contents>
+<script>
+  import { initVerticalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
+  class TableOfContents extends HTMLElement {
+    connectedCallback() {
+      const toc = this.querySelector('#tableOfContents');
+
+      if (toc instanceof HTMLElement) {
+        initVerticalKeyboardArrowNav(toc);
+        const links = Array.from(toc.querySelectorAll('a'));
+        function scrollToTarget(
+          this: HTMLAnchorElement,
+          ev: MouseEvent | KeyboardEvent
+        ) {
+          if (
+            ev instanceof KeyboardEvent &&
+            ev.key !== 'Enter' &&
+            ev.key !== ' '
+          ) {
+            return;
+          }
+          const target = document.querySelector(`#${this.dataset.href}`);
+          if (target) {
+            ev.preventDefault();
+            target.scrollIntoView({
+              behavior: 'smooth',
+            });
+          }
+        }
+
+        links.forEach((link) => {
+          if (link instanceof HTMLAnchorElement) {
+            link.addEventListener('click', scrollToTarget);
+            link.addEventListener('keydown', scrollToTarget);
+          }
+        });
+      }
+    }
+  }
+
+  customElements.define('table-of-contents', TableOfContents);
+</script>

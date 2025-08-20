@@ -7,7 +7,7 @@ type Props<T extends string = string, U extends string = string> = {
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName: KebabCaseString<T>;
+  viewTransitionName: KebabCaseString<T> | undefined;
   /** Unique identifier for this card. Should be written in camelCase
    * This can also be used as an anchor to go directly to this card.
    */
@@ -31,7 +31,9 @@ const {
   id={id}
   inert={inert}
   class={`${styles.card} ${className || ''}`}
-  style={`view-transition-name: ${viewTransitionName}`}
+  style={viewTransitionName
+    ? `view-transition-name: ${viewTransitionName}`
+    : undefined}
 >
   <slot />
 </Element>

@@ -1,0 +1,238 @@
+---
+import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
+import mainStyles from './bluesky.module.css';
+import styles from './timeline.module.css';
+import Card from '@components/card/Card.astro';
+import BlueskyThreadRenderer from './BlueskyThreadRenderer.astro';
+import { formatDate } from '@utils/misc';
+import type { Language } from '@i18n/settings';
+import TagIcon from '@components/workCard/TagIcon.astro';
+import BlueskyLikes from './BlueskyLikes.astro';
+import { useTranslations } from '@i18n/utils';
+import ButterflyIcon from './ButterflyIcon.astro';
+
+type Props = {
+  thread: ProcessedBlueskyThread;
+  lang: Language;
+  index: number;
+  isLastThread: boolean;
+};
+
+const { thread, index, isLastThread, lang } = Astro.props;
+
+const indexedAt = thread.createdAt;
+const formattedTimestamp = formatDate(indexedAt, lang);
+
+const labels = getThreadLabels(thread);
+
+const t = useTranslations(lang, 'navigation');
+---
+
+<collapsible-thread>
+  {
+    index === 0 && (
+      <div class={`${styles.collapsibleThread} ${styles.topDivider}`}>
+        <div class={styles.timelineDivider} />
+      </div>
+    )
+  }
+  <details
+    name="developer_tips_thread"
+    id={thread.recordKey}
+    class={styles.collapsibleThread}
+    data-last-item={isLastThread || undefined}
+    open={index === 0}
+  >
+    <summary tabindex={0}>
+      <span
+        ><svg
+          width="16"
+          fill="currentColor"
+          aria-hidden="true"
+          viewBox="4.5 7 15 15"
+        >
+          <path d="M7.4 18.2 L12 13.6 L16.6 18.2 L18 16.8 L12 10.8 L6 16.8 Z"
+          ></path>
+        </svg></span
+      >
+    </summary>
+    <Card
+      as="span"
+      viewTransitionName={undefined}
+      inert={false}
+      className={styles.threadCard}
+    >
+      <div class={styles.cardContent}>
+        <div class={styles.butterfly} aria-hidden="true"></div>
+        <div class={styles.threadInfo}>
+          {
+            formattedTimestamp && indexedAt && (
+              <time datetime={indexedAt} class={styles.date}>
+                {formattedTimestamp}
+              </time>
+            )
+          }
+          {
+            labels.length &&
+              labels.map((label) => (
+                <span class={styles.label}>
+                  <TagIcon />
+                  {label}
+                </span>
+              ))
+          }
+        </div>
+        <BlueskyThreadRenderer
+          thread={thread}
+          scrollable={false}
+          className={styles.threadWrapper}
+          classNames={{ hashtag: styles.hashtag }}
+        />
+        <div class={styles.threadFooter}>
+          <BlueskyLikes thread={thread} />
+          <a
+            class={mainStyles.viewOnBluesky}
+            href={thread.viewOnBluesky}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <p>
+              {t('view_on_bluesky')}
+            </p>
+            <ButterflyIcon />
+          </a>
+        </div>
+      </div>
+    </Card>
+    <div class={styles.timelineDivider}></div>
+  </details>
+</collapsible-thread>
+
+<script>
+  import styles from './timeline.module.css';
+  class CollapsibleThread extends HTMLElement {
+    private details: HTMLDetailsElement | null = null;
+    private card: HTMLSpanElement | null = null;
+    private _onToggle: (e: Event) => void;
+
+    constructor() {
+      super();
+      this._onToggle = this.handleToggle.bind(this);
+    }
+
+    connectedCallback() {
+      this.details = this.querySelector('details');
+      this.card = this.querySelector(`.${styles.threadCard}`);
+
+      if (this.details && this.card) {
+        //set inert programmatically to make all content accessible if JS is disabled
+        this.card.inert = !this.details.open;
+        if (CSS.supports('selector(::details-content)')) {
+          this.details.addEventListener('toggle', this._onToggle);
+          return;
+        }
+
+        // Fallback: replace <details> with custom collapsible
+        const div = this.replaceDetailsFallback(this.details);
+        div.addEventListener('toggle', this._onToggle);
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.details) {
+        this.details.removeEventListener('toggle', this._onToggle);
+      }
+    }
+
+    private handleToggle(e: Event) {
+      const target = e.target as HTMLElement;
+      if (!this.card || !target) return;
+      if (target instanceof HTMLDetailsElement) {
+        this.card.inert = !target.open;
+        return;
+      }
+      if (target instanceof HTMLDivElement && 'open' in target.dataset) {
+        const groupName = target.dataset.group;
+        const elementsToUpdate = groupName
+          ? Array.from(
+              document.querySelectorAll<HTMLElement>(
+                `div[data-group="${groupName}"]`
+              )
+            )
+          : [target];
+
+        elementsToUpdate.forEach((el) => {
+          const card = el.querySelector(`.${styles.threadCard}`);
+          if ('open' in el.dataset && card instanceof HTMLElement) {
+            card.inert = el.dataset.open !== 'true';
+          }
+        });
+      }
+    }
+
+    //Polyfill for browsers not supporting the ::details-content selector
+    private replaceDetailsFallback(detailsEl: HTMLDetailsElement) {
+      const groupName = detailsEl.name;
+      const div = document.createElement('div');
+
+      for (const attr of detailsEl.attributes) {
+        if (attr.name !== 'open') div.setAttribute(attr.name, attr.value);
+      }
+
+      div.dataset.open = detailsEl.hasAttribute('open') ? 'true' : 'false';
+      if (groupName) div.dataset.group = groupName;
+
+      while (detailsEl.firstChild) {
+        div.appendChild(detailsEl.firstChild);
+      }
+
+      div.setAttribute('role', 'group');
+
+      detailsEl.replaceWith(div);
+
+      const summary = div.querySelector('summary');
+      if (!summary) {
+        return div;
+      }
+      summary.setAttribute('role', 'button');
+      summary.setAttribute(
+        'aria-expanded',
+        div.dataset.open === 'true' ? 'true' : 'false'
+      );
+
+      summary.tabIndex = 0;
+
+      function toggle(e: MouseEvent | KeyboardEvent) {
+        if ('key' in e && e.key !== ' ' && e.key !== 'Enter') {
+          return;
+        }
+        e.preventDefault();
+
+        const isOpen = div.dataset.open === 'true';
+        const newState = !isOpen;
+        div.dataset.open = newState ? 'true' : 'false';
+
+        if (groupName) {
+          const siblings = document.querySelectorAll(
+            `div[data-group="${groupName}"]`
+          );
+          siblings.forEach((sib) => {
+            if (sib !== div && sib instanceof HTMLElement)
+              sib.dataset.open = 'false';
+          });
+        }
+
+        // Fire a toggle event similar to native <details>
+        div.dispatchEvent(
+          new CustomEvent('toggle', { bubbles: true, composed: true })
+        );
+      }
+
+      summary.addEventListener('click', toggle);
+      summary.addEventListener('keydown', toggle);
+      return div;
+    }
+  }
+
+  customElements.define('collapsible-thread', CollapsibleThread);
+</script>

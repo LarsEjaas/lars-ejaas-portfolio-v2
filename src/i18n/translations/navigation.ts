@@ -44,10 +44,16 @@ export const navigation = {
     privacy_policy_seo_description:
       '🔒 Read about how I handle data on my portfolio site. Transparent information about analytics, and your privacy while browsing my work.',
     contact_title: 'Write to me',
+    developer_tips: 'Developer Tips',
+    developer_tips_seo_description:
+      '💡 Read my collection of developer tips for real-life bug solutions and insights into common pitfalls. Get honest insights to help you code smarter!',
+    developer_tips_seo_image_alt:
+      'Illustration of a glowing lightbulb between curly braces. In the lower left corner a profile picture and signature of "Lars Ejaas’s" with the label: "Frontend Developer".',
     close_modal_title: 'Close modal',
     nav_mobile: 'Main mobile navigation',
     nav_desktop: 'Main navigation',
     nav_footer: 'Footer navigation',
+    nav_dev_tips: 'Developer Tips Table of Contents',
     go_to_image: 'Go to the image',
     scroll_to_image: 'Scroll to image',
     tech_stack: 'Tech Stack',
@@ -131,10 +137,16 @@ export const navigation = {
     privacy_policy_seo_description:
       '🔒 Læs om, hvordan jeg håndterer data på min side. Gennemsigtig information om analytics og dit privatliv, mens du gennemser mit arbejde.',
     contact_title: 'Skriv til mig',
+    developer_tips: 'Developer Tips',
+    developer_tips_seo_description:
+      '💡 Udforsk min samling af tips til udviklere med løsninger på fejl og typiske faldgruber. Få ærlige erfaringer, der hjælper dig med at kode bedre!',
+    developer_tips_seo_image_alt:
+      'Illustration af en lysende el-pære mellem tuborgklammer. I nederste venstre hjørne Lars Ejaas’ profilbillede, hans signatur og etiketten: "frontend-udvikler".',
     close_modal_title: 'Luk modal',
     nav_mobile: 'Overordnet navigation mobil',
     nav_desktop: 'Overordnet navigation',
     nav_footer: 'Footer navigation',
+    nav_dev_tips: 'Developer Tips indholdsfortegnelse',
     go_to_image: 'Gå til billedet',
     scroll_to_image: 'Scroll til billede',
     tech_stack: 'Tech stack',

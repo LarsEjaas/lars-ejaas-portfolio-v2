@@ -11,6 +11,7 @@ import { languages } from './languageDefinition.mts';
 import { privacyPolicy } from './translations/privacyPolicy';
 import { skillCards } from './translations/skillCards';
 import { global } from './translations/global';
+import { developerTips } from './translations/developerTips';
 
 export type Language = keyof typeof languages;
 
@@ -31,6 +32,7 @@ export const translations = {
   skillCards,
   skills,
   work,
+  developerTips,
 } as const;
 
 export const showDefaultLang = false;
