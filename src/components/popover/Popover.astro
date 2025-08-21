@@ -14,10 +14,10 @@ type Props<U extends string = string> = {
   /** Width of the popover - defaults to 300px */
   width?: number;
   buttonAttributes?: astroHTML.JSX.DefinedIntrinsicElements['button'];
-  classNames?: Partial<ClassNames>;
+  classNames?: Partial<PopoverClassNames>;
 };
 
-type ClassNames = {
+export type PopoverClassNames = {
   button: string;
   wrapper: string;
 };

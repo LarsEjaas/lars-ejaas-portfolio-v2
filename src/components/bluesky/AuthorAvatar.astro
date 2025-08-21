@@ -1,6 +1,6 @@
 ---
 import type { BlueskyData } from '@scripts/utils';
-import Popover from '../popover/Popover.astro';
+import Popover, { type PopoverClassNames } from '../popover/Popover.astro';
 import styles from './bluesky.module.css';
 import AvatarProfile from './AvatarProfile.astro';
 import { useTranslations, type Language } from '@i18n/utils';
@@ -9,9 +9,10 @@ type Props = {
   profile: BlueskyData['profile'];
   lang: Language;
   popoverPosition?: 'top' | 'bottom';
+  classNames?: Partial<PopoverClassNames>;
 };
 
-const { profile, lang, popoverPosition = 'top' } = Astro.props;
+const { profile, lang, popoverPosition = 'top', classNames } = Astro.props;
 
 const t = useTranslations(lang, 'navigation');
 const avatar = profile.avatar;
@@ -23,8 +24,8 @@ const avatar = profile.avatar;
   id={'1234'}
   buttonLabel={`${t('view_profile_of')} ${profile.displayName || profile.handle}`}
   classNames={{
-    button: styles.profileButton,
-    wrapper: styles.profileWrapper,
+    button: `${styles.profileButton} ${classNames?.button || ''}`,
+    wrapper: `${styles.profileWrapper} ${classNames?.wrapper || ''}`,
   }}
   buttonAttributes={{
     ['data-arrow-nav']: 'true',

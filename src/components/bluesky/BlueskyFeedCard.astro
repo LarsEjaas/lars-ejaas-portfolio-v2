@@ -12,6 +12,8 @@ import { constructBlueskyThreads } from './utils';
 import ProfileTimeline from './ProfileTimeline.astro';
 import { capitalize } from '@utils/misc';
 
+const MAX_NUMBER_OF_THREADS = 6;
+
 type Props<T extends string = string, U extends string = string> = {
   lang: Language;
   inert: boolean;
@@ -27,7 +29,10 @@ type Props<T extends string = string, U extends string = string> = {
 const { lang, inert, feed, profile, viewTransitionName, id } = Astro.props;
 const t = useTranslations(lang, 'navigation');
 
-const processedThreads = constructBlueskyThreads(feed);
+const processedThreads = constructBlueskyThreads(feed).slice(
+  0,
+  MAX_NUMBER_OF_THREADS
+);
 const hasMultipleThreads = processedThreads.length > 1;
 ---
 
@@ -82,37 +87,47 @@ const hasMultipleThreads = processedThreads.length > 1;
           ))
         }
       </ul>
-      <div
-        id={`${id}footerNavigation`}
-        role={hasMultipleThreads ? 'menubar' : undefined}
-        aria-keyshortcuts="ArrowLeft ArrowRight"
-        class={styles.pagination}
-      >
+      <div class={styles.navigation}>
         <div
-          style={{
-            '--slide-length': feed?.length,
-          }}
-          class={styles.controls}
+          id={`${id}footerNavigation`}
+          role={hasMultipleThreads ? 'menubar' : undefined}
+          aria-keyshortcuts="ArrowLeft ArrowRight"
+          class={styles.pagination}
         >
-          {
-            hasMultipleThreads &&
-              processedThreads.map((thread, index) => (
-                <div class={styles.control}>
-                  <a
-                    href={`#${thread.recordKey}`}
-                    role="menuitem"
-                    data-arrow-nav={hasMultipleThreads ? 'true' : undefined}
-                    id={
-                      index === 0 ? `pagination${thread.recordKey}` : undefined
-                    }
-                    title={`${t('scroll_to_tip')} ${index + 1}`}
-                  >
-                    <p class="sr-only">{`${t('scroll_to_tip')} ${index + 1}`}</p>
-                  </a>
-                </div>
-              ))
-          }
+          <div
+            style={{
+              '--slide-length': feed?.length,
+            }}
+            class={styles.controls}
+          >
+            {
+              hasMultipleThreads &&
+                processedThreads.map((thread, index) => (
+                  <div class={styles.control}>
+                    <a
+                      href={`#${thread.recordKey}`}
+                      role="menuitem"
+                      data-arrow-nav={hasMultipleThreads ? 'true' : undefined}
+                      id={
+                        index === 0
+                          ? `pagination${thread.recordKey}`
+                          : undefined
+                      }
+                      title={`${t('scroll_to_tip')} ${index + 1}`}
+                    >
+                      <p class="sr-only">{`${t('scroll_to_tip')} ${index + 1}`}</p>
+                    </a>
+                  </div>
+                ))
+            }
+          </div>
         </div>
+        <a
+          class={styles.goToAll}
+          href={`${lang === 'en' ? '/' : '/da/'}developer-tips/1/`}
+        >
+          {t('view_all_tips')}
+        </a>
       </div>
     </div>
   </Card>

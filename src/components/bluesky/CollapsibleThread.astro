@@ -10,6 +10,7 @@ import TagIcon from '@components/workCard/TagIcon.astro';
 import BlueskyLikes from './BlueskyLikes.astro';
 import { useTranslations } from '@i18n/utils';
 import ButterflyIcon from './ButterflyIcon.astro';
+import DoubleChevronIcon from './DoubleChevronIcon.astro';
 
 type Props = {
   thread: ProcessedBlueskyThread;
@@ -58,6 +59,7 @@ const t = useTranslations(lang, 'navigation');
     </summary>
     <Card
       as="span"
+      data-is-last={isLastThread || undefined}
       viewTransitionName={undefined}
       inert={false}
       className={styles.threadCard}
@@ -104,7 +106,10 @@ const t = useTranslations(lang, 'navigation');
         </div>
       </div>
     </Card>
-    <div class={styles.timelineDivider}></div>
+    <div class={styles.dividerGroup}>
+      <div class={styles.timelineDivider}></div>
+      {isLastThread && <DoubleChevronIcon />}
+    </div>
   </details>
 </collapsible-thread>
 

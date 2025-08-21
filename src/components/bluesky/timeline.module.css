@@ -1,6 +1,8 @@
 .timelineWrapper {
   display: flex;
-  gap: 8px;
+  @media (min-width: 769px) {
+    gap: 8px;
+  }
 }
 
 .tipsWrapper {
@@ -10,6 +12,7 @@
   width: 100%;
   max-width: 826px;
 }
+
 .profileInfo {
   display: flex;
   gap: 8px;
@@ -17,6 +20,17 @@
   color: var(--system-dark-300);
   font-size: var(--font-size-3);
   font-weight: 600;
+  margin-left: -0.5rem;
+  @media (min-width: 769px) {
+    margin-left: unset;
+  }
+}
+
+.avatar {
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .toc {
@@ -67,22 +81,25 @@
 
 .collapsibleThread {
   display: grid;
-  --timelineWidth: 48px;
+  --timelineWidth: 36px;
   grid-template-columns: var(--timelineWidth) 1fr;
-  position: relative;
+  grid-template-rows: 36px minmax(0, 1fr);
+  column-gap: 4px;
   color: var(--system-dark-300-55);
+  margin-left: -0.5rem;
+  @media (min-width: 769px) {
+    margin-left: 0;
+    --timelineWidth: 48px;
+  }
   &::details-content {
     content-visibility: visible !important;
+    display: contents !important;
   }
   & summary {
     border-radius: 50%;
     display: grid;
     justify-items: center;
     row-gap: 4px;
-    margin-inline: 6px;
-    grid-column: 1;
-    grid-row: 1;
-    outline-offset: var(--outline-offset);
     cursor: pointer;
     &::marker,
     &:is(::-webkit-details-marker) {
@@ -97,9 +114,6 @@
       border: 2px solid currentColor;
       background-color: var(--system-light-300);
       transition: transform 0.4s ease;
-      &:hover {
-        transform: scale(1.2);
-      }
       & svg {
         transition: rotate 400ms ease-in-out;
       }
@@ -107,40 +121,10 @@
   }
   & .threadCard {
     display: grid;
+    grid-row: 1 / span 2;
     grid-template-rows: 0fr;
     transition: grid-template-rows 350ms 100ms ease-in-out;
     overflow: hidden;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    justify-self: center;
-    color: light-dark(var(--system-shadow-1), var(--system-light-400));
-    width: 2px;
-    background-color: currentColor;
-    min-height: 4px;
-    height: calc(100% - 44px);
-    bottom: 4px;
-    left: calc((var(--timelineWidth) - 2px) / 2);
-  }
-  &[data-last-item]::before {
-    bottom: 22px;
-    height: calc(100% - 62px);
-  }
-  &[data-last-item]::after {
-    content: '';
-    position: absolute;
-    background-color: light-dark(
-      var(--system-shadow-1),
-      var(--system-light-400)
-    );
-    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 7.5L6 12.5L11 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg>');
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    width: 12px;
-    height: 14px;
-    left: calc((var(--timelineWidth) - 12px) / 2);
-    bottom: 4px;
   }
   &[open],
   &[data-open='true'] {
@@ -164,18 +148,37 @@
 .topDivider {
   height: 16px;
   padding-block: 4px;
+  display: flex;
+  flex-direction: column;
+  width: var(--timelineWidth);
+  align-items: center;
+  color: light-dark(var(--system-shadow-1), var(--system-light-400));
+}
+
+.dividerGroup {
+  color: light-dark(var(--system-shadow-1), var(--system-light-400));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  grid-column: 1;
+  grid-row: 2;
+  padding-block: 4px;
+  gap: 4px;
 }
 
 .timelineDivider {
   composes: timelineDivider from '@components/bluesky/bluesky.module.css';
   justify-self: center;
-  color: light-dark(var(--system-shadow-1), var(--system-light-400));
 }
 
 .threadCard {
   padding: 16px;
   margin-bottom: 24px;
   overflow: hidden;
+  &[data-is-last] {
+    margin-bottom: 0;
+  }
 }
 
 .cardContent {

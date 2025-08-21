@@ -1,5 +1,6 @@
 .followMe {
   margin-block-end: 2rem;
+  font-size: var(--font-size-3);
   & > a,
   & > div,
   & > p {

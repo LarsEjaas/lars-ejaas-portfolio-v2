@@ -2,7 +2,7 @@
   font-weight: 600;
   color: light-dark(var(--system-dark-300), var(--system-dark-100));
   text-decoration-color: transparent;
-  font-size: var(--font-size-3);
+  font-size: inherit;
   outline-offset: var(--outline-offset);
   white-space: normal;
   transition:

@@ -1,3 +1,10 @@
 .timelineSection {
   grid-column: 1 / -1;
 }
+
+.baloons {
+  grid-column: 1 / -1 !important;
+  width: 100%;
+  margin-inline: auto;
+  max-width: 600px;
+}

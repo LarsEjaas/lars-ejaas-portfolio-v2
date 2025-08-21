@@ -3,6 +3,7 @@ import type { BlueskyData } from '@scripts/utils';
 import styles from './bluesky.module.css';
 import { type Language } from '@i18n/utils';
 import AuthorAvatar from './AuthorAvatar.astro';
+import DoubleChevronIcon from './DoubleChevronIcon.astro';
 
 type Props = {
   profile: BlueskyData['profile'];
@@ -19,18 +20,5 @@ if (!profile?.avatar) {
 <aside class={styles.profileTimeline}>
   <AuthorAvatar profile={profile} lang={lang} />
   <div class={styles.timelineDivider}></div>
-  <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
-    <path
-      d="M1 1.5L6 6.5L11 1.5"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"></path>
-    <path
-      d="M1 7.5L6 12.5L11 7.5"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"></path>
-  </svg>
+  <DoubleChevronIcon />
 </aside>

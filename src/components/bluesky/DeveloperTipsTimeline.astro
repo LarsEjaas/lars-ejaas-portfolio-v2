@@ -20,7 +20,12 @@ const { threads, profile, lang } = Astro.props;
   <TableOfContents threads={threads} lang={lang} />
   <div class={styles.tipsWrapper}>
     <div class={styles.profileInfo}>
-      <AuthorAvatar profile={profile} lang={lang} popoverPosition="bottom" />
+      <AuthorAvatar
+        profile={profile}
+        lang={lang}
+        popoverPosition="bottom"
+        classNames={{ button: styles.avatar }}
+      />
       {profile.displayName ?? profile.handle}
     </div>
     {
