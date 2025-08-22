@@ -1,13 +1,22 @@
 import { techSkillEntries } from '../collections/techSkillTypes.mts';
 import { getLightboxSlugs } from '../collections/aboutImages/aboutImages.mts';
 import { languages } from './languageDefinition.mts';
+import type { ModalKey } from './routes';
+import { DEVELOPER_TIPS_PAGES } from '../pages/_constants.mts';
 
 type LanguageKey = keyof typeof languages;
 
-export const getSkillSlugs = <T extends LanguageKey>(lang: T) => {
-  type key = (typeof techSkillEntries)[number];
-  type SlugSkillKey = `skills/${key}`;
-  type SlugSkillValue = T extends 'da' ? `kompetencer/${key}` : SlugSkillKey;
+export const englishModalKeys = [
+  'contact',
+  'message-received',
+  'message-error',
+  'share',
+] as const;
+
+export const getSkillRoutes = <T extends LanguageKey>(lang: T) => {
+  type Key = (typeof techSkillEntries)[number];
+  type SlugSkillKey = `skills/${Key}`;
+  type SlugSkillValue = T extends 'da' ? `kompetencer/${Key}` : SlugSkillKey;
   return techSkillEntries.reduce(
     (acc, href) => ({
       ...acc,
@@ -17,27 +26,105 @@ export const getSkillSlugs = <T extends LanguageKey>(lang: T) => {
   );
 };
 
-export const getAboutLightboxSlugs = <T extends LanguageKey>(lang: T) => {
+export const getAboutLightboxRoutes = <T extends LanguageKey>(lang: T) => {
   const englishaboutImageKeys = getLightboxSlugs('en');
   const danishAboutImageKeys = getLightboxSlugs('da');
-  type key = (typeof englishaboutImageKeys)[number];
-  type danishKey = (typeof danishAboutImageKeys)[number];
+  type Key = (typeof englishaboutImageKeys)[number];
+  type DanishKey = (typeof danishAboutImageKeys)[number];
   type SlugAboutImageValue = T extends 'da'
-    ? `om-mig/${danishKey}`
-    : `about/${key}`;
+    ? `om-mig/${DanishKey}`
+    : `about/${Key}`;
   return englishaboutImageKeys.reduce(
     (acc, hrefEN, index) => ({
       ...acc,
       [`about/${hrefEN}`]: `${lang === 'da' ? 'om-mig' : 'about'}/${lang === 'da' ? danishAboutImageKeys[index] : hrefEN}`,
     }),
-    {} as Record<`about/${key}`, SlugAboutImageValue>
+    {} as Record<`about/${Key}`, SlugAboutImageValue>
   );
 };
 
-export const englishSkillRoutes = getSkillSlugs('en');
-export const danishSkillRoutes = getSkillSlugs('da');
-export const englishAboutImageRoutes = getAboutLightboxSlugs('en');
-export const danishAboutImageRoutes = getAboutLightboxSlugs('da');
+export const danishModalRoutes = {
+  contact: 'kontakt',
+  ['message-received']: 'besked-modtaget',
+  ['message-error']: 'besked-fejl',
+  share: 'del',
+} as const;
+
+export const getPaginatedStaticRoutes = <
+  T extends LanguageKey,
+  TEnglishKey extends string,
+  TDanishKey extends string,
+  TPages extends number,
+>(
+  /** Output Language */
+  lang: T,
+  /** Slug key for the english route.
+   *
+   *  Eg. the `english key` for the route: `/example-slug/1` is `example-slug`
+   */
+  englishKey: TEnglishKey,
+  /** Slug key for the danish route.
+   *
+   *  Eg. the `danish key` for the route: `[lang]/example-slug/1` is `example-slug`
+   */
+  danishKey: TDanishKey,
+  /** Number of paginated pages */
+  pages: TPages
+) => {
+  type EnglishBase = `${TEnglishKey}/${number}`;
+  type EnglishWithModal = `${EnglishBase}/${ModalKey}`;
+  type EnglishRoute = EnglishBase | EnglishWithModal;
+
+  type LocalizedBase<TLang extends LanguageKey> = TLang extends 'da'
+    ? `${TDanishKey}/${number}`
+    : `${TEnglishKey}/${number}`;
+  type LocalizedWithModal<TLang extends LanguageKey> = TLang extends 'da'
+    ? `${TDanishKey}/${number}/${string}` // we lookup runtime in appRoutes
+    : `${TEnglishKey}/${number}/${ModalKey}`;
+  type LocalizedRoute<TLang extends LanguageKey> =
+    | LocalizedBase<TLang>
+    | LocalizedWithModal<TLang>;
+
+  const entries: [EnglishRoute, LocalizedRoute<T>][] = [];
+
+  for (let page = 1; page <= pages; page++) {
+    const enBase = `${englishKey}/${page}` as EnglishBase;
+    const localizedBase = (
+      lang === 'da' ? `${danishKey}/${page}` : enBase
+    ) as LocalizedBase<T>;
+    entries.push([enBase, localizedBase]);
+
+    for (const modalKey of englishModalKeys) {
+      const enModal = `${enBase}/${modalKey}` as EnglishWithModal;
+      const localizedModal = (
+        lang === 'da'
+          ? `${danishKey}/${page}/${danishModalRoutes[modalKey]}`
+          : `${englishKey}/${page}/${modalKey}`
+      ) as LocalizedWithModal<T>;
+      entries.push([enModal, localizedModal]);
+    }
+  }
+
+  return Object.fromEntries(entries) as Record<EnglishRoute, LocalizedRoute<T>>;
+};
+
+export const englishSkillRoutes = getSkillRoutes('en');
+export const danishSkillRoutes = getSkillRoutes('da');
+export const englishAboutImageRoutes = getAboutLightboxRoutes('en');
+export const danishAboutImageRoutes = getAboutLightboxRoutes('da');
+export const englishDeveloperTipsRoutes = getPaginatedStaticRoutes(
+  'en',
+  'developer-tips',
+  'developer-tips',
+  DEVELOPER_TIPS_PAGES
+);
+
+export const danishDeveloperTipsRoutes = getPaginatedStaticRoutes(
+  'da',
+  'developer-tips',
+  'developer-tips',
+  DEVELOPER_TIPS_PAGES
+);
 
 /**
  * Define all routes in the application
@@ -47,10 +134,7 @@ export const appRoutes = {
   // keys on all localized languages (only da so far) are in english
   da: {
     //modals
-    contact: 'kontakt',
-    ['message-received']: 'besked-modtaget',
-    ['message-error']: 'besked-fejl',
-    share: 'del',
+    ...danishModalRoutes,
     //slugs
     work: 'arbejde',
     skills: 'kompetencer',
@@ -69,6 +153,7 @@ export const appRoutes = {
     ['skills/share']: 'kompetencer/del',
     ...danishSkillRoutes,
     ...danishAboutImageRoutes,
+    ...danishDeveloperTipsRoutes,
     ['about/contact']: 'om-mig/kontakt',
     ['about/message-received']: 'om-mig/besked-modtaget',
     ['about/message-error']: 'om-mig/besked-fejl',
@@ -107,6 +192,7 @@ export const appRoutes = {
     ['skills/share']: 'skills/share',
     ...englishSkillRoutes,
     ...englishAboutImageRoutes,
+    ...englishDeveloperTipsRoutes,
     ['about/contact']: 'about/contact',
     ['about/message-received']: 'about/message-received',
     ['about/message-error']: 'about/message-error',

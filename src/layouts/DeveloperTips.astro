@@ -9,14 +9,15 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 import type { ProcessedBlueskyThread } from '@components/bluesky/utils';
 import type { Page } from 'astro';
 import type { BlueskyData } from '@scripts/utils';
-import DeveloperTipsTimeline from '../components/bluesky/DeveloperTipsTimeline.astro';
+import DeveloperTipsTimeline from '@components/bluesky/DeveloperTipsTimeline.astro';
+import LanguageDisclaimerBanner from '@components/bluesky/LanguageDisclaimerBanner.astro';
 
 type Props = {
   title: string;
   description: string;
   lang: Language;
   inert: boolean;
-  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex: boolean };
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex?: boolean };
   page: Page<ProcessedBlueskyThread>;
   profile: BlueskyData['profile'];
 };
@@ -41,6 +42,7 @@ const t_devtips = useTranslations(lang, 'developerTips');
 >
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
+  <LanguageDisclaimerBanner lang={lang} />
   <div class="presentation">
     <PageLabel title={t_devtips('developer_tips_title')} iconImage="devTips" />
     <div>

@@ -98,8 +98,8 @@ const { withModalLinks = true } = Astro.props;
     <a
       role="menuitem"
       data-arrow-nav="true"
-      href={translatePath('/developer-tips/')}
-      data-current={Astro.url.pathname === translatePath('/developer-tips/') ||
+      href={translatePath('/developer-tips/1/')}
+      data-current={Astro.url.pathname.includes('/developer-tips/') ||
         undefined}
       title={t('developer_tips')}>{t('developer_tips')}</a
     >

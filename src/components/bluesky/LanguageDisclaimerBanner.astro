@@ -1,0 +1,21 @@
+---
+import type { Language } from '@i18n/settings';
+import styles from './languageDisclaimer.module.css';
+
+type Props = {
+  lang: Language;
+};
+
+const { lang } = Astro.props;
+---
+
+{
+  lang === 'da' && (
+    <section class={styles.bannerContainer}>
+      <div class={styles.banner}>
+        Developer Tips er kun tilgængelige på engelsk. Du kan stadig udforske
+        resten af siden på dansk.
+      </div>
+    </section>
+  )
+}

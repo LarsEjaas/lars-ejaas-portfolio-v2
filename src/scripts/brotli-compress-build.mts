@@ -80,3 +80,6 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+
+// To run this script execute it with Node.js:
+// node --experimental-transform-types ./src/scripts/brotli-compress-build.mts
