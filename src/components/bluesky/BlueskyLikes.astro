@@ -2,10 +2,8 @@
 import { getLangFromUrl } from '@i18n/utils';
 import styles from './blueskyLikes.module.css';
 import LikeProfile from './LikeProfile.astro';
-import {
-  MAXIMUM_NUMBER_OF_LIKE_AVATARS,
-  type ProcessedBlueskyThread,
-} from './utils';
+import { type ProcessedBlueskyThread } from './utils';
+import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from './constants';
 
 type Props = {
   thread: ProcessedBlueskyThread;

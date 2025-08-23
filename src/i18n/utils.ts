@@ -82,12 +82,12 @@ export function useTranslatedPath(lang: keyof typeof languages) {
 }
 
 /** Get the appRoute in the default language when only the translated path is provided */
-export const getEnglishTranslation = (
+export function getEnglishTranslation<F extends string | false>(
   language: LanguageKey,
   pathname: StringWithTrailingSlash,
   /** Fallback if no translation is found - defaults to "/" */
-  fallback?: string | false
-) => {
+  fallback?: F
+) {
   const rawPath = removeLeadingSlash(removeTrailingSlash(pathname));
   const slug = rawPath.replace(`${language}/`, '');
   const [translationKey] =
@@ -96,7 +96,7 @@ export const getEnglishTranslation = (
     ) || [];
 
   return translationKey ? `/${translationKey}/` : (fallback ?? '/');
-};
+}
 
 /**
  * Remove leading slash from a slug or url, preserving literal type

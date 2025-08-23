@@ -14,8 +14,7 @@ import { removeTrailingSlash, type Language } from '@i18n/utils';
 import { capitalize } from '@utils/misc';
 import styles from './blueskyLikes.module.css';
 import popoverStyles from '@components/popover/popover.module.css';
-
-export const MAXIMUM_NUMBER_OF_LIKE_AVATARS = 55;
+import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from './constants';
 
 export type LikesResult = {
   uri: string;

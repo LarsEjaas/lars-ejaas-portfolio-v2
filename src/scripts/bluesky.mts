@@ -15,12 +15,19 @@ import {
   saveBlueskyData,
   saveImageMeta,
   type BlueskyData,
+  getHasLikesChanged,
 } from './utils.ts';
 import { readFileSync, existsSync } from 'fs';
+const SCRIPT_ARGS = process.argv.slice(2);
 
 const HANDLE = process.env.BLUESKY_HANDLE;
 
 async function main() {
+  const updateAll = SCRIPT_ARGS.includes('--updateAll');
+
+  if (updateAll) {
+    console.info(`⚠️  updating all bluesky data!`);
+  }
   if (!HANDLE) {
     throw new Error('the BLUESKY_HANDLE environment variable must be set');
   }
@@ -47,20 +54,43 @@ async function main() {
 
   const postThreads = await getPostThreads(agent, profile, imageMeta);
 
-  const updateProfile =
+  const profileUpdated =
     new Date(profile?.indexedAt ?? Date.now()) >
     new Date(profileLatestTimestamp ?? '1970-01-01T00:00:00Z');
 
-  const updatePosts =
+  //Only check the latest thread
+  const postsUpdated =
     new Date(postThreads?.[0]?.posts?.[0]?.indexedAt ?? Date.now()) >
     new Date(postThreadsLatestTimestamp ?? '1970-01-01T00:00:00Z');
 
+  const newThreadsOrLikesChanged = getHasLikesChanged(
+    oldBlueskyData?.threads || [],
+    postThreads
+  );
+
+  if (newThreadsOrLikesChanged) {
+    console.info(`🩵 Change in one or more likes detected!`);
+  }
+
   const newSiteHost = SITE_URL !== oldBlueskyData?.host;
 
-  if (updateProfile || updatePosts || newSiteHost) {
-    //get likes if there are new threads or profile changes(used as fallback)
-    await getLikes(agent, postThreads, imageMeta);
+  if (newThreadsOrLikesChanged || updateAll) {
+    await getLikes({
+      agent,
+      threads: postThreads,
+      oldThreads: oldBlueskyData?.threads || [],
+      imageMeta,
+      updateAll,
+    });
+  }
 
+  if (
+    updateAll ||
+    profileUpdated ||
+    postsUpdated ||
+    newSiteHost ||
+    newThreadsOrLikesChanged
+  ) {
     const { avatar, ...rest } = profile;
 
     const data: BlueskyData = {
@@ -89,3 +119,5 @@ main().catch((err) => {
 // To run this script, set the environment variables BLUESKY_HANDLE and BLUESKY_APP_PASSWORD
 // and execute it with Node.js:
 // node --experimental-transform-types ./src/scripts/bluesky.mts
+//
+// To force a full update of all data run the script with the `--updateAll` flag

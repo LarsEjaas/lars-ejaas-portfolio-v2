@@ -1,0 +1,1 @@
+export const MAXIMUM_NUMBER_OF_LIKE_AVATARS = 55;

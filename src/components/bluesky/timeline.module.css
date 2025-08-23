@@ -101,6 +101,7 @@
     justify-items: center;
     row-gap: 4px;
     cursor: pointer;
+    margin-inline: calc((var(--timelineWidth) - 36px) / 2);
     &::marker,
     &:is(::-webkit-details-marker) {
       content: none;

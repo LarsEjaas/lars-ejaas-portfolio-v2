@@ -137,6 +137,22 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 
+## Local builds
+
+You can create a local build by running:
+
+`npm run build`
+
+If you want to compare bundle sizes with production (including Brotli compression), you can instead run:
+
+`npm run build-minified`
+
+This command produces a minified version of all JavaScript files.
+
+Once the build is complete, you can serve it locally with:
+
+`npm run serve-build`
+
 ## 🙏 Attribution
 
 I'm grateful to the following developers whose content has inspired me in creating this site:

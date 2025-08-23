@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "netlify dev",
     "start": "astro dev",
-    "build": "npm ci --include=dev && astro check && node --experimental-transform-types ./src/scripts/bluesky.mts && astro build",
+    "build": "npm ci --include=dev && astro check && npm run generate-routes && npm run get-dev-tips-data && astro build",
     "build:fast": "astro build",
     "build-minified": "astro build && node --experimental-transform-types ./src/scripts/brotli-compress-build.mts",
     "preview": "netlify serve",
@@ -14,9 +14,10 @@
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "type-check": "astro check",
     "type-check:watch": "astro check --watch",
-    "prepare": "test \"$NODE_ENV\" = production || husky install",
+    "prepare": "test \"$NODE_ENV\" = production || husky",
     "generate-routes": "node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts",
     "get-dev-tips-data": "node --experimental-transform-types ./src/scripts/bluesky.mts",
+    "update-all-dev-tips-data": "node --experimental-transform-types ./src/scripts/bluesky.mts --updateAll",
     "get-likes": "netlify functions:invoke get-dev-tips-likes --port 5432",
     "update-likes": "netlify functions:invoke update-dev-tips-likes --port 5432"
   },

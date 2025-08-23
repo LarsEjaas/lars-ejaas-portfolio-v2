@@ -143,7 +143,6 @@ export default async (req: Request) => {
       existingData.map((entry) => [entry.uri, entry])
     );
 
-    // Use the local avatar image if its available and not outdated
     for (const current of likesResults) {
       // Compare with previous likes
       const previous = previousMap.get(current.uri);
@@ -157,6 +156,7 @@ export default async (req: Request) => {
         }
       }
 
+      // Use the local avatar image if its available and not outdated
       current.likes.forEach((like) => {
         const avatar = like.actor.avatar?.replace(
           'avatar/plain',

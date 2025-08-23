@@ -22,7 +22,7 @@ export function paginateWithModals<
 }) {
   type ModalType = L extends DanishLanguageSlug ? DanishModalKey : ModalKey;
 
-  const modalArray = modals as readonly ModalType[];
+  const modalArray = modals;
 
   return modalArray.flatMap((modal) =>
     paginate(items, {

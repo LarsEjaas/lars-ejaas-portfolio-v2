@@ -52,8 +52,8 @@ const t_devtips = useTranslations(lang, 'developerTips');
       <p class="body-text">{t_devtips('hard_earned_dev_wisdom')}</p>
     </div>
   </div>
+  <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
   <section class={styles.timelineSection}>
     <DeveloperTipsTimeline threads={page.data} profile={profile} lang={lang} />
   </section>
-  <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
 </Layout>

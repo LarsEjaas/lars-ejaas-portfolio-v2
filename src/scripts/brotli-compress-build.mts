@@ -30,7 +30,7 @@ async function isAlreadyCompressed(filePath: string) {
 // Compress one file to Brotli
 async function compressFile(filePath: string) {
   if (await isAlreadyCompressed(filePath)) {
-    console.log(`Skipping (already compressed): ${filePath}`);
+    console.info(`Skipping (already compressed): ${filePath}`);
     return;
   }
 
@@ -59,13 +59,13 @@ async function main() {
   // Find all JS files in dist/_astro
   const jsFiles = await getFiles(astroDir, '.js');
 
-  console.log(`Found ${jsFiles.length} JS files to compress...`);
+  console.info(`Found ${jsFiles.length} JS files to compress...`);
   for (const file of jsFiles) {
     await compressFile(file);
     if (!(await isAlreadyCompressed(file))) {
       const originalSize = (await stat(file)).size;
       const brotliSize = (await stat(file + '.br')).size;
-      console.log(
+      console.info(
         `Compressed: ${file} → ${(brotliSize / 1024).toFixed(2)} KB (${(
           (brotliSize / originalSize) *
           100
@@ -73,7 +73,7 @@ async function main() {
       );
     }
   }
-  console.log('✅ Brotli compression complete.');
+  console.info('✅ Brotli compression complete.');
 }
 
 main().catch((err) => {
