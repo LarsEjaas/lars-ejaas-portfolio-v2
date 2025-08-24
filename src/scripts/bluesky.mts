@@ -11,7 +11,7 @@ import {
   getPostThreads,
   getProfile,
   loadImageMeta,
-  PUBLIC_FOLDER,
+  getPublicAssetUrl,
   saveBlueskyData,
   saveImageMeta,
   type BlueskyData,
@@ -69,7 +69,7 @@ async function main() {
   );
 
   if (newThreadsOrLikesChanged) {
-    console.info(`🩵 Change in one or more likes detected!`);
+    console.info(`❤️ Change in one or more likes detected!`);
   }
 
   const newSiteHost = SITE_URL !== oldBlueskyData?.host;
@@ -96,7 +96,7 @@ async function main() {
     const data: BlueskyData = {
       profile: {
         ...rest,
-        avatar: `${SITE_URL}${PUBLIC_FOLDER.replace('./public', '')}/${avatarPath}`,
+        avatar: avatarPath ? getPublicAssetUrl(avatarPath) : undefined,
       },
       threads: postThreads,
       host: SITE_URL,

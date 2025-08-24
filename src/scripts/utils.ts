@@ -64,7 +64,7 @@ function removeTrailingSlash<T extends string>(
   ) as T extends `${infer Rest}/` ? Rest : T;
 }
 
-function hashBuffer(buffer: Buffer<ArrayBuffer>) {
+function hashBuffer(buffer: Buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
 }
 
@@ -79,6 +79,13 @@ export function saveImageMeta(meta: Record<string, ImageMeta>) {
   const dir = IMAGE_META_PATH.substring(0, IMAGE_META_PATH.lastIndexOf('/'));
   mkdirSync(dir, { recursive: true });
   writeFileSync(IMAGE_META_PATH, JSON.stringify(meta, null, 2), 'utf8');
+}
+
+const PUBLIC_ASSET_PATH = PUBLIC_FOLDER.replace('./public', '');
+
+export function getPublicAssetUrl(fileName: string): string {
+  // Constructs a full public URL for a given asset file name.
+  return `${SITE_URL}${PUBLIC_ASSET_PATH}/${fileName}`;
 }
 
 function delay(ms: number) {
@@ -102,7 +109,11 @@ export function saveBlueskyData({
   const publicData = {
     threads: data.threads.map((thread) => ({
       atUri: thread.rootUri,
+      threadPosts: thread.posts.map((post) => ({
+        atUri: post.uri,
+      })),
     })),
+    maxLikeAvatars: MAXIMUM_NUMBER_OF_LIKE_AVATARS,
     // Include only the images with updatedAt timestamp
     images: Object.fromEntries(
       Object.entries(imageMeta)
@@ -447,7 +458,9 @@ export async function getLikes({
                 updatedAt: like.actor.indexedAt,
               });
               const ext = getImageExtension(thumbnail);
-              like.actor.avatar = `${SITE_URL}${PUBLIC_FOLDER.replace('./public', '')}/avatar-thumbnail-${did}${ext}`;
+              like.actor.avatar = getPublicAssetUrl(
+                `avatar-thumbnail-${did}${ext}`
+              );
             }
           })
         );

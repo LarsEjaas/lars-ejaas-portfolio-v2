@@ -13,6 +13,9 @@ const BLOB_KEY = 'dev-tips';
 type PublicBlueskyData = {
   threads: {
     atUri: string;
+    threadPosts: {
+      atUri: string;
+    }[];
   }[];
   images: Record<
     string,
@@ -21,6 +24,7 @@ type PublicBlueskyData = {
       localPath: string;
     }
   >;
+  maxLikeAvatars: number;
 };
 
 type LikesResult = {
@@ -28,6 +32,11 @@ type LikesResult = {
   likes: AppBskyFeedGetLikes.Like[];
   likeCount: number;
 }[];
+
+type ScheduledFunctionPayload = {
+  /** ISO 8601 timestamp for the next function invocation. */
+  next_run: string;
+};
 
 /**
  * Remove trailing slash from a slug or url, preserving literal type
@@ -61,6 +70,24 @@ async function withRetry<T>(
   }
 }
 
+/**
+ * Removes duplicate likes from an array by actor DID.
+ *
+ * Ensures each user is only counted once, even if they liked
+ * multiple posts in a thread.
+ *
+ * @param likes - The array of like objects (each with an actor.did).
+ */
+function dedupeLikes(likes: AppBskyFeedGetLikes.Like[]) {
+  const seen = new Set<string>();
+  return likes.filter((like) => {
+    if (!like.actor?.did) return false;
+    if (seen.has(like.actor.did)) return false;
+    seen.add(like.actor.did);
+    return true;
+  });
+}
+
 const isValidDate = (date: Date | null): date is Date =>
   date instanceof Date && !isNaN(date.getTime());
 
@@ -83,7 +110,7 @@ export async function getAuthenticateBlueskyAgent(): Promise<AtpAgent> {
 }
 
 export default async (req: Request) => {
-  const { next_run } = await req.json();
+  const { next_run } = (await req.json()) as ScheduledFunctionPayload;
 
   console.log(
     '[INFO]',
@@ -103,30 +130,64 @@ export default async (req: Request) => {
       throw new Error(`Failed to fetch ${PUBLIC_FILENAME}`);
     }
     const publicBlueskyData: PublicBlueskyData = await res.json();
+    const { maxLikeAvatars } = publicBlueskyData;
 
     const agent = await getAuthenticateBlueskyAgent();
 
     const likesResults: LikesResult = await Promise.all(
-      publicBlueskyData.threads.map((thread) =>
-        limit(async () => {
-          const [{ data: likesData }, { data: postData }] = await Promise.all([
-            withRetry(() =>
-              agent.app.bsky.feed.getLikes({ uri: thread.atUri, limit: 100 })
-            ),
-            withRetry(() =>
-              agent.app.bsky.feed.getPosts({ uris: [thread.atUri] })
-            ),
-          ]);
+      publicBlueskyData.threads.map(
+        (thread: PublicBlueskyData['threads'][number]) =>
+          limit(async () => {
+            const postUris = thread.threadPosts.map((p) => p.atUri);
 
-          if (postData.posts[0]?.likeCount) {
-            console.log('[WARN]', `⚠️ No likeCount found for ${thread.atUri}`);
-          }
-          return {
-            uri: thread.atUri,
-            likes: likesData.likes,
-            likeCount: postData.posts[0]?.likeCount || 0,
-          };
-        })
+            // --- Efficiently fetch unique likes for avatars ---
+            // Start with the root post and fetch from additional thread posts only if needed.
+            let collectedLikes: AppBskyFeedGetLikes.Like[] = [];
+            let postIndex = 0;
+            while (
+              collectedLikes.length < maxLikeAvatars &&
+              postIndex < postUris.length
+            ) {
+              const uri = postUris[postIndex];
+              if (!uri) break;
+              // Fetch a small buffer for efficient deduping
+              const limit = maxLikeAvatars - collectedLikes.length + 10;
+              const { data: likesData } = await withRetry(() =>
+                agent.app.bsky.feed.getLikes({
+                  uri,
+                  limit: Math.min(limit, 100),
+                })
+              );
+              if (likesData.likes) {
+                collectedLikes.push(...likesData.likes);
+                collectedLikes = dedupeLikes(collectedLikes);
+              }
+              postIndex++;
+            }
+            // Slice to ensure we don't exceed the maximum for display
+            collectedLikes = collectedLikes.slice(0, maxLikeAvatars);
+
+            // --- Fetch only the root post to get its like count for the total ---
+            // This is used for the "+X" display in the UI.
+            const { data: rootPostData } = await withRetry(() =>
+              agent.app.bsky.feed.getPosts({ uris: [thread.atUri] })
+            );
+
+            const totalLikeCount = rootPostData.posts[0]?.likeCount || 0;
+
+            if (!totalLikeCount && rootPostData.posts.length > 0) {
+              console.log(
+                '[WARN]',
+                `⚠️ No likes found for root post in thread ${thread.atUri}`
+              );
+            }
+
+            return {
+              uri: thread.atUri, // Root URI for the thread
+              likes: collectedLikes,
+              likeCount: totalLikeCount,
+            };
+          })
       )
     );
 
@@ -201,10 +262,10 @@ export default async (req: Request) => {
 
       // 🔍 Check if likes count has changed
 
-      const prevCount = previous?.likes?.length ?? 0;
+      const prevLikeCount = previous?.likeCount ?? 0;
       // Compare current like count with previous
       // If the count has changed, we need to update the blob
-      if (current.likeCount !== prevCount) {
+      if (current.likeCount !== prevLikeCount) {
         shouldUpdate = true;
       }
     }
