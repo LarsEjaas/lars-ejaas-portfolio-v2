@@ -49,8 +49,8 @@ export const PUBLIC_FOLDER = './public/bluesky';
 const IMAGE_META_PATH = `${META_FOLDER}/image-meta.json`;
 const PUBLIC_FILENAME = 'devtips-threads.json';
 const SEARCH_TAG = 'DeveloperTips';
-export const FILE_NAME = 'devtips_data.json';
-export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${FILE_NAME}`;
+export const DATA_FILE_NAME = 'devtips_data.json';
+export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${DATA_FILE_NAME}`;
 export const PUBLIC_DATA_PATH = `./public/${PUBLIC_FILENAME}`;
 
 /**
@@ -153,6 +153,7 @@ export async function downloadImageIfChanged({
   meta = {},
   publicAsset,
   updatedAt,
+  newSiteHost,
 }: {
   url: string;
   localName: string;
@@ -160,6 +161,7 @@ export async function downloadImageIfChanged({
   /** Place the image in the public folder */
   publicAsset?: boolean;
   updatedAt?: string;
+  newSiteHost?: boolean;
 }): Promise<string> {
   const ext = getImageExtension(url);
   const fileName = `${localName}${ext}`;
@@ -180,7 +182,7 @@ export async function downloadImageIfChanged({
   const buffer = await res.arrayBuffer();
   const hash = hashBuffer(Buffer.from(buffer));
 
-  if (url in meta && meta[url]?.hash === hash) {
+  if (url in meta && meta[url]?.hash === hash && !newSiteHost) {
     return fileName;
   }
 
@@ -199,7 +201,7 @@ export async function downloadImageIfChanged({
   return fileName;
 }
 
-export async function getAuthenticateBlueskyAgent(): Promise<AtpAgent> {
+export async function createAuthenticatedAgent(): Promise<AtpAgent> {
   const appPassword = process.env.BLUESKY_APP_PASSWORD;
   if (!HANDLE || !appPassword) {
     throw new Error(
@@ -241,7 +243,7 @@ async function searchPosts(
  *
  * This means that replies that are not part of the root thread will be excluded.
  */
-async function getOwnThreadOnly(
+async function extractOwnPostsFromThread(
   thread: AppBskyFeedDefs.ThreadViewPost,
   selfDid: string
 ) {
@@ -277,7 +279,8 @@ async function getOwnThreadOnly(
 export async function getPostThreads(
   agent: AtpAgent,
   profile: AppBskyActorDefs.ProfileViewDetailed,
-  imageMeta: Record<string, ImageMeta>
+  imageMeta: Record<string, ImageMeta>,
+  newSiteHost?: boolean
 ): Promise<BlueskyPostThread[]> {
   const threads: BlueskyPostThread[] = [];
   const limit = pLimit(3); // max 3 concurrent requests
@@ -308,7 +311,10 @@ export async function getPostThreads(
             'post' in postData.thread ? postData.thread : undefined;
           if (!postItem || postItem.post.author.did !== profile.did) return;
 
-          const filtered = await getOwnThreadOnly(postItem, profile.did);
+          const filtered = await extractOwnPostsFromThread(
+            postItem,
+            profile.did
+          );
 
           // Download images (fullsize and thumbnails)
           for (const post of filtered) {
@@ -321,12 +327,14 @@ export async function getPostThreads(
                   localName: `post-${recordId}-embed`,
                   meta: imageMeta,
                   publicAsset: true,
+                  newSiteHost,
                 });
                 // place thumbnail image in src folder
                 await downloadImageIfChanged({
                   url: image.thumb,
                   localName: `post-${recordId}-embed-thumbnail`,
                   meta: imageMeta,
+                  newSiteHost,
                 });
               }
             }
@@ -340,6 +348,7 @@ export async function getPostThreads(
                 url: post.embed.external.thumb,
                 localName: `post-${recordId}-embed`,
                 meta: imageMeta,
+                newSiteHost,
               });
             }
           }
@@ -386,12 +395,14 @@ export async function getLikes({
   oldThreads,
   imageMeta,
   updateAll = false,
+  newSiteHost,
 }: {
   agent: AtpAgent;
   threads: BlueskyPostThread[];
   oldThreads: BlueskyPostThread[];
   imageMeta: Record<string, ImageMeta>;
   updateAll: boolean;
+  newSiteHost?: boolean;
 }) {
   const limit = pLimit(3); // max 3 concurrent API requests
 
@@ -456,6 +467,7 @@ export async function getLikes({
                 meta: imageMeta,
                 publicAsset: true,
                 updatedAt: like.actor.indexedAt,
+                newSiteHost,
               });
               const ext = getImageExtension(thumbnail);
               like.actor.avatar = getPublicAssetUrl(
@@ -469,7 +481,7 @@ export async function getLikes({
   );
 }
 
-export function getHasLikesChanged(
+export function hasLikesChanged(
   oldThreads: BlueskyPostThread[],
   newThreads: BlueskyPostThread[]
 ) {

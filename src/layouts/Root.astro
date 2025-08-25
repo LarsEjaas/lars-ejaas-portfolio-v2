@@ -73,8 +73,8 @@ const {
       noIndex={seo.noIndex}
       noFollow={seo.noFollow}
     />
-    <script is:inline>
-      if ('onpagereveal' in window) {
+    <script is:inline src="/root.js"></script>
+    <!-- if ('onpagereveal' in window) {
         window.onpagereveal = (e) => rmsp(e);
       } else {
         document.addEventListener('DOMContentLoaded', rmsp);
@@ -113,7 +113,7 @@ const {
           sessionStorage.removeItem('scrollPosition');
         }
       }
-    </script>
+    </script> -->
     {/* @ts-ignore */}
     <link rel="expect" blocking="render" href="#mainContent" />
   </head>

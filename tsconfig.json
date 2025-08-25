@@ -28,6 +28,7 @@
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "allowImportingTsExtensions": true,
     "plugins": [{ "name": "@astrojs/ts-plugin" }]
   },
   "exclude": ["node_modules"],

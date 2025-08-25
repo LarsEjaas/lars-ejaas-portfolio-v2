@@ -5,8 +5,8 @@ import {
   BLUESKY_DATA_PATH,
   SITE_URL,
   downloadImageIfChanged,
-  FILE_NAME,
-  getAuthenticateBlueskyAgent,
+  DATA_FILE_NAME,
+  createAuthenticatedAgent,
   getLikes,
   getPostThreads,
   getProfile,
@@ -15,7 +15,7 @@ import {
   saveBlueskyData,
   saveImageMeta,
   type BlueskyData,
-  getHasLikesChanged,
+  hasLikesChanged,
 } from './utils.ts';
 import { readFileSync, existsSync } from 'fs';
 const SCRIPT_ARGS = process.argv.slice(2);
@@ -39,20 +39,27 @@ async function main() {
   const profileLatestTimestamp = oldBlueskyData?.profile.indexedAt;
   const postThreadsLatestTimestamp =
     oldBlueskyData?.threads?.[0]?.posts?.[0]?.indexedAt;
-  const agent = await getAuthenticateBlueskyAgent();
+  const agent = await createAuthenticatedAgent();
   const profile = await getProfile(agent, HANDLE);
   const imageMeta = loadImageMeta();
+  const newSiteHost = SITE_URL !== oldBlueskyData?.host;
 
   const avatarPath = profile.avatar
     ? await downloadImageIfChanged({
         url: profile.avatar.replace('avatar/plain', 'avatar_thumbnail/plain'),
         localName: 'profileAvatar',
         meta: imageMeta,
+        newSiteHost,
         publicAsset: true,
       })
     : undefined;
 
-  const postThreads = await getPostThreads(agent, profile, imageMeta);
+  const postThreads = await getPostThreads(
+    agent,
+    profile,
+    imageMeta,
+    newSiteHost
+  );
 
   const profileUpdated =
     new Date(profile?.indexedAt ?? Date.now()) >
@@ -63,7 +70,7 @@ async function main() {
     new Date(postThreads?.[0]?.posts?.[0]?.indexedAt ?? Date.now()) >
     new Date(postThreadsLatestTimestamp ?? '1970-01-01T00:00:00Z');
 
-  const newThreadsOrLikesChanged = getHasLikesChanged(
+  const newThreadsOrLikesChanged = hasLikesChanged(
     oldBlueskyData?.threads || [],
     postThreads
   );
@@ -72,8 +79,6 @@ async function main() {
     console.info(`❤️ Change in one or more likes detected!`);
   }
 
-  const newSiteHost = SITE_URL !== oldBlueskyData?.host;
-
   if (newThreadsOrLikesChanged || updateAll) {
     await getLikes({
       agent,
@@ -81,6 +86,7 @@ async function main() {
       oldThreads: oldBlueskyData?.threads || [],
       imageMeta,
       updateAll,
+      newSiteHost,
     });
   }
 
@@ -104,10 +110,10 @@ async function main() {
 
     saveBlueskyData({ data, imageMeta });
     saveImageMeta(imageMeta);
-    console.info(`✅ ${FILE_NAME} saved.`);
+    console.info(`✅ ${DATA_FILE_NAME} saved.`);
   } else {
     console.info(
-      `✅ No changes detected on Bluesky – ${FILE_NAME} not updated.`
+      `✅ No changes detected on Bluesky – ${DATA_FILE_NAME} not updated.`
     );
   }
 }

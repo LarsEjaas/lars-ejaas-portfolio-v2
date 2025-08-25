@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "netlify dev",
     "start": "astro dev",
-    "build": "npm ci --include=dev && astro check && npm run generate-routes && npm run get-dev-tips-data && astro build",
-    "build:fast": "astro build",
-    "build-minified": "astro build && node --experimental-transform-types ./src/scripts/brotli-compress-build.mts",
+    "build": "npm ci --include=dev && astro check && npm run generate-routes && npm run build-scripts && npm run get-dev-tips-data && astro build",
+    "build-fast": "astro build",
+    "build-minified": "npm run build && node --experimental-transform-types ./src/scripts/brotli-compress-build.mts",
     "preview": "netlify serve",
     "serve-build": "node --experimental-transform-types ./src/scripts/serve-with-middleware.mts",
     "astro": "astro",
@@ -19,7 +19,8 @@
     "get-dev-tips-data": "node --experimental-transform-types ./src/scripts/bluesky.mts",
     "update-all-dev-tips-data": "node --experimental-transform-types ./src/scripts/bluesky.mts --updateAll",
     "get-likes": "netlify functions:invoke get-dev-tips-likes --port 5432",
-    "update-likes": "netlify functions:invoke update-dev-tips-likes --port 5432"
+    "update-likes": "netlify functions:invoke update-dev-tips-likes --port 5432",
+    "build-scripts": "esbuild src/components/popover/popover.mts --bundle --minify --outfile=public/popover.js && esbuild src/layouts/root.mts --bundle --minify --outfile=public/root.js"
   },
   "engines": {
     "node": ">=21.0.0",
