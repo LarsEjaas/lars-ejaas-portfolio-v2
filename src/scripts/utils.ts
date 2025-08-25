@@ -56,7 +56,7 @@ export const PUBLIC_DATA_PATH = `./public/${PUBLIC_FILENAME}`;
 /**
  * Remove leading slash from a slug or url, preserving literal type
  */
-export function removeLeadingSlash<T extends string>(
+function removeLeadingSlash<T extends string>(
   url: T
 ): T extends `/${infer Rest}` ? Rest : T {
   return (
@@ -67,7 +67,7 @@ export function removeLeadingSlash<T extends string>(
 /**
  * Remove trailing slash from a slug or url, preserving literal type
  */
-export function removeTrailingSlash<T extends string>(
+function removeTrailingSlash<T extends string>(
   url: T
 ): T extends `${infer Rest}/` ? Rest : T {
   return (
