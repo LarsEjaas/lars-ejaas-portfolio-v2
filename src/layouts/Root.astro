@@ -74,46 +74,7 @@ const {
       noFollow={seo.noFollow}
     />
     <script is:inline src="/root.js"></script>
-    <!-- if ('onpagereveal' in window) {
-        window.onpagereveal = (e) => rmsp(e);
-      } else {
-        document.addEventListener('DOMContentLoaded', rmsp);
-      }
-      const gsdm = () => {
-        if (
-          typeof window.localStorage !== 'undefined' &&
-          localStorage.getItem('ejaas_dark_mode')
-        ) {
-          return localStorage.getItem('ejaas_dark_mode');
-        }
-        return false;
-      };
 
-      if (
-        gsdm() === 'true' ||
-        (!gsdm() && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.dataset.darkMode = 'true';
-      }
-
-      document.documentElement.dataset.jsEnabled = 'true';
-
-      function rmsp() {
-        const sp = Number(sessionStorage.getItem('scrollPosition')) || 0;
-
-        const rish = document.referrer.startsWith(window.location.origin);
-        if (sp && rish) {
-          window.scrollTo({
-            top: sp,
-            behavior: 'instant',
-          });
-        }
-        const rim = window.modalDialog || window.lightbox;
-        if (!rim || !rish) {
-          sessionStorage.removeItem('scrollPosition');
-        }
-      }
-    </script> -->
     {/* @ts-ignore */}
     <link rel="expect" blocking="render" href="#mainContent" />
   </head>

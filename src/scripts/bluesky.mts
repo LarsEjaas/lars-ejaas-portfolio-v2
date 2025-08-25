@@ -43,6 +43,11 @@ async function main() {
   const profile = await getProfile(agent, HANDLE);
   const imageMeta = loadImageMeta();
   const newSiteHost = SITE_URL !== oldBlueskyData?.host;
+  if (newSiteHost) {
+    console.info(
+      'ℹ️ A new host name was detected! Updating filepaths for all bluesky images.'
+    );
+  }
 
   const avatarPath = profile.avatar
     ? await downloadImageIfChanged({
