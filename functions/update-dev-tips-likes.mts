@@ -246,7 +246,7 @@ export default async (req: Request) => {
             localImageTimestamp >= blueskyImageTimestamp;
 
           if (useLocalImage && publicBlueskyData.images?.[avatar]?.localPath) {
-            like.actor.avatar = `${siteUrl}${publicBlueskyData.images[avatar].localPath}`;
+            like.actor.avatar = publicBlueskyData.images[avatar].localPath;
             // Check if the avatar has changed
             const previousAvatar = previousLikesMap.get(like.actor.did);
             if (like.actor.avatar !== previousAvatar) {

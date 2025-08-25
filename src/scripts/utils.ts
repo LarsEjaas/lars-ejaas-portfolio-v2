@@ -54,9 +54,20 @@ export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${DATA_FILE_NAME}`;
 export const PUBLIC_DATA_PATH = `./public/${PUBLIC_FILENAME}`;
 
 /**
+ * Remove leading slash from a slug or url, preserving literal type
+ */
+export function removeLeadingSlash<T extends string>(
+  url: T
+): T extends `/${infer Rest}` ? Rest : T {
+  return (
+    url.startsWith('/') ? url.substring(1) : url
+  ) as T extends `/${infer Rest}` ? Rest : T;
+}
+
+/**
  * Remove trailing slash from a slug or url, preserving literal type
  */
-function removeTrailingSlash<T extends string>(
+export function removeTrailingSlash<T extends string>(
   url: T
 ): T extends `${infer Rest}/` ? Rest : T {
   return (
@@ -81,11 +92,13 @@ export function saveImageMeta(meta: Record<string, ImageMeta>) {
   writeFileSync(IMAGE_META_PATH, JSON.stringify(meta, null, 2), 'utf8');
 }
 
-const PUBLIC_ASSET_PATH = PUBLIC_FOLDER.replace('./public', '');
+const PUBLIC_ASSET_PATH = removeLeadingSlash(
+  PUBLIC_FOLDER.replace('./public', '')
+);
 
 export function getPublicAssetUrl(fileName: string): string {
   // Constructs a full public URL for a given asset file name.
-  return `${SITE_URL}${PUBLIC_ASSET_PATH}/${fileName}`;
+  return `/${PUBLIC_ASSET_PATH}/${fileName}`;
 }
 
 function delay(ms: number) {
@@ -422,7 +435,9 @@ export async function getLikes({
 
         // Decide if we should fetch likes
         const needFullUpdate =
-          updateAll || rootPost.likeCount !== oldRootPost?.likeCount;
+          updateAll ||
+          rootPost.likeCount !== oldRootPost?.likeCount ||
+          newSiteHost;
 
         if (!needFullUpdate) return;
 

@@ -84,7 +84,7 @@ async function main() {
     console.info(`❤️ Change in one or more likes detected!`);
   }
 
-  if (newThreadsOrLikesChanged || updateAll) {
+  if (newThreadsOrLikesChanged || updateAll || newSiteHost) {
     await getLikes({
       agent,
       threads: postThreads,

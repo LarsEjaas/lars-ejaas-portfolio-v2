@@ -140,7 +140,7 @@
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
     },
-    "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/profileAvatar.jpeg"
+    "avatar": "/bluesky/profileAvatar.jpeg"
   },
   "threads": [
     {
@@ -232,7 +232,7 @@
                 "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
                 "handle": "bytevagabond.com",
                 "displayName": "ByteVagabond",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -255,7 +255,7 @@
                 "did": "did:plc:qhwoulqirsnljogsqwpzhntl",
                 "handle": "chloe.pfr.wtf",
                 "displayName": "Chloe @ PFR",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-qhwoulqirsnljogsqwpzhntl.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-qhwoulqirsnljogsqwpzhntl.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -278,7 +278,7 @@
                 "did": "did:plc:5uxshbngxf5zlpxpikeosvbp",
                 "handle": "samthoyre.bsky.social",
                 "displayName": "Sam Thoyre",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-5uxshbngxf5zlpxpikeosvbp.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-5uxshbngxf5zlpxpikeosvbp.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -302,7 +302,7 @@
                 "did": "did:plc:zjmzu7kvewlufe7nz3ewhkfl",
                 "handle": "alexisbouchez.com",
                 "displayName": "Alexis",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-zjmzu7kvewlufe7nz3ewhkfl.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-zjmzu7kvewlufe7nz3ewhkfl.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -707,7 +707,7 @@
                 "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
                 "handle": "rickywatson.bsky.social",
                 "displayName": "Rick Warsons",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -730,7 +730,7 @@
                 "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
                 "handle": "bytevagabond.com",
                 "displayName": "ByteVagabond",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -753,7 +753,7 @@
                 "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
                 "handle": "karma-domains.bsky.social",
                 "displayName": "Karma.Domains",
-                "avatar": "https://deploy-preview-2--larsejaas-v2.netlify.app/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
+                "avatar": "/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
                 "associated": {
                   "activitySubscription": {
                     "allowSubscriptions": "followers"
@@ -882,5 +882,5 @@
       "recordKey": "bsky3lrsav6ulcc22"
     }
   ],
-  "host": "https://deploy-preview-2--larsejaas-v2.netlify.app"
+  "host": "http://localhost:5432"
 }
