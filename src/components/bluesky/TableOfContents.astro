@@ -5,68 +5,85 @@ import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
 import styles from './timeline.module.css';
 import TagIcon from '../workCard/TagIcon.astro';
 import type { Page } from 'astro';
+import ChevronIcon from './ChevronIcon.astro';
 import Pagination from '@components/pagination/Pagination.astro';
 
 type Props = {
   threads: ProcessedBlueskyThread[];
   lang: Language;
   pagination: Pick<Page, 'currentPage' | 'lastPage'> & { url: Page['url'] };
+  defaultOpen?: boolean;
+  className?: string;
 };
 
-const { threads, lang, pagination } = Astro.props;
+const {
+  threads,
+  lang,
+  pagination,
+  defaultOpen = false,
+  className,
+} = Astro.props;
 const t = useTranslations(lang, 'navigation');
 ---
 
 <table-of-contents>
-  <div class={styles.stickyWrapper}>
-    <nav
-      id="tableOfContents"
-      class={styles.toc}
-      aria-label={t('nav_dev_tips')}
-      role="menubar"
-      aria-keyshortcuts="ArrowUp ArrowDown"
-    >
-      <ul
-        class={styles.tocList}
-        role="list"
-        aria-describedby="tocHelp"
-        data-roving="true"
+  <div class:list={[styles.stickyPlacement, className]}>
+    <details class={styles.tocDetails} open={defaultOpen}>
+      <summary class={styles.tocSummary}>
+        <span class="sr-only">{t('toggle_toc')}</span>
+        {t('table_of_contents_title')}
+        <ChevronIcon />
+      </summary>
+      <nav
+        id="tableOfContents"
+        class={styles.toc}
+        aria-label={t('nav_dev_tips')}
+        role="menubar"
+        aria-keyshortcuts="ArrowUp ArrowDown"
+        inert={!defaultOpen}
       >
-        {
-          threads.map((thread) => {
-            const labels = getThreadLabels(thread);
-            const title = thread.mainPost.content.raw.slice(0, 28) + '…';
-            return (
-              <li class={styles.tocItem}>
-                <a
-                  href={`#${thread.recordKey}`}
-                  data-arrow-nav="true"
-                  data-href={thread.recordKey}
-                >
-                  {title}
-                  {labels.length && (
-                    <div class={styles.labelWrapper} aria-hidden="true">
-                      {labels.map((label) => (
-                        <span class={styles.label} data-size="small">
-                          <TagIcon />
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <p id="tocHelp" class="sr-only">
-        Use the arrow keys to move between items
-      </p>
-    </nav>
+        <ul
+          class={styles.tocList}
+          role="list"
+          aria-describedby="tocHelp"
+          data-roving="true"
+        >
+          {
+            threads.map((thread) => {
+              const labels = getThreadLabels(thread);
+              const title = thread.mainPost.content.raw.slice(0, 120);
+              return (
+                <li class={styles.tocItem}>
+                  <a
+                    href={`#${thread.recordKey}`}
+                    data-arrow-nav="true"
+                    data-href={thread.recordKey}
+                  >
+                    <span class={styles.tocTitle}>{title}</span>
+                    {labels.length && (
+                      <div class={styles.labelWrapper} aria-hidden="true">
+                        {labels.map((label) => (
+                          <span class={styles.label} data-size="small">
+                            <TagIcon />
+                            {label}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <p id="tocHelp" class="sr-only">
+          Use the arrow keys to move between items
+        </p>
+      </nav>
+    </details>
     {
       pagination.lastPage > 1 && (
-        <Pagination id="desktop" pagination={pagination} lang={lang} />
+        <Pagination id="default" pagination={pagination} lang={lang} />
       )
     }
   </div>
@@ -75,7 +92,14 @@ const t = useTranslations(lang, 'navigation');
   import { initVerticalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   class TableOfContents extends HTMLElement {
     connectedCallback() {
+      const details = this.querySelector('details');
       const toc = this.querySelector('#tableOfContents');
+
+      if (details && toc instanceof HTMLElement) {
+        details.addEventListener('toggle', () => {
+          toc.inert = !details.open;
+        });
+      }
 
       if (toc instanceof HTMLElement) {
         initVerticalKeyboardArrowNav(toc);

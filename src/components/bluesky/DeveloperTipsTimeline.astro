@@ -7,7 +7,6 @@ import type { BlueskyData } from '@scripts/utils';
 import TableOfContents from './TableOfContents.astro';
 import CollapsibleThread from './CollapsibleThread.astro';
 import type { Page } from 'astro';
-import Pagination from '@components/pagination/Pagination.astro';
 
 type Props = {
   threads: ProcessedBlueskyThread[];
@@ -20,7 +19,13 @@ const { threads, profile, lang, pagination } = Astro.props;
 ---
 
 <div class={styles.timelineWrapper}>
-  <TableOfContents threads={threads} lang={lang} pagination={pagination} />
+  <TableOfContents
+    threads={threads}
+    lang={lang}
+    pagination={pagination}
+    className={`${styles.tocSizing}`}
+    defaultOpen
+  />
   <div class={styles.tipsWrapper}>
     <div class={styles.profileInfo}>
       <AuthorAvatar
@@ -41,12 +46,5 @@ const { threads, profile, lang, pagination } = Astro.props;
         />
       ))
     }
-    <div class={styles.paginationWrapper}>
-      {
-        pagination.lastPage > 1 && (
-          <Pagination id="mobile" pagination={pagination} lang={lang} />
-        )
-      }
-    </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 .timelineSection {
+  container-name: timelineSection;
+  container-type: inline-size;
   grid-column: 1 / -1;
 }
 
