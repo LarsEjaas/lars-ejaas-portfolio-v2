@@ -54,6 +54,15 @@ const t_devtips = useTranslations(lang, 'developerTips');
   </div>
   <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
   <section class={styles.timelineSection}>
-    <DeveloperTipsTimeline threads={page.data} profile={profile} lang={lang} />
+    <DeveloperTipsTimeline
+      threads={page.data}
+      profile={profile}
+      lang={lang}
+      pagination={{
+        currentPage: page.currentPage,
+        lastPage: page.lastPage,
+        url: page.url,
+      }}
+    />
   </section>
 </Layout>

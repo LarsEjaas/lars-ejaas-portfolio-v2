@@ -882,5 +882,5 @@
       "recordKey": "bsky3lrsav6ulcc22"
     }
   ],
-  "host": "https://deploy-preview-2--larsejaas-v2.netlify.app"
+  "host": "http://localhost:5432"
 }

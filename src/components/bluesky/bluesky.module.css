@@ -7,7 +7,7 @@
 }
 
 .cardContent {
-  --article-height: 436px;
+  --article-height: 520px;
   overflow-y: hidden;
   position: relative;
   display: flex;

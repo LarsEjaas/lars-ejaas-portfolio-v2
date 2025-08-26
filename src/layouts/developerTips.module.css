@@ -4,7 +4,7 @@
 
 .baloons {
   @media (max-width: 768px) {
-    grid-row: 3;
+    grid-row: 4;
     width: min(500px, 100%);
     justify-self: center;
   }

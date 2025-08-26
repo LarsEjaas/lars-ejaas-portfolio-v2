@@ -4,60 +4,72 @@ import { useTranslations } from '@i18n/utils';
 import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
 import styles from './timeline.module.css';
 import TagIcon from '../workCard/TagIcon.astro';
+import type { Page } from 'astro';
+import Pagination from '@components/pagination/Pagination.astro';
 
 type Props = {
   threads: ProcessedBlueskyThread[];
   lang: Language;
+  pagination: Pick<Page, 'currentPage' | 'lastPage'> & { url: Page['url'] };
 };
 
-const { threads, lang } = Astro.props;
+const { threads, lang, pagination } = Astro.props;
 const t = useTranslations(lang, 'navigation');
 ---
 
 <table-of-contents>
-  <nav
-    id="tableOfContents"
-    class={styles.toc}
-    aria-label={t('nav_dev_tips')}
-    role="menubar"
-    aria-keyshortcuts="ArrowUp ArrowDown"
-  >
-    <ul
-      class={styles.tocList}
-      role="list"
-      aria-describedby="tocHelp"
-      data-roving="true"
+  <div class={styles.stickyWrapper}>
+    <nav
+      id="tableOfContents"
+      class={styles.toc}
+      aria-label={t('nav_dev_tips')}
+      role="menubar"
+      aria-keyshortcuts="ArrowUp ArrowDown"
     >
-      {
-        threads.map((thread) => {
-          const labels = getThreadLabels(thread);
-          const title = thread.mainPost.content.raw.slice(0, 28) + '…';
-          return (
-            <li class={styles.tocItem}>
-              <a
-                href={`#${thread.recordKey}`}
-                data-arrow-nav="true"
-                data-href={thread.recordKey}
-              >
-                {title}
-                {labels.length && (
-                  <div class={styles.labelWrapper} aria-hidden="true">
-                    {labels.map((label) => (
-                      <span class={styles.label} data-size="small">
-                        <TagIcon />
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
-    <p id="tocHelp" class="sr-only">Use the arrow keys to move between items</p>
-  </nav>
+      <ul
+        class={styles.tocList}
+        role="list"
+        aria-describedby="tocHelp"
+        data-roving="true"
+      >
+        {
+          threads.map((thread) => {
+            const labels = getThreadLabels(thread);
+            const title = thread.mainPost.content.raw.slice(0, 28) + '…';
+            return (
+              <li class={styles.tocItem}>
+                <a
+                  href={`#${thread.recordKey}`}
+                  data-arrow-nav="true"
+                  data-href={thread.recordKey}
+                >
+                  {title}
+                  {labels.length && (
+                    <div class={styles.labelWrapper} aria-hidden="true">
+                      {labels.map((label) => (
+                        <span class={styles.label} data-size="small">
+                          <TagIcon />
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <p id="tocHelp" class="sr-only">
+        Use the arrow keys to move between items
+      </p>
+    </nav>
+    {
+      pagination.lastPage > 1 && (
+        <Pagination id="desktop" pagination={pagination} lang={lang} />
+      )
+    }
+  </div>
 </table-of-contents>
 <script>
   import { initVerticalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';

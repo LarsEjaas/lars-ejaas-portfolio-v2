@@ -1,5 +1,6 @@
 .timelineWrapper {
   display: flex;
+  margin-bottom: 24px;
   @media (min-width: 769px) {
     gap: 8px;
   }
@@ -11,6 +12,19 @@
   column-gap: 4px;
   width: 100%;
   max-width: 826px;
+  --timelineWidth: 36px;
+  @media (min-width: 769px) {
+    --timelineWidth: 48px;
+  }
+}
+
+.paginationWrapper {
+  margin-top: 24px;
+  @media (min-width: 769px) {
+    & > * {
+      display: none;
+    }
+  }
 }
 
 .profileInfo {
@@ -27,9 +41,18 @@
 }
 
 .avatar {
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 36px;
+  width: var(--timelineWidth);
+  height: var(--timelineWidth);
+}
+
+.stickyWrapper {
+  position: sticky;
+  top: 96px;
+  display: none;
+  row-gap: 16px;
+  @media (min-width: 769px) {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -39,15 +62,9 @@
   box-shadow: var(--stacks-6-shadow);
   padding: 8px;
   border-radius: var(--border-radius-md);
-  max-width: 248px;
-  position: sticky;
-  top: 96px;
-  display: none;
+  width: 316px;
   flex-direction: column;
   gap: 4px;
-  @media (min-width: 769px) {
-    display: flex;
-  }
 }
 
 .tocList {
@@ -81,7 +98,6 @@
 
 .collapsibleThread {
   display: grid;
-  --timelineWidth: 36px;
   grid-template-columns: var(--timelineWidth) 1fr;
   grid-template-rows: 36px minmax(0, 1fr);
   column-gap: 4px;
@@ -89,7 +105,6 @@
   margin-left: -0.5rem;
   @media (min-width: 769px) {
     margin-left: 0;
-    --timelineWidth: 48px;
   }
   &::details-content {
     content-visibility: visible !important;

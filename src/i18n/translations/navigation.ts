@@ -92,6 +92,14 @@ export const navigation = {
     following: 'following',
     skip_to_developer_tips_pagination: 'Skip to Developer Tips Pagination',
     view_image_in_full_size: 'View image in full size',
+    pagination_label: 'Pagination',
+    pagination_prev: 'Prev',
+    pagination_next: 'Next',
+    pagination_go_to_prev: 'Go to previous page',
+    pagination_go_to_next: 'Go to next page',
+    pagination_go_to_page: 'Go to page',
+    pagination_page: 'Page',
+    pagination_current_page: 'current page',
   },
   da: {
     default_seo_image_alt:
@@ -187,5 +195,13 @@ export const navigation = {
     skip_to_developer_tips_pagination:
       'Gå til paginering for tips til udviklere',
     view_image_in_full_size: 'Vis billedet i fuld størrelse',
+    pagination_label: 'Sideinddeling',
+    pagination_prev: 'Forrige',
+    pagination_next: 'Næste',
+    pagination_go_to_prev: 'Gå til forrige side',
+    pagination_go_to_next: 'Gå til næste side',
+    pagination_go_to_page: 'Gå til side',
+    pagination_page: 'Side',
+    pagination_current_page: 'nuværende side',
   },
 } as const;
