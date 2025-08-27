@@ -1,0 +1,59 @@
+---
+import type { Language } from '@i18n/settings';
+import styles from './bluesky.module.css';
+import { formatDate } from '@utils/misc';
+import type { ProcessedBlueskyThread } from './utils';
+import BlueskyThreadRenderer from './BlueskyThreadRenderer.astro';
+import BlueskyLikes from '@components/bluesky/BlueskyLikes.astro';
+import { useTranslations } from '@i18n/utils';
+import ButterflyIcon from './ButterflyIcon.astro';
+
+type Props = {
+  lang: Language;
+  thread: ProcessedBlueskyThread;
+  displayName: any;
+};
+
+const { lang, thread, displayName } = Astro.props;
+
+const t = useTranslations(lang, 'navigation');
+
+const indexedAt = thread.createdAt;
+const formattedTimestamp = formatDate(indexedAt, lang);
+---
+
+<li id={thread.recordKey} class={styles.thread}>
+  <article class={styles.article}>
+    <div class={styles.threadWrapper}>
+      <div class={styles.postWrapper}>
+        <header class={styles.profileInfo}>
+          <h3 class={styles.displayName}>
+            {displayName}
+          </h3>
+          {
+            formattedTimestamp && indexedAt && (
+              <time datetime={indexedAt} class={styles.postDate}>
+                {formattedTimestamp}
+              </time>
+            )
+          }
+        </header>
+        <BlueskyThreadRenderer thread={thread} />
+      </div>
+    </div>
+    <footer class={styles.threadFooter}>
+      <BlueskyLikes thread={thread} />
+      <a
+        class={styles.viewOnBluesky}
+        href={thread.viewOnBluesky}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p>
+          {t('view_on_bluesky')}
+        </p>
+        <ButterflyIcon />
+      </a>
+    </footer>
+  </article>
+</li>

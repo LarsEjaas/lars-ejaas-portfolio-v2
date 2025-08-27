@@ -32,6 +32,8 @@
     "/message-received",
     "/da/besked-modtaget",
     "/message-error",
-    "/da/besked-fejl"
+    "/da/besked-fejl",
+    "/da/developer-tips/",
+    "/developer-tips/"
   ]
 }

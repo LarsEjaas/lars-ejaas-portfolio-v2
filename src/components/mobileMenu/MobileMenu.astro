@@ -26,11 +26,11 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   import { storeScrollPositionOnClick } from '@utils/scrollPosition';
 
   if (window.mobileMenuNavigation) {
-    initializeKeyboardArrowNavigation(window.mobileMenuNavigation);
+    initHorizontalKeyboardArrowNav(window.mobileMenuNavigation);
   }
   if (window.mobileShareLink) {
     storeScrollPositionOnClick(window.mobileShareLink);

@@ -1,4 +1,4 @@
-import type { SlugKeys } from '@i18n/routes.ts';
+import type { DynamicSlugKey, StaticSlugKey } from '@i18n/routes.ts';
 import {
   removeTrailingSlash,
   removeLeadingSlash,
@@ -9,7 +9,7 @@ import { defaultLang, type Language } from '@i18n/settings';
 import type { MetaImage } from '@customTypes/seo';
 
 type MetaInfo = Record<
-  Exclude<SlugKeys | '/', 'email-reply'>,
+  Exclude<DynamicSlugKey | '/', 'email-reply'> | StaticSlugKey,
   {
     title: string;
     description: string;
@@ -67,6 +67,14 @@ export const getMetaInfo = (lang: Language): MetaInfo => {
       image: {
         name: `home_${lang}`,
         alt: t('home_seo_image_alt'),
+      },
+    },
+    ['developer-tips']: {
+      title: t('developer_tips'),
+      description: t('developer_tips_seo_description'),
+      image: {
+        name: `developer_tips_${lang}`,
+        alt: t('developer_tips_seo_image_alt'),
       },
     },
   };

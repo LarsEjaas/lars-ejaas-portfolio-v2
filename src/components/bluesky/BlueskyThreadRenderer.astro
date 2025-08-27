@@ -1,0 +1,61 @@
+---
+import {
+  renderPostContentAsHTML,
+  type RichTextRenderConfig,
+} from './richTextRenderUtils';
+import type { ProcessedBlueskyThread } from './utils';
+import styles from './bluesky.module.css';
+import PostEmbed from './PostEmbed.astro';
+
+type Props = {
+  thread: ProcessedBlueskyThread;
+  scrollable?: boolean;
+  className?: string;
+  classNames?: RichTextRenderConfig['classNames'];
+};
+
+const {
+  thread,
+  scrollable = true,
+  className = '',
+  classNames = {},
+} = Astro.props;
+
+const embed = thread?.mainPost.embed;
+
+const threadConfig: RichTextRenderConfig = {
+  classNames: {
+    container: `body-text ${styles.postContent}`,
+    link: styles.postLink,
+    hashtag: styles.postHashtag,
+    ...classNames,
+  },
+  attributes: {
+    link: { 'data-type': 'external-link' },
+    hashtag: (segment) => ({ 'data-tag': segment.content.replace('#', '') }),
+  },
+};
+---
+
+<section
+  class:list={[styles.threadContent, className]}
+  data-no-scroll={!scrollable || undefined}
+>
+  <Fragment
+    set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
+  />
+  <PostEmbed embed={embed} />
+  {
+    thread.replies.map((reply) => {
+      const content = renderPostContentAsHTML(reply, threadConfig);
+      const replyEmbed = reply.embed;
+      return (
+        <>
+          <div class={styles.divider} />
+          <Fragment class={styles.reply} set:html={content} />
+          <PostEmbed embed={replyEmbed} />
+        </>
+      );
+    })
+  }
+</section>

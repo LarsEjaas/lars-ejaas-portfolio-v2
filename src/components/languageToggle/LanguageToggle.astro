@@ -2,13 +2,11 @@
 import {
   getLangFromUrl,
   removeTrailingSlash,
-  removeLeadingSlash,
   useTranslatedPath,
+  getEnglishTranslation,
 } from '@i18n/utils';
 import { defaultLang, type Language } from '@i18n/settings';
 import styles from './languageToggle.module.css';
-import { appRoutes } from '@i18n/routes';
-import type { LanguageKey } from '@i18n/routes';
 import type { StringWithTrailingSlash } from '@customTypes/index';
 
 type Props = {
@@ -19,37 +17,28 @@ type Props = {
 
 const { withBackground, translationUrls } = Astro.props;
 
-/** Get the English appRoute when only the translated path is provided */
-const getEnglishTranslation = (
-  language: LanguageKey,
-  pathname: StringWithTrailingSlash
-) => {
-  const rawPath = removeLeadingSlash(removeTrailingSlash(pathname));
-  const slug = rawPath.replace(`${language}/`, '');
-  const [translationKey] =
-    Object.entries(appRoutes[language]).find(
-      ([_, routePath]) => routePath === slug
-    ) || [];
+function translatePath(
+  path: StringWithTrailingSlash,
+  from: Language,
+  to: Language
+): string {
+  if (from === to) return path;
 
-  return translationKey ? `/${translationKey}/` : '/';
-};
+  if (from === defaultLang) {
+    return path === '/' ? '/da/' : useTranslatedPath(from)(path, to);
+  }
+
+  if (path === '/da/') return '/'; // special case for Danish index
+  return getEnglishTranslation(from, path, '/'); // fallback to English index
+}
 
 const currentPath = `${removeTrailingSlash(Astro.url.pathname)}/` as const;
 
 const lang = getLangFromUrl(Astro.url);
-const translatedPath = useTranslatedPath(lang);
 
 const englishUrl =
-  lang === defaultLang
-    ? Astro.url.pathname
-    : getEnglishTranslation(lang, currentPath);
-
-const danishUrl =
-  lang === defaultLang
-    ? Astro.url.pathname === '/'
-      ? `/da/`
-      : translatedPath(currentPath, 'da')
-    : currentPath;
+  translationUrls?.en || translatePath(currentPath, lang, 'en');
+const danishUrl = translationUrls?.da || translatePath(currentPath, lang, 'da');
 ---
 
 <div
@@ -62,7 +51,7 @@ const danishUrl =
   <a
     tabindex={lang === 'en' ? -1 : 0}
     aria-disabled={lang === 'en' || undefined}
-    href={translationUrls?.en || englishUrl}
+    href={englishUrl}
   >
     EN
   </a>

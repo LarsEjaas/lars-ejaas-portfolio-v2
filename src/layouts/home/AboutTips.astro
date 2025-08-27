@@ -13,7 +13,7 @@ const { lang, inert } = Astro.props;
 const t_home = useTranslations(lang, 'home');
 ---
 
-<div class={`fullgrid ${styles.fullgrid}`} id="aboutTips">
+<section class={`fullgrid ${styles.fullgrid}`} id="aboutTips">
   <h2>{t_home('quality_in_the_details')}</h2>
   <div class={styles.tips}>
     <AboutTip
@@ -60,4 +60,4 @@ const t_home = useTranslations(lang, 'home');
       </div>
     </AboutTip>
   </div>
-</div>
+</section>

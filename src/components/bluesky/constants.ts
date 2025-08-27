@@ -1,0 +1,2 @@
+export const MAXIMUM_NUMBER_OF_LIKE_AVATARS = 55;
+export const AVATAR_THUMBNAIL_SIZE = 80;

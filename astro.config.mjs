@@ -25,6 +25,7 @@ export default defineConfig({
     edgeMiddleware: false,
     functionPerRoute: false,
   }),
+  cacheDir: './.cache',
   env: {
     schema: {
       FACEBOOK_APP_ID: envField.string({
@@ -79,6 +80,11 @@ export default defineConfig({
         optional: false,
       }),
       PUBLIC_PIWIK_DOMAINS: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: false,
+      }),
+      SERVERLESS_AUTH_TOKEN: envField.string({
         context: 'client',
         access: 'public',
         optional: false,

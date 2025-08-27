@@ -1,5 +1,5 @@
 import { TRANSITION_TYPE } from '@utils/localStorage';
-import { isLightboxRoute } from '@utils/scrollPosition';
+import { isLightboxRoute } from '@utils/lightboxRoutes';
 
 export const setLightboxTransitionType = () => {
   if ('CSSViewTransitionRule' in window) {

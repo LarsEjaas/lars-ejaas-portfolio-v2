@@ -1,0 +1,18 @@
+.bannerContainer {
+  composes: outline from '@layouts/home/home.module.css';
+  grid-column: 1 / -1;
+}
+
+.banner {
+  composes: contact from '@layouts/home/home.module.css';
+  padding: 16px;
+  border-radius: var(--border-radius-sm);
+  color: light-dark(var(--system-dark-200), var(--system-dark-100));
+  font-size: var(--font-size-3);
+  width: unset;
+  font-weight: 600;
+  display: block;
+  @media (min-width: 900px) {
+    text-align: center;
+  }
+}

@@ -1,3 +1,5 @@
+import type { Language } from '@i18n/utils';
+
 export type ImageDetails = {
   /** Filename of the image excluding the file extension */
   imageName: string;
@@ -12,6 +14,46 @@ export type ImageDetails = {
   hrefEN: string;
 };
 
+export const lightboxRoutes = {
+  img1: ['cycling-hjorring-2011', 'cykling-hjorring-2011'],
+  img2: ['cyclocross-2009', 'cykelcross-2009'],
+  img3: ['cycling-hammel-2007', 'cykellob-hammel-2007'],
+  // The following have identical hrefs in both languages,
+  // so just store a single string instead of an array.
+  img4: 'sonderborg-2009',
+  img5: 'nice-2009',
+  img6: 'esbjerg-2017',
+  img7: 'half-marathon-aarhus-2015',
+  img8: 'marselislobet-aarhus-2015',
+  img9: 'aarhus-track-race-2017',
+  img10: 'hannover-marathon-2016-2',
+  img11: 'hannover-marathon-2016-1',
+} as const;
+
+type LightboxRoutes = typeof lightboxRoutes;
+type Key = keyof LightboxRoutes;
+
+function getLightboxHref<K extends Key, L extends Language>(
+  id: K,
+  lang: L
+): LightboxRoutes[K] extends readonly [infer EN, infer DA]
+  ? L extends 'en'
+    ? EN
+    : DA
+  : LightboxRoutes[K] {
+  const val = lightboxRoutes[id];
+  if (Array.isArray(val)) {
+    return lang === 'en' ? val[0] : val[1];
+  }
+  return val as any;
+}
+
+export function getLightboxSlugs(lang: Language) {
+  return Object.values(lightboxRoutes).map((slug) =>
+    typeof slug === 'string' ? slug : slug[lang === 'en' ? 0 : 1]
+  );
+}
+
 export const aboutImagesInfo = [
   {
     imageName: 'hjørring_2011',
@@ -25,8 +67,8 @@ export const aboutImagesInfo = [
     imageDescriptionDA: 'Poserer efter et cykelløb i Hjørring, 2011.',
     imageDescriptionEN:
       'Posing after a cycling race in Hjørring, Denmark - 2011.',
-    hrefEN: 'cycling-hjorring-2011',
-    hrefDA: 'cykling-hjorring-2011',
+    hrefEN: getLightboxHref('img1', 'en'),
+    hrefDA: getLightboxHref('img1', 'da'),
   },
   {
     imageName: 'cross_fredericia_2009',
@@ -41,8 +83,8 @@ export const aboutImagesInfo = [
       'Cykelcross løb på en mudret vinterdag i Fredericia, 2009.',
     imageDescriptionEN:
       'Cyclocross racing on a muddy winter day in Fredericia, Denmark - 2009.',
-    hrefEN: 'cyclocross-2009',
-    hrefDA: 'cykelcross-2009',
+    hrefEN: getLightboxHref('img2', 'en'),
+    hrefDA: getLightboxHref('img2', 'da'),
   },
   {
     imageName: 'hammel_2007',
@@ -56,8 +98,8 @@ export const aboutImagesInfo = [
     imageDescriptionDA: 'Deltager i et dansk elite-cykelløb i Hammel, 2007.',
     imageDescriptionEN:
       'Competing in a Danish elite road race in Hammel, Denmark - 2007.',
-    hrefEN: 'cycling-hammel-2007',
-    hrefDA: 'cykellob-hammel-2007',
+    hrefEN: getLightboxHref('img3', 'en'),
+    hrefDA: getLightboxHref('img3', 'da'),
   },
   {
     imageName: 'dm_sønderborg_2009',
@@ -72,8 +114,8 @@ export const aboutImagesInfo = [
       'Deltager i de danske mesterskaber i linieløb i Sønderborg - 2009.',
     imageDescriptionEN:
       'Participating in the Danish road-racing championships - 2009.',
-    hrefEN: 'sonderborg-2009',
-    hrefDA: 'sonderborg-2009',
+    hrefEN: getLightboxHref('img4', 'en'),
+    hrefDA: getLightboxHref('img4', 'da'),
   },
   {
     imageName: 'nice_2009',
@@ -88,8 +130,8 @@ export const aboutImagesInfo = [
       'Træning med mit hold under en tidlig træningslejr i Nice, Frankrig - foråret 2009',
     imageDescriptionEN:
       'Training with my team during an early spring training camp in Nice, France - 2009.',
-    hrefEN: 'nice-2009',
-    hrefDA: 'nice-2009',
+    hrefEN: getLightboxHref('img5', 'en'),
+    hrefDA: getLightboxHref('img5', 'da'),
   },
   {
     imageName: 'esbjerg_2017',
@@ -103,8 +145,8 @@ export const aboutImagesInfo = [
     imageDescriptionDA: 'Deltager i Esbjerg City half - halvmaraton - 2017.',
     imageDescriptionEN:
       'Participating in a half marathon in Esbjerg, Denmark - 2017.',
-    hrefEN: 'esbjerg-2017',
-    hrefDA: 'esbjerg-2017',
+    hrefEN: getLightboxHref('img6', 'en'),
+    hrefDA: getLightboxHref('img6', 'da'),
   },
   {
     imageName: 'half_marathon_aarhus_2015',
@@ -118,8 +160,8 @@ export const aboutImagesInfo = [
     imageDescriptionDA: 'Deltager i et halvmaraton i Aarhus - 2015.',
     imageDescriptionEN:
       'Participating in a half marathon in Aarhus, Denmark - 2015.',
-    hrefEN: 'half-marathon-aarhus-2015',
-    hrefDA: 'half-marathon-aarhus-2015',
+    hrefEN: getLightboxHref('img7', 'en'),
+    hrefDA: getLightboxHref('img7', 'da'),
   },
   {
     imageName: 'marselislobet_aarhus_2015',
@@ -133,8 +175,8 @@ export const aboutImagesInfo = [
     imageDescriptionDA: 'Deltager i Marselisborgløbet i Aarhus - 2015.',
     imageDescriptionEN:
       'Participating in a local race in Aarhus, Denmark - 2015.',
-    hrefEN: 'marselislobet-aarhus-2015',
-    hrefDA: 'marselislobet-aarhus-2015',
+    hrefEN: getLightboxHref('img8', 'en'),
+    hrefDA: getLightboxHref('img8', 'da'),
   },
   {
     imageName: 'aarhus_track_race_2017',
@@ -148,8 +190,8 @@ export const aboutImagesInfo = [
     imageDescriptionDA: 'Deltager i et lokalt 5000 m. baneløb i Aarhus - 2017.',
     imageDescriptionEN:
       'Participating in a local 5000m. track race in Aarhus, Denmark - 2017.',
-    hrefEN: 'aarhus-track-race-2017',
-    hrefDA: 'aarhus-track-race-2017',
+    hrefEN: getLightboxHref('img9', 'en'),
+    hrefDA: getLightboxHref('img9', 'da'),
   },
   {
     imageName: 'hannover_2016_2',
@@ -162,8 +204,8 @@ export const aboutImagesInfo = [
       'Runners compete closely in a city marathon, with bib numbers visible. A cameraman on a motorcycle captures the action. The atmosphere is intense.',
     imageDescriptionDA: 'Deltager i Hannover Marathon, Tyskland - 2016.',
     imageDescriptionEN: 'Participating in Hannover Marathon, Germany - 2016.',
-    hrefEN: 'hannover-marathon-2016-2',
-    hrefDA: 'hannover-marathon-2016-2',
+    hrefEN: getLightboxHref('img10', 'en'),
+    hrefDA: getLightboxHref('img10', 'da'),
   },
   {
     imageName: 'hannover_2016_1',
@@ -176,7 +218,7 @@ export const aboutImagesInfo = [
       'Runners in a marathon rounding a bend on a city street. They appear focused and determined, wearing numbered bibs and bright athletic gear.',
     imageDescriptionDA: 'Deltager i Hannover Marathon, Tyskland - 2016.',
     imageDescriptionEN: 'Participating in Hannover Marathon, Germany - 2016.',
-    hrefEN: 'hannover-marathon-2016-1',
-    hrefDA: 'hannover-marathon-2016-1',
+    hrefEN: getLightboxHref('img11', 'en'),
+    hrefDA: getLightboxHref('img11', 'da'),
   },
 ] as const satisfies readonly ImageDetails[];

@@ -159,14 +159,6 @@
   }
   a[data-active] {
     pointer-events: none;
-    /* &::after {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      inset: -4px;
-      clip-path: url('#squircle');
-      background-color: var(--system-dark-100);
-    } */
   }
   & :global(.squircle) {
     clip-path: url(#squircle);
