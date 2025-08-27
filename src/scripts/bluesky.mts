@@ -56,6 +56,8 @@ async function main() {
         meta: imageMeta,
         newSiteHost,
         publicAsset: true,
+        width: 80,
+        height: 80,
       })
     : undefined;
 

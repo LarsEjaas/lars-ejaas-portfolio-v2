@@ -43,7 +43,7 @@ const hasMultipleThreads = processedThreads.length > 1;
     inert={inert}
     className={styles.card}
   >
-    <div class={`${styles.blueSkyIcon} squircle`} data-with-shadow="true">
+    <div class:list={[styles.blueSkyIcon, 'squircle']} data-with-shadow="true">
       <PictureWithPlaceholder
         aria-hidden="true"
         formats={['avif', 'webp']}
@@ -134,26 +134,49 @@ const hasMultipleThreads = processedThreads.length > 1;
 </bluesky-feed-card>
 
 <script>
-  import { setupPaginationScroll } from '@components/workCard/utils';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
   class BlueskyFeedCard extends HTMLElement {
+    private feedlists: NodeListOf<HTMLUListElement> | null = null;
+    private _handleKeydown: (event: KeyboardEvent) => void;
+    private _cleanupArrowNav: (() => void) | undefined;
+
+    constructor() {
+      super();
+      this._handleKeydown = this.handleKeydown.bind(this);
+    }
+
     connectedCallback() {
-      const footerImageControls = Array.from(
-        this.querySelectorAll('[id$="footerNavigation"]')
-      );
+      const footerImageControl = this.querySelector('[id$="footerNavigation"]');
 
-      setupPaginationScroll(footerImageControls);
+      if (footerImageControl instanceof HTMLElement) {
+        this._cleanupArrowNav =
+          initHorizontalKeyboardArrowNav(footerImageControl);
+      }
 
-      const feedlists = this.querySelectorAll('[id^="feedlist"]');
-      feedlists.forEach((feedlist) => {
-        feedlist.addEventListener('keydown', (event) => {
-          if (
-            event instanceof KeyboardEvent &&
-            (event.key === 'ArrowLeft' || event.key === 'ArrowRight')
-          ) {
-            event.stopPropagation();
-          }
-        });
+      this.feedlists = this.querySelectorAll('[id^="feedlist"]');
+      this.feedlists.forEach((feedlist) => {
+        feedlist.addEventListener('keydown', this._handleKeydown);
       });
+    }
+
+    disconnectedCallback() {
+      if (this.feedlists) {
+        this.feedlists.forEach((feedlist) => {
+          feedlist.removeEventListener('keydown', this._handleKeydown);
+        });
+      }
+      if (this._cleanupArrowNav) {
+        this._cleanupArrowNav();
+      }
+    }
+
+    private handleKeydown(event: KeyboardEvent) {
+      if (
+        event instanceof KeyboardEvent &&
+        (event.key === 'ArrowLeft' || event.key === 'ArrowRight')
+      ) {
+        event.stopPropagation();
+      }
     }
   }
 

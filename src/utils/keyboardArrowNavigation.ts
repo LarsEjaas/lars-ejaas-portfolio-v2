@@ -14,8 +14,14 @@ export const getFocusableElements = (
 function resetTabindex(
   rootElement: HTMLElement,
   navigationElements: HTMLElement[]
-) {
-  rootElement.addEventListener('focusin', (e) => {
+): () => void {
+  const handleFocusIn = (e: FocusEvent) => {
+    if (
+      !(e.target instanceof HTMLElement) ||
+      !(e.target?.dataset?.arrowNav === 'true')
+    ) {
+      return;
+    }
     // Reset tabindex to only make first element focusable every time we tab into the section
     if (
       e.relatedTarget instanceof Node &&
@@ -26,7 +32,12 @@ function resetTabindex(
       });
       navigationElements[0]?.focus();
     }
-  });
+  };
+  rootElement.addEventListener('focusin', handleFocusIn);
+
+  return () => {
+    rootElement.removeEventListener('focusin', handleFocusIn);
+  };
 }
 
 /**
@@ -36,12 +47,14 @@ function resetTabindex(
  * @param {boolean} [reverse=false] - Whether to reverse the navigation order
  *
  * Each focusable element must manually be marked with the `data-arrow-nav="true"` attribute
+ * @example
+ * const cleanupArrowNav = initHorizontalKeyboardArrowNav(control);
  */
 export function initHorizontalKeyboardArrowNav(
   hostElement: HTMLElement,
   reverse?: boolean,
   preventDefault: boolean = true
-) {
+): (() => void) | undefined {
   if (hostElement.dataset.arrowNavInitialized) {
     return;
   }
@@ -63,7 +76,7 @@ export function initHorizontalKeyboardArrowNav(
     el.tabIndex = i === 0 ? 0 : -1;
   });
 
-  hostElement.addEventListener('keydown', (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (!(event.target instanceof HTMLElement)) return;
 
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -85,11 +98,19 @@ export function initHorizontalKeyboardArrowNav(
         event.target.tabIndex = -1; // remove from tab order
       }
     }
-  });
+  };
 
-  resetTabindex(hostElement, focusableElements);
+  hostElement.addEventListener('keydown', handleKeyDown);
+
+  const cleanupTabindex = resetTabindex(hostElement, focusableElements);
 
   hostElement.dataset.arrowNavInitialized = 'true';
+
+  return () => {
+    hostElement.removeEventListener('keydown', handleKeyDown);
+    cleanupTabindex();
+    delete hostElement.dataset.arrowNavInitialized;
+  };
 }
 
 /**
@@ -98,8 +119,12 @@ export function initHorizontalKeyboardArrowNav(
  * @param {HTMLElement} hostElement - The element to initialize navigation within
  *
  * Each focusable element must manually be marked with the `data-arrow-nav="true"` attribute
+ * @example
+ * const cleanupArrowNav = initVerticalKeyboardArrowNav(control);
  */
-export function initVerticalKeyboardArrowNav(hostElement: HTMLElement) {
+export function initVerticalKeyboardArrowNav(
+  hostElement: HTMLElement
+): (() => void) | undefined {
   if (hostElement.dataset.arrowNavInitialized) return;
 
   const focusableElements = getFocusableElements(hostElement);
@@ -116,7 +141,7 @@ export function initVerticalKeyboardArrowNav(hostElement: HTMLElement) {
     el.tabIndex = i === 0 ? 0 : -1;
   });
 
-  hostElement.addEventListener('keydown', (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (!(event.target instanceof HTMLElement)) return;
 
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
@@ -138,9 +163,17 @@ export function initVerticalKeyboardArrowNav(hostElement: HTMLElement) {
         event.target.tabIndex = -1; // remove from tab order
       }
     }
-  });
+  };
 
-  resetTabindex(hostElement, focusableElements);
+  hostElement.addEventListener('keydown', handleKeyDown);
+
+  const cleanupTabindex = resetTabindex(hostElement, focusableElements);
 
   hostElement.dataset.arrowNavInitialized = 'true';
+
+  return () => {
+    hostElement.removeEventListener('keydown', handleKeyDown);
+    cleanupTabindex();
+    delete hostElement.dataset.arrowNavInitialized;
+  };
 }

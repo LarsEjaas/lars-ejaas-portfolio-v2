@@ -33,7 +33,7 @@ const t = useTranslations(lang, 'navigation');
 <collapsible-thread>
   {
     index === 0 && (
-      <div class={`${styles.collapsibleThread} ${styles.topDivider}`}>
+      <div class:list={[styles.collapsibleThread, styles.topDivider]}>
         <div class={styles.timelineDivider} />
       </div>
     )

@@ -211,11 +211,18 @@ const hasNext = url.next !== undefined;
   import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
 
   class Pagination extends HTMLElement {
+    private _cleanupArrowNav: (() => void) | undefined;
     connectedCallback() {
       const paginationWrapper = this.querySelector('[id$="PaginationWrapper"]');
-      console.log('paginationWrapper', paginationWrapper);
       if (paginationWrapper instanceof HTMLElement) {
-        initHorizontalKeyboardArrowNav(paginationWrapper);
+        this._cleanupArrowNav =
+          initHorizontalKeyboardArrowNav(paginationWrapper);
+      }
+    }
+
+    disconnectedCallback() {
+      if (this._cleanupArrowNav) {
+        this._cleanupArrowNav();
       }
     }
   }

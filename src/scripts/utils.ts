@@ -19,7 +19,11 @@ import crypto from 'crypto';
 import 'dotenv/config';
 import { notEmpty, type BlueskyPostThread } from './../customTypes/index.ts';
 import pLimit from 'p-limit';
-import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from '../components/bluesky/constants.ts';
+import {
+  AVATAR_THUMBNAIL_SIZE,
+  MAXIMUM_NUMBER_OF_LIKE_AVATARS,
+} from './../components/bluesky/constants.ts';
+import sharp from 'sharp';
 
 export const SITE_URL = process.env.SITE_URL
   ? removeTrailingSlash(process.env.SITE_URL)
@@ -167,6 +171,8 @@ export async function downloadImageIfChanged({
   publicAsset,
   updatedAt,
   newSiteHost,
+  width,
+  height,
 }: {
   url: string;
   localName: string;
@@ -175,6 +181,8 @@ export async function downloadImageIfChanged({
   publicAsset?: boolean;
   updatedAt?: string;
   newSiteHost?: boolean;
+  width?: number;
+  height?: number;
 }): Promise<string> {
   const ext = getImageExtension(url);
   const fileName = `${localName}${ext}`;
@@ -192,7 +200,13 @@ export async function downloadImageIfChanged({
     throw new Error(`Failed to download image: ${res.statusText}`);
   }
 
-  const buffer = await res.arrayBuffer();
+  let buffer = await res.arrayBuffer();
+
+  if (width || height) {
+    buffer = await sharp(Buffer.from(buffer))
+      .resize({ width, height })
+      .toBuffer();
+  }
   const hash = hashBuffer(Buffer.from(buffer));
 
   if (url in meta && meta[url]?.hash === hash && !newSiteHost) {
@@ -483,6 +497,8 @@ export async function getLikes({
                 publicAsset: true,
                 updatedAt: like.actor.indexedAt,
                 newSiteHost,
+                width: AVATAR_THUMBNAIL_SIZE,
+                height: AVATAR_THUMBNAIL_SIZE,
               });
               const ext = getImageExtension(thumbnail);
               like.actor.avatar = getPublicAssetUrl(

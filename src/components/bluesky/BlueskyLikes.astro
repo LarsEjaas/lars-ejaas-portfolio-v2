@@ -63,36 +63,51 @@ const likes = (thread.mainPost.likes || []).slice(
     createLikesHTML,
   } from './utils';
   import type { Language } from '../../i18n/utils';
+
   class BlueskyLikes extends HTMLElement {
+    private _cleanupArrowNav: (() => void) | undefined;
+
     connectedCallback() {
+      this.updateLikes();
+    }
+
+    disconnectedCallback() {
+      if (this._cleanupArrowNav) {
+        this._cleanupArrowNav();
+      }
+    }
+
+    private async updateLikes() {
       const lang = document.documentElement.dataset.lang as Language;
       const likesWrapper = this.querySelector('[id^="threadLikes"]');
 
-      async function updateLikes() {
-        const devTipsLikes = await fetchLikesOnce();
-
-        if (!(likesWrapper instanceof HTMLDivElement)) {
-          return;
-        }
-
-        const atUri = likesWrapper.dataset.uri;
-        if (!atUri || !devTipsLikes.length) {
-          cleanupSkeletonLoaders(likesWrapper);
-          initHorizontalKeyboardArrowNav(likesWrapper);
-          return;
-        }
-
-        const likesHTML = createLikesHTML(devTipsLikes, atUri, lang);
-        if (likesHTML) {
-          likesWrapper.innerHTML = likesHTML;
-          injectPopoverScript(likesWrapper);
-        } else {
-          cleanupSkeletonLoaders(likesWrapper);
-        }
-
-        initHorizontalKeyboardArrowNav(likesWrapper);
+      if (!(likesWrapper instanceof HTMLDivElement)) {
+        return;
       }
-      updateLikes();
+
+      const devTipsLikes = await fetchLikesOnce();
+
+      // If the component is disconnected while waiting for likes, do nothing.
+      if (!this.isConnected) {
+        return;
+      }
+
+      const atUri = likesWrapper.dataset.uri;
+      if (!atUri || !devTipsLikes.length) {
+        cleanupSkeletonLoaders(likesWrapper);
+        this._cleanupArrowNav = initHorizontalKeyboardArrowNav(likesWrapper);
+        return;
+      }
+
+      const likesHTML = createLikesHTML(devTipsLikes, atUri, lang);
+      if (likesHTML) {
+        likesWrapper.innerHTML = likesHTML;
+        injectPopoverScript(likesWrapper);
+      } else {
+        cleanupSkeletonLoaders(likesWrapper);
+      }
+
+      this._cleanupArrowNav = initHorizontalKeyboardArrowNav(likesWrapper);
     }
   }
   customElements.define('blusky-likes', BlueskyLikes);

@@ -45,7 +45,7 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
   href={uri}
   target="_blank"
   rel="noopener noreferrer"
-  class={`${styles.postEmbed} ${className || ''}`}
+  class:list={[styles.postEmbed, className || '']}
 >
   <div class={styles.embedPreview}>
     {
@@ -81,7 +81,7 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
     }
     <div class={styles.embedInfo}>
       <h3 class={styles.embedTitle}>{title}</h3>
-      <p class={`small-body-text ${styles.embedDesc}`}>{description}</p>
+      <p class:list={['small-body-text', styles.embedDesc]}>{description}</p>
       <div class={styles.embedUrl}>
         <GlobeIcon />
         {embedHost}

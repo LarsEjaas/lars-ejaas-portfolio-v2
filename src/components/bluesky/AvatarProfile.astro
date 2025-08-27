@@ -86,7 +86,7 @@ const numberFormatter = new Intl.NumberFormat('en', {
     </a>
   </div>
   {displayName && <h3 class={styles.displayName}>{displayName}</h3>}
-  <p class={`small-body-text ${styles.handle}`}>{`@${handle}`}</p>
+  <p class:list={['small-body-text', styles.handle]}>{`@${handle}`}</p>
   {
     followersCount && followsCount && (
       <div class={styles.followersWrapper}>
@@ -104,7 +104,7 @@ const numberFormatter = new Intl.NumberFormat('en', {
   {
     description && (
       <span
-        class={`small-body-text ${styles.description}`}
+        class:list={['small-body-text', styles.description]}
         set:html={htmlDescription}
       />
     )

@@ -213,7 +213,7 @@ const t_work = useTranslations(lang, 'work');
             {t_work('accuranker_company_description')}
           </p>
           <div class={styles.flexWrapper}>
-            <p class=`${styles.websiteVisit} small-body-text`>
+            <p class:list={[styles.websiteVisit, 'small-body-text']}>
               {`${t_work('visit_website')}:`}
             </p>
             <ExternalLink
@@ -292,7 +292,7 @@ const t_work = useTranslations(lang, 'work');
             {t_work('salling_group_company_description')}
           </p>
           <div class={styles.flexWrapper}>
-            <p class=`${styles.websiteVisit} small-body-text`>
+            <p class:list={[styles.websiteVisit, 'small-body-text']}>
               {`${t_work('visit_website')}:`}
             </p>
             <ExternalLink
