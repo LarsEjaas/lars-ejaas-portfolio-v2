@@ -40,7 +40,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Content-Type-Options = "nosniff"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self' https://*.piwik.pro; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.bsky.app https://larsejaas.com; object-src 'self';"
+    Content-Security-Policy = "default-src 'self' https://*.piwik.pro; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.piwik.pro; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.bsky.app; object-src 'self';"
 
 [[headers]]
   for = "/assets/*"

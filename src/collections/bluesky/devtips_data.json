@@ -210,9 +210,7 @@
                 }
               }
             ],
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "text": "💡 TypeScript tip: Want autocomplete for common values BUT still allow any string? Here's a clever trick most devs don't know about!\n\nString literal union types like `\"apple\" | \"banana\"` give great IDE autocomplete, but what if you need flexibility too? 🤔\n\n#WebDev #TypeScript  #DeveloperTips"
           },
           "replyCount": 1,
@@ -368,9 +366,7 @@
                 }
               ]
             },
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "reply": {
               "parent": {
                 "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
@@ -455,9 +451,7 @@
                 }
               ]
             },
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "reply": {
               "parent": {
                 "cid": "bafyreidfdhew2xx6fa6aax5mcbr2zoksipqtjsdbrleqyotqrektng2jmy",
@@ -522,9 +516,7 @@
           "record": {
             "$type": "app.bsky.feed.post",
             "createdAt": "2025-08-08T10:20:08.651Z",
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "reply": {
               "parent": {
                 "cid": "bafyreihk2fhznudxbz6v24sgoykkrhghoy5xhttt54jlqr3oaj55hay5oe",
@@ -575,9 +567,7 @@
           "record": {
             "$type": "app.bsky.feed.post",
             "createdAt": "2025-08-08T10:20:08.652Z",
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "reply": {
               "parent": {
                 "cid": "bafyreieqhpa567j7wske6r4ko7j3zebm7663emibkiivgijmmge2xmg4cm",
@@ -685,9 +675,7 @@
                 }
               }
             ],
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "text": "🔧 Dev tip: You can make your webpages XML sitemap human-readable by adding a sitemap.xsl file! Instead of showing raw XML, visitors get a clean nice-looking page.\nCheck out this example:\nlarsejaas.com/sitemap-0.xml\nMuch better than staring at angle brackets, right? 😄\n#WebDev #SEO #DeveloperTips"
           },
           "replyCount": 1,
@@ -841,9 +829,7 @@
                 }
               }
             ],
-            "langs": [
-              "en"
-            ],
+            "langs": ["en"],
             "reply": {
               "parent": {
                 "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",
