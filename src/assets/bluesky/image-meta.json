@@ -64,5 +64,11 @@
     "localPath": "/bluesky/avatar-thumbnail-zjmzu7kvewlufe7nz3ewhkfl.jpeg",
     "fileName": "avatar-thumbnail-zjmzu7kvewlufe7nz3ewhkfl.jpeg",
     "updatedAt": "2025-08-24T13:24:12.198Z"
+  },
+  "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:kaazck4kisyxchgo7hxru5qf/bafkreiedsrtqrxrvetwbqcypb2xjoqoc5awf5d275xadwh33z7nwjhvkry@jpeg": {
+    "hash": "b9d4cc06330e5751f22277bffbd955a489065320f238a46ae4a4e976ea10a30d",
+    "localPath": "/bluesky/avatar-thumbnail-kaazck4kisyxchgo7hxru5qf.jpeg",
+    "fileName": "avatar-thumbnail-kaazck4kisyxchgo7hxru5qf.jpeg",
+    "updatedAt": "2025-08-22T21:21:05.497Z"
   }
 }

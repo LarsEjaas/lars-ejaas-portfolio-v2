@@ -55,6 +55,7 @@ export type ProcessedEmbed =
       description?: string;
       thumbnail?: string;
       alt?: string;
+      lazyLoadImages?: boolean;
     }
   | {
       type: 'images';
@@ -65,6 +66,7 @@ export type ProcessedEmbed =
         alt?: string;
         aspectRatio?: { height: number; width: number };
       }[];
+      lazyLoadImages?: boolean;
     };
 
 export interface ProcessedPost {

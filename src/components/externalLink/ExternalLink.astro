@@ -11,7 +11,7 @@ const { href, className } = Astro.props;
 
 <a
   href={href}
-  class={`${styles.link} ${className || ''}`}
+  class:list={[styles.link, className || '']}
   target="_blank"
   rel="noopener noreferrer"
   ><slot /><svg

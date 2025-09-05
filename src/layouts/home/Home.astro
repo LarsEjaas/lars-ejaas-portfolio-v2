@@ -14,14 +14,12 @@ import ProfileImage from '@assets/images/profile_clip.png';
 import SocialLinks from '@components/socialLinks/SocialLinks.astro';
 import AboutIcon from '@components/icons/AboutIcon.astro';
 import DownloadIcon from '@components/icons/DownloadIcon.astro';
-import IconContact from '@assets/menuIcons/contact.png';
-import { Picture } from 'astro:assets';
-import Sparkle from '@components/sparkle/Sparkle.astro';
 import type { DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 import { getPublicFiles } from '@utils/publicFileValidator';
 import AboutTips from './AboutTips.astro';
 import DeveloperTips from './DeveloperTips.astro';
+import SparkleButton from '../../components/buttons/SparkleButton.astro';
 
 /** Add a key that easily identifies the latest resume - located in public/resume */
 const LATEST_RESUME_KEY = 'june_2025';
@@ -86,7 +84,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         {t_home('hi_my_name_is')}
       </h2>
       <p class="body-text">{t_home('a_developer_driven')}</p>
-      <blockquote class={`${styles.quoteColor} ${styles.quote}`}>
+      <blockquote class:list={[styles.quoteColor, styles.quote]}>
         <p class="body-text">{t_home('this_little_corner')}</p>
       </blockquote>
     </div>
@@ -106,43 +104,15 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
           class="small-body-text"
           set:html={t_home('frontend_developer_description')}
         />
-        <div class={styles.contactContainer}>
-          <Sparkle>
-            <a
-              id="contactButton"
-              data-arrow-nav="true"
-              tabindex="0"
-              href={contactUrl}
-              title={t_home('contact')}
-              aria-label={t_home('contact')}
-              class={styles.outline}
-            >
-              <div class={styles.contact}>
-                <div class="squircle" data-with-shadow="true">
-                  <Picture
-                    aria-hidden="true"
-                    formats={['avif', 'webp']}
-                    quality="high"
-                    src={IconContact}
-                    alt=""
-                    width={40}
-                    height={40}
-                    densities={[1, 2, 3]}
-                    loading="eager"
-                    decoding="sync"
-                    pictureAttributes={{
-                      style: 'filter: grayscale(0.7);',
-                    }}
-                  />
-                </div>
-                <p
-                  class="small-body-text"
-                  set:html={t_home('got_something_on')}
-                />
-              </div>
-            </a>
-          </Sparkle>
-        </div>
+        <SparkleButton
+          href={contactUrl}
+          label={t_home('contact')}
+          iconImage="contact"
+          ><p
+            class="small-body-text"
+            set:html={t_home('got_something_on')}
+          /></SparkleButton
+        >
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
             <a href="/about" title={t_home('about_me_title')} tabindex="0">

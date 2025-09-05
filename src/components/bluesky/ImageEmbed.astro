@@ -17,12 +17,13 @@ export type Props = {
   thumbnail: string;
   index: number;
   alt?: string;
+  lazyLoadImages?: boolean;
 };
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
-const { uri, alt, thumbnail, index } = Astro.props;
+const { uri, alt, thumbnail, index, lazyLoadImages = false } = Astro.props;
 
 const id = crypto.randomUUID();
 
@@ -164,7 +165,7 @@ const publicImageComponent = ((await publicImageImport[1]()) as ImageModule)
       height={ImageComponent.height}
       widths={[328, 500, 670, 1000, 1340]}
       sizes="(max-width: 480px) 328px, (max-width: 652px) 500px, 670px"
-      loading="lazy"
+      loading={lazyLoadImages ? 'lazy' : 'eager'}
       decoding="async"
       placeholderSettings={{
         width: 40,

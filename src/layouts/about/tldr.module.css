@@ -11,7 +11,10 @@
   width: fit-content;
   padding-inline: 6px;
   padding-bottom: 2px;
-  background-color: var(--system-light-300-55);
+  background-color: light-dark(
+    var(--system-dark-200-16),
+    var(--system-light-300-55)
+  );
   border-radius: var(--border-radius-sm);
   max-width: 100%;
   & a,

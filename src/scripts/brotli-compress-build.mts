@@ -4,13 +4,13 @@ import { brotliCompress, constants as zlibConstants } from 'node:zlib';
 import { constants as fsConstants } from 'node:fs';
 
 // Recursively walk through a folder and collect matching files
-async function getFiles(dir: string, ext: string, files: string[] = []) {
+async function getFiles(dir: string, exts: string[], files: string[] = []) {
   const entries = await readdir(dir, { withFileTypes: true });
   for (const entry of entries) {
     const fullPath = join(dir, entry.name);
     if (entry.isDirectory()) {
-      await getFiles(fullPath, ext, files);
-    } else if (entry.isFile() && fullPath.endsWith(ext)) {
+      await getFiles(fullPath, exts, files);
+    } else if (entry.isFile() && exts.some((ext) => fullPath.endsWith(ext))) {
       files.push(fullPath);
     }
   }
@@ -28,15 +28,15 @@ async function isAlreadyCompressed(filePath: string) {
 }
 
 // Compress one file to Brotli
-async function compressFile(filePath: string) {
+async function compressFile(filePath: string): Promise<boolean> {
   if (await isAlreadyCompressed(filePath)) {
     console.info(`Skipping (already compressed): ${filePath}`);
-    return;
+    return false;
   }
 
   const fileBuffer = await readFile(filePath);
 
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<boolean>((resolve, reject) => {
     brotliCompress(
       fileBuffer,
       {
@@ -47,22 +47,24 @@ async function compressFile(filePath: string) {
       async (err, result) => {
         if (err) return reject(err);
         await writeFile(filePath + '.br', result);
-        resolve();
+        resolve(true);
       }
     );
   });
 }
 
 async function main() {
-  const astroDir = join(process.cwd(), 'dist/_astro');
+  const distDir = join(process.cwd(), 'dist');
 
-  // Find all JS files in dist/_astro
-  const jsFiles = await getFiles(astroDir, '.js');
+  // Find all JS, CSS, and HTML files in the dist directory
+  const filesToCompress = await getFiles(distDir, ['.js', '.css', '.html']);
 
-  console.info(`Found ${jsFiles.length} JS files to compress...`);
-  for (const file of jsFiles) {
-    await compressFile(file);
-    if (!(await isAlreadyCompressed(file))) {
+  console.info(
+    `Found ${filesToCompress.length} JS, CSS, and HTML files to compress...`
+  );
+  for (const file of filesToCompress) {
+    const didCompress = await compressFile(file);
+    if (didCompress) {
       const originalSize = (await stat(file)).size;
       const brotliSize = (await stat(file + '.br')).size;
       console.info(

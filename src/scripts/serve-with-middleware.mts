@@ -49,9 +49,12 @@ createServer(async (req, res) => {
     if (clientAcceptsBrotli && existsSync(brotliPath)) {
       res.setHeader('Content-Encoding', 'br');
 
-      if (ext === '.js') {
+      if (ext === '.js' || ext === '.css' || ext === '.html') {
         const size = (await stat(brotliPath)).size;
-        console.info(`✅ [Brotli] Served ${brotliPath} | Size: ${size} bytes`);
+        const fileType = ext === '.js' ? 'JS' : ext === '.css' ? 'CSS' : 'HTML';
+        console.info(
+          `✅ [Brotli] Served ${fileType}: ${urlPath} | Size: ${size} bytes`
+        );
       }
 
       createReadStream(brotliPath).pipe(res);
@@ -62,10 +65,12 @@ createServer(async (req, res) => {
     const data = await readFile(filePath);
     res.end(data);
 
-    if (ext === '.js') {
+    if (ext === '.js' || ext === '.css' || ext === '.html') {
       const rawSize = (await stat(filePath)).size;
+      const fileType =
+        ext === '.js' ? 'JavaScript' : ext === '.css' ? 'CSS' : 'HTML';
       console.info(
-        `💡 [JavaScript] Served uncompressed: ${urlPath} | Size: ${rawSize} bytes`
+        `💡 [${fileType}] Served uncompressed: ${urlPath} | Size: ${rawSize} bytes`
       );
     }
   } catch (err) {

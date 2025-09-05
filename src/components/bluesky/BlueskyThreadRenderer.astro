@@ -12,6 +12,7 @@ type Props = {
   scrollable?: boolean;
   className?: string;
   classNames?: RichTextRenderConfig['classNames'];
+  lazyLoadImages?: boolean;
 };
 
 const {
@@ -19,6 +20,7 @@ const {
   scrollable = true,
   className = '',
   classNames = {},
+  lazyLoadImages = false,
 } = Astro.props;
 
 const embed = thread?.mainPost.embed;
@@ -33,6 +35,7 @@ const threadConfig: RichTextRenderConfig = {
   attributes: {
     link: { 'data-type': 'external-link' },
     hashtag: (segment) => ({ 'data-tag': segment.content.replace('#', '') }),
+    embed: (_embed) => ({ lazyLoadImages }),
   },
 };
 ---
@@ -44,7 +47,7 @@ const threadConfig: RichTextRenderConfig = {
   <Fragment
     set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
   />
-  <PostEmbed embed={embed} />
+  <PostEmbed embed={embed ? { ...embed, lazyLoadImages } : undefined} />
   {
     thread.replies.map((reply) => {
       const content = renderPostContentAsHTML(reply, threadConfig);
@@ -53,7 +56,9 @@ const threadConfig: RichTextRenderConfig = {
         <>
           <div class={styles.divider} />
           <Fragment class={styles.reply} set:html={content} />
-          <PostEmbed embed={replyEmbed} />
+          <PostEmbed
+            embed={replyEmbed ? { ...replyEmbed, lazyLoadImages } : undefined}
+          />
         </>
       );
     })

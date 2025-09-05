@@ -14,9 +14,18 @@ export type Props = {
   thumbnail?: string;
   alt?: string;
   className?: string;
+  lazyLoadImages?: boolean;
 };
 
-const { uri, title, description, thumbnail, alt, className } = Astro.props;
+const {
+  uri,
+  title,
+  description,
+  thumbnail,
+  alt,
+  className,
+  lazyLoadImages = false,
+} = Astro.props;
 
 const embedHost = uri ? new URL(uri).hostname : undefined;
 
@@ -67,7 +76,7 @@ const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
             height={ImageComponent.height}
             widths={[328, 500, 670, 1000, 1340]}
             sizes="(max-width: 480px) 328px, (max-width: 652px) 500px, 670px"
-            loading="lazy"
+            loading={lazyLoadImages ? 'lazy' : 'eager'}
             decoding="async"
             placeholderSettings={{
               width: 40,

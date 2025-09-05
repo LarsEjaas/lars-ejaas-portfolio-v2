@@ -53,12 +53,15 @@ const t = useTranslations(lang, 'navigation');
     <Card
       as="span"
       data-is-last={isLastThread || undefined}
-      viewTransitionName={undefined}
+      viewTransitionName={`dev-tips-tread-card-${index + 1}`}
       inert={false}
       className={styles.threadCard}
     >
-      <div class={styles.cardContent}>
-        <div class={styles.butterfly} aria-hidden="true"></div>
+      <div class={styles.butterfly} aria-hidden="true"></div>
+      <div
+        class={styles.cardContent}
+        style={{ viewTransitionName: `dev-tips-card-content-${index + 1}` }}
+      >
         <div class={styles.threadInfo}>
           {
             formattedTimestamp && indexedAt && (
@@ -82,6 +85,7 @@ const t = useTranslations(lang, 'navigation');
           scrollable={false}
           className={styles.threadWrapper}
           classNames={{ hashtag: styles.hashtag }}
+          lazyLoadImages={index !== 0}
         />
         <div class={styles.threadFooter}>
           <BlueskyLikes thread={thread} />

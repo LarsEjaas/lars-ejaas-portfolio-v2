@@ -78,11 +78,12 @@ const hasMultipleThreads = processedThreads.length > 1;
         class={styles.feedList}
       >
         {
-          processedThreads.map((thread) => (
+          processedThreads.map((thread, index) => (
             <BlueskyThread
               thread={thread}
               lang={lang}
               displayName={profile.displayName}
+              index={index}
             />
           ))
         }

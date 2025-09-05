@@ -46,13 +46,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   class={`${styles.mobileMenu} mobile-only`}
   aria-labelledby="mobileMenuTitle"
   inert={inert}
-  role="listbox"
+  role="menubar"
   aria-keyshortcuts="ArrowLeft ArrowRight"
   id="mobileMenuNavigation"
 >
   <a
     data-arrow-nav="true"
-    role="option"
+    role="menuitem"
     href={translatePath('/')}
     data-current={Astro.url.pathname === translatePath('/') || undefined}
     title={t('home')}
@@ -76,7 +76,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   </a>
   <a
     data-arrow-nav="true"
-    role="option"
+    role="menuitem"
     href={translatePath('/work/')}
     data-current={Astro.url.pathname.startsWith(translatePath('/work/')) ||
       undefined}
@@ -101,7 +101,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
-    role="option"
+    role="menuitem"
     href={translatePath('/skills/')}
     data-current={Astro.url.pathname === translatePath('/skills/') || undefined}
     title={t('skills')}
@@ -125,7 +125,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
   >
   <a
     data-arrow-nav="true"
-    role="option"
+    role="menuitem"
     href={translatePath('/about/')}
     data-current={Astro.url.pathname.startsWith(translatePath('/about/')) ||
       undefined}
@@ -153,7 +153,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       <>
         <a
           data-arrow-nav="true"
-          role="option"
+          role="menuitem"
           href={inert ? undefined : contactUrl}
           aria-disabled={inert ? true : undefined}
           title={t('contact')}
@@ -179,7 +179,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         </a>
         <a
           data-arrow-nav="true"
-          role="option"
+          role="menuitem"
           href={inert ? undefined : shareUrl}
           aria-disabled={inert ? true : undefined}
           title={t('share')}

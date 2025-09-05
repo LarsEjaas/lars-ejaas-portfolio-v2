@@ -24,6 +24,7 @@ const { embed } = Astro.props;
             thumbnail={image.thumbnail}
             alt={image.alt}
             index={index}
+            lazyLoadImages={embed.lazyLoadImages}
           />
         ))}
       </div>
@@ -37,6 +38,7 @@ const { embed } = Astro.props;
         description={embed.description}
         thumbnail={embed.thumbnail}
         alt={embed.alt}
+        lazyLoadImages={embed.lazyLoadImages}
       />
     )
   }

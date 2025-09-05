@@ -38,7 +38,6 @@ const t = useTranslations(lang, 'navigation');
         id="tableOfContents"
         class={styles.toc}
         aria-label={t('nav_dev_tips')}
-        role="menubar"
         aria-keyshortcuts="ArrowUp ArrowDown"
       >
         <ul class={styles.tocList} role="list" aria-describedby="tocHelp">
@@ -49,11 +48,7 @@ const t = useTranslations(lang, 'navigation');
         </p>
       </nav>
     </details>
-    {
-      pagination.lastPage > 1 && (
-        <Pagination id="default" pagination={pagination} lang={lang} />
-      )
-    }
+    <Pagination id="default" pagination={pagination} lang={lang} />
   </div>
 </table-of-contents>
 <script>

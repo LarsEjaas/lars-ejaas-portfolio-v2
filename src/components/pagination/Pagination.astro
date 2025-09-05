@@ -87,126 +87,121 @@ const hasPrev = url.prev !== undefined;
 const hasNext = url.next !== undefined;
 ---
 
-<page-pagination>
-  <nav
-    id={`${id}PaginationWrapper`}
-    class={styles.pagination}
-    role="navigation"
-    aria-label={t('pagination_label')}
-    title={t('pagination_label')}
-  >
-    <ul class={styles.paginationContent}>
-      {
-        hasPrev && (
-          <li>
-            <a
-              data-arrow-nav="true"
-              href={url.prev}
-              class:list={[
-                styles.paginationLink,
-                styles.paginationPreviousNext,
-              ]}
-              aria-label={t('pagination_go_to_prev')}
-              title={t('pagination_go_to_prev')}
+<nav
+  is="page-pagination"
+  id={`${id}PaginationWrapper`}
+  class={styles.pagination}
+  role="navigation"
+  aria-label={t('pagination_label')}
+  title={t('pagination_label')}
+  style={{ viewTransitionName: `pagination-${id}` }}
+>
+  <ul class={styles.paginationContent}>
+    {
+      hasPrev && (
+        <li>
+          <a
+            data-arrow-nav="true"
+            href={url.prev}
+            class:list={[styles.paginationLink, styles.paginationPreviousNext]}
+            aria-label={t('pagination_go_to_prev')}
+            title={t('pagination_go_to_prev')}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m15 18-6-6 6-6" />
-              </svg>
-              <span>{t('pagination_prev')}</span>
-            </a>
-          </li>
-        )
-      }
-      {
-        pageItems.map((page) => {
-          if (typeof page === 'string') {
-            return (
-              <li>
-                <span class={styles.paginationEllipsis} aria-hidden="true">
-                  &hellip;
-                </span>
-              </li>
-            );
-          }
-
-          const isActive = page === currentPage;
-
-          if (isActive) {
-            return (
-              <li>
-                <span
-                  class={styles.paginationLink}
-                  aria-current="page"
-                  aria-label={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
-                  title={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
-                >
-                  {page}
-                </span>
-              </li>
-            );
-          }
-
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+            <span>{t('pagination_prev')}</span>
+          </a>
+        </li>
+      )
+    }
+    {
+      pageItems.map((page) => {
+        if (typeof page === 'string') {
           return (
             <li>
-              <a
-                data-arrow-nav="true"
-                class={styles.paginationLink}
-                href={getPageUrl(page)}
-                aria-label={`${t('pagination_go_to_page')} ${page}`}
-                title={`${t('pagination_go_to_page')} ${page}`}
-              >
-                {page}
-              </a>
+              <span class={styles.paginationEllipsis} aria-hidden="true">
+                &hellip;
+              </span>
             </li>
           );
-        })
-      }
-      {
-        hasNext && (
+        }
+
+        const isActive = page === currentPage;
+
+        if (isActive) {
+          return (
+            <li>
+              <span
+                class={styles.paginationLink}
+                aria-current="page"
+                aria-label={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
+                title={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
+              >
+                {page}
+              </span>
+            </li>
+          );
+        }
+
+        return (
           <li>
             <a
               data-arrow-nav="true"
-              href={url.next}
-              class:list={[
-                styles.paginationLink,
-                styles.paginationPreviousNext,
-              ]}
-              aria-label={t('pagination_go_to_next')}
-              title={t('pagination_go_to_next')}
+              class={styles.paginationLink}
+              href={getPageUrl(page)}
+              aria-label={`${t('pagination_go_to_page')} ${page}`}
+              title={`${t('pagination_go_to_page')} ${page}`}
             >
-              <span>{t('pagination_next')}</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m9 18 6-6-6-6" />
-              </svg>
+              {page}
             </a>
           </li>
-        )
-      }
-    </ul>
-  </nav>
-</page-pagination>
+        );
+      })
+    }
+    {
+      hasNext && (
+        <li>
+          <a
+            data-arrow-nav="true"
+            href={url.next}
+            class:list={[styles.paginationLink, styles.paginationPreviousNext]}
+            aria-label={t('pagination_go_to_next')}
+            title={t('pagination_go_to_next')}
+          >
+            <span>{t('pagination_next')}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </a>
+        </li>
+      )
+    }
+  </ul>
+</nav>
+
 <script>
   import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
 

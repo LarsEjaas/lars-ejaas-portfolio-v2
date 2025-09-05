@@ -2,21 +2,18 @@
   view-transition-name: footer;
   grid-column: 1 / -1;
   padding: 0;
-  background-color: color-mix(
-    in hsl,
-    var(--system-light-300-55),
-    transparent 85%
+  --bg-color: color-mix(in hsl, var(--system-light-300-55), transparent 85%);
+  background-color: var(--bg-color);
+  background-image: radial-gradient(
+    at 50% 5%,
+    light-dark(var(--system-light-100), var(--system-light-300-55)) 0,
+    var(--bg-color) 100%
   );
+  background-blend-mode: color-burn;
   border-top: 1px solid var(--system-light-300-55);
   box-shadow: var(--stacks-6-shadow);
   overflow: hidden;
   position: relative;
-}
-
-:global(html[data-dark-mode='true']) {
-  & footer::before {
-    mix-blend-mode: soft-light;
-  }
 }
 
 .someLinks {
@@ -64,7 +61,7 @@
   & .copyright {
     & a,
     & p {
-      color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
+      color: light-dark(var(--system-dark-200), var(--system-dark-300-55));
     }
     & p {
       white-space: pre;
@@ -93,6 +90,7 @@
   & ul {
     display: grid;
     justify-content: center;
+    align-items: center;
     column-gap: 16px;
     row-gap: 8px;
     grid-template-columns: min-content min-content;
@@ -101,9 +99,13 @@
     padding: 0;
   }
   & li {
+    list-style-type: none;
+  }
+  & a {
     display: flex;
     align-items: center;
     gap: 4px;
+    width: fit-content;
   }
 
   & .footerIcon {
@@ -135,8 +137,8 @@
     font-size: var(--font-size-1);
     & p:nth-child(1) {
       background-color: light-dark(
-        var(--system-dark-200),
-        var(--system-light-400)
+        var(--system-dark-300-80),
+        var(--system-light-300)
       );
       color: light-dark(var(--system-light-100), var(--system-dark-300));
       border-top-left-radius: var(--border-radius-sm);
@@ -190,11 +192,12 @@
   margin-left: auto;
   border-radius: var(--border-radius-sm);
   outline-offset: var(--outline-offset);
-  color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
+  color: light-dark(var(--system-dark-100), var(--system-dark-300-80));
+  transition: color 400ms;
   &:hover,
   &:focus-visible,
   &:active,
   &:visited {
-    color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
+    color: light-dark(var(--system-dark-200), var(--system-dark-300));
   }
 }

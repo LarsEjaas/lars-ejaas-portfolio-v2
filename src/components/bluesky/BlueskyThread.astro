@@ -11,10 +11,11 @@ import ButterflyIcon from './ButterflyIcon.astro';
 type Props = {
   lang: Language;
   thread: ProcessedBlueskyThread;
-  displayName: any;
+  displayName: string | undefined;
+  index: number;
 };
 
-const { lang, thread, displayName } = Astro.props;
+const { lang, thread, displayName, index } = Astro.props;
 
 const t = useTranslations(lang, 'navigation');
 
@@ -38,7 +39,7 @@ const formattedTimestamp = formatDate(indexedAt, lang);
             )
           }
         </header>
-        <BlueskyThreadRenderer thread={thread} />
+        <BlueskyThreadRenderer thread={thread} lazyLoadImages={index !== 0} />
       </div>
     </div>
     <footer class={styles.threadFooter}>

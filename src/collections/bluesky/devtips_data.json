@@ -133,9 +133,9 @@
     "description": "Frontend developer. \n\nlarsejaas.com\n\nCreating UI using React, TypeScript and/or whatever gets the job done.\n\nLet's connect!",
     "indexedAt": "2025-06-06T11:25:43.440Z",
     "banner": "https://cdn.bsky.app/img/banner/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreib5veo5awyyd5cnmu6msw3bthx7vryypjyvtea5idmhv64xstlmk4@jpeg",
-    "followersCount": 54,
+    "followersCount": 55,
     "followsCount": 127,
-    "postsCount": 108,
+    "postsCount": 109,
     "pinnedPost": {
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
@@ -210,12 +210,14 @@
                 }
               }
             ],
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "text": "💡 TypeScript tip: Want autocomplete for common values BUT still allow any string? Here's a clever trick most devs don't know about!\n\nString literal union types like `\"apple\" | \"banana\"` give great IDE autocomplete, but what if you need flexibility too? 🤔\n\n#WebDev #TypeScript  #DeveloperTips"
           },
           "replyCount": 1,
           "repostCount": 0,
-          "likeCount": 3,
+          "likeCount": 4,
           "quoteCount": 0,
           "indexedAt": "2025-08-08T10:20:17.007Z",
           "viewer": {
@@ -225,6 +227,30 @@
           },
           "labels": [],
           "likes": [
+            {
+              "actor": {
+                "did": "did:plc:kaazck4kisyxchgo7hxru5qf",
+                "handle": "bopito.bsky.social",
+                "displayName": "Hanso",
+                "avatar": "/bluesky/avatar-thumbnail-kaazck4kisyxchgo7hxru5qf.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false,
+                  "followedBy": "at://did:plc:kaazck4kisyxchgo7hxru5qf/app.bsky.graph.follow/3lxiqjowbac2e"
+                },
+                "labels": [],
+                "createdAt": "2024-12-02T02:47:22.446Z",
+                "description": "Software Engineer\n\nIt’s time to Moob™ 👉 moob.app ‼️",
+                "indexedAt": "2025-08-22T21:21:05.497Z"
+              },
+              "createdAt": "2025-08-28T23:54:13.435Z",
+              "indexedAt": "2025-08-28T23:54:13.435Z"
+            },
             {
               "actor": {
                 "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
@@ -366,7 +392,9 @@
                 }
               ]
             },
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "reply": {
               "parent": {
                 "cid": "bafyreifdhaejdulbutfaagxbnz5l27bexbu3rrkloxfeb3e7txchwx5rnm",
@@ -451,7 +479,9 @@
                 }
               ]
             },
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "reply": {
               "parent": {
                 "cid": "bafyreidfdhew2xx6fa6aax5mcbr2zoksipqtjsdbrleqyotqrektng2jmy",
@@ -516,7 +546,9 @@
           "record": {
             "$type": "app.bsky.feed.post",
             "createdAt": "2025-08-08T10:20:08.651Z",
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "reply": {
               "parent": {
                 "cid": "bafyreihk2fhznudxbz6v24sgoykkrhghoy5xhttt54jlqr3oaj55hay5oe",
@@ -567,7 +599,9 @@
           "record": {
             "$type": "app.bsky.feed.post",
             "createdAt": "2025-08-08T10:20:08.652Z",
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "reply": {
               "parent": {
                 "cid": "bafyreieqhpa567j7wske6r4ko7j3zebm7663emibkiivgijmmge2xmg4cm",
@@ -675,7 +709,9 @@
                 }
               }
             ],
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "text": "🔧 Dev tip: You can make your webpages XML sitemap human-readable by adding a sitemap.xsl file! Instead of showing raw XML, visitors get a clean nice-looking page.\nCheck out this example:\nlarsejaas.com/sitemap-0.xml\nMuch better than staring at angle brackets, right? 😄\n#WebDev #SEO #DeveloperTips"
           },
           "replyCount": 1,
@@ -688,78 +724,7 @@
             "embeddingDisabled": false,
             "pinned": false
           },
-          "labels": [],
-          "likes": [
-            {
-              "actor": {
-                "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
-                "handle": "rickywatson.bsky.social",
-                "displayName": "Rick Warsons",
-                "avatar": "/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2024-12-02T20:34:10.045Z",
-                "description": "🎵 RollTheRecord.com: The Marketing Platform for Artists",
-                "indexedAt": "2025-08-19T17:32:34.301Z"
-              },
-              "createdAt": "2025-06-17T15:37:50.129Z",
-              "indexedAt": "2025-06-17T15:37:50.129Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
-                "handle": "bytevagabond.com",
-                "displayName": "ByteVagabond",
-                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2023-11-28T11:36:50.520Z",
-                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
-                "indexedAt": "2025-03-07T15:35:58.242Z"
-              },
-              "createdAt": "2025-06-17T10:57:49.795Z",
-              "indexedAt": "2025-06-17T10:57:49.795Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
-                "handle": "karma-domains.bsky.social",
-                "displayName": "Karma.Domains",
-                "avatar": "/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2025-01-08T02:57:50.444Z",
-                "description": "https://Karma.Domains — Domain Auction Aggregator & Expired Domains History Analyzer via Wayback Machine for SEO experts, investors, PBN builders & linkbuilders seeking quality assets",
-                "indexedAt": "2025-08-22T05:05:31.197Z"
-              },
-              "createdAt": "2025-06-17T10:10:24.475Z",
-              "indexedAt": "2025-06-17T10:10:24.475Z"
-            }
-          ]
+          "labels": []
         },
         {
           "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsawbmbjc22",
@@ -829,7 +794,9 @@
                 }
               }
             ],
-            "langs": ["en"],
+            "langs": [
+              "en"
+            ],
             "reply": {
               "parent": {
                 "cid": "bafyreiah76vw5lg6rvmw2zb3u7apparrkfjwib23tuk6w6zdkpimiwp5yq",
