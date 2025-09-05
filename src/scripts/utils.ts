@@ -203,9 +203,16 @@ export async function downloadImageIfChanged({
   let buffer = await res.arrayBuffer();
 
   if (width || height) {
-    buffer = await sharp(Buffer.from(buffer))
-      .resize({ width, height })
-      .toBuffer();
+    const image = sharp(Buffer.from(buffer));
+    const { format } = await image.metadata();
+
+    const resized = image.resize({ width, height });
+
+    // Bump up quality slightly from the default of 80
+    if (format === 'jpeg') {
+      resized.jpeg({ quality: 90 });
+    }
+    buffer = await resized.toBuffer();
   }
   const hash = hashBuffer(Buffer.from(buffer));
 

@@ -133,9 +133,9 @@
     "description": "Frontend developer. \n\nlarsejaas.com\n\nCreating UI using React, TypeScript and/or whatever gets the job done.\n\nLet's connect!",
     "indexedAt": "2025-06-06T11:25:43.440Z",
     "banner": "https://cdn.bsky.app/img/banner/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreib5veo5awyyd5cnmu6msw3bthx7vryypjyvtea5idmhv64xstlmk4@jpeg",
-    "followersCount": 55,
-    "followsCount": 127,
-    "postsCount": 109,
+    "followersCount": 54,
+    "followsCount": 129,
+    "postsCount": 115,
     "pinnedPost": {
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
@@ -215,12 +215,14 @@
             ],
             "text": "💡 TypeScript tip: Want autocomplete for common values BUT still allow any string? Here's a clever trick most devs don't know about!\n\nString literal union types like `\"apple\" | \"banana\"` give great IDE autocomplete, but what if you need flexibility too? 🤔\n\n#WebDev #TypeScript  #DeveloperTips"
           },
+          "bookmarkCount": 0,
           "replyCount": 1,
           "repostCount": 0,
           "likeCount": 4,
           "quoteCount": 0,
           "indexedAt": "2025-08-08T10:20:17.007Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false
@@ -421,12 +423,14 @@
               }
             ]
           },
+          "bookmarkCount": 0,
           "replyCount": 1,
           "repostCount": 0,
           "likeCount": 1,
           "quoteCount": 0,
           "indexedAt": "2025-08-08T10:20:17.025Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false
@@ -508,12 +512,14 @@
               }
             ]
           },
+          "bookmarkCount": 0,
           "replyCount": 1,
           "repostCount": 0,
           "likeCount": 1,
           "quoteCount": 0,
           "indexedAt": "2025-08-08T10:20:17.042Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false
@@ -561,12 +567,14 @@
             },
             "text": "🔍 Why string & {} works:\n\n- string & {} is still assignable from any string\n\n- But it's a different type than plain string\n- So TypeScript doesn't widen the union!\n- Your IDE keeps the literal suggestions ✨\n\nThe intersection doesn't change runtime behavior at all."
           },
+          "bookmarkCount": 0,
           "replyCount": 1,
           "repostCount": 0,
           "likeCount": 1,
           "quoteCount": 0,
           "indexedAt": "2025-08-08T10:20:17.062Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false
@@ -614,12 +622,14 @@
             },
             "text": "🚀 Use cases:\n\n- CSS properties with common values + custom\n- API endpoints with known routes + dynamic\n- Theme colors with presets + hex codes\n- Any enum-like type that needs escape hatches\n\nTry it in your next TypeScript project! Your future self (and teammates) will thank you."
           },
+          "bookmarkCount": 0,
           "replyCount": 0,
           "repostCount": 0,
           "likeCount": 2,
           "quoteCount": 0,
           "indexedAt": "2025-08-08T10:20:17.085Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false
@@ -714,17 +724,90 @@
             ],
             "text": "🔧 Dev tip: You can make your webpages XML sitemap human-readable by adding a sitemap.xsl file! Instead of showing raw XML, visitors get a clean nice-looking page.\nCheck out this example:\nlarsejaas.com/sitemap-0.xml\nMuch better than staring at angle brackets, right? 😄\n#WebDev #SEO #DeveloperTips"
           },
+          "bookmarkCount": 0,
           "replyCount": 1,
           "repostCount": 0,
           "likeCount": 3,
           "quoteCount": 0,
           "indexedAt": "2025-06-17T10:09:45.752Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false
           },
-          "labels": []
+          "labels": [],
+          "likes": [
+            {
+              "actor": {
+                "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
+                "handle": "rickywatson.bsky.social",
+                "displayName": "Rick Warsons",
+                "avatar": "/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2024-12-02T20:34:10.045Z",
+                "description": "🎵 RollTheRecord.com: The Growth Platform for Artists",
+                "indexedAt": "2025-08-29T04:35:33.396Z"
+              },
+              "createdAt": "2025-06-17T15:37:50.129Z",
+              "indexedAt": "2025-06-17T15:37:50.129Z"
+            },
+            {
+              "actor": {
+                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
+                "handle": "bytevagabond.com",
+                "displayName": "ByteVagabond",
+                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2023-11-28T11:36:50.520Z",
+                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
+                "indexedAt": "2025-03-07T15:35:58.242Z"
+              },
+              "createdAt": "2025-06-17T10:57:49.795Z",
+              "indexedAt": "2025-06-17T10:57:49.795Z"
+            },
+            {
+              "actor": {
+                "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
+                "handle": "karma-domains.bsky.social",
+                "displayName": "Karma.Domains",
+                "avatar": "/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2025-01-08T02:57:50.444Z",
+                "description": "https://Karma.Domains — Domain Auction Aggregator & Expired Domains History Analyzer via Wayback Machine for SEO experts, investors, PBN builders & linkbuilders seeking quality assets",
+                "indexedAt": "2025-08-22T05:05:31.197Z"
+              },
+              "createdAt": "2025-06-17T10:10:24.475Z",
+              "indexedAt": "2025-06-17T10:10:24.475Z"
+            }
+          ]
         },
         {
           "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsawbmbjc22",
@@ -818,12 +901,14 @@
               "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreiao66sepyearczzcxlb6si5xu64vkoqhyr5vo2kzxkdgrs5hlvpva@jpeg"
             }
           },
+          "bookmarkCount": 0,
           "replyCount": 0,
           "repostCount": 0,
           "likeCount": 0,
           "quoteCount": 0,
           "indexedAt": "2025-06-17T10:10:24.045Z",
           "viewer": {
+            "bookmarked": false,
             "threadMuted": false,
             "embeddingDisabled": false,
             "pinned": false

@@ -120,6 +120,7 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
   - [**Popover API**](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - Enhance accessibility and gain more experience with screen readers.
 - Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable.
+- No use of JavaScript frameworks for this one! Let's see how far I can get with Vanilla JavaScript and Web Components!
 - Maintain the previous design and color scheme while improving areas that needed a face-lift.
 - Focus the site on my professional career - but also include a bit about myself and my sports background.
 

@@ -27,7 +27,7 @@ const t = useTranslations(lang, 'navigation');
 ---
 
 <table-of-contents>
-  <div class:list={[styles.stickyPlacement, className]}>
+  <div is="table-of-contents" class:list={[styles.stickyPlacement, className]}>
     <details class={styles.tocDetails} open={defaultOpen}>
       <summary class={styles.tocSummary}>
         <span class="sr-only">{t('toggle_toc')}</span>

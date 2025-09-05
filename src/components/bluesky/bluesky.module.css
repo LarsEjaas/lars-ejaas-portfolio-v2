@@ -146,6 +146,7 @@
   .threadContent {
     flex: 1 0 auto;
     height: calc(100% - 46px);
+    min-height: 40px;
     overflow-y: auto;
     &[data-no-scroll] {
       overflow-y: hidden;

@@ -208,11 +208,7 @@ const hasNext = url.next !== undefined;
   class Pagination extends HTMLElement {
     private _cleanupArrowNav: (() => void) | undefined;
     connectedCallback() {
-      const paginationWrapper = this.querySelector('[id$="PaginationWrapper"]');
-      if (paginationWrapper instanceof HTMLElement) {
-        this._cleanupArrowNav =
-          initHorizontalKeyboardArrowNav(paginationWrapper);
-      }
+      this._cleanupArrowNav = initHorizontalKeyboardArrowNav(this);
     }
 
     disconnectedCallback() {
@@ -221,5 +217,7 @@ const hasNext = url.next !== undefined;
       }
     }
   }
-  customElements.define('page-pagination', Pagination);
+  customElements.define('page-pagination', Pagination, {
+    extends: 'nav',
+  });
 </script>

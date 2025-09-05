@@ -36,7 +36,7 @@ const title = thread.mainPost.content.raw.slice(0, 120);
 </li>
 
 <script>
-  class TableOfContentsItem extends HTMLElement {
+  class TableOfContentsItem extends HTMLLIElement {
     private link: HTMLAnchorElement | null = null;
     private _handleClick: (ev: MouseEvent | KeyboardEvent) => void;
 
@@ -75,5 +75,7 @@ const title = thread.mainPost.content.raw.slice(0, 120);
       }
     }
   }
-  customElements.define('table-of-contents-item', TableOfContentsItem);
+  customElements.define('table-of-contents-item', TableOfContentsItem, {
+    extends: 'li',
+  });
 </script>
