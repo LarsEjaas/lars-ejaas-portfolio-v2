@@ -1,6 +1,3 @@
-/* establish a layer order from lowest to highest priority */
-@layer reset, global, components;
-
 @layer reset {
   * {
     box-sizing: border-box;

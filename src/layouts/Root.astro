@@ -1,8 +1,8 @@
 ---
+import '@layouts/global.css';
 import MobileMenu from '@components/mobileMenu/MobileMenu.astro';
 import Footer from '@components/footer/Footer.astro';
 import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
-import './global.css';
 import Seo from '@components/seo/Seo.astro';
 import type { SeoComponentProps } from '@components/seo/Seo.astro';
 import type { Language } from '@i18n/settings';
@@ -36,6 +36,9 @@ const {
 <!doctype html>
 <html lang="en" data-dark-mode="false" data-js-enabled="false">
   <head>
+    <style is:inline>
+      @layer reset, global, components;
+    </style>
     <script is:inline type="speculationrules">
       {
         "prerender": [
