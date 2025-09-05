@@ -15,7 +15,8 @@ async function getImageBuffer(imagePath: string) {
   return buffer;
 }
 
-const images = import.meta.glob('/src/assets/**/*.{jpg,png,svg}');
+const images = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,svg}');
+const publicImages = import.meta.glob('/public/**/*.{jpg,jpeg,png,svg}');
 
 const BLUR_SIGMA = 2;
 
@@ -23,14 +24,16 @@ export function generateBlurPlaceholder(
   imagePath: string,
   width?: number,
   height?: never,
-  blurSigma?: number
+  blurSigma?: number,
+  publicAsset?: boolean
 ): Promise<string | null>;
 
 export function generateBlurPlaceholder(
   imagePath: string,
   width: null,
   height: number,
-  blurSigma?: number
+  blurSigma?: number,
+  publicAsset?: boolean
 ): Promise<string | null>;
 
 /** Generates a base64 blur placeholder for the supplied image. */
@@ -38,7 +41,8 @@ export async function generateBlurPlaceholder(
   imagePath: string,
   width?: number | null,
   height?: number | null,
-  blurSigma?: number
+  blurSigma?: number,
+  publicAsset?: boolean
 ): Promise<string | null> {
   //get the filename without extension
   const imageName = imagePath.split('?')[0]?.split('/').pop()?.split('.')[0];
@@ -47,10 +51,15 @@ export async function generateBlurPlaceholder(
     throw new Error(`no imageName found for: ${imagePath.split('?')[0]}`);
   }
 
-  const imageImport = Object.entries(images).find(
-    ([filePath]) =>
-      filePath.split('/').at(-1)?.split('.').slice(0, -1)[0] === imageName
-  );
+  const imageImport = publicAsset
+    ? Object.entries(publicImages).find(
+        ([filePath]) =>
+          filePath.split('/').at(-1)?.split('.').slice(0, -1)[0] === imageName
+      )
+    : Object.entries(images).find(
+        ([filePath]) =>
+          filePath.split('/').at(-1)?.split('.').slice(0, -1)[0] === imageName
+      );
 
   if (!imageImport) {
     throw new Error(

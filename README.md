@@ -120,6 +120,7 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
   - [**Popover API**](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - Enhance accessibility and gain more experience with screen readers.
 - Create a progressively enhanced page that functions fully when JavaScript is disabled or unavailable.
+- No use of JavaScript frameworks for this one! Let's see how far I can get with Vanilla JavaScript and Web Components!
 - Maintain the previous design and color scheme while improving areas that needed a face-lift.
 - Focus the site on my professional career - but also include a bit about myself and my sports background.
 
@@ -129,13 +130,29 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 - The `node scripts in this project` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script.
 - All TypeScript files with the .mts extension are optimized for both the project itself and for use in npm scripts.
-- You can use the [XML Tools extension](vscode:extension/DotJoshJohnson.xml) to format sitemap files to be human readable in VSCode directly. Go to the command palette and select: `XML Tools: Format as XML`.
+- You can use the [XML Tools extension](vscode:extension/DotJoshJohnson.xml) to format sitemap files to be human readable in VSCode directly. Go to the command palette and select: `XML Tools: Format as XML`. This can be useful if you want to inspect the `sitemap-0` or `sitemap-index.xml` sitemap files in the `dist` folder.
 - The project currently has a bug when starting the development server, likely due to a race condition in Astro’s internal Image Service:
   `Cannot read properties of undefined (reading 'validateOptions')`
 
   Just reload the browser window on localhost — everything will run smoothly until you restart the server.
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
+
+## Local builds
+
+You can create a local build by running:
+
+`npm run build`
+
+If you want to compare bundle sizes with production (including Brotli compression), you can instead run:
+
+`npm run build-minified`
+
+This command produces a minified version of all JavaScript files.
+
+Once the build is complete, you can serve it locally with:
+
+`npm run serve-build`
 
 ## 🙏 Attribution
 

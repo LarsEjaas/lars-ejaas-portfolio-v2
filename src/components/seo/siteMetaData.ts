@@ -1,6 +1,6 @@
 import type { SeoProps } from '@customTypes/seo';
 import { validateAndGetPublicPath } from './Seo.astro';
-import { useTranslations } from '@i18n/utils';
+import { useTranslations, type Language } from '@i18n/utils';
 import { FACEBOOK_APP_ID } from 'astro:env/client';
 
 /** List of favicon file names */
@@ -25,7 +25,7 @@ export const siteInfo = {
 
 /** Default site metadata */
 export const getDefaultSiteMetaData = async (
-  lang: 'en' | 'da'
+  lang: Language
 ): Promise<SeoProps> => {
   const isDefaultlang = lang === 'en';
   const favicons = await Promise.all(

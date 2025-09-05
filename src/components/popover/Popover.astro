@@ -2,68 +2,52 @@
 import { capitalize } from '@utils/misc';
 import styles from './popover.module.css';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import type { CamelCaseString } from '../../customTypes';
 
-type Props = {
+type Props<U extends string = string> = {
   /** Unique identifier for this popver. Should be written in camelCase */
-  id: string;
+  id: CamelCaseString<U>;
   /** Accessibility label for the popover button */
   buttonLabel: string;
   /** Placement of the popover relative to the target-button */
   position?: 'top' | 'bottom';
   /** Width of the popover - defaults to 300px */
   width?: number;
+  buttonAttributes?: astroHTML.JSX.DefinedIntrinsicElements['button'];
+  classNames?: Partial<PopoverClassNames>;
 };
 
-const { id, buttonLabel, position = 'bottom', width = 300 } = Astro.props;
+export type PopoverClassNames = {
+  button: string;
+  wrapper: string;
+};
+
+const {
+  id,
+  buttonLabel,
+  position = 'bottom',
+  width = 300,
+  buttonAttributes = {},
+  classNames,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
 /** popover button have tabindex=0 as this is needed in Safari to set focus on the button */
 ---
 
-<script>
-  //   fallback for browsers without anchor support
-  if (!CSS.supports('anchor-name: --a')) {
-    const popoverElements = document.querySelectorAll('div[id^="popover"]');
-
-    Array.from(popoverElements).map((popover) => {
-      const id = popover.id.replace('popover', '');
-      const popoverButton = document.querySelector(`#popover${id}Button`);
-      const wrapper = popover.parentElement;
-
-      if (
-        popover instanceof HTMLDivElement &&
-        popoverButton instanceof HTMLButtonElement &&
-        wrapper
-      ) {
-        const calculatePosition = () => {
-          const position = popover.dataset.position || 'bottom';
-          const rect = wrapper.getBoundingClientRect();
-          if (position === 'top') {
-            // wait for the popover to be rendered
-            requestAnimationFrame(() => {
-              const popoverHeight = popover.offsetHeight;
-              popover.style.top = `calc(${rect.top + window.scrollY - popoverHeight}px - 0.5rem)`;
-              popover.style.bottom = 'auto';
-            });
-          } else {
-            popover.style.top = `calc(${rect.top + rect.height + window.scrollY}px + 0.5rem)`;
-          }
-          popover.style.left = `calc(${rect.left}px - 0.5rem)`;
-        };
-        popoverButton.addEventListener('click', calculatePosition);
-        window.addEventListener('resize', calculatePosition);
-      }
-    });
-  }
-</script>
-<div class={styles.popoverWrapper} style={{ 'anchor-name': `--${id};` }}>
+<script is:inline src="/popover.js"></script>
+<div
+  class={classNames?.wrapper || styles.popoverWrapper}
+  style={{ 'anchor-name': `--${id};` }}
+>
   <button
-    class={styles.button}
+    class={classNames?.button || styles.button}
     popovertarget=`popover${capitalize(id)}`
     id=`popover${capitalize(id)}Button`
     aria-label={buttonLabel}
     tabindex="0"
+    {...buttonAttributes}
   >
     <slot name="buttonContent" />
   </button>

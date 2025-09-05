@@ -71,10 +71,10 @@ const skillIndex = paginationItems.indexOf(currentSkill);
 ---
 
 <script>
-  import { initializeKeyboardArrowNavigation } from '@utils/keyboardArrowNavigation';
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
 
   if (window.skillPagination) {
-    initializeKeyboardArrowNavigation(window.skillPagination);
+    initHorizontalKeyboardArrowNav(window.skillPagination);
   }
 
   const refererIsWork =

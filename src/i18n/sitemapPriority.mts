@@ -1,8 +1,10 @@
-import type { SlugKeys, englishModalKeys } from './routes';
+import type { DynamicSlugKey, StaticSlugKey } from './routes';
+import type { englishModalKeys } from './appRoutes.mts';
 
 type SiteMapPriority = Record<
-  | Exclude<SlugKeys, 'email-reply'>
-  | Extract<(typeof englishModalKeys)[number], 'contact' | 'share'>,
+  | Exclude<DynamicSlugKey, 'email-reply'>
+  | Extract<(typeof englishModalKeys)[number], 'contact' | 'share'>
+  | StaticSlugKey,
   {
     priority: number;
     subpagePriority?: number;
@@ -17,4 +19,5 @@ export const sitemapPriority = {
   contact: { priority: 1.0 },
   share: { priority: 0.3 },
   'privacy-policy': { priority: 0.5 },
+  'developer-tips': { priority: 0.9 },
 } satisfies SiteMapPriority;
