@@ -1,5 +1,4 @@
 declare const styles: {
-  readonly "placeholder": string;
+  readonly placeholder: string;
 };
 export = styles;
-

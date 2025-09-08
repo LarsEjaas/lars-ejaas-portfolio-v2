@@ -1,5 +1,4 @@
 declare const styles: {
-  readonly "gif": string;
+  readonly gif: string;
 };
 export = styles;
-

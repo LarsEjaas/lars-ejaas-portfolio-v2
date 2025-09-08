@@ -1,16 +1,15 @@
 declare const styles: {
-  readonly "animatedText": string;
-  readonly "animatedWorkCard": string;
-  readonly "animationTimeline": string;
-  readonly "buttonLink": string;
-  readonly "flexColumnWrapper": string;
-  readonly "flexWrapper": string;
-  readonly "floatingBalloons": string;
-  readonly "githubLogo": string;
-  readonly "popoverDesc": string;
-  readonly "textWithMargin": string;
-  readonly "websiteVisit": string;
-  readonly "workCardLazy": string;
+  readonly animatedText: string;
+  readonly animatedWorkCard: string;
+  readonly animationTimeline: string;
+  readonly buttonLink: string;
+  readonly flexColumnWrapper: string;
+  readonly flexWrapper: string;
+  readonly floatingBalloons: string;
+  readonly githubLogo: string;
+  readonly popoverDesc: string;
+  readonly textWithMargin: string;
+  readonly websiteVisit: string;
+  readonly workCardLazy: string;
 };
 export = styles;
-

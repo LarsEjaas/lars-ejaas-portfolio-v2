@@ -1,6 +1,5 @@
 declare const styles: {
-  readonly "mobileMenu": string;
-  readonly "placeholder": string;
+  readonly mobileMenu: string;
+  readonly placeholder: string;
 };
 export = styles;
-
