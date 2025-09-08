@@ -42,7 +42,7 @@ const t_home = useTranslations(lang, 'home');
       lang={lang}
     >
       <div set:html={t_home('accessibility_was_a_major')} />
-      <div class={styles.accessibilityPopover} slot="popoverContent">
+      <div slot="popoverContent">
         <h3>{t_home('why_web_accessibility_matters')}</h3>
         <p class="small-body-text">
           {t_home('accessibility_is_not_just')}

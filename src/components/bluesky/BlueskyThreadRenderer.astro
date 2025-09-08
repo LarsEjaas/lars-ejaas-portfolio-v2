@@ -55,7 +55,7 @@ const threadConfig: RichTextRenderConfig = {
       return (
         <>
           <div class={styles.divider} />
-          <Fragment class={styles.reply} set:html={content} />
+          <Fragment set:html={content} />
           <PostEmbed
             embed={replyEmbed ? { ...replyEmbed, lazyLoadImages } : undefined}
           />

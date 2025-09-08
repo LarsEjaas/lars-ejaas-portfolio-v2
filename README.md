@@ -66,6 +66,7 @@ While I typically would choose to build a bage like with a React framework like 
 - **CSS Variable Autocomplete** - [vscode:extension/vunguyentuan.vscode-css-variables](vscode:extension/vunguyentuan.vscode-css-variables)
 - **SVG** - [vscode:extension/jock.svg](vscode:extension/jock.svg)
 - **XML Tools** - [vscode:extension/DotJoshJohnson.xml](vscode:extension/DotJoshJohnson.xml)
+- **CSS Modules** - [vscode:extension/clinyong.vscode-css-modules](vscode:extension/clinyong.vscode-css-modules)
 
 ## 💻 Getting started
 
