@@ -5,7 +5,7 @@ import Popover from '@components/popover/Popover.astro';
 import Gif from '@components/gif/Gif.astro';
 import ExternalLink from '@components/externalLink/ExternalLink.astro';
 import BlueskyData from '@collections/bluesky/devtips_data.json';
-import BlueskyFeedCard from '@components/bluesky/BlueskyFeedCard.astro';
+import FeedCard from '@components/bluesky/FeedCard.astro';
 
 type Props = {
   lang: Language;
@@ -48,7 +48,7 @@ const t_home = useTranslations(lang, 'home');
     </Popover>
     <p class="body-text">{'.'}</p>
   </div>
-  <BlueskyFeedCard
+  <FeedCard
     viewTransitionName="home-bluesky-feed-card"
     id="blueskyFeed"
     lang={lang}

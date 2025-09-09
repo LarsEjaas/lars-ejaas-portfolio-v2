@@ -1,0 +1,29 @@
+@layer components {
+  .profileWrapper {
+    line-height: 0;
+    position: relative;
+  }
+
+  .profileButton {
+    cursor: pointer;
+    border: unset;
+    background: unset;
+    border-radius: 50%;
+    padding: 0;
+    overflow: hidden;
+    width: var(--timelineWidth, 48px);
+    height: var(--timelineWidth, 48px);
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    outline-offset: var(--outline-offset);
+  }
+
+  .image {
+    width: inherit;
+    height: inherit;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

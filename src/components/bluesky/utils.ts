@@ -12,9 +12,12 @@ import { notEmpty, type BlueskyPostThread } from '@customTypes/index';
 import { SITE_URL, SERVERLESS_AUTH_TOKEN } from 'astro:env/client';
 import { removeTrailingSlash, type Language } from '@i18n/utils';
 import { capitalize } from '@utils/misc';
-import styles from './blueskyLikes.module.css';
+import styles from '@components/bluesky/likes.module.css';
 import popoverStyles from '@components/popover/popover.module.css';
+import avatarProfileStyles from '@components/bluesky/avatarProfile.module.css';
 import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from './constants';
+
+type LikeStyles = typeof styles;
 
 export type LikesResult = {
   uri: string;
@@ -508,7 +511,7 @@ function html(strings: TemplateStringsArray, ...values: unknown[]) {
 export function createLikeProfileHTML(
   like: AppBskyFeedGetLikes.Like,
   lang: Language,
-  styles: CSSModuleClasses
+  styles: LikeStyles
 ) {
   const avatarThumb = like.actor.avatar;
   const profileUrl = `https://bsky.app/profile/${like.actor.handle}`;
@@ -522,12 +525,10 @@ export function createLikeProfileHTML(
 
   function renderPopoverButton({
     id,
-    styles,
     avatarThumb,
     buttonLabel,
   }: {
     id: string;
-    styles: CSSModuleClasses;
     avatarThumb: string | undefined;
     buttonLabel: string;
   }) {
@@ -548,12 +549,10 @@ export function createLikeProfileHTML(
   }
 
   function renderPopoverTop({
-    styles,
     avatarThumb,
     profileUrl,
     lang,
   }: {
-    styles: CSSModuleClasses;
     avatarThumb: string | undefined;
     profileUrl: string;
     lang: Language;
@@ -579,9 +578,9 @@ export function createLikeProfileHTML(
           </svg> `;
 
     return `
-      <div class="${styles.popoverTop}">
-        <div class="${styles.avatar}" style="background-image: ${avatarStyle};"></div>
-        <a class="${styles.viewProfileOnBluesky}"
+      <div class="${avatarProfileStyles.popoverTop}">
+        <div class="${avatarProfileStyles.avatar}" style="background-image: ${avatarStyle};"></div>
+        <a class="${avatarProfileStyles.viewProfileOnBluesky}"
           href="${profileUrl}"
           target="_blank"
           rel="noopener noreferrer"
@@ -592,22 +591,15 @@ export function createLikeProfileHTML(
       </div>`;
   }
 
-  function renderDescription(
-    description: string | undefined,
-    styles: CSSModuleClasses
-  ) {
+  function renderDescription(description: string | undefined) {
     if (!description) return '';
     const htmlDesc = linkifyDomains(description, {
-      link: styles.descriptionLink,
+      link: avatarProfileStyles.descriptionLink,
     });
-    return `<span class="small-body-text ${styles.description}">${htmlDesc}</span>`;
+    return `<span class="small-body-text ${avatarProfileStyles.description}">${htmlDesc}</span>`;
   }
 
-  function renderCloseButton(
-    id: string,
-    styles: CSSModuleClasses,
-    title: string
-  ) {
+  function renderCloseButton(id: string, title: string) {
     const crossIcon = `<svg xmlns="http://www.w3.org/2000/svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
           <path
             d="M11.0327 8L15.5814 3.45136C16.1395 2.89318 16.1395 1.98818 15.5814 1.42955L14.5705 
@@ -624,7 +616,7 @@ export function createLikeProfileHTML(
 
     return html`
       <button
-        class="${styles.closeButton}"
+        class="${popoverStyles.closeButton}"
         popovertarget="popover${capitalize(id)}"
         title="${title}"
         aria-label="${title}"
@@ -638,26 +630,27 @@ export function createLikeProfileHTML(
     <div class="${styles.popoverWrapper}" style="anchor-name: --${didId};">
       ${renderPopoverButton({
         id: didId,
-        styles,
         avatarThumb,
         buttonLabel,
       })}
       <div
         id="popover${capitalize(didId)}"
-        class="${styles.popover}"
+        class="${popoverStyles.popover}"
         data-position="top"
         data-width="${popoverWidth}"
         style="--width: ${popoverWidth}px;"
         popover
       >
-        ${renderCloseButton(didId, styles, closeButtonTitle)}
-        <div class="${styles.popoverContent}">
-          ${renderPopoverTop({ styles, avatarThumb, profileUrl, lang })}
+        ${renderCloseButton(didId, closeButtonTitle)}
+        <div class="${avatarProfileStyles.popoverContent}">
+          ${renderPopoverTop({ avatarThumb, profileUrl, lang })}
           ${displayName
-            ? `<h3 class="${styles.displayName}">${displayName}</h3>`
+            ? `<h3 class="${avatarProfileStyles.displayName}">${displayName}</h3>`
             : ''}
-          <p class="small-body-text ${styles.handle}">@${handle}</p>
-          ${renderDescription(like.actor.description, styles)}
+          <p class="small-body-text ${avatarProfileStyles.handle}">
+            @${handle}
+          </p>
+          ${renderDescription(like.actor.description)}
         </div>
       </div>
     </div>

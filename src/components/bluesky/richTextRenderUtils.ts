@@ -4,6 +4,8 @@ import type {
   ProcessedTextSegment,
 } from './utils';
 
+const RENDER_HASHTAGS = false;
+
 /**
  * Render configuration for customizing how different content types are rendered
  */
@@ -119,7 +121,9 @@ export function renderRichTextAsHTML(
           .map(([key, value]) => ` ${key}="${value}"`)
           .join('');
 
-        return `<${finalConfig.components.hashtag}${classAttr}${customAttrs}>${segment.content}</${finalConfig.components.hashtag}>`;
+        return RENDER_HASHTAGS
+          ? `<${finalConfig.components.hashtag}${classAttr}${customAttrs}>${segment.content}</${finalConfig.components.hashtag}>`
+          : '';
       }
 
       case 'text':

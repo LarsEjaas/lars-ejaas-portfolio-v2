@@ -1,12 +1,14 @@
 ---
 import type { Language } from '@i18n/settings';
-import styles from './bluesky.module.css';
+import styles from './blueskyThread.module.css';
+import tocStyles from './tableOfContents.module.css';
 import { formatDate } from '@utils/misc';
-import type { ProcessedBlueskyThread } from './utils';
-import BlueskyThreadRenderer from './BlueskyThreadRenderer.astro';
-import BlueskyLikes from '@components/bluesky/BlueskyLikes.astro';
+import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
+import ThreadRenderer from './ThreadRenderer.astro';
+import Likes from '@components/bluesky/Likes.astro';
 import { useTranslations } from '@i18n/utils';
 import ButterflyIcon from './ButterflyIcon.astro';
+import TagIcon from '@components/workCard/TagIcon.astro';
 
 type Props = {
   lang: Language;
@@ -21,29 +23,46 @@ const t = useTranslations(lang, 'navigation');
 
 const indexedAt = thread.createdAt;
 const formattedTimestamp = formatDate(indexedAt, lang);
+
+const labels = getThreadLabels(thread);
 ---
 
 <li id={thread.recordKey} class={styles.thread}>
   <article class={styles.article}>
     <div class={styles.threadWrapper}>
       <div class={styles.postWrapper}>
-        <header class={styles.profileInfo}>
-          <h3 class={styles.displayName}>
-            {displayName}
-          </h3>
+        <header class={styles.threadHeader}>
+          <div class={styles.profileInfo}>
+            <h3 class={styles.displayName}>
+              {displayName}
+            </h3>
+
+            {
+              formattedTimestamp && indexedAt && (
+                <time datetime={indexedAt} class={styles.postDate}>
+                  {formattedTimestamp}
+                </time>
+              )
+            }
+          </div>
           {
-            formattedTimestamp && indexedAt && (
-              <time datetime={indexedAt} class={styles.postDate}>
-                {formattedTimestamp}
-              </time>
+            labels.length && (
+              <div class={styles.labelWrapper}>
+                {labels.map((label) => (
+                  <span class={tocStyles.label} data-size="small">
+                    <TagIcon />
+                    {label}
+                  </span>
+                ))}
+              </div>
             )
           }
         </header>
-        <BlueskyThreadRenderer thread={thread} lazyLoadImages={index !== 0} />
+        <ThreadRenderer thread={thread} lazyLoadImages={index !== 0} />
       </div>
     </div>
     <footer class={styles.threadFooter}>
-      <BlueskyLikes thread={thread} />
+      <Likes thread={thread} />
       <a
         class={styles.viewOnBluesky}
         href={thread.viewOnBluesky}

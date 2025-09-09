@@ -48,7 +48,7 @@ const t_home = useTranslations(lang, 'home');
 >
   <div class={styles.flex} style={`--delay: calc(1.4s + ${index}s * 5)`}>
     <div class={`gradient ${styles.title}`} data-variant={variant}>{title}</div>
-    <Lightbulb className={styles.lightbulb} variant={variant} />
+    <Lightbulb variant={variant} />
   </div>
   <div class={styles.content}>
     <slot />

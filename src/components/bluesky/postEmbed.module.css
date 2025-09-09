@@ -150,6 +150,7 @@
     & figcaption {
       padding: 16px;
       margin-block-end: unset;
+      white-space: pre-wrap;
     }
     & .embedPlaceholder {
       z-index: unset;

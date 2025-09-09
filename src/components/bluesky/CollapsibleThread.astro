@@ -1,13 +1,14 @@
 ---
 import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
-import mainStyles from './bluesky.module.css';
+import mainStyles from './blueskyThread.module.css';
 import styles from './timeline.module.css';
+import tocStyles from './tableOfContents.module.css';
 import Card from '@components/card/Card.astro';
-import BlueskyThreadRenderer from './BlueskyThreadRenderer.astro';
+import ThreadRenderer from './ThreadRenderer.astro';
 import { formatDate } from '@utils/misc';
 import type { Language } from '@i18n/settings';
 import TagIcon from '@components/workCard/TagIcon.astro';
-import BlueskyLikes from './BlueskyLikes.astro';
+import Likes from './Likes.astro';
 import { useTranslations } from '@i18n/utils';
 import ButterflyIcon from './ButterflyIcon.astro';
 import DoubleChevronIcon from './DoubleChevronIcon.astro';
@@ -73,22 +74,21 @@ const t = useTranslations(lang, 'navigation');
           {
             labels.length &&
               labels.map((label) => (
-                <span class={styles.label}>
+                <span class={tocStyles.label}>
                   <TagIcon />
                   {label}
                 </span>
               ))
           }
         </div>
-        <BlueskyThreadRenderer
+        <ThreadRenderer
           thread={thread}
           scrollable={false}
           className={styles.threadWrapper}
-          classNames={{ hashtag: styles.hashtag }}
           lazyLoadImages={index !== 0}
         />
         <div class={styles.threadFooter}>
-          <BlueskyLikes thread={thread} />
+          <Likes thread={thread} />
           <a
             class={mainStyles.viewOnBluesky}
             href={thread.viewOnBluesky}

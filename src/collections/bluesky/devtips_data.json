@@ -133,9 +133,9 @@
     "description": "Frontend developer. \n\nlarsejaas.com\n\nCreating UI using React, TypeScript and/or whatever gets the job done.\n\nLet's connect!",
     "indexedAt": "2025-06-06T11:25:43.440Z",
     "banner": "https://cdn.bsky.app/img/banner/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreib5veo5awyyd5cnmu6msw3bthx7vryypjyvtea5idmhv64xstlmk4@jpeg",
-    "followersCount": 54,
+    "followersCount": 55,
     "followsCount": 129,
-    "postsCount": 115,
+    "postsCount": 130,
     "pinnedPost": {
       "cid": "bafyreibkxch6juivi2eg65n7zgghabs5olw7fa5y5ydv2gt5awvd7sygme",
       "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lqpnqldxvc22"
@@ -143,6 +143,678 @@
     "avatar": "/bluesky/profileAvatar.jpeg"
   },
   "threads": [
+    {
+      "rootUri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d",
+      "posts": [
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d",
+          "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.670Z",
+            "facets": [
+              {
+                "features": [
+                  {
+                    "$type": "app.bsky.richtext.facet#tag",
+                    "tag": "DeveloperTips"
+                  }
+                ],
+                "index": {
+                  "byteEnd": 291,
+                  "byteStart": 277
+                }
+              },
+              {
+                "features": [
+                  {
+                    "$type": "app.bsky.richtext.facet#tag",
+                    "tag": "CSSModules"
+                  }
+                ],
+                "index": {
+                  "byteEnd": 303,
+                  "byteStart": 292
+                }
+              }
+            ],
+            "langs": [
+              "en"
+            ],
+            "text": "💅 Using CSS Modules in your projects.  \nCSS Modules are often underrated. Looking for an alternative to Tailwind CSS? They’re one of the cleanest ways to keep styles scoped to your components and avoid global CSS conflicts.\n\nLet’s go through some practical tips. 🧵  \n#DeveloperTips #CSSModules"
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 1,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.203Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": [],
+          "likes": [
+            {
+              "actor": {
+                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
+                "handle": "bytevagabond.com",
+                "displayName": "ByteVagabond",
+                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
+                "associated": {
+                  "activitySubscription": {
+                    "allowSubscriptions": "followers"
+                  }
+                },
+                "viewer": {
+                  "muted": false,
+                  "blockedBy": false
+                },
+                "labels": [],
+                "createdAt": "2023-11-28T11:36:50.520Z",
+                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
+                "indexedAt": "2025-03-07T15:35:58.242Z"
+              },
+              "createdAt": "2025-09-08T13:12:47.478Z",
+              "indexedAt": "2025-09-08T13:12:47.478Z"
+            }
+          ]
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qvps2d",
+          "cid": "bafyreih3tpxryokxccich2s37bwaprsfofmw4czzsz7nh6lpfasghfen54",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.671Z",
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "✅ Preprocessors?  \nCSS Modules are often paired with Sass, but native CSS now supports nested selectors in all modern browsers, making Sass less essential.\n\nIf you previously relied on Sass mixins for reusable styles, you can often achieve the same with reusable classes using `composes`."
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.221Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3r4kk2d",
+          "cid": "bafyreiddboa65j2mcwlcxnjl2rmm5vs6xcdi6o6q7gdunxsqhq2p37pckq",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.672Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "CSS showing:\n.closeButton {  composes: button from '@components/buttons/button.module.css';   color: red; }",
+                  "aspectRatio": {
+                    "height": 927,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreifayg34zdbfyyo4ptxevbfmlngw7cctmbmdh7f4myxmauxve3ze3u"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 513584
+                  }
+                }
+              ]
+            },
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreih3tpxryokxccich2s37bwaprsfofmw4czzsz7nh6lpfasghfen54",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qvps2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "🔄 Re-using classes with `composes`  \nYou can “spread” one class into another using `composes`.\n\nWorks a bit like Sass mixins but stays inside the CSS Modules ecosystem."
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreifayg34zdbfyyo4ptxevbfmlngw7cctmbmdh7f4myxmauxve3ze3u@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreifayg34zdbfyyo4ptxevbfmlngw7cctmbmdh7f4myxmauxve3ze3u@jpeg",
+                "alt": "CSS showing:\n.closeButton {  composes: button from '@components/buttons/button.module.css';   color: red; }",
+                "aspectRatio": {
+                  "height": 927,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.239Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x7rsps2d",
+          "cid": "bafyreih2365cfrdtbwgoeofsejklby3t5wpeujzwbeh37ipoqgcpu2ux5u",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.673Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "CSS showing:\n:import('@components/buttons/button.module.css') {   \n  fadeIn: fadeIn;   \n  fadeOut: fadeOutFast; \n}\n\n.awesomeButton {\n  animation: fadeIn 400ms ease-out; \n}",
+                  "aspectRatio": {
+                    "height": 1309,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreidyytwrm6zzzjk4hlqau6mmklxzmarzy5sizbz454t3tlaoamm2wy"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 721580
+                  }
+                }
+              ]
+            },
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreiddboa65j2mcwlcxnjl2rmm5vs6xcdi6o6q7gdunxsqhq2p37pckq",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3r4kk2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "🎬 Importing animations\n\nCSS Modules let you import from other `.module.css` files — even keyframes!\n\nThe import syntax allows for renaming the keyframe animations - or use them as-is.\n\nNow you can use the animation as if it were local."
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreidyytwrm6zzzjk4hlqau6mmklxzmarzy5sizbz454t3tlaoamm2wy@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreidyytwrm6zzzjk4hlqau6mmklxzmarzy5sizbz454t3tlaoamm2wy@jpeg",
+                "alt": "CSS showing:\n:import('@components/buttons/button.module.css') {   \n  fadeIn: fadeIn;   \n  fadeOut: fadeOutFast; \n}\n\n.awesomeButton {\n  animation: fadeIn 400ms ease-out; \n}",
+                "aspectRatio": {
+                  "height": 1309,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.258Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xe4cec2d",
+          "cid": "bafyreiadwihe4jbf4kwwe7eg2zxisxakpjsywtdakk2i436ruoonof4kmq",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.674Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "CSS showing:\n@layer components {   \n  .button { \n    font-size: 1rem\n  } \n}",
+                  "aspectRatio": {
+                    "height": 1220,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreigyu34nr6q37yo77o76dufjknmxpir7twbk5llcefzp6vwdhh6uma"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 595084
+                  }
+                }
+              ]
+            },
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreih2365cfrdtbwgoeofsejklby3t5wpeujzwbeh37ipoqgcpu2ux5u",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x7rsps2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "🪄 Cascade Layers Tip\nWrap all component styles in the `components` cascade layer.\n\nAnything outside cascade layers has higher specificity.  \n\nThis makes it easier to override component styles from the outside when needed."
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreigyu34nr6q37yo77o76dufjknmxpir7twbk5llcefzp6vwdhh6uma@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreigyu34nr6q37yo77o76dufjknmxpir7twbk5llcefzp6vwdhh6uma@jpeg",
+                "alt": "CSS showing:\n@layer components {   \n  .button { \n    font-size: 1rem\n  } \n}",
+                "aspectRatio": {
+                  "height": 1220,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.279Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xhnfis2d",
+          "cid": "bafyreihnq2gglqkov4f4asneiakzk2dtxwzwfnjh5osdqh3vzuh6caemai",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.675Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "Terminal command:\nnpx tcm -p src/**/*.module.css\n// geneares a *.d.ts file for all *.module.css files",
+                  "aspectRatio": {
+                    "height": 942,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreib7sc5gj7kbjkhxyd4tporuhtxj6soxpvn2m3uadzrzngpfanxvxy"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 501855
+                  }
+                }
+              ]
+            },
+            "facets": [
+              {
+                "features": [
+                  {
+                    "$type": "app.bsky.richtext.facet#link",
+                    "uri": "https://github.com/Quramy/typed-css-modules?utm_source=chatgpt.com"
+                  }
+                ],
+                "index": {
+                  "byteEnd": 177,
+                  "byteStart": 151
+                }
+              }
+            ],
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreiadwihe4jbf4kwwe7eg2zxisxakpjsywtdakk2i436ruoonof4kmq",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xe4cec2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "🛡️ Type Safety\nIf you want full type safety in TypeScript, you can generate `.d.ts` files for your CSS Modules.\n\nA package like typed-css-modules github.com/Quramy/typed... can do this automatically for all modules.  \nNow classnames will be typed, avoiding typos and giving you editor autocompletion."
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreib7sc5gj7kbjkhxyd4tporuhtxj6soxpvn2m3uadzrzngpfanxvxy@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreib7sc5gj7kbjkhxyd4tporuhtxj6soxpvn2m3uadzrzngpfanxvxy@jpeg",
+                "alt": "Terminal command:\nnpx tcm -p src/**/*.module.css\n// geneares a *.d.ts file for all *.module.css files",
+                "aspectRatio": {
+                  "height": 942,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.298Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xkm7ok2d",
+          "cid": "bafyreie2ygrerr5ch2osuyxlf5tz4jii7xthi257664ds63qj4ia3ruva4",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.676Z",
+            "embed": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "alt": "CSS styling:\n:global(:root[data-darkmode=\"true\"]) .someLocalClass {   \n   box-shadow: unset; \n}",
+                  "aspectRatio": {
+                    "height": 989,
+                    "width": 2000
+                  },
+                  "image": {
+                    "$type": "blob",
+                    "ref": {
+                      "$link": "bafkreie2zukraokotnsyv7uivkxc747i2hv4dfbhenmamhafkv3uqkculm"
+                    },
+                    "mimeType": "image/jpeg",
+                    "size": 546609
+                  }
+                }
+              ]
+            },
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreihnq2gglqkov4f4asneiakzk2dtxwzwfnjh5osdqh3vzuh6caemai",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xhnfis2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "🌍 Global styling\nMost of the time, you’ll want to keep styles local, but sometimes it’s useful to reference global classes, IDs, or states.\n\nYou can combine local and global selectors with the global keyword.\n\nHere, `.someLocalClass` remains local, but its style adapts to a global state."
+          },
+          "embed": {
+            "$type": "app.bsky.embed.images#view",
+            "images": [
+              {
+                "thumb": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreie2zukraokotnsyv7uivkxc747i2hv4dfbhenmamhafkv3uqkculm@jpeg",
+                "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreie2zukraokotnsyv7uivkxc747i2hv4dfbhenmamhafkv3uqkculm@jpeg",
+                "alt": "CSS styling:\n:global(:root[data-darkmode=\"true\"]) .someLocalClass {   \n   box-shadow: unset; \n}",
+                "aspectRatio": {
+                  "height": 989,
+                  "width": 2000
+                }
+              }
+            ]
+          },
+          "bookmarkCount": 0,
+          "replyCount": 1,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.317Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        },
+        {
+          "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xnq7us2d",
+          "cid": "bafyreicfpvzxywqsmwejimhhoxt3q2vkpwfhch3jbqmxuhk6w632s663uq",
+          "author": {
+            "did": "did:plc:lz2liw6r2iuxf7kmqlq46ggn",
+            "handle": "larsejaas.bsky.social",
+            "displayName": "Lars Ejaas 🦋",
+            "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:lz2liw6r2iuxf7kmqlq46ggn/bafkreih2flmoirnhh5l6z33ltiwtywtim6pxdzzys4hga6jrxyfxt6erwe@jpeg",
+            "associated": {
+              "chat": {
+                "allowIncoming": "all"
+              },
+              "activitySubscription": {
+                "allowSubscriptions": "followers"
+              }
+            },
+            "viewer": {
+              "muted": false,
+              "blockedBy": false
+            },
+            "labels": [],
+            "createdAt": "2025-01-05T21:21:02.746Z"
+          },
+          "record": {
+            "$type": "app.bsky.feed.post",
+            "createdAt": "2025-09-08T12:21:28.677Z",
+            "langs": [
+              "en"
+            ],
+            "reply": {
+              "parent": {
+                "cid": "bafyreie2ygrerr5ch2osuyxlf5tz4jii7xthi257664ds63qj4ia3ruva4",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6xkm7ok2d"
+              },
+              "root": {
+                "cid": "bafyreighjliekhcrlirhhb5ftzcwmm2t3nxgbrekvrnqx4gna63daqdfyu",
+                "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lyd6x3qpuc2d"
+              }
+            },
+            "text": "CSS Modules are simple but super powerful if you lean into these tricks. 🚀"
+          },
+          "bookmarkCount": 0,
+          "replyCount": 0,
+          "repostCount": 0,
+          "likeCount": 0,
+          "quoteCount": 0,
+          "indexedAt": "2025-09-08T12:21:49.337Z",
+          "viewer": {
+            "bookmarked": false,
+            "threadMuted": false,
+            "embeddingDisabled": false,
+            "pinned": false
+          },
+          "labels": []
+        }
+      ],
+      "viewOnBluesky": "https://bsky.app/profile/larsejaas.bsky.social/post/3lyd6x3qpuc2d",
+      "recordKey": "bsky3lyd6x3qpuc2d"
+    },
     {
       "rootUri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplotes2x",
       "posts": [
@@ -227,126 +899,7 @@
             "embeddingDisabled": false,
             "pinned": false
           },
-          "labels": [],
-          "likes": [
-            {
-              "actor": {
-                "did": "did:plc:kaazck4kisyxchgo7hxru5qf",
-                "handle": "bopito.bsky.social",
-                "displayName": "Hanso",
-                "avatar": "/bluesky/avatar-thumbnail-kaazck4kisyxchgo7hxru5qf.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false,
-                  "followedBy": "at://did:plc:kaazck4kisyxchgo7hxru5qf/app.bsky.graph.follow/3lxiqjowbac2e"
-                },
-                "labels": [],
-                "createdAt": "2024-12-02T02:47:22.446Z",
-                "description": "Software Engineer\n\nIt’s time to Moob™ 👉 moob.app ‼️",
-                "indexedAt": "2025-08-22T21:21:05.497Z"
-              },
-              "createdAt": "2025-08-28T23:54:13.435Z",
-              "indexedAt": "2025-08-28T23:54:13.435Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
-                "handle": "bytevagabond.com",
-                "displayName": "ByteVagabond",
-                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2023-11-28T11:36:50.520Z",
-                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
-                "indexedAt": "2025-03-07T15:35:58.242Z"
-              },
-              "createdAt": "2025-08-24T09:57:02.627Z",
-              "indexedAt": "2025-08-24T09:57:02.627Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:qhwoulqirsnljogsqwpzhntl",
-                "handle": "chloe.pfr.wtf",
-                "displayName": "Chloe @ PFR",
-                "avatar": "/bluesky/avatar-thumbnail-qhwoulqirsnljogsqwpzhntl.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2024-11-14T04:53:58.690Z",
-                "description": "Managing Editor, Digital @ Pork Fried Rice Collective. I make squiggles and gradients, sometimes take pictures.",
-                "indexedAt": "2025-04-23T21:25:10.175Z"
-              },
-              "createdAt": "2025-08-08T13:24:21.586Z",
-              "indexedAt": "2025-08-08T13:24:21.586Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:5uxshbngxf5zlpxpikeosvbp",
-                "handle": "samthoyre.bsky.social",
-                "displayName": "Sam Thoyre",
-                "avatar": "/bluesky/avatar-thumbnail-5uxshbngxf5zlpxpikeosvbp.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false,
-                  "followedBy": "at://did:plc:5uxshbngxf5zlpxpikeosvbp/app.bsky.graph.follow/3lfdhrc3qwy2x"
-                },
-                "labels": [],
-                "createdAt": "2024-11-18T17:29:54.248Z",
-                "description": "🌐 Tech Enthusiast | AI & Dev Tools 🛠️\n🎥 Sharing insights on Next.js, Payload, Supabase, Tailwind, AI, and serverless architecture.\n📺 Watch my tutorials & build with me: https://www.youtube.com/channel/UClxm1AYVvel_7Lhft3FPdhg",
-                "indexedAt": "2024-12-16T16:07:27.641Z"
-              },
-              "createdAt": "2025-08-08T12:00:34.256Z",
-              "indexedAt": "2025-08-08T12:00:34.256Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:zjmzu7kvewlufe7nz3ewhkfl",
-                "handle": "alexisbouchez.com",
-                "displayName": "Alexis",
-                "avatar": "/bluesky/avatar-thumbnail-zjmzu7kvewlufe7nz3ewhkfl.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2025-05-04T15:43:17.776Z",
-                "description": "Software engineer based in 🇫🇷.\n\n🔗 alexisbouchez.com",
-                "indexedAt": "2025-08-24T13:24:12.198Z"
-              },
-              "createdAt": "2025-08-08T12:11:28.754Z",
-              "indexedAt": "2025-08-08T12:11:28.754Z"
-            }
-          ]
+          "labels": []
         },
         {
           "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lvuzplp36s2x",
@@ -736,78 +1289,7 @@
             "embeddingDisabled": false,
             "pinned": false
           },
-          "labels": [],
-          "likes": [
-            {
-              "actor": {
-                "did": "did:plc:kwzq4ouefalk5ldnwniuh6v7",
-                "handle": "rickywatson.bsky.social",
-                "displayName": "Rick Warsons",
-                "avatar": "/bluesky/avatar-thumbnail-kwzq4ouefalk5ldnwniuh6v7.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2024-12-02T20:34:10.045Z",
-                "description": "🎵 RollTheRecord.com: The Growth Platform for Artists",
-                "indexedAt": "2025-08-29T04:35:33.396Z"
-              },
-              "createdAt": "2025-06-17T15:37:50.129Z",
-              "indexedAt": "2025-06-17T15:37:50.129Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:anpxoyqkormchuw5wdtyi7tb",
-                "handle": "bytevagabond.com",
-                "displayName": "ByteVagabond",
-                "avatar": "/bluesky/avatar-thumbnail-anpxoyqkormchuw5wdtyi7tb.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2023-11-28T11:36:50.520Z",
-                "description": "Just a passionate dev, learning from this community daily. \n\n✨ Sharing the entire journey - bugs, breakthroughs, and banter. 🚀",
-                "indexedAt": "2025-03-07T15:35:58.242Z"
-              },
-              "createdAt": "2025-06-17T10:57:49.795Z",
-              "indexedAt": "2025-06-17T10:57:49.795Z"
-            },
-            {
-              "actor": {
-                "did": "did:plc:7hbumvg2w6mbv3ga3wcsfwp6",
-                "handle": "karma-domains.bsky.social",
-                "displayName": "Karma.Domains",
-                "avatar": "/bluesky/avatar-thumbnail-7hbumvg2w6mbv3ga3wcsfwp6.jpeg",
-                "associated": {
-                  "activitySubscription": {
-                    "allowSubscriptions": "followers"
-                  }
-                },
-                "viewer": {
-                  "muted": false,
-                  "blockedBy": false
-                },
-                "labels": [],
-                "createdAt": "2025-01-08T02:57:50.444Z",
-                "description": "https://Karma.Domains — Domain Auction Aggregator & Expired Domains History Analyzer via Wayback Machine for SEO experts, investors, PBN builders & linkbuilders seeking quality assets",
-                "indexedAt": "2025-08-22T05:05:31.197Z"
-              },
-              "createdAt": "2025-06-17T10:10:24.475Z",
-              "indexedAt": "2025-06-17T10:10:24.475Z"
-            }
-          ]
+          "labels": []
         },
         {
           "uri": "at://did:plc:lz2liw6r2iuxf7kmqlq46ggn/app.bsky.feed.post/3lrsawbmbjc22",

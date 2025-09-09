@@ -198,7 +198,7 @@
   padding: 6px;
   box-shadow:
     var(--verdigris-100-op) 0px 0px 0px 5px,
-    var(--stacks-6-Shadow);
+    var(--stacks-6-shadow);
   transition:
     transform 0.4s ease,
     background-color 0.3s ease-in-out;
@@ -277,7 +277,7 @@
     width: var(--controls-height);
     box-shadow:
       var(--verdigris-100-op) 0px 0px 0px 5px,
-      var(--stacks-6-Shadow);
+      var(--stacks-6-shadow);
     transition:
       transform 0.4s ease,
       background-color 0.3s ease-in-out;

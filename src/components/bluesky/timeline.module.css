@@ -51,119 +51,53 @@
     height: var(--timelineWidth);
   }
 
-  .stickyPlacement {
-    position: sticky;
-    top: 96px;
+  .timelineDivider {
+    composes: timelineDivider from '@components/bluesky/profileTimeline.module.css';
+    justify-self: center;
+  }
+
+  .threadCard {
+    padding: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    &[data-is-last] {
+      margin-bottom: 0;
+    }
+  }
+
+  .cardContent {
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
-    margin-bottom: 8px;
-  }
-
-  .tocDetails {
-    view-transition-name: table-of-contents-details;
-    display: grid;
-    background-color: var(--system-light-300-55);
-    box-shadow: var(--stacks-6-shadow);
-    padding: 8px;
-    border-radius: var(--border-radius-md);
-    &::details-content {
-      content-visibility: visible !important;
-      display: contents !important;
-    }
-    &[open] {
-      & .tocSummary {
-        border-bottom-color: light-dark(
-          var(--system-shadow-4),
-          var(--system-light-400)
-        );
-        & svg {
-          rotate: 180deg;
-        }
-      }
-      & .toc {
-        grid-template-rows: 1fr;
-      }
-    }
-  }
-
-  ::view-transition-old(table-of-contents),
-  ::view-transition-old(:global(.dev-tips-card-content)) {
-    animation: 300ms fadeOut ease-in-out both;
-  }
-
-  ::view-transition-new(table-of-contents),
-  ::view-transition-new(:global(.dev-tips-card-content)) {
-    animation: 300ms fadeIn 300ms ease-in-out both;
-  }
-
-  .tocSummary {
-    padding: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    list-style: none; /* Hide default arrow in some browsers */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-    line-height: 1;
-    border-bottom: 1px solid transparent;
-    margin-bottom: -1px;
-    transition: border-color 400ms ease-in-out;
-    & svg {
-      transition: rotate 400ms ease-in-out;
-    }
-  }
-
-  .toc {
-    view-transition-name: table-of-contents;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 350ms 100ms ease-in-out;
-    overflow: hidden;
     gap: 4px;
+    min-height: 60px;
+    view-transition-class: dev-tips-card-content;
   }
 
-  .tocList {
-    padding-inline-start: 0;
-    /* Allow the grid item to shrink beyond its content size for the animation */
-    min-height: 0;
+  .butterfly {
+    composes: butterfly from '@components/bluesky/feedCard.module.css';
+    width: 80px;
+    height: 70px;
+    top: -6px;
+    left: -2px;
   }
 
-  .tocItem {
-    list-style: none;
-    text-wrap: nowrap;
-    &:first-child {
-      margin-top: 8px;
-    }
-    & a {
-      border-radius: var(--border-radius-sm);
-      color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-      display: block;
-      padding: 4px;
-      font-size: var(--font-size-2);
-      font-weight: 600;
-      text-decoration: none;
-      transition: background-color 0.4s;
-      line-height: 1.2;
-      outline-offset: -2px;
-      &:visited {
-        color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-      }
-      &:active,
-      &:focus-visible,
-      &:hover {
-        background-color: var(--system-dark-200-16);
-      }
-      & .tocTitle {
-        display: block;
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
+  .threadInfo {
+    display: flex;
+    gap: 4px;
+    padding-inline: 8px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .date {
+    composes: postDate from '@components/bluesky/blueskyThread.module.css';
+  }
+
+  .threadFooter {
+    composes: threadFooter from '@components/bluesky/blueskyThread.module.css';
+    transition: opacity 250ms ease-in;
+    opacity: 0;
   }
 
   .collapsibleThread {
@@ -251,99 +185,5 @@
     grid-row: 2;
     padding-block: 4px;
     gap: 4px;
-  }
-
-  .timelineDivider {
-    composes: timelineDivider from '@components/bluesky/bluesky.module.css';
-    justify-self: center;
-  }
-
-  .threadCard {
-    padding: 16px;
-    margin-bottom: 24px;
-    overflow: hidden;
-    &[data-is-last] {
-      margin-bottom: 0;
-    }
-  }
-
-  .cardContent {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-height: 60px;
-    view-transition-class: dev-tips-card-content;
-  }
-
-  .butterfly {
-    composes: butterfly from '@components/bluesky/bluesky.module.css';
-    width: 80px;
-    height: 70px;
-    top: -6px;
-    left: -2px;
-  }
-
-  .threadInfo {
-    display: flex;
-    gap: 4px;
-    padding-inline: 8px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .labelWrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-  :global(:root[data-dark-mode='true']) .label {
-    font-weight: 400;
-  }
-
-  .label {
-    user-select: none;
-    font-weight: 600;
-    border-radius: var(--border-radius-lg);
-    font-size: var(--font-size-1);
-    padding: 4px 10px;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    gap: 4px;
-    line-height: 1;
-    background-color: light-dark(
-      var(--system-light-500),
-      var(--system-light-400)
-    );
-    color: var(--system-dark-200);
-    &[data-size='small'] {
-      padding: 2px 6px;
-      border-radius: var(--border-radius-md);
-      gap: 2px;
-      background-color: light-dark(
-        var(--system-dark-200-16),
-        var(--system-dark-200-16)
-      );
-      color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
-      font-weight: 600;
-      & svg {
-        width: 12px;
-        height: 12px;
-      }
-    }
-  }
-
-  .date {
-    composes: postDate from '@components/bluesky/bluesky.module.css';
-  }
-
-  .hashtag {
-    display: none;
-  }
-
-  .threadFooter {
-    composes: threadFooter from '@components/bluesky/bluesky.module.css';
-    transition: opacity 250ms ease-in;
-    opacity: 0;
   }
 }

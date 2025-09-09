@@ -5,11 +5,7 @@ declare const styles: {
   readonly collapsibleThread: string;
   readonly date: string;
   readonly dividerGroup: string;
-  readonly hashtag: string;
-  readonly label: string;
-  readonly labelWrapper: string;
   readonly profileInfo: string;
-  readonly stickyPlacement: string;
   readonly threadCard: string;
   readonly threadFooter: string;
   readonly threadInfo: string;
@@ -17,13 +13,7 @@ declare const styles: {
   readonly timelineDivider: string;
   readonly timelineWrapper: string;
   readonly tipsWrapper: string;
-  readonly toc: string;
-  readonly tocDetails: string;
-  readonly tocItem: string;
-  readonly tocList: string;
   readonly tocSizing: string;
-  readonly tocSummary: string;
-  readonly tocTitle: string;
   readonly topDivider: string;
 };
 export = styles;
