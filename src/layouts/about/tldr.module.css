@@ -77,7 +77,7 @@
 }
 
 .lightning {
-  composes: lightbulb from '@layouts/home/aboutTips.module.css';
+  composes: lightbulb from '@layouts/home/lightbulb.module.css';
   @media (prefers-reduced-motion: no-preference) {
     :global(#lightning_gradient) {
       animation: flash 20s var(--delay) linear infinite;

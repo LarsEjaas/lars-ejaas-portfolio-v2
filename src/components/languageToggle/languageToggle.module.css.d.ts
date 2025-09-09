@@ -1,4 +1,5 @@
 declare const styles: {
-  readonly languageToggle: string;
+  readonly "languageToggle": string;
 };
 export = styles;
+

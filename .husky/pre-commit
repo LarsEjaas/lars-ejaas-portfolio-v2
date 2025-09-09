@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-echo "🔍 Running lint & type-check..."
-npm run lint && npm run type-check
+echo "🔍 Running lint, type-check and validating composes imports in css modules..."
+npm run lint && npm run type-check && npm run check-composes

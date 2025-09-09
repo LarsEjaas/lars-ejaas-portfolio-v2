@@ -27,9 +27,9 @@
     column-gap: 4px;
     width: 100%;
     max-width: 826px;
-    --timelineWidth: 36px;
+    --timeline-width: 36px;
     @media (min-width: 769px) {
-      --timelineWidth: 48px;
+      --timeline-width: 48px;
     }
   }
 
@@ -47,8 +47,8 @@
   }
 
   .avatar {
-    width: var(--timelineWidth);
-    height: var(--timelineWidth);
+    width: var(--timeline-width);
+    height: var(--timeline-width);
   }
 
   .timelineDivider {
@@ -102,7 +102,7 @@
 
   .collapsibleThread {
     display: grid;
-    grid-template-columns: var(--timelineWidth) 1fr;
+    grid-template-columns: var(--timeline-width) 1fr;
     grid-template-rows: 36px minmax(0, 1fr);
     column-gap: 4px;
     color: var(--system-dark-300-55);
@@ -120,7 +120,7 @@
       justify-items: center;
       row-gap: 4px;
       cursor: pointer;
-      margin-inline: calc((var(--timelineWidth) - 36px) / 2);
+      margin-inline: calc((var(--timeline-width) - 36px) / 2);
       &::marker,
       &:is(::-webkit-details-marker) {
         content: none;
@@ -170,7 +170,7 @@
     padding-block: 4px;
     display: flex;
     flex-direction: column;
-    width: var(--timelineWidth);
+    width: var(--timeline-width);
     align-items: center;
     color: light-dark(var(--system-shadow-1), var(--system-light-400));
   }

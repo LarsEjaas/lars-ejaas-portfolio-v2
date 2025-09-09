@@ -1,5 +1,6 @@
 declare const styles: {
-  readonly profileTimeline: string;
-  readonly timelineDivider: string;
+  readonly "profileTimeline": string;
+  readonly "timelineDivider": string;
 };
 export = styles;
+

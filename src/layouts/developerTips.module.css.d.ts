@@ -1,5 +1,6 @@
 declare const styles: {
-  readonly baloons: string;
-  readonly timelineSection: string;
+  readonly "baloons": string;
+  readonly "timelineSection": string;
 };
 export = styles;
+

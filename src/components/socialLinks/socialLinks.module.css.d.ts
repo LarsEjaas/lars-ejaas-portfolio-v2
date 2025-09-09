@@ -1,4 +1,5 @@
 declare const styles: {
-  readonly socialLinks: string;
+  readonly "socialLinks": string;
 };
 export = styles;
+
