@@ -30,11 +30,11 @@
   }
 
   .avatarWrapper {
-    composes: profileWrapper from '@components/bluesky/authorAvatar.module.css';
+    composes: profileWrapper from '@components/bluesky/profile/authorAvatar.module.css';
   }
 
   .viewProfileOnBluesky {
-    composes: viewOnBluesky from '@components/bluesky/blueskyThread.module.css';
+    composes: viewOnBluesky from '@components/bluesky/post/blueskyThread.module.css';
   }
 
   .displayName {
@@ -66,6 +66,6 @@
   }
 
   .descriptionLink {
-    composes: postLink from '@components/bluesky/threadRenderer.module.css';
+    composes: postLink from '@components/bluesky/post/threadRenderer.module.css';
   }
 }

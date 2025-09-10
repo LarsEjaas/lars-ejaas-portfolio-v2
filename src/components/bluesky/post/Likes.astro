@@ -1,9 +1,9 @@
 ---
 import { getLangFromUrl } from '@i18n/utils';
 import styles from './likes.module.css';
-import LikeProfile from './LikeProfile.astro';
-import { type ProcessedBlueskyThread } from './utils';
-import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from './constants';
+import LikeProfile from '@components/bluesky/profile/LikeProfile.astro';
+import { type ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
+import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from '@components/bluesky/helpers/constants';
 
 type Props = {
   thread: ProcessedBlueskyThread;
@@ -60,8 +60,8 @@ const likes = (thread.mainPost.likes || []).slice(
     cleanupSkeletonLoaders,
     injectPopoverScript,
     createLikesHTML,
-  } from './utils';
-  import type { Language } from '../../i18n/utils';
+  } from '@components/bluesky/helpers/utils';
+  import type { Language } from '@i18n/utils';
 
   class BlueskyLikes extends HTMLDivElement {
     private _cleanupArrowNav: (() => void) | undefined;

@@ -2,8 +2,8 @@
 import type { BlueskyData } from '@scripts/utils';
 import styles from './profileTimeline.module.css';
 import { type Language } from '@i18n/utils';
-import AuthorAvatar from './AuthorAvatar.astro';
-import DoubleChevronIcon from './DoubleChevronIcon.astro';
+import AuthorAvatar from '@components/bluesky/profile/AuthorAvatar.astro';
+import DoubleChevronIcon from '@components/bluesky/ui/DoubleChevronIcon.astro';
 
 type Props = {
   profile: BlueskyData['profile'];

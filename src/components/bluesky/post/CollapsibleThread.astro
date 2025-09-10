@@ -1,8 +1,11 @@
 ---
-import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
+import {
+  getThreadLabels,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
 import mainStyles from './blueskyThread.module.css';
-import styles from './timeline.module.css';
-import tocStyles from './tableOfContents.module.css';
+import styles from '@components/bluesky/feed/timeline.module.css';
+import tocStyles from '@components/bluesky/toc/tableOfContents.module.css';
 import Card from '@components/card/Card.astro';
 import ThreadRenderer from './ThreadRenderer.astro';
 import { formatDate } from '@utils/misc';
@@ -10,9 +13,9 @@ import type { Language } from '@i18n/settings';
 import TagIcon from '@components/workCard/TagIcon.astro';
 import Likes from './Likes.astro';
 import { useTranslations } from '@i18n/utils';
-import ButterflyIcon from './ButterflyIcon.astro';
-import DoubleChevronIcon from './DoubleChevronIcon.astro';
-import ChevronIcon from './ChevronIcon.astro';
+import ButterflyIcon from '@components/bluesky/ui/ButterflyIcon.astro';
+import DoubleChevronIcon from '@components/bluesky/ui/DoubleChevronIcon.astro';
+import ChevronIcon from '@components/bluesky/ui/ChevronIcon.astro';
 
 type Props = {
   thread: ProcessedBlueskyThread;
@@ -111,7 +114,7 @@ const t = useTranslations(lang, 'navigation');
 </collapsible-thread>
 
 <script>
-  import styles from './timeline.module.css';
+  import styles from '@components/bluesky/feed/timeline.module.css';
   class CollapsibleThread extends HTMLElement {
     private details: HTMLDetailsElement | null = null;
     private card: HTMLSpanElement | null = null;

@@ -6,11 +6,11 @@ import type { DistributiveOmit } from '@customTypes/index';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import type { OpenGraph } from '@customTypes/seo';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
-import type { ProcessedBlueskyThread } from '@components/bluesky/utils';
+import type { ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
 import type { Page } from 'astro';
 import type { BlueskyData } from '@scripts/utils';
-import DeveloperTipsTimeline from '@components/bluesky/Timeline.astro';
-import LanguageDisclaimerBanner from '@components/bluesky/LanguageDisclaimerBanner.astro';
+import DeveloperTipsTimeline from '@components/bluesky/feed/Timeline.astro';
+import LanguageDisclaimerBanner from '@components/bluesky/ui/LanguageDisclaimerBanner.astro';
 
 type Props = {
   title: string;

@@ -52,7 +52,7 @@
   }
 
   .timelineDivider {
-    composes: timelineDivider from '@components/bluesky/profileTimeline.module.css';
+    composes: timelineDivider from '@components/bluesky/feed/profileTimeline.module.css';
     justify-self: center;
   }
 
@@ -74,7 +74,7 @@
   }
 
   .butterfly {
-    composes: butterfly from '@components/bluesky/feedCard.module.css';
+    composes: butterfly from '@components/bluesky/post/feedCard.module.css';
     width: 80px;
     height: 70px;
     top: -6px;
@@ -91,11 +91,11 @@
   }
 
   .date {
-    composes: postDate from '@components/bluesky/blueskyThread.module.css';
+    composes: postDate from '@components/bluesky/post/blueskyThread.module.css';
   }
 
   .threadFooter {
-    composes: threadFooter from '@components/bluesky/blueskyThread.module.css';
+    composes: threadFooter from '@components/bluesky/post/blueskyThread.module.css';
     transition: opacity 250ms ease-in;
     opacity: 0;
   }

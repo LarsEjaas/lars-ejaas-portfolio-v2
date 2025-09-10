@@ -69,7 +69,10 @@ const publicImageComponent = ((await publicImageImport[1]()) as ImageModule)
 
 <Fragment>
   <script>
-    import { animateDialogClose, animateDialogOpen } from './utils';
+    import {
+      animateDialogClose,
+      animateDialogOpen,
+    } from '@components/bluesky/helpers/utils';
 
     interface VTButton extends HTMLButtonElement {
       _dialog?: VTDialog;

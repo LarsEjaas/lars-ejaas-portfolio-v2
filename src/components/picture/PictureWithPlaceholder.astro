@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro:assets';
+import { NODE_ENV } from 'astro:env/client';
 import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 import styles from './pictureWithPlaceholder.module.css';
 
@@ -23,6 +23,24 @@ type ClassNames = {
   placeholder: string;
   image: string;
 };
+
+const IS_DEV = NODE_ENV === 'development' || false;
+// HACK to fix validate options error with Astro image service
+// import from astro:assets once this bug is fixed
+async function getPicture() {
+  if (IS_DEV) {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+  }
+  const mod = await import('astro:assets');
+  return mod.Picture;
+}
+
+const Picture = await getPicture();
+
+// HACK to fix validate options error with Astro image service
+if (IS_DEV) {
+  await new Promise((resolve) => setTimeout(resolve, 400));
+}
 
 const {
   placeholderSettings,

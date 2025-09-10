@@ -130,7 +130,7 @@ async function validateComposes() {
   if (hasErrors) {
     process.exit(1);
   } else {
-    console.log('✅ All composes imports are valid!');
+    console.info('✅ All composes imports are valid!');
   }
 }
 

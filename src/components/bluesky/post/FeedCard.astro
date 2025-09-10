@@ -8,8 +8,8 @@ import IconBluesky from '@assets/someIcons/bluesky.png';
 import styles from './feedCard.module.css';
 import BlueskyThread from './BlueskyThread.astro';
 import { useTranslations } from '@i18n/utils';
-import { constructBlueskyThreads } from './utils';
-import ProfileTimeline from './ProfileTimeline.astro';
+import { constructBlueskyThreads } from '@components/bluesky/helpers/utils';
+import ProfileTimeline from '@components/bluesky/feed/ProfileTimeline.astro';
 import { capitalize } from '@utils/misc';
 
 const MAX_NUMBER_OF_THREADS = 6;

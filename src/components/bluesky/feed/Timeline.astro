@@ -1,11 +1,11 @@
 ---
-import AuthorAvatar from './AuthorAvatar.astro';
+import AuthorAvatar from '@components/bluesky/profile/AuthorAvatar.astro';
 import styles from './timeline.module.css';
 import type { Language } from '@i18n/utils';
-import type { ProcessedBlueskyThread } from './utils';
+import type { ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
 import type { BlueskyData } from '@scripts/utils';
-import TableOfContents from './TableOfContents.astro';
-import CollapsibleThread from './CollapsibleThread.astro';
+import TableOfContents from '@components/bluesky/toc/TableOfContents.astro';
+import CollapsibleThread from '@components/bluesky/post/CollapsibleThread.astro';
 import type { Page } from 'astro';
 
 type Props = {

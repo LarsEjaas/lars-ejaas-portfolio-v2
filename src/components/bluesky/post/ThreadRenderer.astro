@@ -2,10 +2,10 @@
 import {
   renderPostContentAsHTML,
   type RichTextRenderConfig,
-} from './richTextRenderUtils';
-import type { ProcessedBlueskyThread } from './utils';
+} from '@components/bluesky/helpers/richTextRenderUtils';
+import type { ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
 import styles from './threadRenderer.module.css';
-import PostEmbed from './PostEmbed.astro';
+import PostEmbed from '@components/bluesky/post/embeds/PostEmbed.astro';
 
 type Props = {
   thread: ProcessedBlueskyThread;

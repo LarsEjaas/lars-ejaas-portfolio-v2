@@ -1,9 +1,9 @@
 ---
 import styles from './avatarProfile.module.css';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
-import { linkifyDomains } from './utils';
-import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
-import ButterflyIcon from './ButterflyIcon.astro';
+import { linkifyDomains } from '@components/bluesky/helpers/utils';
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import ButterflyIcon from '@components/bluesky/ui/ButterflyIcon.astro';
 
 type Props = {
   handle: string;

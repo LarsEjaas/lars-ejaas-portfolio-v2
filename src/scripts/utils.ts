@@ -22,7 +22,7 @@ import pLimit from 'p-limit';
 import {
   AVATAR_THUMBNAIL_SIZE,
   MAXIMUM_NUMBER_OF_LIKE_AVATARS,
-} from './../components/bluesky/constants.ts';
+} from './../components/bluesky/helpers/constants.ts';
 import sharp from 'sharp';
 
 export const SITE_URL = process.env.SITE_URL

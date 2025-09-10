@@ -12,9 +12,9 @@ import { notEmpty, type BlueskyPostThread } from '@customTypes/index';
 import { SITE_URL, SERVERLESS_AUTH_TOKEN } from 'astro:env/client';
 import { removeTrailingSlash, type Language } from '@i18n/utils';
 import { capitalize } from '@utils/misc';
-import styles from '@components/bluesky/likes.module.css';
+import styles from '@components/bluesky/post/likes.module.css';
 import popoverStyles from '@components/popover/popover.module.css';
-import avatarProfileStyles from '@components/bluesky/avatarProfile.module.css';
+import avatarProfileStyles from '@components/bluesky/profile/avatarProfile.module.css';
 import { MAXIMUM_NUMBER_OF_LIKE_AVATARS } from './constants';
 
 type LikeStyles = typeof styles;

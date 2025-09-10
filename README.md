@@ -132,10 +132,6 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 - The `node scripts in this project` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script.
 - All TypeScript files with the .mts extension are optimized for both the project itself and for use in npm scripts.
 - You can use the [XML Tools extension](vscode:extension/DotJoshJohnson.xml) to format sitemap files to be human readable in VSCode directly. Go to the command palette and select: `XML Tools: Format as XML`. This can be useful if you want to inspect the `sitemap-0` or `sitemap-index.xml` sitemap files in the `dist` folder.
-- The project currently has a bug when starting the development server, likely due to a race condition in Astro’s internal Image Service:
-  `Cannot read properties of undefined (reading 'validateOptions')`
-
-  Just reload the browser window on localhost — everything will run smoothly until you restart the server.
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 

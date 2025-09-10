@@ -1,13 +1,16 @@
 ---
 import type { Language } from '@i18n/settings';
 import styles from './blueskyThread.module.css';
-import tocStyles from './tableOfContents.module.css';
+import tocStyles from '@components/bluesky/toc/tableOfContents.module.css';
 import { formatDate } from '@utils/misc';
-import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
+import {
+  getThreadLabels,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
 import ThreadRenderer from './ThreadRenderer.astro';
-import Likes from '@components/bluesky/Likes.astro';
+import Likes from '@components/bluesky/post/Likes.astro';
 import { useTranslations } from '@i18n/utils';
-import ButterflyIcon from './ButterflyIcon.astro';
+import ButterflyIcon from '@components/bluesky/ui/ButterflyIcon.astro';
 import TagIcon from '@components/workCard/TagIcon.astro';
 
 type Props = {

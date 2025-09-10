@@ -1,7 +1,10 @@
 ---
-import { getThreadLabels, type ProcessedBlueskyThread } from './utils';
+import {
+  getThreadLabels,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
 import styles from './tableOfContents.module.css';
-import TagIcon from '../workCard/TagIcon.astro';
+import TagIcon from '@components/workCard/TagIcon.astro';
 
 type Props = {
   thread: ProcessedBlueskyThread;
