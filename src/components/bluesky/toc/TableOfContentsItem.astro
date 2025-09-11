@@ -77,6 +77,26 @@ const title = thread.mainPost.content.raw.slice(0, 120);
       if (target instanceof HTMLDetailsElement && !target.open) {
         target.toggleAttribute('open');
       }
+      //Polyfill for browsers not supporting the ::details-content selector
+      if (target instanceof HTMLDivElement && target.dataset.open) {
+        const groupName = target.dataset.group;
+        const elementsToUpdate = groupName
+          ? Array.from(
+              document.querySelectorAll<HTMLElement>(
+                `div[data-group="${groupName}"]`
+              )
+            ).filter((el) => el !== target)
+          : [];
+        const isCurrentlyOpen = target.dataset.open === 'true';
+        elementsToUpdate.forEach((el) => {
+          el.dataset.open = 'false';
+        });
+
+        // If target was closed, open it
+        if (!isCurrentlyOpen) {
+          target.dataset.open = 'true';
+        }
+      }
     }
   }
   customElements.define('table-of-contents-item', TableOfContentsItem, {
