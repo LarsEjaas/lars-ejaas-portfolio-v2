@@ -2,19 +2,22 @@
   .bannerContainer {
     composes: outline from '@components/buttons/sparkleButton.module.css';
     grid-column: 1 / -1;
+    box-shadow: var(--stacks-5-shadow);
   }
 
   .banner {
     composes: contact from '@components/buttons/sparkleButton.module.css';
-    padding: 16px;
-    border-radius: var(--border-radius-sm);
-    color: light-dark(var(--system-dark-200), var(--system-dark-100));
-    font-size: var(--font-size-3);
-    width: unset;
-    font-weight: 600;
-    display: block;
-    @media (min-width: 900px) {
-      text-align: center;
+    &:is(div) {
+      padding: 16px;
+      border-radius: var(--border-radius-sm);
+      color: light-dark(var(--system-dark-200), var(--system-dark-100));
+      font-size: var(--font-size-3);
+      width: unset;
+      font-weight: 600;
+      display: block;
+      @media (min-width: 900px) {
+        text-align: center;
+      }
     }
   }
 }

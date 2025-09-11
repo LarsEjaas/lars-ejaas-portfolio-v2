@@ -1,14 +1,14 @@
 export const developerTips = {
   en: {
     developer_tips_title: 'Developer Tips',
-    the_hidden_lessons: 'The hidden lessons behind everyday code',
-    hard_earned_dev_wisdom:
-      'Hard-earned dev wisdom — deep dives into the bugs, tricks, and gotchas I’ve faced, and the solutions that actually work...',
+    practical_wisdom: 'Practical wisdom for everyday code',
+    a_collection_of_short:
+      'A collection of short, focused threads on the bugs, patterns, and tools I tackle in daily development.\nThink of it as a living notebook of practical takeaways — free for you to use and adapt.',
   },
   da: {
     developer_tips_title: 'Developer Tips',
-    the_hidden_lessons: 'De skjulte erfaringer bag hverdagens kode',
-    hard_earned_dev_wisdom:
-      'Erfaringer fra udviklerverdenen — dybdegående analyser af de fejl, tricks og faldgruber jeg er stødt på, samt de løsninger, der faktisk virker...',
+    practical_wisdom: 'Practical wisdom for everyday code',
+    a_collection_of_short:
+      'A collection of short, focused threads on the bugs, patterns, and tools I tackle in daily development.\nThink of it as a living notebook of practical takeaways — free for you to use and adapt.',
   },
 } as const;

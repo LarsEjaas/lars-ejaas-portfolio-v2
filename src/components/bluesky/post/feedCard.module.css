@@ -11,7 +11,7 @@
     width: 96px;
   }
 
-  .butterflyPlaceholder {
+  .devTipsIconPlaceholder {
     height: 100%;
     aspect-ratio: 1;
     clip-path: url(#squircle);

@@ -4,7 +4,7 @@ import type { BlueskyData } from '@scripts/utils';
 import Card from '@components/card/Card.astro';
 import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
 import type { CamelCaseString, KebabCaseString } from '@customTypes/index';
-import IconBluesky from '@assets/someIcons/bluesky.png';
+import IconDevTips from '@assets/menuIcons/devTips.png';
 import styles from './feedCard.module.css';
 import BlueskyThread from './BlueskyThread.astro';
 import { useTranslations } from '@i18n/utils';
@@ -48,14 +48,14 @@ const hasMultipleThreads = processedThreads.length > 1;
         aria-hidden="true"
         formats={['avif', 'webp']}
         quality="high"
-        src={IconBluesky}
+        src={IconDevTips}
         alt=""
         widths={[96, 192, 288]}
         sizes="96px"
         loading="eager"
         decoding="sync"
         classNames={{
-          placeholder: styles.butterflyPlaceholder,
+          placeholder: styles.devTipsIconPlaceholder,
         }}
       />
     </div>

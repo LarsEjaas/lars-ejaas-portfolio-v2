@@ -6,6 +6,7 @@ import Gif from '@components/gif/Gif.astro';
 import ExternalLink from '@components/externalLink/ExternalLink.astro';
 import BlueskyData from '@collections/bluesky/devtips_data.json';
 import FeedCard from '@components/bluesky/post/FeedCard.astro';
+import LanguageDisclaimerBanner from '@components/bluesky/ui/LanguageDisclaimerBanner.astro';
 
 type Props = {
   lang: Language;
@@ -18,7 +19,7 @@ const t_home = useTranslations(lang, 'home');
 
 <section class="fullgrid" id="developerTips">
   <h2>{t_home('developer_tips')}</h2>
-  <p class="body-text">{t_home('hard_earned_dev_wisdom')}</p>
+  <p class="body-text">{t_home('a_collection_of')}</p>
   <div class={styles.followMe}>
     <ExternalLink href="https://bsky.app/profile/larsejaas.bsky.social"
       >{t_home('follow_me_on_bluesky')}</ExternalLink
@@ -47,6 +48,9 @@ const t_home = useTranslations(lang, 'home');
       </div>
     </Popover>
     <p class="body-text">{'.'}</p>
+    <div class={styles.bannerWrapper} data-lang={lang}>
+      <LanguageDisclaimerBanner lang={lang} />
+    </div>
   </div>
   <FeedCard
     viewTransitionName="home-bluesky-feed-card"
