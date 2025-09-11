@@ -102,6 +102,7 @@ export const navigation = {
     pagination_go_to_page: 'Go to page',
     pagination_page: 'Page',
     pagination_current_page: 'current page',
+    toggle_the_thread: 'toggle the thread open/closed',
   },
   da: {
     default_seo_image_alt:
@@ -207,5 +208,6 @@ export const navigation = {
     pagination_go_to_page: 'Gå til side',
     pagination_page: 'Side',
     pagination_current_page: 'nuværende side',
+    toggle_the_thread: 'åbn/luk tråden',
   },
 } as const;

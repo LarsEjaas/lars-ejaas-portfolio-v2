@@ -92,16 +92,20 @@ const hasNext = url.next !== undefined;
   id={`${id}PaginationWrapper`}
   class={styles.pagination}
   role="navigation"
-  aria-label={t('pagination_label')}
   title={t('pagination_label')}
   style={{ viewTransitionName: `pagination-${id}` }}
 >
-  <ul class={styles.paginationContent}>
+  <ul
+    class={styles.paginationContent}
+    role="menubar"
+    aria-label={t('pagination_label')}
+  >
     {
       hasPrev && (
-        <li>
+        <li role="none">
           <a
             data-arrow-nav="true"
+            role="menuitem"
             href={url.prev}
             class:list={[styles.paginationLink, styles.paginationPreviousNext]}
             aria-label={t('pagination_go_to_prev')}
@@ -130,7 +134,7 @@ const hasNext = url.next !== undefined;
       pageItems.map((page) => {
         if (typeof page === 'string') {
           return (
-            <li>
+            <li role="none">
               <span class={styles.paginationEllipsis} aria-hidden="true">
                 &hellip;
               </span>
@@ -142,9 +146,10 @@ const hasNext = url.next !== undefined;
 
         if (isActive) {
           return (
-            <li>
+            <li role="none">
               <span
                 class={styles.paginationLink}
+                role="menuitem"
                 aria-current="page"
                 aria-label={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
                 title={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
@@ -156,9 +161,10 @@ const hasNext = url.next !== undefined;
         }
 
         return (
-          <li>
+          <li role="none">
             <a
               data-arrow-nav="true"
+              role="menuitem"
               class={styles.paginationLink}
               href={getPageUrl(page)}
               aria-label={`${t('pagination_go_to_page')} ${page}`}
@@ -172,9 +178,10 @@ const hasNext = url.next !== undefined;
     }
     {
       hasNext && (
-        <li>
+        <li role="none">
           <a
             data-arrow-nav="true"
+            role="menuitem"
             href={url.next}
             class:list={[styles.paginationLink, styles.paginationPreviousNext]}
             aria-label={t('pagination_go_to_next')}

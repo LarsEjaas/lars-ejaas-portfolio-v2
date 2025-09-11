@@ -12,7 +12,7 @@
     padding: 4px 8px;
   }
   & a {
-    color: light-dark(var(--system-dark-300-55), var(--system-light-500));
+    color: light-dark(var(--system-dark-200), var(--system-light-500));
     border-radius: var(--border-radius-sm);
     outline-offset: var(--outline-offset);
     text-decoration: underline transparent;

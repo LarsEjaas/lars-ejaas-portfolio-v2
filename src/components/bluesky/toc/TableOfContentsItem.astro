@@ -16,11 +16,12 @@ const labels = getThreadLabels(thread);
 const title = thread.mainPost.content.raw.slice(0, 120);
 ---
 
-<li is="table-of-contents-item" class={styles.tocItem}>
+<li is="table-of-contents-item" class={styles.tocItem} role="none">
   <a
     href={`#${thread.recordKey}`}
     data-arrow-nav="true"
     data-href={thread.recordKey}
+    role="menuitem"
   >
     <span class={styles.tocTitle}>{title}</span>
     {

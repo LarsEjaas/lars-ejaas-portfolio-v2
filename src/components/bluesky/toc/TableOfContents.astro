@@ -40,12 +40,9 @@ const t = useTranslations(lang, 'navigation');
         aria-label={t('nav_dev_tips')}
         aria-keyshortcuts="ArrowUp ArrowDown"
       >
-        <ul class={styles.tocList} role="list" aria-describedby="tocHelp">
+        <ul class={styles.tocList} role="menu">
           {threads.map((thread) => <TableOfContentsItem thread={thread} />)}
         </ul>
-        <p id="tocHelp" class="sr-only">
-          Use the arrow keys to move between items
-        </p>
       </nav>
     </details>
     <Pagination id="default" pagination={pagination} lang={lang} />
