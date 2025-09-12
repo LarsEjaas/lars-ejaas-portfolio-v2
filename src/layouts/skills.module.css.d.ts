@@ -1,6 +1,7 @@
 declare const styles: {
   readonly "divider": string;
   readonly "floatingBalloons": string;
+  readonly "label": string;
   readonly "presentation": string;
   readonly "presentationCardContent": string;
   readonly "proficiencyRating": string;

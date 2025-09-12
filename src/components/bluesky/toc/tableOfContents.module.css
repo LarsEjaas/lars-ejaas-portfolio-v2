@@ -138,6 +138,7 @@
       var(--system-light-400)
     );
     color: var(--system-dark-200);
+    text-wrap: nowrap;
     &[data-size='small'] {
       padding: 2px 6px;
       border-radius: var(--border-radius-md);
