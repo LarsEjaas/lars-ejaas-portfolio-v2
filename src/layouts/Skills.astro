@@ -7,10 +7,11 @@ import PresentationCard from '@components/presentationCard/PresentationCard.astr
 import styles from './skills.module.css';
 import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
-import type { SkillRating } from '@customTypes/skillTypes';
+import type { SkillCategory, SkillRating } from '@customTypes/skillTypes';
 import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
 import type { SVGFileType, DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
+import TagIcon from '@components/workCard/TagIcon.astro';
 
 type Props = {
   title: string;
@@ -28,6 +29,7 @@ export type TechSkillProps = {
   href?: string;
   rating?: SkillRating;
   iconImage?: ImageMetadata;
+  category?: SkillCategory;
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -39,6 +41,7 @@ const {
   iconImage,
   imageAlt: skillImageAlt,
   rating: skillRating,
+  category,
 } = techSkill;
 const t_skills = useTranslations(lang, 'skills');
 ---
@@ -83,6 +86,14 @@ const t_skills = useTranslations(lang, 'skills');
       iconImageViewTransitionName="icon-image"
       cardViewTransitionName="skill-card"
     >
+      {
+        category && (
+          <span class={styles.label}>
+            <TagIcon />
+            {category}
+          </span>
+        )
+      }
       <div class={styles.presentationCardContent}>
         {
           typeof SkillDescription === 'string' ? (

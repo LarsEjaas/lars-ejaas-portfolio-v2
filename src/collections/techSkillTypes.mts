@@ -1,5 +1,5 @@
 /**
- * To add a new tech skill, add a new key to the `techSkillEntries` array, info about route and image to the skillsObject, a rating to the `skillRatings` object and a description component in english and danish in the content folder.
+ * To add a new tech skill, add a new key to the `techSkillEntries` array, info about route and image, etc. to the techSkillInfo object and a description component in english and danish in the content folder.
  */
 export const techSkillEntries = [
   //Core Languages & Fundamentals:
@@ -7,49 +7,67 @@ export const techSkillEntries = [
   'typescript',
   'html',
   'css',
-  //Primary Frameworks & Libraries:
+  //Frontend Frameworks & Libraries:
   'react',
   'react-native',
   'nextjs',
   'astro',
   'gatsby',
-  //Essential Development Tools:
+  //Backend & Runtime Tools:
+  'nodejs',
+  //Core Development Tools:
   'git',
   'vscode',
   'github',
   'gitlab',
-  //Styling & UI:
+  //Styling & UI Libraries:
   'tailwind',
   'sass',
   'styled-components',
   'mantine',
-  //Build Tools & Development:
+  //Build & Automation Tools:
   'vite',
   'webpack',
   'turborepo',
-  //Testing:
+  //Testing & QA Tools:
   'jest',
   'playwright',
   'react-testing-library',
-  //State Management & Data:
+  //State & Data Management:
   'redux',
   'tanstack',
   'apollo-client',
   'graphql',
   'graphql-codegen',
-  //CMS & Content:
+  //Content Management Systems:
   'wordpress',
   'wp-graphql',
-  //DevOps & Deployment:
+  //DevOps, Deployment & CI/CD:
   'docker',
   'bash',
   //Design & Graphics:
   'figma',
   'svg',
   'inkscape',
-  //Development Quality:
+  //UI Quality & Accessibility:
   'storybook',
   'accessibility',
-  //Search & Specialized:
+  //Search Tools:
   'algolia',
+] as const;
+
+export const techSkillCategories = [
+  'core_languages_and_fundamentals',
+  'frontend_frameworks_and_libraries',
+  'backend_and_runtime_tools',
+  'core_development_tools',
+  'styling_and_ui_libraries',
+  'build_and_automation_tools',
+  'testing_and_qa_tools',
+  'state_and_data_management',
+  'content_management_systems',
+  'devops_deployment_and_ci_cd',
+  'design_and_graphics',
+  'ui_quality_and_accessibility',
+  'search_tools',
 ] as const;
