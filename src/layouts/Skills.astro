@@ -8,10 +8,10 @@ import styles from './skills.module.css';
 import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillCategory, SkillRating } from '@customTypes/skillTypes';
-import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
 import type { SVGFileType, DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 import TagIcon from '@components/workCard/TagIcon.astro';
+import TechSkillsThree from '@components/techSkillsThree/TechSkillsThree.astro';
 
 type Props = {
   title: string;
@@ -61,7 +61,7 @@ const t_skills = useTranslations(lang, 'skills');
 >
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
-  <div class="presentation">
+  <div class:list={['presentation', styles.presentation]}>
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
     <div>
       <h2>
@@ -75,6 +75,7 @@ const t_skills = useTranslations(lang, 'skills');
     </div>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
+  <TechSkillsThree />
   <div id="skillPresentation">
     <PresentationCard
       gradientColor="flirt"
@@ -115,7 +116,6 @@ const t_skills = useTranslations(lang, 'skills');
         }
       </div>
     </PresentationCard>
-    <SkillCardPagination title={skillTitle} />
   </div>
   <TechSkillsMarquee />
 </Layout>
