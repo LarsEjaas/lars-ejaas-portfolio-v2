@@ -1,0 +1,50 @@
+---
+import AuthorAvatar from '@components/bluesky/profile/AuthorAvatar.astro';
+import styles from './timeline.module.css';
+import type { Language } from '@i18n/utils';
+import type { ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
+import type { BlueskyData } from '@scripts/utils';
+import TableOfContents from '@components/bluesky/toc/TableOfContents.astro';
+import CollapsibleThread from '@components/bluesky/post/CollapsibleThread.astro';
+import type { Page } from 'astro';
+
+type Props = {
+  threads: ProcessedBlueskyThread[];
+  profile: BlueskyData['profile'];
+  pagination: Pick<Page, 'currentPage' | 'lastPage'> & { url: Page['url'] };
+  lang: Language;
+};
+
+const { threads, profile, lang, pagination } = Astro.props;
+---
+
+<div class={styles.timelineWrapper}>
+  <TableOfContents
+    threads={threads}
+    lang={lang}
+    pagination={pagination}
+    className={`${styles.tocSizing}`}
+    defaultOpen
+  />
+  <div class={styles.tipsWrapper}>
+    <div class={styles.profileInfo}>
+      <AuthorAvatar
+        profile={profile}
+        lang={lang}
+        popoverPosition="bottom"
+        classNames={{ button: styles.avatar }}
+      />
+      {profile.displayName ?? profile.handle}
+    </div>
+    {
+      threads.map((thread, index) => (
+        <CollapsibleThread
+          index={index}
+          thread={thread}
+          isLastThread={threads.length === index + 1}
+          lang={lang}
+        />
+      ))
+    }
+  </div>
+</div>

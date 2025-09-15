@@ -108,7 +108,7 @@
         text-decoration-color: var(--system-dark-300);
         transition: text-decoration-color 0.4s;
       }
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {
           animation-name: slideIn;
           animation-fill-mode: both;
@@ -390,7 +390,7 @@
     background-color: var(--verdigris-500);
     box-shadow:
       var(--verdigris-100-op) 0px 0px 0px 5px,
-      var(--stacks-6-Shadow);
+      var(--stacks-6-shadow);
     transition:
       transform 0.4s ease,
       background-color 0.3s ease-in-out;
@@ -417,7 +417,7 @@
   display: none;
   margin: 12px auto;
   height: 16px;
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (animation-range: normal) {
     display: flex;
   }
   & div {
@@ -434,7 +434,7 @@
     padding: 0;
     position: relative;
     border: 2px solid transparent;
-    @supports (animation-timeline: view()) {
+    @supports (animation-timeline: view()) and (animation-range: normal) {
       scroll-timeline-axis: inline;
       animation: expandControls;
       animation-fill-mode: both;

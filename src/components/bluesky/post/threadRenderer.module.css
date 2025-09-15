@@ -1,0 +1,70 @@
+:import('@components/modalDialog/modalDialog.module.css') {
+  scrollfade: scrollfade;
+}
+
+@layer components {
+  .postContent {
+    white-space: pre-line;
+    font-size: var(--font-size-2);
+    line-height: 1.5;
+    color: light-dark(var(--system-dark-200), var(--system-dark-100));
+    margin-block-end: 0;
+    font-weight: 400;
+  }
+
+  :global(:root[data-dark-mode='true']) .postContent {
+    font-weight: 300;
+  }
+
+  .postLink {
+    composes: link from '@components/externalLink/externalLink.module.css';
+    color: light-dark(var(--system-dark-200), var(--system-dark-100));
+    font-size: var(--font-size-2);
+    max-width: 28ch;
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .postHashtag {
+    font-weight: 600;
+  }
+
+  .threadContent {
+    flex: 1 0 auto;
+    height: calc(100% - 66px);
+    min-height: 40px;
+    overflow-y: auto;
+    &[data-no-scroll] {
+      overflow-y: hidden;
+    }
+    padding-inline: 8px;
+    padding-bottom: 4px;
+    @container blueskyFeedCard (width >= 430px) {
+      height: calc(100% - 49px);
+    }
+    /** Scroll-shadows */
+    @supports (animation-timeline: view()) {
+      mask: linear-gradient(
+        to bottom,
+        #0000,
+        #ffff var(--top-fade) calc(100% - var(--bottom-fade)),
+        #0000
+      );
+      animation: scrollfade;
+      animation-timeline: --scrollfade;
+      scroll-timeline: --scrollfade y;
+    }
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: light-dark(
+      var(--system-shadow-7),
+      var(--system-light-400)
+    );
+    margin-block: 8px;
+  }
+}

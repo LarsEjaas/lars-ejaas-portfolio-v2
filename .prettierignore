@@ -1,0 +1,5 @@
+# ignore declaration files for css modules
+**/*.module.css.d.ts
+
+#ignore js files in the public folder
+public/**/*.js

@@ -2,9 +2,12 @@
 import Layout from '@layouts/Root.astro';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
+import WorkCard from '@components/workCard/WorkCard.astro';
+import Popover from '@components/popover/Popover.astro';
+import ExternalLink from '@components/externalLink/ExternalLink.astro';
+import gitHubLogo from '@components/footer/gitHubLogo.svg';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './work.module.css';
-import WorkCard from '@components/workCard/WorkCard.astro';
 import FriggTechFooterImage from '@assets/images/frigg_tech_footer_image.png';
 import BruceWillisHeaderImage from '@assets/images/bruce_willis_rocks.png';
 import BruceWillisFooterImage1 from '@assets/images/bruce_willis_footer_image_1.png';
@@ -19,12 +22,10 @@ import SallingGroupFooter4 from '@assets/images/foetex_levering_til_doeren.png';
 import AccuRankerFooter1 from '@assets/images/accuranker_grump_wall.jpg';
 import AccuRankerFooter2 from '@assets/images/accuranker_footer_image_2.png';
 import AccuRankerFooter3 from '@assets/images/accuranker_footer_image_3.png';
-import Popover from '@components/popover/Popover.astro';
 import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
 import InfoIcon from './infoIcon.astro';
-import gitHubLogo from '@components/footer/gitHubLogo.svg';
 import type { DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 
@@ -121,14 +122,12 @@ const t_work = useTranslations(lang, 'work');
             {t_work('friggtech_company_description')}
           </p>
           <div class={styles.flexWrapper}>
-            <p class=`${styles.websiteVisit} small-body-text`>
+            <p class={`${styles.websiteVisit} small-body-text`}>
               {`${t_work('visit_website')}:`}
             </p>
-            <a
-              class=`${styles.websiteVisit} small-body-text`
-              href={'https://www.friggtech.dk/'}
-              target="_blank"
-              rel="noopener noreferrer">friggtech.dk</a
+            <ExternalLink
+              className={styles.websiteVisit}
+              href="https://www.friggtech.dk/">friggtech.dk</ExternalLink
             >
             {
               lang === 'en' && (
@@ -214,14 +213,12 @@ const t_work = useTranslations(lang, 'work');
             {t_work('accuranker_company_description')}
           </p>
           <div class={styles.flexWrapper}>
-            <p class=`${styles.websiteVisit} small-body-text`>
+            <p class:list={[styles.websiteVisit, 'small-body-text']}>
               {`${t_work('visit_website')}:`}
             </p>
-            <a
-              class=`${styles.websiteVisit} small-body-text`
-              href={'https://www.accuranker.com'}
-              target="_blank"
-              rel="noopener noreferrer">accuranker.com</a
+            <ExternalLink
+              className={styles.websiteVisit}
+              href={'https://www.accuranker.com'}>accuranker.com</ExternalLink
             >
           </div>
         </div>
@@ -295,16 +292,14 @@ const t_work = useTranslations(lang, 'work');
             {t_work('salling_group_company_description')}
           </p>
           <div class={styles.flexWrapper}>
-            <p class=`${styles.websiteVisit} small-body-text`>
+            <p class:list={[styles.websiteVisit, 'small-body-text']}>
               {`${t_work('visit_website')}:`}
             </p>
-            <a
-              class=`${styles.websiteVisit} small-body-text`
+            <ExternalLink
+              className={styles.websiteVisit}
               href={lang === 'en'
                 ? 'https://www.sallinggroup.com/en'
-                : 'https://sallinggroup.com'}
-              target="_blank"
-              rel="noopener noreferrer">salling-group.com</a
+                : 'https://sallinggroup.com'}>salling-group.com</ExternalLink
             >
           </div>
         </div>

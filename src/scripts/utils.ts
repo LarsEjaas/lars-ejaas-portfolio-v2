@@ -3,6 +3,7 @@ import type {
   AppBskyFeedSearchPosts,
   AppBskyActorDefs,
   AppBskyFeedDefs,
+  AppBskyFeedGetLikes,
 } from '@atproto/api';
 import {
   mkdirSync,
@@ -16,7 +17,13 @@ import { pipeline } from 'stream/promises';
 import { Readable } from 'stream';
 import crypto from 'crypto';
 import 'dotenv/config';
-import type { BlueskyPostThread } from '@customTypes/index';
+import { notEmpty, type BlueskyPostThread } from './../customTypes/index.ts';
+import pLimit from 'p-limit';
+import {
+  AVATAR_THUMBNAIL_SIZE,
+  MAXIMUM_NUMBER_OF_LIKE_AVATARS,
+} from './../components/bluesky/helpers/constants.ts';
+import sharp from 'sharp';
 
 export const SITE_URL = process.env.SITE_URL
   ? removeTrailingSlash(process.env.SITE_URL)
@@ -46,9 +53,20 @@ export const PUBLIC_FOLDER = './public/bluesky';
 const IMAGE_META_PATH = `${META_FOLDER}/image-meta.json`;
 const PUBLIC_FILENAME = 'devtips-threads.json';
 const SEARCH_TAG = 'DeveloperTips';
-export const FILE_NAME = 'devtips_data.json';
-export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${FILE_NAME}`;
+export const DATA_FILE_NAME = 'devtips_data.json';
+export const BLUESKY_DATA_PATH = `./src/collections/bluesky/${DATA_FILE_NAME}`;
 export const PUBLIC_DATA_PATH = `./public/${PUBLIC_FILENAME}`;
+
+/**
+ * Remove leading slash from a slug or url, preserving literal type
+ */
+function removeLeadingSlash<T extends string>(
+  url: T
+): T extends `/${infer Rest}` ? Rest : T {
+  return (
+    url.startsWith('/') ? url.substring(1) : url
+  ) as T extends `/${infer Rest}` ? Rest : T;
+}
 
 /**
  * Remove trailing slash from a slug or url, preserving literal type
@@ -61,7 +79,7 @@ function removeTrailingSlash<T extends string>(
   ) as T extends `${infer Rest}/` ? Rest : T;
 }
 
-function hashBuffer(buffer: Buffer<ArrayBuffer>) {
+function hashBuffer(buffer: Buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
 }
 
@@ -76,6 +94,15 @@ export function saveImageMeta(meta: Record<string, ImageMeta>) {
   const dir = IMAGE_META_PATH.substring(0, IMAGE_META_PATH.lastIndexOf('/'));
   mkdirSync(dir, { recursive: true });
   writeFileSync(IMAGE_META_PATH, JSON.stringify(meta, null, 2), 'utf8');
+}
+
+const PUBLIC_ASSET_PATH = removeLeadingSlash(
+  PUBLIC_FOLDER.replace('./public', '')
+);
+
+export function getPublicAssetUrl(fileName: string): string {
+  // Constructs a full public URL for a given asset file name.
+  return `/${PUBLIC_ASSET_PATH}/${fileName}`;
 }
 
 function delay(ms: number) {
@@ -99,7 +126,11 @@ export function saveBlueskyData({
   const publicData = {
     threads: data.threads.map((thread) => ({
       atUri: thread.rootUri,
+      threadPosts: thread.posts.map((post) => ({
+        atUri: post.uri,
+      })),
     })),
+    maxLikeAvatars: MAXIMUM_NUMBER_OF_LIKE_AVATARS,
     // Include only the images with updatedAt timestamp
     images: Object.fromEntries(
       Object.entries(imageMeta)
@@ -139,6 +170,9 @@ export async function downloadImageIfChanged({
   meta = {},
   publicAsset,
   updatedAt,
+  newSiteHost,
+  width,
+  height,
 }: {
   url: string;
   localName: string;
@@ -146,6 +180,9 @@ export async function downloadImageIfChanged({
   /** Place the image in the public folder */
   publicAsset?: boolean;
   updatedAt?: string;
+  newSiteHost?: boolean;
+  width?: number;
+  height?: number;
 }): Promise<string> {
   const ext = getImageExtension(url);
   const fileName = `${localName}${ext}`;
@@ -163,10 +200,23 @@ export async function downloadImageIfChanged({
     throw new Error(`Failed to download image: ${res.statusText}`);
   }
 
-  const buffer = await res.arrayBuffer();
+  let buffer = await res.arrayBuffer();
+
+  if (width || height) {
+    const image = sharp(Buffer.from(buffer));
+    const { format } = await image.metadata();
+
+    const resized = image.resize({ width, height });
+
+    // Bump up quality slightly from the default of 80
+    if (format === 'jpeg') {
+      resized.jpeg({ quality: 90 });
+    }
+    buffer = await resized.toBuffer();
+  }
   const hash = hashBuffer(Buffer.from(buffer));
 
-  if (url in meta && meta[url]?.hash === hash) {
+  if (url in meta && meta[url]?.hash === hash && !newSiteHost) {
     return fileName;
   }
 
@@ -185,7 +235,7 @@ export async function downloadImageIfChanged({
   return fileName;
 }
 
-export async function getAuthenticateBlueskyAgent(): Promise<AtpAgent> {
+export async function createAuthenticatedAgent(): Promise<AtpAgent> {
   const appPassword = process.env.BLUESKY_APP_PASSWORD;
   if (!HANDLE || !appPassword) {
     throw new Error(
@@ -227,7 +277,7 @@ async function searchPosts(
  *
  * This means that replies that are not part of the root thread will be excluded.
  */
-async function getOwnThreadOnly(
+async function extractOwnPostsFromThread(
   thread: AppBskyFeedDefs.ThreadViewPost,
   selfDid: string
 ) {
@@ -263,105 +313,234 @@ async function getOwnThreadOnly(
 export async function getPostThreads(
   agent: AtpAgent,
   profile: AppBskyActorDefs.ProfileViewDetailed,
-  imageMeta: Record<string, ImageMeta>
+  imageMeta: Record<string, ImageMeta>,
+  newSiteHost?: boolean
 ): Promise<BlueskyPostThread[]> {
   const threads: BlueskyPostThread[] = [];
+  const limit = pLimit(3); // max 3 concurrent requests
+  let cursor: string | undefined = undefined;
 
-  const searchResults = await searchPosts(agent, {
-    q: `#${SEARCH_TAG}`,
-    author: HANDLE,
-    limit: 100,
-    sort: 'latest',
-    tag: [SEARCH_TAG],
-  });
-
-  for (const post of searchResults.posts) {
-    const { data } = await agent.app.bsky.feed.getPostThread({
-      uri: post.uri,
-      depth: 10,
-      parentHeight: 0,
+  do {
+    const searchResults = await searchPosts(agent, {
+      q: `#${SEARCH_TAG}`,
+      author: HANDLE,
+      limit: 100,
+      sort: 'latest',
+      tag: [SEARCH_TAG],
+      cursor,
     });
 
-    if ('post' in data.thread && data.thread.post.author.did === profile.did) {
-      const filtered = await getOwnThreadOnly(data.thread, profile.did);
-
-      // Download any images from these posts
-      for (const post of filtered) {
-        if (post.embed && 'images' in post.embed) {
-          for (const image of post.embed.images) {
-            await downloadImageIfChanged({
-              url: image.fullsize,
-              localName: `post-${post.uri.split('/').pop()}`,
-              meta: imageMeta,
-            });
-          }
-        }
-        if (
-          post.embed &&
-          'external' in post.embed &&
-          'thumb' in post.embed.external &&
-          typeof post.embed.external.thumb === 'string'
-        ) {
-          await downloadImageIfChanged({
-            url: post.embed.external.thumb,
-            localName: `post-${post.uri.split('/').pop()}-embed`,
-            meta: imageMeta,
+    // Fetch posts concurrently but limited
+    const threadResults = await Promise.all(
+      searchResults.posts.map((post) =>
+        limit(async () => {
+          // Fetch only the post itself, not the full thread
+          const { data: postData } = await agent.app.bsky.feed.getPostThread({
+            uri: post.uri,
+            depth: 10,
+            parentHeight: 0,
           });
-        }
-      }
-      const recordKey = data.thread.post.uri.split('/').pop() || '';
-      threads.push({
-        rootUri: data.thread.post.uri,
-        posts: filtered,
-        viewOnBluesky: `https://bsky.app/profile/${profile.handle}/post/${recordKey}`,
-        // add prefix to recordKey to be able to use it as a HTML element ID (recordKey cannot start with a number)
-        recordKey: `bsky${recordKey}`,
-      });
-    }
-  }
+
+          const postItem =
+            'post' in postData.thread ? postData.thread : undefined;
+          if (!postItem || postItem.post.author.did !== profile.did) return;
+
+          const filtered = await extractOwnPostsFromThread(
+            postItem,
+            profile.did
+          );
+
+          // Download images (fullsize and thumbnails)
+          for (const post of filtered) {
+            const recordId = post.uri.split('/').pop();
+            if (post.embed && 'images' in post.embed) {
+              for (const image of post.embed.images) {
+                // place fullsize image in public folder
+                await downloadImageIfChanged({
+                  url: image.fullsize,
+                  localName: `post-${recordId}-embed`,
+                  meta: imageMeta,
+                  publicAsset: true,
+                  newSiteHost,
+                });
+                // place thumbnail image in src folder
+                await downloadImageIfChanged({
+                  url: image.thumb,
+                  localName: `post-${recordId}-embed-thumbnail`,
+                  meta: imageMeta,
+                  newSiteHost,
+                });
+              }
+            }
+
+            if (
+              post.embed &&
+              'external' in post.embed &&
+              post.embed.external.thumb
+            ) {
+              await downloadImageIfChanged({
+                url: post.embed.external.thumb,
+                localName: `post-${recordId}-embed`,
+                meta: imageMeta,
+                newSiteHost,
+              });
+            }
+          }
+
+          const recordKey = postItem.post.uri.split('/').pop() || '';
+          return {
+            rootUri: postItem.post.uri,
+            posts: filtered,
+            viewOnBluesky: `https://bsky.app/profile/${profile.handle}/post/${recordKey}`,
+            recordKey: `bsky${recordKey}`,
+          } satisfies BlueskyPostThread;
+        })
+      )
+    );
+    threads.push(...threadResults.filter(notEmpty));
+
+    cursor = searchResults.cursor; // paginate
+  } while (cursor);
 
   return threads;
 }
 
-export async function getLikes(
-  agent: AtpAgent,
-  threads: BlueskyPostThread[],
-  imageMeta: Record<string, ImageMeta>
-) {
-  await Promise.all(
-    threads.map(async (thread) => {
-      const [{ data: likesData }, { data: postData }] = await Promise.all([
-        agent.app.bsky.feed.getLikes({ uri: thread.rootUri, limit: 100 }),
-        agent.app.bsky.feed.getPosts({ uris: [thread.rootUri] }),
-      ]);
-      console.info('✅ likes returned from Bluesky API:');
-      if (
-        thread.posts[0] &&
-        postData.posts.length > 0 &&
-        postData.posts[0]?.likeCount
-      ) {
-        thread.posts[0].likes = likesData.likes;
-        thread.posts[0].likeCount = postData.posts[0].likeCount;
+/**
+ * Removes duplicate likes from an array by actor DID.
+ *
+ * Ensures each user is only counted once, even if they liked
+ * multiple posts in a thread.
+ *
+ * @param likes - The array of like objects (each with an actor.did).
+ */
+function dedupeLikes(likes: AppBskyFeedGetLikes.Like[]) {
+  const seen = new Set<string>();
+  return likes.filter((like) => {
+    if (!like.actor?.did) return false;
+    if (seen.has(like.actor.did)) return false;
+    seen.add(like.actor.did);
+    return true;
+  });
+}
 
-        for (const like of thread.posts[0].likes) {
-          const did = like.actor.did.split(':').pop();
-          if (like.actor.avatar && did) {
-            const thumnail = like.actor.avatar.replace(
-              'avatar',
-              'avatar_thumbnail'
-            );
-            await downloadImageIfChanged({
-              url: thumnail,
-              localName: `avatar-thumbnail-${did}`,
-              meta: imageMeta,
-              publicAsset: true,
-              updatedAt: like.actor.indexedAt,
-            });
-            const ext = getImageExtension(thumnail);
-            like.actor.avatar = `${SITE_URL}${PUBLIC_FOLDER.replace('./public', '')}/avatar-thumbnail-${did}${ext}`;
-          }
+export async function getLikes({
+  agent,
+  threads,
+  oldThreads,
+  imageMeta,
+  updateAll = false,
+  newSiteHost,
+}: {
+  agent: AtpAgent;
+  threads: BlueskyPostThread[];
+  oldThreads: BlueskyPostThread[];
+  imageMeta: Record<string, ImageMeta>;
+  updateAll: boolean;
+  newSiteHost?: boolean;
+}) {
+  const limit = pLimit(3); // max 3 concurrent API requests
+
+  const oldThreadMap = new Map<string, BlueskyPostThread>();
+  for (const t of oldThreads) {
+    const root = t.posts[0];
+    if (root?.cid) oldThreadMap.set(root.cid, t);
+  }
+
+  await Promise.all(
+    threads.map((thread) =>
+      limit(async () => {
+        const rootPost = thread.posts[0];
+        if (!rootPost) return;
+
+        const oldRootPost = oldThreadMap.get(rootPost.cid)?.posts[0];
+
+        // Decide if we should fetch likes
+        const needFullUpdate =
+          updateAll ||
+          rootPost.likeCount !== oldRootPost?.likeCount ||
+          newSiteHost;
+
+        if (!needFullUpdate) return;
+
+        let collectedLikes: typeof rootPost.likes = [];
+        let remaining = MAXIMUM_NUMBER_OF_LIKE_AVATARS;
+        let postIndex = 0;
+
+        while (remaining > 0 && postIndex < thread.posts.length) {
+          const currentPost = thread.posts[postIndex];
+          if (!currentPost) break;
+
+          const { data: likesData } = await agent.app.bsky.feed.getLikes({
+            uri: currentPost.uri,
+            limit: Math.min(remaining, 100), // API limit per call
+          });
+
+          collectedLikes.push(...likesData.likes);
+          remaining = MAXIMUM_NUMBER_OF_LIKE_AVATARS - collectedLikes.length;
+          postIndex++;
         }
-      }
-    })
+
+        collectedLikes = dedupeLikes(collectedLikes);
+
+        // Update root post
+        rootPost.likes = collectedLikes.slice(
+          0,
+          MAXIMUM_NUMBER_OF_LIKE_AVATARS
+        );
+
+        // Download avatars
+        await Promise.all(
+          rootPost.likes.map(async (like) => {
+            const did = like.actor.did.split(':').pop();
+            if (like.actor.avatar && did) {
+              const thumbnail = like.actor.avatar.replace(
+                'avatar',
+                'avatar_thumbnail'
+              );
+              await downloadImageIfChanged({
+                url: thumbnail,
+                localName: `avatar-thumbnail-${did}`,
+                meta: imageMeta,
+                publicAsset: true,
+                updatedAt: like.actor.indexedAt,
+                newSiteHost,
+                width: AVATAR_THUMBNAIL_SIZE,
+                height: AVATAR_THUMBNAIL_SIZE,
+              });
+              const ext = getImageExtension(thumbnail);
+              like.actor.avatar = getPublicAssetUrl(
+                `avatar-thumbnail-${did}${ext}`
+              );
+            }
+          })
+        );
+      })
+    )
   );
+}
+
+export function hasLikesChanged(
+  oldThreads: BlueskyPostThread[],
+  newThreads: BlueskyPostThread[]
+) {
+  const oldThreadsMap = new Map(
+    oldThreads?.map((thread) => [thread.rootUri, thread]) ?? []
+  );
+
+  for (const currentThread of newThreads) {
+    const oldThread = oldThreadsMap.get(currentThread.rootUri);
+    if (!oldThread) return true;
+
+    const oldPostsMap = new Map(
+      oldThread.posts.map((post) => [post.cid, post])
+    );
+
+    for (const currentPost of currentThread.posts) {
+      const oldPost = oldPostsMap.get(currentPost.cid);
+      if (!oldPost) return true;
+      if (currentPost.likeCount !== oldPost.likeCount) return true;
+    }
+  }
+
+  return false;
 }

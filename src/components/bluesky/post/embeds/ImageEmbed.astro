@@ -1,0 +1,243 @@
+---
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import imageMeta from '@assets/bluesky/image-meta.json';
+import type { ImageModule } from '@customTypes/index';
+import { capitalize } from '@utils/misc';
+import styles from './postEmbed.module.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const blueskyPublicImages = import.meta.glob(
+  '@public/bluesky/*.{jpg,jpeg,png}'
+);
+
+const blueskyImages = import.meta.glob('@assets/bluesky/*.{jpg,jpeg,png}');
+
+export type Props = {
+  uri: string;
+  thumbnail: string;
+  index: number;
+  alt?: string;
+  lazyLoadImages?: boolean;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+const { uri, alt, thumbnail, index, lazyLoadImages = false } = Astro.props;
+
+const id = crypto.randomUUID();
+
+const publicImageName =
+  uri && uri in imageMeta
+    ? imageMeta[uri as keyof typeof imageMeta].fileName
+    : undefined;
+
+const imageName =
+  thumbnail && thumbnail in imageMeta
+    ? imageMeta[thumbnail as keyof typeof imageMeta].fileName
+    : undefined;
+
+if (!imageName || typeof imageName !== 'string') {
+  throw new Error('No image name found for the provided uri in PostEmbed');
+}
+
+if (!publicImageName || typeof publicImageName !== 'string') {
+  throw new Error('No image name found for the provided uri in PostEmbed');
+}
+
+const imageImport = Object.entries(blueskyImages).find(([path]) =>
+  path.includes(imageName)
+);
+
+const publicImageImport = Object.entries(blueskyPublicImages).find(([path]) => {
+  return path.includes(publicImageName);
+});
+
+if (!imageImport) {
+  throw new Error(`Bluesky embed image not found for imageName: ${imageName}`);
+}
+
+if (!publicImageImport) {
+  throw new Error(
+    `Bluesky public embed image not found for imageName: ${imageName}`
+  );
+}
+const ImageComponent = ((await imageImport[1]()) as ImageModule).default;
+const publicImageComponent = ((await publicImageImport[1]()) as ImageModule)
+  .default;
+---
+
+<Fragment>
+  <script>
+    import {
+      animateDialogClose,
+      animateDialogOpen,
+    } from '@components/bluesky/helpers/utils';
+
+    interface VTButton extends HTMLButtonElement {
+      _dialog?: VTDialog;
+      _vtName?: string;
+    }
+
+    interface VTDialog extends HTMLDialogElement {
+      _triggerButton?: VTButton;
+      _vtName?: string;
+    }
+
+    function onDialogBackgroundClick(this: VTDialog, e: MouseEvent) {
+      const dialog = e.currentTarget as VTDialog;
+      const rect = dialog.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      if (!inside && dialog._triggerButton && dialog._vtName) {
+        animateDialogClose(dialog, dialog._triggerButton, dialog._vtName);
+      }
+    }
+
+    function onDialogClose(this: VTDialog) {
+      const dialog = this;
+      if (dialog._triggerButton?.dataset.hidden && dialog._vtName) {
+        animateDialogClose(dialog, dialog._triggerButton, dialog._vtName);
+      }
+    }
+
+    function onButtonClick(this: VTButton) {
+      if (this._dialog && this._vtName) {
+        animateDialogOpen(this._dialog, this, this._vtName);
+      }
+    }
+
+    const embedDialogAnchors = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>('a[id^="embedDialogButton"]')
+    );
+
+    embedDialogAnchors.forEach((anchor) => {
+      const btn: VTButton = document.createElement('button');
+      btn.id = anchor.id;
+      btn.innerHTML = anchor.innerHTML;
+      btn.className = anchor.className;
+      btn.dataset.dialogId = anchor.dataset.dialogId;
+      btn.dataset.imageIndex = anchor.dataset.imageIndex;
+      btn.ariaLabel = anchor.ariaLabel;
+      btn.style.cssText = anchor.style.cssText; // instead of casting
+      anchor.replaceWith(btn);
+
+      const dialog = document.querySelector<VTDialog>(
+        `#dialog${btn.dataset.dialogId}`
+      );
+
+      if (!dialog) return;
+
+      const vtName = 'morph';
+      btn._dialog = dialog;
+      btn._vtName = vtName;
+      dialog._triggerButton = btn;
+      dialog._vtName = vtName;
+
+      dialog.addEventListener('click', onDialogBackgroundClick);
+      dialog.addEventListener('close', onDialogClose);
+      btn.addEventListener('click', onButtonClick);
+
+      // Preload: force layout read to warm up
+      btn.getBoundingClientRect();
+      dialog.getBoundingClientRect();
+    });
+  </script>
+  <a
+    id={`embedDialogButton${capitalize(id)}`}
+    href={uri}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={styles.embedDialogButton}
+    data-dialog-id={capitalize(id)}
+    data-image-index={index}
+    aria-label={t('view_image_in_full_size')}
+    style={{
+      aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+    }}
+  >
+    <PictureWithPlaceholder
+      formats={['avif', 'webp']}
+      quality="high"
+      src={ImageComponent}
+      alt={alt || ''}
+      width={ImageComponent.width}
+      height={ImageComponent.height}
+      widths={[328, 500, 670, 1000, 1340]}
+      sizes="(max-width: 480px) 328px, (max-width: 652px) 500px, 670px"
+      loading={lazyLoadImages ? 'lazy' : 'eager'}
+      decoding="async"
+      placeholderSettings={{
+        width: 40,
+      }}
+      classNames={{
+        placeholder: styles.embedPlaceholder,
+      }}
+    />
+  </a>
+  <dialog
+    id={`dialog${capitalize(id)}`}
+    class={styles.imageDialog}
+    style={{
+      '--dialog-width': `${Math.min(ImageComponent.width, 2000)}px`,
+      maxWidth: `min(calc(100vw - 4rem), var(--dialog-width))`,
+      maxHeight: `min(calc(100vh - 4rem), ${ImageComponent.height}px)`,
+    }}
+  >
+    <button
+      type="button"
+      class={styles.closeButton}
+      aria-label={t('close_popover')}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <path
+          d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+          fill="currentColor"></path>
+      </svg>
+    </button>
+    <figure>
+      <div
+        class={styles.imageWrapper}
+        style={{
+          aspectRatio: `${publicImageComponent.width / publicImageComponent.height}`,
+        }}
+      >
+        <PictureWithPlaceholder
+          formats={['avif', 'webp']}
+          quality="high"
+          src={publicImageComponent}
+          alt={alt || ''}
+          width={publicImageComponent.width}
+          height={publicImageComponent.height}
+          widths={[
+            328,
+            704,
+            960,
+            Math.min(1376, publicImageComponent.width),
+            Math.min(2000, publicImageComponent.width),
+          ]}
+          sizes={`(max-width: 480px) 328px, (max-width: 768px) 704px,(max-width: 1024px) 960px, (max-width: 1440px) 1376px, ${Math.min(ImageComponent.width, 2000)}px`}
+          loading="lazy"
+          decoding="async"
+          publicAsset={true}
+          placeholderSettings={{
+            width: 40,
+          }}
+          classNames={{
+            placeholder: styles.embedPlaceholder,
+          }}
+        />
+      </div>
+      {alt && <figcaption class="body-text">{alt}</figcaption>}
+    </figure>
+  </dialog>
+</Fragment>

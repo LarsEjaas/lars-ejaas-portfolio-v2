@@ -1,0 +1,45 @@
+---
+import DeveloperTipsLayout from '@layouts/DeveloperTips.astro';
+import { getLangFromUrl } from '@i18n/utils';
+import { getMetaForPage } from '@collections/meta';
+import type { GetStaticPathsOptions, Page } from 'astro';
+import {
+  constructBlueskyThreads,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
+import BlueskyData from '@collections/bluesky/devtips_data.json';
+import { DEVELOPER_TIPS_PAGESIZE } from '@pages/_constants.mts';
+
+type Props = {
+  page: Page<ProcessedBlueskyThread>;
+};
+
+const lang = getLangFromUrl(Astro.url);
+
+const meta = getMetaForPage('/developer-tips', lang);
+
+export function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const processedThreads = constructBlueskyThreads(BlueskyData.threads);
+  return paginate(processedThreads, { pageSize: DEVELOPER_TIPS_PAGESIZE });
+}
+
+const { page } = Astro.props;
+---
+
+<DeveloperTipsLayout
+  title={meta.title}
+  lang={lang}
+  inert={false}
+  seo={{
+    openGraph: {
+      image: {
+        name: meta.image.name,
+        alt: meta.image.alt,
+      },
+    },
+    noIndex: false,
+  }}
+  description={meta.description}
+  page={page}
+  profile={BlueskyData.profile}
+/>

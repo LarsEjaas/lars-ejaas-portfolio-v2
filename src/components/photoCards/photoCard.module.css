@@ -47,7 +47,7 @@
   }
   &:not([inert='true']) {
     & a {
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {
           animation-timeline: view();
           animation-name: unwrapImage;
@@ -78,6 +78,7 @@
   background-color: light-dark(var(--system-light-200), var(--system-dark-400));
   padding: 5px 5px 25px;
   box-shadow: var(--stacks-5-shadow);
+  view-transition-class: img;
   & .placeholder {
     inset: 5px 5px 25px;
   }
@@ -102,45 +103,11 @@
 }
 
 /* Make sure the images are on top of the backdrop during the transition */
-::view-transition-group(img1),
-::view-transition-group(img2),
-::view-transition-group(img3),
-::view-transition-group(img4),
-::view-transition-group(img5),
-::view-transition-group(img6),
-::view-transition-group(img7),
-::view-transition-group(img8),
-::view-transition-group(img9),
-::view-transition-group(img10),
-::view-transition-group(img11) {
-  z-index: 1;
+::view-transition-group(:global(.img)) {
+  z-index: 20;
 }
 
-::view-transition-image-pair(img1),
-::view-transition-image-pair(img2),
-::view-transition-image-pair(img3),
-::view-transition-image-pair(img4),
-::view-transition-image-pair(img5),
-::view-transition-image-pair(img6),
-::view-transition-image-pair(img7),
-::view-transition-image-pair(img8),
-::view-transition-image-pair(img9),
-::view-transition-image-pair(img10),
-::view-transition-image-pair(img11) {
-  isolation: isolate;
-}
-
-::view-transition-old(img1),
-::view-transition-old(img2),
-::view-transition-old(img3),
-::view-transition-old(img4),
-::view-transition-old(img5),
-::view-transition-old(img6),
-::view-transition-old(img7),
-::view-transition-old(img8),
-::view-transition-old(img9),
-::view-transition-old(img10),
-::view-transition-old(img11) {
+::view-transition-old(:global(.img)) {
   block-size: 100%;
   object-fit: contain;
 }

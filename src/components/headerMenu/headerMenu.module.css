@@ -155,22 +155,21 @@
 
 .skillsLink p {
   view-transition-name: skills-link;
+  view-transition-class: link-object;
 }
 
 .aboutLink p {
   view-transition-name: about-link;
+  view-transition-class: link-object;
 }
 
 .workLink p {
   view-transition-name: work-link;
+  view-transition-class: link-object;
 }
 
-::view-transition-old(work-link),
-::view-transition-new(work-link),
-::view-transition-new(skills-link),
-::view-transition-old(skills-link),
-::view-transition-new(about-link),
-::view-transition-old(about-link) {
+::view-transition-old(:global(.link-object)),
+::view-transition-new(:global(.link-object)) {
   object-fit: none;
   object-position: bottom right;
 }

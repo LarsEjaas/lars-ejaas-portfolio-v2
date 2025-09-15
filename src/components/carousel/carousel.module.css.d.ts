@@ -1,0 +1,21 @@
+declare const styles: {
+  readonly "article": string;
+  readonly "articleDescription": string;
+  readonly "borderGlow": string;
+  readonly "controls": string;
+  readonly "date": string;
+  readonly "expand": string;
+  readonly "indicators": string;
+  readonly "newsArchive": string;
+  readonly "newsContent": string;
+  readonly "outline1": string;
+  readonly "outline2": string;
+  readonly "outline3": string;
+  readonly "outline4": string;
+  readonly "outlinegold": string;
+  readonly "placeholder": string;
+  readonly "previous": string;
+  readonly "slideIn": string;
+};
+export = styles;
+

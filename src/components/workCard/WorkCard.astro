@@ -12,15 +12,17 @@ import WorkCardImage from './WorkCardImage.astro';
 import CurrentEmploymentBadge from './CurrentEmploymentBadge.astro';
 import CalendarIcon from './CalendarIcon.astro';
 import CodeIcon from './CodeIcon.astro';
+import type { CamelCaseString, KebabCaseString } from '@customTypes/index';
+import TagIcon from './TagIcon.astro';
 
-type Props = {
+type Props<T extends string = string, U extends string = string> = {
   inert: boolean;
   headline?: string;
   subHeadline: string;
   /** Unique identifier for this card. Should be written in camelCase
    * This can also be used as an anchor to go directly to this card.
    */
-  id: string;
+  id: CamelCaseString<U>;
   date: string;
   headerImage?: ImageMetadata;
   headerImageAlt?: string;
@@ -29,7 +31,7 @@ type Props = {
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName: string;
+  viewTransitionName: KebabCaseString<T>;
   footerImages?: {
     src: ImageMetadata;
     alt: string;
@@ -83,6 +85,7 @@ footerImages?.forEach((footerImage) => {
 
 <script>
   import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
+  import { setupPaginationScroll } from './utils';
   const tagsWrappers = document.querySelectorAll('[id$="WorkCardTags"]');
 
   const isHTMLElementList = (
@@ -97,34 +100,11 @@ footerImages?.forEach((footerImage) => {
     );
   }
 
-  const footerImageControls = document.querySelectorAll(
-    '[id$="footerNavigation"]'
+  const footerImageControls = Array.from(
+    document.querySelectorAll('[id$="footerNavigation"]')
   );
-  const footerImageControlsArray = Array.from(footerImageControls);
-  footerImageControlsArray.forEach((control) => {
-    if (control instanceof HTMLElement) {
-      initHorizontalKeyboardArrowNav(control);
-      const buttons = control.querySelectorAll('a');
-      const controlButtonsArray = Array.from(buttons);
-      controlButtonsArray.forEach((controlButton) => {
-        if (controlButton instanceof HTMLElement) {
-          controlButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const scrollTarget = document.querySelector(
-              `#${(e.currentTarget as HTMLAnchorElement).href.split('#')[1]}`
-            );
-            if (scrollTarget instanceof HTMLElement) {
-              scrollTarget.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'start',
-              });
-            }
-          });
-        }
-      });
-    }
-  });
+
+  setupPaginationScroll(footerImageControls);
 </script>
 <Card
   inert={inert}
@@ -194,10 +174,12 @@ footerImages?.forEach((footerImage) => {
                     href={`${translatePath(`${tag.href}/`)}#skillPresentation`}
                     class={styles.tag}
                   >
+                    <TagIcon />
                     {tag.title}
                   </a>
                 ) : (
                   <span role="menuitem" class={styles.tag}>
+                    <TagIcon />
                     {tag.title}
                   </span>
                 )}
@@ -228,7 +210,6 @@ footerImages?.forEach((footerImage) => {
           <div
             id={`${id}footerNavigation`}
             role="menubar"
-            aria-describedby={`${id}ArrowNav`}
             aria-keyshortcuts="ArrowLeft ArrowRight"
           >
             <div

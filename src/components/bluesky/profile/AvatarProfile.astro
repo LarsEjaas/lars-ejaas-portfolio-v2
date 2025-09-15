@@ -1,0 +1,112 @@
+---
+import styles from './avatarProfile.module.css';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { linkifyDomains } from '@components/bluesky/helpers/utils';
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
+import ButterflyIcon from '@components/bluesky/ui/ButterflyIcon.astro';
+
+type Props = {
+  handle: string;
+  displayName: string | undefined;
+  description: string | undefined;
+  avatar: string | ImageMetadata | undefined;
+  followersCount?: number;
+  followsCount?: number;
+};
+
+const {
+  description = '',
+  avatar,
+  handle,
+  displayName,
+  followersCount,
+  followsCount,
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang, 'navigation');
+
+const htmlDescription = linkifyDomains(description, {
+  link: styles.descriptionLink,
+});
+
+const numberFormatter = new Intl.NumberFormat('en', {
+  notation: 'compact',
+  maximumFractionDigits: 1,
+});
+---
+
+<div class={styles.popoverContent}>
+  <div class={styles.popoverTop}>
+    {
+      typeof avatar === 'object' ? (
+        <div class={styles.avatarWrapper}>
+          <PictureWithPlaceholder
+            alt={``}
+            formats={['avif', 'webp']}
+            quality="high"
+            src={avatar}
+            widths={[80, 160, 240]}
+            sizes="80px"
+            loading="eager"
+            decoding="sync"
+            placeholderSettings={{ width: 8, blurSigma: 0.5 }}
+            classNames={{
+              placeholder: styles.avatarPlaceholder,
+              image: styles.avatar,
+            }}
+          />
+        </div>
+      ) : (
+        <div
+          class={styles.avatar}
+          style={
+            avatar
+              ? {
+                  backgroundImage: avatar
+                    ? `url(${avatar})`
+                    : 'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))',
+                }
+              : undefined
+          }
+        />
+      )
+    }
+    <a
+      class={styles.viewProfileOnBluesky}
+      href={`https://bsky.app/profile/${handle}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <p>
+        {t('view_profile_on_bluesky')}
+      </p>
+      <ButterflyIcon />
+    </a>
+  </div>
+  {displayName && <h3 class={styles.displayName}>{displayName}</h3>}
+  <p class:list={['small-body-text', styles.handle]}>{`@${handle}`}</p>
+  {
+    followersCount && followsCount && (
+      <div class={styles.followersWrapper}>
+        <p>
+          <b>{numberFormatter.format(followersCount)}</b>
+          {t('followers')}
+          {''}
+          {''}
+          <b>{numberFormatter.format(followsCount)}</b>
+          {t('following')}
+        </p>
+      </div>
+    )
+  }
+  {
+    description && (
+      <span
+        class:list={['small-body-text', styles.description]}
+        set:html={htmlDescription}
+      />
+    )
+  }
+</div>

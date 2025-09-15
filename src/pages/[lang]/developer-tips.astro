@@ -1,0 +1,7 @@
+---
+export function getStaticPaths() {
+  return [{ params: { lang: 'da' } }];
+}
+
+return Astro.redirect('/da/developer-tips/1/');
+---

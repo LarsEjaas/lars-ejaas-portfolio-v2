@@ -1,0 +1,189 @@
+:import('@components/techSkillsMarquee/techSkillsMarquee.module.css') {
+  fadeIn: fadeIn;
+  fadeOut: fadeOut;
+}
+
+@layer components {
+  .timelineWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    column-gap: 8px;
+    @media (min-width: 769px) {
+      flex-direction: row;
+    }
+  }
+
+  .tocSizing {
+    width: 100%;
+    @media (min-width: 769px) {
+      width: 316px;
+    }
+  }
+
+  .tipsWrapper {
+    display: flex;
+    flex-direction: column;
+    column-gap: 4px;
+    width: 100%;
+    max-width: 826px;
+    --timeline-width: 36px;
+    @media (min-width: 769px) {
+      --timeline-width: 48px;
+    }
+  }
+
+  .profileInfo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--system-dark-300);
+    font-size: var(--font-size-3);
+    font-weight: 600;
+    margin-left: -0.5rem;
+    @media (min-width: 769px) {
+      margin-left: unset;
+    }
+  }
+
+  .avatar {
+    width: var(--timeline-width);
+    height: var(--timeline-width);
+  }
+
+  .timelineDivider {
+    composes: timelineDivider from '@components/bluesky/feed/profileTimeline.module.css';
+    justify-self: center;
+  }
+
+  .threadCard {
+    padding: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    &[data-is-last] {
+      margin-bottom: 0;
+    }
+  }
+
+  .cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 60px;
+    view-transition-class: dev-tips-card-content;
+  }
+
+  .butterfly {
+    composes: butterfly from '@components/bluesky/post/feedCard.module.css';
+    width: 80px;
+    height: 70px;
+    top: -6px;
+    left: -2px;
+  }
+
+  .threadInfo {
+    display: flex;
+    gap: 4px;
+    padding-inline: 8px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .date {
+    composes: postDate from '@components/bluesky/post/blueskyThread.module.css';
+  }
+
+  .threadFooter {
+    composes: threadFooter from '@components/bluesky/post/blueskyThread.module.css';
+    transition: opacity 250ms ease-in;
+    opacity: 0;
+  }
+
+  .collapsibleThread {
+    display: grid;
+    grid-template-columns: var(--timeline-width) 1fr;
+    grid-template-rows: 36px minmax(0, 1fr);
+    column-gap: 4px;
+    color: var(--system-dark-300-55);
+    margin-left: -0.5rem;
+    @media (min-width: 769px) {
+      margin-left: 0;
+    }
+    &::details-content {
+      content-visibility: visible !important;
+      display: contents !important;
+    }
+    & summary {
+      border-radius: 50%;
+      display: grid;
+      justify-items: center;
+      row-gap: 4px;
+      cursor: pointer;
+      margin-inline: calc((var(--timeline-width) - 36px) / 2);
+      &::marker,
+      &:is(::-webkit-details-marker) {
+        content: none;
+      }
+      & span {
+        aspect-ratio: 1;
+        width: 36px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        border: 2px solid currentColor;
+        background-color: var(--system-light-300);
+        transition: transform 0.4s ease;
+        & svg {
+          transition: rotate 400ms ease-in-out;
+        }
+      }
+    }
+    & .threadCard {
+      display: grid;
+      grid-row: 1 / span 2;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 350ms 100ms ease-in-out;
+      overflow: hidden;
+    }
+    &[open],
+    &[data-open='true'] {
+      & summary span svg {
+        rotate: 180deg;
+      }
+      & .threadCard {
+        grid-template-rows: 1fr;
+        transition: grid-template-rows 350ms ease-in-out;
+      }
+      & .threadWrapper {
+        height: fit-content;
+      }
+      & .threadFooter {
+        opacity: 1;
+        transition: opacity 350ms ease-in;
+      }
+    }
+  }
+
+  .topDivider {
+    height: 16px;
+    padding-block: 4px;
+    display: flex;
+    flex-direction: column;
+    width: var(--timeline-width);
+    align-items: center;
+    color: light-dark(var(--system-shadow-1), var(--system-light-400));
+  }
+
+  .dividerGroup {
+    color: light-dark(var(--system-shadow-1), var(--system-light-400));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    grid-column: 1;
+    grid-row: 2;
+    padding-block: 4px;
+    gap: 4px;
+  }
+}

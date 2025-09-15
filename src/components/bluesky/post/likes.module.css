@@ -1,0 +1,103 @@
+@layer components {
+  .likesWrapper {
+    color: light-dark(var(--system-shadow-7), var(--system-light-400));
+    line-height: 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-right: auto;
+    padding-left: 13.5px;
+    & > svg {
+      flex-shrink: 0;
+      margin-block: 8px;
+    }
+  }
+
+  .avatarStack {
+    display: flex;
+    isolation: isolate;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 10.5px;
+    --border-color: light-dark(#f6f8f8, #2d3637);
+    & > * {
+      margin-left: -0.5rem;
+    }
+  }
+
+  .likeProfileButton {
+    position: relative;
+    outline-offset: 3px;
+    border-radius: 50%;
+    background: var(--system-light-300);
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    transition:
+      transform 300ms ease-in-out,
+      margin 300ms ease-in-out;
+    border: 2px solid var(--border-color);
+    &:hover,
+    &:focus-visible,
+    &:has(+ div[popover]:popover-open) {
+      transform: translate(-0.6rem, -0.5rem) scale(1.25);
+    }
+  }
+
+  .likeButtonContent {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @keyframes loader {
+    from {
+      background-position: -100% 0;
+    }
+    to {
+      background-position: 100% 0;
+    }
+  }
+
+  /* JS Fallback for browsers that do not support animation-timeline */
+  :global(:root[data-js-enabled='true']) {
+    .likeButtonContent[data-with-loader] {
+      background-image: linear-gradient(
+        90deg,
+        var(--system-light-300),
+        var(--system-dark-300-55),
+        var(--system-light-300)
+      ) !important;
+      background-size: 200%;
+      animation: loader 1s infinite reverse;
+    }
+    .likeProfileButton[data-with-loader] {
+      pointer-events: none;
+    }
+  }
+
+  .additionalLikes {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--border-color);
+    background-color: light-dark(
+      var(--system-dark-100),
+      var(--system-light-400)
+    );
+    z-index: 1;
+    color: var(--system-light-200);
+    border-radius: 50%;
+    font-size: var(--font-size-1);
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: grid;
+    place-items: center;
+  }
+
+  .popoverWrapper {
+    padding-top: 0;
+  }
+}

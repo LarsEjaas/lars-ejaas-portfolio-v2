@@ -5,22 +5,29 @@ import {
   BLUESKY_DATA_PATH,
   SITE_URL,
   downloadImageIfChanged,
-  FILE_NAME,
-  getAuthenticateBlueskyAgent,
+  DATA_FILE_NAME,
+  createAuthenticatedAgent,
   getLikes,
   getPostThreads,
   getProfile,
   loadImageMeta,
-  PUBLIC_FOLDER,
+  getPublicAssetUrl,
   saveBlueskyData,
   saveImageMeta,
   type BlueskyData,
+  hasLikesChanged,
 } from './utils.ts';
 import { readFileSync, existsSync } from 'fs';
+const SCRIPT_ARGS = process.argv.slice(2);
 
 const HANDLE = process.env.BLUESKY_HANDLE;
 
 async function main() {
+  const updateAll = SCRIPT_ARGS.includes('--updateAll');
+
+  if (updateAll) {
+    console.info(`⚠️  updating all bluesky data!`);
+  }
   if (!HANDLE) {
     throw new Error('the BLUESKY_HANDLE environment variable must be set');
   }
@@ -32,41 +39,77 @@ async function main() {
   const profileLatestTimestamp = oldBlueskyData?.profile.indexedAt;
   const postThreadsLatestTimestamp =
     oldBlueskyData?.threads?.[0]?.posts?.[0]?.indexedAt;
-  const agent = await getAuthenticateBlueskyAgent();
+  const agent = await createAuthenticatedAgent();
   const profile = await getProfile(agent, HANDLE);
   const imageMeta = loadImageMeta();
+  const newSiteHost = SITE_URL !== oldBlueskyData?.host;
+  if (newSiteHost) {
+    console.info(
+      'ℹ️ A new host name was detected! Updating filepaths for all bluesky images.'
+    );
+  }
 
   const avatarPath = profile.avatar
     ? await downloadImageIfChanged({
         url: profile.avatar.replace('avatar/plain', 'avatar_thumbnail/plain'),
         localName: 'profileAvatar',
         meta: imageMeta,
+        newSiteHost,
         publicAsset: true,
+        width: 80,
+        height: 80,
       })
     : undefined;
 
-  const postThreads = await getPostThreads(agent, profile, imageMeta);
+  const postThreads = await getPostThreads(
+    agent,
+    profile,
+    imageMeta,
+    newSiteHost
+  );
 
-  const updateProfile =
+  const profileUpdated =
     new Date(profile?.indexedAt ?? Date.now()) >
     new Date(profileLatestTimestamp ?? '1970-01-01T00:00:00Z');
 
-  const updatePosts =
+  //Only check the latest thread
+  const postsUpdated =
     new Date(postThreads?.[0]?.posts?.[0]?.indexedAt ?? Date.now()) >
     new Date(postThreadsLatestTimestamp ?? '1970-01-01T00:00:00Z');
 
-  const newSiteHost = SITE_URL !== oldBlueskyData?.host;
+  const newThreadsOrLikesChanged = hasLikesChanged(
+    oldBlueskyData?.threads || [],
+    postThreads
+  );
 
-  if (updateProfile || updatePosts || newSiteHost) {
-    //get likes if there are new threads or profile changes(used as fallback)
-    await getLikes(agent, postThreads, imageMeta);
+  if (newThreadsOrLikesChanged) {
+    console.info(`❤️ Change in one or more likes detected!`);
+  }
 
+  if (newThreadsOrLikesChanged || updateAll || newSiteHost) {
+    await getLikes({
+      agent,
+      threads: postThreads,
+      oldThreads: oldBlueskyData?.threads || [],
+      imageMeta,
+      updateAll,
+      newSiteHost,
+    });
+  }
+
+  if (
+    updateAll ||
+    profileUpdated ||
+    postsUpdated ||
+    newSiteHost ||
+    newThreadsOrLikesChanged
+  ) {
     const { avatar, ...rest } = profile;
 
     const data: BlueskyData = {
       profile: {
         ...rest,
-        avatar: `${SITE_URL}${PUBLIC_FOLDER.replace('./public', '')}/${avatarPath}`,
+        avatar: avatarPath ? getPublicAssetUrl(avatarPath) : undefined,
       },
       threads: postThreads,
       host: SITE_URL,
@@ -74,10 +117,10 @@ async function main() {
 
     saveBlueskyData({ data, imageMeta });
     saveImageMeta(imageMeta);
-    console.info(`✅ ${FILE_NAME} saved.`);
+    console.info(`✅ ${DATA_FILE_NAME} saved.`);
   } else {
     console.info(
-      `✅ No changes detected on Bluesky – ${FILE_NAME} not updated.`
+      `✅ No changes detected on Bluesky – ${DATA_FILE_NAME} not updated.`
     );
   }
 }
@@ -89,3 +132,5 @@ main().catch((err) => {
 // To run this script, set the environment variables BLUESKY_HANDLE and BLUESKY_APP_PASSWORD
 // and execute it with Node.js:
 // node --experimental-transform-types ./src/scripts/bluesky.mts
+//
+// To force a full update of all data run the script with the `--updateAll` flag

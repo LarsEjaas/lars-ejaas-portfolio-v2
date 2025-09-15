@@ -1,0 +1,230 @@
+---
+import type { Page } from 'astro';
+import styles from './pagination.module.css';
+import { useTranslations, type Language } from '@i18n/utils';
+
+type Props = {
+  pagination: Pick<Page, 'currentPage' | 'lastPage'> & { url: Page['url'] };
+  lang: Language;
+  id: string;
+};
+
+const SIBLING_COUNT = 1;
+
+const { pagination, lang, id } = Astro.props;
+const { currentPage, lastPage, url } = pagination;
+
+const t = useTranslations(lang, 'navigation');
+
+/**
+ * Generates an array of page numbers and ellipses for pagination.
+ * This logic ensures the pagination component remains a reasonable size,
+ * showing a window of pages around the current one.
+ * @returns {(number | string)[]} An array of page numbers and '...' for ellipses.
+ */
+const getPaginationItems = (
+  /**
+   * The current active page.
+   */
+  current: number,
+  /**
+   * The total number of pages.
+   */
+  last: number
+): (number | string)[] => {
+  // Total number of items to display if we need ellipses on both sides
+  // e.g. 1 ... 4 5 6 ... 10 (7 items)
+  const totalPageNumbers = 2 * SIBLING_COUNT + 5;
+
+  // Case 1: The number of pages is less than the number of items we want to show.
+  // In this case, we show all page numbers.
+  if (last <= totalPageNumbers) {
+    return Array.from({ length: last }, (_, i) => i + 1);
+  }
+
+  const leftSiblingIndex = Math.max(current - SIBLING_COUNT, 1);
+  const rightSiblingIndex = Math.min(current + SIBLING_COUNT, last);
+
+  const shouldShowLeftDots = leftSiblingIndex > 2;
+  const shouldShowRightDots = rightSiblingIndex < last - 2;
+
+  if (!shouldShowLeftDots && shouldShowRightDots) {
+    const leftItemCount = 1 + 2 * SIBLING_COUNT;
+    const leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
+    return [...leftRange, '...', last];
+  }
+
+  if (shouldShowLeftDots && !shouldShowRightDots) {
+    const rightItemCount = 1 + 2 * SIBLING_COUNT;
+    const rightRange = Array.from(
+      { length: rightItemCount },
+      (_, i) => last - rightItemCount + 1 + i
+    );
+    return [1, '...', ...rightRange];
+  }
+
+  if (shouldShowLeftDots && shouldShowRightDots) {
+    const middleRange: number[] = [];
+    for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+      middleRange.push(i);
+    }
+    return [1, '...', ...middleRange, '...', last];
+  }
+
+  return []; // Should be unreachable
+};
+
+const pageItems = getPaginationItems(currentPage, lastPage);
+
+const getPageUrl = (pageNumber: number) => {
+  // This assumes a URL structure like /path/[page] where the page number is always present.
+  // This is true for a file-based route like `src/pages/some-path/[page].astro`.
+  if (currentPage === pageNumber) return url.current;
+  return url.current.replace(`/${currentPage}`, `/${pageNumber}`);
+};
+
+const hasPrev = url.prev !== undefined;
+const hasNext = url.next !== undefined;
+---
+
+<nav
+  is="page-pagination"
+  id={`${id}PaginationWrapper`}
+  class={styles.pagination}
+  role="navigation"
+  title={t('pagination_label')}
+  style={{ viewTransitionName: `pagination-${id}` }}
+>
+  <ul
+    class={styles.paginationContent}
+    role="menubar"
+    aria-label={t('pagination_label')}
+  >
+    {
+      hasPrev && (
+        <li role="none">
+          <a
+            data-arrow-nav="true"
+            role="menuitem"
+            href={url.prev}
+            class:list={[styles.paginationLink, styles.paginationPreviousNext]}
+            aria-label={t('pagination_go_to_prev')}
+            title={t('pagination_go_to_prev')}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+            <span>{t('pagination_prev')}</span>
+          </a>
+        </li>
+      )
+    }
+    {
+      pageItems.map((page) => {
+        if (typeof page === 'string') {
+          return (
+            <li role="none">
+              <span class={styles.paginationEllipsis} aria-hidden="true">
+                &hellip;
+              </span>
+            </li>
+          );
+        }
+
+        const isActive = page === currentPage;
+
+        if (isActive) {
+          return (
+            <li role="none">
+              <span
+                class={styles.paginationLink}
+                role="menuitem"
+                aria-current="page"
+                aria-label={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
+                title={`${t('pagination_page')} ${page}, ${t('pagination_current_page')}`}
+              >
+                {page}
+              </span>
+            </li>
+          );
+        }
+
+        return (
+          <li role="none">
+            <a
+              data-arrow-nav="true"
+              role="menuitem"
+              class={styles.paginationLink}
+              href={getPageUrl(page)}
+              aria-label={`${t('pagination_go_to_page')} ${page}`}
+              title={`${t('pagination_go_to_page')} ${page}`}
+            >
+              {page}
+            </a>
+          </li>
+        );
+      })
+    }
+    {
+      hasNext && (
+        <li role="none">
+          <a
+            data-arrow-nav="true"
+            role="menuitem"
+            href={url.next}
+            class:list={[styles.paginationLink, styles.paginationPreviousNext]}
+            aria-label={t('pagination_go_to_next')}
+            title={t('pagination_go_to_next')}
+          >
+            <span>{t('pagination_next')}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </a>
+        </li>
+      )
+    }
+  </ul>
+</nav>
+
+<script>
+  import { initHorizontalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
+
+  class Pagination extends HTMLElement {
+    private _cleanupArrowNav: (() => void) | undefined;
+    connectedCallback() {
+      this._cleanupArrowNav = initHorizontalKeyboardArrowNav(this);
+    }
+
+    disconnectedCallback() {
+      if (this._cleanupArrowNav) {
+        this._cleanupArrowNav();
+      }
+    }
+  }
+  customElements.define('page-pagination', Pagination, {
+    extends: 'nav',
+  });
+</script>

@@ -1,0 +1,176 @@
+---
+import DeveloperTipsLayout from '@layouts/DeveloperTips.astro';
+import type { GetStaticPathsOptions, Page } from 'astro';
+import BlueskyData from '@collections/bluesky/devtips_data.json';
+import type { ModalTypes } from '@i18n/routes';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import ModalDialog from '@components/modalDialog/ModalDialog.astro';
+import ShareContent from '@components/share/Share.astro';
+import ContactContent from '@components/contact/Contact.astro';
+import IconContact from '@assets/menuIcons/contact.png';
+import IconShare from '@assets/menuIcons/share.png';
+import ContactConfirmation from '@components/contact/Confirmation.astro';
+import ContactError from '@components/contact/Error.astro';
+import {
+  constructBlueskyThreads,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
+import { DEVELOPER_TIPS_PAGESIZE } from '@pages/_constants.mts';
+import { englishModalKeys } from '@i18n/appRoutes.mts';
+import { paginateWithModals } from '@pages/_utils';
+
+type Props = {
+  page: Page<ProcessedBlueskyThread>;
+};
+
+export function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const threads = constructBlueskyThreads(BlueskyData.threads);
+
+  return paginateWithModals({
+    items: threads,
+    paginate,
+    pageSize: DEVELOPER_TIPS_PAGESIZE,
+    modals: englishModalKeys,
+  });
+}
+
+const { modal } = Astro.params;
+const { page } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'navigation');
+
+const modalMap: Record<
+  ModalTypes<'en'>,
+  {
+    component: AstroComponentFactory;
+    modalIcon: ImageMetadata;
+    title: string;
+    description: string;
+    seo: {
+      openGraph: {
+        image: {
+          name: string;
+          alt: string;
+        };
+      };
+      noIndex?: true;
+    };
+  }
+> = {
+  share: {
+    component: ShareContent,
+    modalIcon: IconShare,
+    title: t('share'),
+    description: t('share_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'share_da',
+          alt: t('share_seo_image_alt'),
+        },
+      },
+    },
+  },
+  contact: {
+    component: ContactContent,
+    modalIcon: IconContact,
+    title: t('contact_title'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+    },
+  },
+  ['message-received']: {
+    component: ContactConfirmation,
+    modalIcon: IconContact,
+    title: t('thank_you'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Do not index this confirmation-page
+      noIndex: true,
+    },
+  },
+  ['message-error']: {
+    component: ContactError,
+    modalIcon: IconContact,
+    title: t('whoops'),
+    description: t('contact_seo_description'),
+    seo: {
+      openGraph: {
+        image: {
+          name: 'contact_me_da',
+          alt: t('contact_seo_image_alt'),
+        },
+      },
+      //Do not index this error-page
+      noIndex: true,
+    },
+  },
+};
+
+const ModalContent: AstroComponentFactory | undefined =
+  modalMap[modal]?.component;
+
+const iconImage = modalMap[modal]?.modalIcon;
+
+const modalTitle = modalMap[modal]?.title;
+
+const description = modalMap[modal]?.description;
+
+const imageName = modalMap[modal]?.seo.openGraph.image.name;
+
+const imageAlt = modalMap[modal]?.seo.openGraph.image.alt;
+
+const noIndex = modalMap[modal]?.seo.noIndex;
+
+if (!ModalContent) {
+  throw new Error(`Modal type "${modal}" not found.`);
+}
+
+if (!iconImage) {
+  throw new Error(`IconImage not found in modal for "${iconImage}".`);
+}
+
+if (!modalTitle) {
+  throw new Error(`modalTitle not found in modal for "${modalTitle}".`);
+}
+---
+
+<DeveloperTipsLayout
+  title={t('developer_tips')}
+  lang={lang}
+  inert={true}
+  seo={{
+    openGraph: {
+      image: {
+        name: imageName,
+        alt: imageAlt,
+      },
+    },
+    ...(noIndex && { noIndex }),
+  }}
+  description={description}
+  page={page}
+  profile={BlueskyData.profile}
+>
+  <ModalDialog
+    title={modalTitle}
+    labels={{ close: t('close_modal_title') }}
+    iconImage={iconImage}
+    gradientColor="verdigris"
+    ><ModalContent />
+  </ModalDialog>
+</DeveloperTipsLayout>

@@ -1,0 +1,105 @@
+---
+import {
+  getThreadLabels,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
+import styles from './tableOfContents.module.css';
+import TagIcon from '@components/workCard/TagIcon.astro';
+
+type Props = {
+  thread: ProcessedBlueskyThread;
+};
+
+const { thread } = Astro.props;
+
+const labels = getThreadLabels(thread);
+const title = thread.mainPost.content.raw.slice(0, 120);
+---
+
+<li is="table-of-contents-item" class={styles.tocItem} role="none">
+  <a
+    href={`#${thread.recordKey}`}
+    data-arrow-nav="true"
+    data-href={thread.recordKey}
+    role="menuitem"
+  >
+    <span class={styles.tocTitle}>{title}</span>
+    {
+      labels.length && (
+        <div class={styles.labelWrapper} aria-hidden="true">
+          {labels.map((label) => (
+            <span class={styles.label} data-size="small">
+              <TagIcon />
+              {label}
+            </span>
+          ))}
+        </div>
+      )
+    }
+  </a>
+</li>
+
+<script>
+  class TableOfContentsItem extends HTMLLIElement {
+    private link: HTMLAnchorElement | null = null;
+    private _handleClick: (ev: MouseEvent | KeyboardEvent) => void;
+
+    constructor() {
+      super();
+      this._handleClick = this.handleClick.bind(this);
+    }
+
+    connectedCallback() {
+      this.link = this.querySelector('a');
+      if (this.link) {
+        this.link.addEventListener('click', this._handleClick);
+        this.link.addEventListener('keydown', this._handleClick);
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.link) {
+        this.link.removeEventListener('click', this._handleClick);
+        this.link.removeEventListener('keydown', this._handleClick);
+      }
+    }
+
+    private handleClick(ev: MouseEvent | KeyboardEvent) {
+      if (
+        !this.link ||
+        !this.link.dataset.href ||
+        (ev instanceof KeyboardEvent && ev.key !== 'Enter' && ev.key !== ' ')
+      ) {
+        return;
+      }
+
+      const target = document.querySelector(`#${this.link.dataset.href}`);
+      if (target instanceof HTMLDetailsElement && !target.open) {
+        target.toggleAttribute('open');
+      }
+      //Polyfill for browsers not supporting the ::details-content selector
+      if (target instanceof HTMLDivElement && target.dataset.open) {
+        const groupName = target.dataset.group;
+        const elementsToUpdate = groupName
+          ? Array.from(
+              document.querySelectorAll<HTMLElement>(
+                `div[data-group="${groupName}"]`
+              )
+            ).filter((el) => el !== target)
+          : [];
+        const isCurrentlyOpen = target.dataset.open === 'true';
+        elementsToUpdate.forEach((el) => {
+          el.dataset.open = 'false';
+        });
+
+        // If target was closed, open it
+        if (!isCurrentlyOpen) {
+          target.dataset.open = 'true';
+        }
+      }
+    }
+  }
+  customElements.define('table-of-contents-item', TableOfContentsItem, {
+    extends: 'li',
+  });
+</script>

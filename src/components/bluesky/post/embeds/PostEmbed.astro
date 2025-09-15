@@ -1,0 +1,45 @@
+---
+import ImageEmbed from './ImageEmbed.astro';
+import type { ProcessedEmbed } from '@components/bluesky/helpers/utils';
+import ExternalEmbed from './ExternalEmbed.astro';
+import styles from './postEmbed.module.css';
+
+export type Props = {
+  embed: ProcessedEmbed | undefined;
+};
+
+const { embed } = Astro.props;
+---
+
+<>
+  {
+    embed?.type === 'images' && (
+      <div
+        class={styles.imagesEmbedWrapper}
+        data-image-length={embed.images.length}
+      >
+        {embed.images.map((image, index) => (
+          <ImageEmbed
+            uri={image.uri}
+            thumbnail={image.thumbnail}
+            alt={image.alt}
+            index={index}
+            lazyLoadImages={embed.lazyLoadImages}
+          />
+        ))}
+      </div>
+    )
+  }
+  {
+    embed?.type === 'external' && (
+      <ExternalEmbed
+        uri={embed.uri}
+        title={embed.title}
+        description={embed.description}
+        thumbnail={embed.thumbnail}
+        alt={embed.alt}
+        lazyLoadImages={embed.lazyLoadImages}
+      />
+    )
+  }
+</>

@@ -1,0 +1,66 @@
+---
+import {
+  renderPostContentAsHTML,
+  type RichTextRenderConfig,
+} from '@components/bluesky/helpers/richTextRenderUtils';
+import type { ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
+import styles from './threadRenderer.module.css';
+import PostEmbed from '@components/bluesky/post/embeds/PostEmbed.astro';
+
+type Props = {
+  thread: ProcessedBlueskyThread;
+  scrollable?: boolean;
+  className?: string;
+  classNames?: RichTextRenderConfig['classNames'];
+  lazyLoadImages?: boolean;
+};
+
+const {
+  thread,
+  scrollable = true,
+  className = '',
+  classNames = {},
+  lazyLoadImages = false,
+} = Astro.props;
+
+const embed = thread?.mainPost.embed;
+
+const threadConfig: RichTextRenderConfig = {
+  classNames: {
+    container: `body-text ${styles.postContent}`,
+    link: styles.postLink,
+    hashtag: styles.postHashtag,
+    ...classNames,
+  },
+  attributes: {
+    link: { 'data-type': 'external-link' },
+    hashtag: (segment) => ({ 'data-tag': segment.content.replace('#', '') }),
+    embed: (_embed) => ({ lazyLoadImages }),
+  },
+};
+---
+
+<section
+  class:list={[styles.threadContent, className]}
+  data-no-scroll={!scrollable || undefined}
+>
+  <Fragment
+    set:html={renderPostContentAsHTML(thread?.mainPost, threadConfig)}
+  />
+  <PostEmbed embed={embed ? { ...embed, lazyLoadImages } : undefined} />
+  {
+    thread.replies.map((reply) => {
+      const content = renderPostContentAsHTML(reply, threadConfig);
+      const replyEmbed = reply.embed;
+      return (
+        <>
+          <div class={styles.divider} />
+          <Fragment set:html={content} />
+          <PostEmbed
+            embed={replyEmbed ? { ...replyEmbed, lazyLoadImages } : undefined}
+          />
+        </>
+      );
+    })
+  }
+</section>

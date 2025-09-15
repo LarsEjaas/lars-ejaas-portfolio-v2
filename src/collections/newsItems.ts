@@ -27,6 +27,7 @@ const newsFeed = [
   'v2',
   'jobseeking',
   'viewCodeOnGitHub',
+  'developerTips',
 ] as const;
 
 /**
@@ -196,6 +197,17 @@ const newsObject = {
       href: 'https://github.com/LarsEjaas/lars-ejaas-portfolio-v2',
       outline: '1',
     },
+    developerTips: {
+      title: 'Developer Tips',
+      description:
+        'Nyt på siden: Korte tråde med tips, tricks og små guldkorn fra mit daglige arbejde som udvikler.\n\nDyk ned og løft dine programmeringsevner!',
+      date: '11. september 2025',
+      imageSrc: 'developer_tips.png',
+      imageAlt:
+        'En mand med et eftertænksomt udtryk hviler hagen på sin hånd og kigger på en lysende el-pære mod en blå baggrund',
+      href: '/da/developer-tips/1/',
+      outline: '3',
+    },
   },
   en: {
     welcome: {
@@ -348,6 +360,17 @@ const newsObject = {
         'GitHub’s mascot Mona in a space-setting wearing a space suit stands before a globe looking at the Ejaas logo.',
       href: 'https://github.com/LarsEjaas/lars-ejaas-portfolio-v2',
       outline: '1',
+    },
+    developerTips: {
+      title: 'Developer Tips',
+      description:
+        'New on the site: quick threads with gotchas, hacks, and small wins from my day-to-day coding. \n\nDive in and level up your code!',
+      date: 'September 11th, 2025',
+      imageSrc: 'developer_tips.png',
+      imageAlt:
+        'A man with a thoughtful expression rests his chin on his hand, looking at an illuminated light bulb against a blue background.',
+      href: '/developer-tips/1/',
+      outline: '3',
     },
   },
 } as const satisfies NewsItems;

@@ -5,13 +5,14 @@ import { useTranslations, type Language } from '@i18n/utils';
 import TargetArrowIcon from './TargetArrowIcon.astro';
 import Lightbulb from './Lightbulb.astro';
 import Card from '@components/card/Card.astro';
+import type { CamelCaseString, KebabCaseString } from '../../customTypes';
 
-type Props = {
+type Props<T extends string = string, U extends string = string> = {
   lang: Language;
   inert: boolean;
   title: string;
   /** Unique identifier for this popver. Should be written in camelCase */
-  id: string;
+  id: CamelCaseString<U>;
   /** Accessibility label for the popover button */
   buttonLabel: string;
   variant: 'flirt' | 'princeton';
@@ -21,7 +22,7 @@ type Props = {
   /**  distinct identifying name used for view transitions. Should be in kebab-case.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name MDN Web Docs}
    */
-  viewTransitionName: string;
+  viewTransitionName: KebabCaseString<T>;
   width?: number;
 };
 
@@ -43,10 +44,11 @@ const t_home = useTranslations(lang, 'home');
   inert={inert}
   className={styles.aboutCard}
   viewTransitionName={viewTransitionName}
+  as="aside"
 >
   <div class={styles.flex} style={`--delay: calc(1.4s + ${index}s * 5)`}>
     <div class={`gradient ${styles.title}`} data-variant={variant}>{title}</div>
-    <Lightbulb className={styles.lightbulb} variant={variant} />
+    <Lightbulb variant={variant} />
   </div>
   <div class={styles.content}>
     <slot />

@@ -1,0 +1,78 @@
+---
+import Sparkle from '@components/sparkle/Sparkle.astro';
+import styles from './sparkleButton.module.css';
+import { Picture } from 'astro:assets';
+import type { ImageModule } from '../../customTypes';
+
+const iconImageGlob = import.meta.glob('@assets/menuIcons/*.{jpg,png}');
+
+type Props = {
+  href: string;
+  label: string;
+  iconImage?:
+    | 'about'
+    | 'alert'
+    | 'archive'
+    | 'contact'
+    | 'devTips'
+    | 'ejaas'
+    | 'lock'
+    | 'share'
+    | 'skillset'
+    | 'work';
+};
+
+const { href, label, iconImage } = Astro.props;
+
+const imageImport = iconImage
+  ? Object.entries(iconImageGlob).find(([path]) => path.includes(iconImage))
+  : undefined;
+
+if (iconImage && !imageImport) {
+  throw new Error(
+    `Icon image not found for: ${iconImage} in the SparkleButton component`
+  );
+}
+const ImageComponent = imageImport
+  ? ((await imageImport[1]()) as ImageModule).default
+  : undefined;
+---
+
+<div class={styles.contactContainer}>
+  <Sparkle>
+    <a
+      id="contactButton"
+      data-arrow-nav="true"
+      tabindex="0"
+      href={href}
+      title={label}
+      aria-label={label}
+      class={styles.outline}
+    >
+      <div class={styles.contact}>
+        {
+          ImageComponent && (
+            <div class="squircle" data-with-shadow="true">
+              <Picture
+                aria-hidden="true"
+                formats={['avif', 'webp']}
+                quality="high"
+                src={ImageComponent}
+                alt=""
+                width={40}
+                height={40}
+                densities={[1, 2, 3]}
+                loading="eager"
+                decoding="sync"
+                pictureAttributes={{
+                  style: 'filter: grayscale(0.7);',
+                }}
+              />
+            </div>
+          )
+        }
+        <slot />
+      </div>
+    </a>
+  </Sparkle>
+</div>

@@ -1,0 +1,68 @@
+---
+import Layout from '@layouts/Root.astro';
+import styles from './developerTips.module.css';
+import { useTranslations, type Language } from '@i18n/utils';
+import type { DistributiveOmit } from '@customTypes/index';
+import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
+import type { OpenGraph } from '@customTypes/seo';
+import PageLabel from '@components/pageLabel/PageLabel.astro';
+import type { ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
+import type { Page } from 'astro';
+import type { BlueskyData } from '@scripts/utils';
+import DeveloperTipsTimeline from '@components/bluesky/feed/Timeline.astro';
+import LanguageDisclaimerBanner from '@components/bluesky/ui/LanguageDisclaimerBanner.astro';
+
+type Props = {
+  title: string;
+  description: string;
+  lang: Language;
+  inert: boolean;
+  seo: { openGraph: DistributiveOmit<OpenGraph, 'type'>; noIndex?: boolean };
+  page: Page<ProcessedBlueskyThread>;
+  profile: BlueskyData['profile'];
+};
+
+const { title, description, lang, inert, seo, page, profile } = Astro.props;
+
+const t_devtips = useTranslations(lang, 'developerTips');
+---
+
+<Layout
+  inert={inert}
+  seo={{
+    metaData: { title, description },
+    openGraph: {
+      image: {
+        name: seo.openGraph.image.name,
+        alt: seo.openGraph.image.alt,
+      },
+    },
+    ...(seo.noIndex && { noIndex: seo.noIndex }),
+  }}
+>
+  <!-- Modals can be inserted as a child here in the slot -->
+  <slot slot="body-top" />
+  <LanguageDisclaimerBanner lang={lang} />
+  <div class="presentation">
+    <PageLabel title={t_devtips('developer_tips_title')} iconImage="devTips" />
+    <div>
+      <h2>
+        {t_devtips('practical_wisdom')}
+      </h2>
+      <p class="body-text">{t_devtips('a_collection_of_short')}</p>
+    </div>
+  </div>
+  <FloatingBalloons class={styles.baloons} balloonColor="bluemunsell" />
+  <section class={styles.timelineSection}>
+    <DeveloperTipsTimeline
+      threads={page.data}
+      profile={profile}
+      lang={lang}
+      pagination={{
+        currentPage: page.currentPage,
+        lastPage: page.lastPage,
+        url: page.url,
+      }}
+    />
+  </section>
+</Layout>

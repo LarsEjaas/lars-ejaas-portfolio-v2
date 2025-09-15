@@ -1,0 +1,126 @@
+---
+import type { Language } from '@i18n/settings';
+import { useTranslations } from '@i18n/utils';
+import { type ProcessedBlueskyThread } from '@components/bluesky/helpers/utils';
+import styles from './tableOfContents.module.css';
+import type { Page } from 'astro';
+import ChevronIcon from '@components/bluesky/ui/ChevronIcon.astro';
+import Pagination from '@components/pagination/Pagination.astro';
+import TableOfContentsItem from './TableOfContentsItem.astro';
+
+type Props = {
+  threads: ProcessedBlueskyThread[];
+  lang: Language;
+  pagination: Pick<Page, 'currentPage' | 'lastPage'> & { url: Page['url'] };
+  defaultOpen?: boolean;
+  className?: string;
+};
+
+const {
+  threads,
+  lang,
+  pagination,
+  defaultOpen = true,
+  className,
+} = Astro.props;
+const t = useTranslations(lang, 'navigation');
+---
+
+<table-of-contents>
+  <div is="table-of-contents" class:list={[styles.stickyPlacement, className]}>
+    <details class={styles.tocDetails} open={defaultOpen}>
+      <summary class={styles.tocSummary}>
+        <span class="sr-only">{t('toggle_toc')}</span>
+        {t('table_of_contents_title')}
+        <ChevronIcon />
+      </summary>
+      <nav
+        id="tableOfContents"
+        class={styles.toc}
+        aria-label={t('nav_dev_tips')}
+        aria-keyshortcuts="ArrowUp ArrowDown"
+      >
+        <ul class={styles.tocList} role="menu">
+          {threads.map((thread) => <TableOfContentsItem thread={thread} />)}
+        </ul>
+      </nav>
+    </details>
+    <Pagination id="default" pagination={pagination} lang={lang} />
+  </div>
+</table-of-contents>
+<script>
+  import { initVerticalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
+  class TableOfContents extends HTMLElement {
+    private details: HTMLDetailsElement | null = null;
+    private toc: HTMLElement | null = null;
+    private links: HTMLAnchorElement[] = [];
+    private _onToggle: () => void;
+    private _scrollToTarget: (ev: MouseEvent | KeyboardEvent) => void;
+    private _cleanupArrowNav: (() => void) | undefined;
+
+    constructor() {
+      super();
+      this._onToggle = this.onToggle.bind(this);
+      this._scrollToTarget = this.scrollToTarget.bind(this);
+    }
+
+    connectedCallback() {
+      this.details = this.querySelector('details');
+      this.toc = this.querySelector('#tableOfContents');
+
+      if (this.details && this.toc instanceof HTMLElement) {
+        this.toc.inert = !this.details.open;
+        this.details.addEventListener('toggle', this._onToggle);
+      }
+
+      if (this.toc instanceof HTMLElement) {
+        this._cleanupArrowNav = initVerticalKeyboardArrowNav(this.toc);
+        this.links = Array.from(this.toc.querySelectorAll('a'));
+        this.links.forEach((link) => {
+          link.addEventListener('click', this._scrollToTarget);
+          link.addEventListener('keydown', this._scrollToTarget);
+        });
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.details) {
+        this.details.removeEventListener('toggle', this._onToggle);
+      }
+      this.links.forEach((link) => {
+        link.removeEventListener('click', this._scrollToTarget);
+        link.removeEventListener('keydown', this._scrollToTarget);
+      });
+      if (this._cleanupArrowNav) {
+        this._cleanupArrowNav();
+      }
+    }
+
+    private onToggle() {
+      if (this.details && this.toc) {
+        this.toc.inert = !this.details.open;
+      }
+    }
+
+    private scrollToTarget(ev: MouseEvent | KeyboardEvent) {
+      if (ev instanceof KeyboardEvent && ev.key !== 'Enter' && ev.key !== ' ') {
+        return;
+      }
+      const link = ev.currentTarget;
+      if (!(link instanceof HTMLAnchorElement) || !link.dataset.href) return;
+
+      const target = document.querySelector(`#${link.dataset.href}`);
+      if (target) {
+        ev.preventDefault();
+        setTimeout(() => {
+          target.scrollIntoView({
+            behavior: 'smooth',
+          });
+          //delay to wait for the toggle/collapse animation to finish
+        }, 500);
+      }
+    }
+  }
+
+  customElements.define('table-of-contents', TableOfContents);
+</script>

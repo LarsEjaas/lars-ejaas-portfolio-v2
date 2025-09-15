@@ -1,0 +1,57 @@
+---
+import type { BlueskyData } from '@scripts/utils';
+import Popover, {
+  type PopoverClassNames,
+} from '@components/popover/Popover.astro';
+import styles from './authorAvatar.module.css';
+import AvatarProfile from './AvatarProfile.astro';
+import { useTranslations, type Language } from '@i18n/utils';
+
+type Props = {
+  profile: BlueskyData['profile'];
+  lang: Language;
+  popoverPosition?: 'top' | 'bottom';
+  classNames?: Partial<PopoverClassNames>;
+};
+
+const { profile, lang, popoverPosition = 'top', classNames } = Astro.props;
+
+const t = useTranslations(lang, 'navigation');
+const avatar = profile.avatar;
+---
+
+<Popover
+  width={320}
+  position={popoverPosition}
+  id={'1234'}
+  buttonLabel={`${t('view_profile_of')} ${profile.displayName || profile.handle}`}
+  classNames={{
+    button: `${styles.profileButton} ${classNames?.button || ''}`,
+    wrapper: `${styles.profileWrapper} ${classNames?.wrapper || ''}`,
+  }}
+  buttonAttributes={{
+    slot: 'buttonContent',
+  }}
+>
+  <Fragment slot="buttonContent">
+    <div
+      class={styles.image}
+      style={avatar
+        ? {
+            backgroundImage: avatar
+              ? `url(${avatar})`
+              : 'linear-gradient(var(--system-dark-300-55), var(--system-dark-300-80))',
+          }
+        : undefined}
+    >
+    </div>
+  </Fragment>
+  <AvatarProfile
+    description={profile.description}
+    handle={profile.handle}
+    displayName={profile.displayName}
+    avatar={avatar}
+    followersCount={profile.followersCount}
+    followsCount={profile.followsCount}
+  />
+</Popover>

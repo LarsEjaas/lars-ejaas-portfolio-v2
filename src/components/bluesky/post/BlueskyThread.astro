@@ -1,0 +1,82 @@
+---
+import type { Language } from '@i18n/settings';
+import styles from './blueskyThread.module.css';
+import tocStyles from '@components/bluesky/toc/tableOfContents.module.css';
+import { formatDate } from '@utils/misc';
+import {
+  getThreadLabels,
+  type ProcessedBlueskyThread,
+} from '@components/bluesky/helpers/utils';
+import ThreadRenderer from './ThreadRenderer.astro';
+import Likes from '@components/bluesky/post/Likes.astro';
+import { useTranslations } from '@i18n/utils';
+import ButterflyIcon from '@components/bluesky/ui/ButterflyIcon.astro';
+import TagIcon from '@components/workCard/TagIcon.astro';
+
+type Props = {
+  lang: Language;
+  thread: ProcessedBlueskyThread;
+  displayName: string | undefined;
+  index: number;
+};
+
+const { lang, thread, displayName, index } = Astro.props;
+
+const t = useTranslations(lang, 'navigation');
+
+const indexedAt = thread.createdAt;
+const formattedTimestamp = formatDate(indexedAt, lang);
+
+const labels = getThreadLabels(thread);
+---
+
+<li id={thread.recordKey} class={styles.thread}>
+  <article class={styles.article}>
+    <div class={styles.threadWrapper}>
+      <div class={styles.postWrapper}>
+        <header class={styles.threadHeader}>
+          <div class={styles.profileInfo}>
+            <h3 class={styles.displayName}>
+              {displayName}
+            </h3>
+
+            {
+              formattedTimestamp && indexedAt && (
+                <time datetime={indexedAt} class={styles.postDate}>
+                  {formattedTimestamp}
+                </time>
+              )
+            }
+          </div>
+          {
+            labels.length && (
+              <div class={styles.labelWrapper}>
+                {labels.map((label) => (
+                  <span class={tocStyles.label} data-size="small">
+                    <TagIcon />
+                    {label}
+                  </span>
+                ))}
+              </div>
+            )
+          }
+        </header>
+        <ThreadRenderer thread={thread} lazyLoadImages={index !== 0} />
+      </div>
+    </div>
+    <footer class={styles.threadFooter}>
+      <Likes thread={thread} />
+      <a
+        class={styles.viewOnBluesky}
+        href={thread.viewOnBluesky}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p>
+          {t('view_on_bluesky')}
+        </p>
+        <ButterflyIcon />
+      </a>
+    </footer>
+  </article>
+</li>

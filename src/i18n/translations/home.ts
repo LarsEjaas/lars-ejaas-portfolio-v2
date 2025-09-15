@@ -38,6 +38,16 @@ export const home = {
     the_web_should_be:
       'The web should be for everyone. Because accessibility isn’t always prioritised in frontend work, I try to make it a focus whenever I can.',
     quality_in_the_details: 'Quality in the Details',
+    developer_tips: 'Developer Tips',
+    a_collection_of:
+      'A collection of gotchas, hacks, and small wins I’ve discovered along the way. Shared right here for you to grab and put to work in your projects.',
+    follow_me_on_bluesky: 'Follow me on Bluesky',
+    to: 'to',
+    get_notified: 'get notified on new tips',
+    turn_on_postnotifications:
+      'Turn on post-notifications for my Bluesky account to get notified whenever I post new tips.',
+    get_notifications_alt:
+      'Animated GIF showing how to enable notifications for Lars Ejaas’s Bluesky posts. Click the "Get notified when Lars Ejaas posts" icon to open the "Get notified of new posts" modal, check the posts checkbox, then click "Save changes"',
   },
   da: {
     hi_my_name_is: 'Hej, mit navn er Lars 👋',
@@ -77,5 +87,15 @@ export const home = {
     the_web_should_be:
       'Internettet bør være for alle. Da tilgængelighed ikke altid prioriteres i frontend-arbejde, forsøger jeg at gøre det til et fokusområde, når jeg har muligheden.',
     quality_in_the_details: 'Kvalitet i detaljen',
+    developer_tips: 'Developer Tips',
+    a_collection_of:
+      'En samling af tips, tricks og små guldkorn jeg har opdaget undervejs. Delt lige her, klar til at anvende i dine projekter med det samme.',
+    follow_me_on_bluesky: 'Følg mig på Bluesky',
+    to: 'for at',
+    get_notified: 'få besked om nye tips',
+    turn_on_postnotifications:
+      'Slå notifikationer til for min Bluesky-konto for at få besked, når jeg uploader nye tips.',
+    get_notifications_alt:
+      'Animeret GIF, der viser, hvordan man aktiverer notifikationer for Lars Ejaas’ Bluesky-indlæg. Klik på "Get notified when Lars Ejaas posts" for at åbne modalen "Get notified of new posts", marker afkrydsningsfeltet for "posts", og klik derefter på "Save changes"',
   },
 } as const;

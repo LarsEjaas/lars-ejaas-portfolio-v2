@@ -1,0 +1,24 @@
+---
+import type { BlueskyData } from '@scripts/utils';
+import styles from './profileTimeline.module.css';
+import { type Language } from '@i18n/utils';
+import AuthorAvatar from '@components/bluesky/profile/AuthorAvatar.astro';
+import DoubleChevronIcon from '@components/bluesky/ui/DoubleChevronIcon.astro';
+
+type Props = {
+  profile: BlueskyData['profile'];
+  lang: Language;
+};
+
+const { profile, lang } = Astro.props;
+
+if (!profile?.avatar) {
+  throw new Error(`No Bluesky profile avatar found for: ${profile.avatar}`);
+}
+---
+
+<aside class={styles.profileTimeline}>
+  <AuthorAvatar profile={profile} lang={lang} />
+  <div class={styles.timelineDivider}></div>
+  <DoubleChevronIcon />
+</aside>
