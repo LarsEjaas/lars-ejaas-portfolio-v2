@@ -1,0 +1,128 @@
+---
+import {
+  getLangFromUrl,
+  useTranslations,
+  useTranslatedPath,
+} from '@i18n/utils';
+import { techSkillCategories } from '@collections/techSkillTypes.mts';
+import TagIcon from '@components/workCard/TagIcon.astro';
+import styles from './techSkillsThree.module.css';
+import skillStyles from '@layouts/skills.module.css';
+import { getTechSkillEntries } from '@collections/techSkills';
+import { SKILL_ANCHOR_ID } from './constants';
+
+type Props = Record<string, never>;
+
+const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
+  import: 'default',
+});
+
+// const { skill: currentSkill } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+
+const t_cat = useTranslations(lang, 'skills');
+const techSkills = getTechSkillEntries(lang);
+
+// Process SVGs
+const processedSkills = await Promise.all(
+  techSkills.map(async (techSkill, index) => {
+    const imageName = techSkill.imageSrc;
+    const svgFile = Object.entries(skillIconImages).find(([file]) =>
+      file.includes(imageName)
+    );
+
+    if (!svgFile) {
+      throw new Error(`SVG not found for tech skill image: ${imageName}`);
+    }
+
+    const svgInfo = (await svgFile[1]()) as ImageMetadata;
+
+    return {
+      ...techSkill,
+      svgFile: svgInfo,
+      index,
+    };
+  })
+);
+
+const categories = techSkillCategories.map((category) => t_cat(category));
+---
+
+<div
+  class={styles.threeWrapper}
+  aria-keyshortcuts="ArrowUp ArrowDown"
+  role="group"
+>
+  <nav is="skill-three" id={SKILL_ANCHOR_ID} role="navigation">
+    <h3 id="threeHeading">{t_cat('three_label')}</h3>
+    <ul role="menu" aria-labelledby="threeHeading">
+      {
+        categories.map((category) => {
+          const categorySkills = processedSkills.filter(
+            (techSkill) => techSkill.category === category
+          );
+
+          return (
+            <li role="none">
+              <span
+                class={skillStyles.label}
+                data-size="small"
+                aria-current={'page'}
+              >
+                <TagIcon />
+                {category}
+              </span>
+              {categorySkills.length > 0 && (
+                <ul class={styles.subList} role="group" aria-label={category}>
+                  {categorySkills.map((techSkill) => (
+                    <li role="none">
+                      <a
+                        role="menuitem"
+                        data-arrow-nav="true"
+                        class={styles.skillLink}
+                        href={`${translatePath(`skills/${techSkill.href}/`)}#skillPresentation`}
+                      >
+                        <img
+                          class={styles.skillImage}
+                          loading="lazy"
+                          src={techSkill.svgFile.src}
+                          width={16}
+                          height={16}
+                          alt={`${techSkill.title} logo`}
+                          aria-hidden="true"
+                        />
+                        {techSkill.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</div>
+
+<script>
+  import { initVerticalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';
+  class SkillThree extends HTMLElement {
+    private _cleanupArrowNav: (() => void) | undefined;
+
+    connectedCallback() {
+      if (this instanceof HTMLElement) {
+        this._cleanupArrowNav = initVerticalKeyboardArrowNav(this);
+      }
+    }
+
+    disconnectedCallback() {
+      if (this._cleanupArrowNav) {
+        this._cleanupArrowNav();
+      }
+    }
+  }
+
+  customElements.define('skill-three', SkillThree, { extends: 'nav' });
+</script>

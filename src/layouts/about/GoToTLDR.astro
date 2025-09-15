@@ -4,29 +4,52 @@ import styles from './tldr.module.css';
 import Bolt from './Bolt.astro';
 import CornerRightDown from './CornerRightDown.astro';
 
-type Props = Record<string, never>;
+type Props = {
+  label?: string;
+  href?: string;
+  variant?: 'verdigris' | 'princeton' | 'flirt' | 'aquamarine';
+};
 
 const lang = getLangFromUrl(Astro.url);
+
 const t_about = useTranslations(lang, 'about');
+
+const {
+  label = t_about('jump_to_the_summary'),
+  href = 'tldr',
+  variant = 'princeton',
+} = Astro.props;
 ---
 
 <script>
-  if (window.gotoDldr && window.tldr) {
+  if (window.gotoDldr) {
+    const href = window.gotoDldr.dataset.href || 'tldr';
     const scrollToTldr = (e: MouseEvent) => {
       e.preventDefault();
-      window.tldr?.scrollIntoView({
+      const target = document.getElementById(href);
+
+      if (!target) {
+        return;
+      }
+      target.scrollIntoView({
         behavior: 'smooth',
       });
+      target
+        .querySelector<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+        ?.focus();
     };
+
     window.gotoDldr.addEventListener('click', scrollToTldr);
   }
 </script>
 <div class={styles.flex}>
-  <Bolt />
+  <Bolt variant={variant} />
   <p class="small-body-text">{t_about('short_on_time')}</p>
   <div class={styles.divider}></div>
-  <a id="gotoDldr" class="small-body-text" href="#tldr"
-    >{t_about('jump_to_the_summary')}</a
+  <a id="gotoDldr" data-href={href} class="small-body-text" href="#tldr"
+    >{label}</a
   >
   <CornerRightDown />
 </div>

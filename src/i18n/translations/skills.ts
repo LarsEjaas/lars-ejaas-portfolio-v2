@@ -19,7 +19,7 @@ const enTechSkillCategories = {
 const enSkills = {
   skills_title: 'Skills',
   hands_on_experience_rating: 'Hands-on Experience Rating',
-  browse_my_tech_skills: 'Browse my tech skills',
+  browse_my_tech_skills: 'Browse my Tech Skills',
   along_the_way:
     'Along the way I’ve touched on quite a few tools!\nThis section covers some of the software, programming languages, web development tools and frameworks I’ve used most in my work.',
   one_of_the_great:
@@ -30,6 +30,9 @@ const enSkills = {
   star: 'stars',
   stars: 'stars',
   out_of: 'out of',
+  explore_the_full_skill_tree: 'Explore the Full Skill Tree',
+  three_label: 'Tech Skill Tree',
+  jump_to_three_view: 'Jump to three view',
   ...enTechSkillCategories,
 };
 
@@ -49,6 +52,9 @@ export const skills = {
     star: 'stjerne',
     stars: 'stjerner',
     out_of: 'ud af',
+    explore_the_full_skill_tree: 'Udforsk det fulde kompetencetræ',
+    three_label: 'Kompetencetræ',
+    jump_to_three_view: 'Gå til kompetencetræ',
     core_languages_and_fundamentals: 'Prog. sprog & grundl. færdigheder',
     frontend_frameworks_and_libraries: 'Frontend-frameworks & -biblioteker',
     backend_and_runtime_tools: 'Backend- & runtime-miljøer',

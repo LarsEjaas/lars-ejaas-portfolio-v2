@@ -1,0 +1,111 @@
+.threeWrapper {
+  position: relative;
+  container-name: treeView;
+  container-type: inline-size;
+  grid-column: 1 / -1;
+  & h3 {
+    margin-block-end: 1rem;
+  }
+  & nav > ul {
+    font-size: var(--font-size-1);
+    padding-inline-start: 1.2em;
+    --columns: 2;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    column-gap: 1em;
+    row-gap: 0.8em;
+
+    & li {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        left: -1.2em;
+        top: 0.6em;
+        width: 1em;
+        border-top: 1px solid
+          light-dark(var(--system-shadow-7), var(--system-light-300));
+        font-family: monospace;
+        line-height: 1;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        left: -1.2em;
+        top: 0;
+        bottom: -0.8em;
+        border-left: 1px solid
+          light-dark(var(--system-shadow-7), var(--system-light-300)); /* vertical line */
+      }
+      &:last-child::after {
+        height: 0.6em; /* cut the vertical line short for the last child */
+      }
+      &:is(:first-child:last-child)::after {
+        height: 1em;
+      }
+    }
+  }
+  @container (min-width: 480px) {
+    & nav > ul {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-rows: auto;
+      grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
+      gap: 2em;
+    }
+  }
+}
+
+.subList {
+  position: relative;
+  padding-inline-start: 2.4em;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
+  & li {
+    &:first-child {
+      padding-top: 0.4em;
+      &::before {
+        top: 1em;
+      }
+    }
+    &::after {
+      bottom: -0.4em !important;
+    }
+  }
+}
+
+.skillImage {
+  border-radius: var(--border-radius-sm);
+  background-color: light-dark(transparent, var(--system-light-400));
+}
+
+.skillLink {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  font-weight: 600;
+  width: fit-content;
+  color: currentColor;
+  text-decoration-color: transparent;
+  font-size: inherit;
+  outline-offset: 2px;
+  white-space: normal;
+  transition:
+    text-decoration-color 0.4s,
+    color 0.4s;
+  &:hover,
+  &:focus-visible {
+    text-decoration-color: currentColor;
+  }
+  &:visited {
+    color: currentColor;
+  }
+}
+
+:root[data-dark-mode='true'] .skillLink {
+  font-weight: 400;
+}

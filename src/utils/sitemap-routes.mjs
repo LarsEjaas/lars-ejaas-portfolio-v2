@@ -764,6 +764,34 @@ export const routes = {
     ],
     "priority": 0.6
   },
+  "skills/nodejs": {
+    "url": "skills/nodejs",
+    "alternates": [
+      {
+        "url": "da/kompetencer/nodejs",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/nodejs",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/nodejs": {
+    "url": "da/kompetencer/nodejs",
+    "alternates": [
+      {
+        "url": "skills/nodejs",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/nodejs",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
   "skills/git": {
     "url": "skills/git",
     "alternates": [
