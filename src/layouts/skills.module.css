@@ -1,15 +1,9 @@
-.presentation {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
 .presentationCardContent {
   display: flex;
   flex-direction: column;
   gap: 4px;
   white-space: pre-line;
-  min-height: 220px;
+  min-height: 320px;
   margin-top: 0.5rem;
   & p {
     font-size: var(--font-size-3);
@@ -74,10 +68,12 @@
     color: light-dark(var(--system-dark-200), var(--system-dark-100));
   }
 }
-
-@media (max-width: 768px) {
-  .floatingBalloons {
-    grid-row: 4;
+.floatingBalloons {
+  & > div {
+    max-height: 272px;
+  }
+  @media (max-width: 768px) {
+    grid-row: 6;
   }
 }
 

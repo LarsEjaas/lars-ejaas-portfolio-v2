@@ -8,10 +8,12 @@ import styles from './skills.module.css';
 import StarRating from '@components/starRating/starRating.astro';
 import TechSkillsMarquee from '@components/techSkillsMarquee/TechSkillsMarquee.astro';
 import type { SkillCategory, SkillRating } from '@customTypes/skillTypes';
-import SkillCardPagination from '@components/skillCardPagination/SkillCardPagination.astro';
 import type { SVGFileType, DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 import TagIcon from '@components/workCard/TagIcon.astro';
+import TechSkillsThree from '@components/techSkillsThree/TechSkillsThree.astro';
+import GoToTLDR from '@layouts/about/GoToTLDR.astro';
+import { SKILL_ANCHOR_ID } from '@components/techSkillsThree/constants';
 
 type Props = {
   title: string;
@@ -63,6 +65,11 @@ const t_skills = useTranslations(lang, 'skills');
   <slot slot="body-top" />
   <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
+    <GoToTLDR
+      variant="flirt"
+      href={SKILL_ANCHOR_ID}
+      label={t_skills('jump_to_three_view')}
+    />
     <div>
       <h2>
         {t_skills('browse_my_tech_skills')}
@@ -115,7 +122,7 @@ const t_skills = useTranslations(lang, 'skills');
         }
       </div>
     </PresentationCard>
-    <SkillCardPagination title={skillTitle} />
   </div>
   <TechSkillsMarquee />
+  <TechSkillsThree />
 </Layout>

@@ -8,6 +8,7 @@
   margin-inline: auto;
   max-width: 720px;
   height: fit-content;
+  align-self: center;
   &:has(a:focus-visible) {
     outline: 2px dashed var(--system-dark-100);
   }
@@ -218,6 +219,7 @@
   .scene {
     --items-in-row: 5;
     --speed: 7s;
+    --height: 454px;
   }
 }
 
