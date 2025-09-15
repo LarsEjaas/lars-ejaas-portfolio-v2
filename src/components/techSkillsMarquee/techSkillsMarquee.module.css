@@ -12,9 +12,6 @@
   &:has(a:focus-visible) {
     outline: 2px dashed var(--system-dark-100);
   }
-  @media (min-width: 769px) {
-    grid-column: 2;
-  }
 }
 
 .scene {

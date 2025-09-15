@@ -1,16 +1,21 @@
 .threeWrapper {
   position: relative;
-  @media (min-width: 769px) {
-    grid-column: 2;
+  container-name: treeView;
+  container-type: inline-size;
+  grid-column: 1 / -1;
+  & h3 {
+    margin-block-end: 1rem;
   }
   & > ul {
     font-size: var(--font-size-1);
     padding-inline-start: 1.2em;
+    --columns: 2;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.8em;
-    columns: 2;
+    column-gap: 1em;
+    row-gap: 0.8em;
+
     & li {
       position: relative;
       &::before {
@@ -41,6 +46,15 @@
       }
     }
   }
+  @container (min-width: 480px) {
+    & > ul {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-rows: auto;
+      grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
+      gap: 2em;
+    }
+  }
 }
 
 .subList {
@@ -52,9 +66,6 @@
   gap: 0.4em;
   color: light-dark(var(--system-dark-200), var(--system-dark-300-80));
   & li {
-    display: flex;
-    gap: 0.4em;
-    align-items: center;
     &:first-child {
       padding-top: 0.4em;
       &::before {
@@ -69,4 +80,32 @@
 
 .skillImage {
   border-radius: var(--border-radius-sm);
+  background-color: light-dark(transparent, var(--system-light-400));
+}
+
+.skillLink {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  font-weight: 600;
+  width: fit-content;
+  color: currentColor;
+  text-decoration-color: transparent;
+  font-size: inherit;
+  outline-offset: 2px;
+  white-space: normal;
+  transition:
+    text-decoration-color 0.4s,
+    color 0.4s;
+  &:hover,
+  &:focus-visible {
+    text-decoration-color: currentColor;
+  }
+  &:visited {
+    color: currentColor;
+  }
+}
+
+:root[data-dark-mode='true'] .skillLink {
+  font-weight: 400;
 }

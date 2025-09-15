@@ -12,6 +12,8 @@ import type { SVGFileType, DistributiveOmit } from '@customTypes/index';
 import type { OpenGraph } from '@customTypes/seo';
 import TagIcon from '@components/workCard/TagIcon.astro';
 import TechSkillsThree from '@components/techSkillsThree/TechSkillsThree.astro';
+import GoToTLDR from '@layouts/about/GoToTLDR.astro';
+import { SKILL_ANCHOR_ID } from '@components/techSkillsThree/constants';
 
 type Props = {
   title: string;
@@ -61,8 +63,13 @@ const t_skills = useTranslations(lang, 'skills');
 >
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
-  <div class:list={['presentation', styles.presentation]}>
+  <div class="presentation">
     <PageLabel title={t_skills('skills_title')} iconImage="skillset" />
+    <GoToTLDR
+      variant="flirt"
+      href={SKILL_ANCHOR_ID}
+      label={t_skills('jump_to_three_view')}
+    />
     <div>
       <h2>
         {t_skills('browse_my_tech_skills')}
@@ -75,7 +82,6 @@ const t_skills = useTranslations(lang, 'skills');
     </div>
   </div>
   <FloatingBalloons class={styles.floatingBalloons} balloonColor="flirt" />
-  <TechSkillsThree />
   <div id="skillPresentation">
     <PresentationCard
       gradientColor="flirt"
@@ -118,4 +124,5 @@ const t_skills = useTranslations(lang, 'skills');
     </PresentationCard>
   </div>
   <TechSkillsMarquee />
+  <TechSkillsThree />
 </Layout>
