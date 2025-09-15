@@ -49,62 +49,62 @@ const processedSkills = await Promise.all(
 const categories = techSkillCategories.map((category) => t_cat(category));
 ---
 
-<nav
-  is="skill-three"
+<div
   class={styles.threeWrapper}
-  id={SKILL_ANCHOR_ID}
-  role="group"
   aria-keyshortcuts="ArrowUp ArrowDown"
+  role="group"
 >
-  <h3 id="threeHeading">{t_cat('three_label')}</h3>
-  <ul role="menu" aria-labelledby="threeHeading">
-    {
-      categories.map((category) => {
-        const categorySkills = processedSkills.filter(
-          (techSkill) => techSkill.category === category
-        );
+  <nav is="skill-three" id={SKILL_ANCHOR_ID} role="navigation">
+    <h3 id="threeHeading">{t_cat('three_label')}</h3>
+    <ul role="menu" aria-labelledby="threeHeading">
+      {
+        categories.map((category) => {
+          const categorySkills = processedSkills.filter(
+            (techSkill) => techSkill.category === category
+          );
 
-        return (
-          <li role="none">
-            <span
-              class={skillStyles.label}
-              data-size="small"
-              aria-current={'page'}
-            >
-              <TagIcon />
-              {category}
-            </span>
-            {categorySkills.length > 0 && (
-              <ul class={styles.subList} role="group" aria-label={category}>
-                {categorySkills.map((techSkill) => (
-                  <li role="none">
-                    <a
-                      role="menuitem"
-                      data-arrow-nav="true"
-                      class={styles.skillLink}
-                      href={`${translatePath(`skills/${techSkill.href}/`)}#skillPresentation`}
-                    >
-                      <img
-                        class={styles.skillImage}
-                        loading="lazy"
-                        src={techSkill.svgFile.src}
-                        width={16}
-                        height={16}
-                        alt={`${techSkill.title} logo`}
-                        aria-hidden="true"
-                      />
-                      {techSkill.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        );
-      })
-    }
-  </ul>
-</nav>
+          return (
+            <li role="none">
+              <span
+                class={skillStyles.label}
+                data-size="small"
+                aria-current={'page'}
+              >
+                <TagIcon />
+                {category}
+              </span>
+              {categorySkills.length > 0 && (
+                <ul class={styles.subList} role="group" aria-label={category}>
+                  {categorySkills.map((techSkill) => (
+                    <li role="none">
+                      <a
+                        role="menuitem"
+                        data-arrow-nav="true"
+                        class={styles.skillLink}
+                        href={`${translatePath(`skills/${techSkill.href}/`)}#skillPresentation`}
+                      >
+                        <img
+                          class={styles.skillImage}
+                          loading="lazy"
+                          src={techSkill.svgFile.src}
+                          width={16}
+                          height={16}
+                          alt={`${techSkill.title} logo`}
+                          aria-hidden="true"
+                        />
+                        {techSkill.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</div>
 
 <script>
   import { initVerticalKeyboardArrowNav } from '@utils/keyboardArrowNavigation';

@@ -6,7 +6,7 @@
   & h3 {
     margin-block-end: 1rem;
   }
-  & > ul {
+  & nav > ul {
     font-size: var(--font-size-1);
     padding-inline-start: 1.2em;
     --columns: 2;
@@ -47,7 +47,7 @@
     }
   }
   @container (min-width: 480px) {
-    & > ul {
+    & nav > ul {
       display: grid;
       grid-auto-flow: row;
       grid-auto-rows: auto;
