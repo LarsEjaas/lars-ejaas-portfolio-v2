@@ -53,7 +53,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
 </script>
 <header class={styles.header} inert={inert}>
   <div
-    id="desktopMenuContainer"
     role="group"
     aria-keyshortcuts="ArrowLeft ArrowRight"
     class={`${styles.desktopMenu} desktop-only`}
@@ -63,6 +62,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     </h2>
     <nav
       aria-labelledby="desktopMenuTitle"
+      id="desktopMenuContainer"
       role="menubar"
       aria-label={t('nav_desktop')}
     >

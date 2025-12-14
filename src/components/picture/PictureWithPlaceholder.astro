@@ -9,7 +9,10 @@ type Props = Omit<Parameters<typeof Picture>[0], 'src'> & {
   classNames?: Partial<ClassNames>;
 };
 
-type PlaceholderSettings = { style?: string | astroHTML.JSX.CSSProperties } & (
+type PlaceholderSettings = {
+  style?: astroHTML.JSX.CSSProperties;
+  props?: astroHTML.JSX.HTMLAttributes;
+} & (
   | {
       width?: number;
       height?: never;
@@ -44,23 +47,48 @@ const placeholder = await (placeholderSettings?.height
     ));
 ---
 
-<div
-  class={`${styles.placeholder} ${classNames?.placeholder}`}
-  data-disabled={disabled || undefined}
-  style={{
-    'background-image': `url('${placeholder}')`,
-    ...(typeof placeholderSettings?.style === 'string'
-      ? { style: placeholderSettings.style }
-      : placeholderSettings?.style || {}),
-  }}
->
-</div>
-<Picture
-  {...props as Parameters<typeof Picture>[0]}
-  data-disabled={disabled || undefined}
-  class={classNames?.image}
-  pictureAttributes={{
-    ...props.pictureAttributes,
-    ['data-disabled']: disabled || undefined,
-  }}
-/>
+<script>
+  class FadeInPicture extends HTMLElement {
+    connectedCallback() {
+      const img = this.querySelector('img');
+      if (!img) return;
+
+      const addLoaded = () => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            img.classList.add('loaded');
+          });
+        });
+      };
+
+      if (img.complete && img.naturalHeight !== 0) {
+        addLoaded();
+      } else {
+        img.addEventListener('load', () => addLoaded());
+      }
+    }
+  }
+
+  customElements.define('fade-in-picture', FadeInPicture);
+</script>
+<fade-in-picture class={styles.wrapper}>
+  <div
+    class:list={[styles.placeholder, classNames?.placeholder]}
+    data-disabled={disabled || undefined}
+    style={{
+      'background-image': `url('${placeholder}')`,
+      ...(placeholderSettings?.style || {}),
+    }}
+    {...placeholderSettings?.props}
+  >
+  </div>
+  <Picture
+    {...props as Parameters<typeof Picture>[0]}
+    data-disabled={disabled || undefined}
+    class:list={[styles.image, classNames?.image]}
+    pictureAttributes={{
+      ...props.pictureAttributes,
+      ['data-disabled']: disabled || undefined,
+    }}
+  />
+</fade-in-picture>

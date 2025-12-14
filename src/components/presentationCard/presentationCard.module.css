@@ -183,11 +183,15 @@
 
 .overlayImage {
   view-transition-name: overlay-image;
+  z-index: 1;
+}
+
+.overlayImage,
+.overlayPlaceholder {
   grid-row: 1;
   grid-column: 1;
   margin-bottom: 3px;
   margin-inline: auto;
-  z-index: 1;
   width: 80px;
   &[data-responsive] {
     margin-bottom: -12px;
@@ -228,7 +232,7 @@
       position: static;
       display: block;
       width: 142px;
-      height: 32px;
+      height: 44px;
       float: right;
       shape-margin: 4px;
     }
@@ -242,7 +246,8 @@
       height: 120px;
     }
   }
-  .overlayImage[data-responsive] {
+  .overlayImage[data-responsive],
+  .overlayPlaceholder[data-responsive] {
     width: 136px;
     margin-bottom: -18px;
     transform: translateX(-8px);

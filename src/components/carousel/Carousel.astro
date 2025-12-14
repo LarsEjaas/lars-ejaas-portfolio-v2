@@ -8,10 +8,14 @@ import type {
   StringWithTrailingSlash,
   StringWithTrailingSlashAndAnchor,
   ExternalLink,
+  InternalDanishLinkWithAnchor,
 } from '@customTypes/index';
 import { getLangFromUrl, useTranslatedPath } from '@i18n/utils';
 import { isExternalLink } from '@utils/misc';
 import ArticleCard from './ArticleCard.astro';
+import type { Language } from '@i18n/settings';
+import type { InternalDanishLink } from '@customTypes/index';
+
 const newsImages = import.meta.glob('@assets/newsImages/*.{jpg,png}');
 
 /*Set a limit on items - this way an archive card will be rendered pointing to older news  */
@@ -29,16 +33,15 @@ type Props = {
   inert: boolean;
 };
 
-export type CardInfo = {
+export type CardInfo<T extends Language = Language> = {
   title: string;
   description: string;
-  date: EnglishDate | DanishDate;
+  date: T extends 'da' ? DanishDate : EnglishDate;
   imageSrc: ImageType;
   imageAlt: string;
-  href:
-    | StringWithTrailingSlash
-    | StringWithTrailingSlashAndAnchor
-    | ExternalLink;
+  href: T extends 'da'
+    ? InternalDanishLink | InternalDanishLinkWithAnchor | ExternalLink
+    : StringWithTrailingSlash | StringWithTrailingSlashAndAnchor | ExternalLink;
   outline: '1' | '2' | '3' | '4' | 'gold';
 };
 
@@ -77,7 +80,7 @@ const timelineScope = timeLine
   }
 
   /**
-   * Scrolls the demo element to the left or right based on the id of the clicked button.
+   * Scrolls the element to the left or right based on the id of the clicked button.
    */
   const handleScroll = (event: MouseEvent) => {
     const carouselCardWidth = carouselList?.querySelector('li')?.offsetWidth;

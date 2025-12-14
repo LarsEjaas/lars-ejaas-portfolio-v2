@@ -87,7 +87,7 @@ declare global {
     previous: HTMLButtonElement | null;
     next: HTMLButtonElement | null;
     modalDialog: HTMLDialogElement | null;
-    desktopMenuContainer: HTMLDivElement | null;
+    desktopMenuContainer: HTMLElement | null;
     footerMenuNavigation: HTMLElement | null;
     mobileMenuNavigation: HTMLElement | null;
     /** Balloons */

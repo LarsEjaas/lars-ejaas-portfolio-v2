@@ -11,6 +11,7 @@ import { appRoutes } from '@i18n/routes';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
 import ProfileImage from '@assets/images/profile_clip.png';
+import ProfileImageClipPath from '@assets/svgs/profile_clip_outline.svg?raw';
 import SocialLinks from '@components/socialLinks/SocialLinks.astro';
 import AboutIcon from '@components/icons/AboutIcon.astro';
 import DownloadIcon from '@components/icons/DownloadIcon.astro';
@@ -93,10 +94,17 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       gradientColor="verdigris"
       title="Lars Ejaas"
       overlayImage={ProfileImage}
+      overlayImagePlaceholderStyle={{
+        aspectRatio: `${ProfileImage.width}/${ProfileImage.height}`,
+        width: '72px',
+        position: 'relative',
+        clipPath: 'url(#profileClipOutline)',
+      }}
       overlayImageAlt={t_home('profile_lars_alt')}
       inert={inert}
       cardViewTransitionName="home-card"
     >
+      <Fragment set:html={ProfileImageClipPath} />
       <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">
           {t_home('frontend_developer')}

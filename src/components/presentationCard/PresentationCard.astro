@@ -1,8 +1,8 @@
 ---
-import { Picture } from 'astro:assets';
 import styles from './presentationCard.module.css';
 import type { ColorVariants } from '@customTypes/index';
 import Card from '@components/card/Card.astro';
+import PictureWithPlaceholder from '@components/picture/PictureWithPlaceholder.astro';
 
 type Props = {
   title: string;
@@ -11,6 +11,7 @@ type Props = {
   cardViewTransitionName: string;
   overlayImage?: ImageMetadata;
   overlayImageAlt?: string;
+  overlayImagePlaceholderStyle?: astroHTML.JSX.CSSProperties;
   /** Make the squircle and overlay image size responsive */
   responsiveSquircleSize?: boolean;
 } & (
@@ -36,6 +37,7 @@ const {
   iconImageViewTransitionName,
   cardViewTransitionName,
   overlayImageAlt,
+  overlayImagePlaceholderStyle,
   inert,
 } = Astro.props;
 ---
@@ -97,7 +99,7 @@ const {
         }
         {
           overlayImage && (
-            <Picture
+            <PictureWithPlaceholder
               formats={['avif', 'webp']}
               quality="high"
               src={overlayImage}
@@ -118,9 +120,21 @@ const {
                 ['data-responsive']: responsiveSquircleSize
                   ? 'true'
                   : undefined,
-                style: `aspect-ratio: ${overlayImage.width}/${overlayImage.height};${responsiveSquircleSize ? '' : 'width: 72px;'}`,
+                style: {
+                  aspectRatio: `${overlayImage.width}/${overlayImage.height}`,
+                  ...(!responsiveSquircleSize && { width: '72px' }),
+                },
                 class: styles.overlayImage,
               }}
+              placeholderSettings={{
+                width: 10,
+                blurSigma: 0.5,
+                style: overlayImagePlaceholderStyle,
+                props: {
+                  ['data-responsive']: responsiveSquircleSize || undefined,
+                },
+              }}
+              classNames={{ placeholder: styles.overlayPlaceholder }}
             />
           )
         }

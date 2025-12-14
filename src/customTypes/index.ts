@@ -160,6 +160,8 @@ export type IconImage =
 
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
+export type InternalDanishLink = `/da/${string}/` | '/da/';
+export type InternalDanishLinkWithAnchor = `/da/${string}/#${string}`;
 export type ExternalLink = `https://${string}`;
 
 export type BlueskyPostThread = {
