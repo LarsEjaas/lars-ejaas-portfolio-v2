@@ -70,7 +70,7 @@
 
 .animationTimeline {
   display: contents;
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (animation-range: normal) {
     @media (prefers-reduced-motion: no-preference) {
       & .animatedWorkCard,
       & .animatedText:not([data-mobile-animation='false']) {
@@ -83,7 +83,7 @@
   @media (max-width: 768px) {
     & .floatingBalloons {
       grid-row: 5;
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {
           animation: var(--animation-scale-up);
           animation-timeline: view();

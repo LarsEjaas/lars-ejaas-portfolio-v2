@@ -37,13 +37,21 @@ const setItem = (key: string, value: string) => {
 /**
  * @example getValueFromLocalStorage('darkmode', false);
  * */
-export const getValueFromLocalStorage = <T>(key: string, defaultValue: T) => {
+export function getValueFromLocalStorage<T>(key: string, defaultValue: T): T;
+export function getValueFromLocalStorage<T>(key: string): T | undefined;
+export function getValueFromLocalStorage<T>(
+  key: string,
+  defaultValue?: T
+): T | undefined {
   const value = getItem(key);
   if (value) {
     return deserializeJSON(value) as T;
   }
+  if (defaultValue) {
+    return defaultValue;
+  }
   return defaultValue;
-};
+}
 
 export const setValueInLocalStorage = <T>(key: string, value: T) => {
   const serializedValue = serializeJSON(value);

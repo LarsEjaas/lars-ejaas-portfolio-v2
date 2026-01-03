@@ -61,7 +61,7 @@ function removeTrailingSlash<T extends string>(
   ) as T extends `${infer Rest}/` ? Rest : T;
 }
 
-function hashBuffer(buffer: Buffer<ArrayBuffer>) {
+function hashBuffer(buffer: Buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
 }
 

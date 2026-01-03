@@ -46,7 +46,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
     // Do not index emailReply page
     noIndex: true,
   }}
-  withDarkkModeToggle={false}
+  withDarkModeToggle={true}
   withModalLinks={false}
 >
   <div
@@ -72,7 +72,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                 style="
                             padding: 60px 30px;
                             border-radius: 16px 16px 0px 0px;
-                            background: #171c1c;
+                            background: light-dark(var(--system-light-400), var(--system-light-300));
                           "
               >
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -80,7 +80,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                     <td
                       class="h1 pb25"
                       style="
-                                  color: #eef1f1;
+                                  color: var(--system-dark-300);
                                   font-family: 'Heebo', Arial, sans-serif;
                                   font-size: 32px;
                                   line-height: 46px;
@@ -95,7 +95,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                     <td
                       class="text-center pb25"
                       style="
-                                  color: #d8dfdf;
+                                  color: light-dark(var(--system-dark-300), var(--system-dark-100));
                                   font-family: 'Roboto', Arial, Helvetica,
                                     sans-serif;
                                   font-size: 16px;
@@ -153,7 +153,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
             border="0"
             cellspacing="0"
             cellpadding="0"
-            bgcolor="#171C1C"
+            style="background-color: light-dark(var(--system-light-400), var(--system-light-300))"
           >
             <tr>
               <td
@@ -179,7 +179,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                     <td
                       class="h3 pb20"
                       style="
-                                  color: #eef1f1;
+                                  color: var(--system-dark-300);
                                   font-family: 'Heebo', Arial, sans-serif;
                                   font-size: 25px;
                                   line-height: 32px;
@@ -194,7 +194,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                     <td
                       class="text pb20"
                       style="
-                                  color: #d8dfdf;
+                                  color: light-dark(var(--system-dark-300), var(--system-dark-100));
                                   font-family: 'Roboto', Arial, Helvetica,
                                     sans-serif;
                                   font-size: 14px;
@@ -209,7 +209,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                   <td
                     class="text pb20"
                     style="
-                                color: #eef1f1;
+                                color: var(--system-dark-300);
                                 font-family: 'Roboto', Arial, Helvetica,
                                   sans-serif;
                                 font-size: 14px;
@@ -272,7 +272,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
         <tr>
           <td
             class="p30-15 bbrr"
-            style="padding: 50px 30px; border-radius: 0 0 16px 16px; background: #171c1c"
+            style="padding: 50px 30px; border-radius: 0 0 16px 16px; background: light-dark(var(--system-light-400), var(--system-light-300))"
           >
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
@@ -319,7 +319,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                                                 font-size: 24px;
                                                 line-height: 1;
                                                 letter-spacing: 1px;
-                                                color: #4e5f60;
+                                                color: var(--system-dark-200);
                                                 font-weight: 900;
                                               "
                                   >
@@ -368,7 +368,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                 <tr>
                   <td
                     style="
-                                color: #698081;
+                                color: light-dark(var(--system-dark-100), var(--system-dark-100));
                                 font-family: 'Heebo', Arial, Helvetica,
                                   sans-serif;
                                 font-size: 14px;
@@ -384,7 +384,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
                       target="_blank"
                       style="
                                   text-decoration: underline;
-                                  color: #698081;
+                                  color: light-dark(var(--system-dark-100), var(--system-dark-100));
                                 "
                       >larsejaas.com</a
                     >

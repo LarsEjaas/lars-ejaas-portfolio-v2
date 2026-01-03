@@ -1,22 +1,18 @@
-import { getSkillSlugs, getAboutLightboxSlugs } from './appRoutes.mts';
+import {
+  getSkillRoutes,
+  getAboutLightboxRoutes,
+  type englishModalKeys,
+} from './appRoutes.mts';
 import type { Language } from './settings';
 import type { defaultLang } from './settings';
-import { aboutImagesInfo } from '@collections/aboutImages/aboutImages.mts';
 import { appRoutes } from './appRoutes.mts';
 
-export const englishSkillRoutes = getSkillSlugs('en');
-export const danishSkillRoutes = getSkillSlugs('da');
-export const englishAboutImageRoutes = getAboutLightboxSlugs('en');
-export const danishAboutImageRoutes = getAboutLightboxSlugs('da');
+export const englishSkillRoutes = getSkillRoutes('en');
+export const danishSkillRoutes = getSkillRoutes('da');
+export const englishAboutImageRoutes = getAboutLightboxRoutes('en');
+export const danishAboutImageRoutes = getAboutLightboxRoutes('da');
 
-export const englishModalKeys = [
-  'contact',
-  'message-received',
-  'message-error',
-  'share',
-] as const;
-
-export type SlugKeys =
+export type DynamicSlugKey =
   | 'work'
   | 'skills'
   | 'about'
@@ -24,36 +20,27 @@ export type SlugKeys =
   | 'email-reply'
   | 'privacy-policy';
 
-/** Get all possible modal slugs in the different languages*/
-export const allModalKeys = Object.values(appRoutes).flatMap((lang) =>
-  Object.entries(lang)
-    .filter(([key]) =>
-      englishModalKeys.includes(key as (typeof englishModalKeys)[number])
-    )
-    .map(([, value]) => value)
-);
-
-export const allLightboxKeys = Object.values(aboutImagesInfo).flatMap(
-  (info) => [info.hrefEN, info.hrefDA]
-);
-
-type ModalKeys = (typeof englishModalKeys)[number];
+export type ModalKey = (typeof englishModalKeys)[number];
 type DefaultLang = typeof defaultLang;
+
+export type DanishModalKey = (typeof appRoutes)['da'][ModalKey];
+
 /** Language key excluding the key for the default language */
 export type LanguageKey = Exclude<Language, DefaultLang>;
 
 export type ModalTypes<Lang extends Language> =
-  (typeof appRoutes)[Lang][ModalKeys];
+  (typeof appRoutes)[Lang][ModalKey];
 
-export type SlugTypes<Lang extends Language> =
-  (typeof appRoutes)[Lang][SlugKeys];
+export type DynamicSlugTypes<Lang extends Language> =
+  (typeof appRoutes)[Lang][DynamicSlugKey];
 
 type SlugSubkeys = (typeof englishModalKeys)[number];
 
-type SlugWithModalKeys = `${Exclude<SlugKeys, 'email-reply'>}/${SlugSubkeys}`;
+type DynamicSlugWithModalKey =
+  `${Exclude<DynamicSlugKey, 'email-reply'>}/${SlugSubkeys}`;
 
 export type SlugWithModalTypes<Lang extends Language> =
-  (typeof appRoutes)[Lang][SlugWithModalKeys];
+  (typeof appRoutes)[Lang][DynamicSlugWithModalKey];
 
 export type ModalSlugPath<T extends string> = T extends `${infer S}/${infer M}`
   ? { slug: S; modal: M }

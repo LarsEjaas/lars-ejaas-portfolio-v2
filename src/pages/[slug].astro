@@ -1,6 +1,6 @@
 ---
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
-import type { SlugTypes } from '@i18n/routes';
+import type { DynamicSlugTypes } from '@i18n/routes';
 import About from '@layouts/about/About.astro';
 import Skills, { type TechSkillProps } from '@layouts/Skills.astro';
 import Work from '@layouts/work/Work.astro';
@@ -13,7 +13,7 @@ import PrivacyPolicy from '@layouts/PrivacyPolicy.astro';
 type Props = Record<string, never>;
 
 type EnglishSlugPaths = {
-  [K in SlugTypes<'en'>]: { params: { slug: K } };
+  [K in DynamicSlugTypes<'en'>]: { params: { slug: K } };
 };
 
 export function getStaticPaths() {
@@ -36,7 +36,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 
 const englishSlugMap: Record<
-  SlugTypes<'en'>,
+  DynamicSlugTypes<'en'>,
   {
     component: AstroComponentFactory;
     title: string;

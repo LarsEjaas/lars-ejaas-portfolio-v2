@@ -4,344 +4,349 @@
   fadeOut: fadeOut;
 }
 
-@keyframes spreadCards {
-  from {
-    grid-template-columns: repeat(calc(var(--img-count) - 1), 20px) 1fr;
-  }
-  to {
-    grid-template-columns: repeat(calc(var(--img-count) - 1), 20cqi) 1fr;
-  }
-}
-
-.backdrop {
-  view-transition-name: lightbox-backdrop;
-  position: fixed;
-  border-radius: 0;
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  inset: 0;
-  z-index: 1000;
-  background: light-dark(var(--system-light-300-55), var(--system-dark-200-16));
-  backdrop-filter: saturate(180%) brightness(60%) blur(6px);
-  transition: backdrop-filter 0.3s ease-in-out 0.1s;
-  &:hover {
-    backdrop-filter: saturate(150%) brightness(60%) blur(3px);
-  }
-}
-
-::view-transition-group(lightbox-backdrop) {
-  z-index: 3;
-}
-
-.dialog {
-  view-transition-name: lightbox;
-  position: fixed;
-  pointer-events: none;
-  container-name: lightbox;
-  container-type: inline-size;
-  margin: 2rem auto;
-  max-width: min(calc(880px + 2rem), 100vw);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  height: calc(100vb - (4rem));
-  z-index: 1000;
-  top: env(safe-area-inset-top, 20px);
-  right: env(safe-area-inset-right, 20px);
-  left: env(safe-area-inset-left, 20px);
-  bottom: env(safe-area-inset-bottom, 20px);
-  background-color: unset;
-  border-style: none;
-}
-
-::view-transition-group(lightbox) {
-  z-index: 4;
-}
-
-:global(html):active-view-transition-type(keep-in-place) {
-  &::view-transition-group(lightbox-backdrop),
-  &::view-transition-new(lightbox-backdrop),
-  &::view-transition-old(lightbox-backdrop) {
-    animation: none !important;
-    animation-duration: 0s !important;
-    mix-blend-mode: normal;
-    animation-fill-mode: both !important;
-  }
-  /* Prevent a flash of the new and old backdrops being layered on top of each other */
-  &::view-transition-new(lightbox-backdrop) {
-    opacity: 0 !important;
-  }
-  &::view-transition-old(thumbnail-grid-container) {
-    animation: fadeOut 250ms ease-in both;
+@layer components {
+  @keyframes spreadCards {
+    from {
+      grid-template-columns: repeat(calc(var(--img-count) - 1), 20px) 1fr;
+    }
+    to {
+      grid-template-columns: repeat(calc(var(--img-count) - 1), 20cqi) 1fr;
+    }
   }
 
-  &::view-transition-new(thumbnail-grid-container) {
-    animation: fadeIn 250ms 200ms ease-out both;
-  }
-}
-/* The corresponding fade-out animation is placed in the global stylesheet 
-    as this stylesheet is removed from the DOM before the transition fires */
-:global(html):active-view-transition-type(fade) {
-  &::view-transition-new(lightbox-backdrop) {
-    animation: fadeIn 400ms 100ms ease-out both;
-  }
-}
-
-.header {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.content {
-  view-transition-name: lightbox-content;
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-inline: 1rem;
-  height: 70cqb;
-  min-height: 0;
-
-  & figure {
-    --p-top: 8px;
-    --p-bottom: 60px;
-    --p-inline: 8px;
-    display: grid;
-    /** Firefox fix to prevent placeholder images placed behind the grid*/
-    transform-style: preserve-3d;
-    padding: var(--p-top) var(--p-inline) var(--p-bottom);
-    pointer-events: all;
-    margin-inline: auto;
-    position: relative;
-    box-shadow: var(--stacks-6-shadow);
-    background-color: light-dark(
-      var(--system-light-200),
-      var(--system-dark-400)
+  .backdrop {
+    view-transition-name: lightbox-backdrop;
+    position: fixed;
+    border-radius: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    inset: 0;
+    z-index: 1000;
+    background: light-dark(
+      var(--system-light-300-55),
+      var(--system-dark-200-16)
     );
-    border-radius: var(--border-radius-md);
-    &[data-landscape] {
-      & .placeholder,
-      & picture {
-        --frame-width: 320px;
-        height: unset;
-        width: min(
-          calc(var(--frame-width)),
-          var(--width),
-          100vw - 2 * var(--p-inline) - 2rem
-        );
-        @media (min-width: 561px) {
-          --frame-width: 480px;
-        }
-        @media (min-width: 821px) {
-          --frame-width: 640px;
+    backdrop-filter: saturate(180%) brightness(60%) blur(6px);
+    transition: backdrop-filter 0.3s ease-in-out 0.1s;
+    &:hover {
+      backdrop-filter: saturate(150%) brightness(60%) blur(3px);
+    }
+  }
+
+  ::view-transition-group(lightbox-backdrop) {
+    z-index: 3;
+  }
+
+  .dialog {
+    view-transition-name: lightbox;
+    position: fixed;
+    pointer-events: none;
+    container-name: lightbox;
+    container-type: inline-size;
+    margin: 2rem auto;
+    max-width: min(calc(880px + 2rem), 100vw);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: calc(100vb - (4rem));
+    z-index: 1000;
+    top: env(safe-area-inset-top, 20px);
+    right: env(safe-area-inset-right, 20px);
+    left: env(safe-area-inset-left, 20px);
+    bottom: env(safe-area-inset-bottom, 20px);
+    background-color: unset;
+    border-style: none;
+  }
+
+  ::view-transition-group(lightbox) {
+    z-index: 4;
+  }
+
+  :global(html):active-view-transition-type(keep-in-place) {
+    &::view-transition-group(lightbox-backdrop),
+    &::view-transition-new(lightbox-backdrop),
+    &::view-transition-old(lightbox-backdrop) {
+      animation: none !important;
+      animation-duration: 0s !important;
+      mix-blend-mode: normal;
+      animation-fill-mode: both !important;
+    }
+    /* Prevent a flash of the new and old backdrops being layered on top of each other */
+    &::view-transition-new(lightbox-backdrop) {
+      opacity: 0 !important;
+    }
+    &::view-transition-old(thumbnail-grid-container) {
+      animation: fadeOut 250ms ease-in both;
+    }
+
+    &::view-transition-new(thumbnail-grid-container) {
+      animation: fadeIn 250ms 200ms ease-out both;
+    }
+  }
+  /* The corresponding fade-out animation is placed in the global stylesheet 
+    as this stylesheet is removed from the DOM before the transition fires */
+  :global(html):active-view-transition-type(fade) {
+    &::view-transition-new(lightbox-backdrop) {
+      animation: fadeIn 400ms 100ms ease-out both;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .content {
+    view-transition-name: lightbox-content;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-inline: 1rem;
+    height: 70cqb;
+    min-height: 0;
+
+    & figure {
+      --p-top: 8px;
+      --p-bottom: 60px;
+      --p-inline: 8px;
+      display: grid;
+      /** Firefox fix to prevent placeholder images placed behind the grid*/
+      transform-style: preserve-3d;
+      padding: var(--p-top) var(--p-inline) var(--p-bottom);
+      pointer-events: all;
+      margin-inline: auto;
+      position: relative;
+      box-shadow: var(--stacks-6-shadow);
+      background-color: light-dark(
+        var(--system-light-200),
+        var(--system-dark-400)
+      );
+      border-radius: var(--border-radius-md);
+      &[data-landscape] {
+        & .placeholder,
+        & picture {
+          --frame-width: 320px;
+          height: unset;
+          width: min(
+            calc(var(--frame-width)),
+            var(--width),
+            100vw - 2 * var(--p-inline) - 2rem
+          );
+          @media (min-width: 561px) {
+            --frame-width: 480px;
+          }
+          @media (min-width: 821px) {
+            --frame-width: 640px;
+          }
         }
       }
+      & figcaption {
+        position: absolute;
+        bottom: 20px;
+        left: 8px;
+        right: 8px;
+        height: 32px;
+        overflow: hidden;
+        font-size: var(--font-size-2);
+        font-style: italic;
+        color: light-dark(var(--system-dark-300), var(--system-light-300));
+        text-wrap: pretty;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+      }
     }
-    & figcaption {
-      position: absolute;
-      bottom: 20px;
-      left: 8px;
-      right: 8px;
-      height: 32px;
-      overflow: hidden;
-      font-size: var(--font-size-2);
-      font-style: italic;
-      color: light-dark(var(--system-dark-300), var(--system-light-300));
-      text-wrap: pretty;
-      word-wrap: break-word;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      line-clamp: 2;
-      -webkit-line-clamp: 2;
+    & picture,
+    & img {
+      border-radius: var(--border-radius-sm);
+    }
+    & picture {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    & .placeholder {
+      grid-column: 1;
+      grid-row: 1;
+      border-radius: var(--border-radius-md);
+      z-index: -1;
+      position: relative;
+    }
+    /* default portrait styling*/
+    & .placeholder,
+    & picture {
+      /* Get the smallest of: height of container, height of image, height of image when width is within viewport */
+      height: min(
+        calc(70cqb - var(--p-top) - var(--p-bottom)),
+        var(--height),
+        calc((100vw - (2 * var(--p-inline) + 2rem)) / (var(--aspect-ratio)))
+      );
     }
   }
-  & picture,
-  & img {
-    border-radius: var(--border-radius-sm);
-  }
-  & picture {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  & .placeholder {
-    grid-column: 1;
-    grid-row: 1;
-    border-radius: var(--border-radius-md);
-    z-index: -1;
-    position: relative;
-  }
-  /* default portrait styling*/
-  & .placeholder,
-  & picture {
-    /* Get the smallest of: height of container, height of image, height of image when width is within viewport */
-    height: min(
-      calc(70cqb - var(--p-top) - var(--p-bottom)),
-      var(--height),
-      calc((100vw - (2 * var(--p-inline) + 2rem)) / (var(--aspect-ratio)))
-    );
-  }
-}
 
-.closeLink {
-  view-transition-name: close-link;
-  display: block;
-  pointer-events: all;
-  border-radius: 50%;
-  border: none;
-  height: fit-content;
-  z-index: 1;
-  line-height: 0;
-  margin: 4px 12px;
-  padding: 6px;
-  box-shadow:
-    var(--verdigris-100-op) 0px 0px 0px 5px,
-    var(--stacks-6-Shadow);
-  transition:
-    transform 0.4s ease,
-    background-color 0.3s ease-in-out;
-  outline-offset: var(--outline-offset);
-  cursor: pointer;
-  color: var(--verdigris-100);
-  border: 2px solid var(--verdigris-300);
-  background-color: var(--verdigris-500);
-  &:hover,
-  &:focus-visible {
-    background-color: var(--system-light-300);
-    color: light-dark(var(--verdigris-500), var(--verdigris-100));
-    transform: scale(1.2);
-  }
-}
-
-.footer {
-  margin-top: auto;
-  margin-inline: auto;
-  max-width: 100cqi;
-}
-
-.thumbnailGridContainer {
-  view-transition-name: thumbnail-grid-container;
-  pointer-events: all;
-  --mask-width: 1rem;
-  --margin-width: 1rem;
-  margin-inline: var(--margin-width);
-  display: grid;
-  width: calc(100cqi - 2 * var(--margin-width));
-  grid-auto-flow: dense;
-  gap: 0.5rem;
-  padding-inline: var(--mask-width);
-  overflow-x: scroll;
-  padding-block: 32px 16px;
-  mask: linear-gradient(
-    90deg,
-    transparent,
-    white var(--mask-width) calc(100% - var(--mask-width)),
-    transparent
-  );
-  mask-composite: intersect;
-  @container lightbox (min-width: 600px) {
-    --mask-width: 2rem;
-  }
-  & a {
-    height: 120px;
-    grid-row: 1;
-    transform: rotate(var(--rotation));
-    transition: transform 250ms ease-in-out;
-    outline-offset: var(--outline-offset);
-  }
-}
-
-.controls {
-  view-transition-name: lightbox-controls;
-  display: flex;
-  --controls-height: 40px;
-  top: calc(50% - var(--controls-height) / 2);
-  inset-inline: -1rem;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  padding-left: 0;
-  & li {
-    width: fit-content;
-    pointer-events: all;
-    padding: 1rem;
-    z-index: 1;
+  .closeLink {
+    view-transition-name: close-link;
     display: block;
-  }
-
-  & a {
-    height: var(--controls-height);
-    border-radius: var(--border-radius-balloon);
-    width: var(--controls-height);
+    pointer-events: all;
+    border-radius: 50%;
+    border: none;
+    height: fit-content;
+    z-index: 1;
+    line-height: 0;
+    margin: 4px 12px;
+    padding: 6px;
     box-shadow:
       var(--verdigris-100-op) 0px 0px 0px 5px,
       var(--stacks-6-Shadow);
     transition:
       transform 0.4s ease,
       background-color 0.3s ease-in-out;
-    display: grid;
-    align-items: center;
-    justify-content: center;
     outline-offset: var(--outline-offset);
-    &:not([data-disabled]) {
-      cursor: pointer;
-      color: var(--verdigris-100);
-      border: 2px solid var(--verdigris-300);
-      background-color: var(--verdigris-500);
-    }
-    &[data-disabled] {
-      pointer-events: none;
-      opacity: 0.4;
-      color: light-dark(var(--system-dark-300), var(--system-light-500));
-      border: 4px solid
-        light-dark(var(--system-dark-300), var(--system-light-500));
-      background-color: var(--system-light-300);
-    }
-    /* Avoid the chevron looking off center */
-    &#previous svg {
-      margin-right: 2px;
-    }
-    &:not([data-disabled]):hover,
-    &:not([data-disabled]):focus-visible {
+    cursor: pointer;
+    color: var(--verdigris-100);
+    border: 2px solid var(--verdigris-300);
+    background-color: var(--verdigris-500);
+    &:hover,
+    &:focus-visible {
       background-color: var(--system-light-300);
       color: light-dark(var(--verdigris-500), var(--verdigris-100));
       transform: scale(1.2);
     }
   }
-}
 
-::view-transition-group(lightbox-controls) {
-  z-index: 30;
-}
-
-@container lightbox (width > 800px) {
   .footer {
-    & a:hover,
-    & a:focus-visible {
+    margin-top: auto;
+    margin-inline: auto;
+    max-width: 100cqi;
+  }
+
+  .thumbnailGridContainer {
+    view-transition-name: thumbnail-grid-container;
+    pointer-events: all;
+    --mask-width: 1rem;
+    --margin-width: 1rem;
+    margin-inline: var(--margin-width);
+    display: grid;
+    width: calc(100cqi - 2 * var(--margin-width));
+    grid-auto-flow: dense;
+    gap: 0.5rem;
+    padding-inline: var(--mask-width);
+    overflow-x: scroll;
+    padding-block: 32px 16px;
+    mask: linear-gradient(
+      90deg,
+      transparent,
+      white var(--mask-width) calc(100% - var(--mask-width)),
+      transparent
+    );
+    mask-composite: intersect;
+    @container lightbox (min-width: 600px) {
+      --mask-width: 2rem;
+    }
+    & a {
+      height: 120px;
+      grid-row: 1;
+      transform: rotate(var(--rotation));
       transition: transform 250ms ease-in-out;
-      transform: translateY(-5px) rotate(var(--rotation)) !important;
+      outline-offset: var(--outline-offset);
     }
   }
-}
 
-::view-transition-group(img1),
-::view-transition-group(img2),
-::view-transition-group(img3),
-::view-transition-group(img4),
-::view-transition-group(img5),
-::view-transition-group(img6),
-::view-transition-group(img7),
-::view-transition-group(img8),
-::view-transition-group(img9),
-::view-transition-group(img10),
-::view-transition-group(img11),
-::view-transition-group(img12),
-::view-transition-group(figure),
-::view-transition-group(thumbnail-grid-container) {
-  z-index: 20;
-}
+  .controls {
+    view-transition-name: lightbox-controls;
+    display: flex;
+    --controls-height: 40px;
+    top: calc(50% - var(--controls-height) / 2);
+    inset-inline: -1rem;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    padding-left: 0;
+    & li {
+      width: fit-content;
+      pointer-events: all;
+      padding: 1rem;
+      z-index: 1;
+      display: block;
+    }
 
-::view-transition-group(close-link) {
-  z-index: 40;
+    & a {
+      height: var(--controls-height);
+      border-radius: var(--border-radius-balloon);
+      width: var(--controls-height);
+      box-shadow:
+        var(--verdigris-100-op) 0px 0px 0px 5px,
+        var(--stacks-6-Shadow);
+      transition:
+        transform 0.4s ease,
+        background-color 0.3s ease-in-out;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      outline-offset: var(--outline-offset);
+      &:not([data-disabled]) {
+        cursor: pointer;
+        color: var(--verdigris-100);
+        border: 2px solid var(--verdigris-300);
+        background-color: var(--verdigris-500);
+      }
+      &[data-disabled] {
+        pointer-events: none;
+        opacity: 0.4;
+        color: light-dark(var(--system-dark-300), var(--system-light-500));
+        border: 4px solid
+          light-dark(var(--system-dark-300), var(--system-light-500));
+        background-color: var(--system-light-300);
+      }
+      /* Avoid the chevron looking off center */
+      &#previous svg {
+        margin-right: 2px;
+      }
+      &:not([data-disabled]):hover,
+      &:not([data-disabled]):focus-visible {
+        background-color: var(--system-light-300);
+        color: light-dark(var(--verdigris-500), var(--verdigris-100));
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  ::view-transition-group(lightbox-controls) {
+    z-index: 30;
+  }
+
+  @container lightbox (width > 800px) {
+    .footer {
+      & a:hover,
+      & a:focus-visible {
+        transition: transform 250ms ease-in-out;
+        transform: translateY(-5px) rotate(var(--rotation)) !important;
+      }
+    }
+  }
+
+  ::view-transition-group(img1),
+  ::view-transition-group(img2),
+  ::view-transition-group(img3),
+  ::view-transition-group(img4),
+  ::view-transition-group(img5),
+  ::view-transition-group(img6),
+  ::view-transition-group(img7),
+  ::view-transition-group(img8),
+  ::view-transition-group(img9),
+  ::view-transition-group(img10),
+  ::view-transition-group(img11),
+  ::view-transition-group(img12),
+  ::view-transition-group(figure),
+  ::view-transition-group(thumbnail-grid-container) {
+    z-index: 20;
+  }
+
+  ::view-transition-group(close-link) {
+    z-index: 40;
+  }
 }

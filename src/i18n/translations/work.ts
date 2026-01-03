@@ -4,6 +4,14 @@ export const work = {
     professional_developer_experience: 'Professional Developer Experience',
     from_code_to_career:
       'Solving real problems with code: My journey developing user-focused digital products.\n\nBrowse through my current and past employment milestones below:',
+    bolig_portal_footer_image_alt:
+      'White BoligPortal logo on orange background',
+    bolig_portal_employment_date: 'Nov 2025 - Present',
+    bolig_portal_employment_description:
+      'Develop and maintain frontend features for BoligPortal’s web platform.\n\nMaintain and extend the company’s shared component library alongside building Pro property management features for landlords and core marketplace functionality for tenants.\n\nCollaborate with developers, product owners, and UX designers to deliver user-facing features serving millions of annual visitors.',
+    learn_more_about_bolig_portal: 'Learn more about BoligPortal',
+    bolig_portal_company_description:
+      'BoligPortal is Denmark’s largest digital marketplace for rental housing, connecting landlords and tenants.\n\nThe platform has over 4 million visitors every year and has thus established itself as the leading player in the Danish housing rental market. The company is headquartered in Aarhus and is part of the North Media A/S group, which is listed on Nasdaq Copenhagen. BoligPortal is also active in Sweden with the platform Bostadsportal.se.\n\nIn addition to the rental platform itself, BoligPortal offers a range of integrated tools and services for both landlords and tenants, including administration tools, communication functions and search agents that automatically notify users of new properties that match their preferences.\n\nThe company also generates detailed data on the rental housing market, which is in high demand among banks, property investors and construction companies.',
     software_developer: 'Software Developer',
     friggtech_footer_image_alt:
       'Light green Frigg Tech logo on dark blue background',
@@ -72,6 +80,13 @@ export const work = {
     professional_developer_experience: 'Erhvervserfaring som udvikler',
     from_code_to_career:
       'Løsning af konkrete problemer med kode: Mit arbejde med at udvikle brugerfokuserede digitale produkter.\n\nGennemse mine nuværende og tidligere ansættelser nedenfor:',
+    bolig_portal_footer_image_alt: 'Hvidt BoligPortal logo på orange bagground',
+    bolig_portal_employment_date: 'Nov 2025 - nu',
+    bolig_portal_employment_description:
+      'Udvikle og vedligeholde frontend-funktioner til BoligPortals webplatform.\n\nVedligeholde og udvide virksomhedens fælles komponentbibliotek samt opbygge Pro-ejendomsadministrationsfunktioner til udlejere og centrale markedspladsfunktioner til lejere.\n\nSamarbejde med udviklere, produktejere og UX-designere om udvikling og forbedring af funktioner, der forbinder udlejere og lejere på tværs af det danske boligudlejningsmarked.',
+    learn_more_about_bolig_portal: 'Få mere at vide om BoligPortal',
+    bolig_portal_company_description:
+      'BoligPortal er Danmarks største platform for udlejning af boliger og fungerer som en digital markedsplads, der forbinder udlejere og lejere.\n\nPlatformen har hvert år over 4 millioner besøgende og har dermed etableret sig som den førende aktør på det danske boligudlejningsmarked. Virksomheden har hovedsæde i Aarhus og er en del af koncernen North Media A/S, der er noteret på Nasdaq Copenhagen. BoligPortal er også aktiv i Sverige med platformen Bostadsportal.se.\n\nUd over selve formidlingsplatformen tilbyder BoligPortal en række integrerede værktøjer og services til både udlejere og lejere, herunder administrationsværktøjer, kommunikationsfunktioner og søgeagenter, der automatisk notificerer brugere om nye boliger, der matcher deres præferencer.\n\nVirksomheden genererer også detaljerede data om lejeboligmarkedet, som er i høj efterspørgsel hos banker, ejendomsinvestorer og bygherrer.',
     software_developer: 'Software udvikler',
     friggtech_footer_image_alt:
       'Lysegrønt Frigg Tech logo på mørkeblå baggrund',

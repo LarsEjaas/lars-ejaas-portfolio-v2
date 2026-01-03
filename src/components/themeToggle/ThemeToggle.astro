@@ -1,0 +1,177 @@
+---
+import SunIcon from '@components/icons/SunIcon.astro';
+import ThemeIcon from '@components/icons/ThemeIcon.astro';
+import styles from './themeToggle.module.css';
+import MoonIcon from '@components/icons/MoonIcon.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+type Props = Record<string, never>;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang, 'global');
+
+const themeLabels = {
+  system: t('theme_system'),
+  light: t('theme_light'),
+  dark: t('theme_dark'),
+};
+
+const labelTemplate = t('theme_toggle_label');
+---
+
+<theme-toggle
+  data-theme-labels={JSON.stringify(themeLabels)}
+  data-label-template={labelTemplate}
+>
+  <fieldset class={styles.themeToggle} role="radiogroup" data-theme-control>
+    <legend class="sr-only">{t('dark_mode')}</legend>
+    <input type="radio" name="theme" data-theme="light" id="themeLight" />
+    <label
+      for="themeLight"
+      class={styles.themeButton}
+      data-theme="light"
+      title={themeLabels.light}
+    >
+      <SunIcon />
+      <span class="sr-only">{themeLabels.light}</span>
+    </label>
+    <input type="radio" name="theme" data-theme="system" id="themeSystem" />
+    <label
+      for="themeSystem"
+      class={styles.themeButton}
+      data-theme="system"
+      title={themeLabels.system}
+    >
+      <ThemeIcon />
+      <span class="sr-only">{themeLabels.system}</span>
+    </label>
+    <input type="radio" name="theme" data-theme="dark" id="themeDark" />
+    <label
+      for="themeDark"
+      data-theme="dark"
+      class={styles.themeButton}
+      title={themeLabels.dark}
+    >
+      <MoonIcon />
+      <span class="sr-only">{themeLabels.dark}</span>
+    </label>
+    <span class={styles.highlight}></span>
+  </fieldset>
+</theme-toggle>
+<script is:inline>
+  (() => {
+    const theme = document.documentElement.dataset.theme || 'system';
+    document.querySelectorAll("input[name='theme']").forEach((input) => {
+      input.checked = input.dataset.theme === theme;
+    });
+  })();
+</script>
+<script>
+  import { setValueInLocalStorage, DARKMODE_KEY } from '@utils/localStorage';
+
+  type Theme = 'light' | 'system' | 'dark';
+
+  class ThemeToggle extends HTMLElement {
+    private root: HTMLElement;
+    private themes = ['light', 'system', 'dark'] as const;
+    private currentTheme: Theme;
+    private buttons: NodeListOf<HTMLInputElement> | null = null;
+    private labels: NodeListOf<HTMLLabelElement> | null = null;
+    private themeLabels: { system: string; light: string; dark: string };
+    private labelTemplate: string;
+    private cycleThemeHandler = this.cycleTheme.bind(this);
+
+    constructor() {
+      super();
+      this.root = document.documentElement;
+
+      this.currentTheme = this.themes.includes(this.root.dataset.theme as Theme)
+        ? (this.root.dataset.theme as Theme)
+        : 'system';
+
+      this.themeLabels = JSON.parse(this.dataset.themeLabels || '{}');
+      this.labelTemplate = this.dataset.labelTemplate || 'Current theme:';
+    }
+
+    connectedCallback() {
+      this.buttons = this.querySelectorAll("input[type='radio']");
+      this.labels = this.querySelectorAll('label[data-theme]');
+
+      this.updateTitleAndLabel();
+      this.attachEventListeners();
+    }
+
+    disconnectedCallback() {
+      this.buttons?.forEach((button) => {
+        button.removeEventListener('click', this.cycleThemeHandler);
+      });
+    }
+
+    private cycleTheme(event: MouseEvent | KeyboardEvent) {
+      const button = event.currentTarget as HTMLInputElement;
+      console.log('event:', event, 'button:', button);
+      this.currentTheme = button.dataset.theme as Theme;
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+
+      this.root.dataset.theme = this.currentTheme;
+
+      let isDark: boolean;
+      if (this.currentTheme === 'system') {
+        isDark = prefersDark;
+      } else {
+        isDark = this.currentTheme === 'dark';
+      }
+
+      // Keep your existing simple attribute
+      document.documentElement.setAttribute('data-dark-mode', String(isDark));
+
+      this.updateTitleAndLabel();
+      this.addThemeTransition();
+      setValueInLocalStorage(DARKMODE_KEY, this.currentTheme);
+    }
+
+    private getThemeDisplayName(): string {
+      return this.themeLabels[this.currentTheme];
+    }
+
+    private updateTitleAndLabel() {
+      if (!this.labels) return;
+
+      const activeThemeDisplayName = this.getThemeDisplayName();
+      const activeLabelText = `${this.labelTemplate} ${activeThemeDisplayName}`;
+
+      this.labels.forEach((label) => {
+        const themeOfLabel = label.dataset.theme as Theme;
+        const srSpan = label.querySelector('.sr-only');
+
+        if (!themeOfLabel || !srSpan) return;
+
+        if (themeOfLabel === this.currentTheme) {
+          // This is the active label
+          label.title = activeLabelText;
+          srSpan.textContent = activeLabelText;
+        } else {
+          // This is an inactive label, reset it to its default text
+          const defaultText = this.themeLabels[themeOfLabel];
+          label.title = defaultText;
+          srSpan.textContent = defaultText;
+        }
+      });
+    }
+
+    private addThemeTransition() {
+      this.root.classList.add('theming');
+      setTimeout(() => this.root.classList.remove('theming'), 500);
+    }
+
+    private attachEventListeners() {
+      this.buttons?.forEach((button) => {
+        button.addEventListener('click', this.cycleThemeHandler);
+      });
+    }
+  }
+
+  customElements.define('theme-toggle', ThemeToggle);
+</script>
