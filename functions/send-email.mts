@@ -200,6 +200,7 @@ const getErrorMessage = (
 const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
 
 const formDataSchema = z.object({
+  phone: z.string(),
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Invalid email address'),
   subject: z.string().min(1, 'Subject is required'),
@@ -446,12 +447,33 @@ export default async (req: Request, context: Context) => {
       message: sender_message,
       subject: sender_subject,
       language: sender_language,
+      phone: honey_pot,
     } = data;
 
     language = sender_language;
 
     if (sender_language === 'da') {
       redirectUrl = getRedirectUrl('da', refererUrl);
+    }
+
+    if (honey_pot.length > 0) {
+      console.log(
+        '[INFO]',
+        `🗑️ Contact submisson marked as spam as honey-pot field included content! HoneyPot: ${honey_pot} Name: ${sender_name}, Email: ${sender_email}, Subject: ${sender_subject}, Message: ${sender_message}, Language: ${sender_language}`
+      );
+      // Redirect to confirmation page
+      return new Response(
+        JSON.stringify({
+          message: 'Email was sent successfully. I will respond shortly',
+        }),
+        {
+          status: 303,
+          headers: {
+            ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
+            Location: redirectUrl,
+          },
+        }
+      );
     }
 
     const createNodeMailerTransporter = () =>

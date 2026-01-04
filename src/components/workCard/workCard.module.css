@@ -59,7 +59,8 @@
       text-transform: uppercase;
       font-size: var(--font-size-4);
       letter-spacing: 2px;
-      font-weight: var(--system-weight-800);
+      /* Do not use system weight as we want the same weight in both dark- and light mode */
+      font-weight: 800;
       line-height: 0.56;
       text-wrap: nowrap;
       color: light-dark(var(--system-light-200), var(--system-light-300));

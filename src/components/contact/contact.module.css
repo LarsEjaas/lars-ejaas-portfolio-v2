@@ -46,6 +46,11 @@
     }
   }
 
+  .labelx {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
   .error {
     display: inline-block;
     line-height: 0;

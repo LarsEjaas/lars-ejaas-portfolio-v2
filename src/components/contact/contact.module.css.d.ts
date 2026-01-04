@@ -7,6 +7,7 @@ declare const styles: {
   readonly "form": string;
   readonly "input": string;
   readonly "label": string;
+  readonly "labelx": string;
   readonly "loading": string;
   readonly "loadingIndicator": string;
   readonly "messageWrapper": string;

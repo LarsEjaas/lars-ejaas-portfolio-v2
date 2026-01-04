@@ -56,7 +56,16 @@ const t = useTranslations(lang, 'contact');
         <span>{t('the_length_of_the_name')}</span>
       </p></label
     >
-
+    <label class:list={[styles.label, styles.labelx]}>
+      <span>Phone</span>
+      <input
+        class={styles.input}
+        type="tel"
+        name="phone"
+        autocomplete="off"
+        placeholder="Enter your phone number"
+      />
+    </label>
     <label class={styles.label}
       ><span>{t('email')}</span>
       <input
