@@ -1,8 +1,9 @@
 ---
+import '@layouts/global.css';
+import cascadeDefinition from '@layouts/cascade.css?raw';
 import MobileMenu from '@components/mobileMenu/MobileMenu.astro';
 import Footer from '@components/footer/Footer.astro';
 import HeaderMenu from '@components/headerMenu/HeaderMenu.astro';
-import './global.css';
 import Seo from '@components/seo/Seo.astro';
 import type { SeoComponentProps } from '@components/seo/Seo.astro';
 import type { Language } from '@i18n/settings';
@@ -13,7 +14,7 @@ type Props = {
   inert: boolean;
   seo: SeoComponentProps;
   gridColumns?: 2 | 3;
-  withDarkkModeToggle?: boolean;
+  withDarkModeToggle?: boolean;
   withModalLinks?: boolean;
   translationUrls?: Record<Language, string>;
   withScrollTop?: boolean;
@@ -22,7 +23,7 @@ type Props = {
 const {
   inert,
   gridColumns = 2,
-  withDarkkModeToggle = true,
+  withDarkModeToggle = true,
   withModalLinks = true,
   seo,
   translationUrls,
@@ -34,8 +35,9 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-dark-mode="false" data-js-enabled="false">
+<html lang="en" data-theme="system" data-js-enabled="false">
   <head>
+    <style is:inline set:html={cascadeDefinition}></style>
     <script is:inline type="speculationrules">
       {
         "prerender": [
@@ -73,47 +75,7 @@ const {
       noIndex={seo.noIndex}
       noFollow={seo.noFollow}
     />
-    <script is:inline>
-      if ('onpagereveal' in window) {
-        window.onpagereveal = (e) => rmsp(e);
-      } else {
-        document.addEventListener('DOMContentLoaded', rmsp);
-      }
-      const gsdm = () => {
-        if (
-          typeof window.localStorage !== 'undefined' &&
-          localStorage.getItem('ejaas_dark_mode')
-        ) {
-          return localStorage.getItem('ejaas_dark_mode');
-        }
-        return false;
-      };
-
-      if (
-        gsdm() === 'true' ||
-        (!gsdm() && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.dataset.darkMode = 'true';
-      }
-
-      document.documentElement.dataset.jsEnabled = 'true';
-
-      function rmsp() {
-        const sp = Number(sessionStorage.getItem('scrollPosition')) || 0;
-
-        const rish = document.referrer.startsWith(window.location.origin);
-        if (sp && rish) {
-          window.scrollTo({
-            top: sp,
-            behavior: 'instant',
-          });
-        }
-        const rim = window.modalDialog || window.lightbox;
-        if (!rim || !rish) {
-          sessionStorage.removeItem('scrollPosition');
-        }
-      }
-    </script>
+    <script is:inline src="/root.js"></script>
     {/* @ts-ignore */}
     <link rel="expect" blocking="render" href="#mainContent" />
   </head>
@@ -130,7 +92,6 @@ const {
     </svg>
     <HeaderMenu
       inert={inert}
-      withDarkkModeToggle={withDarkkModeToggle}
       withModalLinks={withModalLinks}
       translationUrls={translationUrls}
     />
@@ -139,7 +100,11 @@ const {
         <slot />
       </main>
     </ScrollToTop>
-    <Footer inert={inert} withModalLinks={withModalLinks} />
+    <Footer
+      inert={inert}
+      withModalLinks={withModalLinks}
+      withDarkModeToggle={withDarkModeToggle}
+    />
     <MobileMenu inert={inert} withModalLinks={withModalLinks} />
     <PiwikProScript />
   </body>

@@ -5,6 +5,7 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './work.module.css';
 import WorkCard from '@components/workCard/WorkCard.astro';
+import BoligPortalFooterImage from '@assets/images/bolig_portal_footer_image.png';
 import FriggTechFooterImage from '@assets/images/frigg_tech_footer_image.png';
 import BruceWillisHeaderImage from '@assets/images/bruce_willis_rocks.png';
 import BruceWillisFooterImage1 from '@assets/images/bruce_willis_footer_image_1.png';
@@ -23,6 +24,7 @@ import Popover from '@components/popover/Popover.astro';
 import AccuRankerLogoWithTitle from './AccuRankerLogoWithTitle.astro';
 import SallingGroupLogo from './SallingGroupLogo.astro';
 import FriggTechLogo from './FriggTechLogo.astro';
+import BoligPortalLogo from './BoligPortalLogo.astro';
 import InfoIcon from './infoIcon.astro';
 import gitHubLogo from '@components/footer/gitHubLogo.svg';
 import type { DistributiveOmit } from '@customTypes/index';
@@ -71,6 +73,70 @@ const t_work = useTranslations(lang, 'work');
       balloonColor="aquamarine"
       maxHeight={400}
     />
+    <WorkCard
+      className={styles.animatedWorkCard}
+      inert={inert}
+      viewTransitionName="bolig-portal-card"
+      id="boligPortal"
+      headline={t_work('frontend_developer')}
+      subHeadline={`BoligPortal A/S, Aarhus`}
+      date={t_work('bolig_portal_employment_date')}
+      tags={[
+        { title: 'React', href: 'skills/react' },
+        { title: 'Typescript', href: 'skills/typescript' },
+        { title: 'Tailwind', href: 'skills/tailwind' },
+        { title: 'Storybook', href: 'skills/storybook' },
+        { title: 'GitHub', href: 'skills/github' },
+        { title: 'Turborepo', href: 'skills/turborepo' },
+        { title: 'TanStack', href: 'skills/tanstack' },
+        { title: 'Docker', href: 'skills/docker' },
+      ]}
+      footerImages={[
+        {
+          src: BoligPortalFooterImage,
+          alt: t_work('bolig_portal_footer_image_alt'),
+          id: 'BoligPortalFooterImage',
+        },
+      ]}
+    >
+      <p
+        class="small-body-text"
+        set:html={t_work('bolig_portal_employment_description')}
+      />
+      <Popover
+        id="boligPortal"
+        width={400}
+        buttonLabel={t_work('learn_more_about_bolig_portal')}
+      >
+        <div class={styles.flexWrapper} slot="buttonContent">
+          <p class={styles.popoverDesc}>
+            {t_work('about')}
+          </p>
+          <BoligPortalLogo style={{ marginBlock: '-1px 1px' }} />
+          <InfoIcon />
+        </div>
+        <div class={styles.flexColumnWrapper}>
+          <BoligPortalLogo width={160} />
+          <p class="small-body-text">
+            {t_work('bolig_portal_company_description')}
+          </p>
+          <div class={styles.flexWrapper}>
+            <p class=`${styles.websiteVisit} small-body-text`>
+              {`${t_work('visit_website')}:`}
+            </p>
+            <a
+              class=`${styles.websiteVisit} small-body-text`
+              href={lang === 'en'
+                ? 'https://boligportal.dk/en/'
+                : 'https://boligportal.dk/'}
+              target="_blank"
+              rel="noopener noreferrer">boligportal.dk</a
+            >
+          </div>
+        </div>
+      </Popover></WorkCard
+    >
+
     <WorkCard
       data-mobile-animation="false"
       className={styles.animatedWorkCard}

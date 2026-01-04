@@ -1,14 +1,16 @@
-.balloonsWrapper {
-  height: fit-content;
-  position: relative;
-  @media (min-width: 769px) {
-    grid-column: 2/-1;
+@layer components {
+  .balloonsWrapper {
+    height: fit-content;
+    position: relative;
+    @media (min-width: 769px) {
+      grid-column: 2/-1;
+    }
   }
-}
 
-.floatingBalloons {
-  aspect-ratio: 1;
-  max-width: 60%;
-  margin-inline: auto;
-  position: relative;
+  .floatingBalloons {
+    aspect-ratio: 1;
+    max-width: 60%;
+    margin-inline: auto;
+    position: relative;
+  }
 }

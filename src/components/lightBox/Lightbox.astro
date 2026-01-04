@@ -170,6 +170,7 @@ if (!imageDescription && IS_DEV) {
     <ul class={styles.controls}>
       <li>
         <a
+          id="previous"
           data-disabled={isFirst || undefined}
           href={isFirst ? undefined : previousUrl}
           aria-label={labels.previous}
@@ -180,7 +181,6 @@ if (!imageDescription && IS_DEV) {
             fill="currentColor"
             aria-hidden="true"
             viewBox="4.5 7 15 15"
-            style="margin-right:2px;"
           >
             <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
           </svg>
@@ -188,6 +188,7 @@ if (!imageDescription && IS_DEV) {
       </li>
       <li>
         <a
+          id="next"
           data-disabled={isLast || undefined}
           href={isLast ? undefined : nextUrl}
           aria-label={labels.next}

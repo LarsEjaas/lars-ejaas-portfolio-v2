@@ -1,7 +1,8 @@
-import type { SlugKeys, englishModalKeys } from './routes';
+import type { DynamicSlugKey } from './routes';
+import type { englishModalKeys } from './appRoutes.mts';
 
 type SiteMapPriority = Record<
-  | Exclude<SlugKeys, 'email-reply'>
+  | Exclude<DynamicSlugKey, 'email-reply'>
   | Extract<(typeof englishModalKeys)[number], 'contact' | 'share'>,
   {
     priority: number;

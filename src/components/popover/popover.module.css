@@ -1,191 +1,193 @@
-/* Define position-try fallbacks at root level */
-@position-try --bottom-left {
-  position-area: bottom span-left;
-  margin-left: 1rem;
-  margin-right: auto;
-}
-
-@position-try --bottom-right {
-  position-area: bottom span-right;
-  margin-left: auto;
-  margin-right: 1rem;
-}
-
-@position-try --bottom-center-left {
-  position-area: bottom;
-  justify-self: start;
-}
-
-@position-try --bottom-center-right {
-  position-area: bottom;
-  justify-self: end;
-}
-
-@position-try --top-left {
-  position-area: top span-left;
-  margin-left: 1rem;
-  margin-right: auto;
-}
-
-@position-try --top-right {
-  position-area: top span-right;
-  margin-left: auto;
-  margin-right: 1rem;
-}
-
-@position-try --top-center-left {
-  position-area: top;
-  justify-self: start;
-}
-
-@position-try --top-center-right {
-  position-area: top;
-  justify-self: end;
-}
-
-.popover[popover] {
-  position: absolute;
-  @supports (position-area: bottom) {
-    &[data-position='bottom'] {
-      position-area: bottom;
-      position-area: end span-end;
-      position-try-fallbacks:
-        bottom,
-        --bottom-center-left,
-        /* Try centering left-aligned first */ --bottom-center-right,
-        /* Then centering right-aligned */ --bottom-left,
-        /* Then left edge aligned */ --bottom-right,
-        flip-block,
-        /* Then right edge aligned */ --top-center-left,
-        /* Fall back to top if needed */ --top-center-right,
-        --top-left,
-        --top-right;
-    }
-    &[data-position='top'] {
-      position-area: top;
-      position-area: start span-end;
-      position-try-fallbacks:
-        top,
-        --top-center-left,
-        /* Try centering left-aligned first */ --top-center-right,
-        /* Then centering right-aligned */ --top-left,
-        /* Then left edge aligned */ --top-right,
-        flip-block,
-        /* Then right edge aligned */ --bottom-center-left,
-        /* Fall back to bottom if needed */ --bottom-center-right,
-        --bottom-left,
-        --bottom-right;
-    }
-    position-try-order: most-width;
-    position-visibility: anchors-visible;
+@layer components {
+  /* Define position-try fallbacks at root level */
+  @position-try --bottom-left {
+    position-area: bottom span-left;
+    margin-left: 1rem;
+    margin-right: auto;
   }
-  margin: 0.5rem;
-  padding-inline: 1rem;
-  padding-block: 1.5rem;
-  background-color: light-dark(
-    var(--system-light-300),
-    var(--system-light-200)
-  );
-  border-width: 1px;
-  border-style: solid;
-  border-color: light-dark(var(--system-light-500), var(--system-light-300));
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--stacks-6-shadow);
-  opacity: 0;
-  display: none;
-  z-index: 1;
-  transform: translateY(-10px);
-  min-width: 300px;
-  max-width: var(--width);
-  /* Disable fade-out animations for now - to solve weird "jumping" bug of the popover*/
-  transition: 0s;
-  transition-behavior: allow-discrete;
-  &:popover-open {
-    opacity: 1;
-    transform: translateY(0);
-    display: block;
-    transition:
-      opacity 250ms ease-in-out,
-      transform 250ms ease-in-out,
-      display 250ms allow-discrete;
-  }
-}
 
-@starting-style {
-  .popover[popover]:popover-open {
+  @position-try --bottom-right {
+    position-area: bottom span-right;
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+
+  @position-try --bottom-center-left {
+    position-area: bottom;
+    justify-self: start;
+  }
+
+  @position-try --bottom-center-right {
+    position-area: bottom;
+    justify-self: end;
+  }
+
+  @position-try --top-left {
+    position-area: top span-left;
+    margin-left: 1rem;
+    margin-right: auto;
+  }
+
+  @position-try --top-right {
+    position-area: top span-right;
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+
+  @position-try --top-center-left {
+    position-area: top;
+    justify-self: start;
+  }
+
+  @position-try --top-center-right {
+    position-area: top;
+    justify-self: end;
+  }
+
+  .popover[popover] {
+    position: absolute;
+    @supports (position-area: bottom) {
+      &[data-position='bottom'] {
+        position-area: bottom;
+        position-area: end span-end;
+        position-try-fallbacks:
+          bottom,
+          --bottom-center-left,
+          /* Try centering left-aligned first */ --bottom-center-right,
+          /* Then centering right-aligned */ --bottom-left,
+          /* Then left edge aligned */ --bottom-right,
+          flip-block,
+          /* Then right edge aligned */ --top-center-left,
+          /* Fall back to top if needed */ --top-center-right,
+          --top-left,
+          --top-right;
+      }
+      &[data-position='top'] {
+        position-area: top;
+        position-area: start span-end;
+        position-try-fallbacks:
+          top,
+          --top-center-left,
+          /* Try centering left-aligned first */ --top-center-right,
+          /* Then centering right-aligned */ --top-left,
+          /* Then left edge aligned */ --top-right,
+          flip-block,
+          /* Then right edge aligned */ --bottom-center-left,
+          /* Fall back to bottom if needed */ --bottom-center-right,
+          --bottom-left,
+          --bottom-right;
+      }
+      position-try-order: most-width;
+      position-visibility: anchors-visible;
+    }
+    margin: 0.5rem;
+    padding-inline: 1rem;
+    padding-block: 1.5rem;
+    background-color: light-dark(
+      var(--system-light-300),
+      var(--system-light-200)
+    );
+    border-width: 1px;
+    border-style: solid;
+    border-color: light-dark(var(--system-light-500), var(--system-light-300));
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--stacks-6-shadow);
     opacity: 0;
+    display: none;
+    z-index: 1;
     transform: translateY(-10px);
-  }
-}
-
-/* Fallback for browsers that does not support anchor when JS is disabled */
-:global(:root[data-js-enabled='false']) {
-  @supports not (anchor-name: --anchor) {
-    & .popover {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
+    min-width: 300px;
+    max-width: var(--width);
+    /* Disable fade-out animations for now - to solve weird "jumping" bug of the popover*/
+    transition: 0s;
+    transition-behavior: allow-discrete;
+    &:popover-open {
+      opacity: 1;
+      transform: translateY(0);
+      display: block;
+      transition:
+        opacity 250ms ease-in-out,
+        transform 250ms ease-in-out,
+        display 250ms allow-discrete;
     }
   }
-}
 
-.popoverWrapper {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding-top: 0.5rem;
-  margin-top: auto;
-  &:has(.popover:popover-open) .button {
-    background-color: light-dark(
-      var(--system-light-400),
-      var(--system-dark-200-16)
-    );
+  @starting-style {
+    .popover[popover]:popover-open {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
   }
-}
 
-.button {
-  border: unset;
-  padding: 8px 12px;
-  display: flex;
-  cursor: pointer;
-  outline-offset: var(--outline-offset);
-  color: var(--system-dark-100);
-  border-radius: var(--border-radius-md);
-  background-color: light-dark(
-    var(--system-light-300),
-    color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
-  );
-  transition: background-color 300ms;
-  transition-timing-function: linear;
-  box-shadow: var(--stacks-4-shadow);
-  &:active,
-  &:focus-visible,
-  &:hover {
-    background-color: light-dark(
-      var(--system-light-400),
-      var(--system-dark-200-16)
-    );
+  /* Fallback for browsers that does not support anchor when JS is disabled */
+  :global(:root[data-js-enabled='false']) {
+    @supports not (anchor-name: --anchor) {
+      & .popover {
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+      }
+    }
   }
-}
 
-.closeButton {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  border: unset;
-  background: unset;
-  padding: 8px;
-  cursor: pointer;
-  color: var(--system-dark-100);
-  border-radius: var(--border-radius-md);
-  transition: background-color 300ms;
-  line-height: 0;
-  & svg {
+  .popoverWrapper {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding-top: 0.5rem;
+    margin-top: auto;
+    &:has(.popover:popover-open) .button {
+      background-color: light-dark(
+        var(--system-light-400),
+        var(--system-dark-200-16)
+      );
+    }
+  }
+
+  .button {
+    border: unset;
+    padding: 8px 12px;
+    display: flex;
+    cursor: pointer;
+    outline-offset: var(--outline-offset);
     color: var(--system-dark-100);
+    border-radius: var(--border-radius-md);
+    background-color: light-dark(
+      var(--system-light-300),
+      color-mix(in hsl, var(--system-dark-200-16), transparent 50%)
+    );
+    transition: background-color 300ms;
+    transition-timing-function: linear;
+    box-shadow: var(--stacks-4-shadow);
+    &:active,
+    &:focus-visible,
+    &:hover {
+      background-color: light-dark(
+        var(--system-light-400),
+        var(--system-dark-200-16)
+      );
+    }
   }
-  &:active,
-  &:focus-visible,
-  &:hover {
-    background-color: var(--system-dark-200-16);
+
+  .closeButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: unset;
+    background: unset;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--system-dark-100);
+    border-radius: var(--border-radius-md);
+    transition: background-color 300ms;
+    line-height: 0;
+    & svg {
+      color: var(--system-dark-100);
+    }
+    &:active,
+    &:focus-visible,
+    &:hover {
+      background-color: var(--system-dark-200-16);
+    }
   }
 }

@@ -1,11 +1,9 @@
-.image {
-  height: 100%;
-  & .placeholder {
-    z-index: -1;
-    inset: 0;
-  }
-  & .picture {
+@layer components {
+  .imageWrapper {
     height: 100%;
+  }
+
+  .workCardPicture {
     overflow: hidden;
   }
 }

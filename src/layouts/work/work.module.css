@@ -4,7 +4,7 @@
   color: light-dark(var(--system-dark-200), var(--system-dark-100));
   & .popoverDesc {
     margin-block-end: 0;
-    font-weight: 500;
+    font-weight: var(--system-weight-500);
     font-size: var(--font-size-2);
     color: currentColor;
   }
@@ -20,8 +20,14 @@
   }
 }
 
-:global(:root[data-dark-mode='true'] #friggTechLogo) {
+:global(:root[data-theme='dark'] #friggTechLogo) {
   color: #ccfbf1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root[data-theme='system'] #friggTechLogo) {
+    color: #ccfbf1;
+  }
 }
 
 .flexWrapper {
@@ -39,9 +45,16 @@
   flex-direction: column;
 }
 
-:global(:root[data-dark-mode='true'] #sallingGroupLogo),
-:global(:root[data-dark-mode='true'] #accuRankerLogo) {
+:global(:root[data-theme='dark'] #sallingGroupLogo),
+:global(:root[data-theme='dark'] #accuRankerLogo) {
   color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root[data-theme='system'] #sallingGroupLogo),
+  :global(:root[data-theme='system'] #accuRankerLogo) {
+    color: #fff;
+  }
 }
 
 .websiteVisit {
@@ -70,7 +83,7 @@
 
 .animationTimeline {
   display: contents;
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (animation-range: normal) {
     @media (prefers-reduced-motion: no-preference) {
       & .animatedWorkCard,
       & .animatedText:not([data-mobile-animation='false']) {
@@ -83,7 +96,7 @@
   @media (max-width: 768px) {
     & .floatingBalloons {
       grid-row: 5;
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {
           animation: var(--animation-scale-up);
           animation-timeline: view();

@@ -1,51 +1,53 @@
-.mobileMenu {
-  view-transition-name: mobile-menu;
-  z-index: 200;
-  --border-color: light-dark(
-    var(--verdigris-100-op),
-    var(--system-dark-200-16)
-  );
-  position: fixed;
-  gap: 12px;
-  @media (max-width: 380px) {
-    gap: 6px;
-    left: -10px;
-    right: -10px;
-  }
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-  right: env(safe-area-inset-right, 0);
-  left: env(safe-area-inset-left, 0);
-  margin-inline: auto;
-  padding-inline: 12px;
-  padding-block: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--system-light-300-55);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--stacks-4-shadow);
-  backdrop-filter: saturate(180%) brightness(80%) blur(6px);
-  width: fit-content;
-  & a {
-    border-radius: 30%;
-    outline-offset: var(--outline-offset);
-    &[data-current],
-    &[aria-disabled] {
-      cursor: default;
-      pointer-events: none;
+@layer components {
+  .mobileMenu {
+    view-transition-name: mobile-menu;
+    z-index: 200;
+    --border-color: light-dark(
+      var(--verdigris-100-op),
+      var(--system-dark-200-16)
+    );
+    position: fixed;
+    gap: 12px;
+    @media (max-width: 380px) {
+      gap: 6px;
+      left: -10px;
+      right: -10px;
+    }
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+    right: env(safe-area-inset-right, 0);
+    left: env(safe-area-inset-left, 0);
+    margin-inline: auto;
+    padding-inline: 12px;
+    padding-block: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--system-light-300-55);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--stacks-4-shadow);
+    backdrop-filter: saturate(180%) brightness(80%) blur(6px);
+    width: fit-content;
+    & a {
+      border-radius: 30%;
+      outline-offset: var(--outline-offset);
+      &[data-current],
+      &[aria-disabled] {
+        cursor: default;
+        pointer-events: none;
+      }
+    }
+    & .placeholder,
+    & picture,
+    & :global(.squircle) {
+      width: 48px;
+      height: 48px;
+    }
+    & .placeholder {
+      clip-path: url('#squircle');
     }
   }
-  & .placeholder,
-  & picture,
-  & :global(.squircle) {
-    width: 48px;
-    height: 48px;
-  }
-  & .placeholder {
-    clip-path: url('#squircle');
-  }
-}
 
-::view-transition-group(mobile-menu) {
-  z-index: 2;
-  border-radius: 16px;
-  overflow: hidden;
+  ::view-transition-group(mobile-menu) {
+    z-index: 2;
+    border-radius: 16px;
+    overflow: hidden;
+  }
 }

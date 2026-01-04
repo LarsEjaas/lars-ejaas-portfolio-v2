@@ -1,4 +1,23 @@
 #!/usr/bin/env sh
 
-echo "🔍 Running lint & type-check..."
-npm run lint && npm run type-check
+# Pick a fun message (POSIX-compliant)
+# shellcheck disable=SC2039
+case $(( $(date +%s) % 4 )) in
+  0) MESSAGE="🧹 Sweeping away your sins before commit..." ;;
+  1) MESSAGE="🚀 Hold my beer, checking your code..." ;;
+  2) MESSAGE="👮 Code police! License and registration please..." ;;
+  *) MESSAGE="🚨 Code quality checkpoint! Please keep your hands inside the vehicle..." ;;
+esac
+
+# Colors
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+echo ""
+# Print the selected message
+printf "${GREEN}%s${NC}\n" "$MESSAGE"
+echo ""
+printf "${CYAN}%s${NC}\n" "⏳ Running lint, type-check and validating composes imports in css modules..." 
+echo ""
+npm run lint && npm run type-check && npm run check-composes

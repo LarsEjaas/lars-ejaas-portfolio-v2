@@ -5,7 +5,8 @@ import PageLabel from '@components/pageLabel/PageLabel.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './about.module.css';
-import ProfileImage from '@assets/images/profile.png';
+import ProfileImage from '@assets/images/profile_large.png';
+import ProfileImageClipPath from '@assets/svgs/profile_large_outline.svg?raw';
 import PhotoCards from '@components/photoCards/PhotoCards.astro';
 import type { DistributiveOmit } from '@customTypes/index';
 import Signature from '@assets/emailReplyImages/signature.png';
@@ -56,11 +57,16 @@ const t_about = useTranslations(lang, 'about');
       gradientColor="princeton"
       title={t_about('hello')}
       overlayImage={ProfileImage}
+      overlayImagePlaceholderStyle={{
+        aspectRatio: `${ProfileImage.width}/${ProfileImage.height}`,
+        clipPath: 'url(#profileOutline)',
+      }}
       responsiveSquircleSize={true}
       overlayImageAlt={t_about('profile_lars_alt')}
       inert={inert}
       cardViewTransitionName="about-card"
     >
+      <Fragment set:html={ProfileImageClipPath} />
       <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">{t_about('i_am')}</h3>
         <p data-with-cutout="true" class="small-body-text">

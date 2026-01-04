@@ -72,3 +72,6 @@ async function generateRoutes() {
 
 // Run the function
 generateRoutes();
+
+// To run this script execute it with Node.js:
+// node --experimental-transform-types ./src/scripts/generate-sitemap-dictionary.mts

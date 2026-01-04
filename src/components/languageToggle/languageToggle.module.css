@@ -40,7 +40,7 @@
   & a,
   & span {
     user-select: none;
-    font-weight: 600;
+    font-weight: var(--system-weight-600);
     font-size: var(--font-size-3);
     line-height: 1.5;
   }

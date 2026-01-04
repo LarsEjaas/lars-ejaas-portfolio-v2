@@ -76,7 +76,7 @@ const timelineScope = timeLine
 
   const { carouselList, previous, next } = window;
   if (carouselList) {
-    initHorizontalKeyboardArrowNav(carouselList, true);
+    initHorizontalKeyboardArrowNav(carouselList, true, false);
   }
 
   /**
@@ -126,10 +126,11 @@ const timelineScope = timeLine
     {
       showArchiveCard && (
         <li
-          role="menuitem"
+          role="none"
           style={`--index: ${0}; view-timeline: --card-${0} inline`}
         >
           <a
+            role="menuitem"
             data-arrow-nav="true"
             aria-label={labels.archiveTitle}
             id={ARCHIVE_ID}
@@ -159,10 +160,11 @@ const timelineScope = timeLine
 
         return (
           <li
-            role="menuitem"
+            role="none"
             style={`--index: ${index + 1}; view-timeline: --card-${showArchiveCard ? index + 1 : index} inline`}
           >
             <a
+              role="menuitem"
               data-arrow-nav="true"
               id={`card${index}`}
               href={item.href}
@@ -197,7 +199,6 @@ const timelineScope = timeLine
           fill="currentColor"
           aria-hidden="true"
           viewBox="4.5 7 15 15"
-          style="margin-right:2px;"
         >
           <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
         </svg>

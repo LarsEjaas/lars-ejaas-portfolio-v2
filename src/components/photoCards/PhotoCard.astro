@@ -5,6 +5,13 @@ import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import { useTranslatedPath } from '@i18n/utils';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
 
+type ClassNames = {
+  wrapper: string;
+  placeholder: string;
+  image: string;
+  picture: string;
+};
+
 type Props = {
   ImageComponent: ImageMetadata & { placeholder?: string };
   imageName: string;
@@ -15,6 +22,7 @@ type Props = {
   disabled?: boolean;
   /** Manually pass a viewTransitionId. If not provided, one will be generated from the imageInfo.id. */
   viewTransitionId?: string;
+  ImageComponentClassNames?: Partial<ClassNames>;
 };
 
 const CARD_ROTATIONS = [-4, 6, -2, 3, -5, 2, -4, 3, -4, 2, -5, 4, -3, 2, -4, 5];
@@ -29,6 +37,7 @@ const {
   includeViewTransitionId,
   viewTransitionId,
   disabled,
+  ImageComponentClassNames: classNames,
 } = Astro.props;
 
 const imageInfo = aboutImagesInfo.find((info) => info.imageName === imageName);
@@ -80,7 +89,12 @@ const t = useTranslations(lang, 'navigation');
           aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
         },
       }}
-      classNames={{ placeholder: styles.placeholder }}
+      classNames={{
+        placeholder: `${styles.placeholder} ${classNames?.placeholder || ''}`,
+        picture: classNames?.picture,
+        wrapper: `${styles.photoWrapper} ${classNames?.wrapper || ''}`,
+        image: classNames?.image,
+      }}
     />
   </div>
 </a>
