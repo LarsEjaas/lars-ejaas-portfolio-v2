@@ -201,15 +201,15 @@ const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
 
 const formDataSchema = z.object({
   phone: z.string(),
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
+  full_name: z.string().min(1, 'Name is required'),
+  email: z.email('Invalid email address'),
   subject: z.string().min(1, 'Subject is required'),
   message: z
     .string()
     .min(1, 'Message is required')
     .transform((val) => sanitizedHTML(val)),
   language: z.enum(['en', 'da'], {
-    errorMap: () => ({ message: "Language must be either 'en' or 'da'" }),
+    message: "Language must be either 'en' or 'da'",
   }),
 });
 
@@ -429,7 +429,7 @@ export default async (req: Request, context: Context) => {
       return new Response(
         JSON.stringify({
           error: 'Validation failed',
-          details: parseResult.error.errors,
+          details: parseResult.error.message,
         }),
         {
           status: 400,
@@ -440,9 +440,9 @@ export default async (req: Request, context: Context) => {
     }
 
     const { data } = parseResult;
-    const first_name = getFirstName(data.name);
+    const first_name = getFirstName(data.full_name);
     const {
-      name: sender_name,
+      full_name: sender_name,
       email: sender_email,
       message: sender_message,
       subject: sender_subject,
@@ -622,6 +622,7 @@ export const config: Config = {
   path: FUNCTION_ENDPOINT,
   rateLimit: {
     action: 'rate_limit',
-    windowSize: 2,
+    windowSize: 3600, // 1 hour
+    windowLimit: 3,
   },
 };

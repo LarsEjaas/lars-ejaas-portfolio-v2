@@ -47,7 +47,6 @@
       background-size: cover;
     }
     & .placeholder {
-      height: 100%;
       aspect-ratio: 1;
       clip-path: url(#squircle);
     }

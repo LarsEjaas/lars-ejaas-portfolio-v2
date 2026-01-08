@@ -55,7 +55,7 @@ While I typically would choose to build a bage like with a React framework like 
 - [x] npm
 - [x] Git
 - [x] A Gmail account for SMTP services
-- [x] Netlify CLI (making it possible to debug serverless functions locally).
+- [x] Netlify CLI (v23.13.3 or later) - making it possible to debug serverless functions locally.
   - Install the Netlify CLI globally: `npm install -g netlify-cli`
 
 ## 🔌 Recommended VS Code Extensions

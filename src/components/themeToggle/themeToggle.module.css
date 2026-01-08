@@ -8,17 +8,12 @@
 
   .themeToggle {
     --button-size: 32px;
-    --spacing: 2px;
-    --label-width: calc(var(--button-size) + var(--spacing));
-    --label-height: calc(var(--label-width) + var(--spacing));
+    --spacing: 4px;
+    --label-size: calc(var(--button-size) + 2 * var(--spacing));
     --accent: light-dark(var(--system-dark-200), var(--system-dark-300-80));
     --accent: light-dark(var(--system-dark-300-55), var(--system-light-500));
     --accent: light-dark(var(--system-dark-300-55), var(--system-light-400));
     --ease-out-back: cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    --border-color: light-dark(
-      var(--system-dark-300-55),
-      var(--system-light-500)
-    );
     --border-color: var(--system-dark-200-16);
     --ease-in-slow-fade: cubic-bezier(1, 0.01, 1, 1);
     color: transparent;
@@ -34,17 +29,16 @@
 
     & input {
       position: absolute;
-      height: var(--label-height);
+      aspect-ratio: 1;
       opacity: 0;
-      width: var(--label-width);
+      width: var(--label-size);
 
       &[data-theme='system'] {
-        width: var(--button-size);
-        left: var(--label-width);
+        left: var(--label-size);
       }
 
       &[data-theme='dark'] {
-        left: calc(2 * var(--label-width));
+        left: calc(2 * var(--label-size));
       }
 
       &:not(:checked):hover + .themeButton svg {
@@ -62,19 +56,13 @@
       }
     }
 
-    label {
-      width: var(--label-width);
-
-      &[data-theme='system'] {
-        width: var(--button-size);
-
-        svg {
-          width: 14px;
-          height: 14px;
-        }
+    & label {
+      &[data-theme='system'] svg {
+        width: 14px;
+        height: 14px;
       }
 
-      svg {
+      & svg {
         width: 16px;
         aspect-ratio: 1;
         color: light-dark(var(--system-dark-200), var(--system-dark-100));
@@ -93,19 +81,19 @@
     }
 
     &:has(:global(#themeSystem:checked)) .highlight {
-      transform: translateX(var(--button-size));
+      transform: translateX(var(--label-size));
     }
 
     &:has(:global(#themeDark:checked)) .highlight {
-      transform: translateX(calc(2 * var(--button-size)));
+      transform: translateX(calc(2 * var(--label-size)));
     }
 
     @supports (anchor-name: --active-page) {
       &::before {
+        content: '';
         position-anchor: --hover;
         left: anchor(left);
-        margin-block: var(--spacing);
-        content: '';
+        margin: var(--spacing);
         position: absolute;
         width: var(--button-size);
         aspect-ratio: 1;
@@ -113,10 +101,6 @@
         background-color: var(--border-color);
         opacity: 0;
         border-radius: var(--border-radius-pill);
-      }
-
-      &:has(label[data-theme='light']:hover)::before {
-        margin-left: var(--spacing);
       }
 
       &:has(label:hover)::before {
@@ -130,8 +114,8 @@
     @supports not (anchor-name: --active-page) {
       label {
         &::before {
-          margin-block: var(--spacing);
           content: '';
+          margin: var(--spacing);
           position: absolute;
           width: var(--button-size);
           aspect-ratio: 1;
@@ -144,10 +128,6 @@
           }
         }
 
-        &[data-theme='light']::before {
-          margin-left: var(--spacing);
-        }
-
         &:hover::before {
           opacity: 0.6;
         }
@@ -156,8 +136,8 @@
   }
 
   .themeButton {
-    height: var(--label-height);
-    width: var(--label-width);
+    width: var(--label-size);
+    aspect-ratio: 1;
     display: grid;
     place-items: center;
     cursor: pointer;
@@ -177,8 +157,7 @@
 
   .highlight {
     position: absolute;
-    top: var(--spacing);
-    left: var(--spacing);
+    margin: var(--spacing);
     width: var(--button-size);
     aspect-ratio: 1;
     background: var(--accent);

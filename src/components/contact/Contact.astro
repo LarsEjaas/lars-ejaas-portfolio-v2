@@ -1,9 +1,12 @@
 ---
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 import styles from './contact.module.css';
-import { ValidationPattern } from '@customTypes/index';
 
 type Props = Record<string, never>;
+
+const VALIDATION_PATTERNS = {
+  email: '[a-zA-Z0-9._\\-]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_\\-]+',
+} as const;
 
 const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
 const CONTACT_FORM_NAME = 'writeToMe';
@@ -50,7 +53,7 @@ const t = useTranslations(lang, 'contact');
         placeholder={t('enter_your_full_name')}
         minlength="4"
         type="text"
-        name="name"
+        name="full_name"
         required="true"
       /><p class={styles.error} aria-live="polite">
         <span>{t('the_length_of_the_name')}</span>
@@ -69,7 +72,7 @@ const t = useTranslations(lang, 'contact');
     <label class={styles.label}
       ><span>{t('email')}</span>
       <input
-        pattern={ValidationPattern.email}
+        pattern={VALIDATION_PATTERNS.email}
         class={styles.input}
         multiple="false"
         autocomplete="on"
