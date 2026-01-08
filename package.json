@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently --kill-others \"netlify dev\" \"npx tcm -w -p src/**/*.module.css\"",
     "start": "astro dev",
-    "build": "astro check && npm run check-composes && npm run generate-routes && npm run build-scripts && astro build",
+    "build": "npm ci --include=dev && astro check && npm run check-composes && npm run generate-routes && npm run build-scripts && astro build",
     "build-fast": "astro build",
     "build-minified": "npm run build && node --experimental-transform-types ./src/scripts/brotli-compress-build.mts",
     "preview": "netlify serve",
