@@ -11,8 +11,7 @@
     line-height: 1.5;
     & b,
     & strong {
-      font-weight: var(--system-weight-600);
-      color: light-dark(var(--system-dark-200), var(--system-dark-100));
+      color: light-dark(var(--system-dark-200), var(--system-dark-400));
     }
   }
   & ul {
@@ -58,12 +57,17 @@
     color: light-dark(var(--system-dark-200), var(--system-dark-100));
   }
 }
-.floatingBalloons {
-  & > div {
-    max-height: 272px;
+.balloons {
+  & :global(#floating) {
+    max-width: unset;
+    aspect-ratio: unset;
   }
   @media (max-width: 768px) {
-    grid-row: 6;
+    grid-row: 5;
+    & :global(#floating) {
+      max-width: 380px;
+      height: 300px;
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 declare const styles: {
   readonly "actionEntries": string;
   readonly "actions": string;
+  readonly "balloons": string;
   readonly "contact": string;
   readonly "contactContainer": string;
   readonly "downloadIcon": string;
@@ -9,6 +10,7 @@ declare const styles: {
   readonly "outline": string;
   readonly "presentation": string;
   readonly "presentationCardContent": string;
+  readonly "presentationCardWrapper": string;
   readonly "quote": string;
   readonly "quoteColor": string;
   readonly "tips": string;

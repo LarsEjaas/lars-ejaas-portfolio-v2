@@ -8,7 +8,7 @@
 
   .themeToggle {
     --button-size: 32px;
-    --spacing: 4px;
+    --spacing: 2px;
     --label-size: calc(var(--button-size) + 2 * var(--spacing));
     --accent: light-dark(var(--system-dark-200), var(--system-dark-300-80));
     --accent: light-dark(var(--system-dark-300-55), var(--system-light-500));
@@ -24,8 +24,7 @@
     box-shadow: var(--stacks--1-inset-shadow);
     width: max-content;
     margin-inline: unset;
-    padding-block: unset;
-    padding-inline: unset;
+    padding: var(--spacing);
 
     & input {
       position: absolute;
@@ -48,7 +47,7 @@
       }
 
       &:checked + .themeButton svg {
-        color: light-dark(var(--system-light-500), var(--system-dark-400));
+        color: light-dark(var(--system-light-200), var(--system-dark-400));
       }
 
       &:focus-visible ~ .highlight {
@@ -88,7 +87,7 @@
       transform: translateX(calc(2 * var(--label-size)));
     }
 
-    @supports (anchor-name: --active-page) {
+    /* @supports (anchor-name: --active-page) {
       &::before {
         content: '';
         position-anchor: --hover;
@@ -109,30 +108,27 @@
         }
         opacity: 1;
       }
-    }
+    } */
 
-    @supports not (anchor-name: --active-page) {
-      label {
-        &::before {
-          content: '';
-          margin: var(--spacing);
-          position: absolute;
-          width: var(--button-size);
-          aspect-ratio: 1;
-          pointer-events: none;
-          background-color: var(--border-color);
-          opacity: 0;
-          border-radius: var(--border-radius-pill);
-          @media (prefers-reduced-motion: no-preference) {
-            transition: all 250ms ease-in-out;
-          }
-        }
-
-        &:hover::before {
-          opacity: 0.6;
-        }
+    /* @supports not (anchor-name: --active-page) { */
+    & label::before {
+      content: '';
+      margin: var(--spacing);
+      position: absolute;
+      width: var(--button-size);
+      aspect-ratio: 1;
+      pointer-events: none;
+      background-color: var(--border-color);
+      opacity: 0;
+      border-radius: var(--border-radius-pill);
+      @media (prefers-reduced-motion: no-preference) {
+        transition: all 250ms ease-in-out;
       }
     }
+    & input:not(:checked) + label:hover::before {
+      opacity: 1;
+    }
+    /* } */
   }
 
   .themeButton {

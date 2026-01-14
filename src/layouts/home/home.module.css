@@ -13,6 +13,14 @@
   gap: 32px;
 }
 
+.presentationCardWrapper {
+  max-width: 632px;
+}
+
+.balloons {
+  margin-bottom: 16px;
+}
+
 .presentationCardContent {
   display: flex;
   flex-direction: column;
@@ -157,8 +165,7 @@
 
 .quote {
   display: block;
-  margin-block-start: 2rem;
-  margin-block-end: 2rem;
+  margin-block: 2rem 0;
   padding-inline: 1rem;
   padding-block: 0.5rem 0;
   border-left: 0.4rem solid var(--quote);
@@ -221,9 +228,6 @@
   flex-wrap: wrap;
   gap: 40px;
   padding-inline: 1rem;
-  @media (max-width: 768px) {
-    justify-content: center;
-  }
 }
 
 .video {

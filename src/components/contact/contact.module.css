@@ -44,11 +44,10 @@
         outline: light-dark(var(--flirt-400), var(--flirt-200)) auto 1px !important;
       }
     }
-  }
-
-  .labelx {
-    display: none !important;
-    visibility: hidden !important;
+    &:has(input[name='phone']) {
+      display: none !important;
+      visibility: hidden !important;
+    }
   }
 
   .error {

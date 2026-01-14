@@ -286,6 +286,14 @@ const techSkillInfo: Record<TechSkill, Omit<SkillInfo, 'description'>> = {
     rating: 2,
     category: 'build_and_automation_tools',
   },
+  vitest: {
+    title: 'Vitest',
+    imageSrc: 'vitest.svg',
+    imageAlt: 'Vitest logo',
+    href: 'vitest',
+    rating: 2.5,
+    category: 'testing_and_qa_tools',
+  },
   vscode: {
     title: 'VSCode',
     imageSrc: 'vscode.svg',

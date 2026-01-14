@@ -38,6 +38,7 @@ const t_about = useTranslations(lang, 'about');
     },
     ...(seo.noIndex && { noIndex: seo.noIndex }),
   }}
+  gridLayout="text"
 >
   <!-- Modals can be inserted as a child here in the slot -->
   <slot slot="body-top" />
@@ -53,6 +54,9 @@ const t_about = useTranslations(lang, 'about');
         <p class="body-text">{t_about('i_didnt_start')}</p>
       </blockquote>
     </div>
+  </div>
+  <FloatingBalloons balloonColor="princeton" class={styles.floatingBalloons} />
+  <div class="fullgrid">
     <PresentationCard
       gradientColor="princeton"
       title={t_about('hello')}
@@ -92,101 +96,98 @@ const t_about = useTranslations(lang, 'about');
       </div>
     </PresentationCard>
   </div>
-  <FloatingBalloons balloonColor="princeton" class={styles.floatingBalloons} />
-  <article class={styles.article} id="aboutArticle">
-    <div class={styles.articleContent}>
-      <div class={styles.textContent}>
-        <h2>
-          {t_about('an_unexpected_path_to_code')}
-        </h2>
-        <p class="body-text">{t_about('my_code_has_a_backstory')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('the_architectural_beginning')}</h3>
-        <p class="body-text">{t_about('pencil_met_paper')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('chasing_dreams')}</h3>
-        <p class="body-text">{t_about('a_few_years_before_my')}</p>
-      </div>
-      <div class={styles.imageContent}>
-        <PhotoCards
-          inert={inert}
-          reverseRotation={true}
-          imageNames={['hjørring_2011', 'cross_fredericia_2009', 'hammel_2007']}
-        />
-        <PhotoCards
-          inert={inert}
-          reverseRotation={false}
-          imageNames={['dm_sønderborg_2009', 'nice_2009']}
-        />
-      </div>
-      <div class={styles.textContent}>
-        <p class="body-text">{t_about('if_given_the_chance')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('trading_wheels_for_running_shoes')}</h3>
-        <p class="body-text">{t_about('after_cycling')}</p>
-      </div>
-      <div class={styles.imageContent}>
-        <PhotoCards
-          inert={inert}
-          reverseRotation={true}
-          imageNames={[
-            'esbjerg_2017',
-            'half_marathon_aarhus_2015',
-            'marselislobet_aarhus_2015',
-            'aarhus_track_race_2017',
-          ]}
-        />
-      </div>
-      <div class={styles.textContent}>
-        <p class="body-text">{t_about('my_proudest_moment')}</p>
-      </div>
-      <div class={styles.imageContent}>
-        <PhotoCards
-          inert={inert}
-          reverseRotation={false}
-          imageNames={['hannover_2016_2', 'hannover_2016_1']}
-        />
-      </div>
-      <div class={styles.textContent}>
-        <p class="body-text">{t_about('that_taught_me')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('the_winding_career_path')}</h3>
-        <p class="body-text">{t_about('despite_completing_a_bachelors')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <p class="body-text">{t_about('customer_support_positions')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('the_unexpected_discovery')}</h3>
-        <p class="body-text">{t_about('years_of_unfulfilling_jobs')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('starting_fresh_at_40')}</h3>
-        <p class="body-text">{t_about('taking_the_leap')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('where_i_am_today')}</h3>
-        <p class="body-text">{t_about('today_ive_found_my_place')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <h3>{t_about('the_lesson')}</h3>
-        <p class="body-text">{t_about('life_rarely_follows_a_linear_path')}</p>
-      </div>
-      <div class={styles.textContent}>
-        <p class={styles.endquote}>{t_about('keep_chasing_your_dreams')}</p>
-        <img
-          class={styles.signature}
-          src={Signature.src}
-          width="150"
-          height="62"
-          style="filter: brightness(0.7); border: none;"
-          alt={t_about('signature_of')}
-        />
-      </div>
+  <article class:list={['fullgrid', styles.article]} id="aboutArticle">
+    <div class={styles.textContent}>
+      <h2>
+        {t_about('an_unexpected_path_to_code')}
+      </h2>
+      <p class="body-text">{t_about('my_code_has_a_backstory')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('the_architectural_beginning')}</h3>
+      <p class="body-text">{t_about('pencil_met_paper')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('chasing_dreams')}</h3>
+      <p class="body-text">{t_about('a_few_years_before_my')}</p>
+    </div>
+    <div class={styles.imageContent}>
+      <PhotoCards
+        inert={inert}
+        reverseRotation={true}
+        imageNames={['hjørring_2011', 'cross_fredericia_2009', 'hammel_2007']}
+      />
+      <PhotoCards
+        inert={inert}
+        reverseRotation={false}
+        imageNames={['dm_sønderborg_2009', 'nice_2009']}
+      />
+    </div>
+    <div class={styles.textContent}>
+      <p class="body-text">{t_about('if_given_the_chance')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('trading_wheels_for_running_shoes')}</h3>
+      <p class="body-text">{t_about('after_cycling')}</p>
+    </div>
+    <div class={styles.imageContent}>
+      <PhotoCards
+        inert={inert}
+        reverseRotation={true}
+        imageNames={[
+          'esbjerg_2017',
+          'half_marathon_aarhus_2015',
+          'marselislobet_aarhus_2015',
+          'aarhus_track_race_2017',
+        ]}
+      />
+    </div>
+    <div class={styles.textContent}>
+      <p class="body-text">{t_about('my_proudest_moment')}</p>
+    </div>
+    <div class={styles.imageContent}>
+      <PhotoCards
+        inert={inert}
+        reverseRotation={false}
+        imageNames={['hannover_2016_2', 'hannover_2016_1']}
+      />
+    </div>
+    <div class={styles.textContent}>
+      <p class="body-text">{t_about('that_taught_me')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('the_winding_career_path')}</h3>
+      <p class="body-text">{t_about('despite_completing_a_bachelors')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <p class="body-text">{t_about('customer_support_positions')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('the_unexpected_discovery')}</h3>
+      <p class="body-text">{t_about('years_of_unfulfilling_jobs')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('starting_fresh_at_40')}</h3>
+      <p class="body-text">{t_about('taking_the_leap')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('where_i_am_today')}</h3>
+      <p class="body-text">{t_about('today_ive_found_my_place')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <h3>{t_about('the_lesson')}</h3>
+      <p class="body-text">{t_about('life_rarely_follows_a_linear_path')}</p>
+    </div>
+    <div class={styles.textContent}>
+      <p class={styles.endquote}>{t_about('keep_chasing_your_dreams')}</p>
+      <img
+        class={styles.signature}
+        src={Signature.src}
+        width="150"
+        height="62"
+        style="filter: brightness(0.7); border: none;"
+        alt={t_about('signature_of')}
+      />
     </div>
   </article>
   <TLDRSection inert={inert} />

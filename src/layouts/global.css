@@ -312,6 +312,20 @@
       grid-column: 1 / 2;
     }
 
+    & > * {
+      min-width: 0;
+    }
+
+    &.textGrid {
+      grid-template-columns: minmax(300px, 68ch);
+      & .fullgrid {
+        max-width: 68ch;
+      }
+      @media (min-width: 769px) {
+        grid-template-columns: minmax(300px, 68ch) minmax(300px, 1fr);
+      }
+    }
+
     @media (min-width: 1280px) {
       max-width: 100%;
       &.threeColumnGrid {
@@ -448,7 +462,8 @@ textarea {
   font-family: var(--default-font);
 }
 
-b {
+b,
+strong {
   font-weight: var(--system-weight-700);
 }
 

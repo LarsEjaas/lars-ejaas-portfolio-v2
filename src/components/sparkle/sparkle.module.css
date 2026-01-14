@@ -3,17 +3,17 @@
     0%,
     30%,
     100% {
-      transform: scale(0);
+      transform: rotate(0) scale(0);
     }
     5% {
-      transform: scale(0);
+      transform: rotate(0) scale(0);
     }
     15% {
-      transform: scale(-1, 0);
+      transform: rotate(calc(-0.2 * var(--rotation))) scale(-1, 0);
     }
 
     20% {
-      transform: scale(1);
+      transform: rotate(var(--rotation)) scale(1);
     }
   }
 

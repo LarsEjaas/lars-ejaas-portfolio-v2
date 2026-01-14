@@ -13,7 +13,7 @@ import ScrollToTop from '@components/scrollToTop/ScrollToTop.astro';
 type Props = {
   inert: boolean;
   seo: SeoComponentProps;
-  gridColumns?: 2 | 3;
+  gridLayout?: 'default' | 'three_column' | 'text';
   withDarkModeToggle?: boolean;
   withModalLinks?: boolean;
   translationUrls?: Record<Language, string>;
@@ -22,7 +22,7 @@ type Props = {
 
 const {
   inert,
-  gridColumns = 2,
+  gridLayout = 'default',
   withDarkModeToggle = true,
   withModalLinks = true,
   seo,
@@ -96,7 +96,14 @@ const {
       translationUrls={translationUrls}
     />
     <ScrollToTop withScrollTop={withScrollTop}>
-      <main id="mainContent" class={gridColumns === 3 ? 'threeColumnGrid' : ''}>
+      <main
+        id="mainContent"
+        class={gridLayout === 'three_column'
+          ? 'threeColumnGrid'
+          : gridLayout === 'text'
+            ? 'textGrid'
+            : ''}
+      >
         <slot />
       </main>
     </ScrollToTop>

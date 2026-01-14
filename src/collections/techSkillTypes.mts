@@ -31,6 +31,7 @@ export const techSkillEntries = [
   'turborepo',
   //Testing & QA Tools:
   'jest',
+  'vitest',
   'playwright',
   'react-testing-library',
   //State & Data Management:

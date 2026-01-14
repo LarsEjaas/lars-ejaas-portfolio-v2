@@ -98,6 +98,13 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         <p class="body-text">{t_home('this_little_corner')}</p>
       </blockquote>
     </div>
+  </div>
+  <FloatingBalloons
+    balloonColor="verdigris"
+    coverPhoto={EjaasLogoFront}
+    class={styles.balloons}
+  />
+  <div class:list={['fullgrid', styles.presentationCardWrapper]}>
     <PresentationCard
       gradientColor="verdigris"
       title="Lars Ejaas"
@@ -183,7 +190,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </div>
     </PresentationCard>
   </div>
-  <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
+
   <Carousel
     labels={{
       title: t_home('news_title'),

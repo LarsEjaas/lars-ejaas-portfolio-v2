@@ -84,6 +84,7 @@
       }
       &[data-responsive] .overlayImageWrapper {
         margin-bottom: -12px;
+        width: 80px;
       }
     }
     .gradientBackground {
@@ -252,7 +253,7 @@
         height: 120px;
       }
       & .overlayImageWrapper {
-        width: 136px;
+        width: 136px !important;
         margin-bottom: -18px;
         transform: translateX(-8px);
       }

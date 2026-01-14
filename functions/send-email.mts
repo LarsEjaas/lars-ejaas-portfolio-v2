@@ -575,7 +575,7 @@ export default async (req: Request, context: Context) => {
 
     console.log(
       '[INFO]',
-      '✉️ Email was sent successfully. Confirmation sent to senders inbox'
+      `✉️ Email from ${sender_name} was sent successfully. Confirmation sent to senders inbox at: ${sender_email}`
     );
 
     // Redirect to confirmation page

@@ -1,6 +1,5 @@
 declare const styles: {
   readonly "article": string;
-  readonly "articleContent": string;
   readonly "endquote": string;
   readonly "floatingBalloons": string;
   readonly "imageContent": string;
