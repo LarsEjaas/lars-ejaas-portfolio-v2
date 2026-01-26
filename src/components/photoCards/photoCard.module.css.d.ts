@@ -4,7 +4,6 @@ declare const styles: {
   readonly "imageGridPicture": string;
   readonly "photoWrapper": string;
   readonly "photocard": string;
-  readonly "placeholder": string;
   readonly "unwrapImage": string;
 };
 export = styles;

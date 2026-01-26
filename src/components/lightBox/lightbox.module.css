@@ -95,6 +95,9 @@
 
   .header {
     display: flex;
+    width: 100%;
+    position: absolute;
+    top:0;
     justify-content: flex-end;
   }
 
@@ -105,12 +108,13 @@
     align-items: center;
     margin-inline: 1rem;
     height: 70cqb;
-    min-height: 0;
 
     & figure {
       --p-top: 8px;
       --p-bottom: 60px;
       --p-inline: 8px;
+      --fig-caption-height: 32px;
+      max-height: 100%;
       display: grid;
       /** Firefox fix to prevent placeholder images placed behind the grid*/
       transform-style: preserve-3d;
@@ -124,15 +128,14 @@
         var(--system-dark-400)
       );
       border-radius: var(--border-radius-md);
-      &[data-landscape] {
-        & .placeholder,
-        & picture {
+      &[data-landscape] .contentImageWrapper {
           --frame-width: 320px;
           height: unset;
           width: min(
             calc(var(--frame-width)),
             var(--width),
-            100vw - 2 * var(--p-inline) - 2rem
+            100vw - 2 * var(--p-inline) - 2rem,
+            calc((70cqb - var(--p-top) - var(--p-bottom)) * (var(--width) / var(--height)))
           );
           @media (min-width: 561px) {
             --frame-width: 480px;
@@ -141,13 +144,20 @@
             --frame-width: 640px;
           }
         }
-      }
+       &[data-portrait] .contentImageWrapper {         
+        /* Get the smallest of: height of container, height of image, height of image when width is within viewport */
+        height: min(
+          calc(70cqb - var(--p-top) - var(--p-bottom)),
+          var(--height),
+          calc((100vw - (2 * var(--p-inline) + 2rem)) * (var(--width) / var(--height)))
+        );
+        }
       & figcaption {
         position: absolute;
         bottom: 20px;
         left: 8px;
         right: 8px;
-        height: 32px;
+        height: var(--fig-caption-height);
         overflow: hidden;
         font-size: var(--font-size-2);
         font-style: italic;
@@ -161,30 +171,9 @@
         -webkit-line-clamp: 2;
       }
     }
-    & picture,
-    & img {
+    & .contentImageWrapper {
       border-radius: var(--border-radius-sm);
-    }
-    & picture {
-      grid-column: 1;
-      grid-row: 1;
-    }
-    & .placeholder {
-      grid-column: 1;
-      grid-row: 1;
-      border-radius: var(--border-radius-md);
-      z-index: -1;
-      position: relative;
-    }
-    /* default portrait styling*/
-    & .placeholder,
-    & picture {
-      /* Get the smallest of: height of container, height of image, height of image when width is within viewport */
-      height: min(
-        calc(70cqb - var(--p-top) - var(--p-bottom)),
-        var(--height),
-        calc((100vw - (2 * var(--p-inline) + 2rem)) / (var(--aspect-ratio)))
-      );
+      overflow: hidden;
     }
   }
 
@@ -253,6 +242,9 @@
       transform: rotate(var(--rotation));
       transition: transform 250ms ease-in-out;
       outline-offset: var(--outline-offset);
+    }
+    & .thumbnailImgWrapper {
+      height: 100%
     }
   }
 

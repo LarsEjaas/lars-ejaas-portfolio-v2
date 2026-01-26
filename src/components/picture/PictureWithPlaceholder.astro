@@ -24,11 +24,12 @@ type Props = PictureProps & {
   placeholderSettings?: PlaceholderSettings;
   classNames?: Partial<ClassNames>;
   withFadeInAnimation?: boolean;
+  wrapperProps?: Omit<astroHTML.JSX.HTMLAttributes, 'class' | 'class:list'>;
 };
 
 type PlaceholderSettings = {
   style?: astroHTML.JSX.CSSProperties;
-  props?: Omit<astroHTML.JSX.HTMLAttributes, 'class' | 'style'>;
+  props?: Omit<astroHTML.JSX.HTMLAttributes, 'class' | 'class:list' | 'style'>;
 } & (
   | {
       width?: number;
@@ -51,6 +52,7 @@ const {
   classNames,
   pictureAttributes: rawPictureAttributes,
   withFadeInAnimation = true,
+  wrapperProps,
   ...restProps
 } = Astro.props;
 
@@ -110,7 +112,11 @@ const placeholder = await (placeholderSettings?.height
   customElements.define('fade-in-picture', FadeInPicture);
 </script>
 
-<fade-in-picture class:list={[styles.wrapper, classNames?.wrapper]}>
+<fade-in-picture
+  class:list={[styles.wrapper, classNames?.wrapper]}
+  data-disabled={disabled || undefined}
+  {...wrapperProps ? wrapperProps : {}}
+>
   <div
     class:list={[styles.placeholder, classNames?.placeholder]}
     data-disabled={disabled || undefined}
@@ -135,4 +141,3 @@ const placeholder = await (placeholderSettings?.height
     }}
   />
 </fade-in-picture>
-<></>

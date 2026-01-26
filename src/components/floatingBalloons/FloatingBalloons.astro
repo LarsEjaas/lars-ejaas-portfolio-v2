@@ -142,29 +142,26 @@ const { balloonColor, coverPhoto, maxHeight } = Astro.props;
   window.addEventListener('beforeunload', stopBalloonAnimations);
 </script>
 
-<div class={`${styles.balloonsWrapper} ${Astro.props.class ?? ''}`}>
-  <div
-    id="floating"
-    class={styles.floatingBalloons}
-    style={{
-      ...(maxHeight ? { 'max-height': `${maxHeight}px` } : []),
-    } as astroHTML.JSX.CSSProperties}
-  >
-    <Balloon
-      variant="two"
-      balloonColor={balloonColor}
-      config={BALLOON_ANIMATION_CONFIG.two}
-    />
-    <Balloon
-      variant="three"
-      balloonColor={balloonColor}
-      coverPhoto={coverPhoto}
-      config={BALLOON_ANIMATION_CONFIG.three}
-    />
-    <Balloon
-      variant="four"
-      balloonColor={balloonColor}
-      config={BALLOON_ANIMATION_CONFIG.four}
-    />
-  </div>
+<div
+  class={`${styles.balloonsWrapper} ${Astro.props.class ?? ''}`}
+  style={{
+    ...(maxHeight ? { 'max-height': `${maxHeight}px` } : []),
+  } as astroHTML.JSX.CSSProperties}
+>
+  <Balloon
+    variant="two"
+    balloonColor={balloonColor}
+    config={BALLOON_ANIMATION_CONFIG.two}
+  />
+  <Balloon
+    variant="three"
+    balloonColor={balloonColor}
+    coverPhoto={coverPhoto}
+    config={BALLOON_ANIMATION_CONFIG.three}
+  />
+  <Balloon
+    variant="four"
+    balloonColor={balloonColor}
+    config={BALLOON_ANIMATION_CONFIG.four}
+  />
 </div>

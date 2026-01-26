@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently --kill-others \"netlify dev\" \"npx tcm -w -p src/**/*.module.css\"",
+    "dev": "concurrently --kill-others \"netlify dev\" \"npx tcm -w -p \"src/**/*.module.css\"\"",
     "start": "astro dev",
     "build": "npm ci --include=dev && astro check && npm run check-composes && npm run generate-routes && npm run build-scripts && astro build",
     "build-fast": "astro build",
@@ -28,7 +28,7 @@
     "@astrojs/netlify": "6.6.3",
     "@astrojs/sitemap": "3.6.0",
     "@astrojs/ts-plugin": "1.10.6",
-    "astro": "5.16.6",
+    "astro": "5.16.11",
     "dompurify": "3.3.1",
     "dotenv": "17.2.3",
     "jsdom": "26.1.0",

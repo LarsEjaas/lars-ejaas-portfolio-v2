@@ -224,7 +224,7 @@
 
     /* Create a fake placeholder */
     &:has(.textArea:empty) {
-      & .pellContent:after {
+      & .pellContent::after {
         content: attr(data-placeholder);
         position: absolute;
         top: 4px;
@@ -364,7 +364,7 @@
       padding-block: 0.5rem 0;
       border-left: 0.3rem solid var(--quote);
       quotes: '\275D' '';
-      &:before {
+      &::before {
         color: var(--quote);
         content: open-quote;
         font-size: 3em;

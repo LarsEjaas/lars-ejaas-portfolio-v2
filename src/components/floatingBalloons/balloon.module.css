@@ -5,6 +5,7 @@
     aspect-ratio: 1;
     border-radius: var(--border-radius-balloon);
     overflow: hidden;
+    max-height: 100%;
     @media (prefers-reduced-motion: no-preference) {
       animation-name: moveBalloon;
       animation-duration: var(--duration);
@@ -42,7 +43,6 @@
       top: 0;
       width: 90%;
       z-index: 4;
-      position: relative;
       background: radial-gradient(
           82.93% 82.93% at 50% 27.18%,
           rgba(255, 255, 255, 0.2) 0%,
@@ -98,13 +98,11 @@
     &[data-flirt] {
       &:global(#two) {
         background-color: var(--flirt-400);
-        top: 30%;
       }
       &:global(#three) {
         --background-color: var(--flirt-400);
         width: 50%;
         left: 20%;
-        top: 20%;
       }
       &:global(#four) {
         background-color: var(--flirt-500);

@@ -64,7 +64,8 @@
       padding: 10px 48px;
       text-underline-offset: 4px;
       cursor: pointer;
-      text-decoration: underline transparent;
+      text-decoration-line: underline;
+      text-decoration-color: transparent;
       transition:
         text-decoration-color 300ms,
         color 300ms linear;
@@ -115,7 +116,7 @@
 }
 
 @media (max-width: 768px) {
-  .floatingBalloons {
+  .balloons {
     grid-row: 3;
   }
 }

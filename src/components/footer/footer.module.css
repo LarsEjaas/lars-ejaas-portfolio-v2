@@ -89,7 +89,8 @@
         user-select: none;
         border-radius: var(--border-radius-sm);
         outline-offset: var(--outline-offset);
-        text-decoration: underline transparent;
+        text-decoration-line: underline;
+        text-decoration-color: transparent;
         transition: text-decoration-color 300ms;
         transition-timing-function: linear;
         &:hover,

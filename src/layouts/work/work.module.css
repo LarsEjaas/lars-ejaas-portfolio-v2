@@ -63,7 +63,8 @@
   &:is(a) {
     --color: light-dark(var(--verdigris-700), var(--primary-lighter));
     color: var(--color);
-    text-decoration: underline transparent;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
     transition: text-decoration-color 0.25s;
     &:hover,
     &:focus-visible {
@@ -94,7 +95,7 @@
     }
   }
   @media (max-width: 768px) {
-    & .floatingBalloons {
+    & .balloons {
       grid-row: 5;
       @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {

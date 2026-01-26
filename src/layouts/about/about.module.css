@@ -40,7 +40,7 @@
   }
 }
 @media (max-width: 768px) {
-  .floatingBalloons {
+  .balloons {
     grid-row: 3;
     margin-block: 16px;
     @supports (animation-timeline: view()) and (animation-range: normal) {

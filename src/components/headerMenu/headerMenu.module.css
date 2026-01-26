@@ -73,7 +73,8 @@
       & a {
         color: var(--system-dark-300);
         border-radius: var(--border-radius-lg);
-        text-decoration: underline transparent;
+        text-decoration-line: underline;
+        text-decoration-color: transparent;
         transition:
           text-decoration-color 300ms,
           background-color 300ms;

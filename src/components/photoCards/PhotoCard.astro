@@ -68,9 +68,11 @@ const t = useTranslations(lang, 'navigation');
   </p>
   <div
     class={styles.photocard}
-    style={includeViewTransitionId
-      ? `view-transition-name: ${viewTransitionId || imageInfo.id};`
-      : undefined}
+    style={{
+      ...(includeViewTransitionId
+        ? { 'view-transition-name': `${viewTransitionId || imageInfo.id};` }
+        : {}),
+    }}
   >
     <PictureWithPlaceholder
       formats={['avif', 'webp']}
@@ -84,16 +86,16 @@ const t = useTranslations(lang, 'navigation');
       sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 440px, 520px"
       loading="lazy"
       decoding="async"
-      pictureAttributes={{
-        style: {
-          aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
-        },
-      }}
       classNames={{
-        placeholder: `${styles.placeholder} ${classNames?.placeholder || ''}`,
+        placeholder: classNames?.placeholder || undefined,
         picture: classNames?.picture,
         wrapper: `${styles.photoWrapper} ${classNames?.wrapper || ''}`,
         image: classNames?.image,
+      }}
+      wrapperProps={{
+        style: {
+          aspectRatio: `${ImageComponent.width / ImageComponent.height}`,
+        },
       }}
     />
   </div>

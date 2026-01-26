@@ -110,6 +110,7 @@ if (!imageDescription && IS_DEV) {
       href="../"
       title={labels.close}
       aria-label={labels.close}
+      tabindex="0"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +133,7 @@ if (!imageDescription && IS_DEV) {
         '--height': `${image.height}px`,
         '--aspect-ratio': `${image.width}/${image.height}`,
       }}
-      data-portrait={image.height > image.width || undefined}
+      data-portrait={image.height >= image.width || undefined}
       data-landscape={image.width > image.height || undefined}
     >
       <PictureWithPlaceholder
@@ -151,16 +152,15 @@ if (!imageDescription && IS_DEV) {
         sizes="(max-width: 560px) 320px, (max-width: 820px) 480px, 640px"
         loading="eager"
         decoding="sync"
-        pictureAttributes={{
+        wrapperProps={{
           style: {
             'aspect-ratio': `${image.width}/${image.height}`,
           },
         }}
-        classNames={{ placeholder: styles.placeholder }}
+        classNames={{
+          wrapper: styles.contentImageWrapper,
+        }}
         placeholderSettings={{
-          style: {
-            'aspect-ratio': `${image.width}/${image.height}`,
-          },
           width: null,
           height: 24,
         }}
@@ -236,6 +236,7 @@ if (!imageDescription && IS_DEV) {
               disabled={imgInfo.id === imageInfo.id || undefined}
               index={index}
               includeViewTransitionId={false}
+              ImageComponentClassNames={{ wrapper: styles.thumbnailImgWrapper }}
             />
           );
         })

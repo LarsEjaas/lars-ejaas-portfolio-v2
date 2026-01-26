@@ -15,7 +15,8 @@
     color: light-dark(var(--system-dark-300-55), var(--system-light-500));
     border-radius: var(--border-radius-sm);
     outline-offset: var(--outline-offset);
-    text-decoration: underline transparent;
+              text-decoration-line: underline;
+          text-decoration-color: transparent;
     transition:
       text-decoration-color 300ms,
       color 300ms;

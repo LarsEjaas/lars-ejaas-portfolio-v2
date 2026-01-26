@@ -25,7 +25,13 @@ const labelTemplate = t('theme_toggle_label');
 >
   <fieldset class={styles.themeToggle} role="radiogroup" data-theme-control>
     <legend class="sr-only">{t('dark_mode')}</legend>
-    <input type="radio" name="theme" data-theme="light" id="themeLight" />
+    <input
+      tabindex="0"
+      type="radio"
+      name="theme"
+      data-theme="light"
+      id="themeLight"
+    />
     <label
       for="themeLight"
       class={styles.themeButton}
@@ -35,7 +41,13 @@ const labelTemplate = t('theme_toggle_label');
       <SunIcon />
       <span class="sr-only">{themeLabels.light}</span>
     </label>
-    <input type="radio" name="theme" data-theme="system" id="themeSystem" />
+    <input
+      tabindex="0"
+      type="radio"
+      name="theme"
+      data-theme="system"
+      id="themeSystem"
+    />
     <label
       for="themeSystem"
       class={styles.themeButton}
@@ -45,7 +57,13 @@ const labelTemplate = t('theme_toggle_label');
       <ThemeIcon />
       <span class="sr-only">{themeLabels.system}</span>
     </label>
-    <input type="radio" name="theme" data-theme="dark" id="themeDark" />
+    <input
+      tabindex="0"
+      type="radio"
+      name="theme"
+      data-theme="dark"
+      id="themeDark"
+    />
     <label
       for="themeDark"
       data-theme="dark"

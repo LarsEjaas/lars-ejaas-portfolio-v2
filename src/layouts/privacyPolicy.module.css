@@ -9,8 +9,9 @@
       }
     }
   }
+  & .baloons {
+    min-height: 400px;
   @media (max-width: 768px) {
-    & .baloons {
       grid-row: 4;
       @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {
