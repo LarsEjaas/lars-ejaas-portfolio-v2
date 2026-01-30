@@ -110,6 +110,7 @@ if (!imageDescription && IS_DEV) {
       href="../"
       title={labels.close}
       aria-label={labels.close}
+      tabindex="0"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +134,7 @@ if (!imageDescription && IS_DEV) {
         '--aspect-ratio': `${image.width}/${image.height}`,
       }}
       data-portrait={image.height > image.width || undefined}
-      data-landscape={image.width > image.height || undefined}
+      data-landscape={image.width >= image.height || undefined}
     >
       <PictureWithPlaceholder
         formats={['avif', 'webp']}
@@ -151,16 +152,15 @@ if (!imageDescription && IS_DEV) {
         sizes="(max-width: 560px) 320px, (max-width: 820px) 480px, 640px"
         loading="eager"
         decoding="sync"
-        pictureAttributes={{
+        wrapperProps={{
           style: {
             'aspect-ratio': `${image.width}/${image.height}`,
           },
         }}
-        classNames={{ placeholder: styles.placeholder }}
+        classNames={{
+          wrapper: styles.contentImageWrapper,
+        }}
         placeholderSettings={{
-          style: {
-            'aspect-ratio': `${image.width}/${image.height}`,
-          },
           width: null,
           height: 24,
         }}
@@ -170,6 +170,7 @@ if (!imageDescription && IS_DEV) {
     <ul class={styles.controls}>
       <li>
         <a
+          id="previous"
           data-disabled={isFirst || undefined}
           href={isFirst ? undefined : previousUrl}
           aria-label={labels.previous}
@@ -180,7 +181,6 @@ if (!imageDescription && IS_DEV) {
             fill="currentColor"
             aria-hidden="true"
             viewBox="4.5 7 15 15"
-            style="margin-right:2px;"
           >
             <path d="m16 19-4.6-4.6 4.6-4.6-1.4-1.4-6 6 6 6z"></path>
           </svg>
@@ -188,6 +188,7 @@ if (!imageDescription && IS_DEV) {
       </li>
       <li>
         <a
+          id="next"
           data-disabled={isLast || undefined}
           href={isLast ? undefined : nextUrl}
           aria-label={labels.next}
@@ -235,6 +236,7 @@ if (!imageDescription && IS_DEV) {
               disabled={imgInfo.id === imageInfo.id || undefined}
               index={index}
               includeViewTransitionId={false}
+              ImageComponentClassNames={{ wrapper: styles.thumbnailImgWrapper }}
             />
           );
         })

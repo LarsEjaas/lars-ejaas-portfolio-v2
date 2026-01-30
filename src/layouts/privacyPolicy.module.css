@@ -1,6 +1,6 @@
 .animationTimeline {
   display: contents;
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (animation-range: normal) {
     @media (prefers-reduced-motion: no-preference) {
       & .animatedText:not([data-mobile-animation='false']) {
         animation: var(--animation-scale-up);
@@ -9,10 +9,11 @@
       }
     }
   }
+  & .baloons {
+    min-height: 400px;
   @media (max-width: 768px) {
-    & .baloons {
       grid-row: 4;
-      @supports (animation-timeline: view()) {
+      @supports (animation-timeline: view()) and (animation-range: normal) {
         @media (prefers-reduced-motion: no-preference) {
           animation: var(--animation-scale-up);
           animation-timeline: view();
@@ -24,13 +25,5 @@
 }
 
 .externalLink {
-  color: light-dark(var(--verdigris-600), var(--verdigris-400));
-  &:hover,
-  &:focus-visible,
-  &:active {
-    color: light-dark(var(--verdigris-700), var(--verdigris-500));
-  }
-  &:visited {
-    color: light-dark(var(--flirt-600), var(--flirt-300));
-  }
+  text-wrap: nowrap;
 }

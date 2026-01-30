@@ -144,8 +144,11 @@ footerImages?.forEach((footerImage) => {
           headerImage && (
             <WorkCardImage
               image={{ src: headerImage, alt: headerImageAlt || '' }}
+              classNames={{
+                wrapper: styles.headerWrapper,
+                picture: styles.headerPicture,
+              }}
               pictureAttributes={{
-                class: styles.picture,
                 'data-animated': animatedHeader || null,
                 style: {
                   '--animation-delay': `${animationDelay || 0}ms`,
@@ -217,7 +220,6 @@ footerImages?.forEach((footerImage) => {
               <WorkCardImage
                 image={image}
                 pictureAttributes={{
-                  class: styles.picture,
                   'data-animated': animatedHeader || null,
                 }}
               />

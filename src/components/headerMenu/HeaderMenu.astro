@@ -12,7 +12,6 @@ import IconAbout from '@assets/menuIcons/about.png';
 import IconContact from '@assets/menuIcons/contact.png';
 import IconShare from '@assets/menuIcons/share.png';
 import LanguageToggle from '@components/languageToggle/LanguageToggle.astro';
-import ThemeSwitch from '@components/themeSwitch/ThemeSwitch.astro';
 import ejaasLogo from './ejaasLogo.svg';
 import { appRoutes } from '@i18n/routes';
 import PictureWithPlaceholder from '../picture/PictureWithPlaceholder.astro';
@@ -20,19 +19,13 @@ import type { Language } from '@i18n/settings';
 
 type Props = {
   inert: boolean;
-  withDarkkModeToggle?: boolean;
   withModalLinks?: boolean;
   translationUrls?: Record<Language, string>;
 };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
-const {
-  inert,
-  withDarkkModeToggle = true,
-  withModalLinks = true,
-  translationUrls,
-} = Astro.props;
+const { inert, withModalLinks = true, translationUrls } = Astro.props;
 const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}/`;
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
@@ -53,7 +46,6 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
 </script>
 <header class={styles.header} inert={inert}>
   <div
-    id="desktopMenuContainer"
     role="group"
     aria-keyshortcuts="ArrowLeft ArrowRight"
     class={`${styles.desktopMenu} desktop-only`}
@@ -63,6 +55,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     </h2>
     <nav
       aria-labelledby="desktopMenuTitle"
+      id="desktopMenuContainer"
       role="menubar"
       aria-label={t('nav_desktop')}
     >
@@ -110,6 +103,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             decoding="sync"
             placeholderSettings={{ width: 10, blurSigma: 0.5 }}
             classNames={{ placeholder: styles.placeholder }}
+            withFadeInAnimation={false}
           />
         </div>
         <p>{t('work')}</p>
@@ -139,6 +133,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             decoding="sync"
             placeholderSettings={{ width: 10, blurSigma: 0.5 }}
             classNames={{ placeholder: styles.placeholder }}
+            withFadeInAnimation={false}
           />
         </div><p>{t('skills')}</p></a
       >
@@ -167,6 +162,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
             decoding="sync"
             placeholderSettings={{ width: 10, blurSigma: 0.5 }}
             classNames={{ placeholder: styles.placeholder }}
+            withFadeInAnimation={false}
           />
         </div><p>{t('about')}</p></a
       >
@@ -197,6 +193,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   decoding="sync"
                   placeholderSettings={{ width: 10, blurSigma: 0.5 }}
                   classNames={{ placeholder: styles.placeholder }}
+                  withFadeInAnimation={false}
                 />
               </div>
             </a>
@@ -224,6 +221,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
                   decoding="sync"
                   placeholderSettings={{ width: 10, blurSigma: 0.5 }}
                   classNames={{ placeholder: styles.placeholder }}
+                  withFadeInAnimation={false}
                 />
               </div>
             </a>
@@ -234,11 +232,9 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     <div class={styles.actions}>
       <div class={styles.divider}></div>
       <LanguageToggle translationUrls={translationUrls} />
-      {withDarkkModeToggle && <ThemeSwitch withGlow={false} isMobile={false} />}
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
     <LanguageToggle withBackground={true} translationUrls={translationUrls} />
-    {withDarkkModeToggle && <ThemeSwitch withGlow={true} isMobile={true} />}
   </div>
 </header>

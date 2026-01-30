@@ -1,7 +1,9 @@
-.video {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
+@layer components {
+  .video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+  }
 }

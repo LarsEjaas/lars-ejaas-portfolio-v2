@@ -11,7 +11,10 @@
   width: fit-content;
   padding-inline: 6px;
   padding-bottom: 2px;
-  background-color: var(--system-light-300-55);
+  background-color: light-dark(
+    var(--system-dark-200-16),
+    var(--system-light-300-55)
+  );
   border-radius: var(--border-radius-sm);
   max-width: 100%;
   & a,
@@ -22,10 +25,11 @@
   a {
     outline-offset: 4px;
     text-underline-offset: 4px;
-    font-weight: 600;
+    font-weight: var(--system-weight-600);
     overflow: hidden;
     text-overflow: ellipsis;
-    text-decoration: underline transparent;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
     transition:
       text-decoration-color 300ms,
       color 300ms linear;
@@ -74,7 +78,7 @@
 }
 
 .lightning {
-  composes: lightbulb from '@layouts/home/aboutTips.module.css';
+  composes: lightbulb from '@layouts/home/lightbulb.module.css';
   @media (prefers-reduced-motion: no-preference) {
     :global(#lightning_gradient) {
       animation: flash 20s var(--delay) linear infinite;

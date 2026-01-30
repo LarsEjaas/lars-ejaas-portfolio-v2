@@ -24,7 +24,9 @@ export default defineConfig({
   adapter: netlify({
     edgeMiddleware: false,
     functionPerRoute: false,
+    imageCDN: false,
   }),
+  cacheDir: './.cache',
   env: {
     schema: {
       FACEBOOK_APP_ID: envField.string({

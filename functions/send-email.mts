@@ -200,15 +200,16 @@ const getErrorMessage = (
 const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
 
 const formDataSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
+  phone: z.string(),
+  full_name: z.string().min(1, 'Name is required'),
+  email: z.email('Invalid email address'),
   subject: z.string().min(1, 'Subject is required'),
   message: z
     .string()
     .min(1, 'Message is required')
     .transform((val) => sanitizedHTML(val)),
   language: z.enum(['en', 'da'], {
-    errorMap: () => ({ message: "Language must be either 'en' or 'da'" }),
+    message: "Language must be either 'en' or 'da'",
   }),
 });
 
@@ -373,7 +374,11 @@ const mockTransporter = {
   verify: async () => true,
   use: () => {},
   sendMail: async (options: MailWithTemplateOptions) => {
-    console.info('Development mode: Email would be sent with:', options);
+    console.log(
+      '[INFO]',
+      '👨‍💻Development mode: Email would be sent with:',
+      options
+    );
     return { messageId: 'mock-id' };
   },
 };
@@ -387,7 +392,10 @@ export default async (req: Request, context: Context) => {
   };
 
   const site_url = removeTrailingSlash(context.url.origin);
-  if (req.headers.get('origin') !== site_url) {
+  if (
+    process.env.NODE_ENV !== 'development' &&
+    req.headers.get('origin') !== site_url
+  ) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
       headers:
@@ -421,7 +429,7 @@ export default async (req: Request, context: Context) => {
       return new Response(
         JSON.stringify({
           error: 'Validation failed',
-          details: parseResult.error.errors,
+          details: parseResult.error.message,
         }),
         {
           status: 400,
@@ -432,19 +440,40 @@ export default async (req: Request, context: Context) => {
     }
 
     const { data } = parseResult;
-    const first_name = getFirstName(data.name);
+    const first_name = getFirstName(data.full_name);
     const {
-      name: sender_name,
+      full_name: sender_name,
       email: sender_email,
       message: sender_message,
       subject: sender_subject,
       language: sender_language,
+      phone: honey_pot,
     } = data;
 
     language = sender_language;
 
     if (sender_language === 'da') {
       redirectUrl = getRedirectUrl('da', refererUrl);
+    }
+
+    if (honey_pot.length > 0) {
+      console.log(
+        '[INFO]',
+        `🗑️ Contact submisson marked as spam as honey-pot field included content! HoneyPot: ${honey_pot} Name: ${sender_name}, Email: ${sender_email}, Subject: ${sender_subject}, Message: ${sender_message}, Language: ${sender_language}`
+      );
+      // Redirect to confirmation page
+      return new Response(
+        JSON.stringify({
+          message: 'Email was sent successfully. I will respond shortly',
+        }),
+        {
+          status: 303,
+          headers: {
+            ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
+            Location: redirectUrl,
+          },
+        }
+      );
     }
 
     const createNodeMailerTransporter = () =>
@@ -466,9 +495,13 @@ export default async (req: Request, context: Context) => {
     if (process.env.NODE_ENV === 'production') {
       transporter.verify(function (error, success) {
         if (error) {
-          console.error(error);
+          console.log('[ERROR]', '❗Email transporter failed:', error);
         } else {
-          console.info('Server is ready to take our messages:', success);
+          console.log(
+            '[INFO]',
+            '✅ Server is ready to take our messages:',
+            success
+          );
         }
       });
     }
@@ -540,6 +573,11 @@ export default async (req: Request, context: Context) => {
       transporter.sendMail(mailNotificationOptions),
     ]);
 
+    console.log(
+      '[INFO]',
+      `✉️ Email from ${sender_name} was sent successfully. Confirmation sent to senders inbox at: ${sender_email}`
+    );
+
     // Redirect to confirmation page
     return new Response(
       JSON.stringify({
@@ -550,13 +588,13 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...devHeaders,
+          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }
     );
   } catch (error) {
-    console.error(error);
+    console.log('[ERROR]', '❗Error sending email:', error);
     // Handle errors and redirect to error page
     const clientsideError = getErrorMessage(error, language);
     const refererUrl = req.headers.get('referer') || req.headers.get('origin');
@@ -584,6 +622,7 @@ export const config: Config = {
   path: FUNCTION_ENDPOINT,
   rateLimit: {
     action: 'rate_limit',
-    windowSize: 2,
+    windowSize: 3600, // 1 hour
+    windowLimit: 3,
   },
 };

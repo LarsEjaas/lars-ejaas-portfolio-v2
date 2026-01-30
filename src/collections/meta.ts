@@ -1,4 +1,4 @@
-import type { SlugKeys } from '@i18n/routes.ts';
+import type { DynamicSlugKey } from '@i18n/routes.ts';
 import {
   removeTrailingSlash,
   removeLeadingSlash,
@@ -9,7 +9,7 @@ import { defaultLang, type Language } from '@i18n/settings';
 import type { MetaImage } from '@customTypes/seo';
 
 type MetaInfo = Record<
-  Exclude<SlugKeys | '/', 'email-reply'>,
+  Exclude<DynamicSlugKey | '/', 'email-reply'>,
   {
     title: string;
     description: string;

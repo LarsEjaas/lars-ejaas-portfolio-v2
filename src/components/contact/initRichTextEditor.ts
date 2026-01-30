@@ -6,11 +6,13 @@ class PellRichTextEditor {
   private editor: (HTMLDivElement & PellElement) | undefined;
   private richTextElement: HTMLDivElement;
   private textArea: HTMLTextAreaElement;
+  private placeholder: string;
   private lang: string;
 
   constructor(richTextElement: HTMLDivElement, textArea: HTMLTextAreaElement) {
     this.richTextElement = richTextElement;
     this.textArea = textArea;
+    this.placeholder = this.textArea.placeholder;
     this.lang = richTextElement.dataset.lang || 'en';
 
     // Bind methods to preserve 'this' context
@@ -103,8 +105,6 @@ class PellRichTextEditor {
   }
 
   private setupEditorUI() {
-    // Make sure the rich text editor is accessible
-    this.richTextElement.style.display = 'block';
     this.richTextElement.querySelectorAll('button').forEach((button) => {
       button.dataset.arrowNav = 'true';
       button.ariaLabel = button.title;
@@ -214,6 +214,7 @@ class PellRichTextEditor {
       e.stopPropagation();
       e.preventDefault();
     };
+    this.richTextElement.innerHTML = '';
     this.editor = init({
       element: this.richTextElement,
       defaultParagraphSeparator: 'div',
@@ -485,6 +486,7 @@ class PellRichTextEditor {
     this.richTextElement.ariaKeyShortcuts = 'ArrowLeft ArrowRight';
 
     // Set initial content
+    this.editor.content.dataset.placeholder = this.placeholder;
     this.editor.content.innerHTML = '<p><br></p>';
   }
 }

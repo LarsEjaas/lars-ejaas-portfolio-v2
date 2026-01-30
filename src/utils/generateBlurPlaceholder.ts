@@ -3,19 +3,26 @@ import fs from 'fs';
 import { removeLeadingSlash } from '@i18n/utils';
 
 async function getImageBuffer(imagePath: string) {
-  while (true) {
+  const path = removeLeadingSlash(imagePath);
+  const MAX_RETRIES = 20;
+  const DELAY_MS = 100;
+
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
-      await fs.promises.access(removeLeadingSlash(imagePath));
-      break;
+      await fs.promises.access(path);
+      return await fs.promises.readFile(path);
     } catch {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, DELAY_MS));
     }
   }
-  const buffer = await fs.promises.readFile(removeLeadingSlash(imagePath));
-  return buffer;
+
+  throw new Error(
+    `Timed out waiting for image file to become available: ${path}`
+  );
 }
 
-const images = import.meta.glob('/src/assets/**/*.{jpg,png,svg}');
+const images = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png}');
+const publicImages = import.meta.glob('/public/**/*.{jpg,jpeg,png}');
 
 const BLUR_SIGMA = 2;
 
@@ -23,14 +30,16 @@ export function generateBlurPlaceholder(
   imagePath: string,
   width?: number,
   height?: never,
-  blurSigma?: number
+  blurSigma?: number,
+  publicAsset?: boolean
 ): Promise<string | null>;
 
 export function generateBlurPlaceholder(
   imagePath: string,
   width: null,
   height: number,
-  blurSigma?: number
+  blurSigma?: number,
+  publicAsset?: boolean
 ): Promise<string | null>;
 
 /** Generates a base64 blur placeholder for the supplied image. */
@@ -38,7 +47,8 @@ export async function generateBlurPlaceholder(
   imagePath: string,
   width?: number | null,
   height?: number | null,
-  blurSigma?: number
+  blurSigma?: number,
+  publicAsset?: boolean
 ): Promise<string | null> {
   //get the filename without extension
   const imageName = imagePath.split('?')[0]?.split('/').pop()?.split('.')[0];
@@ -47,10 +57,21 @@ export async function generateBlurPlaceholder(
     throw new Error(`no imageName found for: ${imagePath.split('?')[0]}`);
   }
 
-  const imageImport = Object.entries(images).find(
+  const matches = Object.entries(publicAsset ? publicImages : images).filter(
     ([filePath]) =>
       filePath.split('/').at(-1)?.split('.').slice(0, -1)[0] === imageName
   );
+
+  if (matches.length > 1) {
+    const paths = matches.map(([path]) => path).join('\n  - ');
+    throw new Error(
+      `Multiple images found with the same filename: "${imageName}".\n` +
+        `generateBlurPlaceholder requires unique filenames.\n` +
+        `Conflicting files:\n  - ${paths}`
+    );
+  }
+
+  const imageImport = matches[0];
 
   if (!imageImport) {
     throw new Error(

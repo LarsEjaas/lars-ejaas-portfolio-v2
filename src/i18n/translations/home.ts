@@ -2,7 +2,7 @@ export const home = {
   en: {
     hi_my_name_is: 'Hi, my name is Lars 👋',
     a_developer_driven:
-      '- a developer passionate about creating user interfaces that captivate and inspire.\n\nI am seeking my next chapter as a developer and would love to connect about potential opportunities.',
+      '- a developer passionate about creating user interfaces that captivate and inspire.',
     this_little_corner:
       'This little corner of the web is a glimpse into my world - a space where creativity meets code.\nBrowse around to learn more about me and what I do - and if something catches your eye, don’t hesitate to reach out.\n\nI’d love to connect!',
     frontend_developer: 'Frontend Developer',
@@ -42,7 +42,7 @@ export const home = {
   da: {
     hi_my_name_is: 'Hej, mit navn er Lars 👋',
     a_developer_driven:
-      '- en udvikler, der er drevet af passionen for at skabe brugergrænseflader der fascinerer og inspirerer.\n\nJeg søger mit næste job som udvikler og er meget åben for at høre nærmere om spændende muligheder.',
+      '- en udvikler, der er drevet af passionen for at skabe brugergrænseflader der fascinerer og inspirerer.',
     this_little_corner:
       'Dette lille hjørne af internettet er et indblik i min verden - et sted, hvor kreativitet møder kode. Se dig omkring for at lære mere om mig, og hvad jeg laver - og hvis noget fanger dit blik, så tøv ikke med at kontakte mig.\n\nJeg hører meget gerne fra dig!',
     frontend_developer: 'Frontend Udvikler',

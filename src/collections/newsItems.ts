@@ -3,8 +3,8 @@ import type { CardInfo } from '@components/carousel/Carousel.astro';
 type NewsFeed = (typeof newsFeed)[number];
 
 type NewsItems = {
-  da: Record<NewsFeed, CardInfo>;
-  en: Record<NewsFeed, CardInfo>;
+  da: Record<NewsFeed, CardInfo<'da'>>;
+  en: Record<NewsFeed, CardInfo<'en'>>;
 };
 
 /**
@@ -27,6 +27,7 @@ const newsFeed = [
   'v2',
   'jobseeking',
   'viewCodeOnGitHub',
+  'boligportal',
 ] as const;
 
 /**
@@ -91,7 +92,7 @@ const newsObject = {
       description:
         'Læs mere om mit seneste projekt, der hylder en af Hollywoods største filmstjerner.',
       date: '13. maj 2021',
-      imageSrc: 'bruce_willis_rocks.png',
+      imageSrc: 'bruce_willis_rocks_news.png',
       imageAlt:
         'Sepiatonet billede af Bruce Willis med filmplakater for »Cosmic Sin« og »Breach« til højre. Teksten lyder »Bruce Willis« og »2021 Cosmic Sin«.',
       href: '/da/arbejde/#bruceWillis',
@@ -127,7 +128,7 @@ const newsObject = {
       imageSrc: 'updated_skills.png',
       imageAlt:
         'Et gitter af 3D-fliser indeholder forskellige farverige teknologilogoer, herunder React, JavaScript, HTML5 og WordPress, på en blå baggrund, hvilket giver en teknisk kyndig fornemmelse.',
-      href: '/kompetencer/',
+      href: '/da/kompetencer/',
       outline: '1',
     },
     accuRanker: {
@@ -149,7 +150,7 @@ const newsObject = {
       imageSrc: 'frigg_tech.png',
       imageAlt:
         'Et moderne logo med ordet »FRIGG« i lyseblå på en mørk, abstrakt baggrund, der ligner en bygningsfacade, og som signalerer innovation og elegance.',
-      href: '/work/#friggTech',
+      href: '/da/arbejde/#friggTech',
       outline: '4',
     },
     bluesky: {
@@ -157,7 +158,7 @@ const newsObject = {
       description:
         'Alle de udviklere, jeg følger, er skiftet til Bluesky, så jeg tænkte, det var tid til at prøve noget nyt!\n\nKom og find mig her!',
       date: '20. januar 2025',
-      imageSrc: 'bluesky.png',
+      imageSrc: 'bluesky_news.png',
       imageAlt:
         'Nærbillede af en smartphone med et sommerfuglelogo på en blå skærm mod en lys, delvis overskyet himmel. Scenen formidler en frisk, håbefuld stemning.',
       href: 'https://bsky.app/profile/larsejaas.bsky.social',
@@ -171,7 +172,7 @@ const newsObject = {
       imageSrc: 'new_website.png',
       imageAlt:
         'En bærbar computer viser en hjemmeside med turkis tema for en frontend-udvikler. Funktionerne omfatter et profilbillede, navigationsikoner og en sektion med »Seneste nyt«.',
-      href: '/',
+      href: '/da/',
       outline: '3',
     },
     jobseeking: {
@@ -195,6 +196,17 @@ const newsObject = {
         'GitHubs maskot Mona i en rumsetting iført rumdragt står foran en planet og kigger på Ejaas-logoet.',
       href: 'https://github.com/LarsEjaas/lars-ejaas-portfolio-v2',
       outline: '1',
+    },
+    boligportal: {
+      title: 'En del af holdet bag BoligPortal',
+      description:
+        'Glæder mig til at udvikle spændende nye løsninger - sammen med resten af teamet hos Danmarks største lejeboligportal!',
+      date: '1. november 2025',
+      imageSrc: 'bolig_portal.png',
+      imageAlt:
+        'Grafisk meddelelse i delt layout, der viser et moderne kontorinteriør med røde murstensvægge, store industrielle vinduer, glasvægge, træborde og sildebensgulv. Over kontorets baggrund står der med fed hvid skrift »NYT JOB«. Til højre vises BoligPortals logo på en dybblå baggrund med et orange husformet ikon med et hvidt personsymbol og teksten »BoligPortal«.',
+      href: '/da/arbejde/#boligPortal',
+      outline: '3',
     },
   },
   en: {
@@ -244,7 +256,7 @@ const newsObject = {
       description:
         "Read about my latest project, celebrating one of Hollywood's greatest movie stars.",
       date: 'May 13th, 2021',
-      imageSrc: 'bruce_willis_rocks.png',
+      imageSrc: 'bruce_willis_rocks_news.png',
       imageAlt:
         'Sepia-toned image of Bruce Willis with movie posters for "Cosmic Sin" and "Breach" on the right. Text reads "Bruce Willis" and "2021 Cosmic Sin."',
       href: '/work/#bruceWillis',
@@ -310,7 +322,7 @@ const newsObject = {
       description:
         'All the developers I follow have moved to Bluesky, so I thought it was time to try something new!\n\nCome find me here!',
       date: 'January 20th, 2025',
-      imageSrc: 'bluesky.png',
+      imageSrc: 'bluesky_news.png',
       imageAlt:
         'Close-up of a smartphone with a butterfly logo on a blue screen, set against a bright, partly cloudy sky. The scene conveys a fresh, hopeful mood.',
       href: 'https://bsky.app/profile/larsejaas.bsky.social',
@@ -348,6 +360,17 @@ const newsObject = {
         'GitHub’s mascot Mona in a space-setting wearing a space suit stands before a globe looking at the Ejaas logo.',
       href: 'https://github.com/LarsEjaas/lars-ejaas-portfolio-v2',
       outline: '1',
+    },
+    boligportal: {
+      title: 'Part of the team at BoligPortal',
+      description:
+        'Looking forward to building new features and solutions — together with the rest of the crew at Denmark’s biggest property rental website!',
+      date: 'November 1st, 2025',
+      imageSrc: 'bolig_portal.png',
+      imageAlt:
+        'Split-layout announcement graphic showing a modern office interior with red brick walls, large industrial windows, glass partitions, wooden desks, and herringbone flooring. Over the office background, a bold white outlined label reads “NEW JOB.” On the right side, a deep blue panel displays the BoligPortal logo, featuring an orange house-shaped icon with a white person symbol and the text “BoligPortal”.',
+      href: '/work/#boligPortal',
+      outline: '3',
     },
   },
 } as const satisfies NewsItems;

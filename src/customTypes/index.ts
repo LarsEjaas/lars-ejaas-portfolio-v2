@@ -1,9 +1,3 @@
-import type { AppBskyFeedDefs, AppBskyFeedGetLikes } from '@atproto/api';
-
-export enum ValidationPattern {
-  email = '[a-zA-Z0-9._\\-]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_\\-]+',
-}
-
 export type ImageModule = {
   default: ImageMetadata;
 };
@@ -160,14 +154,9 @@ export type IconImage =
 
 export type StringWithTrailingSlash = `${string}/`;
 export type StringWithTrailingSlashAndAnchor = `${string}/#${string}`;
+export type InternalDanishLink = `/da/${string}/` | '/da/';
+export type InternalDanishLinkWithAnchor = `/da/${string}/#${string}`;
 export type ExternalLink = `https://${string}`;
-
-export type BlueskyPostThread = {
-  rootUri: string;
-  posts: (AppBskyFeedDefs.PostView & { likes?: AppBskyFeedGetLikes.Like[] })[];
-  viewOnBluesky: string;
-  recordKey: string;
-};
 
 /** String literal in kebab-case
  * eg. 'foo-bar', 'this-is-a-test'

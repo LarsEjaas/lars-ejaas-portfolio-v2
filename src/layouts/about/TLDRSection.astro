@@ -11,7 +11,7 @@ const lang = getLangFromUrl(Astro.url);
 const t_about = useTranslations(lang, 'about');
 ---
 
-<div class={styles.cardWrapper} id="tldr">
+<div class:list={['fullgrid', styles.cardWrapper]} id="tldr">
   <Card inert={inert} className={styles.card} viewTransitionName="tldr-about">
     <div
       class={styles.titleWrapper}

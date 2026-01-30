@@ -1,53 +1,54 @@
-.pageLabel {
-  container-name: pageLabel;
-  container-type: inline-size;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 8px;
-  justify-content: space-between;
-  height: fit-content;
-  height: 98px; /* (add a bit of margin to prevent the squircle from cutting off) */
-  line-height: 0;
-  & :global(.squircle) {
-    view-transition-name: page-icon;
-    &[data-with-shadow] {
-      &::before {
-        box-shadow: var(--stacks-6-shadow);
+@layer components {
+  .pageLabel {
+    container-name: pageLabel;
+    container-type: inline-size;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+    height: fit-content;
+    height: 98px; /* (add a bit of margin to prevent the squircle from cutting off) */
+    line-height: 0;
+    & :global(.squircle) {
+      view-transition-name: page-icon;
+      &[data-with-shadow] {
+        &::before {
+          box-shadow: var(--stacks-6-shadow);
+        }
       }
+    }
+
+    & h1 {
+      view-transition-name: page-title;
+      color: var(--system-dark-300);
+      line-height: 0.9;
+      font-weight: var(--system-weight-700);
     }
   }
 
-  & h1 {
-    view-transition-name: page-title;
-    color: var(--system-dark-300);
-    line-height: 0.9;
-    font-weight: 700;
+  ::view-transition-old(page-title),
+  ::view-transition-new(page-title) {
+    object-fit: none;
+    object-position: bottom left;
   }
-}
 
-::view-transition-old(page-title),
-::view-transition-new(page-title) {
-  object-fit: none;
-  object-position: bottom left;
-}
-
-.iconAndTitle {
-  display: flex;
-  position: relative;
-  align-items: center;
-  gap: 16px;
-  & :global(.squircle) {
-    flex: 1;
-  }
-  & Picture {
-    width: 96px;
-    height: 96px;
-    background-size: cover;
-  }
-  & .placeholder {
-    height: 100%;
-    aspect-ratio: 1;
-    clip-path: url(#squircle);
+  .iconAndTitle {
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 16px;
+    & :global(.squircle) {
+      flex: 1;
+    }
+    & Picture {
+      width: 96px;
+      height: 96px;
+      background-size: cover;
+    }
+    & .placeholder {
+      aspect-ratio: 1;
+      clip-path: url(#squircle);
+    }
   }
 }

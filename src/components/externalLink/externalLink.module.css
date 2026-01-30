@@ -1,0 +1,20 @@
+.link {
+  font-weight: var(--system-weight-600);
+  color: light-dark(var(--system-dark-300), var(--system-dark-100));
+  text-decoration-color: transparent;
+  font-size: inherit;
+  outline-offset: var(--outline-offset);
+  white-space: normal;
+  transition:
+    text-decoration-color 0.4s,
+    color 0.4s;
+  &:active,
+  &:focus-visible,
+  &:hover {
+    color: light-dark(var(--flirt-400), var(--flirt-200));
+    text-decoration-color: currentColor;
+    transition:
+      text-decoration-color 0.4s,
+      color 0.4s;
+  }
+}

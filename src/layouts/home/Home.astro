@@ -6,11 +6,16 @@ import { newsItems } from '@collections/newsItems';
 import FloatingBalloons from '@components/floatingBalloons/FloatingBalloons.astro';
 import EjaasLogoFront from '@assets/images/ejaas_logo_front.png';
 import PageLabel from '@components/pageLabel/PageLabel.astro';
-import { removeTrailingSlash, useTranslations } from '@i18n/utils';
+import {
+  removeTrailingSlash,
+  useTranslatedPath,
+  useTranslations,
+} from '@i18n/utils';
 import { appRoutes } from '@i18n/routes';
 import PresentationCard from '@components/presentationCard/PresentationCard.astro';
 import styles from './home.module.css';
 import ProfileImage from '@assets/images/profile_clip.png';
+import ProfileImageClipPath from '@assets/svgs/profile_clip_outline.svg?raw';
 import SocialLinks from '@components/socialLinks/SocialLinks.astro';
 import AboutIcon from '@components/icons/AboutIcon.astro';
 import DownloadIcon from '@components/icons/DownloadIcon.astro';
@@ -50,6 +55,10 @@ if (!latestResumeURL) {
 }
 
 const { title, description, lang, inert, seo } = Astro.props;
+
+const translatePath = useTranslatedPath(lang);
+const aboutTranslatedPath = translatePath('/about/');
+
 const t_home = useTranslations(lang, 'home');
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 
@@ -89,14 +98,28 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         <p class="body-text">{t_home('this_little_corner')}</p>
       </blockquote>
     </div>
+  </div>
+  <FloatingBalloons
+    balloonColor="verdigris"
+    coverPhoto={EjaasLogoFront}
+    class={styles.balloons}
+  />
+  <div class:list={['fullgrid', styles.presentationCardWrapper]}>
     <PresentationCard
       gradientColor="verdigris"
       title="Lars Ejaas"
       overlayImage={ProfileImage}
+      overlayImagePlaceholderStyle={{
+        aspectRatio: `${ProfileImage.width}/${ProfileImage.height}`,
+        width: '72px',
+        position: 'relative',
+        clipPath: 'url(#profileClipOutline)',
+      }}
       overlayImageAlt={t_home('profile_lars_alt')}
       inert={inert}
       cardViewTransitionName="home-card"
     >
+      <Fragment set:html={ProfileImageClipPath} />
       <div class={styles.presentationCardContent}>
         <h3 class="stylized-capitalized-text">
           {t_home('frontend_developer')}
@@ -144,7 +167,11 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
         </div>
         <div class={styles.actions}>
           <div class={styles.actionEntries}>
-            <a href="/about" title={t_home('about_me_title')} tabindex="0">
+            <a
+              href={aboutTranslatedPath}
+              title={t_home('about_me_title')}
+              tabindex="0"
+            >
               <AboutIcon />
               <p>{t_home('about_me')}</p>
             </a>
@@ -163,7 +190,7 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
       </div>
     </PresentationCard>
   </div>
-  <FloatingBalloons balloonColor="verdigris" coverPhoto={EjaasLogoFront} />
+
   <Carousel
     labels={{
       title: t_home('news_title'),

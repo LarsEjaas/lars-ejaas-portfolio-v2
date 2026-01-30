@@ -81,13 +81,11 @@ declare global {
     tldr: HTMLDivElement | null;
     gotoDldr: HTMLAnchorElement | null;
     scrollToTop: HTMLAnchorElement | null;
-    themeToggle: HTMLInputElement | null;
-    themeToggleMobile: HTMLInputElement | null;
     carouselList: HTMLDivElement | null;
     previous: HTMLButtonElement | null;
     next: HTMLButtonElement | null;
     modalDialog: HTMLDialogElement | null;
-    desktopMenuContainer: HTMLDivElement | null;
+    desktopMenuContainer: HTMLElement | null;
     footerMenuNavigation: HTMLElement | null;
     mobileMenuNavigation: HTMLElement | null;
     /** Balloons */

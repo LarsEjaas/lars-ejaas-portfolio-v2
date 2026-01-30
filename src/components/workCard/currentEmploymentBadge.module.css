@@ -1,24 +1,26 @@
-svg:global(#currentJobBadge) {
-  z-index: 1;
-  --gradient-tone-100: var(--flirt-100);
-  --gradient-tone-400: var(--flirt-400);
-  --gradient-tone-500: var(--flirt-500);
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 76px;
-  height: 76px;
-  user-select: none;
-  border-top-right-radius: var(--border-radius-md);
-  filter: drop-shadow(
-    0 3px 6px light-dark(var(--system-dark-200), var(--system-light-200))
-  );
+@layer components {
+  svg:global(#currentJobBadge) {
+    z-index: 1;
+    --gradient-tone-100: var(--flirt-100);
+    --gradient-tone-400: var(--flirt-400);
+    --gradient-tone-500: var(--flirt-500);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 76px;
+    height: 76px;
+    user-select: none;
+    border-top-right-radius: var(--border-radius-md);
+    filter: drop-shadow(
+      0 3px 6px light-dark(var(--system-dark-200), var(--system-light-200))
+    );
 
-  & .badgeText {
-    font-size: 24px;
-    font-weight: 600;
-    font-family: var(--default-font);
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    & .badgeText {
+      font-size: 24px;
+      font-weight: var(--system-weight-600);
+      font-family: var(--default-font);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
   }
 }

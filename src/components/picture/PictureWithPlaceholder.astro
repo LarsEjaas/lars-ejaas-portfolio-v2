@@ -1,15 +1,36 @@
 ---
-import { Picture } from 'astro:assets';
+import '@utils/safeImageServiceInit';
 import { generateBlurPlaceholder } from '@utils/generateBlurPlaceholder';
 import styles from './pictureWithPlaceholder.module.css';
+import type { ComponentProps } from 'astro/types';
+import { Picture } from 'astro:assets';
 
-type Props = Omit<Parameters<typeof Picture>[0], 'src'> & {
-  src: ImageMetadata;
+function formatValue(value: unknown) {
+  if (typeof value === 'string') return value;
+  if (value === null) return 'null';
+  if (typeof value === 'object') {
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return Object.prototype.toString.call(value);
+    }
+  }
+  return String(value);
+}
+
+type PictureProps = ComponentProps<typeof Picture>;
+
+type Props = PictureProps & {
   placeholderSettings?: PlaceholderSettings;
   classNames?: Partial<ClassNames>;
+  withFadeInAnimation?: boolean;
+  wrapperProps?: Omit<astroHTML.JSX.HTMLAttributes, 'class' | 'class:list'>;
 };
 
-type PlaceholderSettings = { style?: string | astroHTML.JSX.CSSProperties } & (
+type PlaceholderSettings = {
+  style?: astroHTML.JSX.CSSProperties;
+  props?: Omit<astroHTML.JSX.HTMLAttributes, 'class' | 'class:list' | 'style'>;
+} & (
   | {
       width?: number;
       height?: never;
@@ -19,48 +40,104 @@ type PlaceholderSettings = { style?: string | astroHTML.JSX.CSSProperties } & (
 );
 
 type ClassNames = {
+  wrapper: string;
   placeholder: string;
   image: string;
+  picture: string;
 };
 
 const {
   placeholderSettings,
   'aria-disabled': disabled,
   classNames,
-  ...props
+  pictureAttributes: rawPictureAttributes,
+  withFadeInAnimation = true,
+  wrapperProps,
+  ...restProps
 } = Astro.props;
+
+const { class: pictureClass, ...pictureAttributes } =
+  rawPictureAttributes || {};
+
+const imageMetadata = restProps.src;
+
+if (
+  imageMetadata instanceof Promise ||
+  typeof imageMetadata !== 'object' ||
+  imageMetadata === null
+) {
+  throw new Error(
+    `PictureWithPlaceholder requires an ESM image import but was passed as: ${formatValue(imageMetadata)}. It should be passed as an ImageMetadata object`
+  );
+}
 const placeholder = await (placeholderSettings?.height
   ? generateBlurPlaceholder(
-      props.src.src,
+      imageMetadata.src,
       null,
       placeholderSettings.height,
       placeholderSettings?.blurSigma
     )
   : generateBlurPlaceholder(
-      props.src.src,
+      imageMetadata.src,
       placeholderSettings?.width || 16,
       undefined,
       placeholderSettings?.blurSigma
     ));
 ---
 
-<div
-  class={`${styles.placeholder} ${classNames?.placeholder}`}
+<script>
+  class FadeInPicture extends HTMLElement {
+    private handleLoad = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.querySelector('img')?.classList.add('loaded');
+        });
+      });
+    };
+    connectedCallback() {
+      const img = this.querySelector('img');
+      const withFadeIn = img?.dataset.withFadeIn === 'true';
+
+      if (!img || !withFadeIn) return;
+
+      if (img.complete && img.naturalHeight !== 0) {
+        this.handleLoad();
+      } else {
+        img.addEventListener('load', this.handleLoad, { once: true });
+        img.addEventListener('error', this.handleLoad, { once: true });
+      }
+    }
+  }
+
+  customElements.define('fade-in-picture', FadeInPicture);
+</script>
+
+<fade-in-picture
+  class:list={[styles.wrapper, classNames?.wrapper]}
   data-disabled={disabled || undefined}
-  style={{
-    'background-image': `url('${placeholder}')`,
-    ...(typeof placeholderSettings?.style === 'string'
-      ? { style: placeholderSettings.style }
-      : placeholderSettings?.style || {}),
-  }}
+  {...wrapperProps ? wrapperProps : {}}
 >
-</div>
-<Picture
-  {...props as Parameters<typeof Picture>[0]}
-  data-disabled={disabled || undefined}
-  class={classNames?.image}
-  pictureAttributes={{
-    ...props.pictureAttributes,
-    ['data-disabled']: disabled || undefined,
-  }}
-/>
+  <div
+    class:list={[styles.placeholder, classNames?.placeholder]}
+    data-disabled={disabled || undefined}
+    aria-hidden="true"
+    style={{
+      'background-image': `url('${placeholder}')`,
+      ...(placeholderSettings?.style || {}),
+    }}
+    {...placeholderSettings?.props}
+  >
+  </div>
+
+  <Picture
+    {...restProps}
+    data-with-fade-in={withFadeInAnimation}
+    data-disabled={disabled || undefined}
+    class:list={[styles.image, classNames?.image]}
+    pictureAttributes={{
+      ...(pictureAttributes || {}),
+      ['class:list']: [styles.picture, pictureClass, classNames?.picture],
+      ['data-disabled']: disabled || undefined,
+    }}
+  />
+</fade-in-picture>

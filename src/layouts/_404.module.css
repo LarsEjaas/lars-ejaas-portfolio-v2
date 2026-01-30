@@ -13,42 +13,43 @@
   }
 
   & a {
-      cursor: pointer;
-      display: block;
-      color: light-dark(var(--system-dark-300), var(--system-light-200));
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.75px;
-      border: unset;
-      border-radius: 40px;
-      font-size: var(--font-size-2);
-      padding: 12px 48px;
-      --gradient-tone-1: var(--verdigris-100);
-      --gradient-tone-2: var(--verdigris-400);
-      --gradient-tone-3: var(--verdigris-500);
-      background-image: radial-gradient(
-          ellipse at 70% 10%,
-          color-mix(in hsl, var(--gradient-tone-1), transparent 70%) 0%,
-          color-mix(in hsl, var(--gradient-tone-2), transparent 70%) 30%,
-          color-mix(in hsl, var(--gradient-tone-3), transparent 70%) 100%
-        ),
-        linear-gradient(
-          to bottom,
-          var(--gradient-tone-1) 0%,
-          var(--gradient-tone-2) 20%,
-          var(--gradient-tone-3) 40%
-        );
-      background-size: 100% 400%;
-      outline-offset: var(--outline-offset);
-      transition: filter 0.3s ease-in-out;
-      &:hover,
-      &:focus-visible {
-        filter: brightness(1.1);
-      }
-      &:active {
-        filter: brightness(0.8);
-      }
+    cursor: pointer;
+    display: block;
+    color: light-dark(var(--system-dark-300), var(--system-light-200));
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: var(--system-weight-600);
+    letter-spacing: 0.75px;
+    border: unset;
+    border-radius: 40px;
+    font-size: var(--font-size-2);
+    padding: 12px 48px;
+    --gradient-tone-1: var(--verdigris-100);
+    --gradient-tone-2: var(--verdigris-400);
+    --gradient-tone-3: var(--verdigris-500);
+    background-image:
+      radial-gradient(
+        ellipse at 70% 10%,
+        color-mix(in hsl, var(--gradient-tone-1), transparent 70%) 0%,
+        color-mix(in hsl, var(--gradient-tone-2), transparent 70%) 30%,
+        color-mix(in hsl, var(--gradient-tone-3), transparent 70%) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        var(--gradient-tone-1) 0%,
+        var(--gradient-tone-2) 20%,
+        var(--gradient-tone-3) 40%
+      );
+    background-size: 100% 400%;
+    outline-offset: var(--outline-offset);
+    transition: filter 0.3s ease-in-out;
+    &:hover,
+    &:focus-visible {
+      filter: brightness(1.1);
+    }
+    &:active {
+      filter: brightness(0.8);
+    }
   }
 
   & .goBack {
@@ -63,15 +64,18 @@
       padding: 10px 48px;
       text-underline-offset: 4px;
       cursor: pointer;
-      text-decoration: underline transparent;
-      transition: text-decoration-color 300ms, color 300ms linear;
+      text-decoration-line: underline;
+      text-decoration-color: transparent;
+      transition:
+        text-decoration-color 300ms,
+        color 300ms linear;
       transition-timing-function: linear;
-    & :active,
-    &:focus-visible,
-    &:hover {
-      color: light-dark(var(--flirt-400), var(--flirt-200));
-      text-decoration-color: currentColor;
-    }
+      & :active,
+      &:focus-visible,
+      &:hover {
+        color: light-dark(var(--flirt-400), var(--flirt-200));
+        text-decoration-color: currentColor;
+      }
     }
 
     & button ~ p {
@@ -82,7 +86,7 @@
     }
     & p {
       font-size: var(--font-size-3);
-      font-weight: 500;
+      font-weight: var(--system-weight-500);
       color: light-dark(var(--system-dark-300), var(--system-dark-100));
       white-space: pre;
       text-align: center;
@@ -90,11 +94,13 @@
   }
 }
 
-:global(:root) {
-  &[data-dark-mode='false'] {
-    .centerWrapper {
-      --brightness: 1.8;
-    }
+:global(:root[data-theme='dark']) .centerWrapper {
+  --brightness: 1.8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root[data-theme='system']) .centerWrapper {
+    --brightness: 1.8;
   }
 }
 
@@ -103,14 +109,14 @@
   text-align: center;
   & p {
     font-size: var(--font-size-3);
-    font-weight: 500;
+    font-weight: var(--system-weight-500);
     line-height: 1.5;
     color: var(--system-dark-300);
   }
 }
 
 @media (max-width: 768px) {
-  .floatingBalloons {
+  .balloons {
     grid-row: 3;
   }
 }

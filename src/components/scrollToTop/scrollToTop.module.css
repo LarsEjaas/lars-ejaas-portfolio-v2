@@ -1,106 +1,107 @@
-@property --progress {
-  syntax: '<length-percentage>';
-  inherits: false;
-  initial-value: 0%;
-}
-
-@property --angle {
-  syntax: '<angle>';
-  inherits: true;
-  initial-value: -90deg;
-}
-
-@keyframes progress {
-  0% {
-    opacity: 0;
-    visibility: hidden;
-    --progress: 0%;
+@layer components {
+  @property --progress {
+    syntax: '<length-percentage>';
+    inherits: false;
+    initial-value: 0%;
   }
 
-  20% {
-    opacity: 0;
-    visibility: hidden;
-    --angle: 0deg;
-    transform: scale(0.8);
+  @property --angle {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: -90deg;
   }
 
-  30% {
-    opacity: 1;
-    visibility: visible;
-    --angle: -90deg;
-    transform: scale(1);
-  }
+  @keyframes progress {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      --progress: 0%;
+    }
 
-  100% {
-    --angle: -90deg;
-    --progress: 100%;
-    visibility: visible;
-  }
-}
+    20% {
+      opacity: 0;
+      visibility: hidden;
+      --angle: 0deg;
+      transform: scale(0.8);
+    }
 
-:global(#top) {
-  display: grid;
-  color: var(--verdigris-100);
-  > * {
-    grid-row: 1;
-    grid-column: 1;
-  }
-}
-
-.button {
-  --indicator: var(--verdigris-500);
-  background: var(--indicator);
-  @supports (animation-timeline: scroll()) {
-    background:
-      linear-gradient(
-        var(--indicator) 0% var(--progress),
-        transparent var(--progress) 100%
-      ),
-      var(--system-light-300-55);
-    backdrop-filter: saturate(180%) brightness(80%) blur(4px);
-    animation: progress linear;
-    animation-timeline: scroll();
-  }
-  line-height: 0;
-  border: 2px solid var(--verdigris-300);
-  border-radius: var(--border-radius-balloon);
-  display: inline-block;
-  padding: 0.8rem;
-  position: sticky;
-  bottom: 2rem;
-  @media (max-width: 768px) {
-    bottom: 7rem;
-  }
-  right: 1rem;
-  margin-bottom: 2rem;
-  justify-self: end;
-  align-self: end;
-  z-index: 200;
-  box-shadow: var(--stacks-6-shadow);
-  outline-offset: var(--outline-offset);
-  & svg {
-    fill: currentColor;
-    rotate: var(--angle);
-  }
-}
-
-/* JS Fallback for browsers that do not support animation-timeline */
-:global(:root[data-js-enabled='true']) .button {
-  @supports not (animation-timeline: scroll()) {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    &:global(.visible) {
+    30% {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0);
+      --angle: -90deg;
+      transform: scale(1);
+    }
+
+    100% {
+      --angle: -90deg;
+      --progress: 100%;
+      visibility: visible;
     }
   }
-}
 
-.button:is(:link, :visited) {
-  /* Instead of the link color, use the text color */
-  color: currentColor;
-  text-decoration: none;
+  :global(#top) {
+    display: grid;
+    color: var(--verdigris-100);
+    > * {
+      grid-area: 1/1;
+    }
+  }
+
+  .button {
+    --indicator: var(--verdigris-500);
+    background: var(--indicator);
+    @supports (animation-timeline: scroll()) {
+      background:
+        linear-gradient(
+          var(--indicator) 0% var(--progress),
+          transparent var(--progress) 100%
+        ),
+        var(--system-light-300-55);
+      backdrop-filter: saturate(180%) brightness(80%) blur(4px);
+      animation: progress linear;
+      animation-timeline: scroll();
+    }
+    line-height: 0;
+    border: 2px solid var(--verdigris-300);
+    border-radius: var(--border-radius-balloon);
+    display: inline-block;
+    padding: 0.8rem;
+    position: sticky;
+    bottom: 2rem;
+    @media (max-width: 768px) {
+      bottom: 7rem;
+    }
+    right: 1rem;
+    margin-bottom: 2rem;
+    justify-self: end;
+    align-self: end;
+    z-index: 200;
+    box-shadow: var(--stacks-6-shadow);
+    outline-offset: var(--outline-offset);
+    & svg {
+      fill: currentColor;
+      rotate: var(--angle);
+    }
+  }
+
+  /* JS Fallback for browsers that do not support animation-timeline */
+  :global(:root[data-js-enabled='true']) .button {
+    @supports not (animation-timeline: scroll()) {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      &:global(.visible) {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .button:is(:link, :visited) {
+    /* Instead of the link color, use the text color */
+    color: currentColor;
+    text-decoration: none;
+  }
 }

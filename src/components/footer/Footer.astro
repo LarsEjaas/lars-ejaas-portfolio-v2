@@ -8,13 +8,15 @@ import gitHubLogo from './gitHubLogo.svg';
 import SocialLinks from '../socialLinks/SocialLinks.astro';
 import FooterMenu from './FooterMenu.astro';
 import SitemapIcon from '../icons/SitemapIcon.astro';
+import ThemeToggle from '@components/themeToggle/ThemeToggle.astro';
 
 type Props = {
   inert: boolean;
   withModalLinks?: boolean;
+  withDarkModeToggle?: boolean;
 };
 
-const { inert, withModalLinks = true } = Astro.props;
+const { inert, withModalLinks = true, withDarkModeToggle = true } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const currentYear = new Date().getFullYear();
@@ -25,23 +27,6 @@ const currentYear = new Date().getFullYear();
 <footer class={styles.footer} inert={inert}>
   <div class={styles.footerContent}>
     <FooterMenu withModalLinks={withModalLinks} />
-    <div class={styles.copyright}>
-      <p>
-        ©&nbsp;{
-          currentYear === 2025
-            ? `${currentYear} | Lars Ejaas`
-            : `2025 - ${currentYear} | Lars Ejaas`
-        }
-      </p>
-      <span>
-        <p>
-          {t('all_rights')}
-        </p>
-        <p>
-          {t('reserved')}
-        </p>
-      </span>
-    </div>
     <div class={styles.credentials} aria-labelledby="credentialsTitle">
       <h2 id="credentialsTitle" class="sr-only">{t('credentials')}</h2>
       <ul>
@@ -131,7 +116,32 @@ const currentYear = new Date().getFullYear();
         </li>
       </ul>
     </div>
+    <div class={styles.copyright}>
+      <p>
+        ©&nbsp;{
+          currentYear === 2025
+            ? `${currentYear} | Lars Ejaas`
+            : `2025 - ${currentYear} | Lars Ejaas`
+        }
+      </p>
+      <span>
+        <p>
+          {t('all_rights')}
+        </p>
+        <p>
+          {t('reserved')}
+        </p>
+      </span>
+    </div>
     <div class={styles.someLinks}><SocialLinks /></div>
+    {
+      withDarkModeToggle && (
+        <div class={styles.darkMode}>
+          <ThemeToggle />
+        </div>
+      )
+    }
+
     <a
       href="/sitemap-0.xml"
       target="_blank"

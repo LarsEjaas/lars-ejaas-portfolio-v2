@@ -9,22 +9,34 @@ export const getFocusableElements = (
   return elements;
 };
 
+let LAST_KEY_TIME = 0;
+
 /** Reset focus to first element when tabbing back into the section */
 function resetTabindex(
   rootElement: HTMLElement,
   navigationElements: HTMLElement[]
 ): () => void {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Tab') {
+      LAST_KEY_TIME = Date.now();
+    }
+  };
+
   const handleFocusIn = (e: FocusEvent) => {
     if (
       !(e.target instanceof HTMLElement) ||
-      !(e.target?.dataset?.arrowNav === 'true')
+      e.target?.dataset?.arrowNav !== 'true'
     ) {
       return;
     }
+
+    const wasKeyboardTab = Date.now() - LAST_KEY_TIME < 100;
+
     // Reset tabindex to only make first element focusable every time we tab into the section
     if (
       e.relatedTarget instanceof Node &&
-      !rootElement.contains(e.relatedTarget)
+      !rootElement.contains(e.relatedTarget) &&
+      wasKeyboardTab
     ) {
       navigationElements.forEach((item, index) => {
         item.setAttribute('tabindex', index === 0 ? '0' : '-1');
@@ -32,7 +44,14 @@ function resetTabindex(
       navigationElements[0]?.focus();
     }
   };
-  rootElement.addEventListener('focusin', handleFocusIn);
+
+  if (document.documentElement.dataset.lastKeyTimeInitialized !== 'true') {
+    document.documentElement.addEventListener('keydown', handleKeyDown);
+    document.documentElement.dataset.lastKeyTimeInitialized = 'true';
+  }
+  if (rootElement.dataset.arrowNavInitialized !== 'true') {
+    rootElement.addEventListener('focusin', handleFocusIn);
+  }
 
   return () => {
     rootElement.removeEventListener('focusin', handleFocusIn);
@@ -76,7 +95,11 @@ export function initHorizontalKeyboardArrowNav(
   });
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (!(event.target instanceof HTMLElement)) return;
+    if (
+      !(event.target instanceof HTMLElement) ||
+      !event.target.dataset.arrowNav
+    )
+      return;
 
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       preventDefault && event.preventDefault();
@@ -142,6 +165,8 @@ export function initVerticalKeyboardArrowNav(
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (!(event.target instanceof HTMLElement)) return;
+
+    if (!event.target.dataset.arrowNav) return;
 
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
