@@ -172,6 +172,18 @@ I'm grateful to the following developers whose content has inspired me in creati
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 
+## 📝 Changelog
+
+**January 30th 2026**
+
+- Job update: Now at BoligPortal
+- Added image fade-in with blur placeholders and TypeScript types for CSS modules
+- New theme toggle with system support (moved to footer)
+- Improved view-transitions and contact form loading state
+- Removed Bluesky integration, bug fixes, and cleanup
+
+<p align="right"><a href="#top">back to top⬆️</a></p>
+
 ## 📬 Contact
 
 If you have any questions or feedback, feel free to write to me using my contact form at: https://larsejaas.com/contact
