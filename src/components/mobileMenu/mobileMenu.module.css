@@ -44,10 +44,4 @@
       clip-path: url('#squircle');
     }
   }
-
-  ::view-transition-group(mobile-menu) {
-    z-index: 2;
-    border-radius: 16px;
-    overflow: hidden;
-  }
 }

@@ -87,7 +87,7 @@
       transform: translateX(calc(2 * var(--label-size)));
     }
 
-    /* @supports (anchor-name: --active-page) {
+    @supports (anchor-name: --active-page) {
       &::before {
         content: '';
         position-anchor: --hover;
@@ -108,27 +108,27 @@
         }
         opacity: 1;
       }
-    } */
+    }
 
-    /* @supports not (anchor-name: --active-page) { */
-    & label::before {
-      content: '';
-      margin: var(--spacing);
-      position: absolute;
-      width: var(--button-size);
-      aspect-ratio: 1;
-      pointer-events: none;
-      background-color: var(--border-color);
-      opacity: 0;
-      border-radius: var(--border-radius-pill);
-      @media (prefers-reduced-motion: no-preference) {
-        transition: all 250ms ease-in-out;
+    @supports not (anchor-name: --active-page) {
+      & label::before {
+        content: '';
+        margin: var(--spacing);
+        position: absolute;
+        width: var(--button-size);
+        aspect-ratio: 1;
+        pointer-events: none;
+        background-color: var(--border-color);
+        opacity: 0;
+        border-radius: var(--border-radius-pill);
+        @media (prefers-reduced-motion: no-preference) {
+          transition: all 250ms ease-in-out;
+        }
+      }
+      & input:not(:checked) + label:hover::before {
+        opacity: 1;
       }
     }
-    & input:not(:checked) + label:hover::before {
-      opacity: 1;
-    }
-    /* } */
   }
 
   .themeButton {

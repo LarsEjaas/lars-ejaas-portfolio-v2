@@ -85,6 +85,11 @@
     z-index: 50;
   }
 
+  ::view-transition-group(mobile-menu) {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
   ::view-transition-group(dialog-backdrop),
   ::view-transition-group(lightbox-backdrop) {
     z-index: 100;
@@ -93,6 +98,22 @@
   ::view-transition-group(dialog),
   ::view-transition-group(lightbox) {
     z-index: 101;
+  }
+
+  ::view-transition-group(thumbnail-grid-container) {
+    z-index: 110;
+  }
+
+  ::view-transition-group(figure) {
+    z-index: 120;
+  }
+
+  ::view-transition-group(lightbox-controls) {
+    z-index: 140;
+  }
+
+  ::view-transition-group(close-link) {
+    z-index: 150;
   }
 
   :root {

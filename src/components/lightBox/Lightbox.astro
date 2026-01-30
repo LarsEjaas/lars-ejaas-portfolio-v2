@@ -133,8 +133,8 @@ if (!imageDescription && IS_DEV) {
         '--height': `${image.height}px`,
         '--aspect-ratio': `${image.width}/${image.height}`,
       }}
-      data-portrait={image.height >= image.width || undefined}
-      data-landscape={image.width > image.height || undefined}
+      data-portrait={image.height > image.width || undefined}
+      data-landscape={image.width >= image.height || undefined}
     >
       <PictureWithPlaceholder
         formats={['avif', 'webp']}
