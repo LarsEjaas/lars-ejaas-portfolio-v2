@@ -58,15 +58,15 @@
   }
 }
 .balloons {
-    max-width: unset;
-    width: 100%;
-    max-height: 478px;
+  max-width: unset;
+  width: 100%;
+  max-height: 478px;
   @media (max-width: 768px) {
-      grid-row: 5;
-      max-width: 380px;
-      height: 300px;
-    }
+    grid-row: 5;
+    max-width: 380px;
+    height: 300px;
   }
+}
 
 .quote {
   composes: quote from '@layouts/home/home.module.css';

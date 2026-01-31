@@ -19,7 +19,7 @@
       "@collections/*": ["src/collections/*"],
       "@pages/*": ["src/pages/*"],
       "@public/*": ["public/*"],
-      //@types is reserved for type declaration packages installed from npm - so I use a different alias
+      //@types is reserved for type declaration packages installed from bun - so I use a different alias
       "@customTypes/*": ["src/customTypes/*"],
       "@utils/*": ["src/utils/*"],
       "@scripts/*": ["src/scripts/*"]

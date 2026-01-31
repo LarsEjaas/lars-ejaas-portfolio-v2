@@ -73,6 +73,7 @@
       & .icon {
         clip-path: url(#squircle);
         aspect-ratio: 1;
+        line-height: 0;
       }
       & .overlayImageWrapper {
         view-transition-name: overlay-image;

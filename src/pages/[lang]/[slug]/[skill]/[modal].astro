@@ -15,7 +15,6 @@ import ContactError from '@components/contact/Error.astro';
 type Props = Record<string, never>;
 
 const skillIconImages = import.meta.glob('@assets/skillIcons/*.svg', {
-  query: '?raw',
   import: 'default',
 });
 
@@ -89,8 +88,8 @@ const svgFile = Object.entries(skillIconImages).find(([file]) =>
 if (!svgFile) {
   throw new Error(`Skill image not found for: ${skillData.imageSrc}`);
 }
-const svgContent = (await svgFile[1]()) as string;
-const techSkill = { ...skillData, svgContent };
+const svgContent = (await svgFile[1]()) as ImageMetadata;
+const techSkill = { ...skillData, iconImage: svgContent };
 
 const pageTitle = skillData.title;
 const modalTitle =

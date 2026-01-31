@@ -18,12 +18,10 @@ type Props = {
   | {
       iconImage?: never;
       iconImageAlt?: never;
-      iconImageViewTransitionName?: never;
     }
   | {
       iconImage: ImageMetadata | undefined;
       iconImageAlt: string | undefined;
-      iconImageViewTransitionName: string;
     }
 );
 
@@ -34,7 +32,6 @@ const {
   overlayImage,
   responsiveSquircleSize,
   iconImageAlt,
-  iconImageViewTransitionName,
   cardViewTransitionName,
   overlayImageAlt,
   overlayImagePlaceholderStyle,
@@ -66,19 +63,11 @@ const {
               {iconImage ? (
                 <figure
                   aria-label={iconImageAlt}
-                  style={
-                    iconImageViewTransitionName
-                      ? { viewTransitionName: iconImageViewTransitionName }
-                      : undefined
-                  }
-                >
-                  <div
-                    class={styles.icon}
-                    style={{
-                      backgroundImage: `url(${iconImage.src})`,
-                    }}
-                  />
-                </figure>
+                  class={styles.icon}
+                  style={{
+                    backgroundImage: `url(${iconImage.src})`,
+                  }}
+                />
               ) : (
                 <div
                   class={`${styles.gradientBackground} squircle`}

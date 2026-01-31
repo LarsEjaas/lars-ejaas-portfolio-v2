@@ -1128,6 +1128,34 @@ export const routes = {
     ],
     "priority": 0.6
   },
+  "skills/vitest": {
+    "url": "skills/vitest",
+    "alternates": [
+      {
+        "url": "da/kompetencer/vitest",
+        "lang": "da-DK"
+      },
+      {
+        "url": "skills/vitest",
+        "lang": "en-US"
+      }
+    ],
+    "priority": 0.6
+  },
+  "da/kompetencer/vitest": {
+    "url": "da/kompetencer/vitest",
+    "alternates": [
+      {
+        "url": "skills/vitest",
+        "lang": "en-US"
+      },
+      {
+        "url": "da/kompetencer/vitest",
+        "lang": "da-DK"
+      }
+    ],
+    "priority": 0.6
+  },
   "skills/playwright": {
     "url": "skills/playwright",
     "alternates": [

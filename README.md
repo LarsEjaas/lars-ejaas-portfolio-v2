@@ -52,11 +52,11 @@ While I typically would choose to build a bage like with a React framework like 
 ## 🛠️ Prerequisites & Requirements
 
 - [x] Node.js (v22.7 or higher)
-- [x] npm
+- [x] Bun - [Installation guide](https://bun.sh/docs/installation)
 - [x] Git
 - [x] A Gmail account for SMTP services
 - [x] Netlify CLI (v23.13.3 or later) - making it possible to debug serverless functions locally.
-  - Install the Netlify CLI globally: `npm install -g netlify-cli`
+  - Install the Netlify CLI globally: `bun install -g netlify-cli`
 
 ## 🔌 Recommended VS Code Extensions
 
@@ -85,7 +85,7 @@ cd lars-ejaas-portfolio-v2
 Install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 Create an `.env` file in the root directory and inspect the `.env.example` file in the root of the project for the required environment variables.
@@ -93,13 +93,13 @@ Create an `.env` file in the root directory and inspect the `.env.example` file 
 Install the pre-commit hook (you can skip this step if you do not plan to commit code):
 
 ```bash
-npx husky install
+bunx husky
 ```
 
 Start the development server:
 
 ```bash
-netlify dev
+bun run dev
 ```
 
 That's it!
@@ -129,8 +129,8 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 ## 😉 Gotchas, Caveats and tips
 
-- The `node scripts in this project` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within an npm script.
-- All TypeScript files with the .mts extension are optimized for both the project itself and for use in npm scripts.
+- The `node scripts in this project` requires Node v22.7.0 or later because it relies on the experimental `--experimental-transform-types` flag to run TypeScript files within a Bun script.
+- All TypeScript files with the .mts extension are optimized for both the project itself and for use in Bun scripts.
 - You can use the [XML Tools extension](vscode:extension/DotJoshJohnson.xml) to format sitemap files to be human readable in VSCode directly. Go to the command palette and select: `XML Tools: Format as XML`. This can be useful if you want to inspect the `sitemap-0` or `sitemap-index.xml` sitemap files in the `dist` folder.
 - **TypeScript errors after build?** The Astro VS Code extension sometimes crashes during builds, causing false type errors.
   Fix: Open Command Palette (`Cmd + Shift + P` on Mac, `Ctrl + Shift + P` on Windows/Linux) and run `Developer: Restart Extension Host`
@@ -141,17 +141,17 @@ The project is intentionally simple, with no JavaScript frameworks, no CSS frame
 
 You can create a local build by running:
 
-`npm run build`
+`bun run build`
 
 If you want to compare bundle sizes with production (including Brotli compression), you can instead run:
 
-`npm run build-minified`
+`bun run build-minified`
 
 This command produces a minified version of all JavaScript files.
 
 Once the build is complete, you can serve it locally with:
 
-`npm run serve-build`
+`bun run serve-build`
 
 <p align="right"><a href="#top">back to top⬆️</a></p>
 
