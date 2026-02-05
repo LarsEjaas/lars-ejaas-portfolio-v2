@@ -1,0 +1,31 @@
+# wrangler.toml
+# Configuration for Cloudflare Pages
+
+name = "lars-ejaas-portfolio-v2"
+compatibility_date = "2026-01-31" 
+
+# Configuration for Cloudflare Pages
+[pages]
+# This is your build output directory, which is 'dist' for Astro
+build_output_dir = "dist" 
+# This is the command to build your site
+build_command = "bun run build" 
+# This tells Cloudflare where your serverless functions are. It matches your current structure.
+functions_dir = "functions" 
+
+# For local development with `wrangler pages dev`, you can define variables here.
+# For production, these must be set in the Cloudflare dashboard.
+# Secrets (like MAIL_PASSWORD) should be set using `wrangler secret put <KEY>`
+[vars]
+NODE_ENV = "development"
+
+# Enable Node.js compatibility, which is crucial for Astro projects 
+# and the libraries you are using (like nodemailer, jsdom etc).
+[compatibility_flags]
+nodejs_compat = true
+
+# Include handlebars files in the bundle
+[[rules]]
+type = "Text"
+globs = ["**/*.handlebars"]
+fallthrough = true

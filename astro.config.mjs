@@ -1,5 +1,5 @@
 import { defineConfig, envField } from 'astro/config';
-import netlify from '@astrojs/netlify';
+import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 import { loadEnv } from 'vite';
 
@@ -21,10 +21,12 @@ const SITE_URL = SITE_URL_RAW.endsWith('/')
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
-  adapter: netlify({
-    edgeMiddleware: false,
-    functionPerRoute: false,
-    imageCDN: false,
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+      configPath: 'wrangler.jsonc',
+    },
+    imageService: 'compile',
   }),
   cacheDir: './.cache',
   env: {

@@ -26,7 +26,7 @@
   "typescript.disableAutomaticTypeAcquisition": false,
   "json.schemas": [
     {
-      "fileMatch": ["bun.lock"],
+      "fileMatch": ["bun.lock", "*.jsonc"],
       "schema": {
         "allowTrailingCommas": true
       }

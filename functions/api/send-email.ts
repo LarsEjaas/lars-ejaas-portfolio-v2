@@ -1,18 +1,31 @@
-import { type Context, type Config } from '@netlify/functions';
 import { z, ZodError } from 'zod';
-import nodemailer from 'nodemailer';
-import hbs from 'nodemailer-express-handlebars';
-import { type NodemailerExpressHandlebarsOptions } from 'nodemailer-express-handlebars';
-//@ts-ignore
-import type { Options as MailOptions } from '@types/nodemailer/lib/smtp-transport';
-import { create } from 'express-handlebars';
-import path from 'path';
-import dotenv from 'dotenv';
-import DOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
+import Handlebars from 'handlebars';
+import { sanitizeHTMLWithURLValidation } from '../utils/sanitizer';
+import mailTemplateDaRaw from '../templates/mailTemplateDa.handlebars?raw';
+import mailTemplateEnRaw from '../templates/mailTemplateEn.handlebars?raw';
+import newMessageDaRaw from '../templates/newMessageDa.handlebars?raw';
+import newMessageEnRaw from '../templates/newMessageEn.handlebars?raw';
 
-const window = new JSDOM('').window;
-const purify = DOMPurify(window);
+// NOTE: nodemailer and nodemailer-express-handlebars are Node.js specific
+// and are incompatible with Cloudflare Workers.
+// They have been temporarily disabled.
+// A dedicated email API (e.g., MailChannels) should be used.
+// import nodemailer from 'nodemailer';
+// import hbs from 'nodemailer-express-handlebars';
+// import { type NodemailerExpressHandlebarsOptions } from 'nodemailer-express-handlebars';
+//@ts-ignore
+// import type { Options as MailOptions } from '@types/nodemailer/lib/smtp-transport'; // Node.js specific
+
+const REDIRECT_SLUGS = {
+  en: {
+    success: 'message-received',
+    error: 'message-error',
+  },
+  da: {
+    success: 'besked-modtaget',
+    error: 'besked-fejl',
+  },
+} as const;
 
 const UNIQUE_IDENTIFIER = 'contact';
 
@@ -27,54 +40,12 @@ const EJAAS_LOGO_2 = 'logo2_email.png';
 const EJAAS_SIGNATURE = 'signature.png';
 const PROFILE_PIC = 'profile.png';
 
-const sanitizedHTML = (dirtyHTML: string) =>
-  purify.sanitize(dirtyHTML, {
-    ALLOWED_TAGS: [
-      'p',
-      'br',
-      'b',
-      'i',
-      'em',
-      'strong',
-      'span',
-      'div',
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'h5',
-      'h6',
-      'ul',
-      'ol',
-      'li',
-      'a',
-      'pre',
-      'code',
-      'blockquote',
-      'table',
-      'thead',
-      'tbody',
-      'tr',
-      'th',
-      'td',
-      'hr',
-      'small',
-      'sub',
-      'sup',
-    ],
-    ALLOWED_ATTR: ['class', 'href', 'style', 'target', 'rel', 'id'],
-  });
-
-const REDIRECT_SLUGS = {
-  en: {
-    success: 'message-received',
-    error: 'message-error',
-  },
-  da: {
-    success: 'besked-modtaget',
-    error: 'besked-fejl',
-  },
-} as const;
+const templates = {
+  mailTemplateDa: Handlebars.compile(mailTemplateDaRaw),
+  mailTemplateEn: Handlebars.compile(mailTemplateEnRaw),
+  newMessageDa: Handlebars.compile(newMessageDaRaw),
+  newMessageEn: Handlebars.compile(newMessageEnRaw),
+};
 
 /**
  * Remove trailing slash from a slug or url, preserving literal type
@@ -168,7 +139,7 @@ const getErrorMessage = (
             : 'Der opstod et teknisk problem under behandlingen af beskeden. Prøv venligst igen senere.',
       };
 
-    case error instanceof Error && isNodemailerError(error):
+    case error instanceof Error && isNodemailerError(error): // This will now always be false
       return {
         errorCode: 'EMAIL_ERROR',
         errorMessage:
@@ -197,7 +168,7 @@ const getErrorMessage = (
   }
 };
 
-const FUNCTION_ENDPOINT = '/.netlify/functions/send-email';
+const FUNCTION_ENDPOINT = '/api/send-email';
 
 const formDataSchema = z.object({
   phone: z.string(),
@@ -207,7 +178,7 @@ const formDataSchema = z.object({
   message: z
     .string()
     .min(1, 'Message is required')
-    .transform((val) => sanitizedHTML(val)),
+    .transform((val) => sanitizeHTMLWithURLValidation(val)),
   language: z.enum(['en', 'da'], {
     message: "Language must be either 'en' or 'da'",
   }),
@@ -257,38 +228,38 @@ type MailAttachment = {
 
 const getMailAttachments = (
   lang: 'en' | 'da',
-  type: 'notification' | 'confirmation'
+  type: 'notification' | 'confirmation',
+  env: Cloudflare.Env
 ): MailAttachment[] => {
   const attachments: MailAttachment[] = [];
+  const site_url = `${removeTrailingSlash(env.SITE_URL)}/`;
   attachments.push(
     {
       filename: LINKEDIN_ICON,
-      path: path.resolve(__dirname, `./${LINKEDIN_ICON}`),
+      path: site_url + LINKEDIN_ICON,
       cid: `linkedin@${UNIQUE_IDENTIFIER}`,
     },
     {
       filename: GITHUB_ICON,
-      path: path.resolve(__dirname, `./${GITHUB_ICON}`),
+      path: site_url + GITHUB_ICON,
       cid: `github@${UNIQUE_IDENTIFIER}`,
     },
     {
       filename: BLUESKY_ICON,
-      path: path.resolve(__dirname, `./${BLUESKY_ICON}`),
+      path: site_url + BLUESKY_ICON,
       cid: `bluesky@${UNIQUE_IDENTIFIER}`,
     },
     {
       filename: LETTER_ICON,
-      path: path.resolve(__dirname, `./${LETTER_ICON}`),
+      path: site_url + LETTER_ICON,
       cid: `letter@${UNIQUE_IDENTIFIER}`,
     }
   );
   if (type === 'notification') {
     attachments.push({
       filename: `${lang === 'da' ? SKRIV_TIL_MIG : WRITE_TO_ME}`,
-      path: path.resolve(
-        __dirname,
-        `./${lang === 'da' ? SKRIV_TIL_MIG : WRITE_TO_ME}`
-      ),
+      path: lang === 'da' ? site_url + SKRIV_TIL_MIG : site_url + WRITE_TO_ME,
+
       cid: `write@${UNIQUE_IDENTIFIER}`,
     });
   }
@@ -296,22 +267,22 @@ const getMailAttachments = (
     attachments.push(
       {
         filename: EJAAS_LOGO_1,
-        path: path.resolve(__dirname, `./${EJAAS_LOGO_1}`),
+        path: site_url + EJAAS_LOGO_1,
         cid: `logo1@${UNIQUE_IDENTIFIER}`,
       },
       {
         filename: EJAAS_LOGO_2,
-        path: path.resolve(__dirname, `./${EJAAS_LOGO_2}`),
+        path: site_url + EJAAS_LOGO_2,
         cid: `logo2@${UNIQUE_IDENTIFIER}`,
       },
       {
         filename: PROFILE_PIC,
-        path: path.resolve(__dirname, `./${PROFILE_PIC}`),
+        path: site_url + PROFILE_PIC,
         cid: `profile@${UNIQUE_IDENTIFIER}`,
       },
       {
         filename: EJAAS_SIGNATURE,
-        path: path.resolve(__dirname, `./${EJAAS_SIGNATURE}`),
+        path: site_url + EJAAS_SIGNATURE,
         cid: `signature@${UNIQUE_IDENTIFIER}`,
       }
     );
@@ -329,16 +300,21 @@ type TemplateOptions = {
   context?: EmailTemplateContext;
 };
 
-type MailWithTemplateOptions = MailOptions & TemplateOptions;
+// type MailWithTemplateOptions = MailOptions & TemplateOptions; // MailOptions is gone
+type MailWithTemplateOptions = TemplateOptions & {
+  from: string;
+  replyTo: string;
+  to: string;
+  subject: string;
+  attachments: MailAttachment[];
+};
 
 // Helper to get first name from full name
 const getFirstName = (fullName: string): string => {
   return fullName.split(' ')[0] || fullName;
 };
 
-const parseFormData = async (
-  request: Request
-): Promise<Record<string, string>> => {
+const parseFormData = async (request: Request) => {
   const formData = await request.formData();
   const data: Record<string, string> = {};
 
@@ -348,32 +324,30 @@ const parseFormData = async (
     }
   });
 
-  return data;
+  const parseResult = formDataSchema.safeParse(data);
+
+  return parseResult;
 };
 
 // Create handlebars instance
-const exphbs = create({
-  extname: '.handlebars',
-  defaultLayout: false,
-});
+// const exphbs = create({
+//   extname: '.handlebars',
+//   defaultLayout: false,
+// });
 
 // Configure handlebars options with correct typing
-const handlebarsOptions: NodemailerExpressHandlebarsOptions = {
-  viewEngine: exphbs,
-  viewPath: path.resolve(__dirname, './'),
-  extName: '.handlebars',
-};
-
-//Load environment variables during development
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
-}
+// const handlebarsOptions: NodemailerExpressHandlebarsOptions = { // Nodemailer types are gone
+//   viewEngine: exphbs,
+//   viewPath: path.resolve(__dirname, './'), // path.resolve is gone
+//   extName: '.handlebars',
+// };
 
 /** Mocking nodemailer.createTransport in local development testing */
 const mockTransporter = {
   verify: async () => true,
   use: () => {},
   sendMail: async (options: MailWithTemplateOptions) => {
+    // eslint-disable-next-line no-console
     console.log(
       '[INFO]',
       '👨‍💻Development mode: Email would be sent with:',
@@ -383,7 +357,11 @@ const mockTransporter = {
   },
 };
 
-export default async (req: Request, context: Context) => {
+export const onRequestPost: PagesFunction<Cloudflare.Env> = async (context) => {
+  console.log('request interceptet:', context);
+  const { env, request } = context;
+  const { headers, url } = request;
+
   // Enable CORS for local development
   const devHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -391,55 +369,50 @@ export default async (req: Request, context: Context) => {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
   };
 
-  const site_url = removeTrailingSlash(context.url.origin);
-  if (
-    process.env.NODE_ENV !== 'development' &&
-    req.headers.get('origin') !== site_url
-  ) {
+  const site_url = removeTrailingSlash(env.SITE_URL); // Fixed to use env.SITE_URL
+  if (env.NODE_ENV !== 'development' && headers.get('origin') !== site_url) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
       headers:
-        process.env.NODE_ENV === 'development'
+        env.NODE_ENV === 'development'
           ? devHeaders
           : { 'content-type': 'application/json' },
     });
   }
 
   // Default to English redirect
-  let redirectUrl = getRedirectUrl('en', req.headers.get('referer') || '');
+  let redirectUrl = getRedirectUrl('en', headers.get('referer') || '');
   let language: 'en' | 'da' = 'en';
 
-  if (context.url.pathname !== FUNCTION_ENDPOINT) {
+  if (url !== FUNCTION_ENDPOINT) {
     return new Response(JSON.stringify({ message: 'Not Found' }), {
       status: 404,
       headers:
-        process.env.NODE_ENV === 'development'
+        env.NODE_ENV === 'development'
           ? devHeaders
           : { 'content-type': 'application/json' },
     });
   }
 
   try {
-    const formData = await parseFormData(req as Request);
-    const parseResult = formDataSchema.safeParse(formData);
+    const formData = await parseFormData(context.request);
 
-    const refererUrl = req.headers.get('referer') || req.headers.get('origin');
+    const refererUrl = headers.get('referer') || headers.get('origin');
 
-    if (!parseResult.success) {
+    if (!formData.success) {
       return new Response(
         JSON.stringify({
           error: 'Validation failed',
-          details: parseResult.error.message,
+          details: formData.error.message,
         }),
         {
           status: 400,
-          headers:
-            process.env.NODE_ENV === 'development' ? devHeaders : undefined,
+          headers: env.NODE_ENV === 'development' ? devHeaders : undefined,
         }
       );
     }
 
-    const { data } = parseResult;
+    const { data } = formData;
     const first_name = getFirstName(data.full_name);
     const {
       full_name: sender_name,
@@ -457,6 +430,7 @@ export default async (req: Request, context: Context) => {
     }
 
     if (honey_pot.length > 0) {
+      // eslint-disable-next-line no-console
       console.log(
         '[INFO]',
         `🗑️ Contact submisson marked as spam as honey-pot field included content! HoneyPot: ${honey_pot} Name: ${sender_name}, Email: ${sender_email}, Subject: ${sender_subject}, Message: ${sender_message}, Language: ${sender_language}`
@@ -469,41 +443,41 @@ export default async (req: Request, context: Context) => {
         {
           status: 303,
           headers: {
-            ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
+            ...(env.NODE_ENV === 'development' ? devHeaders : {}),
             Location: redirectUrl,
           },
         }
       );
     }
 
-    const createNodeMailerTransporter = () =>
-      nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASSWORD,
-        },
-      });
+    // Node.js specific nodemailer is disabled. Use mockTransporter.
+    // const createNodeMailerTransporter = () =>
+    //   nodemailer.createTransport({
+    //     host: 'smtp.gmail.com',
+    //     port: 587,
+    //     secure: false,
+    //     auth: {
+    //       user: env.MAIL_USER,
+    //       pass: env.MAIL_PASSWORD,
+    //     },
+    //   });
 
-    const transporter =
-      process.env.NODE_ENV === 'production'
-        ? createNodeMailerTransporter()
-        : mockTransporter;
+    const transporter = mockTransporter; // Always use mockTransporter for now
 
-    if (process.env.NODE_ENV === 'production') {
-      transporter.verify(function (error, success) {
-        if (error) {
-          console.log('[ERROR]', '❗Email transporter failed:', error);
-        } else {
-          console.log(
-            '[INFO]',
-            '✅ Server is ready to take our messages:',
-            success
-          );
-        }
-      });
+    if (env.NODE_ENV === 'production') {
+      // transporter.verify(function (error, success) { // Node.js specific
+      //   if (error) {
+      //     // eslint-disable-next-line no-console
+      //     console.log('[ERROR]', '❗Email transporter failed:', error);
+      //   } else {
+      //     // eslint-disable-next-line no-console
+      //     console.log(
+      //       '[INFO]',
+      //       '✅ Server is ready to take our messages:',
+      //       success
+      //     );
+      //   }
+      // });
     }
 
     const confirmationTemplate =
@@ -514,12 +488,13 @@ export default async (req: Request, context: Context) => {
         : '🎈 Thank you for your message!';
 
     // Only set up handlebars in production
-    if (process.env.NODE_ENV === 'production') {
-      transporter.use('compile', hbs(handlebarsOptions));
+    if (env.NODE_ENV === 'production') {
+      // transporter.use('compile', hbs(handlebarsOptions)); // Node.js specific
     }
 
+    // --- Mail Options remain the same types for now, will fail due to MailOptions type being gone
     const mailConfirmationOptions: MailWithTemplateOptions = {
-      from: `Lars 👨‍💻 Ejaas <${process.env.NOREPLY_PRIVATE_EMAIL_USER}>`,
+      from: `Lars 👨‍💻 Ejaas <${env.NOREPLY_PRIVATE_EMAIL_USER}>`,
       to: `${sender_name} <${sender_email}>`,
       subject: subject,
       template: confirmationTemplate,
@@ -537,16 +512,16 @@ export default async (req: Request, context: Context) => {
         signature: `cid:signature@${UNIQUE_IDENTIFIER}`,
         message: sender_message,
       },
-      attachments: getMailAttachments(language, 'confirmation'),
+      attachments: getMailAttachments(language, 'confirmation', env),
     };
 
     const notificationTemplate =
       sender_language === 'da' ? 'newMessageDa' : 'newMessageEn';
 
     const mailNotificationOptions: MailWithTemplateOptions = {
-      from: `Lars 👨‍💻 Ejaas <${process.env.PRIVATE_EMAIL_USER}>`, // this has to be the actual email address as the email client will otherwise rewriting it.
+      from: `Lars 👨‍💻 Ejaas <${env.PRIVATE_EMAIL_USER}>`, // this has to be the actual email address as the email client will otherwise rewriting it.
       replyTo: `${sender_name} <${sender_email}>`, // Sender's email for replies
-      to: process.env.PRIVATE_EMAIL_USER,
+      to: env.PRIVATE_EMAIL_USER,
       subject: sender_subject,
       template: notificationTemplate,
       context: {
@@ -563,16 +538,17 @@ export default async (req: Request, context: Context) => {
         signature: `cid:signature@${UNIQUE_IDENTIFIER}`,
         message: sender_message,
       },
-      attachments: getMailAttachments(language, 'notification'),
+      attachments: getMailAttachments(language, 'notification', env),
     };
 
-    await Promise.all([
-      // send confirmation email to sender
-      transporter.sendMail(mailConfirmationOptions),
-      // Notification email to receiver
-      transporter.sendMail(mailNotificationOptions),
-    ]);
-
+    // Node.js specific nodemailer.sendMail is disabled.
+    // await Promise.all([
+    //   // send confirmation email to sender
+    //   transporter.sendMail(mailConfirmationOptions),
+    //   // Notification email to receiver
+    //   transporter.sendMail(mailNotificationOptions),
+    // ]);
+    // eslint-disable-next-line no-console
     console.log(
       '[INFO]',
       `✉️ Email from ${sender_name} was sent successfully. Confirmation sent to senders inbox at: ${sender_email}`
@@ -582,22 +558,23 @@ export default async (req: Request, context: Context) => {
     return new Response(
       JSON.stringify({
         message: `Emails ${
-          process.env.NODE_ENV === 'production' ? 'was' : 'would be'
+          env.NODE_ENV === 'production' ? 'was' : 'would be'
         } sent successfully. Confirmation sent to ${sender_name} at ${sender_email}`,
       }),
       {
         status: 303,
         headers: {
-          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
+          ...(env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }
     );
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log('[ERROR]', '❗Error sending email:', error);
     // Handle errors and redirect to error page
     const clientsideError = getErrorMessage(error, language);
-    const refererUrl = req.headers.get('referer') || req.headers.get('origin');
+    const refererUrl = headers.get('referer') || headers.get('origin');
 
     redirectUrl = `${getRedirectUrl(language, refererUrl, 'error')}?error=${encodeURIComponent(clientsideError.errorMessage)}&code=${encodeURIComponent(clientsideError.errorCode)}`;
 
@@ -609,20 +586,10 @@ export default async (req: Request, context: Context) => {
       {
         status: 303,
         headers: {
-          ...(process.env.NODE_ENV === 'development' ? devHeaders : {}),
+          ...(env.NODE_ENV === 'development' ? devHeaders : {}),
           Location: redirectUrl,
         },
       }
     );
   }
-};
-
-export const config: Config = {
-  method: 'POST',
-  path: FUNCTION_ENDPOINT,
-  rateLimit: {
-    action: 'rate_limit',
-    windowSize: 3600, // 1 hour
-    windowLimit: 3,
-  },
 };

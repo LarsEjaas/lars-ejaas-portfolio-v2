@@ -3,12 +3,12 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently --kill-others 'netlify dev' 'bun run tcm:watch'",
+    "dev": "concurrently --kill-others \"bun run start\" \"wrangler pages dev --env-file=.env --proxy 4321\" \"bun run tcm:watch\"",
     "start": "astro dev",
     "build": "bun install && astro check && bun run check-composes && bun run generate-routes && bun run build-scripts && astro build",
     "build-fast": "astro build",
     "build-minified": "bun run build && bun ./src/scripts/brotli-compress-build.mts",
-    "preview": "netlify serve",
+    "preview": "wrangler pages dev --env-file=.env ./dist",
     "serve-build": "bun ./src/scripts/serve-with-middleware.mts",
     "astro": "astro",
     "lint": "bunx prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && bunx eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
@@ -18,7 +18,8 @@
     "generate-routes": "bun ./src/scripts/generate-sitemap-dictionary.mts",
     "build-scripts": "esbuild src/layouts/root.mts --bundle --minify --outfile=public/root.js",
     "check-composes": "bun ./src/scripts/check-composes.mts",
-    "tcm:watch": "tcm -w -p \"src/**/*.module.css\""
+    "tcm:watch": "tcm -w -p \"src/**/*.module.css\"",
+    "update-function-types": "bunx wrangler types --env-file=.env --path='./functions/types.d.ts'"
   },
   "engines": {
     "node": ">=22.7.0",
@@ -26,7 +27,7 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.6",
-    "@astrojs/netlify": "6.6.3",
+    "@astrojs/cloudflare": "12.6.12",
     "@astrojs/sitemap": "3.6.0",
     "@astrojs/ts-plugin": "1.10.6",
     "astro": "5.16.11",
@@ -40,6 +41,7 @@
     "zod": "4.3.5"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "4.20260131.0",
     "@types/bun": "1.3.8",
     "@types/eslint": "9.6.1",
     "@types/jsdom": "27.0.0",
@@ -59,7 +61,8 @@
     "prettier-plugin-astro": "0.14.1",
     "serve": "14.2.5",
     "typed-css-modules": "0.9.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "4.61.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [

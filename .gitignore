@@ -16,8 +16,8 @@ node_modules/
 # macOS-specific files
 .DS_Store
 
-# Local Netlify folder
-.netlify/
+# Local Wrangler folder
+.wrangler/
 
 # Build cache
 .cache/

@@ -32,12 +32,6 @@
     "plugins": [{ "name": "@astrojs/ts-plugin" }]
   },
   "exclude": ["node_modules"],
-  "include": [
-    "src/**/*.d.ts",
-    "src/**/*.ts",
-    "src/**/*.astro",
-    "functions/**/*.mts",
-    "src/**/*.mts"
-  ],
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.astro", "src/**/*.mts"],
   "$schema": "https://json.schemastore.org/tsconfig"
 }

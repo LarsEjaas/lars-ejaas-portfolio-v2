@@ -44,9 +44,9 @@ export default [
       // Add any Astro-specific rules here
     },
   },
-  // TypeScript config
+  // TypeScript config for main project
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.mts'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -76,6 +76,37 @@ export default [
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-empty-object-type': 'off',
       // Add any TypeScript-specific rules here
+    },
+  },
+  // TypeScript config for Cloudflare Functions
+  {
+    files: ['functions/**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: './functions/tsconfig.json',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+    rules: {
+      'no-console': [
+        'error',
+        { allow: ['warn', 'error', 'info', 'table', 'group', 'groupEnd'] },
+      ],
+      '@typescript-eslint/ban-ts-comment': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
   // JavaScript config
