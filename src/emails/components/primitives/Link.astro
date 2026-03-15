@@ -1,0 +1,22 @@
+---
+import { getStyleString, parseCssString } from '@utils/misc';
+
+type Props = astroHTML.JSX.AnchorHTMLAttributes;
+
+const { target = '_blank', style, class: className, ...props } = Astro.props;
+
+const defaultStyle = {
+  color: '#067df7',
+  textDecorationLine: 'none',
+};
+
+const externalStyle =
+  typeof style === 'string' ? parseCssString(style) : (style ?? {});
+
+const mergedStyle =
+  getStyleString({ ...defaultStyle, ...externalStyle }) || undefined;
+---
+
+<a {...props} style={mergedStyle} target={target}>
+  <slot />
+</a>

@@ -1,0 +1,30 @@
+---
+import { getStyleString, parseCssString } from '@utils/misc';
+
+type Props = {
+  class?: string;
+  width?: number;
+  height?: number;
+  style?: astroHTML.JSX.HTMLAttributes['style'];
+};
+
+const { width, height, style = {}, class: className } = Astro.props;
+
+const defaultStyle = {
+  ...(width ? { width: `${width}px` } : {}),
+  ...(height ? { height: `${height}px` } : {}),
+  fontSize: 0,
+  lineHeight: 0,
+  padding: 0,
+  margin: 0,
+  verticalAlign: 'top',
+};
+
+const externalStyle =
+  typeof style === 'string' ? parseCssString(style) : (style ?? {});
+
+const mergedStyle =
+  getStyleString({ ...defaultStyle, ...externalStyle }) || undefined;
+---
+
+<td class={className} style={mergedStyle}>&nbsp;</td>

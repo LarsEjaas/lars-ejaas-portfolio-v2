@@ -15,9 +15,11 @@ type Props = {
   withBackground?: boolean;
   /** Manually overwrite the URLs on the toggle */
   translationUrls?: Record<Language, string>;
+  /** Manually overwrite the current language */
+  currentLanguage?: Language;
 };
 
-const { withBackground, translationUrls } = Astro.props;
+const { withBackground, translationUrls, currentLanguage } = Astro.props;
 
 /** Get the English appRoute when only the translated path is provided */
 const getEnglishTranslation = (
@@ -36,7 +38,7 @@ const getEnglishTranslation = (
 
 const currentPath = `${removeTrailingSlash(Astro.url.pathname)}/` as const;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = currentLanguage || getLangFromUrl(Astro.url);
 const translatedPath = useTranslatedPath(lang);
 
 const englishUrl =

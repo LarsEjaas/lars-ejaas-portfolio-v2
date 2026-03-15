@@ -1,0 +1,59 @@
+---
+import type { Language } from '@i18n/settings';
+import styles from './emailPreviewFrame.module.css';
+import type { TemplateName } from '@layouts/EmailPreviewLayout.astro';
+
+type Props = {
+  lang: Language;
+  template: TemplateName;
+  /** Accessible title for the iframe — shown to screen readers */
+  title: string;
+};
+
+const { lang, template, title, ...templateParams } = Astro.props;
+
+const params = new URLSearchParams({
+  template,
+  lang,
+  ...templateParams,
+  iframe: '',
+});
+
+const src = `/email-preview-iframe/?${params}`;
+const frameId = `email-frame-${template || 'unknown'}`;
+---
+
+<div class={styles.emailPreviewSpacing}>
+  <div class={styles.emailPreviewFrame}>
+    <iframe
+      id={frameId}
+      src={src}
+      title={title}
+      allowfullscreen={false}
+      height={0}
+      width={0}
+      style="border: none; display: block; overflow: hidden; border-radius: 8px;"
+      loading="lazy"></iframe>
+    <script is:inline define:vars={{ frameId }}>
+      const iframe = document.getElementById(frameId);
+
+      function syncSize() {
+        const doc = iframe.contentDocument?.documentElement;
+        if (!doc) return;
+        const naturalHeight = doc.scrollHeight;
+        const minHeight = 1000;
+        const windowWidth = window.innerWidth;
+        iframe.style.height = `${Math.max(naturalHeight, minHeight)}px`;
+        iframe.style.width = `${Math.min(1000, windowWidth)}px`;
+      }
+
+      iframe.addEventListener('load', () => {
+        const doc = iframe.contentDocument?.documentElement;
+        if (!doc) return;
+        const observer = new ResizeObserver(() => syncSize());
+        observer.observe(doc);
+      });
+      window.addEventListener('resize', syncSize);
+    </script>
+  </div>
+</div>

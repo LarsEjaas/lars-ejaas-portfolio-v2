@@ -1,0 +1,14 @@
+  .emailPreviewFrame {
+    border-radius: 8px;
+    margin-inline: auto;
+    width: fit-content;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.emailPreviewSpacing {
+    margin-inline: -2rem;
+    width: 100vw;
+    @media (max-width: 768px) {
+      margin-inline: -1rem;
+    }
+}

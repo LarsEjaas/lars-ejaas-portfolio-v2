@@ -1,4 +1,5 @@
 import { translations, defaultLang, showDefaultLang } from './settings';
+import type { TranslationsType } from './settings';
 import { languages } from './languageDefinition.mts';
 import { appRoutes, type LanguageKey } from './routes';
 import { hasProperty, type StringWithTrailingSlash } from '@customTypes/index';
@@ -18,6 +19,13 @@ export function getLangFromUrl(url: URL) {
   return defaultLang;
 }
 
+export type TranslationFunction<
+  TNamespace extends keyof TranslationsType,
+  TLanguage extends keyof TranslationsType[TNamespace],
+> = <TKey extends keyof TranslationsType[TNamespace][TLanguage]>(
+  key: TKey
+) => TranslationsType[TNamespace][TLanguage][TKey];
+
 /**
  * Looks up a specific translation key for a specific language and returns the localized translation.
  * Furthermore validates the key against the available translation sources.
@@ -32,18 +40,16 @@ export function getLangFromUrl(url: URL) {
  *       </a>
  *   </li>
  */
-type TranslationsType = typeof translations;
-
 export function useTranslations<
-  S extends keyof TranslationsType,
-  L extends keyof TranslationsType[S],
->(lang: L, source: S) {
-  return function t<K extends keyof TranslationsType[S][L]>(
-    key: K
-  ): TranslationsType[S][L][K] {
+  TNamespace extends keyof TranslationsType,
+  TLanguage extends keyof TranslationsType[TNamespace],
+>(lang: TLanguage, source: TNamespace) {
+  return function t<TKey extends keyof TranslationsType[TNamespace][TLanguage]>(
+    key: TKey
+  ): TranslationsType[TNamespace][TLanguage][TKey] {
     return (
       translations[source][lang][key] ||
-      translations[source][defaultLang as L][key]
+      translations[source][defaultLang as TLanguage][key]
     );
   };
 }

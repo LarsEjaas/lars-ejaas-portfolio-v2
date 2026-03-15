@@ -1,0 +1,84 @@
+---
+import type { EmailTheme } from '@emails/config/theme';
+import EmailStyles from '../../styles/EmailStyles.astro';
+import type { Language } from '@i18n/settings';
+
+type Props = {
+  lang: Language;
+  theme: EmailTheme;
+  title: string;
+};
+
+const { lang, theme, title } = Astro.props;
+---
+
+<html
+  dir="ltr"
+  lang={lang}
+  style={{
+    backgroundColor: theme.colors.outerBg,
+  }}
+>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta http-eqiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="date=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,400i"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Heebo:400,900"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    <EmailStyles />
+  </head>
+  <body
+    style={{
+      backgroundColor: theme.colors.outerBg,
+      padding: '0 !important',
+      margin: '0 !important',
+      display: 'block !important',
+      minWidth: '100% !important',
+      ['-webkit-text-size-adjust']: 'none',
+    }}
+  >
+    <table
+      border={0}
+      width={theme.spacing.container}
+      class="mobile-shell"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center"
+      style={{ maxWidth: theme.spacing.container }}
+    >
+      <tbody>
+        <tr style={{ width: '100%' }}>
+          {
+            /*
+                Yahoo and AOL remove all styles of the body element while converting it to a div,
+                so we need to apply them to to an inner cell.
+
+                See https://github.com/resend/react-email/issues/662.
+              */
+          }
+          <td
+            style={{
+              backgroundColor: theme.colors.outerBg,
+              padding: '55px 0',
+              margin: 0,
+              width: '100%',
+            }}
+          >
+            <slot />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

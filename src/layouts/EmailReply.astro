@@ -22,7 +22,7 @@ type Props = {
 
 const { title, inert } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang, 'emailReply');
+const t = useTranslations(lang, 'email');
 
 const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
 ---
@@ -271,7 +271,7 @@ const siteUrl = removeTrailingSlash(SITE_URL || 'https://example.com');
       <tbody>
         <tr>
           <td
-            class="p30-15 bbrr"
+            class="p30-15 tbrr"
             style="padding: 50px 30px; border-radius: 0 0 16px 16px; background: light-dark(var(--system-light-400), var(--system-light-300))"
           >
             <table width="100%" border="0" cellspacing="0" cellpadding="0">

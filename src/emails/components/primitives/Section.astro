@@ -1,0 +1,20 @@
+---
+const { style, class: className, width = '100%' } = Astro.props;
+---
+
+<table
+  align="center"
+  width={width}
+  border={0}
+  cellspacing={0}
+  cellpadding={0}
+  role="presentation"
+  class={className}
+  style={style}
+>
+  <tbody>
+    <tr>
+      <td><slot /></td>
+    </tr>
+  </tbody>
+</table>

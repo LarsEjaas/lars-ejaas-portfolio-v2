@@ -19,7 +19,9 @@
     "build-scripts": "esbuild src/layouts/root.mts --bundle --minify --outfile=public/root.js",
     "check-composes": "bun ./src/scripts/check-composes.mts",
     "tcm:watch": "tcm -w -p \"src/**/*.module.css\"",
-    "update-function-types": "bunx wrangler types --env-file=.env --path='./functions/types.d.ts'"
+    "update-api-types": "bun ./src/scripts/update-api-types.mts",
+    "precompile-hbs": "bun ./src/scripts/precompile-templates.mts",
+    "email-dev": "bun email dev --dir src/emails/templates"
   },
   "engines": {
     "node": ">=22.7.0",
@@ -37,6 +39,7 @@
     "nodemailer": "7.0.12",
     "nodemailer-express-handlebars": "7.0.0",
     "pell": "1.0.6",
+    "resend": "6.9.2",
     "sharp": "0.34.5",
     "zod": "4.3.5"
   },

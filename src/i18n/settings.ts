@@ -6,7 +6,7 @@ import { skills } from './translations/skills';
 import { work } from './translations/work';
 import { archive } from './translations/archive';
 import { contact } from './translations/contact';
-import { emailReply } from './translations/emailReply';
+import { email } from './translations/email';
 import { languages } from './languageDefinition.mts';
 import { privacyPolicy } from './translations/privacyPolicy';
 import { skillCards } from './translations/skillCards';
@@ -22,7 +22,7 @@ export const translations = {
   about,
   archive,
   contact,
-  emailReply,
+  email,
   global,
   home,
   navigation,
@@ -32,6 +32,8 @@ export const translations = {
   skills,
   work,
 } as const;
+
+export type TranslationsType = typeof translations;
 
 export const showDefaultLang = false;
 

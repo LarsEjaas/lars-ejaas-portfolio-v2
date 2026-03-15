@@ -1,6 +1,7 @@
 ---
 import { getPublicFiles } from '@utils/publicFileValidator';
 import styles from './video.module.css';
+import { getStyleString } from '@utils/misc';
 
 type Props = FileSrc & {
   // Boolean attributes
@@ -123,20 +124,6 @@ const getControlsList = (
   if (!controlslist) return undefined;
   if (Array.isArray(controlslist)) return controlslist.join(' ');
   return controlslist;
-};
-
-// Helper function to normalize style prop
-const getStyleString = (style: Props['style']): string | undefined => {
-  if (typeof style === 'string') return style;
-  if (typeof style === 'object' && style !== null) {
-    return Object.entries(style)
-      .map(
-        ([key, value]) =>
-          `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value}`
-      )
-      .join('; ');
-  }
-  return undefined;
 };
 
 // Normalize sources - handle case where src might be undefined

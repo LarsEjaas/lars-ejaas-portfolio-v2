@@ -78,13 +78,13 @@ export default [
       // Add any TypeScript-specific rules here
     },
   },
-  // TypeScript config for Cloudflare Functions
+  // TypeScript config for api
   {
-    files: ['functions/**/*.ts'],
+    files: ['src/pages/api/**/*.ts'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: './functions/tsconfig.json',
+        project: './tsconfig.json',
       },
     },
     plugins: {

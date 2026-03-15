@@ -1,0 +1,21 @@
+---
+import { getStyleString, parseCssString } from '@utils/misc';
+
+type Props = astroHTML.JSX.HTMLAttributes;
+const { style, class: className, ...props } = Astro.props;
+
+const defaultStyle = {
+  fontSize: '14px',
+  lineHeight: '24px',
+  marginTop: '16px',
+  marginBottom: '16px',
+};
+
+const externalStyle =
+  typeof style === 'string' ? parseCssString(style) : (style ?? {});
+
+const mergedStyle =
+  getStyleString({ ...defaultStyle, ...externalStyle }) || undefined;
+---
+
+<p {...props} style={mergedStyle} class={className}><slot /></p>

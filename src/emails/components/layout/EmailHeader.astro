@@ -1,0 +1,69 @@
+---
+import type { EmailTheme } from '@emails/config/theme';
+import type { Language } from '@i18n/settings';
+import { useTranslations } from '@i18n/utils';
+import Section from '@emails/components/primitives/Section.astro';
+import Row from '@emails/components/primitives/Row.astro';
+import Column from '@emails/components/primitives/Column.astro';
+import Spacer from '@emails/components/primitives/Spacer.astro';
+import Link from '@emails/components/primitives/Link.astro';
+import Image from '@emails/components/primitives/Image.astro';
+
+interface Props {
+  theme: EmailTheme;
+  lang: Language;
+  firstName: string;
+  siteURL: string;
+  ejaasLogoSrc: string;
+}
+
+const { lang, siteURL, firstName = '', ejaasLogoSrc, theme } = Astro.props;
+const t = useTranslations(lang, 'email');
+---
+
+<!---- Header ---->
+<Section class="p30-15" style="padding: 0px 30px 30px 30px;">
+  <Row>
+    <!-- Logo -->
+    <Column
+      class="column"
+      style="font-size: 0pt; line-height: 0pt; padding: 0; margin: 0; font-weight: normal; vertical-align: top; width: 145px;"
+    >
+      <Section
+        class="img m-center"
+        style="font-size: 0pt; line-height: 0pt; text-align: left;"
+      >
+        <Link href={`${siteURL}/${lang}/`}>
+          <Image
+            src={ejaasLogoSrc}
+            width={144}
+            height={144}
+            alt={t('ejaas_logo_in_floating')}
+          />
+        </Link>
+      </Section>
+    </Column>
+    <!-- Spacer -->
+    <Spacer class="column content-spacing" width={20} />
+
+    <!-- Open in browser -->
+    <Column
+      class="column"
+      style="font-size: 0pt; line-height: 0pt; padding: 0; margin: 0; font-weight: normal;"
+    >
+      <Row>
+        <Column
+          class="text-header"
+          style={`color: ${theme.colors.textSecondary}; font-family: ${theme.fonts.primary}; font-size: 12px; line-height: 16px; text-align: right;`}
+        >
+          <Link
+            href={`${siteURL}/${lang}/email-svar?name=${firstName}`}
+            style={`color: ${theme.colors.textSecondary}; text-decoration: underline;`}
+          >
+            {t('open_in_browser')}
+          </Link>
+        </Column>
+      </Row>
+    </Column>
+  </Row>
+</Section>

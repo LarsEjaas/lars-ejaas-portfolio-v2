@@ -21,11 +21,18 @@ type Props = {
   inert: boolean;
   withModalLinks?: boolean;
   translationUrls?: Record<Language, string>;
+  /** Manually overwrite the current language */
+  currentLanguage?: Language;
 };
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang, 'navigation');
 const translatePath = useTranslatedPath(lang);
-const { inert, withModalLinks = true, translationUrls } = Astro.props;
+const {
+  inert,
+  withModalLinks = true,
+  translationUrls,
+  currentLanguage,
+} = Astro.props;
 const shareUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].share}/`;
 const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang].contact}/`;
 ---
@@ -231,10 +238,17 @@ const contactUrl = `${removeTrailingSlash(Astro.url.pathname)}/${appRoutes[lang]
     </nav>
     <div class={styles.actions}>
       <div class={styles.divider}></div>
-      <LanguageToggle translationUrls={translationUrls} />
+      <LanguageToggle
+        translationUrls={translationUrls}
+        currentLanguage={currentLanguage}
+      />
     </div>
   </div>
   <div class={`${styles.mobileActions} mobile-only`}>
-    <LanguageToggle withBackground={true} translationUrls={translationUrls} />
+    <LanguageToggle
+      withBackground={true}
+      translationUrls={translationUrls}
+      currentLanguage={currentLanguage}
+    />
   </div>
 </header>

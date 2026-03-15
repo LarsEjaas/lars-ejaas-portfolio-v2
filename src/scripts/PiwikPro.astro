@@ -27,6 +27,8 @@ if (
   );
 }
 
+const configString = JSON.stringify(PIWIK_CONFIG);
+
 //TODO: FIX setDomains method - for now I am setting this manually from the PiwikPro Analytics dashboard
 
 const trackingScript = `
@@ -35,7 +37,7 @@ const trackingScript = `
   _paq.push(['disableCookies']);
   //_paq.push(['setDomains', config.domains]);
   _paq.push(['enableLinkTracking']);
-  var config = ${JSON.stringify(PIWIK_CONFIG)};
+  var config = ${configString};
   let it = false;
 
   function tpv() {

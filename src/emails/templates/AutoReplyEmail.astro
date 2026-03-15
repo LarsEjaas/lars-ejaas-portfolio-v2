@@ -1,0 +1,201 @@
+---
+import EmailHeader from '../components/layout/EmailHeader.astro';
+import AutoReplyFooter from '../components/layout/AutoReplyFooter.astro';
+import { useTranslations, type Language } from '@i18n/utils';
+import type { EmailTheme } from '../config/theme';
+import EmailLayout from '@emails/components/layout/EmailLayout.astro';
+
+type Props = {
+  firstName: string;
+  siteURL: string;
+  title: string;
+  lang: Language;
+  theme: EmailTheme;
+};
+
+const { firstName, siteURL, title, lang, theme } = Astro.props;
+
+const t = useTranslations(lang, 'email');
+---
+
+<EmailLayout title={title} lang={lang} theme={theme}>
+  <EmailHeader
+    lang={lang}
+    siteURL={siteURL}
+    firstName={firstName}
+    theme={theme}
+    ejaasLogoSrc="cid:logo1@contact"
+  />
+
+  <!---- Intro Card ---->
+  <table width="100%" border={0} cellspacing="0" cellpadding="0">
+    <tr>
+      <td style="padding-bottom: 10px;">
+        <table width="100%" border={0} cellspacing="0" cellpadding="0">
+          <tr>
+            <td
+              class="tbrr p30-15"
+              style={`padding: 60px 30px; border-radius: 16px 16px 0px 0px; background-color: ${theme.colors.darkBg};`}
+            >
+              <table width="100%" border={0} cellspacing="0" cellpadding="0">
+                {/* Greeting */}
+                <tr>
+                  <td
+                    class="h1 pb25"
+                    style={`color: ${theme.colors.textLight}; font-family: ${theme.fonts.heading}; font-size: 32px; line-height: 46px; text-align: center; padding-bottom: 25px;`}
+                  >
+                    {t('hi')}
+                    {firstName}
+                  </td>
+                </tr>
+
+                {
+                  /* Body copy — newlines in the translation string become <br> */
+                }
+                <tr>
+                  <td
+                    class="text-center pb25"
+                    style={`color: ${theme.colors.textMuted}; font-family: ${theme.fonts.primary}; font-size: 16px; line-height: 30px; text-align: center; padding-bottom: 25px;`}
+                  >
+                    {
+                      t('thank_you_for_reaching_out')
+                        .split('\n')
+                        .map((line, i) => (
+                          <>
+                            {line}
+                            {i <
+                              t('thank_you_for_reaching_out').split('\n')
+                                .length -
+                                1 && <br />}
+                          </>
+                        ))
+                    }
+                  </td>
+                </tr>
+
+                {/* Decorative blob */}
+                <tr>
+                  <td align="center">
+                    <table
+                      class="center"
+                      border={0}
+                      cellspacing="0"
+                      cellpadding="0"
+                      style="text-align: center;"
+                    >
+                      <tr>
+                        <td
+                          style={`background: ${theme.colors.secondary}; height: 70px; width: 80px; border-radius: 67% 35% 69% 36% / 47% 31% 75% 59%; font-weight: bold;`}
+                        ></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  {/* ── Article: banner + reply message ───────────────────── */}
+  <table width="100%" border={0} cellspacing="0" cellpadding="0">
+    <tr>
+      <td style="padding-bottom: 10px;">
+        <table
+          width="100%"
+          border={0}
+          cellspacing="0"
+          cellpadding="0"
+          style={`background-color: ${theme.colors.darkBg};`}
+        >
+          {/* Banner image */}
+          <tr>
+            <td
+              class="fluid-img"
+              style="font-size: 0pt; line-height: 0pt; text-align: left;"
+            >
+              {/* @ts-expect-error */}
+              <img
+                src="cid:logo2@contact"
+                width={theme.spacing.container}
+                height="366"
+                border={0}
+                alt={t('ejaas_logo_on_turquoise')}
+              />
+            </td>
+          </tr>
+
+          {/* Content */}
+          <tr>
+            <td class="p30-15" style="padding: 50px 30px;">
+              <table width="100%" border={0} cellspacing="0" cellpadding="0">
+                {/* Heading */}
+                <tr>
+                  <td
+                    class="h3 pb20"
+                    style={`color: ${theme.colors.textLight}; font-family: ${theme.fonts.heading}; font-size: 25px; line-height: 32px; text-align: center; padding-bottom: 20px;`}
+                  >
+                    {t('i_will_get_back')}
+                  </td>
+                </tr>
+
+                {/* No-reply notice */}
+                <tr>
+                  <td
+                    class="text pb20"
+                    style={`color: ${theme.colors.textMuted}; font-family: ${theme.fonts.primary}; font-size: 14px; line-height: 26px; text-align: center; padding-bottom: 20px;`}
+                  >
+                    {t('by_the_way')}
+                  </td>
+                </tr>
+
+                {/* Sign-off */}
+                <tr>
+                  <td
+                    style={`color: ${theme.colors.textLight}; font-family: ${theme.fonts.primary}; font-size: 14px; line-height: 26px; text-align: center;`}
+                  >
+                    <b>{t('have_a_great_day')}</b>
+                    <br /><br />
+                  </td>
+                </tr>
+
+                {/* Signature image */}
+                <tr>
+                  <td
+                    class="img"
+                    style="font-size: 0pt; line-height: 0pt; text-align: center;"
+                  >
+                    {/* @ts-expect-error */}
+                    <img
+                      src="cid:signature@contact"
+                      width="150"
+                      height="62"
+                      border={0}
+                      alt={t('signature_of')}
+                    />
+                  </td>
+                </tr>
+
+                {/* Decorative blob */}
+                <tr>
+                  <td align="center" style="padding-top: 20px;">
+                    <table border={0} cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td
+                          style={`background: ${theme.colors.primary}; transform: rotate(-12deg); height: 52px; width: 62px; border-radius: 67% 35% 69% 36% / 47% 31% 75% 59%;`}
+                        ></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <AutoReplyFooter lang={lang} siteURL={siteURL} theme={theme} />
+</EmailLayout>

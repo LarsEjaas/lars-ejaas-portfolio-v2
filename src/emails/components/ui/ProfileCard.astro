@@ -1,0 +1,63 @@
+---
+import Column from '@emails/components/primitives/Column.astro';
+import Row from '@emails/components/primitives/Row.astro';
+import Image from '@emails/components/primitives/Image.astro';
+import Text from '@emails/components/primitives/Text.astro';
+import { emailTheme } from '@emails/config/theme';
+import type { Language } from '@i18n/settings';
+import type { TranslationFunction } from '@i18n/utils';
+
+type Props = { t: TranslationFunction<'email', Language> };
+
+const { t } = Astro.props;
+---
+
+<Row style={{ paddingBottom: '12px', textAlign: 'center' }}>
+  <Column style={{ width: '82px', paddingRight: '16px' }}>
+    <Image
+      src="cid:profile@contact"
+      width={82}
+      height={113}
+      alt="Profilbillede af Lars Ejaas"
+    />
+  </Column>
+  <Column>
+    <div
+      style={{
+        borderLeft: `4px solid ${emailTheme.colors.primary}`,
+        paddingLeft: '12px',
+        textAlign: 'left',
+      }}
+    >
+      <Text
+        style={{
+          fontFamily: emailTheme.fonts.heading,
+          fontSize: '24px',
+          lineHeight: '1',
+          letterSpacing: '1px',
+          color: emailTheme.colors.accent,
+          fontWeight: 900,
+          paddingBottom: '2px',
+          margin: 0,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        LARS EJAAS
+      </Text>
+      <Text
+        style={{
+          fontFamily: emailTheme.fonts.heading,
+          fontSize: '16px',
+          fontWeight: 400,
+          lineHeight: '1',
+          letterSpacing: '1px',
+          color: emailTheme.colors.primary,
+          margin: 0,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {t('frontend_developer')}
+      </Text>
+    </div>
+  </Column>
+</Row>

@@ -1,0 +1,113 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import Layout from '@layouts/Root.astro';
+import { camelCaseString, kebabCaseString } from '@utils/misc';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import { NODE_ENV, SITE_URL } from 'astro:env/client';
+import EmailPreviewFrame from '@emails/components/layout/EmailPreviewFrame.astro';
+import EmailTemplateNotFound from '@emails/components/layout/EmailTemplateNotFound.astro';
+import type { Language } from '@i18n/settings';
+import { emailTheme } from '@emails/config/theme';
+
+const IS_DEV = NODE_ENV === 'development' || false;
+
+type Props = { sandboxed: boolean };
+
+const { sandboxed } = Astro.props;
+
+export type TemplateName = 'auto-reply' | 'contact';
+
+if (!IS_DEV) {
+  Astro.redirect('/404');
+}
+
+function switchLang(url: URL, lang: 'en' | 'da'): string {
+  const next = new URL(url);
+  next.searchParams.set('lang', lang);
+  return next.toString();
+}
+
+const {
+  template = '',
+  lang: rawLang,
+  ...templateParams
+} = Object.fromEntries(Astro.url.searchParams.entries()) as {
+  template: string;
+  lang?: string;
+  [key: string]: string | undefined;
+};
+
+const lang = (rawLang ?? getLangFromUrl(Astro.url)) as Language;
+
+// Import all email templates dynamically
+const modules = import.meta.glob('/src/emails/templates/*.astro', {
+  import: 'default',
+  eager: true,
+});
+
+const templates = Object.entries(modules).reduce<
+  Record<TemplateName, AstroComponentFactory>
+>(
+  (acc, [path, mod]) => {
+    const rawName =
+      path.split('/').pop()?.replace('.astro', '').replace('Email', '') || '';
+    const name = kebabCaseString(rawName) as TemplateName;
+    acc[name] = mod as AstroComponentFactory;
+    return acc;
+  },
+  {} as Record<TemplateName, AstroComponentFactory>
+);
+
+const templateName = kebabCaseString(template) as TemplateName | '';
+const templateFileName = camelCaseString(template);
+
+const TemplateComponent =
+  templateName && templateName in templates ? templates[templateName] : null;
+
+const siteUrl = SITE_URL.endsWith('/') ? SITE_URL : `${SITE_URL}/`;
+const title = `Email template preview of ${template}`;
+---
+
+{
+  sandboxed && TemplateComponent ? (
+    <TemplateComponent
+      {...templateParams}
+      siteURL={siteUrl}
+      lang={lang}
+      theme={emailTheme}
+    />
+  ) : (
+    <Layout
+      inert={false}
+      seo={{
+        metaData: { title, description: '' },
+        openGraph: undefined,
+        noFollow: true,
+        noIndex: true,
+      }}
+      withDarkModeToggle={true}
+      withModalLinks={false}
+      translationUrls={{
+        da: switchLang(Astro.url, 'da'),
+        en: switchLang(Astro.url, 'en'),
+      }}
+      currentLanguage={lang}
+    >
+      <div class="fullgrid">
+        {TemplateComponent && templateName ? (
+          <EmailPreviewFrame
+            {...templateParams}
+            template={templateName}
+            lang={lang}
+            title={title}
+          />
+        ) : (
+          <EmailTemplateNotFound
+            templateFileName={templateFileName}
+            template={template}
+          />
+        )}
+      </div>
+    </Layout>
+  )
+}

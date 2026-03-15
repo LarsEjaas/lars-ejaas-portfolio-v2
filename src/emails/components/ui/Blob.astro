@@ -1,0 +1,24 @@
+---
+type Props = {
+  color: string;
+  size?: 'small' | 'large';
+  rotation?: number;
+};
+
+const { color, size = 'large', rotation = 0 } = Astro.props;
+
+const dimensions =
+  size === 'large' ? { width: 80, height: 70 } : { width: 62, height: 52 };
+---
+
+<div
+  style={{
+    background: color,
+    transform: `rotate(${rotation}deg)`,
+    width: dimensions.width,
+    height: dimensions.height,
+    borderRadius: '67% 35% 69% 36% / 47% 31% 75% 59%',
+    margin: '0 auto',
+  }}
+>
+</div>

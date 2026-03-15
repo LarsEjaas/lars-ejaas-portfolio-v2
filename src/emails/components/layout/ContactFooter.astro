@@ -1,0 +1,122 @@
+---
+import type { Language } from '@i18n/settings';
+import { useTranslations } from '@i18n/utils';
+import type { EmailTheme } from '@emails/config/theme';
+import SocialIcons from '../ui/SocialIcons.astro';
+
+type Props = {
+  lang: Language;
+  siteURL: string;
+  theme: EmailTheme;
+};
+
+const { lang, siteURL, theme } = Astro.props;
+const t = useTranslations(lang, 'email');
+
+const contactURL = `${siteURL}/${lang}/${t('contact_slug')}/`;
+const contactDisplayURL = contactURL.replace(/^https?:\/\//, '');
+const homeDisplayURL = siteURL.replace(/^https?:\/\//, '');
+---
+
+<table width="100%" border={0} cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td
+        class="p30-15 tbrr"
+        style={`padding: 50px 30px; border-radius: 16px; background-color: ${theme.colors.lightBg};`}
+      >
+        <table width="100%" border={0} cellspacing="0" cellpadding="0">
+          <tbody>
+            <!-- "Sent via" card -->
+            <tr>
+              <td align="center" style="padding-bottom: 24px;">
+                <table border={0} cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <!-- Letter icon with right border -->
+                      <!-- @ts-expect-error -->
+                      <td
+                        class="img"
+                        width={82}
+                        style={`font-size: 0pt; line-height: 0pt; text-align: center; padding-right: 16px; border-right: 4px solid ${theme.colors.primary};`}
+                      >
+                        <!-- @ts-expect-error -->
+                        <img
+                          src="cid:letter@contact"
+                          width={82}
+                          height={82}
+                          border={0}
+                          alt={t('icon_with_an_illustration')}
+                        />
+                      </td>
+
+                      <!-- "Write to me" image + link -->
+                      <td>
+                        <table border={0} cellspacing={0} cellpadding={0}>
+                          <tbody>
+                            <tr>
+                              <td
+                                class="img"
+                                style="font-size: 0pt; line-height: 0pt; padding-top: 10px; padding-bottom: 6px; padding-left: 14px;"
+                              >
+                                <!-- @ts-expect-error -->
+                                <img
+                                  src="cid:write@contact"
+                                  width={90}
+                                  height={25}
+                                  border={0}
+                                  alt={t('write_to_me')}
+                                />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={`padding-bottom: 16px; padding-left: 12px; font-family: ${theme.fonts.primary}; font-size: 12px; line-height: 1; letter-spacing: 0.5px; color: ${theme.colors.primary};`}
+                              >
+                                <p style="white-space: nowrap; margin: 0;">
+                                  {t('this_email_was_sent_via')}
+                                </p>
+                                <a
+                                  href={contactURL}
+                                  target="_blank"
+                                  style={`text-decoration: underline; color: ${theme.colors.primary};`}
+                                >
+                                  {contactDisplayURL}
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Visit website -->
+            <tr>
+              <td
+                style={`color: ${theme.colors.textSecondary}; font-family: ${theme.fonts.primary}; font-size: 14px; line-height: 16px; text-align: center; letter-spacing: 1px; padding-bottom: 8px;`}
+              >
+                {t('visit_my_website')}:&nbsp;<a
+                  href={`${siteURL}/${lang}/`}
+                  target="_blank"
+                  style={`text-decoration: underline; color: ${theme.colors.textSecondary};`}
+                  >{homeDisplayURL}</a
+                >
+              </td>
+            </tr>
+
+            <!-- Social links -->
+            <tr>
+              <td align="center">
+                <SocialIcons lang={lang} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

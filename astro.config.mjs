@@ -87,6 +87,11 @@ export default defineConfig({
         access: 'public',
         optional: false,
       }),
+        RESEND_API_KEY: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: false,
+      }),
     },
   },
   integrations: [

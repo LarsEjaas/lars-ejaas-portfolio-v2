@@ -8,7 +8,8 @@ const VALIDATION_PATTERNS = {
   email: '[a-zA-Z0-9._\\-]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_\\-]+',
 } as const;
 
-const FUNCTION_ENDPOINT = '/api/send-email';
+const FUNCTION_ENDPOINT = '/api/send-email.json';
+
 const CONTACT_FORM_NAME = 'writeToMe';
 
 const lang = getLangFromUrl(Astro.url);
@@ -40,8 +41,6 @@ const t = useTranslations(lang, 'contact');
     name={CONTACT_FORM_NAME}
     id="writeToMe"
     autocomplete="off"
-    method="post"
-    action={FUNCTION_ENDPOINT}
   >
     <label class={styles.label}
       ><span>{t('name')}</span>
@@ -190,6 +189,9 @@ const t = useTranslations(lang, 'contact');
         id="sendEmail"
         title="Send e-mail"
         type="submit"
+        formmethod="post"
+        formenctype="application/x-www-form-urlencoded"
+        formaction={FUNCTION_ENDPOINT}
         ><span>{t('send')}</span>
         <div class={styles.loadingIndicator}>
           <div class={styles.dot}></div>

@@ -1,0 +1,38 @@
+---
+import { getStyleString, parseCssString } from '@utils/misc';
+
+type Props = astroHTML.JSX.ImgHTMLAttributes;
+
+const {
+  alt,
+  height,
+  src,
+  width,
+  style,
+  class: className,
+  ...props
+} = Astro.props;
+
+const defaultStyle = {
+  display: 'inline',
+  outline: 'none',
+  border: 'none',
+  textDecoration: 'none',
+  verticalAlign: 'bottom',
+};
+
+const externalStyle =
+  typeof style === 'string' ? parseCssString(style) : (style ?? {});
+
+const mergedStyle =
+  getStyleString({ ...defaultStyle, ...externalStyle }) || undefined;
+---
+
+<img
+  {...props}
+  alt={alt}
+  height={height}
+  src={src}
+  style={mergedStyle}
+  width={width}
+/>

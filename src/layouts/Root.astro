@@ -18,6 +18,8 @@ type Props = {
   withModalLinks?: boolean;
   translationUrls?: Record<Language, string>;
   withScrollTop?: boolean;
+  /** Manually overwrite the current language */
+  currentLanguage?: Language;
 };
 
 const {
@@ -28,6 +30,7 @@ const {
   seo,
   translationUrls,
   withScrollTop = true,
+  currentLanguage,
 } = Astro.props;
 
 /** Root layout should only be used directly in the index page file
@@ -94,6 +97,7 @@ const {
       inert={inert}
       withModalLinks={withModalLinks}
       translationUrls={translationUrls}
+      currentLanguage={currentLanguage}
     />
     <ScrollToTop withScrollTop={withScrollTop}>
       <main

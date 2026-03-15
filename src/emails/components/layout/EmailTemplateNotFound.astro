@@ -1,0 +1,36 @@
+---
+import styles from './emailTemplateNotFound.module.css';
+
+type Props = {
+  /** templateName in camelCase without the .astro suffix */
+  templateFileName: string;
+  /** The raw string name from URL queryParms */
+  template: string;
+};
+
+const { template, templateFileName } = Astro.props;
+---
+
+<div class={styles.notFound}>
+  {
+    template ? (
+      <>
+        <p class={styles.label}>Template not found</p>
+        <p class={styles.name}>"{template}"</p>
+        <p class={styles.hint}>
+          No file matching{' '}
+          <code>src/emails/templates/{templateFileName}Email.astro</code>{' '}
+          exists.
+        </p>
+      </>
+    ) : (
+      <>
+        <p class={styles.label}>No template specified</p>
+        <p class={styles.hint}>
+          Add a <code>?template=</code> query param, e.g.{' '}
+          <code>/email-preview?template=auto-reply&lang=en</code>
+        </p>
+      </>
+    )
+  }
+</div>

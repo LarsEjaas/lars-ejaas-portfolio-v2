@@ -1,0 +1,175 @@
+---
+import type { Language } from '@i18n/settings';
+import { useTranslations } from '@i18n/utils';
+import type { EmailTheme } from '@emails/config/theme';
+import EmailSocialLinks, { type EmailImageLink } from '../ui/SocialIcons.astro';
+import Image from '@emails/components/primitives/Image.astro';
+
+type Props = {
+  lang: Language;
+  siteURL: string;
+  theme: EmailTheme;
+};
+
+const { lang, siteURL, theme } = Astro.props;
+const t = useTranslations(lang, 'email');
+
+const contactURL = `${siteURL}/${lang}/${t('contact_slug')}/`;
+// Strip protocol for display: "larsejaas.com/da/kontakt"
+const contactDisplayURL = contactURL.replace(/^https?:\/\//, '');
+const homeDisplayURL = siteURL.replace(/^https?:\/\//, '');
+
+const socialLinks = [
+  {
+    href: 'https://github.com/LarsEjaas',
+    src: 'github@contact',
+    alt: t('github_logo'),
+  },
+  {
+    href: 'https://bsky.app/profile/larsejaas.bsky.social',
+    src: 'bluesky@contact',
+    alt: t('bluesky_logo'),
+  },
+  {
+    href: 'https://www.linkedin.com/in/lars-ejaas',
+    src: 'linkedin@contact',
+    alt: t('linkedin_logo'),
+  },
+] satisfies EmailImageLink[];
+---
+
+<!---- Footer ---->
+<table width="100%" border={0} cellspacing={0} cellpadding={0}>
+  <tbody>
+    <tr>
+      <td
+        class="p30-15 tbrr"
+        style={`padding: 50px 30px; border-radius: 0 0 16px 16px; background-color: ${theme.colors.darkBg};`}
+      >
+        <table width="100%" border={0} cellspacing={0} cellpadding={0}>
+          <tbody>
+            <!-- Profile card -->
+            <tr>
+              <td align="center" style="padding-bottom: 12px;">
+                <table border={0} cellspacing={0} cellpadding={0}>
+                  <tbody>
+                    <tr>
+                      <!-- Profile image -->
+                      {/* @ts-expect-error */}
+                      <td
+                        class="img"
+                        width={82}
+                        style="font-size: 0pt; line-height: 0pt; text-align: center; padding-right: 16px;"
+                      >
+                        {/* @ts-expect-error */}
+                        <Image
+                          src="cid:profile@contact"
+                          width={82}
+                          height={113}
+                          border={0}
+                          alt={t('profile_picture')}
+                        />
+                      </td>
+
+                      <!-- Name + title -->
+                      <td>
+                        <table
+                          border={0}
+                          cellspacing={0}
+                          cellpadding={0}
+                          style={`border-left: 4px solid ${theme.colors.primary}; margin-top: 32px;`}
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                style={`padding-bottom: 2px; padding-left: 12px; font-family: ${theme.fonts.heading}; font-size: 24px; line-height: 1; letter-spacing: 1px; color: ${theme.colors.accent}; font-weight: 900;`}
+                              >
+                                <p style="white-space: nowrap; margin: 0;">
+                                  LARS EJAAS
+                                </p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={`padding-bottom: 30px; padding-left: 12px; font-family: ${theme.fonts.heading}; font-size: 16px; font-weight: 400; line-height: 1; letter-spacing: 1px; color: ${theme.colors.primary};`}
+                              >
+                                <p style="white-space: nowrap; margin: 0;">
+                                  {t('frontend_developer')}
+                                </p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Visit website -->
+            <tr>
+              <td
+                style={`color: ${theme.colors.textSecondary}; font-family: ${theme.fonts.heading}; font-size: 14px; line-height: 16px; text-align: center; letter-spacing: 1px; padding-bottom: 8px;`}
+              >
+                {t('visit_my_website')}:&nbsp;<a
+                  href={`${siteURL}/${lang}/`}
+                  target="_blank"
+                  style={`text-decoration: underline; color: ${theme.colors.textSecondary};`}
+                  >{homeDisplayURL}</a
+                >
+              </td>
+            </tr>
+
+            <!-- Social links -->
+            <tr>
+              <td align="center">
+                <EmailSocialLinks socialLinks={socialLinks} />
+              </td>
+            </tr>
+
+            <!-- Auto-reply note -->
+            <tr>
+              <td align="center" style="padding-top: 20px;">
+                <table border={0} cellspacing={0} cellpadding={0}>
+                  <tbody>
+                    <tr>
+                      <!-- Letter icon -->
+                      <!-- @ts-expect-error -->
+                      <td
+                        class="img"
+                        width={40}
+                        style="font-size: 0pt; line-height: 0pt; text-align: center; padding-right: 8px;"
+                      >
+                        <!-- @ts-expect-error -->
+                        <Image
+                          src="cid:letter@contact"
+                          width={40}
+                          height={40}
+                          border={0}
+                          alt={t('icon_with_an_illustration')}
+                        />
+                      </td>
+
+                      <!-- Note text -->
+                      <td
+                        style={`font-family: ${theme.fonts.heading}; font-size: 12px; line-height: 1; letter-spacing: 1px; color: ${theme.colors.primary}; max-width: 300px; font-weight: 400;`}
+                      >
+                        {t('this_is_an_automated_response')}&nbsp;<a
+                          href={contactURL}
+                          target="_blank"
+                          style={`text-decoration: underline; color: ${theme.colors.primary};`}
+                          >{contactDisplayURL}</a
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

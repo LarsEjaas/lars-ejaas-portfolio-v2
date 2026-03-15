@@ -1,0 +1,105 @@
+---
+// EmailStyles.astro
+// All shared email CSS in one place.
+// Used inside <EmailLayout> and can be dropped into any Astro page
+// that renders an email preview in the browser.
+//
+// Usage:
+//   import EmailStyles from '@emails/components/EmailStyles.astro';
+//   <EmailStyles />
+
+import { emailTheme } from '@emails/config/theme';
+---
+
+<style
+  type="text/css"
+  media="screen"
+  is:inline
+  set:html={`
+  :root {
+    --primary:         ${emailTheme.colors.primary};
+    --secondary:       ${emailTheme.colors.secondary};
+    --darkBg:         ${emailTheme.colors.darkBg};
+    --lightBg:        ${emailTheme.colors.lightBg};
+    --outerBg:        ${emailTheme.colors.outerBg};
+    --textLight:      ${emailTheme.colors.textLight};
+    --textMuted:      ${emailTheme.colors.textMuted};
+    --textSecondary:  ${emailTheme.colors.textSecondary};
+    --accent:          ${emailTheme.colors.accent};
+    --fontPrimary:    ${emailTheme.fonts.primary};
+    --fontHeading:    ${emailTheme.fonts.heading};
+    --container:       ${emailTheme.spacing.container};
+    background-color: ${emailTheme.colors.outerBg} !important;
+  }
+  body {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    min-width: 100% !important;
+    width: 100% !important;
+    background-color: ${emailTheme.colors.outerBg} !important;
+    -webkit-text-size-adjust: none;
+    overflow: hidden;
+  }
+  a {
+    color: ${emailTheme.colors.textSecondary};
+    text-decoration: underline;
+  }
+  p {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  /* Mobile styles */
+  @media only screen and (max-device-width: ${emailTheme.spacing.container}),
+    only screen and (max-width: ${emailTheme.spacing.container}) {
+    .mobile-shell {
+      width: 100% !important;
+      min-width: 100% !important;
+    }
+    .bg {
+      background-size: 100% auto !important;
+      -webkit-background-size: 100% auto !important;
+    }
+    .text-header,
+    .m-center {
+      text-align: center !important;
+    }
+    .center {
+      margin: 0 auto !important;
+    }
+    .container {
+      padding: 20px 10px !important;
+    }
+    .td {
+      width: 100% !important;
+      min-width: 100% !important;
+    }
+    .p30-15 {
+      padding: 30px 15px !important;
+    }
+    .fluid-img img {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    .column,
+    .column-empty,
+    .column-empty2 {
+      float: left !important;
+      width: 100% !important;
+      display: block !important;
+    }
+    .column-empty {
+      padding-bottom: 10px !important;
+    }
+    .column-empty2 {
+      padding-bottom: 30px !important;
+    }
+    .content-spacing {
+      height: 15px !important;
+    }
+    .tbrr {
+      border-radius: 0px !important; 
+    }  
+  }`}
+></style>

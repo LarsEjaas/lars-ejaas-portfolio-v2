@@ -1,6 +1,6 @@
 import { techSkillEntries } from '../collections/techSkillTypes.mts';
 import { getLightboxSlugs } from '../collections/aboutImages/aboutImages.mts';
-import { languages } from './languageDefinition.mts';
+import type { languages } from './languageDefinition.mts';
 import type { ModalKey } from './routes';
 
 type LanguageKey = keyof typeof languages;
